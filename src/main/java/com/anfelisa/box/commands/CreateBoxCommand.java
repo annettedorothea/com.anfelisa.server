@@ -60,7 +60,7 @@ public class CreateBoxCommand extends AbstractCreateBoxCommand {
 
 		commandData.setCategoryIndex(null);
 		commandData.setEditable(true);
-		this.commandData.setOutcome(ok);
+		this.addOkOutcome();
 	}
 
 

@@ -51,7 +51,7 @@ public class DeleteUserCommand extends AbstractDeleteUserCommand {
 		this.commandData.setBoxIds(boxIds);
 		this.commandData.setRootCategoryIds(rootCategoryIds);
 		this.commandData.setUserId(userToBeDeleted.getUserId());
-		this.commandData.setOutcome(ok);
+		this.addOkOutcome();
 	}
 
 }

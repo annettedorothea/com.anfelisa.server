@@ -48,7 +48,7 @@ public class CreateCategoryCommand extends AbstractCreateCategoryCommand {
 			max = 0;
 		}
 		commandData.setCategoryIndex(max + 1);
-		this.commandData.setOutcome(ok);
+		this.addOkOutcome();
 	}
 
 }

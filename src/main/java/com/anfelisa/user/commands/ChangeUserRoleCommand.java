@@ -37,7 +37,7 @@ public class ChangeUserRoleCommand extends AbstractChangeUserRoleCommand {
 		if ("Admin".equals(user.getUsername())) {
 			throwIllegalArgumentException("adminRoleMustNotBeChanged");
 		}
-		this.commandData.setOutcome(ok);
+		this.addOkOutcome();
 	}
 	
 	private boolean isRoleValid(String role) {

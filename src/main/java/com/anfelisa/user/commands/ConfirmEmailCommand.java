@@ -29,7 +29,7 @@ public class ConfirmEmailCommand extends AbstractConfirmEmailCommand {
 			throwIllegalArgumentException("userDoesNotExist");
 		}
 		if (user.getEmailConfirmed()) {
-			this.commandData.setOutcome(alreadyConfirmed);
+			this.addAlreadyConfirmedOutcome();
 		} else {
 			IEmailConfirmationModel emailConfirmation = daoProvider.getEmailConfirmationDao().selectByToken(readonlyHandle, 
 					commandData.getToken());
@@ -40,7 +40,7 @@ public class ConfirmEmailCommand extends AbstractConfirmEmailCommand {
 				throwIllegalArgumentException("tokenDoesNotMatch");
 			}
 			this.commandData.setUserId(user.getUserId());
-			this.commandData.setOutcome(ok);
+			this.addOkOutcome();
 		}
 	}
 

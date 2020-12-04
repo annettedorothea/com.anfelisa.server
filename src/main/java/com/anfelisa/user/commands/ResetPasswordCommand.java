@@ -27,7 +27,7 @@ public class ResetPasswordCommand extends AbstractResetPasswordCommand {
 			throwIllegalArgumentException("tokenDoesNotExist");
 		}
 		this.commandData.setUserId(model.getUserId());
-		this.commandData.setOutcome(ok);
+		this.addOkOutcome();
 	}
 
 }

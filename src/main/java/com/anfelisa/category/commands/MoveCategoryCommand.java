@@ -57,7 +57,7 @@ public class MoveCategoryCommand extends AbstractMoveCategoryCommand {
 		}
 		
 		if (targetCategory.getCategoryId().equals(movedCategory.getParentCategoryId())) {
-			commandData.setOutcome(noMove);
+			this.addNoMoveOutcome();
 		} else {
 			this.commandData.setCategoryIndexWhereRemoved(movedCategory.getCategoryIndex());
 			this.commandData.setParentCategoryIdWhereRemoved(movedCategory.getParentCategoryId());
@@ -74,7 +74,7 @@ public class MoveCategoryCommand extends AbstractMoveCategoryCommand {
 
 			this.commandData.setMovedCategory(movedCategory);
 
-			this.commandData.setOutcome(ok);
+			this.addOkOutcome();
 		}
 	}
 

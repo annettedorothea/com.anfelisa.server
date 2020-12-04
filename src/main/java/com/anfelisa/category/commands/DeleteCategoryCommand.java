@@ -38,7 +38,7 @@ public class DeleteCategoryCommand extends AbstractDeleteCategoryCommand {
 			throwIllegalArgumentException("rootCategoryMustNotBeDeleted");
 		} else {
 			this.commandData.setParentCategoryId(category.getParentCategoryId());
-			this.commandData.setOutcome(ok);
+			this.addOkOutcome();
 		}
 	}
 

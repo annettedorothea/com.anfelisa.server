@@ -34,7 +34,7 @@ public class DeleteCardCommand extends AbstractDeleteCardCommand {
 		}
 		this.commandData.setCardIndex(card.getCardIndex());
 		this.commandData.setCategoryId(card.getCategoryId());
-		this.commandData.setOutcome(ok);
+		this.addOkOutcome();
 	}
 
 }

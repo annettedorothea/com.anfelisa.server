@@ -69,7 +69,7 @@ public class InitMyBoxesForDayCommand extends AbstractInitMyBoxesForDayCommand {
 		}
 		this.commandData.setPostponeCards(postponeCards);
 		this.commandData.setOutdatedReinforceCardsIds(outdatedReinforceCardsIds);
-		this.commandData.setOutcome(ok);
+		this.addOkOutcome();
 	}
 
 }

@@ -50,11 +50,11 @@ public class ScoreReinforceCardCommand extends AbstractScoreReinforceCardCommand
 		if (!box.getUserId().equals(this.commandData.getUserId())) {
 			throwSecurityException();
 		}
-		if (this.commandData.getScoredCardQuality() > 3) {
-			this.commandData.setOutcome(remove);
-		} else {
+		if (this.commandData.getKeep()) {
+			this.addKeepOutcome();
 			this.commandData.setChangeDate(this.commandData.getSystemTime());
-			this.commandData.setOutcome(keep);
+		} else {
+			this.addRemoveOutcome();
 		}
 	}
 

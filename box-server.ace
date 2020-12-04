@@ -70,14 +70,14 @@ ACE
 			NotNull scheduledCardId 
 			NotNull scoredCardQuality
 		on score (ScheduledCard.score ScheduledCard.scheduleNext)
-		on scoreAndReinforce (ScheduledCard.score ScheduledCard.scheduleNext ReinforceCard.add)
+		on reinforce (ReinforceCard.add)
 
 	ScoreReinforceCard<ScoreReinforceCard>
 		POST "/card/score-reinforce"  
 		authorize
 		payload 
 			NotNull reinforceCardId 
-			NotNull scoredCardQuality
+			NotNull keep
 		on keep (ReinforceCard.update)
 		on remove (ReinforceCard.remove)
 
@@ -335,7 +335,7 @@ models
 
 	ScoreReinforceCard {
 		String reinforceCardId
-		Integer scoredCardQuality
+		Boolean keep
 		DateTime changeDate
 		String userId
 	}

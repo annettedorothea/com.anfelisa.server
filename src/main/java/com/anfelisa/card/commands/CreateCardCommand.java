@@ -42,7 +42,7 @@ public class CreateCardCommand extends AbstractCreateCardCommand {
 		}
 		commandData.setCardIndex(max + 1);
 		this.commandData.setCardAuthor(commandData.getUsername());
-		this.commandData.setOutcome(ok);
+		this.addOkOutcome();
 	}
 
 }

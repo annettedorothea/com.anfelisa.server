@@ -71,7 +71,7 @@ public class MoveCardsCommand extends AbstractMoveCardsCommand {
 		}
 		this.commandData.setUpdatedIndices(updatedIndices);
 
-		this.commandData.setOutcome(ok);
+		this.addOkOutcome();
 	}
 
 }

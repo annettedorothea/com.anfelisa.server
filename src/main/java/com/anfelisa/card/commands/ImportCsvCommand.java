@@ -81,7 +81,7 @@ public class ImportCsvCommand extends AbstractImportCsvCommand {
 			}
 		}
 		this.commandData.setCards(cards);
-		this.commandData.setOutcome(ok);
+		this.addOkOutcome();
 	}
 
 }

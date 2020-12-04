@@ -56,10 +56,9 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 
 		IReinforceCardModel reinforceCard = daoProvider.getReinforceCardDao().selectByScheduledCardId(readonlyHandle,
 				scheduledCard.getScheduledCardId());
+		this.addScoreOutcome();
 		if (quality <= 3 && reinforceCard == null) {
-			this.commandData.setOutcome(scoreAndReinforce);
-		} else {
-			this.commandData.setOutcome(score);
+			this.addReinforceOutcome();
 		}
 		Integer newInterval = 1;
 		if (n == 2) {

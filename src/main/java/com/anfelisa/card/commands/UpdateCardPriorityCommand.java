@@ -41,7 +41,7 @@ public class UpdateCardPriorityCommand extends AbstractUpdateCardPriorityCommand
 				&& (this.commandData.getPriority() < 1 || this.commandData.getPriority() > 3)) {
 			throwIllegalArgumentException("invalidPriority");
 		}
-		this.commandData.setOutcome(ok);
+		this.addOkOutcome();
 	}
 
 }

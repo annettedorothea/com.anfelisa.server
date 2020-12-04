@@ -31,7 +31,7 @@ public class DeleteBoxCommand extends AbstractDeleteBoxCommand {
 		}
 		
 		this.commandData.setRootCategoryId(box.getCategoryId());
-		this.commandData.setOutcome(ok);
+		this.addOkOutcome();
 	}
 
 }

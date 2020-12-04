@@ -43,8 +43,7 @@ public class UpdateBoxCommand extends AbstractUpdateBoxCommand {
 			commandData.setGivenLanguage(null);
 			commandData.setWantedLanguage(null);
 		}
-
-		this.commandData.setOutcome(AbstractUpdateBoxCommand.ok);
+		this.addOkOutcome();
 	}
 
 }

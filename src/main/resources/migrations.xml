@@ -380,6 +380,13 @@
 		</addColumn>
 	</changeSet>
 
+	<changeSet id="017" author="annette">
+
+		<dropUniqueConstraint constraintName="timeline_type_uuid_key" tableName="timeline" uniqueColumns="type, uuid"/>  
+
+	</changeSet>
+
+
 
 
 </databaseChangeLog>

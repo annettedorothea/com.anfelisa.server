@@ -48,7 +48,7 @@ public class SortCardsOutCommand extends AbstractSortCardsOutCommand {
 	@Override
 	protected void executeCommand(PersistenceHandle readonlyHandle) {
 		if (commandData.getCardIds() == null || commandData.getCardIds().isEmpty()) {
-			this.commandData.setOutcome(nullOrEmpty);
+			this.addNullOrEmptyOutcome();
 		} else {
 			this.commandData.setSortedOutScheduledCardIds(new ArrayList<String>());
 			this.commandData.setSortedOutReinforceCardIds(new ArrayList<String>());
@@ -72,7 +72,7 @@ public class SortCardsOutCommand extends AbstractSortCardsOutCommand {
 					}
 				}
 			}
-			this.commandData.setOutcome(ok);
+			this.addOkOutcome();
 		}
 	}
 

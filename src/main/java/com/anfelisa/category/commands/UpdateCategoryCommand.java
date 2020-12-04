@@ -32,7 +32,7 @@ public class UpdateCategoryCommand extends AbstractUpdateCategoryCommand {
 		if (access == null) {
 			throwSecurityException();
 		}
-		this.commandData.setOutcome(ok);
+		this.addOkOutcome();
 	}
 
 }

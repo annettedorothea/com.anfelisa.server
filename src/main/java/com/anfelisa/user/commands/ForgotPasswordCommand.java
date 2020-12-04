@@ -26,9 +26,9 @@ public class ForgotPasswordCommand extends AbstractForgotPasswordCommand {
 		if (user != null) {
 			this.commandData.setEmail(user.getEmail());
 			this.commandData.setUserId(user.getUserId());
-			this.commandData.setOutcome(ok);
+			this.addOkOutcome();
 		} else {
-			this.commandData.setOutcome(doesNotExist);
+			this.addDoesNotExistOutcome();
 		}
 	}
 

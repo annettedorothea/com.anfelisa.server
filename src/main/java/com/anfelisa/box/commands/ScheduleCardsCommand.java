@@ -28,7 +28,7 @@ public class ScheduleCardsCommand extends AbstractScheduleCardsCommand {
 	@Override
 	protected void executeCommand(PersistenceHandle readonlyHandle) {
 		if (this.commandData.getCardIds() == null || this.commandData.getCardIds().size() == 0) {
-			this.commandData.setOutcome(nullOrEmpty);
+			this.addNullOrEmptyOutcome();
 		} else {
 			this.commandData.setExistingScheduledCardIds(new ArrayList<String>());
 			this.commandData.setNewScheduledCards(new ArrayList<IScheduledCardModel>());
@@ -66,7 +66,7 @@ public class ScheduleCardsCommand extends AbstractScheduleCardsCommand {
 					this.commandData.getExistingScheduledCardIds().add(scheduledCard.getScheduledCardId());
 				}
 			}
-			this.commandData.setOutcome(ok);
+			this.addOkOutcome();
 		}
 	}
 

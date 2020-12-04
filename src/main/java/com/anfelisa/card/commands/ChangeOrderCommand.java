@@ -88,7 +88,7 @@ public class ChangeOrderCommand extends AbstractChangeOrderCommand {
 			}
 		}
 		this.commandData.setUpdatedIndices(cards);
-		this.commandData.setOutcome(ok);
+		this.addOkOutcome();
 	}
 
 	private List<ICardModel> orderedMovedCards(List<ICardModel> cards) {

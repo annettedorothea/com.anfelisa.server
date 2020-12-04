@@ -3,7 +3,7 @@ HttpServer Java
 com.anfelisa.box.scorereinforcecard
 
 scenarios 
-	ScoreReinforceCard0
+	ScoreReinforceCardKeep
 		GIVEN
 			com.anfelisa.box.scorecard.ScoreCard0
 		WHEN
@@ -11,7 +11,7 @@ scenarios
 				uuid "sr0-${testId}"
 				systemTime "20200418 16:40" "yyyyMMdd HH:mm"
 				{
-					scoredCardQuality: 0,
+					keep: true,
 					reinforceCardId: "score0-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
@@ -25,73 +25,7 @@ scenarios
 				scheduledCardId: "c1-${testId}-sc1-${testId}"
 			}
 		
-	ScoreReinforceCard1
-		GIVEN
-			com.anfelisa.box.scorecard.ScoreCard0
-		WHEN
-			com.anfelisa.box.ScoreReinforceCard
-				uuid "sr1-${testId}"
-				systemTime "20200418 16:40" "yyyyMMdd HH:mm"
-				{
-					scoredCardQuality: 1,
-					reinforceCardId: "score0-${testId}"
-				}
-				authorization "Annette-${testId}" : "password"
-		THEN 200
-		persistence
-			reinforceCardWasUpdated ReinforceCard selectBy ( reinforceCardId: "score0-${testId}") shouldBe
-			{
-				boxId: "boxId-${testId}",
-				changeDate: "20200418 16:40" "yyyyMMdd HH:mm",
-				reinforceCardId: "score0-${testId}",
-				scheduledCardId: "c1-${testId}-sc1-${testId}"
-			}
-		
-	ScoreReinforceCard2
-		GIVEN
-			com.anfelisa.box.scorecard.ScoreCard0
-		WHEN
-			com.anfelisa.box.ScoreReinforceCard
-				uuid "sr2-${testId}"
-				systemTime "20200418 16:40" "yyyyMMdd HH:mm"
-				{
-					scoredCardQuality: 2,
-					reinforceCardId: "score0-${testId}"
-				}
-				authorization "Annette-${testId}" : "password"
-		THEN 200
-		persistence
-			reinforceCardWasUpdated ReinforceCard selectBy ( reinforceCardId: "score0-${testId}") shouldBe
-			{
-				boxId: "boxId-${testId}",
-				changeDate: "20200418 16:40" "yyyyMMdd HH:mm",
-				reinforceCardId: "score0-${testId}",
-				scheduledCardId: "c1-${testId}-sc1-${testId}"
-			}
-		
-	ScoreReinforceCard3
-		GIVEN
-			com.anfelisa.box.scorecard.ScoreCard0
-		WHEN
-			com.anfelisa.box.ScoreReinforceCard
-				uuid "sr3-${testId}"
-				systemTime "20200418 16:40" "yyyyMMdd HH:mm"
-				{
-					scoredCardQuality: 3,
-					reinforceCardId: "score0-${testId}"
-				}
-				authorization "Annette-${testId}" : "password"
-		THEN 200
-		persistence
-			reinforceCardWasUpdated ReinforceCard selectBy ( reinforceCardId: "score0-${testId}") shouldBe
-			{
-				boxId: "boxId-${testId}",
-				changeDate: "20200418 16:40" "yyyyMMdd HH:mm",
-				reinforceCardId: "score0-${testId}",
-				scheduledCardId: "c1-${testId}-sc1-${testId}"
-			}
-		
-	ScoreReinforceCard4
+	ScoreReinforceCardRemove
 		GIVEN
 			com.anfelisa.box.scorecard.ScoreCard0
 		WHEN
@@ -99,23 +33,7 @@ scenarios
 				uuid "sr4-${testId}"
 				systemTime "20200418 16:40" "yyyyMMdd HH:mm"
 				{
-					scoredCardQuality: 4,
-					reinforceCardId: "score0-${testId}"
-				}
-				authorization "Annette-${testId}" : "password"
-		THEN 200
-		persistence
-			reinforceCardWasDeleted ReinforceCard selectBy ( reinforceCardId: "score0-${testId}") shouldBe null
-		
-	ScoreReinforceCard5
-		GIVEN
-			com.anfelisa.box.scorecard.ScoreCard0
-		WHEN
-			com.anfelisa.box.ScoreReinforceCard
-				uuid "sr5-${testId}"
-				systemTime "20200418 16:40" "yyyyMMdd HH:mm"
-				{
-					scoredCardQuality: 5,
+					keep: false,
 					reinforceCardId: "score0-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
@@ -131,7 +49,7 @@ scenarios
 				uuid "other-${testId}"
 				systemTime "20200418 16:40" "yyyyMMdd HH:mm"
 				{
-					scoredCardQuality: 5,
+					keep: false,
 					reinforceCardId: "score1-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
@@ -147,7 +65,7 @@ scenarios
 			com.anfelisa.box.ScoreReinforceCard
 				systemTime "20200418 16:40" "yyyyMMdd HH:mm"
 				{
-					scoredCardQuality: 5,
+					keep: false,
 					reinforceCardId: "score0-${testId}"
 				}
 				authorization "Admin" : "admin-password"
@@ -168,7 +86,7 @@ scenarios
 			com.anfelisa.box.ScoreReinforceCard
 				systemTime "20200418 16:40" "yyyyMMdd HH:mm"
 				{
-					scoredCardQuality: 5,
+					keep: false,
 					reinforceCardId: "score0-${testId}"
 				}
 		THEN 401
@@ -188,7 +106,7 @@ scenarios
 			com.anfelisa.box.ScoreReinforceCard
 				systemTime "20200418 16:40" "yyyyMMdd HH:mm"
 				{
-					scoredCardQuality: 5,
+					keep: false,
 					reinforceCardId: "xx"
 				}
 				authorization "Annette-${testId}" : "password"

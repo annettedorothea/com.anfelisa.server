@@ -34,7 +34,7 @@ public class RegisterUserCommand extends AbstractRegisterUserCommand {
 		}
 		this.commandData.setUserId(this.commandData.getUuid());
 		this.commandData.setEmailConfirmed(false);
-		this.commandData.setOutcome(ok);
+		this.addOkOutcome();
 	}
 
 }

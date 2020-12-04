@@ -92,7 +92,7 @@ public class ChangeOrderCategoryCommand extends AbstractChangeOrderCategoryComma
 			}
 		}
 		this.commandData.setUpdatedIndices(categories);
-		this.commandData.setOutcome(ok);
+		this.addOkOutcome();
 	}
 
 }
