@@ -32,6 +32,10 @@ public abstract class AbstractUpdateCategoryCommand extends Command<ICategoryUpd
 		}
 	}
 	
+	@Override
+	public void publishAfterCommitEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	}
+	
 }
 
 

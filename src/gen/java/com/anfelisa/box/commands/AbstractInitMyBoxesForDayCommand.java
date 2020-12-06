@@ -32,6 +32,10 @@ public abstract class AbstractInitMyBoxesForDayCommand extends Command<IInitMyBo
 		}
 	}
 	
+	@Override
+	public void publishAfterCommitEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	}
+	
 }
 
 

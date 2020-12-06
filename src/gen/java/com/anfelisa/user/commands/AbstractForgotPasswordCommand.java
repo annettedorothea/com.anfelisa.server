@@ -36,6 +36,13 @@ public abstract class AbstractForgotPasswordCommand extends Command<IForgotPassw
 		}
 	}
 	
+	@Override
+	public void publishAfterCommitEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
+		if (this.commandData.hasOutcome("ok")){
+			new com.anfelisa.user.events.ForgotPasswordOkEvent(this.commandData, daoProvider, viewProvider, appConfiguration).publishAfterCommit(handle, timelineHandle);
+		}
+	}
+	
 }
 
 

@@ -36,6 +36,10 @@ public abstract class AbstractScheduleCardsCommand extends Command<IScheduledCar
 		}
 	}
 	
+	@Override
+	public void publishAfterCommitEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	}
+	
 }
 
 

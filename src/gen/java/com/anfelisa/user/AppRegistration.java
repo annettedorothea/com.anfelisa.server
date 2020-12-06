@@ -41,7 +41,7 @@ public class AppRegistration {
 			viewProvider.emailConfirmationView.insert((com.anfelisa.user.data.UserRegistrationData) dataContainer, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.user.events.RegisterUserOkEvent", (dataContainer, handle) -> {
+		viewProvider.addAfterCommitConsumer("com.anfelisa.user.events.RegisterUserOkEvent", (dataContainer, handle) -> {
 			viewProvider.emailView.sendRegistrationEmail((com.anfelisa.user.data.UserRegistrationData) dataContainer, handle);
 		});
 		
@@ -57,7 +57,7 @@ public class AppRegistration {
 			viewProvider.resetPasswordView.insert((com.anfelisa.user.data.ForgotPasswordData) dataContainer, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.user.events.ForgotPasswordOkEvent", (dataContainer, handle) -> {
+		viewProvider.addAfterCommitConsumer("com.anfelisa.user.events.ForgotPasswordOkEvent", (dataContainer, handle) -> {
 			viewProvider.emailView.sendForgotPasswordEmail((com.anfelisa.user.data.ForgotPasswordData) dataContainer, handle);
 		});
 		

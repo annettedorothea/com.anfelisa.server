@@ -32,6 +32,10 @@ public abstract class AbstractCreateBoxCommand extends Command<IBoxCreationData>
 		}
 	}
 	
+	@Override
+	public void publishAfterCommitEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	}
+	
 }
 
 

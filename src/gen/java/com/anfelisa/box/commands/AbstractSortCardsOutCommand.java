@@ -36,6 +36,10 @@ public abstract class AbstractSortCardsOutCommand extends Command<ISortCardsOutD
 		}
 	}
 	
+	@Override
+	public void publishAfterCommitEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	}
+	
 }
 
 

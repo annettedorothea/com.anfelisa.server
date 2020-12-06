@@ -36,6 +36,10 @@ public abstract class AbstractChangeOrderCategoryCommand extends Command<ICatego
 		}
 	}
 	
+	@Override
+	public void publishAfterCommitEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	}
+	
 }
 
 

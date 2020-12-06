@@ -32,6 +32,10 @@ public abstract class AbstractMoveCardsCommand extends Command<IMoveCardsData> {
 		}
 	}
 	
+	@Override
+	public void publishAfterCommitEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	}
+	
 }
 
 
