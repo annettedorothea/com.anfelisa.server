@@ -56,8 +56,10 @@ import org.slf4j.LoggerFactory;
 
 import com.anfelisa.box.data.GetBoxStatisticsResponse;
 import com.anfelisa.box.data.GetBoxesResponse;
+import com.anfelisa.box.data.LoadAllActiveCardsResponse;
 import com.anfelisa.box.models.IBoxStatisticsModel;
 import com.anfelisa.box.models.IBoxViewModel;
+import com.anfelisa.box.models.ICardWithStatisticsModel;
 import com.anfelisa.card.data.GetCardsResponse;
 import com.anfelisa.card.data.GetDuplicatesResponse;
 import com.anfelisa.card.models.ICardWithCategoryNameModel;
@@ -307,6 +309,8 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 			assertThat((GetBoxesResponse) actual, (GetBoxesResponse) expected);
 		} else if (actual instanceof GetBoxStatisticsResponse) {
 			assertThat((GetBoxStatisticsResponse) actual, (GetBoxStatisticsResponse) expected);
+		} else if (actual instanceof LoadAllActiveCardsResponse) {
+			assertThat((LoadAllActiveCardsResponse) actual, (LoadAllActiveCardsResponse) expected);
 		} else {
 			if (actual instanceof String || actual instanceof Integer || actual instanceof Boolean
 					|| actual instanceof LocalDateTime) {
@@ -315,6 +319,17 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 				org.hamcrest.MatcherAssert.assertThat("testId: " + this.getTestId(), actual,
 						is(samePropertyValuesAs(expected)));
 			}
+		}
+	}
+
+	private void assertThat(LoadAllActiveCardsResponse actual, LoadAllActiveCardsResponse expected) {
+		List<ICardWithStatisticsModel> actualCardList = actual.getCardList();
+		List<ICardWithStatisticsModel> expectedCardList = expected.getCardList();
+		assertThat(actualCardList.size(), expectedCardList.size());
+		for (int i = 0; i < actualCardList.size(); i++) {
+			ICardWithStatisticsModel actualCard = actualCardList.get(i);
+			ICardWithStatisticsModel expectedCard = expectedCardList.get(i);
+			org.hamcrest.MatcherAssert.assertThat(actualCard, is(samePropertyValuesAs(expectedCard)));
 		}
 	}
 
@@ -328,7 +343,7 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 			org.hamcrest.MatcherAssert.assertThat(actualUser, is(samePropertyValuesAs(expectedUser)));
 		}
 	}
-
+	
 	private void assertThat(GetCategoryTreeResponse actual, GetCategoryTreeResponse expected) {
 		ICategoryTreeItemModel actualRootCategory = actual.getRootCategory();
 		ICategoryTreeItemModel expectedRootCategory = expected.getRootCategory();

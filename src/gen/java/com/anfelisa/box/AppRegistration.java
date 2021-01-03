@@ -32,6 +32,7 @@ public class AppRegistration {
 		environment.jersey().register(new GetBoxStatisticsResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new LoadNextCardResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new DeleteBoxResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
+		environment.jersey().register(new LoadAllActiveCardsResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
 	}
 	
 	public static void registerConsumers(ViewProvider viewProvider) {

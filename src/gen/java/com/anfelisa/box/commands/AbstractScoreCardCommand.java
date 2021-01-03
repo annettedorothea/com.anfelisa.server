@@ -39,10 +39,6 @@ public abstract class AbstractScoreCardCommand extends Command<IScoreCardData> {
 		}
 	}
 	
-	@Override
-	public void publishAfterCommitEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
-	}
-	
 }
 
 

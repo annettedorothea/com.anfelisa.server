@@ -32,10 +32,6 @@ public abstract class AbstractChangeOrderCommand extends Command<IChangeCardOrde
 		}
 	}
 	
-	@Override
-	public void publishAfterCommitEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
-	}
-	
 }
 
 

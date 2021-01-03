@@ -336,43 +336,6 @@ public abstract class AbstractLoadNextCardUnauthorizedScenario extends BaseScena
 			LOG.info("GIVEN: prerequisite for ScheduleCards not met");
 		}
 
-		if (prerequisite("RegisterUserAdmin")) {
-			uuid = "uuid-admin";
-			this.callNonDeterministicDataProviderPutValue(uuid, "token", 
-						objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class));
-			com.anfelisa.user.data.RegisterUserPayload payload_9 = objectMapper.readValue("{" +
-				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
-				"\"language\" : \"de\"," + 
-				"\"password\" : \"admin-password\"," + 
-				"\"username\" : \"Admin\"} ",
-					com.anfelisa.user.data.RegisterUserPayload.class);
-			com.anfelisa.user.data.UserRegistrationData data_9 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"email\" : \"annette.pohl@anfelisa.de\"," + 
-			"\"language\" : \"de\"," + 
-			"\"password\" : \"admin-password\"," + 
-			"\"username\" : \"Admin\"} ",
-					com.anfelisa.user.data.UserRegistrationData.class);
-			HttpResponse<Object> response_9 = 
-			this.httpPost(
-				"/users/register", 
-			 	payload_9,
-				null,
-				uuid,
-				null
-			);
-			
-			if (response_9.getStatusCode() >= 400) {
-				String message = "GIVEN RegisterUserAdmin fails\n" + response_9.getStatusMessage();
-				LOG.error("GIVEN: RegisterUserAdmin fails due to {} in {} ms", message, response_9.getDuration());
-				assertFail(message);
-			}
-			LOG.info("GIVEN: RegisterUserAdmin success in {} ms", response_9.getDuration());
-			addToMetrics("RegisterUser", response_9.getDuration());
-		} else {
-			LOG.info("GIVEN: prerequisite for RegisterUserAdmin not met");
-		}
-
 	}
 	
 	private HttpResponse<com.anfelisa.box.data.LoadNextCardResponse> when() throws Exception {

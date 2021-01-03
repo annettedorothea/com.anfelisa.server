@@ -1,0 +1,315 @@
+HttpServer Java 
+
+com.anfelisa.box.loadallactivecards
+
+
+scenarios 
+	LoadAllActiveCards
+		GIVEN
+			com.anfelisa.box.schedulecards.ScheduleCards
+		WHEN
+			com.anfelisa.box.LoadAllActiveCards
+				{
+					boxId: "boxId-${testId}"
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+			response shouldBe {
+				cardList: [
+					{
+						cardAuthor: "Annette-${testId}",
+						cardId: "c3-${testId}",
+						cardIndex: 3,
+						categoryId: "cat1-${testId}",
+						given: "3given",
+						rootCategoryId: "boxId-${testId}",
+						wanted: "3wanted",
+						cardId: "c3-${testId}",
+						count: 0,
+						ef: "2.5F",
+						interval: 1,
+						lastQuality: null,
+						next: "20200418 10:30" "yyyyMMdd HH:mm"
+					},
+					{
+						cardAuthor: "Annette-${testId}",
+						cardId: "c4-${testId}",
+						cardIndex: 4,
+						categoryId: "cat1-${testId}",
+						given: "4given4",
+						rootCategoryId: "boxId-${testId}",
+						wanted: "4wanted4",
+						cardId: "c4-${testId}",
+						count: 0,
+						ef: "2.5F",
+						interval: 1,
+						lastQuality: null,
+						next: "20200418 10:30" "yyyyMMdd HH:mm"
+					},
+					{
+						cardAuthor: "Annette-${testId}",
+						cardId: "c1-${testId}",
+						cardIndex: 1,
+						categoryId: "cat1-${testId}",
+						given: "given",
+						image: "image",
+						rootCategoryId: "boxId-${testId}",
+						wanted: "wanted",
+						cardId: "c1-${testId}",
+						count: 0,
+						ef: "2.5F",
+						interval: 1,
+						lastQuality: null,
+						next: "20200418 10:30" "yyyyMMdd HH:mm"
+					}
+				]
+			}		
+
+	LoadAllActiveCardsWithScored0
+		GIVEN
+			com.anfelisa.box.scorecard.ScoreCard0
+		WHEN
+			com.anfelisa.box.LoadAllActiveCards
+				{
+					boxId: "boxId-${testId}"
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+			response shouldBe {
+				cardList: [
+					{
+						cardAuthor: "Annette-${testId}",
+						cardId: "c3-${testId}",
+						cardIndex: 3,
+						categoryId: "cat1-${testId}",
+						given: "3given",
+						rootCategoryId: "boxId-${testId}",
+						wanted: "3wanted",
+						cardId: "c3-${testId}",
+						count: 0,
+						ef: "2.5F",
+						interval: 1,
+						lastQuality: null,
+						next: "20200418 10:30" "yyyyMMdd HH:mm"
+					},
+					{
+						cardAuthor: "Annette-${testId}",
+						cardId: "c4-${testId}",
+						cardIndex: 4,
+						categoryId: "cat1-${testId}",
+						given: "4given4",
+						rootCategoryId: "boxId-${testId}",
+						wanted: "4wanted4",
+						cardId: "c4-${testId}",
+						count: 0,
+						ef: "2.5F",
+						interval: 1,
+						lastQuality: null,
+						next: "20200418 10:30" "yyyyMMdd HH:mm"
+					},
+					{
+						cardAuthor: "Annette-${testId}",
+						cardId: "c1-${testId}",
+						cardIndex: 1,
+						categoryId: "cat1-${testId}",
+						given: "given",
+						image: "image",
+						rootCategoryId: "boxId-${testId}",
+						wanted: "wanted",
+						cardId: "c1-${testId}",
+						count: 1,
+						ef: "2.5F",
+						interval: 1,
+						lastQuality: 0,
+						next: "20200419 16:30" "yyyyMMdd HH:mm"
+					}
+				]
+			}		
+
+	LoadAllActiveCardsWithScored5
+		GIVEN
+			com.anfelisa.box.scorecard.ScoreCard5
+		WHEN
+			com.anfelisa.box.LoadAllActiveCards
+				{
+					boxId: "boxId-${testId}"
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+			response shouldBe {
+				cardList: [
+					{
+						cardAuthor: "Annette-${testId}",
+						cardId: "c3-${testId}",
+						cardIndex: 3,
+						categoryId: "cat1-${testId}",
+						given: "3given",
+						rootCategoryId: "boxId-${testId}",
+						wanted: "3wanted",
+						cardId: "c3-${testId}",
+						count: 0,
+						ef: "2.5F",
+						interval: 1,
+						lastQuality: null,
+						next: "20200418 10:30" "yyyyMMdd HH:mm"
+					},
+					{
+						cardAuthor: "Annette-${testId}",
+						cardId: "c1-${testId}",
+						cardIndex: 1,
+						categoryId: "cat1-${testId}",
+						given: "given",
+						image: "image",
+						rootCategoryId: "boxId-${testId}",
+						wanted: "wanted",
+						cardId: "c1-${testId}",
+						count: 0,
+						ef: "2.5F",
+						interval: 1,
+						lastQuality: null,
+						next: "20200418 10:30" "yyyyMMdd HH:mm"
+					},
+					{
+						cardAuthor: "Annette-${testId}",
+						cardId: "c4-${testId}",
+						cardIndex: 4,
+						categoryId: "cat1-${testId}",
+						given: "4given4",
+						rootCategoryId: "boxId-${testId}",
+						wanted: "4wanted4",
+						cardId: "c4-${testId}",
+						count: 1,
+						ef: "2.6F",
+						interval: 6,
+						lastQuality: 5,
+						next: "20200424 16:30" "yyyyMMdd HH:mm"
+					}
+				]
+			}		
+
+	LoadAllActiveCardsWithSortedOutCards
+		GIVEN
+			com.anfelisa.box.sortcardsout.SortCardsOut
+		WHEN
+			com.anfelisa.box.LoadAllActiveCards
+				{
+					boxId: "boxId-${testId}"
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+			response shouldBe {
+				cardList: [
+					{
+						cardAuthor: "Annette-${testId}",
+						cardId: "c3-${testId}",
+						cardIndex: 3,
+						categoryId: "cat1-${testId}",
+						given: "3given",
+						rootCategoryId: "boxId-${testId}",
+						wanted: "3wanted",
+						cardId: "c3-${testId}",
+						count: 0,
+						ef: "2.5F",
+						interval: 1,
+						lastQuality: null,
+						next: "20200418 10:30" "yyyyMMdd HH:mm"
+					}
+				]
+			}		
+
+	LoadAllActiveCardsWithPriority
+		GIVEN
+			com.anfelisa.box.schedulecards.ScheduleCards
+			com.anfelisa.card.updatecardpriority.UpdateCardPriority1 excludeGIVEN
+		WHEN
+			com.anfelisa.box.LoadAllActiveCards
+				{
+					boxId: "boxId-${testId}"
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+			response shouldBe {
+				cardList: [
+					{
+						cardAuthor: "Annette-${testId}",
+						cardId: "c3-${testId}",
+						cardIndex: 3,
+						categoryId: "cat1-${testId}",
+						given: "3given",
+						rootCategoryId: "boxId-${testId}",
+						wanted: "3wanted",
+						cardId: "c3-${testId}",
+						count: 0,
+						ef: "2.5F",
+						interval: 1,
+						lastQuality: null,
+						next: "20200418 10:30" "yyyyMMdd HH:mm"
+					},
+					{
+						cardAuthor: "Annette-${testId}",
+						cardId: "c4-${testId}",
+						cardIndex: 4,
+						categoryId: "cat1-${testId}",
+						given: "4given4",
+						rootCategoryId: "boxId-${testId}",
+						wanted: "4wanted4",
+						cardId: "c4-${testId}",
+						count: 0,
+						ef: "2.5F",
+						interval: 1,
+						lastQuality: null,
+						next: "20200418 10:30" "yyyyMMdd HH:mm"
+					},
+					{
+						cardAuthor: "Annette-${testId}",
+						cardId: "c1-${testId}",
+						cardIndex: 1,
+						categoryId: "cat1-${testId}",
+						given: "given",
+						image: "image",
+						rootCategoryId: "boxId-${testId}",
+						wanted: "wanted",
+						cardId: "c1-${testId}",
+						count: 0,
+						ef: "2.5F",
+						interval: 1,
+						lastQuality: null,
+						next: "20200418 10:30" "yyyyMMdd HH:mm",
+						priority: 1
+					}
+				]
+			}	
+			
+	LoadAllActiveCardsBoxDoesNotExist 
+		GIVEN
+			com.anfelisa.box.schedulecards.ScheduleCards
+		WHEN
+			com.anfelisa.box.LoadAllActiveCards
+				{
+					boxId: "invalidbox"
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 400
+		
+	LoadAllActiveCardsUnauthorized
+		GIVEN
+			com.anfelisa.box.schedulecards.ScheduleCards
+		WHEN
+			com.anfelisa.box.LoadAllActiveCards
+				{
+					boxId: "boxId-${testId}"
+				}
+		THEN 401
+		
+	LoadAllActiveCardsNotMyBox
+		GIVEN
+			com.anfelisa.box.schedulecards.ScheduleCards
+			com.anfelisa.user.registeruser.RegisterUserAdmin
+		WHEN
+			com.anfelisa.box.LoadAllActiveCards
+				{
+					boxId: "boxId-${testId}"
+				}
+				authorization "Admin" : "admin-password"
+		THEN 401
+		

@@ -441,7 +441,6 @@ scenarios
 	LoadNextCardUnauthorized
 		GIVEN
 			com.anfelisa.box.schedulecards.ScheduleCards
-			com.anfelisa.user.registeruser.RegisterUserAdmin
 		WHEN
 			com.anfelisa.box.LoadNextCard
 				{

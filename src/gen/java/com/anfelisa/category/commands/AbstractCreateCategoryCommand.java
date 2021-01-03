@@ -32,10 +32,6 @@ public abstract class AbstractCreateCategoryCommand extends Command<ICategoryCre
 		}
 	}
 	
-	@Override
-	public void publishAfterCommitEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
-	}
-	
 }
 
 

@@ -32,10 +32,6 @@ public abstract class AbstractImportCsvCommand extends Command<ICsvUploadData> {
 		}
 	}
 	
-	@Override
-	public void publishAfterCommitEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
-	}
-	
 }
 
 

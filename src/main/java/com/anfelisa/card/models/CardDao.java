@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import org.jdbi.v3.core.statement.Update;
 
+import com.anfelisa.box.models.CardWithStatisticsMapper;
+import com.anfelisa.box.models.ICardWithStatisticsModel;
 import com.anfelisa.card.data.ICardUpdateData;
 
 import de.acegen.PersistenceHandle;
@@ -41,6 +43,19 @@ public class CardDao extends AbstractCardDao {
 				.map(new CardWithInfoMapper()).list();
 	}
 
+	public List<ICardWithStatisticsModel> selectAllActiveCards(PersistenceHandle handle, String boxId) {
+		return handle.getHandle().createQuery(
+				"SELECT c.cardid, given, wanted, image, cardauthor, cardindex, c.categoryid, rootcategoryid, priority, s.scheduleddate as next, s.ef, s.interval, s.count, s.lastquality "
+						+ "FROM public.card c "
+						+ "left outer join scheduledcard s on c.cardid = s.cardid and s.boxid = :boxid and s.quality is null "
+						+ "inner join box b on c.rootcategoryid = b.categoryid "
+						+ "WHERE b.boxid = :boxid "
+						+ "AND s.scheduleddate is not null "
+						+ "ORDER BY scheduleddate, given")
+				.bind("boxid", boxId)
+				.map(new CardWithStatisticsMapper()).list();
+	}
+	
 	public Integer selectNonScheduledCardCountOfCategory(PersistenceHandle handle, String categoryId,
 			String boxId, Integer priority) {
 		Optional<Integer> optional = handle.getHandle().createQuery(

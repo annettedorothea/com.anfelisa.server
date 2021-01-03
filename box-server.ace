@@ -139,6 +139,14 @@ ACE
 			UserAccessToCategory.delete
 		)
 		
+	LoadAllActiveCards<ActiveCardList>
+		GET "/box/active-cards/{boxId}" 
+		authorize
+		pathParams 
+			NotNull boxId
+		response 
+			cardList
+	
 views 
 	Box {
 		createBox (BoxCreation)
@@ -365,5 +373,19 @@ models
 
 	BoxCreation extends com.anfelisa.category.Category, com.anfelisa.category.UserAccessToCategory, Box {
 		String username
+	}
+
+	CardWithStatistics extends com.anfelisa.card.CardWithInfo {
+		DateTime next
+		NotNull Float ef
+		Integer interval
+		NotNull Integer count
+		Integer lastQuality
+	}
+
+	ActiveCardList {
+		String userId
+		String boxId
+		List CardWithStatistics cardList
 	}
 

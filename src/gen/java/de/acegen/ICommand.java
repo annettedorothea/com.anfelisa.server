@@ -18,9 +18,6 @@ public interface ICommand {
 	void execute(PersistenceHandle readonlyHandle, PersistenceHandle timelineHandle);
 
 	void publishEvents(PersistenceHandle handle, PersistenceHandle timelineHandle);
-
-	void publishAfterCommitEvents(PersistenceHandle handle, PersistenceHandle timelineHandle);
-
 }
 
 

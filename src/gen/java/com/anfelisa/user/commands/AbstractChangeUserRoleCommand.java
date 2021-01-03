@@ -32,10 +32,6 @@ public abstract class AbstractChangeUserRoleCommand extends Command<IChangeUserR
 		}
 	}
 	
-	@Override
-	public void publishAfterCommitEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
-	}
-	
 }
 
 

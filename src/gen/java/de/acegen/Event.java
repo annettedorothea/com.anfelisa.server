@@ -35,15 +35,6 @@ public abstract class Event<T extends IDataContainer> implements IEvent {
 		}
 	}
 
-	public void notifyAfterCommitListeners(PersistenceHandle handle) {
-		List<EventConsumer> consumerList = viewProvider.getAfterCommitConsumerForEvent(eventName);
-		if (consumerList != null) {
-			for (EventConsumer consumer : consumerList) {
-				consumer.consumeEvent(this.eventData, handle);
-			}
-		}
-	}
-
 	public IDataContainer getEventData() {
 		return eventData;
 	}
@@ -57,13 +48,6 @@ public abstract class Event<T extends IDataContainer> implements IEvent {
 			daoProvider.getAceDao().addEventToTimeline(this, timelineHandle);
 		}
 		this.notifyListeners(handle);
-	}
-
-	public void publishAfterCommit(PersistenceHandle handle, PersistenceHandle timelineHandle) {
-		if (appConfiguration.getConfig().writeTimeline()) {
-			daoProvider.getAceDao().addEventToTimeline(this, timelineHandle);
-		}
-		this.notifyAfterCommitListeners(handle);
 	}
 
 }
