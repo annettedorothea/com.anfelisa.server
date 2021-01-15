@@ -26,6 +26,8 @@ public interface ICategoryTreeData extends ICategoryTreeModel, IDataContainer {
 	
 	ICategoryTreeData withPriority(Integer priority);
 	
+	ICategoryTreeData withEditable(Boolean editable);
+	
 	
 }
 

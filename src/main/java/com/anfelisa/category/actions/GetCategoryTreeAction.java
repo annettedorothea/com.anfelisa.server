@@ -31,7 +31,7 @@ public class GetCategoryTreeAction extends AbstractGetCategoryTreeAction {
 			throwSecurityException();
 		}
 		ICategoryTreeItemModel rootCategory = daoProvider.getCategoryDao().selectRoot(readonlyHandle,
-				actionData.getRootCategoryId());
+				actionData.getRootCategoryId(), actionData.getUserId());
 		loadChildren(rootCategory, rootCategory.getCategoryId(), readonlyHandle);
 		if (this.actionData.getFilterNonScheduled() != null && this.actionData.getFilterNonScheduled()) {
 			initNonScheduledCount(rootCategory, rootCategory.getCategoryId(), this.actionData.getPriority(), readonlyHandle);
@@ -42,7 +42,7 @@ public class GetCategoryTreeAction extends AbstractGetCategoryTreeAction {
 	private void loadChildren(ICategoryTreeItemModel categoryItemModel, String rootCategoryId,
 			PersistenceHandle readonlyHandle) {
 		List<ICategoryTreeItemModel> children = daoProvider.getCategoryDao().selectAllChildrenForTree(readonlyHandle,
-				categoryItemModel.getCategoryId());
+				categoryItemModel.getCategoryId(), actionData.getUserId());
 		categoryItemModel.setChildCategories(children);
 		for (ICategoryTreeItemModel child : children) {
 			loadChildren(child, rootCategoryId, readonlyHandle);

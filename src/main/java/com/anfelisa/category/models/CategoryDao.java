@@ -12,27 +12,31 @@ import de.acegen.PersistenceHandle;
 
 public class CategoryDao extends AbstractCategoryDao {
 
-	public ICategoryTreeItemModel selectRoot(PersistenceHandle handle, String rootCategoryId) {
+	public ICategoryTreeItemModel selectRoot(PersistenceHandle handle, String rootCategoryId, String userId) {
 		Optional<ICategoryTreeItemModel> optional = handle.getHandle().createQuery(
 				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, "
 						+ "(select count(categoryid) from public.category child where child.parentcategoryid = c.categoryid) = 0 as empty, "
 						+ "true as isRoot,"
-						+ "null as nonScheduledCount "
+						+ "null as nonScheduledCount, "
+						+ "(select editable from useraccesstocategory where userid = :userid and categoryid = :categoryid) as editable "
 						+ "FROM public.category c WHERE categoryid = :categoryid")
 				.bind("categoryid", rootCategoryId)
+				.bind("userid", userId)
 				.map(new CategoryTreeItemMapper())
 				.findFirst();
 		return optional.isPresent() ? optional.get() : null;
 	}
 
-	public List<ICategoryTreeItemModel> selectAllChildrenForTree(PersistenceHandle handle, String parentCategoryId) {
+	public List<ICategoryTreeItemModel> selectAllChildrenForTree(PersistenceHandle handle, String parentCategoryId, String userId) {
 		return handle.getHandle().createQuery(
 				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, "
 						+ "(select count(categoryid) from public.category child where child.parentcategoryid = c.categoryid) = 0 as empty, "
 						+ "false as isRoot,"
-						+ "null as nonScheduledCount "
+						+ "null as nonScheduledCount, "
+						+ "(select editable from useraccesstocategory where userid = :userid and rootcategoryid = c.rootcategoryid) as editable "
 						+ "FROM public.category c WHERE parentcategoryid = :parentcategoryid order by categoryindex, categoryname")
 				.bind("parentcategoryid", parentCategoryId)
+				.bind("userid", userId)
 				.map(new CategoryTreeItemMapper())
 				.list();
 	}

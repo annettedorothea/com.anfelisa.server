@@ -75,6 +75,14 @@ public class AceDataFactory {
 				data.migrateLegacyData(json);
 				return data;
 			}
+			if (className.equals("com.anfelisa.category.actions.InviteUserToCategoryAction") ||
+					className.equals("com.anfelisa.category.commands.InviteUserToCategoryCommand") ||
+					className.equals("com.anfelisa.category.events.InviteUserToCategoryOkEvent")
+			) {
+				UserToCategoryInvitationData data = mapper.readValue(json, UserToCategoryInvitationData.class);
+				data.migrateLegacyData(json);
+				return data;
+			}
 		} catch (IOException e) {
 			LOG.error("failed to create ace data {} with data {}", className, json, e);
 		}

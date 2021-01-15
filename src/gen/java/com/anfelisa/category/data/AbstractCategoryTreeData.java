@@ -38,13 +38,16 @@ public abstract class AbstractCategoryTreeData extends AbstractData implements I
 	
 	private Integer priority;
 	
+	private Boolean editable = false;
+	
 
 	public AbstractCategoryTreeData(
 		@JsonProperty("rootCategory") com.anfelisa.category.models.ICategoryTreeItemModel rootCategory,
 		@JsonProperty("userId") String userId,
 		@JsonProperty("rootCategoryId") String rootCategoryId,
 		@JsonProperty("filterNonScheduled") Boolean filterNonScheduled,
-		@JsonProperty("priority") Integer priority
+		@JsonProperty("priority") Integer priority,
+		@JsonProperty("editable") Boolean editable
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
@@ -53,6 +56,7 @@ public abstract class AbstractCategoryTreeData extends AbstractData implements I
 		this.rootCategoryId = rootCategoryId;
 		this.filterNonScheduled = filterNonScheduled;
 		this.priority = priority;
+		this.editable = editable;
 	}
 
 	public AbstractCategoryTreeData( String uuid ) {
@@ -116,6 +120,18 @@ public abstract class AbstractCategoryTreeData extends AbstractData implements I
 	}
 	public ICategoryTreeData withPriority(Integer priority) {
 		this.priority = priority;
+		return this;
+	}
+	
+	@JsonProperty
+	public Boolean getEditable() {
+		return this.editable;
+	}
+	public void setEditable(Boolean editable) {
+		this.editable = editable;
+	}
+	public ICategoryTreeData withEditable(Boolean editable) {
+		this.editable = editable;
 		return this;
 	}
 	

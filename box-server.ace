@@ -178,11 +178,11 @@ views
 		deleteAll(DeleteBox)
 	}
 	
-	UserAccessToCategory { 
-		grantAccess(BoxCreation)
-		delete(DeleteBox)
+	UserAccessToCategory {
+		grantAccess(com.anfelisa.box.BoxCreation)
+		delete(com.anfelisa.box.DeleteBox)
 	}
-
+	
 models 
 	persistent Box {
 		Unique PrimaryKey NotNull String boxId

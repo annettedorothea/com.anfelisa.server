@@ -50,6 +50,8 @@ public abstract class AbstractCategoryTreeItemData extends AbstractData implemen
 	
 	private Integer nonScheduledCount;
 	
+	private Boolean editable = false;
+	
 
 	public AbstractCategoryTreeItemData(
 		@JsonProperty("categoryId") String categoryId,
@@ -62,7 +64,8 @@ public abstract class AbstractCategoryTreeItemData extends AbstractData implemen
 		@JsonProperty("wantedLanguage") String wantedLanguage,
 		@JsonProperty("rootCategoryId") String rootCategoryId,
 		@JsonProperty("childCategories") java.util.List<com.anfelisa.category.models.ICategoryTreeItemModel> childCategories,
-		@JsonProperty("nonScheduledCount") Integer nonScheduledCount
+		@JsonProperty("nonScheduledCount") Integer nonScheduledCount,
+		@JsonProperty("editable") Boolean editable
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
@@ -77,6 +80,7 @@ public abstract class AbstractCategoryTreeItemData extends AbstractData implemen
 		this.rootCategoryId = rootCategoryId;
 		this.childCategories = childCategories;
 		this.nonScheduledCount = nonScheduledCount;
+		this.editable = editable;
 	}
 
 	public AbstractCategoryTreeItemData( String uuid ) {
@@ -212,6 +216,18 @@ public abstract class AbstractCategoryTreeItemData extends AbstractData implemen
 	}
 	public ICategoryTreeItemData withNonScheduledCount(Integer nonScheduledCount) {
 		this.nonScheduledCount = nonScheduledCount;
+		return this;
+	}
+	
+	@JsonProperty
+	public Boolean getEditable() {
+		return this.editable;
+	}
+	public void setEditable(Boolean editable) {
+		this.editable = editable;
+	}
+	public ICategoryTreeItemData withEditable(Boolean editable) {
+		this.editable = editable;
 		return this;
 	}
 	

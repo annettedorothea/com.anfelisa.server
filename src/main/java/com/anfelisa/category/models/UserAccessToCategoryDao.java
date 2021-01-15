@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import org.jdbi.v3.core.statement.Update;
 
+import com.anfelisa.category.data.IUserToCategoryInvitationData;
+
 import de.acegen.PersistenceHandle;
 
 public class UserAccessToCategoryDao extends AbstractUserAccessToCategoryDao {
@@ -63,6 +65,14 @@ public class UserAccessToCategoryDao extends AbstractUserAccessToCategoryDao {
 		return optional.isPresent() ? optional.get() : null;
 
 	}
+
+	public void invite(PersistenceHandle handle, IUserToCategoryInvitationData userAccessToCategoryModel) {
+		Update statement = handle.getHandle().createUpdate("INSERT INTO \"useraccesstocategory\" (categoryid, userid, editable) VALUES (:categoryid, :userid, false)");
+		statement.bind("categoryid",  userAccessToCategoryModel.getCategoryId() );
+		statement.bind("userid",  userAccessToCategoryModel.getInvitedUserId() );
+		statement.execute();
+	}
+	
 
 }
 

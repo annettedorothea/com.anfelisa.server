@@ -27,7 +27,8 @@ public class CategoryTreeItemMapper implements RowMapper<ICategoryTreeItemModel>
 			r.getString("wantedLanguage"),
 			r.getString("rootCategoryId"),
 			null,
-			r.getObject("nonScheduledCount") != null ? r.getInt("nonScheduledCount") : null
+			r.getObject("nonScheduledCount") != null ? r.getInt("nonScheduledCount") : null,
+			r.getBoolean("editable")
 		);
 	}
 }

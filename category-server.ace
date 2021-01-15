@@ -56,6 +56,14 @@ ACE
 		on ok (Category.changeOrder)
 		on noMove
 		
+	InviteUserToCategory<UserToCategoryInvitation>
+		PUT "/category/invite"
+		authorize
+		payload
+			NotNull categoryId
+			NotNull invitedUsername
+		on ok (UserAccessToCategoryInvitation.invite)
+		
 views 
 	Category {
 		insert(CategoryCreation)
@@ -63,6 +71,10 @@ views
 		update(CategoryUpdate)
 		moveCategory(CategoryMove)
 		changeOrder(CategoryChangeOrder)
+	}
+	
+	UserAccessToCategoryInvitation {
+		invite(UserToCategoryInvitation)
 	}
 	
 models 
@@ -103,6 +115,7 @@ models
 		String rootCategoryId
 		Boolean filterNonScheduled
 		Integer priority
+		Boolean editable
 	}
 	
 	CategoryTreeItem {
@@ -117,6 +130,7 @@ models
 		String rootCategoryId
 		List CategoryTreeItem childCategories
 		Integer nonScheduledCount
+		Boolean editable
 	}
 	
 	UserWithAccessList {
@@ -149,5 +163,12 @@ models
 		String targetCategoryId
 		String userId
 		List Category updatedIndices
+	}
+
+	UserToCategoryInvitation {
+		String categoryId
+		String userId
+		String invitedUsername
+		String invitedUserId
 	}
 

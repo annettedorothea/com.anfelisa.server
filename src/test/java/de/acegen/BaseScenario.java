@@ -106,7 +106,7 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 		port = Integer.parseInt(config.getServer().getApplicationConnectors()[0].getPort());
 		protocol = config.getServer().getApplicationConnectors()[0].getType();
 		rootPath = config.getServer().getRootPath();
-		jdbi = Jdbi.create(config.getDatabase().getUrl());
+		jdbi = Jdbi.create(config.getDatabase().getUrl(), config.getDatabase().getUser(), config.getDatabase().getPassword());
 		if (metrics == null) {
 			metrics = new HashMap<>();
 		}

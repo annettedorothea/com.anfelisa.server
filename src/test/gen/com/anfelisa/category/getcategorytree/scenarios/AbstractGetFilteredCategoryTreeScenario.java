@@ -487,6 +487,7 @@ public abstract class AbstractGetFilteredCategoryTreeScenario extends BaseScenar
 						"\"empty\" : false," + 
 						"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 						"\"nonScheduledCount\" : 3," + 
+						"\"editable\" : true," + 
 						"\"childCategories\" : [ { \"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 						"\"categoryIndex\" : 1," + 
 						"\"categoryName\" : \"level 1 #1\"," + 
@@ -495,6 +496,7 @@ public abstract class AbstractGetFilteredCategoryTreeScenario extends BaseScenar
 						"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 						"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 						"\"nonScheduledCount\" : 2," + 
+						"\"editable\" : true," + 
 						"\"childCategories\" : []}," + 
 						"{ \"categoryId\" : \"cat2-" + this.getTestId() + "\"," + 
 						"\"categoryIndex\" : 2," + 
@@ -504,6 +506,7 @@ public abstract class AbstractGetFilteredCategoryTreeScenario extends BaseScenar
 						"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 						"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 						"\"nonScheduledCount\" : 1," + 
+						"\"editable\" : true," + 
 						"\"childCategories\" : [ { \"categoryId\" : \"cat3-" + this.getTestId() + "\"," + 
 						"\"categoryIndex\" : 1," + 
 						"\"categoryName\" : \"level 2 #1\"," + 
@@ -512,6 +515,7 @@ public abstract class AbstractGetFilteredCategoryTreeScenario extends BaseScenar
 						"\"parentCategoryId\" : \"cat2-" + this.getTestId() + "\"," + 
 						"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 						"\"nonScheduledCount\" : 0," + 
+						"\"editable\" : true," + 
 						"\"childCategories\" : []}]}]}} ",
 					com.anfelisa.category.data.CategoryTreeData.class);
 					

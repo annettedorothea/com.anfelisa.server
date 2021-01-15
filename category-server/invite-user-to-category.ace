@@ -1,0 +1,92 @@
+HttpServer Java 
+
+com.anfelisa.category.inviteusertocategory
+
+scenarios 
+
+	InviteUserToCategory
+		GIVEN
+			com.anfelisa.box.createbox.CreateBoxMinimal
+			com.anfelisa.user.registeruser.RegisterTwoUsers excludeGIVEN
+		WHEN
+			com.anfelisa.category.InviteUserToCategory {
+				categoryId: "boxId-${testId}",
+				invitedUsername: "Anne-${testId}"
+			}
+			authorization "Annette-${testId}" : "password"
+		THEN
+			200
+			persistence accessToCategoryWasGranted UserAccessToCategory selectByPrimaryKey ( categoryId: "boxId-${testId}", userId: "uuid2-${testId}") shouldBe
+			{
+				categoryId: "boxId-${testId}",
+				editable: false,
+				userId: "uuid2-${testId}"
+			}
+			
+	InviteUserToCategorySelf
+		GIVEN
+			com.anfelisa.box.createbox.CreateBoxMinimal
+		WHEN
+			com.anfelisa.category.InviteUserToCategory {
+				categoryId: "boxId-${testId}",
+				invitedUsername: "Annette-${testId}"
+			}
+			authorization "Annette-${testId}" : "password"
+		THEN
+			400
+			persistence accessToCategoryWasNotChanged UserAccessToCategory selectByPrimaryKey ( categoryId: "boxId-${testId}", userId: "uuid-${testId}") shouldBe
+			{
+				categoryId: "boxId-${testId}",
+				editable: true,
+				userId: "uuid-${testId}"
+			}
+			
+	InviteUserToCategoryInvitedUserDoesNotExist
+		GIVEN
+			com.anfelisa.box.createbox.CreateBoxMinimal
+		WHEN
+			com.anfelisa.category.InviteUserToCategory {
+				categoryId: "boxId-${testId}",
+				invitedUsername: "X-${testId}"
+			}
+			authorization "Annette-${testId}" : "password"
+		THEN
+			400
+			
+	InviteUserToCategoryNoAccessToCategory
+		GIVEN
+			com.anfelisa.box.createbox.CreateBoxMinimal
+			com.anfelisa.user.registeruser.RegisterTwoUsers excludeGIVEN
+		WHEN
+			com.anfelisa.category.InviteUserToCategory {
+				categoryId: "boxId-${testId}",
+				invitedUsername: "Annette-${testId}"
+			}
+			authorization "Anne-${testId}" : "pw"
+		THEN
+			401
+			
+	InviteUserToCategoryNoEditingAccessToCategory
+		GIVEN
+			InviteUserToCategory
+			com.anfelisa.user.registeruser.RegisterTwoUsers excludeGIVEN
+			com.anfelisa.user.registeruser.RegisterUserAdmin
+		WHEN
+			com.anfelisa.category.InviteUserToCategory {
+				categoryId: "boxId-${testId}",
+				invitedUsername: "Admin"
+			}
+			authorization "Anne-${testId}" : "pw"
+		THEN
+			401
+			
+	InviteUserToCategoryUnauthorized
+		GIVEN
+			com.anfelisa.box.createbox.CreateBoxMinimal
+		WHEN
+			com.anfelisa.category.InviteUserToCategory {
+				categoryId: "boxId-${testId}",
+				invitedUsername: "Anne-${testId}"
+			}
+		THEN
+			401

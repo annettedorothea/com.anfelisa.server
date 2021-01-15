@@ -7,6 +7,7 @@ import com.anfelisa.box.views.ScheduledCardView;
 import com.anfelisa.box.views.UserAccessToCategoryView;
 import com.anfelisa.card.views.CardView;
 import com.anfelisa.category.views.CategoryView;
+import com.anfelisa.category.views.UserAccessToCategoryInvitationView;
 import com.anfelisa.user.views.EmailConfirmationView;
 import com.anfelisa.user.views.EmailView;
 import com.anfelisa.user.views.ResetPasswordView;
@@ -35,6 +36,7 @@ public class ViewProvider extends AbstractViewProvider {
 	public UserScheduledCardView userScheduledCardView;
 	public UserReinforceCardView userReinforceCardView;
 	public UserUserAccessToCategoryView userUserAccessToCategoryView;
+	public UserAccessToCategoryInvitationView userAccessToCategoryInvitationView;
 
 	public static ViewProvider create(IDaoProvider daoProvider, CustomAppConfiguration customAppConfiguration) {
 		return new ViewProvider(daoProvider, new EmailService(customAppConfiguration));
@@ -57,6 +59,7 @@ public class ViewProvider extends AbstractViewProvider {
 		userScheduledCardView = new UserScheduledCardView(daoProvider);
 		userReinforceCardView = new UserReinforceCardView(daoProvider);
 		userUserAccessToCategoryView = new UserUserAccessToCategoryView(daoProvider);
+		userAccessToCategoryInvitationView = new UserAccessToCategoryInvitationView(daoProvider);
 	}
 
 }

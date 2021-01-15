@@ -47,6 +47,9 @@ public interface ICategoryTreeItemModel {
 	Integer getNonScheduledCount();
 	void setNonScheduledCount(Integer nonScheduledCount);
 	
+	Boolean getEditable();
+	void setEditable(Boolean editable);
+	
 	
 }
 

@@ -42,6 +42,8 @@ public class CategoryTreeItemModel implements ICategoryTreeItemModel {
 
 	private Integer nonScheduledCount;
 
+	private Boolean editable = false;
+
 
 	public CategoryTreeItemModel() {
 	}
@@ -57,7 +59,8 @@ public class CategoryTreeItemModel implements ICategoryTreeItemModel {
 		@JsonProperty("wantedLanguage") String wantedLanguage,
 		@JsonProperty("rootCategoryId") String rootCategoryId,
 		@JsonProperty("childCategories") java.util.List<com.anfelisa.category.models.ICategoryTreeItemModel> childCategories,
-		@JsonProperty("nonScheduledCount") Integer nonScheduledCount
+		@JsonProperty("nonScheduledCount") Integer nonScheduledCount,
+		@JsonProperty("editable") Boolean editable
 	) {
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
@@ -70,6 +73,7 @@ public class CategoryTreeItemModel implements ICategoryTreeItemModel {
 		this.rootCategoryId = rootCategoryId;
 		this.childCategories = childCategories;
 		this.nonScheduledCount = nonScheduledCount;
+		this.editable = editable;
 	}
 
 	@JsonProperty
@@ -158,6 +162,14 @@ public class CategoryTreeItemModel implements ICategoryTreeItemModel {
 	}
 	public void setNonScheduledCount(Integer nonScheduledCount) {
 		this.nonScheduledCount = nonScheduledCount;
+	}
+	
+	@JsonProperty
+	public Boolean getEditable() {
+		return this.editable;
+	}
+	public void setEditable(Boolean editable) {
+		this.editable = editable;
 	}
 	
 

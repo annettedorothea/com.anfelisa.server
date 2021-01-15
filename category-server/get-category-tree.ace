@@ -22,6 +22,7 @@ scenarios
 					dictionaryLookup: false,
 					empty: false,
 					rootCategoryId: "boxId-${testId}",
+					editable: true,
 					childCategories: [
 						{
 							categoryId: "cat1-${testId}",
@@ -31,6 +32,7 @@ scenarios
 							empty: true,
 							parentCategoryId: "boxId-${testId}",
 							rootCategoryId: "boxId-${testId}",
+							editable: true,
 							childCategories: []
 						},
 						{
@@ -41,6 +43,7 @@ scenarios
 							empty: false,
 							parentCategoryId: "boxId-${testId}",
 							rootCategoryId: "boxId-${testId}",
+							editable: true,
 							childCategories : [
 								{
 									categoryId: "cat3-${testId}",
@@ -50,6 +53,7 @@ scenarios
 									empty: true,
 									parentCategoryId: "cat2-${testId}",
 									rootCategoryId: "boxId-${testId}",
+									editable: true,
 									childCategories: []
 								}
 							]
@@ -82,6 +86,7 @@ scenarios
 					empty: false,
 					rootCategoryId: "boxId-${testId}",
 					nonScheduledCount: 3,
+					editable: true,
 					childCategories: [
 						{
 							categoryId: "cat1-${testId}",
@@ -92,6 +97,7 @@ scenarios
 							parentCategoryId: "boxId-${testId}",
 							rootCategoryId: "boxId-${testId}",
 							nonScheduledCount: 2,
+							editable: true,
 							childCategories: []
 						},
 						{
@@ -103,6 +109,7 @@ scenarios
 							parentCategoryId: "boxId-${testId}",
 							rootCategoryId: "boxId-${testId}",
 							nonScheduledCount: 1,
+							editable: true,
 							childCategories : [
 								{
 									categoryId: "cat3-${testId}",
@@ -113,6 +120,7 @@ scenarios
 									parentCategoryId: "cat2-${testId}",
 									rootCategoryId: "boxId-${testId}",
 									nonScheduledCount: 0,
+									editable: true,
 									childCategories: []
 								}
 							]
@@ -144,6 +152,7 @@ scenarios
 					empty: false,
 					rootCategoryId: "boxId-${testId}",
 					nonScheduledCount: 1,
+					editable: true,
 					childCategories: [
 						{
 							categoryId: "cat1-${testId}",
@@ -154,6 +163,7 @@ scenarios
 							parentCategoryId: "boxId-${testId}",
 							rootCategoryId: "boxId-${testId}",
 							nonScheduledCount: 1,
+							editable: true,
 							childCategories: []
 						},
 						{
@@ -165,6 +175,7 @@ scenarios
 							parentCategoryId: "boxId-${testId}",
 							rootCategoryId: "boxId-${testId}",
 							nonScheduledCount: 0,
+							editable: true,
 							childCategories : []
 						}
 					]
@@ -194,6 +205,7 @@ scenarios
 					empty: false,
 					rootCategoryId: "boxId-${testId}",
 					nonScheduledCount: 1,
+					editable: true,
 					childCategories: [
 						{
 							categoryId: "cat1-${testId}",
@@ -204,6 +216,7 @@ scenarios
 							parentCategoryId: "boxId-${testId}",
 							rootCategoryId: "boxId-${testId}",
 							nonScheduledCount: 1,
+							editable: true,
 							childCategories: []
 						},
 						{
@@ -215,6 +228,7 @@ scenarios
 							parentCategoryId: "boxId-${testId}",
 							rootCategoryId: "boxId-${testId}",
 							nonScheduledCount: 0,
+							editable: true,
 							childCategories : []
 						}
 					]
@@ -244,6 +258,7 @@ scenarios
 					empty: false,
 					rootCategoryId: "boxId-${testId}",
 					nonScheduledCount: 1,
+					editable: true,
 					childCategories: [
 						{
 							categoryId: "cat1-${testId}",
@@ -254,6 +269,7 @@ scenarios
 							parentCategoryId: "boxId-${testId}",
 							rootCategoryId: "boxId-${testId}",
 							nonScheduledCount: 1,
+							editable: true,
 							childCategories: []
 						},
 						{
@@ -265,6 +281,7 @@ scenarios
 							parentCategoryId: "boxId-${testId}",
 							rootCategoryId: "boxId-${testId}",
 							nonScheduledCount: 0,
+							editable: true,
 							childCategories : []
 						}
 					]
@@ -292,6 +309,7 @@ scenarios
 					wantedLanguage: "en",
 					empty: false,
 					rootCategoryId: "boxId-${testId}",
+					editable: true,
 					childCategories: [
 						{
 							categoryId: "dict-${testId}",
@@ -303,6 +321,7 @@ scenarios
 							empty: true,
 							parentCategoryId: "boxId-${testId}",
 							rootCategoryId: "boxId-${testId}",
+							editable: true,
 							childCategories: []
 						}
 					]

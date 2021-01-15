@@ -17,6 +17,7 @@ public class CategoryTreeData extends AbstractCategoryTreeData implements ICateg
 		@JsonProperty("rootCategoryId") String rootCategoryId, 
 		@JsonProperty("filterNonScheduled") Boolean filterNonScheduled, 
 		@JsonProperty("priority") Integer priority, 
+		@JsonProperty("editable") Boolean editable, 
 		@JsonProperty("uuid") String uuid
 	) {
 		super(
@@ -25,6 +26,7 @@ public class CategoryTreeData extends AbstractCategoryTreeData implements ICateg
 			rootCategoryId,
 			filterNonScheduled,
 			priority,
+			editable,
 			uuid
 		);
 	}
@@ -44,6 +46,7 @@ public class CategoryTreeData extends AbstractCategoryTreeData implements ICateg
 		testData.setRootCategoryId(randomString(random));
 		testData.setFilterNonScheduled(random.nextBoolean());
 		testData.setPriority(random.nextInt(50));
+		testData.setEditable(random.nextBoolean());
 		return testData;
 	}
 	

@@ -29,6 +29,9 @@ public interface ICategoryTreeModel {
 	Integer getPriority();
 	void setPriority(Integer priority);
 	
+	Boolean getEditable();
+	void setEditable(Boolean editable);
+	
 	
 }
 

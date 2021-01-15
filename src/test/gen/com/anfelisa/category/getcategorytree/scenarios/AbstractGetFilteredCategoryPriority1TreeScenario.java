@@ -420,6 +420,7 @@ public abstract class AbstractGetFilteredCategoryPriority1TreeScenario extends B
 						"\"empty\" : false," + 
 						"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 						"\"nonScheduledCount\" : 1," + 
+						"\"editable\" : true," + 
 						"\"childCategories\" : [ { \"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 						"\"categoryIndex\" : 1," + 
 						"\"categoryName\" : \"level 1 #1\"," + 
@@ -428,6 +429,7 @@ public abstract class AbstractGetFilteredCategoryPriority1TreeScenario extends B
 						"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 						"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 						"\"nonScheduledCount\" : 1," + 
+						"\"editable\" : true," + 
 						"\"childCategories\" : []}," + 
 						"{ \"categoryId\" : \"cat2-" + this.getTestId() + "\"," + 
 						"\"categoryIndex\" : 2," + 
@@ -437,6 +439,7 @@ public abstract class AbstractGetFilteredCategoryPriority1TreeScenario extends B
 						"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 						"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 						"\"nonScheduledCount\" : 0," + 
+						"\"editable\" : true," + 
 						"\"childCategories\" : []}]}} ",
 					com.anfelisa.category.data.CategoryTreeData.class);
 					

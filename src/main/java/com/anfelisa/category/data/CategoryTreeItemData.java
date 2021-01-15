@@ -23,6 +23,7 @@ public class CategoryTreeItemData extends AbstractCategoryTreeItemData implement
 		@JsonProperty("rootCategoryId") String rootCategoryId, 
 		@JsonProperty("childCategories") java.util.List<com.anfelisa.category.models.ICategoryTreeItemModel> childCategories, 
 		@JsonProperty("nonScheduledCount") Integer nonScheduledCount, 
+		@JsonProperty("editable") Boolean editable, 
 		@JsonProperty("uuid") String uuid
 	) {
 		super(
@@ -37,6 +38,7 @@ public class CategoryTreeItemData extends AbstractCategoryTreeItemData implement
 			rootCategoryId,
 			childCategories,
 			nonScheduledCount,
+			editable,
 			uuid
 		);
 	}
@@ -68,6 +70,7 @@ public class CategoryTreeItemData extends AbstractCategoryTreeItemData implement
 		}
 		testData.setChildCategories(childCategoriesList);
 		testData.setNonScheduledCount(random.nextInt(50));
+		testData.setEditable(random.nextBoolean());
 		return testData;
 	}
 	

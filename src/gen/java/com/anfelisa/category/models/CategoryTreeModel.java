@@ -30,6 +30,8 @@ public class CategoryTreeModel implements ICategoryTreeModel {
 
 	private Integer priority;
 
+	private Boolean editable = false;
+
 
 	public CategoryTreeModel() {
 	}
@@ -39,13 +41,15 @@ public class CategoryTreeModel implements ICategoryTreeModel {
 		@JsonProperty("userId") String userId,
 		@JsonProperty("rootCategoryId") String rootCategoryId,
 		@JsonProperty("filterNonScheduled") Boolean filterNonScheduled,
-		@JsonProperty("priority") Integer priority
+		@JsonProperty("priority") Integer priority,
+		@JsonProperty("editable") Boolean editable
 	) {
 		this.rootCategory = rootCategory;
 		this.userId = userId;
 		this.rootCategoryId = rootCategoryId;
 		this.filterNonScheduled = filterNonScheduled;
 		this.priority = priority;
+		this.editable = editable;
 	}
 
 	@JsonProperty
@@ -86,6 +90,14 @@ public class CategoryTreeModel implements ICategoryTreeModel {
 	}
 	public void setPriority(Integer priority) {
 		this.priority = priority;
+	}
+	
+	@JsonProperty
+	public Boolean getEditable() {
+		return this.editable;
+	}
+	public void setEditable(Boolean editable) {
+		this.editable = editable;
 	}
 	
 

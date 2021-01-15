@@ -38,6 +38,8 @@ public interface ICategoryTreeItemData extends ICategoryTreeItemModel, IDataCont
 	
 	ICategoryTreeItemData withNonScheduledCount(Integer nonScheduledCount);
 	
+	ICategoryTreeItemData withEditable(Boolean editable);
+	
 	
 }
 

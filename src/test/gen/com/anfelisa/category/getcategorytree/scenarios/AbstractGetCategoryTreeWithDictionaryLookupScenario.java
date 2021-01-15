@@ -193,6 +193,7 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 						"\"wantedLanguage\" : \"en\"," + 
 						"\"empty\" : false," + 
 						"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+						"\"editable\" : true," + 
 						"\"childCategories\" : [ { \"categoryId\" : \"dict-" + this.getTestId() + "\"," + 
 						"\"categoryIndex\" : 1," + 
 						"\"categoryName\" : \"dict-" + this.getTestId() + "\"," + 
@@ -202,6 +203,7 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 						"\"empty\" : true," + 
 						"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 						"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+						"\"editable\" : true," + 
 						"\"childCategories\" : []}]}} ",
 					com.anfelisa.category.data.CategoryTreeData.class);
 					

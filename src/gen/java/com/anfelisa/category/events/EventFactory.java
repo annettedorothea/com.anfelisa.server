@@ -63,6 +63,12 @@ public class EventFactory {
 				ChangeOrderCategoryOkEvent event = new ChangeOrderCategoryOkEvent(data, daoProvider, viewProvider, appConfiguration);
 				return event;
 			}
+			if (eventClass.equals("com.anfelisa.category.events.InviteUserToCategoryOkEvent")) {
+				UserToCategoryInvitationData data = mapper.readValue(json, UserToCategoryInvitationData.class);
+				data.migrateLegacyData(json);
+				InviteUserToCategoryOkEvent event = new InviteUserToCategoryOkEvent(data, daoProvider, viewProvider, appConfiguration);
+				return event;
+			}
 		} catch (IOException e) {
 			LOG.error("failed to create event {} with data {}", eventClass, json, e);
 		}
@@ -90,6 +96,10 @@ public class EventFactory {
 
 		if (eventClass.equals("com.anfelisa.category.events.ChangeOrderCategoryOkEvent")) {
 			return new ChangeOrderCategoryOkEvent((CategoryChangeOrderData)data, daoProvider, viewProvider, appConfiguration);
+		}
+
+		if (eventClass.equals("com.anfelisa.category.events.InviteUserToCategoryOkEvent")) {
+			return new InviteUserToCategoryOkEvent((UserToCategoryInvitationData)data, daoProvider, viewProvider, appConfiguration);
 		}
 
 
