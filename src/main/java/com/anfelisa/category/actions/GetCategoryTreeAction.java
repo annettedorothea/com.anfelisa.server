@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.box.models.IBoxModel;
 import com.anfelisa.category.models.ICategoryTreeItemModel;
 import com.anfelisa.category.models.IUserAccessToCategoryModel;
 
@@ -33,8 +34,11 @@ public class GetCategoryTreeAction extends AbstractGetCategoryTreeAction {
 		ICategoryTreeItemModel rootCategory = daoProvider.getCategoryDao().selectRoot(readonlyHandle,
 				actionData.getRootCategoryId(), actionData.getUserId());
 		loadChildren(rootCategory, rootCategory.getCategoryId(), readonlyHandle);
-		if (this.actionData.getFilterNonScheduled() != null && this.actionData.getFilterNonScheduled()) {
-			initNonScheduledCount(rootCategory, rootCategory.getCategoryId(), this.actionData.getPriority(), readonlyHandle);
+		
+		IBoxModel box = daoProvider.getBoxDao().selectByCategoryIdAndUserId(readonlyHandle, rootCategory.getCategoryId(), actionData.getUserId());
+		
+		if (this.actionData.getFilterNonScheduled() != null && this.actionData.getFilterNonScheduled() && box != null) {
+			initNonScheduledCount(rootCategory, box.getBoxId(), this.actionData.getPriority(), readonlyHandle);
 		}
 		actionData.setRootCategory(rootCategory);
 	}
@@ -49,12 +53,12 @@ public class GetCategoryTreeAction extends AbstractGetCategoryTreeAction {
 		}
 	}
 
-	private void initNonScheduledCount(ICategoryTreeItemModel categoryItemModel, String rootCategoryId,
+	private void initNonScheduledCount(ICategoryTreeItemModel categoryItemModel, String boxId,
 			Integer priority, PersistenceHandle readonlyHandle) {
 		Integer nonScheduledCardCount = daoProvider.getCardDao().selectNonScheduledCardCountOfCategory(
-				readonlyHandle, categoryItemModel.getCategoryId(), rootCategoryId, priority);
+				readonlyHandle, categoryItemModel.getCategoryId(), boxId, priority);
 		for (ICategoryTreeItemModel child : categoryItemModel.getChildCategories()) {
-			initNonScheduledCount(child, rootCategoryId, priority, readonlyHandle);
+			initNonScheduledCount(child, boxId, priority, readonlyHandle);
 			nonScheduledCardCount += child.getNonScheduledCount();
 		}
 		categoryItemModel.setNonScheduledCount(nonScheduledCardCount);
