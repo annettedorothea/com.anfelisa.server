@@ -34,17 +34,21 @@ public abstract class AbstractActiveCardListData extends AbstractData implements
 	
 	private java.util.List<com.anfelisa.box.models.ICardWithStatisticsModel> cardList;
 	
+	private Boolean editable = false;
+	
 
 	public AbstractActiveCardListData(
 		@JsonProperty("userId") String userId,
 		@JsonProperty("boxId") String boxId,
-		@JsonProperty("cardList") java.util.List<com.anfelisa.box.models.ICardWithStatisticsModel> cardList
+		@JsonProperty("cardList") java.util.List<com.anfelisa.box.models.ICardWithStatisticsModel> cardList,
+		@JsonProperty("editable") Boolean editable
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
 		this.userId = userId;
 		this.boxId = boxId;
 		this.cardList = cardList;
+		this.editable = editable;
 	}
 
 	public AbstractActiveCardListData( String uuid ) {
@@ -84,6 +88,18 @@ public abstract class AbstractActiveCardListData extends AbstractData implements
 	}
 	public IActiveCardListData withCardList(java.util.List<com.anfelisa.box.models.ICardWithStatisticsModel> cardList) {
 		this.cardList = cardList;
+		return this;
+	}
+	
+	@JsonProperty
+	public Boolean getEditable() {
+		return this.editable;
+	}
+	public void setEditable(Boolean editable) {
+		this.editable = editable;
+	}
+	public IActiveCardListData withEditable(Boolean editable) {
+		this.editable = editable;
 		return this;
 	}
 	

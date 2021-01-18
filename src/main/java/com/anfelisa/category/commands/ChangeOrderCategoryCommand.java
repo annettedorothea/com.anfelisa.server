@@ -48,7 +48,7 @@ public class ChangeOrderCategoryCommand extends AbstractChangeOrderCategoryComma
 		}
 		IUserAccessToCategoryModel accessToRootCategory = this.daoProvider.getUserAccessToCategoryDao()
 				.hasUserAccessTo(readonlyHandle, targetCategory.getRootCategoryId(), commandData.getUserId());
-		if (accessToRootCategory == null) {
+		if (accessToRootCategory == null || !accessToRootCategory.getEditable()) {
 			throwSecurityException();
 		}
 
@@ -59,7 +59,7 @@ public class ChangeOrderCategoryCommand extends AbstractChangeOrderCategoryComma
 		}
 		accessToRootCategory = this.daoProvider.getUserAccessToCategoryDao()
 				.hasUserAccessTo(readonlyHandle, movedCategory.getRootCategoryId(), commandData.getUserId());
-		if (accessToRootCategory == null) {
+		if (accessToRootCategory == null || !accessToRootCategory.getEditable()) {
 			throwSecurityException();
 		}
 		

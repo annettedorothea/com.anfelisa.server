@@ -142,7 +142,7 @@ public abstract class AbstractInviteUserToCategoryScenario extends BaseScenario 
 	}
 	
 	private HttpResponse<Object> when() throws Exception {
-		String uuid = this.randomUUID();
+		String uuid = "boxIdOfInvitedUser-" + this.getTestId() + "";
 		com.anfelisa.category.data.InviteUserToCategoryPayload payload_0 = objectMapper.readValue("{" +
 			"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 			"\"invitedUsername\" : \"Anne-" + this.getTestId() + "\"} ",
@@ -192,6 +192,7 @@ public abstract class AbstractInviteUserToCategoryScenario extends BaseScenario 
 			then(response);
 			
 			this.accessToCategoryWasGranted();
+			this.boxWasCreated();
 	
 		} else {
 			LOG.info("WHEN: prerequisite for InviteUserToCategory not met");
@@ -210,6 +211,20 @@ public abstract class AbstractInviteUserToCategoryScenario extends BaseScenario 
 		assertThat(actual, expected);
 	
 		LOG.info("THEN: accessToCategoryWasGranted passed");
+	}
+	private void boxWasCreated() throws Exception {
+		com.anfelisa.box.models.IBoxModel actual = daoProvider.getBoxDao().selectByPrimaryKey(handle, "boxIdOfInvitedUser-" + this.getTestId() + "");
+		
+		com.anfelisa.box.models.IBoxModel expected = objectMapper.readValue("{" +
+			"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+			"\"userId\" : \"uuid2-" + this.getTestId() + "\"," + 
+			"\"boxId\" : \"boxIdOfInvitedUser-" + this.getTestId() + "\"," + 
+			"\"maxCardsPerDay\" : 10," + 
+			"\"maxInterval\" : null} ",
+		com.anfelisa.box.models.BoxModel.class);
+		assertThat(actual, expected);
+	
+		LOG.info("THEN: boxWasCreated passed");
 	}
 		
 	@Override

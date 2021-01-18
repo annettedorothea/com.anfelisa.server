@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 
 import com.anfelisa.box.models.IBoxModel;
 import com.anfelisa.box.models.ICardWithStatisticsModel;
+import com.anfelisa.category.models.IUserAccessToCategoryModel;
 
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
@@ -44,6 +45,9 @@ public class LoadAllActiveCardsAction extends AbstractLoadAllActiveCardsAction {
 		List<ICardWithStatisticsModel> allCards = daoProvider.getCardDao().selectAllActiveCards(readonlyHandle,
 				actionData.getBoxId());
 		this.actionData.setCardList(allCards);
+		
+		IUserAccessToCategoryModel access = daoProvider.getUserAccessToCategoryDao().selectByCategoryIdAndUserId(readonlyHandle, box.getCategoryId(), actionData.getUserId());
+		this.actionData.setEditable(access.getEditable());
 	}
 	
 	public void initActionData() {

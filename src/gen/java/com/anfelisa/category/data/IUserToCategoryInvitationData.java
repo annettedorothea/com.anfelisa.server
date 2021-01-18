@@ -24,6 +24,8 @@ public interface IUserToCategoryInvitationData extends IUserToCategoryInvitation
 	
 	IUserToCategoryInvitationData withInvitedUserId(String invitedUserId);
 	
+	IUserToCategoryInvitationData withBoxForInvitedUser(com.anfelisa.box.models.IBoxModel boxForInvitedUser);
+	
 	
 }
 

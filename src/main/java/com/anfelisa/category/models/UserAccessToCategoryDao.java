@@ -72,6 +72,12 @@ public class UserAccessToCategoryDao extends AbstractUserAccessToCategoryDao {
 		statement.bind("userid",  userAccessToCategoryModel.getInvitedUserId() );
 		statement.execute();
 	}
+
+	public List<String> selectAllInvitedUsernames(PersistenceHandle handle, String categoryId) {
+		return handle.getHandle().createQuery("SELECT username FROM public.user u, useraccesstocategory uac where categoryid = :categoryid and uac.userid = u.userid and uac.editable = false")
+				.bind("categoryid", categoryId).mapTo(String.class).list();
+		
+	}
 	
 
 }

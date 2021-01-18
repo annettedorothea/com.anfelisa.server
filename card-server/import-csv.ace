@@ -143,6 +143,28 @@ scenarios
 		persistence 
 			cardWasNoCreated Card selectBy ( cardId : "1-${testId}" ) shouldBe null
 
+	ImportCsvNoEditingAccessToCategory
+		GIVEN
+			com.anfelisa.category.createcategory.CreateCategory
+			com.anfelisa.user.registeruser.RegisterTwoUsers excludeGIVEN
+			com.anfelisa.category.inviteusertocategory.InviteUserToCategory excludeGIVEN
+		WHEN
+			com.anfelisa.card.ImportCsv
+				{
+					categoryId: "cat1-${testId}",
+					previewCsv : [
+						{
+							given: "g1",
+							wanted: "w1",
+							id: "1-${testId}"
+						}
+					]
+				}
+				authorization "Anne-${testId}" : "pw"
+		THEN 401
+		persistence 
+			cardWasNoCreated Card selectBy ( cardId : "1-${testId}" ) shouldBe null
+
 	ImportCsvUnauthorized
 		GIVEN
 			com.anfelisa.category.createcategory.CreateCategory

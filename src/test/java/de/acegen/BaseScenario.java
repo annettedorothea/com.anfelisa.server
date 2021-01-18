@@ -361,6 +361,7 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 		assertThat(actual.getRootCategoryId(), expected.getRootCategoryId());
 		assertThat(actual.getWantedLanguage(), expected.getWantedLanguage());
 		assertThat(actual.getNonScheduledCount(), expected.getNonScheduledCount());
+		assertThat(actual.getEditable(), expected.getEditable());
 		if (actual.getChildCategories() == null) {
 			expectedShouldBeNull(expected.getChildCategories());
 		} else if (expected.getChildCategories() == null) {

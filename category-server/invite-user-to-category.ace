@@ -9,7 +9,9 @@ scenarios
 			com.anfelisa.box.createbox.CreateBoxMinimal
 			com.anfelisa.user.registeruser.RegisterTwoUsers excludeGIVEN
 		WHEN
-			com.anfelisa.category.InviteUserToCategory {
+			com.anfelisa.category.InviteUserToCategory 
+			uuid "boxIdOfInvitedUser-${testId}"
+			{
 				categoryId: "boxId-${testId}",
 				invitedUsername: "Anne-${testId}"
 			}
@@ -22,6 +24,27 @@ scenarios
 				editable: false,
 				userId: "uuid2-${testId}"
 			}
+			boxWasCreated Box selectByPrimaryKey ( boxId: "boxIdOfInvitedUser-${testId}" ) shouldBe
+			{
+				categoryId: "boxId-${testId}",
+				userId: "uuid2-${testId}",
+				boxId: "boxIdOfInvitedUser-${testId}",
+				maxCardsPerDay: 10,
+				maxInterval: null
+			}
+			
+	InviteUserToCategoryThatDoesNotExist
+		GIVEN
+			com.anfelisa.box.createbox.CreateBoxMinimal
+			com.anfelisa.user.registeruser.RegisterTwoUsers excludeGIVEN
+		WHEN
+			com.anfelisa.category.InviteUserToCategory {
+				categoryId: "boxId123-${testId}",
+				invitedUsername: "Anne-${testId}"
+			}
+			authorization "Annette-${testId}" : "password"
+		THEN
+			400
 			
 	InviteUserToCategorySelf
 		GIVEN
@@ -39,6 +62,24 @@ scenarios
 				categoryId: "boxId-${testId}",
 				editable: true,
 				userId: "uuid-${testId}"
+			}
+			
+	InviteUserSecondTime
+		GIVEN
+			InviteUserToCategory
+		WHEN
+			com.anfelisa.category.InviteUserToCategory {
+				categoryId: "boxId-${testId}",
+				invitedUsername: "Anne-${testId}"
+			}
+			authorization "Annette-${testId}" : "password"
+		THEN
+			400
+			persistence accessToCategoryWasNotChanged UserAccessToCategory selectByPrimaryKey ( categoryId: "boxId-${testId}", userId: "uuid2-${testId}") shouldBe
+			{
+				categoryId: "boxId-${testId}",
+				editable: false,
+				userId: "uuid2-${testId}"
 			}
 			
 	InviteUserToCategoryInvitedUserDoesNotExist

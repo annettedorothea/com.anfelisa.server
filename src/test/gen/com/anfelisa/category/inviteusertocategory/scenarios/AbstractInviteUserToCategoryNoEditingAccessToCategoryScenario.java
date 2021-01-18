@@ -140,7 +140,7 @@ public abstract class AbstractInviteUserToCategoryNoEditingAccessToCategoryScena
 		}
 
 		if (prerequisite("InviteUserToCategory")) {
-			uuid = this.randomUUID();
+			uuid = "boxIdOfInvitedUser-" + this.getTestId() + "";
 			com.anfelisa.category.data.InviteUserToCategoryPayload payload_3 = objectMapper.readValue("{" +
 				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"invitedUsername\" : \"Anne-" + this.getTestId() + "\"} ",

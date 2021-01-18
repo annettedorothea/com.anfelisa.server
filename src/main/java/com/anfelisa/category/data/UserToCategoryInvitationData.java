@@ -16,6 +16,7 @@ public class UserToCategoryInvitationData extends AbstractUserToCategoryInvitati
 		@JsonProperty("userId") String userId, 
 		@JsonProperty("invitedUsername") String invitedUsername, 
 		@JsonProperty("invitedUserId") String invitedUserId, 
+		@JsonProperty("boxForInvitedUser") com.anfelisa.box.models.IBoxModel boxForInvitedUser, 
 		@JsonProperty("uuid") String uuid
 	) {
 		super(
@@ -23,6 +24,7 @@ public class UserToCategoryInvitationData extends AbstractUserToCategoryInvitati
 			userId,
 			invitedUsername,
 			invitedUserId,
+			boxForInvitedUser,
 			uuid
 		);
 	}
@@ -41,6 +43,7 @@ public class UserToCategoryInvitationData extends AbstractUserToCategoryInvitati
 		testData.setUserId(randomString(random));
 		testData.setInvitedUsername(randomString(random));
 		testData.setInvitedUserId(randomString(random));
+		testData.setBoxForInvitedUser(com.anfelisa.box.data.BoxData.generateTestData());
 		return testData;
 	}
 	

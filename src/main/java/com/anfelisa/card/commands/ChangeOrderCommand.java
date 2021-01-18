@@ -48,7 +48,7 @@ public class ChangeOrderCommand extends AbstractChangeOrderCommand {
 		}
 		IUserAccessToCategoryModel accessToRootCategory = this.daoProvider.getUserAccessToCategoryDao()
 				.hasUserAccessTo(readonlyHandle, targetCard.getRootCategoryId(), commandData.getUserId());
-		if (accessToRootCategory == null) {
+		if (accessToRootCategory == null || !accessToRootCategory.getEditable()) {
 			throwSecurityException();
 		}
 		for (String cardId : commandData.getCardIdList()) {
@@ -58,7 +58,7 @@ public class ChangeOrderCommand extends AbstractChangeOrderCommand {
 			}
 			accessToRootCategory = this.daoProvider.getUserAccessToCategoryDao()
 					.hasUserAccessTo(readonlyHandle, card.getRootCategoryId(), commandData.getUserId());
-			if (accessToRootCategory == null) {
+			if (accessToRootCategory == null || !accessToRootCategory.getEditable()) {
 				throwSecurityException();
 			}
 		}

@@ -47,6 +47,31 @@ scenarios
 				rootCategoryId: "boxId-${testId}"				
 			}
 
+	
+	DeleteCategoryNoEditingAccess
+		GIVEN
+			com.anfelisa.category.createcategory.CreateSecondCategory
+			com.anfelisa.user.registeruser.RegisterTwoUsers excludeGIVEN
+			com.anfelisa.category.inviteusertocategory.InviteUserToCategory excludeGIVEN
+		WHEN
+			com.anfelisa.category.DeleteCategory
+				{
+					categoryId: "cat1-${testId}"
+				}
+				authorization "Anne-${testId}" : "pw"
+		THEN 401
+		persistence
+			categoryWasNotDeleted Category selectBy ( categoryId: "cat1-${testId}") shouldBe
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "cat1-${testId}",
+				categoryIndex: 1,
+				categoryName: "level 1 #1",
+				dictionaryLookup: false,
+				parentCategoryId: "boxId-${testId}",
+				rootCategoryId: "boxId-${testId}"				
+			}
+
 	DeleteCategoryNoAccess
 		GIVEN
 			com.anfelisa.category.createcategory.CreateSecondCategory

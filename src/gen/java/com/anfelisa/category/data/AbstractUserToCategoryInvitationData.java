@@ -36,12 +36,15 @@ public abstract class AbstractUserToCategoryInvitationData extends AbstractData 
 	
 	private String invitedUserId;
 	
+	private com.anfelisa.box.models.IBoxModel boxForInvitedUser;
+	
 
 	public AbstractUserToCategoryInvitationData(
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("userId") String userId,
 		@JsonProperty("invitedUsername") String invitedUsername,
-		@JsonProperty("invitedUserId") String invitedUserId
+		@JsonProperty("invitedUserId") String invitedUserId,
+		@JsonProperty("boxForInvitedUser") com.anfelisa.box.models.IBoxModel boxForInvitedUser
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
@@ -49,6 +52,7 @@ public abstract class AbstractUserToCategoryInvitationData extends AbstractData 
 		this.userId = userId;
 		this.invitedUsername = invitedUsername;
 		this.invitedUserId = invitedUserId;
+		this.boxForInvitedUser = boxForInvitedUser;
 	}
 
 	public AbstractUserToCategoryInvitationData( String uuid ) {
@@ -100,6 +104,18 @@ public abstract class AbstractUserToCategoryInvitationData extends AbstractData 
 	}
 	public IUserToCategoryInvitationData withInvitedUserId(String invitedUserId) {
 		this.invitedUserId = invitedUserId;
+		return this;
+	}
+	
+	@JsonProperty
+	public com.anfelisa.box.models.IBoxModel getBoxForInvitedUser() {
+		return this.boxForInvitedUser;
+	}
+	public void setBoxForInvitedUser(com.anfelisa.box.models.IBoxModel boxForInvitedUser) {
+		this.boxForInvitedUser = boxForInvitedUser;
+	}
+	public IUserToCategoryInvitationData withBoxForInvitedUser(com.anfelisa.box.models.IBoxModel boxForInvitedUser) {
+		this.boxForInvitedUser = boxForInvitedUser;
 		return this;
 	}
 	

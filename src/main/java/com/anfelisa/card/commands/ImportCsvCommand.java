@@ -54,7 +54,7 @@ public class ImportCsvCommand extends AbstractImportCsvCommand {
 		IUserModel user = this.daoProvider.getUserDao().selectByUserId(readonlyHandle, commandData.getUserId());
 		IUserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao()
 				.selectByCategoryIdAndUserId(readonlyHandle, category.getRootCategoryId(), commandData.getUserId());
-		if (access == null) {
+		if (access == null || !access.getEditable()) {
 			throwSecurityException();
 		}
 		Integer max = this.daoProvider.getCardDao().selectMaxIndexInCategory(readonlyHandle,

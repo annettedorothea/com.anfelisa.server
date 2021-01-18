@@ -23,6 +23,9 @@ public interface IActiveCardListModel {
 	java.util.List<com.anfelisa.box.models.ICardWithStatisticsModel> getCardList();
 	void setCardList(java.util.List<com.anfelisa.box.models.ICardWithStatisticsModel> cardList);
 	
+	Boolean getEditable();
+	void setEditable(Boolean editable);
+	
 	
 }
 

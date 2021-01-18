@@ -22,6 +22,8 @@ public interface IActiveCardListData extends IActiveCardListModel, IDataContaine
 	
 	IActiveCardListData withCardList(java.util.List<com.anfelisa.box.models.ICardWithStatisticsModel> cardList);
 	
+	IActiveCardListData withEditable(Boolean editable);
+	
 	
 }
 

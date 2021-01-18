@@ -1,0 +1,117 @@
+HttpServer Java 
+
+com.anfelisa.category.searchusername
+
+
+scenarios 
+
+	SearchUsername
+		GIVEN 
+			com.anfelisa.box.createbox.CreateBoxMinimal
+			com.anfelisa.user.registeruser.RegisterTwoUsers excludeGIVEN
+		WHEN com.anfelisa.category.SearchUsernameForInvitation
+				{
+					usernameSearchString : "Anne",
+					categoryId: "boxId-${testId}"
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+		verifications 
+			responseUsernamesShouldStartWithAnne
+			responseShouldBeLimitedToTen
+
+	SearchUsernameNarrow
+		GIVEN 
+			com.anfelisa.box.createbox.CreateBoxMinimal
+			com.anfelisa.user.registeruser.RegisterTwoUsers excludeGIVEN
+		WHEN com.anfelisa.category.SearchUsernameForInvitation
+				{
+					usernameSearchString : "Annette",
+					categoryId: "boxId-${testId}"
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+		verifications 
+			responseUsernamesShouldStartWithAnnette
+			responseShouldBeLimitedToTen
+
+	SearchUsernameExact
+		GIVEN 
+			com.anfelisa.box.createbox.CreateBoxMinimal
+			com.anfelisa.user.registeruser.RegisterTwoUsers excludeGIVEN
+		WHEN com.anfelisa.category.SearchUsernameForInvitation
+				{
+					usernameSearchString : "Anne-${testId}",
+					categoryId: "boxId-${testId}"
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+		response shouldBe {
+			usernames: ["Anne-${testId}"]
+		}
+
+	SearchUsernameExcludesMe
+		GIVEN 
+			com.anfelisa.box.createbox.CreateBoxMinimal
+			com.anfelisa.user.registeruser.RegisterTwoUsers excludeGIVEN
+		WHEN com.anfelisa.category.SearchUsernameForInvitation
+				{
+					usernameSearchString : "Annette-${testId}",
+					categoryId: "boxId-${testId}"
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+		response shouldBe {
+			usernames: []
+		}
+
+	SearchUsernameExcludesInvitedUser
+		GIVEN 
+			com.anfelisa.category.inviteusertocategory.InviteUserToCategory
+		WHEN com.anfelisa.category.SearchUsernameForInvitation
+				{
+					usernameSearchString : "Anne-${testId}",
+					categoryId: "boxId-${testId}"
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+		response shouldBe {
+			usernames: []
+		}
+
+	SearchUsernameUnauthorized
+		GIVEN 
+			com.anfelisa.box.createbox.CreateBoxMinimal
+			com.anfelisa.user.registeruser.RegisterTwoUsers excludeGIVEN
+		WHEN com.anfelisa.category.SearchUsernameForInvitation
+				{
+					usernameSearchString : "Annette",
+					categoryId: "boxId-${testId}"
+				}
+		THEN 401
+
+
+	SearchUsernameNoAccessToCategory
+		GIVEN 
+			com.anfelisa.box.createbox.CreateBoxMinimal
+			com.anfelisa.user.registeruser.RegisterUserAdmin
+		WHEN com.anfelisa.category.SearchUsernameForInvitation
+				{
+					usernameSearchString : "Annette",
+					categoryId: "boxId-${testId}"
+				}
+				authorization "Admin" : "admin-password"
+		THEN 401
+
+	SearchUsernameNoEditingAccessToCategory
+		GIVEN 
+			com.anfelisa.category.inviteusertocategory.InviteUserToCategory
+			com.anfelisa.user.registeruser.RegisterTwoUsers excludeGIVEN
+		WHEN com.anfelisa.category.SearchUsernameForInvitation
+				{
+					usernameSearchString : "Annette",
+					categoryId: "boxId-${testId}"
+				}
+				authorization "Anne-${testId}" : "pw"
+		THEN 401
+

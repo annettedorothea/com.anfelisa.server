@@ -20,7 +20,8 @@ public class UserToCategoryInvitationMapper implements RowMapper<IUserToCategory
 			r.getString("categoryId"),
 			r.getString("userId"),
 			r.getString("invitedUsername"),
-			r.getString("invitedUserId")
+			r.getString("invitedUserId"),
+			null
 		);
 	}
 }

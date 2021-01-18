@@ -27,6 +27,8 @@ public class AppRegistration {
 		environment.jersey().register(new MoveCategoryResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new ChangeOrderCategoryResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new InviteUserToCategoryResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
+		environment.jersey().register(new GetInvitedUsersResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
+		environment.jersey().register(new SearchUsernameForInvitationResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
 	}
 	
 	public static void registerConsumers(ViewProvider viewProvider) {
@@ -52,6 +54,10 @@ public class AppRegistration {
 		
 		viewProvider.addConsumer("com.anfelisa.category.events.InviteUserToCategoryOkEvent", (dataContainer, handle) -> {
 			viewProvider.userAccessToCategoryInvitationView.invite((com.anfelisa.category.data.UserToCategoryInvitationData) dataContainer, handle);
+		});
+		
+		viewProvider.addConsumer("com.anfelisa.category.events.InviteUserToCategoryOkEvent", (dataContainer, handle) -> {
+			viewProvider.boxInvitationView.createBox((com.anfelisa.category.data.UserToCategoryInvitationData) dataContainer, handle);
 		});
 		
 	}

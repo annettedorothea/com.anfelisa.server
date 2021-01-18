@@ -38,7 +38,7 @@ public class App extends Application<CustomAppConfiguration> {
 	}
 
 	public static String getVersion() {
-		return "1.1.1";
+		return "1.2.0";
 	}
 
 	@Override
@@ -71,7 +71,6 @@ public class App extends Application<CustomAppConfiguration> {
 		if (Config.DEV.equals(mode)) {
 			environment.jersey().register(new NonDeterministicDataProviderResource());
 			LOG.warn("You are running in DEV mode. This is a security risc.");
-			daoProvider.truncateAllViews(new DatabaseHandle(new PersistenceConnection(jdbi).getJdbi(), configuration).getHandle());
 		}
 
 		environment.jersey().register(new GetServerInfoResource());

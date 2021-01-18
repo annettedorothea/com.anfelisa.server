@@ -21,14 +21,21 @@ public abstract class AbstractDeleteBoxCommand extends Command<IDeleteBoxData> {
 		super("com.anfelisa.box.commands.DeleteBoxCommand", commandParam, daoProvider, viewProvider, appConfiguration);
 	}
 
-	protected void addOkOutcome() {
-		this.commandData.addOutcome("ok");
+	protected void addDeleteBoxOutcome() {
+		this.commandData.addOutcome("deleteBox");
+	}
+
+	protected void addDeleteCategoryOutcome() {
+		this.commandData.addOutcome("deleteCategory");
 	}
 
 	@Override
 	public void publishEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
-		if (this.commandData.hasOutcome("ok")){
-			new com.anfelisa.box.events.DeleteBoxOkEvent(this.commandData, daoProvider, viewProvider, appConfiguration).publish(handle, timelineHandle);
+		if (this.commandData.hasOutcome("deleteBox")){
+			new com.anfelisa.box.events.DeleteBoxDeleteBoxEvent(this.commandData, daoProvider, viewProvider, appConfiguration).publish(handle, timelineHandle);
+		}
+		if (this.commandData.hasOutcome("deleteCategory")){
+			new com.anfelisa.box.events.DeleteBoxDeleteCategoryEvent(this.commandData, daoProvider, viewProvider, appConfiguration).publish(handle, timelineHandle);
 		}
 	}
 	

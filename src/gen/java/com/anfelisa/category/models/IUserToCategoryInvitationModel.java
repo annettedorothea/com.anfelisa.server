@@ -26,6 +26,9 @@ public interface IUserToCategoryInvitationModel {
 	String getInvitedUserId();
 	void setInvitedUserId(String invitedUserId);
 	
+	com.anfelisa.box.models.IBoxModel getBoxForInvitedUser();
+	void setBoxForInvitedUser(com.anfelisa.box.models.IBoxModel boxForInvitedUser);
+	
 	
 }
 

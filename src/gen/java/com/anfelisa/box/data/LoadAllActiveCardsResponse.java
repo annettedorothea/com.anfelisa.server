@@ -24,16 +24,24 @@ public class LoadAllActiveCardsResponse implements ILoadAllActiveCardsResponse {
 	
 	private java.util.List<com.anfelisa.box.models.ICardWithStatisticsModel> cardList;
 	
+	private Boolean editable = false;
+	
 	public LoadAllActiveCardsResponse() {
 	}
 	
 	public LoadAllActiveCardsResponse(com.anfelisa.box.models.IActiveCardListModel data) {
 		cardList = data.getCardList();
+		editable = data.getEditable();
 	}
 	
 	@JsonProperty
 	public java.util.List<com.anfelisa.box.models.ICardWithStatisticsModel> getCardList() {
 		return this.cardList;
+	}
+	
+	@JsonProperty
+	public Boolean getEditable() {
+		return this.editable;
 	}
 	
 }

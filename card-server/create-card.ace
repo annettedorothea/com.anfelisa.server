@@ -502,6 +502,25 @@ scenarios
 		persistence
 			cardWasNotCreated Card selectBy(cardId: "c1-${testId}") shouldBe null
 		
+	CreateCardNoEditingAccessToCategory
+		GIVEN
+			com.anfelisa.category.createcategory.CreateCategory
+			com.anfelisa.user.registeruser.RegisterTwoUsers excludeGIVEN
+			com.anfelisa.category.inviteusertocategory.InviteUserToCategory excludeGIVEN
+		WHEN
+			com.anfelisa.card.CreateCard
+				uuid "c1-${testId}"
+				{
+					categoryId: "cat1-${testId}",
+					given: "given",
+					image: "image",
+					wanted: "wanted"
+				}
+				authorization "Anne-${testId}" : "pw"
+		THEN 401
+		persistence
+			cardWasNotCreated Card selectBy(cardId: "c1-${testId}") shouldBe null
+		
 	CreateCardUnauthorized
 		GIVEN
 			com.anfelisa.category.createcategory.CreateCategoryAsAdmin

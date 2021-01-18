@@ -87,10 +87,16 @@ public class EventFactory {
 				InitMyBoxesForDayOkEvent event = new InitMyBoxesForDayOkEvent(data, daoProvider, viewProvider, appConfiguration);
 				return event;
 			}
-			if (eventClass.equals("com.anfelisa.box.events.DeleteBoxOkEvent")) {
+			if (eventClass.equals("com.anfelisa.box.events.DeleteBoxDeleteBoxEvent")) {
 				DeleteBoxData data = mapper.readValue(json, DeleteBoxData.class);
 				data.migrateLegacyData(json);
-				DeleteBoxOkEvent event = new DeleteBoxOkEvent(data, daoProvider, viewProvider, appConfiguration);
+				DeleteBoxDeleteBoxEvent event = new DeleteBoxDeleteBoxEvent(data, daoProvider, viewProvider, appConfiguration);
+				return event;
+			}
+			if (eventClass.equals("com.anfelisa.box.events.DeleteBoxDeleteCategoryEvent")) {
+				DeleteBoxData data = mapper.readValue(json, DeleteBoxData.class);
+				data.migrateLegacyData(json);
+				DeleteBoxDeleteCategoryEvent event = new DeleteBoxDeleteCategoryEvent(data, daoProvider, viewProvider, appConfiguration);
 				return event;
 			}
 		} catch (IOException e) {
@@ -139,8 +145,11 @@ public class EventFactory {
 
 
 
-		if (eventClass.equals("com.anfelisa.box.events.DeleteBoxOkEvent")) {
-			return new DeleteBoxOkEvent((DeleteBoxData)data, daoProvider, viewProvider, appConfiguration);
+		if (eventClass.equals("com.anfelisa.box.events.DeleteBoxDeleteBoxEvent")) {
+			return new DeleteBoxDeleteBoxEvent((DeleteBoxData)data, daoProvider, viewProvider, appConfiguration);
+		}
+		if (eventClass.equals("com.anfelisa.box.events.DeleteBoxDeleteCategoryEvent")) {
+			return new DeleteBoxDeleteCategoryEvent((DeleteBoxData)data, daoProvider, viewProvider, appConfiguration);
 		}
 
 

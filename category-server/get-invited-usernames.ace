@@ -1,0 +1,66 @@
+HttpServer Java 
+
+com.anfelisa.category.getinvitedusernames
+
+scenarios 
+	
+	GetInvitedUsers
+		GIVEN
+			com.anfelisa.category.inviteusertocategory.InviteUserToCategory
+		WHEN
+			com.anfelisa.category.GetInvitedUsers
+				{
+					categoryId: "boxId-${testId}"
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+			response shouldBe {
+				invitedUsernames: ["Anne-${testId}"]
+			}
+
+	GetInvitedUsersCategoryDoesNotExist
+		GIVEN
+			com.anfelisa.category.inviteusertocategory.InviteUserToCategory
+		WHEN
+			com.anfelisa.category.GetInvitedUsers
+				{
+					categoryId: "xxx-${testId}"
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 400
+
+	GetInvitedUsersUnauthorized
+		GIVEN
+			com.anfelisa.category.inviteusertocategory.InviteUserToCategory
+		WHEN
+			com.anfelisa.category.GetInvitedUsers
+				{
+					categoryId: "boxId-${testId}"
+				}
+		THEN 401
+
+	GetInvitedUsersNoEditingAccessToCategory
+		GIVEN
+			com.anfelisa.category.inviteusertocategory.InviteUserToCategory
+		WHEN
+			com.anfelisa.category.GetInvitedUsers
+				{
+					categoryId: "boxId-${testId}"
+				}
+				authorization "Anne-${testId}" : "pw"
+		THEN 401
+
+		
+	GetInvitedUsersNoAccessToCategory
+		GIVEN
+			com.anfelisa.category.inviteusertocategory.InviteUserToCategory
+			com.anfelisa.user.registeruser.RegisterUserAdmin
+		WHEN
+			com.anfelisa.category.GetInvitedUsers
+				{
+					categoryId: "boxId-${testId}"
+				}
+				authorization "Admin" : "admin-password"
+		THEN 401
+
+		

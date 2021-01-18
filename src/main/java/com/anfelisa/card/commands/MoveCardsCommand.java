@@ -28,7 +28,7 @@ public class MoveCardsCommand extends AbstractMoveCardsCommand {
 	protected void executeCommand(PersistenceHandle readonlyHandle) {
 		IUserAccessToCategoryModel accessToCategory = this.daoProvider.getUserAccessToCategoryDao()
 				.hasUserAccessTo(readonlyHandle, commandData.getCategoryId(), commandData.getUserId());
-		if (accessToCategory == null) {
+		if (accessToCategory == null || !accessToCategory.getEditable()) {
 			throwSecurityException();
 		}
 		Integer cardIndex = this.daoProvider.getCardDao().selectMaxIndexInCategory(readonlyHandle,
@@ -47,7 +47,7 @@ public class MoveCardsCommand extends AbstractMoveCardsCommand {
 			}
 			IUserAccessToCategoryModel accessToRootCategory = this.daoProvider.getUserAccessToCategoryDao()
 					.hasUserAccessTo(readonlyHandle, card.getRootCategoryId(), commandData.getUserId());
-			if (accessToRootCategory == null) {
+			if (accessToRootCategory == null || !accessToRootCategory.getEditable()) {
 				throwSecurityException();
 			}
 			sourceCategoryId = card.getCategoryId();

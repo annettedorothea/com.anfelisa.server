@@ -7,18 +7,20 @@
 
 package com.anfelisa.category.commands;
 
-import de.acegen.ViewProvider;
-import de.acegen.IDaoProvider;
-import de.acegen.CustomAppConfiguration;
-import de.acegen.PersistenceHandle;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.box.models.BoxModel;
+import com.anfelisa.box.models.IBoxModel;
 import com.anfelisa.category.data.IUserToCategoryInvitationData;
 import com.anfelisa.category.models.ICategoryModel;
 import com.anfelisa.category.models.IUserAccessToCategoryModel;
 import com.anfelisa.user.models.IUserModel;
+
+import de.acegen.CustomAppConfiguration;
+import de.acegen.IDaoProvider;
+import de.acegen.PersistenceHandle;
+import de.acegen.ViewProvider;
 
 public class InviteUserToCategoryCommand extends AbstractInviteUserToCategoryCommand {
 
@@ -31,6 +33,12 @@ public class InviteUserToCategoryCommand extends AbstractInviteUserToCategoryCom
 
 	@Override
 	protected void executeCommand(PersistenceHandle readonlyHandle) {
+		ICategoryModel category = daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle, 
+				commandData.getCategoryId());
+		if (category == null) {
+			throwIllegalArgumentException("categoryDoesNotExist");
+		}
+
 		IUserModel invitedUser = this.daoProvider.getUserDao().selectByUsername(readonlyHandle, commandData.getInvitedUsername());
 		if (invitedUser == null) {
 			this.throwIllegalArgumentException("userDoesNotExist");
@@ -47,12 +55,18 @@ public class InviteUserToCategoryCommand extends AbstractInviteUserToCategoryCom
 			throwSecurityException();
 		}
 		
-		ICategoryModel category = daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle, 
-				commandData.getCategoryId());
-		if (category == null) {
-			throwIllegalArgumentException("categoryDoesNotExist");
+		IUserAccessToCategoryModel alreadyExistingAccess = this.daoProvider.getUserAccessToCategoryDao().selectByCategoryIdAndUserId(readonlyHandle, commandData.getCategoryId(), invitedUser.getUserId());
+		if (alreadyExistingAccess != null) {
+			throwIllegalArgumentException("userIsAlreadyInvited");
 		}
-
+		
+		IBoxModel boxForInvitedUser = new BoxModel();
+		boxForInvitedUser.setBoxId(commandData.getUuid());
+		boxForInvitedUser.setCategoryId(commandData.getCategoryId());
+		boxForInvitedUser.setMaxCardsPerDay(10);
+		boxForInvitedUser.setUserId(invitedUser.getUserId());
+		this.commandData.setBoxForInvitedUser(boxForInvitedUser);
+		
 		this.addOkOutcome();
 	}
 

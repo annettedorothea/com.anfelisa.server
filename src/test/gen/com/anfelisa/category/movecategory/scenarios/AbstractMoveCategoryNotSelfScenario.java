@@ -5,7 +5,7 @@
 
 
 
-package com.anfelisa.card.updatecardpriority.scenarios;
+package com.anfelisa.category.movecategory.scenarios;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,9 +25,9 @@ import de.acegen.NonDeterministicDataProvider;
 import de.acegen.HttpResponse;
 
 @SuppressWarnings("unused")
-public abstract class AbstractUpdateCardPriorityNoAccessToCategoryScenario extends BaseScenario {
+public abstract class AbstractMoveCategoryNotSelfScenario extends BaseScenario {
 
-	static final Logger LOG = LoggerFactory.getLogger(AbstractUpdateCardPriorityNoAccessToCategoryScenario.class);
+	static final Logger LOG = LoggerFactory.getLogger(AbstractMoveCategoryNotSelfScenario.class);
 	
 	private void given() throws Exception {
 		String uuid;
@@ -133,24 +133,20 @@ public abstract class AbstractUpdateCardPriorityNoAccessToCategoryScenario exten
 			LOG.info("GIVEN: prerequisite for CreateCategory not met");
 		}
 
-		if (prerequisite("CreateCard")) {
-			uuid = "c1-" + this.getTestId() + "";
-			com.anfelisa.card.data.CreateCardPayload payload_3 = objectMapper.readValue("{" +
-				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-				"\"given\" : \"given\"," + 
-				"\"image\" : \"image\"," + 
-				"\"wanted\" : \"wanted\"} ",
-					com.anfelisa.card.data.CreateCardPayload.class);
-			com.anfelisa.card.data.CardCreationData data_3 = objectMapper.readValue("{" +
+		if (prerequisite("CreateSecondCategory")) {
+			uuid = "cat2-" + this.getTestId() + "";
+			com.anfelisa.category.data.CreateCategoryPayload payload_3 = objectMapper.readValue("{" +
+				"\"categoryName\" : \"level 1 #2\"," + 
+				"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
+					com.anfelisa.category.data.CreateCategoryPayload.class);
+			com.anfelisa.category.data.CategoryCreationData data_3 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-			"\"given\" : \"given\"," + 
-			"\"image\" : \"image\"," + 
-			"\"wanted\" : \"wanted\"} ",
-					com.anfelisa.card.data.CardCreationData.class);
+			"\"categoryName\" : \"level 1 #2\"," + 
+			"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
+					com.anfelisa.category.data.CategoryCreationData.class);
 			HttpResponse<Object> response_3 = 
 			this.httpPost(
-				"/card/create", 
+				"/category/create", 
 			 	payload_3,
 				authorization("Annette-${testId}", "password"),
 				uuid,
@@ -158,78 +154,72 @@ public abstract class AbstractUpdateCardPriorityNoAccessToCategoryScenario exten
 			);
 			
 			if (response_3.getStatusCode() >= 400) {
-				String message = "GIVEN CreateCard fails\n" + response_3.getStatusMessage();
-				LOG.error("GIVEN: CreateCard fails due to {} in {} ms", message, response_3.getDuration());
+				String message = "GIVEN CreateSecondCategory fails\n" + response_3.getStatusMessage();
+				LOG.error("GIVEN: CreateSecondCategory fails due to {} in {} ms", message, response_3.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateCard success in {} ms", response_3.getDuration());
-			addToMetrics("CreateCard", response_3.getDuration());
+			LOG.info("GIVEN: CreateSecondCategory success in {} ms", response_3.getDuration());
+			addToMetrics("CreateCategory", response_3.getDuration());
 		} else {
-			LOG.info("GIVEN: prerequisite for CreateCard not met");
+			LOG.info("GIVEN: prerequisite for CreateSecondCategory not met");
 		}
 
-		if (prerequisite("RegisterUserAdmin")) {
-			uuid = "uuid-admin";
-			this.callNonDeterministicDataProviderPutValue(uuid, "token", 
-						objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class));
-			com.anfelisa.user.data.RegisterUserPayload payload_4 = objectMapper.readValue("{" +
-				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
-				"\"language\" : \"de\"," + 
-				"\"password\" : \"admin-password\"," + 
-				"\"username\" : \"Admin\"} ",
-					com.anfelisa.user.data.RegisterUserPayload.class);
-			com.anfelisa.user.data.UserRegistrationData data_4 = objectMapper.readValue("{" +
+		if (prerequisite("CreateCategorySecondLevel")) {
+			uuid = "cat3-" + this.getTestId() + "";
+			com.anfelisa.category.data.CreateCategoryPayload payload_4 = objectMapper.readValue("{" +
+				"\"categoryName\" : \"level 2 #1\"," + 
+				"\"parentCategoryId\" : \"cat2-" + this.getTestId() + "\"} ",
+					com.anfelisa.category.data.CreateCategoryPayload.class);
+			com.anfelisa.category.data.CategoryCreationData data_4 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"email\" : \"annette.pohl@anfelisa.de\"," + 
-			"\"language\" : \"de\"," + 
-			"\"password\" : \"admin-password\"," + 
-			"\"username\" : \"Admin\"} ",
-					com.anfelisa.user.data.UserRegistrationData.class);
+			"\"categoryName\" : \"level 2 #1\"," + 
+			"\"parentCategoryId\" : \"cat2-" + this.getTestId() + "\"} ",
+					com.anfelisa.category.data.CategoryCreationData.class);
 			HttpResponse<Object> response_4 = 
 			this.httpPost(
-				"/users/register", 
+				"/category/create", 
 			 	payload_4,
-				null,
+				authorization("Annette-${testId}", "password"),
 				uuid,
 				null
 			);
 			
 			if (response_4.getStatusCode() >= 400) {
-				String message = "GIVEN RegisterUserAdmin fails\n" + response_4.getStatusMessage();
-				LOG.error("GIVEN: RegisterUserAdmin fails due to {} in {} ms", message, response_4.getDuration());
+				String message = "GIVEN CreateCategorySecondLevel fails\n" + response_4.getStatusMessage();
+				LOG.error("GIVEN: CreateCategorySecondLevel fails due to {} in {} ms", message, response_4.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUserAdmin success in {} ms", response_4.getDuration());
-			addToMetrics("RegisterUser", response_4.getDuration());
+			LOG.info("GIVEN: CreateCategorySecondLevel success in {} ms", response_4.getDuration());
+			addToMetrics("CreateCategory", response_4.getDuration());
 		} else {
-			LOG.info("GIVEN: prerequisite for RegisterUserAdmin not met");
+			LOG.info("GIVEN: prerequisite for CreateCategorySecondLevel not met");
 		}
 
 	}
 	
 	private HttpResponse<Object> when() throws Exception {
 		String uuid = this.randomUUID();
-		com.anfelisa.card.data.UpdateCardPriorityPayload payload_0 = objectMapper.readValue("{" +
-			"\"cardId\" : \"c1-" + this.getTestId() + "\"," + 
-			"\"priority\" : 1} ",
-				com.anfelisa.card.data.UpdateCardPriorityPayload.class);
-		com.anfelisa.card.data.CardUpdatePriorityData data_0 = objectMapper.readValue("{" +
+		com.anfelisa.category.data.MoveCategoryPayload payload_0 = objectMapper.readValue("{" +
+			"\"movedCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+			"\"targetCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
+				com.anfelisa.category.data.MoveCategoryPayload.class);
+		com.anfelisa.category.data.CategoryMoveData data_0 = objectMapper.readValue("{" +
 		"\"uuid\" : \"" + uuid + "\"," + 
-		"\"cardId\" : \"c1-" + this.getTestId() + "\"," + 
-		"\"priority\" : 1} ",
-				com.anfelisa.card.data.CardUpdatePriorityData.class);
+		"\"movedCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+		"\"targetCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
+				com.anfelisa.category.data.CategoryMoveData.class);
 		HttpResponse<Object> response = 
 		this.httpPut(
-			"/card/update-priority", 
+			"/category/move", 
 		 	payload_0,
-			authorization("Admin", "admin-password"),
+			authorization("Annette-${testId}", "password"),
 			uuid,
 			null
 		);
 		
-		LOG.info("WHEN: UpdateCardPriority finished in {} ms", response.getDuration());
+		LOG.info("WHEN: MoveCategory finished in {} ms", response.getDuration());
 		if (response.getStatusCode() >= 200 && response.getStatusCode() < 300) {
-			addToMetrics("UpdateCardPriority", response.getDuration());
+			addToMetrics("MoveCategory", response.getDuration());
 		}
 		return response;
 	}
@@ -239,11 +229,11 @@ public abstract class AbstractUpdateCardPriorityNoAccessToCategoryScenario exten
 			LOG.error("THEN: status " + response.getStatusCode() + " failed: " + response.getStatusMessage());
 			assertFail(response.getStatusMessage());
 		}
-		if (response.getStatusCode() != 401) {
-			LOG.error("THEN: status " + response.getStatusCode() + " failed, expected 401: " + response.getStatusMessage());
+		if (response.getStatusCode() != 400) {
+			LOG.error("THEN: status " + response.getStatusCode() + " failed, expected 400: " + response.getStatusMessage());
 			assertFail(response.getStatusMessage());
 		} else {
-			LOG.info("THEN: status 401 passed");
+			LOG.info("THEN: status 400 passed");
 		}
 		
 	}
@@ -252,40 +242,73 @@ public abstract class AbstractUpdateCardPriorityNoAccessToCategoryScenario exten
 	public void runTest() throws Exception {
 		given();
 			
-		if (prerequisite("UpdateCardPriorityNoAccessToCategory")) {
+		if (prerequisite("MoveCategoryNotSelf")) {
 			HttpResponse<Object> response = when();
 
 			then(response);
 			
-			this.wasNotUpdated();
+			this.thirdCategoryWasNotTouched();
+			this.secondCategoryWasNotTouched();
+			this.firstCategoryWasNotTouched();
 	
 		} else {
-			LOG.info("WHEN: prerequisite for UpdateCardPriorityNoAccessToCategory not met");
+			LOG.info("WHEN: prerequisite for MoveCategoryNotSelf not met");
 		}
 	}
 	
 	
-	private void wasNotUpdated() throws Exception {
-		com.anfelisa.card.models.ICardModel actual = daoProvider.getCardDao().selectByPrimaryKey(handle, "c1-" + this.getTestId() + "");
+	private void thirdCategoryWasNotTouched() throws Exception {
+		com.anfelisa.category.models.ICategoryModel actual = daoProvider.getCategoryDao().selectByCategoryId(handle, "cat3-" + this.getTestId() + "");
 		
-		com.anfelisa.card.models.ICardModel expected = objectMapper.readValue("{" +
-			"\"cardAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
-			"\"cardId\" : \"c1-" + this.getTestId() + "\"," + 
-			"\"cardIndex\" : 1," + 
-			"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-			"\"given\" : \"given\"," + 
-			"\"image\" : \"image\"," + 
-			"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
-			"\"wanted\" : \"wanted\"} ",
-		com.anfelisa.card.models.CardModel.class);
+		com.anfelisa.category.models.ICategoryModel expected = objectMapper.readValue("{" +
+			"\"categoryAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
+			"\"categoryId\" : \"cat3-" + this.getTestId() + "\"," + 
+			"\"categoryIndex\" : 1," + 
+			"\"categoryName\" : \"level 2 #1\"," + 
+			"\"dictionaryLookup\" : false," + 
+			"\"parentCategoryId\" : \"cat2-" + this.getTestId() + "\"," + 
+			"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
+		com.anfelisa.category.models.CategoryModel.class);
 		assertThat(actual, expected);
 	
-		LOG.info("THEN: wasNotUpdated passed");
+		LOG.info("THEN: thirdCategoryWasNotTouched passed");
+	}
+	private void secondCategoryWasNotTouched() throws Exception {
+		com.anfelisa.category.models.ICategoryModel actual = daoProvider.getCategoryDao().selectByCategoryId(handle, "cat2-" + this.getTestId() + "");
+		
+		com.anfelisa.category.models.ICategoryModel expected = objectMapper.readValue("{" +
+			"\"categoryAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
+			"\"categoryId\" : \"cat2-" + this.getTestId() + "\"," + 
+			"\"categoryIndex\" : 2," + 
+			"\"categoryName\" : \"level 1 #2\"," + 
+			"\"dictionaryLookup\" : false," + 
+			"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+			"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
+		com.anfelisa.category.models.CategoryModel.class);
+		assertThat(actual, expected);
+	
+		LOG.info("THEN: secondCategoryWasNotTouched passed");
+	}
+	private void firstCategoryWasNotTouched() throws Exception {
+		com.anfelisa.category.models.ICategoryModel actual = daoProvider.getCategoryDao().selectByCategoryId(handle, "cat1-" + this.getTestId() + "");
+		
+		com.anfelisa.category.models.ICategoryModel expected = objectMapper.readValue("{" +
+			"\"categoryAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
+			"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
+			"\"categoryIndex\" : 1," + 
+			"\"categoryName\" : \"level 1 #1\"," + 
+			"\"dictionaryLookup\" : false," + 
+			"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+			"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
+		com.anfelisa.category.models.CategoryModel.class);
+		assertThat(actual, expected);
+	
+		LOG.info("THEN: firstCategoryWasNotTouched passed");
 	}
 		
 	@Override
 	protected String scenarioName() {
-		return "UpdateCardPriorityNoAccessToCategory";
+		return "MoveCategoryNotSelf";
 	}
 	
 }

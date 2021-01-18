@@ -19,7 +19,8 @@ public class ActiveCardListMapper implements RowMapper<IActiveCardListModel> {
 		return new ActiveCardListModel(
 			r.getString("userId"),
 			r.getString("boxId"),
-			null
+			null,
+			r.getBoolean("editable")
 		);
 	}
 }

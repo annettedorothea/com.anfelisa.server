@@ -15,12 +15,14 @@ public class ActiveCardListData extends AbstractActiveCardListData implements IA
 		@JsonProperty("userId") String userId, 
 		@JsonProperty("boxId") String boxId, 
 		@JsonProperty("cardList") java.util.List<com.anfelisa.box.models.ICardWithStatisticsModel> cardList, 
+		@JsonProperty("editable") Boolean editable, 
 		@JsonProperty("uuid") String uuid
 	) {
 		super(
 			userId,
 			boxId,
 			cardList,
+			editable,
 			uuid
 		);
 	}
@@ -44,6 +46,7 @@ public class ActiveCardListData extends AbstractActiveCardListData implements IA
 			cardListList.add(com.anfelisa.box.data.CardWithStatisticsData.generateTestData());
 		}
 		testData.setCardList(cardListList);
+		testData.setEditable(random.nextBoolean());
 		return testData;
 	}
 	

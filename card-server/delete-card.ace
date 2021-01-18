@@ -51,6 +51,21 @@ scenarios
 		persistence
 			cardWasNotDeleted Card selectBy(cardId: "c1-${testId}") shouldBe notNull
 		
+	DeleteCardNoEditingAccessToCategory
+		GIVEN
+			com.anfelisa.card.createcard.CreateCard
+			com.anfelisa.user.registeruser.RegisterTwoUsers excludeGIVEN
+			com.anfelisa.category.inviteusertocategory.InviteUserToCategory excludeGIVEN
+		WHEN
+			com.anfelisa.card.DeleteCard
+				{
+					cardId: "c1-${testId}"
+				}
+				authorization "Anne-${testId}" : "pw"
+		THEN 401
+		persistence
+			cardWasNotDeleted Card selectBy(cardId: "c1-${testId}") shouldBe notNull
+		
 	DeleteCardUnauthorized
 		GIVEN
 			com.anfelisa.card.createcard.CreateCard

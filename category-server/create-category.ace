@@ -219,6 +219,23 @@ scenarios
 		persistence 
 			categoryWasNotCreated Category selectBy ( categoryId: "lala-${testId}" ) shouldBe null
 
+	CreateCategoryUnauthorizedNoEditingAccess
+		GIVEN
+			com.anfelisa.box.createbox.CreateBoxMinimal
+			com.anfelisa.user.registeruser.RegisterTwoUsers excludeGIVEN
+			com.anfelisa.category.inviteusertocategory.InviteUserToCategory excludeGIVEN
+		WHEN
+			com.anfelisa.category.CreateCategory
+				uuid "lala-${testId}"
+				{
+					categoryName: "lala",
+					parentCategoryId: "boxId-${testId}"
+				}
+				authorization "Anne-${testId}" : "pw"
+		THEN 401
+		persistence 
+			categoryWasNotCreated Category selectBy ( categoryId: "lala-${testId}" ) shouldBe null
+
 	CreateCategoryAsAdmin
 		GIVEN
 			com.anfelisa.box.createbox.CreateBoxMinimalAsAdmin

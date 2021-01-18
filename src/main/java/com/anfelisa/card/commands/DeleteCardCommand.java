@@ -29,7 +29,7 @@ public class DeleteCardCommand extends AbstractDeleteCardCommand {
 		}
 		IUserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao()
 				.selectByCategoryIdAndUserId(readonlyHandle, card.getRootCategoryId(), commandData.getUserId());
-		if (access == null) {
+		if (access == null || !access.getEditable()) {
 			throwSecurityException();
 		}
 		this.commandData.setCardIndex(card.getCardIndex());

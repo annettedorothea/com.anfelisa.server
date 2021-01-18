@@ -362,3 +362,66 @@ scenarios
 				}
 				authorization "Admin" : "admin-password"
 		THEN 401
+
+	GetCategoryTreeInvitedUser
+		GIVEN
+			com.anfelisa.category.createcategory.CreateCategorySecondLevel
+			com.anfelisa.user.registeruser.RegisterTwoUsers excludeGIVEN
+			com.anfelisa.category.inviteusertocategory.InviteUserToCategory excludeGIVEN
+		WHEN
+			com.anfelisa.category.GetCategoryTree
+				{
+					rootCategoryId: "boxId-${testId}",
+					filterNonScheduled: false
+				}
+				authorization "Anne-${testId}" : "pw"
+		THEN 200
+			response shouldBe {
+				rootCategory : {
+					categoryId: "boxId-${testId}",
+					categoryIndex: null,
+					categoryName: "cat",
+					dictionaryLookup: false,
+					empty: false,
+					rootCategoryId: "boxId-${testId}",
+					editable: false,
+					childCategories: [
+						{
+							categoryId: "cat1-${testId}",
+							categoryIndex: 1,
+							categoryName: "level 1 #1",
+							dictionaryLookup: false,
+							empty: true,
+							parentCategoryId: "boxId-${testId}",
+							rootCategoryId: "boxId-${testId}",
+							editable: false,
+							childCategories: []
+						},
+						{
+							categoryId: "cat2-${testId}",
+							categoryIndex: 2,
+							categoryName: "level 1 #2",
+							dictionaryLookup: false,
+							empty: false,
+							parentCategoryId: "boxId-${testId}",
+							rootCategoryId: "boxId-${testId}",
+							editable: false,
+							childCategories : [
+								{
+									categoryId: "cat3-${testId}",
+									categoryIndex: 1,
+									categoryName: "level 2 #1",
+									dictionaryLookup: false,
+									empty: true,
+									parentCategoryId: "cat2-${testId}",
+									rootCategoryId: "boxId-${testId}",
+									editable: false,
+									childCategories: []
+								}
+							]
+						}
+					]
+				}
+			}
+
+		

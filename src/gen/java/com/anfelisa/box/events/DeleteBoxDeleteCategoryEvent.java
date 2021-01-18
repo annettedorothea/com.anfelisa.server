@@ -14,10 +14,10 @@ import de.acegen.CustomAppConfiguration;
 
 import com.anfelisa.box.data.IDeleteBoxData;
 
-public class DeleteBoxOkEvent extends Event<IDeleteBoxData> {
+public class DeleteBoxDeleteCategoryEvent extends Event<IDeleteBoxData> {
 
-	public DeleteBoxOkEvent(IDeleteBoxData eventData, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.box.events.DeleteBoxOkEvent", eventData, daoProvider, viewProvider, appConfiguration);
+	public DeleteBoxDeleteCategoryEvent(IDeleteBoxData eventData, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.box.events.DeleteBoxDeleteCategoryEvent", eventData, daoProvider, viewProvider, appConfiguration);
 	}
 
 }

@@ -28,7 +28,7 @@ public class CreateCategoryCommand extends AbstractCreateCategoryCommand {
 		IUserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao()
 				.selectByCategoryIdAndUserId(readonlyHandle, parentCategory.getRootCategoryId(),
 						commandData.getUserId());
-		if (access == null) {
+		if (access == null || !access.getEditable()) {
 			throwSecurityException();
 		}
 		commandData.setRootCategoryId(parentCategory.getRootCategoryId());

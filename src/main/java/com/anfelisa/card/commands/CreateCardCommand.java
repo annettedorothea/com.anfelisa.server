@@ -30,7 +30,7 @@ public class CreateCardCommand extends AbstractCreateCardCommand {
 		}
 		IUserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao()
 				.selectByCategoryIdAndUserId(readonlyHandle, category.getRootCategoryId(), commandData.getUserId());
-		if (access == null) {
+		if (access == null || !access.getEditable()) {
 			throwSecurityException();
 		}
 		commandData.setRootCategoryId(category.getRootCategoryId());

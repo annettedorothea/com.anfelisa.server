@@ -131,12 +131,14 @@ ACE
 		authorize
 		queryParams 
 			NotNull boxId
-		on ok ( 
+		on deleteBox ( 
 			ScheduledCard.deleteAll 
 			ReinforceCard.deleteAll 
-			RootCategory.deleteAll 
 			Box.deleteBox 
 			UserAccessToCategory.delete
+		)
+		on deleteCategory (
+			RootCategory.deleteAll 
 		)
 		
 	LoadAllActiveCards<ActiveCardList>
@@ -146,6 +148,7 @@ ACE
 			NotNull boxId
 		response 
 			cardList
+			editable
 	
 views 
 	Box {
@@ -387,5 +390,6 @@ models
 		String userId
 		String boxId
 		List CardWithStatistics cardList
+		Boolean editable
 	}
 

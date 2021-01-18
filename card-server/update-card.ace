@@ -233,7 +233,7 @@ scenarios
 				wanted: "wanted"
 			}
 
-	UpdateCardNoAccessToCategory
+	UpdateCardNoAccessToCard
 		GIVEN
 			com.anfelisa.card.createcard.CreateCard
 			com.anfelisa.user.registeruser.RegisterUserAdmin
@@ -246,6 +246,34 @@ scenarios
 					wanted: "wanted"
 				}
 				authorization "Admin" : "admin-password"
+		THEN 401
+		persistence
+			wasNotUpdated Card selectByPrimaryKey ( cardId : "c1-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c1-${testId}",
+				cardIndex: 1,
+				categoryId: "cat1-${testId}",
+				given: "given",
+				image: "image",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "wanted"
+			}
+		
+	UpdateCardNoEditingAccessToCard
+		GIVEN
+			com.anfelisa.card.createcard.CreateCard
+			com.anfelisa.user.registeruser.RegisterTwoUsers excludeGIVEN
+			com.anfelisa.category.inviteusertocategory.InviteUserToCategory excludeGIVEN
+		WHEN
+			com.anfelisa.card.UpdateCard
+				{
+					cardId: "c1-${testId}",
+					given: "given-updated",
+					image: "image-updated",
+					wanted: "wanted-updated"
+				}
+				authorization "Anne-${testId}" : "pw"
 		THEN 401
 		persistence
 			wasNotUpdated Card selectByPrimaryKey ( cardId : "c1-${testId}" ) shouldBe

@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import com.anfelisa.box.data.IDeleteBoxData;
 import com.anfelisa.box.models.IBoxModel;
+import com.anfelisa.category.models.IUserAccessToCategoryModel;
 
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
@@ -29,9 +30,15 @@ public class DeleteBoxCommand extends AbstractDeleteBoxCommand {
 		if (!box.getUserId().equals(commandData.getUserId())) {
 			throwSecurityException();
 		}
-		
-		this.commandData.setRootCategoryId(box.getCategoryId());
-		this.addOkOutcome();
+		IUserAccessToCategoryModel access = daoProvider.getUserAccessToCategoryDao().selectByCategoryIdAndUserId(readonlyHandle, box.getCategoryId(), commandData.getUserId());
+		if (access == null) {
+			throwSecurityException();
+		}
+		if (access.getEditable()) {
+			this.commandData.setRootCategoryId(box.getCategoryId());
+			this.addDeleteCategoryOutcome();
+		}
+		this.addDeleteBoxOutcome();
 	}
 
 }

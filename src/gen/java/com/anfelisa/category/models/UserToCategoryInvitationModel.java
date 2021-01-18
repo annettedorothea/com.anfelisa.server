@@ -28,6 +28,8 @@ public class UserToCategoryInvitationModel implements IUserToCategoryInvitationM
 
 	private String invitedUserId;
 
+	private com.anfelisa.box.models.IBoxModel boxForInvitedUser;
+
 
 	public UserToCategoryInvitationModel() {
 	}
@@ -36,12 +38,14 @@ public class UserToCategoryInvitationModel implements IUserToCategoryInvitationM
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("userId") String userId,
 		@JsonProperty("invitedUsername") String invitedUsername,
-		@JsonProperty("invitedUserId") String invitedUserId
+		@JsonProperty("invitedUserId") String invitedUserId,
+		@JsonProperty("boxForInvitedUser") com.anfelisa.box.models.IBoxModel boxForInvitedUser
 	) {
 		this.categoryId = categoryId;
 		this.userId = userId;
 		this.invitedUsername = invitedUsername;
 		this.invitedUserId = invitedUserId;
+		this.boxForInvitedUser = boxForInvitedUser;
 	}
 
 	@JsonProperty
@@ -74,6 +78,14 @@ public class UserToCategoryInvitationModel implements IUserToCategoryInvitationM
 	}
 	public void setInvitedUserId(String invitedUserId) {
 		this.invitedUserId = invitedUserId;
+	}
+	
+	@JsonProperty
+	public com.anfelisa.box.models.IBoxModel getBoxForInvitedUser() {
+		return this.boxForInvitedUser;
+	}
+	public void setBoxForInvitedUser(com.anfelisa.box.models.IBoxModel boxForInvitedUser) {
+		this.boxForInvitedUser = boxForInvitedUser;
 	}
 	
 

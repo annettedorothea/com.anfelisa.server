@@ -96,24 +96,24 @@ public class AppRegistration {
 			viewProvider.reinforceCardView.clear((com.anfelisa.box.data.InitMyBoxesDataData) dataContainer, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.box.events.DeleteBoxOkEvent", (dataContainer, handle) -> {
+		viewProvider.addConsumer("com.anfelisa.box.events.DeleteBoxDeleteBoxEvent", (dataContainer, handle) -> {
 			viewProvider.scheduledCardView.deleteAll((com.anfelisa.box.data.DeleteBoxData) dataContainer, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.box.events.DeleteBoxOkEvent", (dataContainer, handle) -> {
+		viewProvider.addConsumer("com.anfelisa.box.events.DeleteBoxDeleteBoxEvent", (dataContainer, handle) -> {
 			viewProvider.reinforceCardView.deleteAll((com.anfelisa.box.data.DeleteBoxData) dataContainer, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.box.events.DeleteBoxOkEvent", (dataContainer, handle) -> {
-			viewProvider.rootCategoryView.deleteAll((com.anfelisa.box.data.DeleteBoxData) dataContainer, handle);
-		});
-		
-		viewProvider.addConsumer("com.anfelisa.box.events.DeleteBoxOkEvent", (dataContainer, handle) -> {
+		viewProvider.addConsumer("com.anfelisa.box.events.DeleteBoxDeleteBoxEvent", (dataContainer, handle) -> {
 			viewProvider.boxView.deleteBox((com.anfelisa.box.data.DeleteBoxData) dataContainer, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.box.events.DeleteBoxOkEvent", (dataContainer, handle) -> {
+		viewProvider.addConsumer("com.anfelisa.box.events.DeleteBoxDeleteBoxEvent", (dataContainer, handle) -> {
 			viewProvider.userAccessToCategoryView.delete((com.anfelisa.box.data.DeleteBoxData) dataContainer, handle);
+		});
+		
+		viewProvider.addConsumer("com.anfelisa.box.events.DeleteBoxDeleteCategoryEvent", (dataContainer, handle) -> {
+			viewProvider.rootCategoryView.deleteAll((com.anfelisa.box.data.DeleteBoxData) dataContainer, handle);
 		});
 		
 	}

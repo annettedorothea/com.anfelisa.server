@@ -72,6 +72,31 @@ scenarios
 				rootCategoryId: "boxId-${testId}"				
 			}
 		
+	UpdateCategoryNoEditingAccess
+		GIVEN
+			com.anfelisa.category.createcategory.CreateCategory
+			com.anfelisa.user.registeruser.RegisterTwoUsers excludeGIVEN
+			com.anfelisa.category.inviteusertocategory.InviteUserToCategory excludeGIVEN
+		WHEN
+			com.anfelisa.category.UpdateCategory
+				{
+					categoryName: "changed",
+					categoryId: "cat1-${testId}"
+				}
+				authorization "Anne-${testId}" : "pw"
+		THEN 401
+		persistence
+			categoryWasNotChanged Category selectBy ( categoryId: "cat1-${testId}") shouldBe
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "cat1-${testId}",
+				categoryIndex: 1,
+				categoryName: "level 1 #1",
+				dictionaryLookup: false,
+				parentCategoryId: "boxId-${testId}",
+				rootCategoryId: "boxId-${testId}"				
+			}
+		
 	UpdateCategoryDoesNotExist
 		GIVEN
 			com.anfelisa.category.createcategory.CreateCategory

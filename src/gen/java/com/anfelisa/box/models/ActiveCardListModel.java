@@ -26,6 +26,8 @@ public class ActiveCardListModel implements IActiveCardListModel {
 
 	private java.util.List<com.anfelisa.box.models.ICardWithStatisticsModel> cardList;
 
+	private Boolean editable = false;
+
 
 	public ActiveCardListModel() {
 	}
@@ -33,11 +35,13 @@ public class ActiveCardListModel implements IActiveCardListModel {
 	public ActiveCardListModel(
 		@JsonProperty("userId") String userId,
 		@JsonProperty("boxId") String boxId,
-		@JsonProperty("cardList") java.util.List<com.anfelisa.box.models.ICardWithStatisticsModel> cardList
+		@JsonProperty("cardList") java.util.List<com.anfelisa.box.models.ICardWithStatisticsModel> cardList,
+		@JsonProperty("editable") Boolean editable
 	) {
 		this.userId = userId;
 		this.boxId = boxId;
 		this.cardList = cardList;
+		this.editable = editable;
 	}
 
 	@JsonProperty
@@ -62,6 +66,14 @@ public class ActiveCardListModel implements IActiveCardListModel {
 	}
 	public void setCardList(java.util.List<com.anfelisa.box.models.ICardWithStatisticsModel> cardList) {
 		this.cardList = cardList;
+	}
+	
+	@JsonProperty
+	public Boolean getEditable() {
+		return this.editable;
+	}
+	public void setEditable(Boolean editable) {
+		this.editable = editable;
 	}
 	
 

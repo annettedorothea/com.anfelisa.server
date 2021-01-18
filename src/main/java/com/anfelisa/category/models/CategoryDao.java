@@ -33,7 +33,7 @@ public class CategoryDao extends AbstractCategoryDao {
 						+ "(select count(categoryid) from public.category child where child.parentcategoryid = c.categoryid) = 0 as empty, "
 						+ "false as isRoot,"
 						+ "null as nonScheduledCount, "
-						+ "(select editable from useraccesstocategory where userid = :userid and rootcategoryid = c.rootcategoryid) as editable "
+						+ "(select editable from useraccesstocategory where userid = :userid and categoryid = c.rootcategoryid) as editable "
 						+ "FROM public.category c WHERE parentcategoryid = :parentcategoryid order by categoryindex, categoryname")
 				.bind("parentcategoryid", parentCategoryId)
 				.bind("userid", userId)
@@ -123,6 +123,16 @@ public class CategoryDao extends AbstractCategoryDao {
 				"SELECT categoryid FROM public.category WHERE rootcategoryid = :rootcategoryid")
 				.bind("rootcategoryid", rootCategoryId).mapTo(String.class).list();
 	}
+
+	public List<String> search(PersistenceHandle handle, String searchString, String categoryId) {
+		String search = searchString + "%";
+		return handle.getHandle().createQuery("SELECT username FROM public.user u where username like :search and "
+				+ "(select userid from public.useraccesstocategory uac where categoryid = :categoryid and uac.userid = u.userid ) is null order by username limit 10")
+				.bind("search", search)
+				.bind("categoryid", categoryId)
+				.mapTo(String.class).list();
+	}
+	
 
 }
 

@@ -34,7 +34,7 @@ public class UpdateCardPriorityCommand extends AbstractUpdateCardPriorityCommand
 		}
 		IUserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao()
 				.selectByCategoryIdAndUserId(readonlyHandle, card.getRootCategoryId(), commandData.getUserId());
-		if (access == null) {
+		if (access == null || !access.getEditable()) {
 			throwSecurityException();
 		}
 		if (this.commandData.getPriority() != null

@@ -262,6 +262,60 @@ scenarios
 				wanted: "wanted"
 			}
 
+	MoveCardsNoEditingAccessToCard
+		GIVEN
+			com.anfelisa.card.createcard.CreateCard
+			com.anfelisa.category.createcategory.CreateSecondCategory excludeGIVEN
+			com.anfelisa.user.registeruser.RegisterTwoUsers excludeGIVEN
+			com.anfelisa.category.inviteusertocategory.InviteUserToCategory excludeGIVEN
+		WHEN
+			com.anfelisa.card.MoveCards
+				{
+					categoryId: "cat2-${testId}",
+					cardIdList: [ "c1-${testId}" ]
+				}
+				authorization "Anne-${testId}" : "pw"
+		THEN 401
+		persistence
+			firstCard Card selectByPrimaryKey ( cardId : "c1-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c1-${testId}",
+				cardIndex: 1,
+				categoryId: "cat1-${testId}",
+				given: "given",
+				image: "image",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "wanted"
+			}
+
+	MoveCardsNoEditingAccessToCategory
+		GIVEN
+			com.anfelisa.card.createcard.CreateCard
+			com.anfelisa.category.createcategory.CreateSecondCategory excludeGIVEN
+			com.anfelisa.user.registeruser.RegisterTwoUsers excludeGIVEN
+			com.anfelisa.category.inviteusertocategory.InviteUserToCategory excludeGIVEN
+		WHEN
+			com.anfelisa.card.MoveCards
+				{
+					categoryId: "cat2-${testId}",
+					cardIdList: [ "c1-${testId}" ]
+				}
+				authorization "Anne-${testId}" : "pw"
+		THEN 401
+		persistence
+			firstCard Card selectByPrimaryKey ( cardId : "c1-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c1-${testId}",
+				cardIndex: 1,
+				categoryId: "cat1-${testId}",
+				given: "given",
+				image: "image",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "wanted"
+			}
+
 	MoveCardsUnauthorized
 		GIVEN
 			com.anfelisa.card.createcard.CreateFifthCard

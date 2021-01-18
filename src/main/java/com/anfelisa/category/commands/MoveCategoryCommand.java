@@ -16,32 +16,32 @@ public class MoveCategoryCommand extends AbstractMoveCategoryCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(MoveCategoryCommand.class);
 
-	public MoveCategoryCommand(ICategoryMoveData actionData, IDaoProvider daoProvider,
-			ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+	public MoveCategoryCommand(ICategoryMoveData actionData, IDaoProvider daoProvider, ViewProvider viewProvider,
+			CustomAppConfiguration appConfiguration) {
 		super(actionData, daoProvider, viewProvider, appConfiguration);
 	}
 
 	@Override
 	protected void executeCommand(PersistenceHandle readonlyHandle) {
-		IUserAccessToCategoryModel accessToMovedCategory = this.daoProvider.getUserAccessToCategoryDao()
-				.hasUserAccessTo(readonlyHandle,  commandData.getMovedCategoryId(), commandData.getUserId());
-		if (accessToMovedCategory == null || accessToMovedCategory.getEditable() == false) {
-			throwSecurityException();
-		}
-		IUserAccessToCategoryModel accessToTargetCategory = this.daoProvider.getUserAccessToCategoryDao()
-				.hasUserAccessTo(readonlyHandle,  commandData.getTargetCategoryId(), commandData.getUserId());
-		if (accessToTargetCategory == null || accessToTargetCategory.getEditable() == false) {
-			throwSecurityException();
-		}
-
-		ICategoryModel movedCategory = this.daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle, 
+		ICategoryModel movedCategory = this.daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
 				commandData.getMovedCategoryId());
 
-		ICategoryModel targetCategory = this.daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle, 
+		ICategoryModel targetCategory = this.daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
 				commandData.getTargetCategoryId());
 
 		if (movedCategory == null || targetCategory == null) {
 			throwIllegalArgumentException("movedCategoriesMustNotBeNull");
+		}
+
+		IUserAccessToCategoryModel accessToMovedCategory = this.daoProvider.getUserAccessToCategoryDao()
+				.hasUserAccessTo(readonlyHandle, commandData.getMovedCategoryId(), commandData.getUserId());
+		if (accessToMovedCategory == null || !accessToMovedCategory.getEditable()) {
+			throwSecurityException();
+		}
+		IUserAccessToCategoryModel accessToTargetCategory = this.daoProvider.getUserAccessToCategoryDao()
+				.hasUserAccessTo(readonlyHandle, commandData.getTargetCategoryId(), commandData.getUserId());
+		if (accessToTargetCategory == null || !accessToTargetCategory.getEditable()) {
+			throwSecurityException();
 		}
 
 		if (!movedCategory.getRootCategoryId().equals(targetCategory.getRootCategoryId())) {
@@ -62,8 +62,8 @@ public class MoveCategoryCommand extends AbstractMoveCategoryCommand {
 			this.commandData.setCategoryIndexWhereRemoved(movedCategory.getCategoryIndex());
 			this.commandData.setParentCategoryIdWhereRemoved(movedCategory.getParentCategoryId());
 
-			Integer categoryIndexInTargetCategory = this.daoProvider.getCategoryDao().selectMaxIndexInCategory(readonlyHandle, 
-					commandData.getTargetCategoryId());
+			Integer categoryIndexInTargetCategory = this.daoProvider.getCategoryDao()
+					.selectMaxIndexInCategory(readonlyHandle, commandData.getTargetCategoryId());
 			if (categoryIndexInTargetCategory == null) {
 				categoryIndexInTargetCategory = 1;
 			} else {
@@ -85,8 +85,9 @@ public class MoveCategoryCommand extends AbstractMoveCategoryCommand {
 		if (child.getParentCategoryId().equals(parent.getCategoryId())) {
 			return true;
 		}
-		return isChildOf(parent, this.daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle, 
-				child.getParentCategoryId()), readonlyHandle);
+		return isChildOf(parent,
+				this.daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle, child.getParentCategoryId()),
+				readonlyHandle);
 	}
 
 }
