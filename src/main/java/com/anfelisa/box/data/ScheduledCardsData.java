@@ -18,6 +18,7 @@ public class ScheduledCardsData extends AbstractScheduledCardsData implements IS
 		@JsonProperty("scheduledDate") java.time.LocalDateTime scheduledDate, 
 		@JsonProperty("userId") String userId, 
 		@JsonProperty("boxId") String boxId, 
+		@JsonProperty("reverse") Boolean reverse, 
 		@JsonProperty("uuid") String uuid
 	) {
 		super(
@@ -27,6 +28,7 @@ public class ScheduledCardsData extends AbstractScheduledCardsData implements IS
 			scheduledDate,
 			userId,
 			boxId,
+			reverse,
 			uuid
 		);
 	}
@@ -63,6 +65,7 @@ public class ScheduledCardsData extends AbstractScheduledCardsData implements IS
 		testData.setScheduledDate(random.nextBoolean() ? java.time.LocalDateTime.now().plusMinutes(random.nextInt(60)) : java.time.LocalDateTime.now().minusMinutes(random.nextInt(60)) );
 		testData.setUserId(randomString(random));
 		testData.setBoxId(randomString(random));
+		testData.setReverse(random.nextBoolean());
 		return testData;
 	}
 	

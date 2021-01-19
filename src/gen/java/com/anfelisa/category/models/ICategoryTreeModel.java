@@ -32,6 +32,12 @@ public interface ICategoryTreeModel {
 	Boolean getEditable();
 	void setEditable(Boolean editable);
 	
+	Boolean getReverse();
+	void setReverse(Boolean reverse);
+	
+	Boolean getReverseBoxExists();
+	void setReverseBoxExists(Boolean reverseBoxExists);
+	
 	
 }
 

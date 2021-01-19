@@ -35,12 +35,18 @@ public class GetCategoryTreeAction extends AbstractGetCategoryTreeAction {
 				actionData.getRootCategoryId(), actionData.getUserId());
 		loadChildren(rootCategory, rootCategory.getCategoryId(), readonlyHandle);
 		
-		IBoxModel box = daoProvider.getBoxDao().selectByCategoryIdAndUserId(readonlyHandle, rootCategory.getCategoryId(), actionData.getUserId());
+		IBoxModel box = daoProvider.getBoxDao().selectByCategoryIdAndUserId(readonlyHandle, rootCategory.getCategoryId(), actionData.getUserId(), actionData.getReverse());
+		if (box != null) {
+			throwIllegalArgumentException("boxNotFound");
+		}
 		
 		if (this.actionData.getFilterNonScheduled() != null && this.actionData.getFilterNonScheduled() && box != null) {
 			initNonScheduledCount(rootCategory, box.getBoxId(), this.actionData.getPriority(), readonlyHandle);
 		}
 		actionData.setRootCategory(rootCategory);
+
+		IBoxModel reverseBox = daoProvider.getBoxDao().selectByCategoryIdAndUserId(readonlyHandle, rootCategory.getCategoryId(), actionData.getUserId(), true);
+		this.actionData.setReverseBoxExists(reverseBox != null);
 	}
 
 	private void loadChildren(ICategoryTreeItemModel categoryItemModel, String rootCategoryId,

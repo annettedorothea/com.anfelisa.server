@@ -26,6 +26,8 @@ public interface ICardListData extends ICardListModel, IDataContainer {
 	
 	ICardListData withPriority(Integer priority);
 	
+	ICardListData withReverse(Boolean reverse);
+	
 	
 }
 

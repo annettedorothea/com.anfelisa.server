@@ -26,6 +26,8 @@ public interface IBoxData extends IBoxModel, IDataContainer {
 	
 	IBoxData withMaxCardsPerDay(Integer maxCardsPerDay);
 	
+	IBoxData withReverse(Boolean reverse);
+	
 	
 }
 

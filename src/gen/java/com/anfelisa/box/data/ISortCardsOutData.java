@@ -26,6 +26,8 @@ public interface ISortCardsOutData extends ISortCardsOutModel, IDataContainer {
 	
 	ISortCardsOutData withBoxId(String boxId);
 	
+	ISortCardsOutData withReverse(Boolean reverse);
+	
 	
 }
 

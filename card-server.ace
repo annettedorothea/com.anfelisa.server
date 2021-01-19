@@ -47,6 +47,7 @@ ACE
 			NotNull categoryId 
 			NotNull filterNonScheduled
 			priority
+			NotNull reverse
 		response
 			cardList
 			
@@ -171,6 +172,7 @@ models
 		String categoryId
 		Boolean filterNonScheduled
 		Integer priority
+		Boolean reverse
 	}
 	
 	CardWithInfo extends Card {

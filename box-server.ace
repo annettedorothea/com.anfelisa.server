@@ -17,6 +17,13 @@ ACE
 			maxInterval
 		on ok (RootCategory.insert UserAccessToCategory.grantAccess Box.createBox)
 
+	CreateReverseBox<BoxCreation>
+		POST "/box/create-reverse"  
+		authorize
+		payload 
+			NotNull boxId
+		on ok (Box.createBox)
+
 	UpdateBox<BoxUpdate> 
 		PUT "/box/update"  
 		authorize
@@ -52,6 +59,7 @@ ACE
 		authorize 
 		payload 
 			NotNull cardIds 
+			reverse
 		on ok (Box.scheduleCards)
 		on nullOrEmpty
 	
@@ -60,6 +68,24 @@ ACE
 		authorize 
 		payload 
 			NotNull cardIds 
+		on ok (Box.sortCardsOut ReinforceCard.sortOut)
+		on nullOrEmpty
+	
+	ScheduleActiveCards<ScheduledCards>
+		POST "/active-cards/schedule" 
+		authorize 
+		payload 
+			NotNull cardIds 
+			NotNull boxId
+		on ok (Box.scheduleCards)
+		on nullOrEmpty
+	
+	SortActiveCardsOut<SortCardsOut>
+		POST "/active-cards/sort-out" 
+		authorize 
+		payload 
+			NotNull cardIds 
+			NotNull boxId
 		on ok (Box.sortCardsOut ReinforceCard.sortOut)
 		on nullOrEmpty
 	
@@ -185,7 +211,7 @@ views
 		grantAccess(com.anfelisa.box.BoxCreation)
 		delete(com.anfelisa.box.DeleteBox)
 	}
-	
+
 models 
 	persistent Box {
 		Unique PrimaryKey NotNull String boxId
@@ -193,6 +219,7 @@ models
 		NotNull String categoryId references com.anfelisa.category.Category.categoryId
 		Integer maxInterval 
 		NotNull Integer maxCardsPerDay
+		NotNull Boolean reverse
 	}
 	
 	persistent ScheduledCard {
@@ -358,6 +385,7 @@ models
 		DateTime scheduledDate
 		String userId
 		String boxId
+		Boolean reverse
 	}
 	
 	SortCardsOut {
@@ -366,6 +394,7 @@ models
 		List String cardIds
 		String userId
 		String boxId
+		Boolean reverse
 	}
 	
 	DeleteBox {
@@ -375,6 +404,11 @@ models
 	}
 
 	BoxCreation extends com.anfelisa.category.Category, com.anfelisa.category.UserAccessToCategory, Box {
+		String username
+	}
+
+	ReverseBoxCreation {
+		String boxId
 		String username
 	}
 

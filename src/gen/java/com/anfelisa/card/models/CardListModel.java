@@ -30,6 +30,8 @@ public class CardListModel implements ICardListModel {
 
 	private Integer priority;
 
+	private Boolean reverse = false;
+
 
 	public CardListModel() {
 	}
@@ -39,13 +41,15 @@ public class CardListModel implements ICardListModel {
 		@JsonProperty("cardList") java.util.List<com.anfelisa.card.models.ICardWithInfoModel> cardList,
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("filterNonScheduled") Boolean filterNonScheduled,
-		@JsonProperty("priority") Integer priority
+		@JsonProperty("priority") Integer priority,
+		@JsonProperty("reverse") Boolean reverse
 	) {
 		this.userId = userId;
 		this.cardList = cardList;
 		this.categoryId = categoryId;
 		this.filterNonScheduled = filterNonScheduled;
 		this.priority = priority;
+		this.reverse = reverse;
 	}
 
 	@JsonProperty
@@ -86,6 +90,14 @@ public class CardListModel implements ICardListModel {
 	}
 	public void setPriority(Integer priority) {
 		this.priority = priority;
+	}
+	
+	@JsonProperty
+	public Boolean getReverse() {
+		return this.reverse;
+	}
+	public void setReverse(Boolean reverse) {
+		this.reverse = reverse;
 	}
 	
 

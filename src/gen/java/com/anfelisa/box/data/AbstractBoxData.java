@@ -38,13 +38,16 @@ public abstract class AbstractBoxData extends AbstractData implements IBoxData {
 	
 	private Integer maxCardsPerDay;
 	
+	private Boolean reverse = false;
+	
 
 	public AbstractBoxData(
 		@JsonProperty("boxId") String boxId,
 		@JsonProperty("userId") String userId,
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("maxInterval") Integer maxInterval,
-		@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay
+		@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay,
+		@JsonProperty("reverse") Boolean reverse
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
@@ -53,6 +56,7 @@ public abstract class AbstractBoxData extends AbstractData implements IBoxData {
 		this.categoryId = categoryId;
 		this.maxInterval = maxInterval;
 		this.maxCardsPerDay = maxCardsPerDay;
+		this.reverse = reverse;
 	}
 
 	public AbstractBoxData( String uuid ) {
@@ -116,6 +120,18 @@ public abstract class AbstractBoxData extends AbstractData implements IBoxData {
 	}
 	public IBoxData withMaxCardsPerDay(Integer maxCardsPerDay) {
 		this.maxCardsPerDay = maxCardsPerDay;
+		return this;
+	}
+	
+	@JsonProperty
+	public Boolean getReverse() {
+		return this.reverse;
+	}
+	public void setReverse(Boolean reverse) {
+		this.reverse = reverse;
+	}
+	public IBoxData withReverse(Boolean reverse) {
+		this.reverse = reverse;
 		return this;
 	}
 	

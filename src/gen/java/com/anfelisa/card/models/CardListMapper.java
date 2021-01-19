@@ -21,7 +21,8 @@ public class CardListMapper implements RowMapper<ICardListModel> {
 			null,
 			r.getString("categoryId"),
 			r.getBoolean("filterNonScheduled"),
-			r.getObject("priority") != null ? r.getInt("priority") : null
+			r.getObject("priority") != null ? r.getInt("priority") : null,
+			r.getBoolean("reverse")
 		);
 	}
 }

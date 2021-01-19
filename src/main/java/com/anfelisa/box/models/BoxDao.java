@@ -89,11 +89,13 @@ public class BoxDao extends AbstractBoxDao {
 				.map(new InitBoxesMapper()).list();
 	}
 
-	public IBoxModel selectByCategoryIdAndUserId(PersistenceHandle handle, String categoryId, String userId) {
+	public IBoxModel selectByCategoryIdAndUserId(PersistenceHandle handle, String categoryId, String userId, Boolean reverse) {
 		Optional<IBoxModel> optional = handle.getHandle().createQuery(
-				"SELECT boxid, userid, categoryid, maxinterval, maxcardsperday FROM public.box WHERE categoryid = :categoryid and userid = :userid")
+				"SELECT boxid, userid, categoryid, maxinterval, maxcardsperday, reverse FROM public.box "
+				+ "WHERE categoryid = :categoryid and userid = :userid and reverse = :reverse")
 				.bind("categoryid", categoryId)
 				.bind("userid", userId)
+				.bind("reverse", reverse)
 				.map(new BoxMapper())
 				.findFirst();
 		return optional.isPresent() ? optional.get() : null;

@@ -21,10 +21,13 @@ public class AppRegistration {
 	public static void registerResources(Environment environment, PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider) {
 		environment.jersey().register(new CreateBoxResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
+		environment.jersey().register(new CreateReverseBoxResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new UpdateBoxResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new GetBoxSettingsResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new ScheduleCardsResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new SortCardsOutResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
+		environment.jersey().register(new ScheduleActiveCardsResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
+		environment.jersey().register(new SortActiveCardsOutResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new ScoreCardResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new ScoreReinforceCardResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new InitMyBoxesForDayResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
@@ -48,6 +51,10 @@ public class AppRegistration {
 			viewProvider.boxView.createBox((com.anfelisa.box.data.BoxCreationData) dataContainer, handle);
 		});
 		
+		viewProvider.addConsumer("com.anfelisa.box.events.CreateReverseBoxOkEvent", (dataContainer, handle) -> {
+			viewProvider.boxView.createBox((com.anfelisa.box.data.BoxCreationData) dataContainer, handle);
+		});
+		
 		viewProvider.addConsumer("com.anfelisa.box.events.UpdateBoxOkEvent", (dataContainer, handle) -> {
 			viewProvider.boxView.updateBox((com.anfelisa.box.data.BoxUpdateData) dataContainer, handle);
 		});
@@ -65,6 +72,18 @@ public class AppRegistration {
 		});
 		
 		viewProvider.addConsumer("com.anfelisa.box.events.SortCardsOutOkEvent", (dataContainer, handle) -> {
+			viewProvider.reinforceCardView.sortOut((com.anfelisa.box.data.SortCardsOutData) dataContainer, handle);
+		});
+		
+		viewProvider.addConsumer("com.anfelisa.box.events.ScheduleActiveCardsOkEvent", (dataContainer, handle) -> {
+			viewProvider.boxView.scheduleCards((com.anfelisa.box.data.ScheduledCardsData) dataContainer, handle);
+		});
+		
+		viewProvider.addConsumer("com.anfelisa.box.events.SortActiveCardsOutOkEvent", (dataContainer, handle) -> {
+			viewProvider.boxView.sortCardsOut((com.anfelisa.box.data.SortCardsOutData) dataContainer, handle);
+		});
+		
+		viewProvider.addConsumer("com.anfelisa.box.events.SortActiveCardsOutOkEvent", (dataContainer, handle) -> {
 			viewProvider.reinforceCardView.sortOut((com.anfelisa.box.data.SortCardsOutData) dataContainer, handle);
 		});
 		

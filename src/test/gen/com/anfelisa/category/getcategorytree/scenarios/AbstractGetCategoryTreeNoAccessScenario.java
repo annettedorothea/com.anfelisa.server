@@ -181,7 +181,7 @@ public abstract class AbstractGetCategoryTreeNoAccessScenario extends BaseScenar
 				com.anfelisa.category.data.CategoryTreeData.class);
 		HttpResponse<com.anfelisa.category.data.GetCategoryTreeResponse> response = 
 		this.httpGet(
-			"/category/tree?rootCategoryId=" + data_0.getRootCategoryId() + "&filterNonScheduled=" + data_0.getFilterNonScheduled() + "&priority=" + data_0.getPriority() + "", 
+			"/category/tree?rootCategoryId=" + data_0.getRootCategoryId() + "&filterNonScheduled=" + data_0.getFilterNonScheduled() + "&priority=" + data_0.getPriority() + "&reverse=" + data_0.getReverse() + "", 
 			authorization("Admin", "admin-password"),
 			uuid,
 			com.anfelisa.category.data.GetCategoryTreeResponse.class

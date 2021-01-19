@@ -14,4 +14,7 @@
 	<column name="maxcardsperday" type="integer">
 		<constraints  nullable="false"  />
 	</column>
+	<column name="reverse" type="boolean">
+		<constraints  nullable="false"  />
+	</column>
 </createTable>

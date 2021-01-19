@@ -86,6 +86,7 @@ public class GetCategoryTreeResource extends Resource {
 			@QueryParam("rootCategoryId") String rootCategoryId, 
 			@QueryParam("filterNonScheduled") String filterNonScheduled, 
 			@QueryParam("priority") String priority, 
+			@QueryParam("reverse") String reverse, 
 			@QueryParam("uuid") String uuid) 
 			throws JsonProcessingException {
 		if (StringUtils.isBlank(uuid)) {
@@ -102,6 +103,10 @@ public class GetCategoryTreeResource extends Resource {
 			}
 			actionData.setFilterNonScheduled("null".equals(filterNonScheduled) ? null : Boolean.parseBoolean(filterNonScheduled));
 			actionData.setPriority("null".equals(priority) ? null : Integer.parseInt(priority));
+			if (StringUtils.isBlank(reverse) || "null".equals(reverse)) {
+				return badRequest("reverse is mandatory");
+			}
+			actionData.setReverse("null".equals(reverse) ? null : Boolean.parseBoolean(reverse));
 			actionData.setUserId(authUser.getUserId());
 			
 			com.anfelisa.category.actions.GetCategoryTreeAction action = new com.anfelisa.category.actions.GetCategoryTreeAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);

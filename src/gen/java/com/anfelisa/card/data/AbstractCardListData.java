@@ -38,13 +38,16 @@ public abstract class AbstractCardListData extends AbstractData implements ICard
 	
 	private Integer priority;
 	
+	private Boolean reverse = false;
+	
 
 	public AbstractCardListData(
 		@JsonProperty("userId") String userId,
 		@JsonProperty("cardList") java.util.List<com.anfelisa.card.models.ICardWithInfoModel> cardList,
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("filterNonScheduled") Boolean filterNonScheduled,
-		@JsonProperty("priority") Integer priority
+		@JsonProperty("priority") Integer priority,
+		@JsonProperty("reverse") Boolean reverse
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
@@ -53,6 +56,7 @@ public abstract class AbstractCardListData extends AbstractData implements ICard
 		this.categoryId = categoryId;
 		this.filterNonScheduled = filterNonScheduled;
 		this.priority = priority;
+		this.reverse = reverse;
 	}
 
 	public AbstractCardListData( String uuid ) {
@@ -116,6 +120,18 @@ public abstract class AbstractCardListData extends AbstractData implements ICard
 	}
 	public ICardListData withPriority(Integer priority) {
 		this.priority = priority;
+		return this;
+	}
+	
+	@JsonProperty
+	public Boolean getReverse() {
+		return this.reverse;
+	}
+	public void setReverse(Boolean reverse) {
+		this.reverse = reverse;
+	}
+	public ICardListData withReverse(Boolean reverse) {
+		this.reverse = reverse;
 		return this;
 	}
 	

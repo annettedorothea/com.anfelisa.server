@@ -18,6 +18,8 @@ public class CategoryTreeData extends AbstractCategoryTreeData implements ICateg
 		@JsonProperty("filterNonScheduled") Boolean filterNonScheduled, 
 		@JsonProperty("priority") Integer priority, 
 		@JsonProperty("editable") Boolean editable, 
+		@JsonProperty("reverse") Boolean reverse, 
+		@JsonProperty("reverseBoxExists") Boolean reverseBoxExists, 
 		@JsonProperty("uuid") String uuid
 	) {
 		super(
@@ -27,6 +29,8 @@ public class CategoryTreeData extends AbstractCategoryTreeData implements ICateg
 			filterNonScheduled,
 			priority,
 			editable,
+			reverse,
+			reverseBoxExists,
 			uuid
 		);
 	}
@@ -47,6 +51,8 @@ public class CategoryTreeData extends AbstractCategoryTreeData implements ICateg
 		testData.setFilterNonScheduled(random.nextBoolean());
 		testData.setPriority(random.nextInt(50));
 		testData.setEditable(random.nextBoolean());
+		testData.setReverse(random.nextBoolean());
+		testData.setReverseBoxExists(random.nextBoolean());
 		return testData;
 	}
 	

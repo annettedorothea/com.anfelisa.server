@@ -31,7 +31,8 @@ public class BoxCreationMapper implements RowMapper<IBoxCreationModel> {
 			r.getBoolean("editable"),
 			r.getString("boxId"),
 			r.getObject("maxInterval") != null ? r.getInt("maxInterval") : null,
-			r.getObject("maxCardsPerDay") != null ? r.getInt("maxCardsPerDay") : null
+			r.getObject("maxCardsPerDay") != null ? r.getInt("maxCardsPerDay") : null,
+			r.getBoolean("reverse")
 		);
 	}
 }

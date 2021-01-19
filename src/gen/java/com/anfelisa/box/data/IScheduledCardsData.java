@@ -28,6 +28,8 @@ public interface IScheduledCardsData extends IScheduledCardsModel, IDataContaine
 	
 	IScheduledCardsData withBoxId(String boxId);
 	
+	IScheduledCardsData withReverse(Boolean reverse);
+	
 	
 }
 

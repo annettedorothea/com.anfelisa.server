@@ -17,6 +17,7 @@ public class SortCardsOutData extends AbstractSortCardsOutData implements ISortC
 		@JsonProperty("cardIds") java.util.List<String> cardIds, 
 		@JsonProperty("userId") String userId, 
 		@JsonProperty("boxId") String boxId, 
+		@JsonProperty("reverse") Boolean reverse, 
 		@JsonProperty("uuid") String uuid
 	) {
 		super(
@@ -25,6 +26,7 @@ public class SortCardsOutData extends AbstractSortCardsOutData implements ISortC
 			cardIds,
 			userId,
 			boxId,
+			reverse,
 			uuid
 		);
 	}
@@ -60,6 +62,7 @@ public class SortCardsOutData extends AbstractSortCardsOutData implements ISortC
 		testData.setCardIds(cardIdsList);
 		testData.setUserId(randomString(random));
 		testData.setBoxId(randomString(random));
+		testData.setReverse(random.nextBoolean());
 		return testData;
 	}
 	

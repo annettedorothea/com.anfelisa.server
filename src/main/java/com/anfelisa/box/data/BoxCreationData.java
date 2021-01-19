@@ -27,6 +27,7 @@ public class BoxCreationData extends AbstractBoxCreationData implements IBoxCrea
 		@JsonProperty("boxId") String boxId, 
 		@JsonProperty("maxInterval") Integer maxInterval, 
 		@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay, 
+		@JsonProperty("reverse") Boolean reverse, 
 		@JsonProperty("uuid") String uuid
 	) {
 		super(
@@ -45,6 +46,7 @@ public class BoxCreationData extends AbstractBoxCreationData implements IBoxCrea
 			boxId,
 			maxInterval,
 			maxCardsPerDay,
+			reverse,
 			uuid
 		);
 	}
@@ -74,6 +76,7 @@ public class BoxCreationData extends AbstractBoxCreationData implements IBoxCrea
 		testData.setBoxId(randomString(random));
 		testData.setMaxInterval(random.nextInt(50));
 		testData.setMaxCardsPerDay(random.nextInt(50));
+		testData.setReverse(random.nextBoolean());
 		return testData;
 	}
 	

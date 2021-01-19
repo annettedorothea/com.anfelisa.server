@@ -40,6 +40,10 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 		if (nextCard != null) {
 			this.actionData.mapFrom(nextCard);
 		}
+		if (box.getReverse()) {
+			this.actionData.setGiven(nextCard.getWanted());
+			this.actionData.setWanted(nextCard.getGiven());
+		}
 		ITodaysCardsStatusModel todaysCardsStatus = daoProvider.getBoxDao().todaysCardsStatus(readonlyHandle, box.getBoxId(), actionData.getTodayAtMidnightInUTC());
 		this.actionData.setAllTodaysCards(todaysCardsStatus.getAllTodaysCards());
 		this.actionData.setOpenTodaysCards(todaysCardsStatus.getOpenTodaysCards());

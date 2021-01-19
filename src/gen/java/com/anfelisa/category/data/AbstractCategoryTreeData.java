@@ -40,6 +40,10 @@ public abstract class AbstractCategoryTreeData extends AbstractData implements I
 	
 	private Boolean editable = false;
 	
+	private Boolean reverse = false;
+	
+	private Boolean reverseBoxExists = false;
+	
 
 	public AbstractCategoryTreeData(
 		@JsonProperty("rootCategory") com.anfelisa.category.models.ICategoryTreeItemModel rootCategory,
@@ -47,7 +51,9 @@ public abstract class AbstractCategoryTreeData extends AbstractData implements I
 		@JsonProperty("rootCategoryId") String rootCategoryId,
 		@JsonProperty("filterNonScheduled") Boolean filterNonScheduled,
 		@JsonProperty("priority") Integer priority,
-		@JsonProperty("editable") Boolean editable
+		@JsonProperty("editable") Boolean editable,
+		@JsonProperty("reverse") Boolean reverse,
+		@JsonProperty("reverseBoxExists") Boolean reverseBoxExists
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
@@ -57,6 +63,8 @@ public abstract class AbstractCategoryTreeData extends AbstractData implements I
 		this.filterNonScheduled = filterNonScheduled;
 		this.priority = priority;
 		this.editable = editable;
+		this.reverse = reverse;
+		this.reverseBoxExists = reverseBoxExists;
 	}
 
 	public AbstractCategoryTreeData( String uuid ) {
@@ -132,6 +140,30 @@ public abstract class AbstractCategoryTreeData extends AbstractData implements I
 	}
 	public ICategoryTreeData withEditable(Boolean editable) {
 		this.editable = editable;
+		return this;
+	}
+	
+	@JsonProperty
+	public Boolean getReverse() {
+		return this.reverse;
+	}
+	public void setReverse(Boolean reverse) {
+		this.reverse = reverse;
+	}
+	public ICategoryTreeData withReverse(Boolean reverse) {
+		this.reverse = reverse;
+		return this;
+	}
+	
+	@JsonProperty
+	public Boolean getReverseBoxExists() {
+		return this.reverseBoxExists;
+	}
+	public void setReverseBoxExists(Boolean reverseBoxExists) {
+		this.reverseBoxExists = reverseBoxExists;
+	}
+	public ICategoryTreeData withReverseBoxExists(Boolean reverseBoxExists) {
+		this.reverseBoxExists = reverseBoxExists;
 		return this;
 	}
 	

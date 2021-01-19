@@ -61,6 +61,8 @@ public abstract class AbstractBoxCreationData extends AbstractData implements IB
 	
 	private Integer maxCardsPerDay;
 	
+	private Boolean reverse = false;
+	
 
 	public AbstractBoxCreationData(
 		@JsonProperty("username") String username,
@@ -77,7 +79,8 @@ public abstract class AbstractBoxCreationData extends AbstractData implements IB
 		@JsonProperty("editable") Boolean editable,
 		@JsonProperty("boxId") String boxId,
 		@JsonProperty("maxInterval") Integer maxInterval,
-		@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay
+		@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay,
+		@JsonProperty("reverse") Boolean reverse
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
@@ -96,6 +99,7 @@ public abstract class AbstractBoxCreationData extends AbstractData implements IB
 		this.boxId = boxId;
 		this.maxInterval = maxInterval;
 		this.maxCardsPerDay = maxCardsPerDay;
+		this.reverse = reverse;
 	}
 
 	public AbstractBoxCreationData( String uuid ) {
@@ -282,6 +286,18 @@ public abstract class AbstractBoxCreationData extends AbstractData implements IB
 		return this;
 	}
 	
+	@JsonProperty
+	public Boolean getReverse() {
+		return this.reverse;
+	}
+	public void setReverse(Boolean reverse) {
+		this.reverse = reverse;
+	}
+	public IBoxCreationData withReverse(Boolean reverse) {
+		this.reverse = reverse;
+		return this;
+	}
+	
 	
 	public void mapFrom(com.anfelisa.category.models.ICategoryModel model) {
 		this.categoryId = model.getCategoryId();
@@ -305,6 +321,7 @@ public abstract class AbstractBoxCreationData extends AbstractData implements IB
 		this.categoryId = model.getCategoryId();
 		this.maxInterval = model.getMaxInterval();
 		this.maxCardsPerDay = model.getMaxCardsPerDay();
+		this.reverse = model.getReverse();
 	}
 	
 }

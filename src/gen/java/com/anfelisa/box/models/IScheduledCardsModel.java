@@ -32,6 +32,9 @@ public interface IScheduledCardsModel {
 	String getBoxId();
 	void setBoxId(String boxId);
 	
+	Boolean getReverse();
+	void setReverse(Boolean reverse);
+	
 	
 }
 

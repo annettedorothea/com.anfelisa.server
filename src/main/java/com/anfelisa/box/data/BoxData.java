@@ -17,6 +17,7 @@ public class BoxData extends AbstractBoxData implements IBoxData {
 		@JsonProperty("categoryId") String categoryId, 
 		@JsonProperty("maxInterval") Integer maxInterval, 
 		@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay, 
+		@JsonProperty("reverse") Boolean reverse, 
 		@JsonProperty("uuid") String uuid
 	) {
 		super(
@@ -25,6 +26,7 @@ public class BoxData extends AbstractBoxData implements IBoxData {
 			categoryId,
 			maxInterval,
 			maxCardsPerDay,
+			reverse,
 			uuid
 		);
 	}
@@ -44,6 +46,7 @@ public class BoxData extends AbstractBoxData implements IBoxData {
 		testData.setCategoryId(randomString(random));
 		testData.setMaxInterval(random.nextInt(50));
 		testData.setMaxCardsPerDay(random.nextInt(50));
+		testData.setReverse(random.nextBoolean());
 		return testData;
 	}
 	

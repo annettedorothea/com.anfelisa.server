@@ -29,6 +29,9 @@ public interface ICardListModel {
 	Integer getPriority();
 	void setPriority(Integer priority);
 	
+	Boolean getReverse();
+	void setReverse(Boolean reverse);
+	
 	
 }
 

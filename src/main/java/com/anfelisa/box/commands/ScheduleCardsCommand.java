@@ -39,8 +39,11 @@ public class ScheduleCardsCommand extends AbstractScheduleCardsCommand {
 					throwIllegalArgumentException("cardDoesNotExist");
 				}
 				IBoxModel box = daoProvider.getBoxDao().selectByCategoryIdAndUserId(readonlyHandle,
-						card.getRootCategoryId(), commandData.getUserId());
+						card.getRootCategoryId(), commandData.getUserId(), commandData.getReverse());
 				if (box == null) {
+					throwIllegalArgumentException("boxDoesNotExist");
+				}
+				if (box.getUserId().equals(commandData.getUserId())) {
 					throwSecurityException();
 				}
 				IScheduledCardModel scheduledCard = daoProvider.getScheduledCardDao()

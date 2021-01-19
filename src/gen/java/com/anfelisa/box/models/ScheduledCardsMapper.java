@@ -22,7 +22,8 @@ public class ScheduledCardsMapper implements RowMapper<IScheduledCardsModel> {
 			null,
 			r.getTimestamp("scheduledDate") != null ? r.getTimestamp("scheduledDate").toLocalDateTime() : null,
 			r.getString("userId"),
-			r.getString("boxId")
+			r.getString("boxId"),
+			r.getBoolean("reverse")
 		);
 	}
 }

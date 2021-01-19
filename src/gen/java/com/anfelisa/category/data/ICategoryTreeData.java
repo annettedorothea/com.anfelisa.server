@@ -28,6 +28,10 @@ public interface ICategoryTreeData extends ICategoryTreeModel, IDataContainer {
 	
 	ICategoryTreeData withEditable(Boolean editable);
 	
+	ICategoryTreeData withReverse(Boolean reverse);
+	
+	ICategoryTreeData withReverseBoxExists(Boolean reverseBoxExists);
+	
 	
 }
 

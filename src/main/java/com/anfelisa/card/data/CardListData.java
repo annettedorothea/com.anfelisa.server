@@ -17,6 +17,7 @@ public class CardListData extends AbstractCardListData implements ICardListData 
 		@JsonProperty("categoryId") String categoryId, 
 		@JsonProperty("filterNonScheduled") Boolean filterNonScheduled, 
 		@JsonProperty("priority") Integer priority, 
+		@JsonProperty("reverse") Boolean reverse, 
 		@JsonProperty("uuid") String uuid
 	) {
 		super(
@@ -25,6 +26,7 @@ public class CardListData extends AbstractCardListData implements ICardListData 
 			categoryId,
 			filterNonScheduled,
 			priority,
+			reverse,
 			uuid
 		);
 	}
@@ -50,6 +52,7 @@ public class CardListData extends AbstractCardListData implements ICardListData 
 		testData.setCategoryId(randomString(random));
 		testData.setFilterNonScheduled(random.nextBoolean());
 		testData.setPriority(random.nextInt(50));
+		testData.setReverse(random.nextBoolean());
 		return testData;
 	}
 	

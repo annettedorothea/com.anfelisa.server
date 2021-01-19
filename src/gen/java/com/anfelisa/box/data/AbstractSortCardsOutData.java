@@ -38,13 +38,16 @@ public abstract class AbstractSortCardsOutData extends AbstractData implements I
 	
 	private String boxId;
 	
+	private Boolean reverse = false;
+	
 
 	public AbstractSortCardsOutData(
 		@JsonProperty("sortedOutScheduledCardIds") java.util.List<String> sortedOutScheduledCardIds,
 		@JsonProperty("sortedOutReinforceCardIds") java.util.List<String> sortedOutReinforceCardIds,
 		@JsonProperty("cardIds") java.util.List<String> cardIds,
 		@JsonProperty("userId") String userId,
-		@JsonProperty("boxId") String boxId
+		@JsonProperty("boxId") String boxId,
+		@JsonProperty("reverse") Boolean reverse
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
@@ -53,6 +56,7 @@ public abstract class AbstractSortCardsOutData extends AbstractData implements I
 		this.cardIds = cardIds;
 		this.userId = userId;
 		this.boxId = boxId;
+		this.reverse = reverse;
 	}
 
 	public AbstractSortCardsOutData( String uuid ) {
@@ -116,6 +120,18 @@ public abstract class AbstractSortCardsOutData extends AbstractData implements I
 	}
 	public ISortCardsOutData withBoxId(String boxId) {
 		this.boxId = boxId;
+		return this;
+	}
+	
+	@JsonProperty
+	public Boolean getReverse() {
+		return this.reverse;
+	}
+	public void setReverse(Boolean reverse) {
+		this.reverse = reverse;
+	}
+	public ISortCardsOutData withReverse(Boolean reverse) {
+		this.reverse = reverse;
 		return this;
 	}
 	

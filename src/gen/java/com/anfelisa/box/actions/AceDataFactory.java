@@ -36,6 +36,14 @@ public class AceDataFactory {
 				data.migrateLegacyData(json);
 				return data;
 			}
+			if (className.equals("com.anfelisa.box.actions.CreateReverseBoxAction") ||
+					className.equals("com.anfelisa.box.commands.CreateReverseBoxCommand") ||
+					className.equals("com.anfelisa.box.events.CreateReverseBoxOkEvent")
+			) {
+				BoxCreationData data = mapper.readValue(json, BoxCreationData.class);
+				data.migrateLegacyData(json);
+				return data;
+			}
 			if (className.equals("com.anfelisa.box.actions.UpdateBoxAction") ||
 					className.equals("com.anfelisa.box.commands.UpdateBoxCommand") ||
 					className.equals("com.anfelisa.box.events.UpdateBoxOkEvent")
@@ -62,6 +70,24 @@ public class AceDataFactory {
 					className.equals("com.anfelisa.box.commands.SortCardsOutCommand") ||
 					className.equals("com.anfelisa.box.events.SortCardsOutOkEvent")||
 					className.equals("com.anfelisa.box.events.SortCardsOutNullOrEmptyEvent")
+			) {
+				SortCardsOutData data = mapper.readValue(json, SortCardsOutData.class);
+				data.migrateLegacyData(json);
+				return data;
+			}
+			if (className.equals("com.anfelisa.box.actions.ScheduleActiveCardsAction") ||
+					className.equals("com.anfelisa.box.commands.ScheduleActiveCardsCommand") ||
+					className.equals("com.anfelisa.box.events.ScheduleActiveCardsOkEvent")||
+					className.equals("com.anfelisa.box.events.ScheduleActiveCardsNullOrEmptyEvent")
+			) {
+				ScheduledCardsData data = mapper.readValue(json, ScheduledCardsData.class);
+				data.migrateLegacyData(json);
+				return data;
+			}
+			if (className.equals("com.anfelisa.box.actions.SortActiveCardsOutAction") ||
+					className.equals("com.anfelisa.box.commands.SortActiveCardsOutCommand") ||
+					className.equals("com.anfelisa.box.events.SortActiveCardsOutOkEvent")||
+					className.equals("com.anfelisa.box.events.SortActiveCardsOutNullOrEmptyEvent")
 			) {
 				SortCardsOutData data = mapper.readValue(json, SortCardsOutData.class);
 				data.migrateLegacyData(json);

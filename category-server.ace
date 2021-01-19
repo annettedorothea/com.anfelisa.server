@@ -35,6 +35,7 @@ ACE
 			NotNull rootCategoryId
 			NotNull filterNonScheduled
 			priority
+			NotNull reverse
 		response
 			rootCategory
 
@@ -140,8 +141,10 @@ models
 		Boolean filterNonScheduled
 		Integer priority
 		Boolean editable
+		Boolean reverse
+		Boolean reverseBoxExists
 	}
-	
+
 	CategoryTreeItem {
 		String categoryId
 		String categoryName

@@ -350,7 +350,7 @@ public abstract class AbstractGetCardsNoAccessToCategoryScenario extends BaseSce
 				com.anfelisa.card.data.CardListData.class);
 		HttpResponse<com.anfelisa.card.data.GetCardsResponse> response = 
 		this.httpGet(
-			"/cards?categoryId=" + data_0.getCategoryId() + "&filterNonScheduled=" + data_0.getFilterNonScheduled() + "&priority=" + data_0.getPriority() + "", 
+			"/cards?categoryId=" + data_0.getCategoryId() + "&filterNonScheduled=" + data_0.getFilterNonScheduled() + "&priority=" + data_0.getPriority() + "&reverse=" + data_0.getReverse() + "", 
 			authorization("Admin", "admin-password"),
 			uuid,
 			com.anfelisa.card.data.GetCardsResponse.class

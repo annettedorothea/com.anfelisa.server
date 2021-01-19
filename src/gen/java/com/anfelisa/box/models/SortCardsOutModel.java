@@ -30,6 +30,8 @@ public class SortCardsOutModel implements ISortCardsOutModel {
 
 	private String boxId;
 
+	private Boolean reverse = false;
+
 
 	public SortCardsOutModel() {
 	}
@@ -39,13 +41,15 @@ public class SortCardsOutModel implements ISortCardsOutModel {
 		@JsonProperty("sortedOutReinforceCardIds") java.util.List<String> sortedOutReinforceCardIds,
 		@JsonProperty("cardIds") java.util.List<String> cardIds,
 		@JsonProperty("userId") String userId,
-		@JsonProperty("boxId") String boxId
+		@JsonProperty("boxId") String boxId,
+		@JsonProperty("reverse") Boolean reverse
 	) {
 		this.sortedOutScheduledCardIds = sortedOutScheduledCardIds;
 		this.sortedOutReinforceCardIds = sortedOutReinforceCardIds;
 		this.cardIds = cardIds;
 		this.userId = userId;
 		this.boxId = boxId;
+		this.reverse = reverse;
 	}
 
 	@JsonProperty
@@ -86,6 +90,14 @@ public class SortCardsOutModel implements ISortCardsOutModel {
 	}
 	public void setBoxId(String boxId) {
 		this.boxId = boxId;
+	}
+	
+	@JsonProperty
+	public Boolean getReverse() {
+		return this.reverse;
+	}
+	public void setReverse(Boolean reverse) {
+		this.reverse = reverse;
 	}
 	
 

@@ -386,6 +386,15 @@
 
 	</changeSet>
 
+	<changeSet id="018" author="annette">
+
+		<addColumn tableName="box">
+			<column name="reverse" type="boolean" defaultValueBoolean="false">
+				<constraints nullable="false" />
+			</column>
+		</addColumn>
+	</changeSet>
+
 
 
 

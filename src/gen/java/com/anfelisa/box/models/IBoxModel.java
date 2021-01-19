@@ -29,6 +29,9 @@ public interface IBoxModel {
 	Integer getMaxCardsPerDay();
 	void setMaxCardsPerDay(Integer maxCardsPerDay);
 	
+	Boolean getReverse();
+	void setReverse(Boolean reverse);
+	
 	
 }
 

@@ -21,7 +21,8 @@ public class BoxMapper implements RowMapper<IBoxModel> {
 			r.getString("userId"),
 			r.getString("categoryId"),
 			r.getObject("maxInterval") != null ? r.getInt("maxInterval") : null,
-			r.getObject("maxCardsPerDay") != null ? r.getInt("maxCardsPerDay") : null
+			r.getObject("maxCardsPerDay") != null ? r.getInt("maxCardsPerDay") : null,
+			r.getBoolean("reverse")
 		);
 	}
 }

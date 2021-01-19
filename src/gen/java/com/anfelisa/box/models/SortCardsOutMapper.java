@@ -21,7 +21,8 @@ public class SortCardsOutMapper implements RowMapper<ISortCardsOutModel> {
 			null,
 			null,
 			r.getString("userId"),
-			r.getString("boxId")
+			r.getString("boxId"),
+			r.getBoolean("reverse")
 		);
 	}
 }

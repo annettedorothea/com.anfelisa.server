@@ -98,6 +98,7 @@ public class ScheduleCardsResource extends Resource {
 				return badRequest("cardIds is mandatory");
 			}
 			actionData.setCardIds(payload.getCardIds());
+			actionData.setReverse(payload.getReverse());
 			actionData.setUserId(authUser.getUserId());
 			
 			com.anfelisa.box.actions.ScheduleCardsAction action = new com.anfelisa.box.actions.ScheduleCardsAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);

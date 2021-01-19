@@ -40,6 +40,8 @@ public abstract class AbstractScheduledCardsData extends AbstractData implements
 	
 	private String boxId;
 	
+	private Boolean reverse = false;
+	
 
 	public AbstractScheduledCardsData(
 		@JsonProperty("newScheduledCards") java.util.List<com.anfelisa.box.models.IScheduledCardModel> newScheduledCards,
@@ -47,7 +49,8 @@ public abstract class AbstractScheduledCardsData extends AbstractData implements
 		@JsonProperty("cardIds") java.util.List<String> cardIds,
 		@JsonProperty("scheduledDate") java.time.LocalDateTime scheduledDate,
 		@JsonProperty("userId") String userId,
-		@JsonProperty("boxId") String boxId
+		@JsonProperty("boxId") String boxId,
+		@JsonProperty("reverse") Boolean reverse
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
@@ -57,6 +60,7 @@ public abstract class AbstractScheduledCardsData extends AbstractData implements
 		this.scheduledDate = scheduledDate;
 		this.userId = userId;
 		this.boxId = boxId;
+		this.reverse = reverse;
 	}
 
 	public AbstractScheduledCardsData( String uuid ) {
@@ -134,6 +138,18 @@ public abstract class AbstractScheduledCardsData extends AbstractData implements
 	}
 	public IScheduledCardsData withBoxId(String boxId) {
 		this.boxId = boxId;
+		return this;
+	}
+	
+	@JsonProperty
+	public Boolean getReverse() {
+		return this.reverse;
+	}
+	public void setReverse(Boolean reverse) {
+		this.reverse = reverse;
+	}
+	public IScheduledCardsData withReverse(Boolean reverse) {
+		this.reverse = reverse;
 		return this;
 	}
 	

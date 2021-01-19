@@ -32,6 +32,8 @@ public class ScheduledCardsModel implements IScheduledCardsModel {
 
 	private String boxId;
 
+	private Boolean reverse = false;
+
 
 	public ScheduledCardsModel() {
 	}
@@ -42,7 +44,8 @@ public class ScheduledCardsModel implements IScheduledCardsModel {
 		@JsonProperty("cardIds") java.util.List<String> cardIds,
 		@JsonProperty("scheduledDate") java.time.LocalDateTime scheduledDate,
 		@JsonProperty("userId") String userId,
-		@JsonProperty("boxId") String boxId
+		@JsonProperty("boxId") String boxId,
+		@JsonProperty("reverse") Boolean reverse
 	) {
 		this.newScheduledCards = newScheduledCards;
 		this.existingScheduledCardIds = existingScheduledCardIds;
@@ -50,6 +53,7 @@ public class ScheduledCardsModel implements IScheduledCardsModel {
 		this.scheduledDate = scheduledDate;
 		this.userId = userId;
 		this.boxId = boxId;
+		this.reverse = reverse;
 	}
 
 	@JsonProperty
@@ -100,6 +104,14 @@ public class ScheduledCardsModel implements IScheduledCardsModel {
 	}
 	public void setBoxId(String boxId) {
 		this.boxId = boxId;
+	}
+	
+	@JsonProperty
+	public Boolean getReverse() {
+		return this.reverse;
+	}
+	public void setReverse(Boolean reverse) {
+		this.reverse = reverse;
 	}
 	
 
