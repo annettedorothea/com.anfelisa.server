@@ -8,7 +8,7 @@
 package com.anfelisa.box.data;
 
 public interface ICreateReverseBoxPayload {
-	String getBoxId();
+	String getRootCategoryId();
 	
 
 }

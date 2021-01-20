@@ -21,7 +21,7 @@ ACE
 		POST "/box/create-reverse"  
 		authorize
 		payload 
-			NotNull boxId
+			NotNull rootCategoryId
 		on ok (Box.createBox)
 
 	UpdateBox<BoxUpdate> 

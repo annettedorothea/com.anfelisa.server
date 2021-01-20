@@ -94,10 +94,10 @@ public class CreateReverseBoxResource extends Resource {
 		}
 		try {
 			com.anfelisa.box.data.IBoxCreationData actionData = new BoxCreationData(uuid);
-			if (StringUtils.isBlank(payload.getBoxId()) || "null".equals(payload.getBoxId())) {
-				return badRequest("boxId is mandatory");
+			if (StringUtils.isBlank(payload.getRootCategoryId()) || "null".equals(payload.getRootCategoryId())) {
+				return badRequest("rootCategoryId is mandatory");
 			}
-			actionData.setBoxId(payload.getBoxId());
+			actionData.setRootCategoryId(payload.getRootCategoryId());
 			actionData.setUsername(authUser.getUsername());
 			actionData.setUserId(authUser.getUserId());
 			

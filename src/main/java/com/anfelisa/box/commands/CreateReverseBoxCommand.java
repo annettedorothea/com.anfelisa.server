@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import com.anfelisa.box.data.IBoxCreationData;
 import com.anfelisa.box.models.IBoxModel;
+import com.anfelisa.category.models.IUserAccessToCategoryModel;
 
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
@@ -29,9 +30,14 @@ public class CreateReverseBoxCommand extends AbstractCreateReverseBoxCommand {
 
 	@Override
 	protected void executeCommand(PersistenceHandle readonlyHandle) {
-		IBoxModel box = daoProvider.getBoxDao().selectByBoxId(readonlyHandle, commandData.getBoxId());
+		IUserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao()
+				.selectByCategoryIdAndUserId(readonlyHandle, commandData.getRootCategoryId(), commandData.getUserId());
+		if (access == null) {
+			throwSecurityException();
+		}
+		IBoxModel box = daoProvider.getBoxDao().selectByCategoryIdAndUserId(readonlyHandle, commandData.getRootCategoryId(), commandData.getUserId(), false);
 		if (box == null) {
-			throwIllegalArgumentException("boxDoesNotExist");
+			throwIllegalArgumentException("boxNotFound");
 		}
 		if (!box.getUserId().equals(commandData.getUserId())) {
 			throwSecurityException();

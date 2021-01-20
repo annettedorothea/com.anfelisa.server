@@ -38,6 +38,7 @@ ACE
 			NotNull reverse
 		response
 			rootCategory
+			reverseBoxExists
 
 	MoveCategory<CategoryMove>
 		PUT "/category/move"

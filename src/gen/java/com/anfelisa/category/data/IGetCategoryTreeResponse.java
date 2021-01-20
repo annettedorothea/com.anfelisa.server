@@ -10,6 +10,8 @@ package com.anfelisa.category.data;
 public interface IGetCategoryTreeResponse {
 	com.anfelisa.category.models.ICategoryTreeItemModel getRootCategory();
 	
+	Boolean getReverseBoxExists();
+	
 
 }
 

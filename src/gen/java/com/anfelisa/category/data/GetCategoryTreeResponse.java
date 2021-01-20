@@ -24,16 +24,24 @@ public class GetCategoryTreeResponse implements IGetCategoryTreeResponse {
 	
 	private com.anfelisa.category.models.ICategoryTreeItemModel rootCategory;
 	
+	private Boolean reverseBoxExists = false;
+	
 	public GetCategoryTreeResponse() {
 	}
 	
 	public GetCategoryTreeResponse(com.anfelisa.category.models.ICategoryTreeModel data) {
 		rootCategory = data.getRootCategory();
+		reverseBoxExists = data.getReverseBoxExists();
 	}
 	
 	@JsonProperty
 	public com.anfelisa.category.models.ICategoryTreeItemModel getRootCategory() {
 		return this.rootCategory;
+	}
+	
+	@JsonProperty
+	public Boolean getReverseBoxExists() {
+		return this.reverseBoxExists;
 	}
 	
 }

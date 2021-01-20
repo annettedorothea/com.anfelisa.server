@@ -22,18 +22,18 @@ import de.acegen.StringToDateTimeConverter;
 @SuppressWarnings("all")
 public class CreateReverseBoxPayload implements ICreateReverseBoxPayload {
 	
-	private String boxId;
+	private String rootCategoryId;
 	
 	public CreateReverseBoxPayload() {
 	}
 	
 	public CreateReverseBoxPayload(com.anfelisa.box.models.IBoxCreationModel data) {
-		boxId = data.getBoxId();
+		rootCategoryId = data.getRootCategoryId();
 	}
 	
 	@JsonProperty
-	public String getBoxId() {
-		return this.boxId;
+	public String getRootCategoryId() {
+		return this.rootCategoryId;
 	}
 	
 }

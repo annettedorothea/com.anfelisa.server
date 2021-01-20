@@ -39,7 +39,7 @@ public class GetCardsAction extends AbstractGetCardsAction {
 		}
 		IBoxModel box = daoProvider.getBoxDao().selectByCategoryIdAndUserId(readonlyHandle,
 				category.getRootCategoryId(), actionData.getUserId(), actionData.getReverse());
-		if (box != null) {
+		if (box == null) {
 			throwIllegalArgumentException("boxNotFound");
 		}
 		

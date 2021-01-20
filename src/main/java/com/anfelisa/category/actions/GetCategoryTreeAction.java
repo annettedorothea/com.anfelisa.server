@@ -36,7 +36,7 @@ public class GetCategoryTreeAction extends AbstractGetCategoryTreeAction {
 		loadChildren(rootCategory, rootCategory.getCategoryId(), readonlyHandle);
 		
 		IBoxModel box = daoProvider.getBoxDao().selectByCategoryIdAndUserId(readonlyHandle, rootCategory.getCategoryId(), actionData.getUserId(), actionData.getReverse());
-		if (box != null) {
+		if (box == null) {
 			throwIllegalArgumentException("boxNotFound");
 		}
 		
