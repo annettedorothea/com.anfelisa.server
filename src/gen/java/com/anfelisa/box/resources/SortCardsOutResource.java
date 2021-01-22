@@ -98,6 +98,10 @@ public class SortCardsOutResource extends Resource {
 				return badRequest("cardIds is mandatory");
 			}
 			actionData.setCardIds(payload.getCardIds());
+			if (StringUtils.isBlank(payload.getBoxId()) || "null".equals(payload.getBoxId())) {
+				return badRequest("boxId is mandatory");
+			}
+			actionData.setBoxId(payload.getBoxId());
 			actionData.setUserId(authUser.getUserId());
 			
 			com.anfelisa.box.actions.SortCardsOutAction action = new com.anfelisa.box.actions.SortCardsOutAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);

@@ -32,6 +32,8 @@ public interface ICategoryTreeData extends ICategoryTreeModel, IDataContainer {
 	
 	ICategoryTreeData withReverseBoxExists(Boolean reverseBoxExists);
 	
+	ICategoryTreeData withBoxId(String boxId);
+	
 	
 }
 

@@ -28,10 +28,8 @@ public class CardDao extends AbstractCardDao {
 		return handle.getHandle().createQuery(
 				"SELECT c.cardid, given, wanted, image, cardauthor, cardindex, c.categoryid, rootcategoryid, priority, s.scheduleddate as next, s.ef, s.interval, s.count, s.lastquality "
 						+ "FROM public.card c "
-						+ "left outer join scheduledcard s on c.cardid = s.cardid and s.boxid = :boxid and s.quality is null "
-						+ "inner join box b on c.rootcategoryid = b.categoryid "
-						+ "WHERE b.boxid = :boxid "
-						+ "AND s.scheduleddate is not null "
+						+ "inner join scheduledcard s on c.cardid = s.cardid "
+						+ "WHERE s.boxid = :boxid and s.scheduleddate is not null and s.quality is null "
 						+ "ORDER BY scheduleddate, given")
 				.bind("boxid", boxId)
 				.map(new CardWithStatisticsMapper()).list();

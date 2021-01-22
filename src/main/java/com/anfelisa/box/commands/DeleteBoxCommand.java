@@ -34,7 +34,7 @@ public class DeleteBoxCommand extends AbstractDeleteBoxCommand {
 		if (access == null) {
 			throwSecurityException();
 		}
-		if (access.getEditable()) {
+		if (access.getEditable() && !box.getReverse()) {
 			this.commandData.setRootCategoryId(box.getCategoryId());
 			this.addDeleteCategoryOutcome();
 		}

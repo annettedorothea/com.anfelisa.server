@@ -34,6 +34,8 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 	
 	private String boxId;
 	
+	private Boolean reverse = false;
+	
 	private java.time.LocalDateTime todayAtMidnightInUTC;
 	
 	private Integer openTodaysCards;
@@ -58,6 +60,8 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 	
 	private String categoryId;
 	
+	private String categoryName;
+	
 	private String rootCategoryId;
 	
 	private Integer count;
@@ -68,6 +72,7 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 	public AbstractNextCardData(
 		@JsonProperty("userId") String userId,
 		@JsonProperty("boxId") String boxId,
+		@JsonProperty("reverse") Boolean reverse,
 		@JsonProperty("todayAtMidnightInUTC") java.time.LocalDateTime todayAtMidnightInUTC,
 		@JsonProperty("openTodaysCards") Integer openTodaysCards,
 		@JsonProperty("allTodaysCards") Integer allTodaysCards,
@@ -80,6 +85,7 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 		@JsonProperty("wanted") String wanted,
 		@JsonProperty("image") String image,
 		@JsonProperty("categoryId") String categoryId,
+		@JsonProperty("categoryName") String categoryName,
 		@JsonProperty("rootCategoryId") String rootCategoryId,
 		@JsonProperty("count") Integer count,
 		@JsonProperty("scoredDate") java.time.LocalDateTime scoredDate
@@ -88,6 +94,7 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 		super(uuid);
 		this.userId = userId;
 		this.boxId = boxId;
+		this.reverse = reverse;
 		this.todayAtMidnightInUTC = todayAtMidnightInUTC;
 		this.openTodaysCards = openTodaysCards;
 		this.allTodaysCards = allTodaysCards;
@@ -100,6 +107,7 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 		this.wanted = wanted;
 		this.image = image;
 		this.categoryId = categoryId;
+		this.categoryName = categoryName;
 		this.rootCategoryId = rootCategoryId;
 		this.count = count;
 		this.scoredDate = scoredDate;
@@ -130,6 +138,18 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 	}
 	public INextCardData withBoxId(String boxId) {
 		this.boxId = boxId;
+		return this;
+	}
+	
+	@JsonProperty
+	public Boolean getReverse() {
+		return this.reverse;
+	}
+	public void setReverse(Boolean reverse) {
+		this.reverse = reverse;
+	}
+	public INextCardData withReverse(Boolean reverse) {
+		this.reverse = reverse;
 		return this;
 	}
 	
@@ -282,6 +302,18 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 	}
 	
 	@JsonProperty
+	public String getCategoryName() {
+		return this.categoryName;
+	}
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+	public INextCardData withCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+		return this;
+	}
+	
+	@JsonProperty
 	public String getRootCategoryId() {
 		return this.rootCategoryId;
 	}
@@ -330,6 +362,7 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 		this.wanted = model.getWanted();
 		this.image = model.getImage();
 		this.categoryId = model.getCategoryId();
+		this.categoryName = model.getCategoryName();
 		this.rootCategoryId = model.getRootCategoryId();
 		this.count = model.getCount();
 		this.scoredDate = model.getScoredDate();

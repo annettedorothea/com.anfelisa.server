@@ -39,6 +39,7 @@ public class GetCategoryTreeAction extends AbstractGetCategoryTreeAction {
 		if (box == null) {
 			throwIllegalArgumentException("boxNotFound");
 		}
+		this.actionData.setBoxId(box.getBoxId());
 
 		if (this.actionData.getFilterNonScheduled() != null && this.actionData.getFilterNonScheduled()) {
 			initNonScheduledCount(rootCategory, box.getBoxId(), this.actionData.getPriority(), readonlyHandle);

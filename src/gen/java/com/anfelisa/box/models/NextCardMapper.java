@@ -19,6 +19,7 @@ public class NextCardMapper implements RowMapper<INextCardModel> {
 		return new NextCardModel(
 			r.getString("userId"),
 			r.getString("boxId"),
+			r.getBoolean("reverse"),
 			r.getTimestamp("todayAtMidnightInUTC") != null ? r.getTimestamp("todayAtMidnightInUTC").toLocalDateTime() : null,
 			r.getObject("openTodaysCards") != null ? r.getInt("openTodaysCards") : null,
 			r.getObject("allTodaysCards") != null ? r.getInt("allTodaysCards") : null,
@@ -31,6 +32,7 @@ public class NextCardMapper implements RowMapper<INextCardModel> {
 			r.getString("wanted"),
 			r.getString("image"),
 			r.getString("categoryId"),
+			r.getString("categoryName"),
 			r.getString("rootCategoryId"),
 			r.getObject("count") != null ? r.getInt("count") : null,
 			r.getTimestamp("scoredDate") != null ? r.getTimestamp("scoredDate").toLocalDateTime() : null

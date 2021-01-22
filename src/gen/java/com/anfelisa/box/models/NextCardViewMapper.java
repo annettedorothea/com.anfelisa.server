@@ -26,6 +26,7 @@ public class NextCardViewMapper implements RowMapper<INextCardViewModel> {
 			r.getString("wanted"),
 			r.getString("image"),
 			r.getString("categoryId"),
+			r.getString("categoryName"),
 			r.getString("rootCategoryId"),
 			r.getObject("count") != null ? r.getInt("count") : null,
 			r.getTimestamp("scoredDate") != null ? r.getTimestamp("scoredDate").toLocalDateTime() : null

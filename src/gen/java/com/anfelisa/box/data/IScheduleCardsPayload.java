@@ -10,7 +10,7 @@ package com.anfelisa.box.data;
 public interface IScheduleCardsPayload {
 	java.util.List<String> getCardIds();
 	
-	Boolean getReverse();
+	String getBoxId();
 	
 
 }

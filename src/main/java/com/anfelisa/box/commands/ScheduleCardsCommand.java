@@ -33,18 +33,17 @@ public class ScheduleCardsCommand extends AbstractScheduleCardsCommand {
 			this.commandData.setExistingScheduledCardIds(new ArrayList<String>());
 			this.commandData.setNewScheduledCards(new ArrayList<IScheduledCardModel>());
 			this.commandData.setScheduledDate(this.commandData.getSystemTime());
+			IBoxModel box = daoProvider.getBoxDao().selectByBoxId(readonlyHandle, commandData.getBoxId());
+			if (box == null) {
+				throwIllegalArgumentException("boxDoesNotExist");
+			}
+			if (!box.getUserId().equals(commandData.getUserId())) {
+				throwSecurityException();
+			}
 			for (String cardId : this.commandData.getCardIds()) {
 				ICardModel card = daoProvider.getCardDao().selectByCardId(readonlyHandle, cardId);
 				if (card == null) {
 					throwIllegalArgumentException("cardDoesNotExist");
-				}
-				IBoxModel box = daoProvider.getBoxDao().selectByCategoryIdAndUserId(readonlyHandle,
-						card.getRootCategoryId(), commandData.getUserId(), commandData.getReverse());
-				if (box == null) {
-					throwIllegalArgumentException("boxDoesNotExist");
-				}
-				if (!box.getUserId().equals(commandData.getUserId())) {
-					throwSecurityException();
 				}
 				IScheduledCardModel scheduledCard = daoProvider.getScheduledCardDao()
 						.selectUnscoredByCardIdAndBoxId(readonlyHandle, cardId, box.getBoxId());

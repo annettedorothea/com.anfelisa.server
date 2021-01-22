@@ -21,6 +21,7 @@ public class NextCardViewData extends AbstractNextCardViewData implements INextC
 		@JsonProperty("wanted") String wanted, 
 		@JsonProperty("image") String image, 
 		@JsonProperty("categoryId") String categoryId, 
+		@JsonProperty("categoryName") String categoryName, 
 		@JsonProperty("rootCategoryId") String rootCategoryId, 
 		@JsonProperty("count") Integer count, 
 		@JsonProperty("scoredDate") java.time.LocalDateTime scoredDate, 
@@ -36,6 +37,7 @@ public class NextCardViewData extends AbstractNextCardViewData implements INextC
 			wanted,
 			image,
 			categoryId,
+			categoryName,
 			rootCategoryId,
 			count,
 			scoredDate,
@@ -62,6 +64,7 @@ public class NextCardViewData extends AbstractNextCardViewData implements INextC
 		testData.setWanted(randomString(random));
 		testData.setImage(randomString(random));
 		testData.setCategoryId(randomString(random));
+		testData.setCategoryName(randomString(random));
 		testData.setRootCategoryId(randomString(random));
 		testData.setCount(random.nextInt(50));
 		testData.setScoredDate(random.nextBoolean() ? java.time.LocalDateTime.now().plusMinutes(random.nextInt(60)) : java.time.LocalDateTime.now().minusMinutes(random.nextInt(60)) );

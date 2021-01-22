@@ -30,6 +30,7 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 		if (!box.getUserId().equals(actionData.getUserId())) {
 			throwSecurityException();
 		}
+		actionData.setReverse(box.getReverse());
 
 		INextCardViewModel nextCard = daoProvider.getScheduledCardDao().selectFirstScheduledCard(readonlyHandle,
 				actionData.getBoxId(), actionData.getTodayAtMidnightInUTC());

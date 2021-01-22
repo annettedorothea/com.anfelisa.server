@@ -41,6 +41,9 @@ public interface INextCardViewModel {
 	String getCategoryId();
 	void setCategoryId(String categoryId);
 	
+	String getCategoryName();
+	void setCategoryName(String categoryName);
+	
 	String getRootCategoryId();
 	void setRootCategoryId(String rootCategoryId);
 	

@@ -75,24 +75,6 @@ public class AceDataFactory {
 				data.migrateLegacyData(json);
 				return data;
 			}
-			if (className.equals("com.anfelisa.box.actions.ScheduleActiveCardsAction") ||
-					className.equals("com.anfelisa.box.commands.ScheduleActiveCardsCommand") ||
-					className.equals("com.anfelisa.box.events.ScheduleActiveCardsOkEvent")||
-					className.equals("com.anfelisa.box.events.ScheduleActiveCardsNullOrEmptyEvent")
-			) {
-				ScheduledCardsData data = mapper.readValue(json, ScheduledCardsData.class);
-				data.migrateLegacyData(json);
-				return data;
-			}
-			if (className.equals("com.anfelisa.box.actions.SortActiveCardsOutAction") ||
-					className.equals("com.anfelisa.box.commands.SortActiveCardsOutCommand") ||
-					className.equals("com.anfelisa.box.events.SortActiveCardsOutOkEvent")||
-					className.equals("com.anfelisa.box.events.SortActiveCardsOutNullOrEmptyEvent")
-			) {
-				SortCardsOutData data = mapper.readValue(json, SortCardsOutData.class);
-				data.migrateLegacyData(json);
-				return data;
-			}
 			if (className.equals("com.anfelisa.box.actions.ScoreCardAction") ||
 					className.equals("com.anfelisa.box.commands.ScoreCardCommand") ||
 					className.equals("com.anfelisa.box.events.ScoreCardScoreEvent")||

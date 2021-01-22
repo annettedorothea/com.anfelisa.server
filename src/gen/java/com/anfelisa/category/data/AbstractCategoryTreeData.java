@@ -44,6 +44,8 @@ public abstract class AbstractCategoryTreeData extends AbstractData implements I
 	
 	private Boolean reverseBoxExists = false;
 	
+	private String boxId;
+	
 
 	public AbstractCategoryTreeData(
 		@JsonProperty("rootCategory") com.anfelisa.category.models.ICategoryTreeItemModel rootCategory,
@@ -53,7 +55,8 @@ public abstract class AbstractCategoryTreeData extends AbstractData implements I
 		@JsonProperty("priority") Integer priority,
 		@JsonProperty("editable") Boolean editable,
 		@JsonProperty("reverse") Boolean reverse,
-		@JsonProperty("reverseBoxExists") Boolean reverseBoxExists
+		@JsonProperty("reverseBoxExists") Boolean reverseBoxExists,
+		@JsonProperty("boxId") String boxId
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
@@ -65,6 +68,7 @@ public abstract class AbstractCategoryTreeData extends AbstractData implements I
 		this.editable = editable;
 		this.reverse = reverse;
 		this.reverseBoxExists = reverseBoxExists;
+		this.boxId = boxId;
 	}
 
 	public AbstractCategoryTreeData( String uuid ) {
@@ -164,6 +168,18 @@ public abstract class AbstractCategoryTreeData extends AbstractData implements I
 	}
 	public ICategoryTreeData withReverseBoxExists(Boolean reverseBoxExists) {
 		this.reverseBoxExists = reverseBoxExists;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getBoxId() {
+		return this.boxId;
+	}
+	public void setBoxId(String boxId) {
+		this.boxId = boxId;
+	}
+	public ICategoryTreeData withBoxId(String boxId) {
+		this.boxId = boxId;
 		return this;
 	}
 	

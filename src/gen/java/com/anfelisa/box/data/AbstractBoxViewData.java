@@ -38,13 +38,16 @@ public abstract class AbstractBoxViewData extends AbstractData implements IBoxVi
 	
 	private Boolean reverse = false;
 	
+	private Boolean shared = false;
+	
 
 	public AbstractBoxViewData(
 		@JsonProperty("openTodaysCards") Integer openTodaysCards,
 		@JsonProperty("categoryName") String categoryName,
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("boxId") String boxId,
-		@JsonProperty("reverse") Boolean reverse
+		@JsonProperty("reverse") Boolean reverse,
+		@JsonProperty("shared") Boolean shared
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
@@ -53,6 +56,7 @@ public abstract class AbstractBoxViewData extends AbstractData implements IBoxVi
 		this.categoryId = categoryId;
 		this.boxId = boxId;
 		this.reverse = reverse;
+		this.shared = shared;
 	}
 
 	public AbstractBoxViewData( String uuid ) {
@@ -116,6 +120,18 @@ public abstract class AbstractBoxViewData extends AbstractData implements IBoxVi
 	}
 	public IBoxViewData withReverse(Boolean reverse) {
 		this.reverse = reverse;
+		return this;
+	}
+	
+	@JsonProperty
+	public Boolean getShared() {
+		return this.shared;
+	}
+	public void setShared(Boolean shared) {
+		this.shared = shared;
+	}
+	public IBoxViewData withShared(Boolean shared) {
+		this.shared = shared;
 		return this;
 	}
 	

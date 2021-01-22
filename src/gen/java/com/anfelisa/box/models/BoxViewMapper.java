@@ -21,7 +21,8 @@ public class BoxViewMapper implements RowMapper<IBoxViewModel> {
 			r.getString("categoryName"),
 			r.getString("categoryId"),
 			r.getString("boxId"),
-			r.getBoolean("reverse")
+			r.getBoolean("reverse"),
+			r.getBoolean("shared")
 		);
 	}
 }

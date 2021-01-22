@@ -24,16 +24,24 @@ public class SortCardsOutPayload implements ISortCardsOutPayload {
 	
 	private java.util.List<String> cardIds;
 	
+	private String boxId;
+	
 	public SortCardsOutPayload() {
 	}
 	
 	public SortCardsOutPayload(com.anfelisa.box.models.ISortCardsOutModel data) {
 		cardIds = data.getCardIds();
+		boxId = data.getBoxId();
 	}
 	
 	@JsonProperty
 	public java.util.List<String> getCardIds() {
 		return this.cardIds;
+	}
+	
+	@JsonProperty
+	public String getBoxId() {
+		return this.boxId;
 	}
 	
 }

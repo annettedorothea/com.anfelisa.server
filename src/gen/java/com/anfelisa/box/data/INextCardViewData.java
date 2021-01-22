@@ -34,6 +34,8 @@ public interface INextCardViewData extends INextCardViewModel, IDataContainer {
 	
 	INextCardViewData withCategoryId(String categoryId);
 	
+	INextCardViewData withCategoryName(String categoryName);
+	
 	INextCardViewData withRootCategoryId(String rootCategoryId);
 	
 	INextCardViewData withCount(Integer count);

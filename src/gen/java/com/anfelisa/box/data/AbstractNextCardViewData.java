@@ -46,6 +46,8 @@ public abstract class AbstractNextCardViewData extends AbstractData implements I
 	
 	private String categoryId;
 	
+	private String categoryName;
+	
 	private String rootCategoryId;
 	
 	private Integer count;
@@ -63,6 +65,7 @@ public abstract class AbstractNextCardViewData extends AbstractData implements I
 		@JsonProperty("wanted") String wanted,
 		@JsonProperty("image") String image,
 		@JsonProperty("categoryId") String categoryId,
+		@JsonProperty("categoryName") String categoryName,
 		@JsonProperty("rootCategoryId") String rootCategoryId,
 		@JsonProperty("count") Integer count,
 		@JsonProperty("scoredDate") java.time.LocalDateTime scoredDate
@@ -78,6 +81,7 @@ public abstract class AbstractNextCardViewData extends AbstractData implements I
 		this.wanted = wanted;
 		this.image = image;
 		this.categoryId = categoryId;
+		this.categoryName = categoryName;
 		this.rootCategoryId = rootCategoryId;
 		this.count = count;
 		this.scoredDate = scoredDate;
@@ -194,6 +198,18 @@ public abstract class AbstractNextCardViewData extends AbstractData implements I
 	}
 	public INextCardViewData withCategoryId(String categoryId) {
 		this.categoryId = categoryId;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getCategoryName() {
+		return this.categoryName;
+	}
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+	public INextCardViewData withCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 		return this;
 	}
 	

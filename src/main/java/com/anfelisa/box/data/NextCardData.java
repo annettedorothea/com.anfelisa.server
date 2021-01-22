@@ -14,6 +14,7 @@ public class NextCardData extends AbstractNextCardData implements INextCardData 
 	public NextCardData(
 		@JsonProperty("userId") String userId, 
 		@JsonProperty("boxId") String boxId, 
+		@JsonProperty("reverse") Boolean reverse, 
 		@JsonProperty("todayAtMidnightInUTC") java.time.LocalDateTime todayAtMidnightInUTC, 
 		@JsonProperty("openTodaysCards") Integer openTodaysCards, 
 		@JsonProperty("allTodaysCards") Integer allTodaysCards, 
@@ -26,6 +27,7 @@ public class NextCardData extends AbstractNextCardData implements INextCardData 
 		@JsonProperty("wanted") String wanted, 
 		@JsonProperty("image") String image, 
 		@JsonProperty("categoryId") String categoryId, 
+		@JsonProperty("categoryName") String categoryName, 
 		@JsonProperty("rootCategoryId") String rootCategoryId, 
 		@JsonProperty("count") Integer count, 
 		@JsonProperty("scoredDate") java.time.LocalDateTime scoredDate, 
@@ -34,6 +36,7 @@ public class NextCardData extends AbstractNextCardData implements INextCardData 
 		super(
 			userId,
 			boxId,
+			reverse,
 			todayAtMidnightInUTC,
 			openTodaysCards,
 			allTodaysCards,
@@ -46,6 +49,7 @@ public class NextCardData extends AbstractNextCardData implements INextCardData 
 			wanted,
 			image,
 			categoryId,
+			categoryName,
 			rootCategoryId,
 			count,
 			scoredDate,
@@ -65,6 +69,7 @@ public class NextCardData extends AbstractNextCardData implements INextCardData 
 		com.anfelisa.box.models.INextCardModel testData = new com.anfelisa.box.models.NextCardModel();
 		testData.setUserId(randomString(random));
 		testData.setBoxId(randomString(random));
+		testData.setReverse(random.nextBoolean());
 		testData.setTodayAtMidnightInUTC(random.nextBoolean() ? java.time.LocalDateTime.now().plusMinutes(random.nextInt(60)) : java.time.LocalDateTime.now().minusMinutes(random.nextInt(60)) );
 		testData.setOpenTodaysCards(random.nextInt(50));
 		testData.setAllTodaysCards(random.nextInt(50));
@@ -77,6 +82,7 @@ public class NextCardData extends AbstractNextCardData implements INextCardData 
 		testData.setWanted(randomString(random));
 		testData.setImage(randomString(random));
 		testData.setCategoryId(randomString(random));
+		testData.setCategoryName(randomString(random));
 		testData.setRootCategoryId(randomString(random));
 		testData.setCount(random.nextInt(50));
 		testData.setScoredDate(random.nextBoolean() ? java.time.LocalDateTime.now().plusMinutes(random.nextInt(60)) : java.time.LocalDateTime.now().minusMinutes(random.nextInt(60)) );

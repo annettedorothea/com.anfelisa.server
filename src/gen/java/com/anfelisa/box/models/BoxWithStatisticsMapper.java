@@ -22,6 +22,7 @@ public class BoxWithStatisticsMapper implements RowMapper<IBoxWithStatisticsMode
 			r.getString("categoryId"),
 			r.getString("boxId"),
 			r.getBoolean("reverse"),
+			r.getBoolean("shared"),
 			r.getObject("quality0Count") != null ? r.getInt("quality0Count") : null,
 			r.getObject("quality1Count") != null ? r.getInt("quality1Count") : null,
 			r.getObject("quality2Count") != null ? r.getInt("quality2Count") : null,

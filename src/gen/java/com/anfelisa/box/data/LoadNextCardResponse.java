@@ -50,6 +50,10 @@ public class LoadNextCardResponse implements ILoadNextCardResponse {
 	
 	private Integer allTodaysCards;
 	
+	private Boolean reverse = false;
+	
+	private String categoryName;
+	
 	public LoadNextCardResponse() {
 	}
 	
@@ -68,6 +72,8 @@ public class LoadNextCardResponse implements ILoadNextCardResponse {
 		wanted = data.getWanted();
 		openTodaysCards = data.getOpenTodaysCards();
 		allTodaysCards = data.getAllTodaysCards();
+		reverse = data.getReverse();
+		categoryName = data.getCategoryName();
 	}
 	
 	@JsonProperty
@@ -142,6 +148,16 @@ public class LoadNextCardResponse implements ILoadNextCardResponse {
 	@JsonProperty
 	public Integer getAllTodaysCards() {
 		return this.allTodaysCards;
+	}
+	
+	@JsonProperty
+	public Boolean getReverse() {
+		return this.reverse;
+	}
+	
+	@JsonProperty
+	public String getCategoryName() {
+		return this.categoryName;
 	}
 	
 }

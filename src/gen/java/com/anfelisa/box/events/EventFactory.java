@@ -63,18 +63,6 @@ public class EventFactory {
 				SortCardsOutOkEvent event = new SortCardsOutOkEvent(data, daoProvider, viewProvider, appConfiguration);
 				return event;
 			}
-			if (eventClass.equals("com.anfelisa.box.events.ScheduleActiveCardsOkEvent")) {
-				ScheduledCardsData data = mapper.readValue(json, ScheduledCardsData.class);
-				data.migrateLegacyData(json);
-				ScheduleActiveCardsOkEvent event = new ScheduleActiveCardsOkEvent(data, daoProvider, viewProvider, appConfiguration);
-				return event;
-			}
-			if (eventClass.equals("com.anfelisa.box.events.SortActiveCardsOutOkEvent")) {
-				SortCardsOutData data = mapper.readValue(json, SortCardsOutData.class);
-				data.migrateLegacyData(json);
-				SortActiveCardsOutOkEvent event = new SortActiveCardsOutOkEvent(data, daoProvider, viewProvider, appConfiguration);
-				return event;
-			}
 			if (eventClass.equals("com.anfelisa.box.events.ScoreCardScoreEvent")) {
 				ScoreCardData data = mapper.readValue(json, ScoreCardData.class);
 				data.migrateLegacyData(json);
@@ -144,14 +132,6 @@ public class EventFactory {
 
 		if (eventClass.equals("com.anfelisa.box.events.SortCardsOutOkEvent")) {
 			return new SortCardsOutOkEvent((SortCardsOutData)data, daoProvider, viewProvider, appConfiguration);
-		}
-
-		if (eventClass.equals("com.anfelisa.box.events.ScheduleActiveCardsOkEvent")) {
-			return new ScheduleActiveCardsOkEvent((ScheduledCardsData)data, daoProvider, viewProvider, appConfiguration);
-		}
-
-		if (eventClass.equals("com.anfelisa.box.events.SortActiveCardsOutOkEvent")) {
-			return new SortActiveCardsOutOkEvent((SortCardsOutData)data, daoProvider, viewProvider, appConfiguration);
 		}
 
 		if (eventClass.equals("com.anfelisa.box.events.ScoreCardScoreEvent")) {

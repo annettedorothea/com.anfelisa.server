@@ -24,14 +24,14 @@ public class ScheduleCardsPayload implements IScheduleCardsPayload {
 	
 	private java.util.List<String> cardIds;
 	
-	private Boolean reverse = false;
+	private String boxId;
 	
 	public ScheduleCardsPayload() {
 	}
 	
 	public ScheduleCardsPayload(com.anfelisa.box.models.IScheduledCardsModel data) {
 		cardIds = data.getCardIds();
-		reverse = data.getReverse();
+		boxId = data.getBoxId();
 	}
 	
 	@JsonProperty
@@ -40,8 +40,8 @@ public class ScheduleCardsPayload implements IScheduleCardsPayload {
 	}
 	
 	@JsonProperty
-	public Boolean getReverse() {
-		return this.reverse;
+	public String getBoxId() {
+		return this.boxId;
 	}
 	
 }

@@ -20,6 +20,7 @@ public class CategoryTreeData extends AbstractCategoryTreeData implements ICateg
 		@JsonProperty("editable") Boolean editable, 
 		@JsonProperty("reverse") Boolean reverse, 
 		@JsonProperty("reverseBoxExists") Boolean reverseBoxExists, 
+		@JsonProperty("boxId") String boxId, 
 		@JsonProperty("uuid") String uuid
 	) {
 		super(
@@ -31,6 +32,7 @@ public class CategoryTreeData extends AbstractCategoryTreeData implements ICateg
 			editable,
 			reverse,
 			reverseBoxExists,
+			boxId,
 			uuid
 		);
 	}
@@ -53,6 +55,7 @@ public class CategoryTreeData extends AbstractCategoryTreeData implements ICateg
 		testData.setEditable(random.nextBoolean());
 		testData.setReverse(random.nextBoolean());
 		testData.setReverseBoxExists(random.nextBoolean());
+		testData.setBoxId(randomString(random));
 		return testData;
 	}
 	

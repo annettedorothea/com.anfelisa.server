@@ -22,7 +22,8 @@ public class BoxDao extends AbstractBoxDao {
 				+ "AND scheduledDate < :endofday) + "
 				+ "(select count(reinforcecardid) from public.reinforcecard "
 				+ "where boxid = b.boxid ) as openTodaysCards, "
-				+ "b.boxid, b.categoryid, c.categoryname, c.categoryindex, b.reverse "
+				+ "b.boxid, b.categoryid, c.categoryname, c.categoryindex, b.reverse, "
+				+ "(select count(uac.userid) from useraccesstocategory uac where b.categoryid = uac.categoryid and uac.userid != :userid) > 0 as shared "
 				+ "FROM public.box b inner join public.category c on c.categoryid = b.categoryid where userid = :userid order by c.categoryindex")
 				.bind("userid", userId)
 				.bind("today", today)

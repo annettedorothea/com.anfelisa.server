@@ -20,6 +20,9 @@ public interface INextCardModel extends com.anfelisa.box.models.INextCardViewMod
 	String getBoxId();
 	void setBoxId(String boxId);
 	
+	Boolean getReverse();
+	void setReverse(Boolean reverse);
+	
 	java.time.LocalDateTime getTodayAtMidnightInUTC();
 	void setTodayAtMidnightInUTC(java.time.LocalDateTime todayAtMidnightInUTC);
 	

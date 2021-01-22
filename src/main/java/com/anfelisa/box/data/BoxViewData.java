@@ -9,6 +9,11 @@ package com.anfelisa.box.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
+import de.acegen.AbstractData;
+
 public class BoxViewData extends AbstractBoxViewData implements IBoxViewData {
 	
 	public BoxViewData(
@@ -17,6 +22,7 @@ public class BoxViewData extends AbstractBoxViewData implements IBoxViewData {
 		@JsonProperty("categoryId") String categoryId, 
 		@JsonProperty("boxId") String boxId, 
 		@JsonProperty("reverse") Boolean reverse, 
+		@JsonProperty("shared") Boolean shared, 
 		@JsonProperty("uuid") String uuid
 	) {
 		super(
@@ -25,6 +31,7 @@ public class BoxViewData extends AbstractBoxViewData implements IBoxViewData {
 			categoryId,
 			boxId,
 			reverse,
+			shared,
 			uuid
 		);
 	}
@@ -44,6 +51,7 @@ public class BoxViewData extends AbstractBoxViewData implements IBoxViewData {
 		testData.setCategoryId(randomString(random));
 		testData.setBoxId(randomString(random));
 		testData.setReverse(random.nextBoolean());
+		testData.setShared(random.nextBoolean());
 		return testData;
 	}
 	

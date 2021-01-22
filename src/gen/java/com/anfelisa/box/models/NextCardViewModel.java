@@ -38,6 +38,8 @@ public class NextCardViewModel implements INextCardViewModel {
 
 	private String categoryId;
 
+	private String categoryName;
+
 	private String rootCategoryId;
 
 	private Integer count;
@@ -58,6 +60,7 @@ public class NextCardViewModel implements INextCardViewModel {
 		@JsonProperty("wanted") String wanted,
 		@JsonProperty("image") String image,
 		@JsonProperty("categoryId") String categoryId,
+		@JsonProperty("categoryName") String categoryName,
 		@JsonProperty("rootCategoryId") String rootCategoryId,
 		@JsonProperty("count") Integer count,
 		@JsonProperty("scoredDate") java.time.LocalDateTime scoredDate
@@ -71,6 +74,7 @@ public class NextCardViewModel implements INextCardViewModel {
 		this.wanted = wanted;
 		this.image = image;
 		this.categoryId = categoryId;
+		this.categoryName = categoryName;
 		this.rootCategoryId = rootCategoryId;
 		this.count = count;
 		this.scoredDate = scoredDate;
@@ -148,6 +152,14 @@ public class NextCardViewModel implements INextCardViewModel {
 	}
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
+	}
+	
+	@JsonProperty
+	public String getCategoryName() {
+		return this.categoryName;
+	}
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 	
 	@JsonProperty

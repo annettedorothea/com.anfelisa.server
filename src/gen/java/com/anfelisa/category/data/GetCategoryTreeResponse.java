@@ -26,12 +26,15 @@ public class GetCategoryTreeResponse implements IGetCategoryTreeResponse {
 	
 	private Boolean reverseBoxExists = false;
 	
+	private String boxId;
+	
 	public GetCategoryTreeResponse() {
 	}
 	
 	public GetCategoryTreeResponse(com.anfelisa.category.models.ICategoryTreeModel data) {
 		rootCategory = data.getRootCategory();
 		reverseBoxExists = data.getReverseBoxExists();
+		boxId = data.getBoxId();
 	}
 	
 	@JsonProperty
@@ -42,6 +45,11 @@ public class GetCategoryTreeResponse implements IGetCategoryTreeResponse {
 	@JsonProperty
 	public Boolean getReverseBoxExists() {
 		return this.reverseBoxExists;
+	}
+	
+	@JsonProperty
+	public String getBoxId() {
+		return this.boxId;
 	}
 	
 }

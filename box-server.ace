@@ -59,29 +59,12 @@ ACE
 		authorize 
 		payload 
 			NotNull cardIds 
-			reverse
+			NotNull boxId
 		on ok (Box.scheduleCards)
 		on nullOrEmpty
 	
 	SortCardsOut<SortCardsOut>
 		POST "/cards/sort-out" 
-		authorize 
-		payload 
-			NotNull cardIds 
-		on ok (Box.sortCardsOut ReinforceCard.sortOut)
-		on nullOrEmpty
-	
-	ScheduleActiveCards<ScheduledCards>
-		POST "/active-cards/schedule" 
-		authorize 
-		payload 
-			NotNull cardIds 
-			NotNull boxId
-		on ok (Box.scheduleCards)
-		on nullOrEmpty
-	
-	SortActiveCardsOut<SortCardsOut>
-		POST "/active-cards/sort-out" 
 		authorize 
 		payload 
 			NotNull cardIds 
@@ -151,6 +134,8 @@ ACE
 			wanted
 			openTodaysCards
 			allTodaysCards
+			reverse
+			categoryName
 
 	DeleteBox<DeleteBox>
 		DELETE "/box/delete"  
@@ -250,6 +235,7 @@ models
 		String categoryId
 		String boxId
 		Boolean reverse
+		Boolean shared
 	}
 
 	BoxStatistics {
@@ -331,6 +317,7 @@ models
 		String wanted
 		String image
 		String categoryId
+		String categoryName
 		String rootCategoryId
 		Integer count
 		DateTime scoredDate
@@ -339,6 +326,7 @@ models
 	NextCard extends NextCardView, TodaysCardsStatus {
 		String userId
 		String boxId
+		Boolean reverse
 		DateTime todayAtMidnightInUTC
 		Integer openTodaysCards
 		Integer allTodaysCards

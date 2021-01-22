@@ -30,6 +30,8 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 
 	private Boolean reverse = false;
 
+	private Boolean shared = false;
+
 	private Integer quality0Count;
 
 	private Integer quality1Count;
@@ -56,6 +58,7 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("boxId") String boxId,
 		@JsonProperty("reverse") Boolean reverse,
+		@JsonProperty("shared") Boolean shared,
 		@JsonProperty("quality0Count") Integer quality0Count,
 		@JsonProperty("quality1Count") Integer quality1Count,
 		@JsonProperty("quality2Count") Integer quality2Count,
@@ -70,6 +73,7 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 		this.categoryId = categoryId;
 		this.boxId = boxId;
 		this.reverse = reverse;
+		this.shared = shared;
 		this.quality0Count = quality0Count;
 		this.quality1Count = quality1Count;
 		this.quality2Count = quality2Count;
@@ -118,6 +122,14 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 	}
 	public void setReverse(Boolean reverse) {
 		this.reverse = reverse;
+	}
+	
+	@JsonProperty
+	public Boolean getShared() {
+		return this.shared;
+	}
+	public void setShared(Boolean shared) {
+		this.shared = shared;
 	}
 	
 	@JsonProperty

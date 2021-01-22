@@ -34,6 +34,7 @@ public class ReinforceCardDao extends AbstractReinforceCardDao {
 						+ "c.wanted, "
 						+ "c.image, "
 						+ "c.categoryid, "
+						+ "ct.categoryname, "
 						+ "c.rootcategoryid, "
 						+ "sc.count, "
 						+ "sc.scoreddate "

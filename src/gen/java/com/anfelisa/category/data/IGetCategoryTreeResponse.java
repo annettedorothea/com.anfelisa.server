@@ -12,6 +12,8 @@ public interface IGetCategoryTreeResponse {
 	
 	Boolean getReverseBoxExists();
 	
+	String getBoxId();
+	
 
 }
 

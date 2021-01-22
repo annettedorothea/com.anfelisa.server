@@ -28,6 +28,8 @@ public interface IBoxWithStatisticsData extends IBoxWithStatisticsModel, IDataCo
 	
 	IBoxWithStatisticsData withReverse(Boolean reverse);
 	
+	IBoxWithStatisticsData withShared(Boolean shared);
+	
 	IBoxWithStatisticsData withQuality0Count(Integer quality0Count);
 	
 	IBoxWithStatisticsData withQuality1Count(Integer quality1Count);

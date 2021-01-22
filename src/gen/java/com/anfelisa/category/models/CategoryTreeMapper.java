@@ -24,7 +24,8 @@ public class CategoryTreeMapper implements RowMapper<ICategoryTreeModel> {
 			r.getObject("priority") != null ? r.getInt("priority") : null,
 			r.getBoolean("editable"),
 			r.getBoolean("reverse"),
-			r.getBoolean("reverseBoxExists")
+			r.getBoolean("reverseBoxExists"),
+			r.getString("boxId")
 		);
 	}
 }

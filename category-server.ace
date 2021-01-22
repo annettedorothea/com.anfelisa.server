@@ -39,6 +39,7 @@ ACE
 		response
 			rootCategory
 			reverseBoxExists
+			boxId
 
 	MoveCategory<CategoryMove>
 		PUT "/category/move"
@@ -144,6 +145,7 @@ models
 		Boolean editable
 		Boolean reverse
 		Boolean reverseBoxExists
+		String boxId
 	}
 
 	CategoryTreeItem {

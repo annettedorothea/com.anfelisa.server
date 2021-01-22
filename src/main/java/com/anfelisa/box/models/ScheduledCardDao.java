@@ -24,6 +24,7 @@ public class ScheduledCardDao extends AbstractScheduledCardDao {
 						+ "c.wanted, "
 						+ "c.image, "
 						+ "c.categoryid, "
+						+ "ct.categoryname, "
 						+ "c.rootcategoryid, "
 						+ "sc.count, "
 						+ "(select subscc.scoreddate from scheduledcard subscc where subscc.cardid = sc.cardid and scoreddate is not null order by scoreddate desc limit 1) as scoreddate "

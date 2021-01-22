@@ -26,8 +26,6 @@ public class AppRegistration {
 		environment.jersey().register(new GetBoxSettingsResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new ScheduleCardsResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new SortCardsOutResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
-		environment.jersey().register(new ScheduleActiveCardsResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
-		environment.jersey().register(new SortActiveCardsOutResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new ScoreCardResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new ScoreReinforceCardResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new InitMyBoxesForDayResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
@@ -72,18 +70,6 @@ public class AppRegistration {
 		});
 		
 		viewProvider.addConsumer("com.anfelisa.box.events.SortCardsOutOkEvent", (dataContainer, handle) -> {
-			viewProvider.reinforceCardView.sortOut((com.anfelisa.box.data.SortCardsOutData) dataContainer, handle);
-		});
-		
-		viewProvider.addConsumer("com.anfelisa.box.events.ScheduleActiveCardsOkEvent", (dataContainer, handle) -> {
-			viewProvider.boxView.scheduleCards((com.anfelisa.box.data.ScheduledCardsData) dataContainer, handle);
-		});
-		
-		viewProvider.addConsumer("com.anfelisa.box.events.SortActiveCardsOutOkEvent", (dataContainer, handle) -> {
-			viewProvider.boxView.sortCardsOut((com.anfelisa.box.data.SortCardsOutData) dataContainer, handle);
-		});
-		
-		viewProvider.addConsumer("com.anfelisa.box.events.SortActiveCardsOutOkEvent", (dataContainer, handle) -> {
 			viewProvider.reinforceCardView.sortOut((com.anfelisa.box.data.SortCardsOutData) dataContainer, handle);
 		});
 		

@@ -22,6 +22,8 @@ public interface INextCardData extends INextCardModel, IDataContainer {
 	
 	INextCardData withBoxId(String boxId);
 	
+	INextCardData withReverse(Boolean reverse);
+	
 	INextCardData withTodayAtMidnightInUTC(java.time.LocalDateTime todayAtMidnightInUTC);
 	
 	INextCardData withOpenTodaysCards(Integer openTodaysCards);
@@ -45,6 +47,8 @@ public interface INextCardData extends INextCardModel, IDataContainer {
 	INextCardData withImage(String image);
 	
 	INextCardData withCategoryId(String categoryId);
+	
+	INextCardData withCategoryName(String categoryName);
 	
 	INextCardData withRootCategoryId(String rootCategoryId);
 	

@@ -10,6 +10,8 @@ package com.anfelisa.box.data;
 public interface ISortCardsOutPayload {
 	java.util.List<String> getCardIds();
 	
+	String getBoxId();
+	
 
 }
 

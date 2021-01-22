@@ -30,6 +30,8 @@ public class BoxViewModel implements IBoxViewModel {
 
 	private Boolean reverse = false;
 
+	private Boolean shared = false;
+
 
 	public BoxViewModel() {
 	}
@@ -39,13 +41,15 @@ public class BoxViewModel implements IBoxViewModel {
 		@JsonProperty("categoryName") String categoryName,
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("boxId") String boxId,
-		@JsonProperty("reverse") Boolean reverse
+		@JsonProperty("reverse") Boolean reverse,
+		@JsonProperty("shared") Boolean shared
 	) {
 		this.openTodaysCards = openTodaysCards;
 		this.categoryName = categoryName;
 		this.categoryId = categoryId;
 		this.boxId = boxId;
 		this.reverse = reverse;
+		this.shared = shared;
 	}
 
 	@JsonProperty
@@ -86,6 +90,14 @@ public class BoxViewModel implements IBoxViewModel {
 	}
 	public void setReverse(Boolean reverse) {
 		this.reverse = reverse;
+	}
+	
+	@JsonProperty
+	public Boolean getShared() {
+		return this.shared;
+	}
+	public void setShared(Boolean shared) {
+		this.shared = shared;
 	}
 	
 

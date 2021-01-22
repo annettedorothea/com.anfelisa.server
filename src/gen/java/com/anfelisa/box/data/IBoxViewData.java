@@ -26,6 +26,8 @@ public interface IBoxViewData extends IBoxViewModel, IDataContainer {
 	
 	IBoxViewData withReverse(Boolean reverse);
 	
+	IBoxViewData withShared(Boolean shared);
+	
 	
 }
 

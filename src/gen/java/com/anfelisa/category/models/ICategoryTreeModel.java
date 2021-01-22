@@ -38,6 +38,9 @@ public interface ICategoryTreeModel {
 	Boolean getReverseBoxExists();
 	void setReverseBoxExists(Boolean reverseBoxExists);
 	
+	String getBoxId();
+	void setBoxId(String boxId);
+	
 	
 }
 

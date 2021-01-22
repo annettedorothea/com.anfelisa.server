@@ -40,6 +40,8 @@ public abstract class AbstractBoxWithStatisticsData extends AbstractData impleme
 	
 	private Boolean reverse = false;
 	
+	private Boolean shared = false;
+	
 	private Integer quality0Count;
 	
 	private Integer quality1Count;
@@ -63,6 +65,7 @@ public abstract class AbstractBoxWithStatisticsData extends AbstractData impleme
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("boxId") String boxId,
 		@JsonProperty("reverse") Boolean reverse,
+		@JsonProperty("shared") Boolean shared,
 		@JsonProperty("quality0Count") Integer quality0Count,
 		@JsonProperty("quality1Count") Integer quality1Count,
 		@JsonProperty("quality2Count") Integer quality2Count,
@@ -79,6 +82,7 @@ public abstract class AbstractBoxWithStatisticsData extends AbstractData impleme
 		this.categoryId = categoryId;
 		this.boxId = boxId;
 		this.reverse = reverse;
+		this.shared = shared;
 		this.quality0Count = quality0Count;
 		this.quality1Count = quality1Count;
 		this.quality2Count = quality2Count;
@@ -150,6 +154,18 @@ public abstract class AbstractBoxWithStatisticsData extends AbstractData impleme
 	}
 	public IBoxWithStatisticsData withReverse(Boolean reverse) {
 		this.reverse = reverse;
+		return this;
+	}
+	
+	@JsonProperty
+	public Boolean getShared() {
+		return this.shared;
+	}
+	public void setShared(Boolean shared) {
+		this.shared = shared;
+	}
+	public IBoxWithStatisticsData withShared(Boolean shared) {
+		this.shared = shared;
 		return this;
 	}
 	
@@ -256,6 +272,7 @@ public abstract class AbstractBoxWithStatisticsData extends AbstractData impleme
 		this.categoryId = model.getCategoryId();
 		this.boxId = model.getBoxId();
 		this.reverse = model.getReverse();
+		this.shared = model.getShared();
 	}
 	public void mapFrom(com.anfelisa.box.models.IBoxStatisticsModel model) {
 		this.boxId = model.getBoxId();

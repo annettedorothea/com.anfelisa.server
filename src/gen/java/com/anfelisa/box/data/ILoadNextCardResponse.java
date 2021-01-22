@@ -36,6 +36,10 @@ public interface ILoadNextCardResponse {
 	
 	Integer getAllTodaysCards();
 	
+	Boolean getReverse();
+	
+	String getCategoryName();
+	
 
 }
 

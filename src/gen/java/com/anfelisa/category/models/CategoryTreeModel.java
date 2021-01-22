@@ -36,6 +36,8 @@ public class CategoryTreeModel implements ICategoryTreeModel {
 
 	private Boolean reverseBoxExists = false;
 
+	private String boxId;
+
 
 	public CategoryTreeModel() {
 	}
@@ -48,7 +50,8 @@ public class CategoryTreeModel implements ICategoryTreeModel {
 		@JsonProperty("priority") Integer priority,
 		@JsonProperty("editable") Boolean editable,
 		@JsonProperty("reverse") Boolean reverse,
-		@JsonProperty("reverseBoxExists") Boolean reverseBoxExists
+		@JsonProperty("reverseBoxExists") Boolean reverseBoxExists,
+		@JsonProperty("boxId") String boxId
 	) {
 		this.rootCategory = rootCategory;
 		this.userId = userId;
@@ -58,6 +61,7 @@ public class CategoryTreeModel implements ICategoryTreeModel {
 		this.editable = editable;
 		this.reverse = reverse;
 		this.reverseBoxExists = reverseBoxExists;
+		this.boxId = boxId;
 	}
 
 	@JsonProperty
@@ -122,6 +126,14 @@ public class CategoryTreeModel implements ICategoryTreeModel {
 	}
 	public void setReverseBoxExists(Boolean reverseBoxExists) {
 		this.reverseBoxExists = reverseBoxExists;
+	}
+	
+	@JsonProperty
+	public String getBoxId() {
+		return this.boxId;
+	}
+	public void setBoxId(String boxId) {
+		this.boxId = boxId;
 	}
 	
 

@@ -24,6 +24,8 @@ public class NextCardModel implements INextCardModel {
 
 	private String boxId;
 
+	private Boolean reverse = false;
+
 	private java.time.LocalDateTime todayAtMidnightInUTC;
 
 	private Integer openTodaysCards;
@@ -48,6 +50,8 @@ public class NextCardModel implements INextCardModel {
 
 	private String categoryId;
 
+	private String categoryName;
+
 	private String rootCategoryId;
 
 	private Integer count;
@@ -61,6 +65,7 @@ public class NextCardModel implements INextCardModel {
 	public NextCardModel(
 		@JsonProperty("userId") String userId,
 		@JsonProperty("boxId") String boxId,
+		@JsonProperty("reverse") Boolean reverse,
 		@JsonProperty("todayAtMidnightInUTC") java.time.LocalDateTime todayAtMidnightInUTC,
 		@JsonProperty("openTodaysCards") Integer openTodaysCards,
 		@JsonProperty("allTodaysCards") Integer allTodaysCards,
@@ -73,12 +78,14 @@ public class NextCardModel implements INextCardModel {
 		@JsonProperty("wanted") String wanted,
 		@JsonProperty("image") String image,
 		@JsonProperty("categoryId") String categoryId,
+		@JsonProperty("categoryName") String categoryName,
 		@JsonProperty("rootCategoryId") String rootCategoryId,
 		@JsonProperty("count") Integer count,
 		@JsonProperty("scoredDate") java.time.LocalDateTime scoredDate
 	) {
 		this.userId = userId;
 		this.boxId = boxId;
+		this.reverse = reverse;
 		this.todayAtMidnightInUTC = todayAtMidnightInUTC;
 		this.openTodaysCards = openTodaysCards;
 		this.allTodaysCards = allTodaysCards;
@@ -91,6 +98,7 @@ public class NextCardModel implements INextCardModel {
 		this.wanted = wanted;
 		this.image = image;
 		this.categoryId = categoryId;
+		this.categoryName = categoryName;
 		this.rootCategoryId = rootCategoryId;
 		this.count = count;
 		this.scoredDate = scoredDate;
@@ -110,6 +118,14 @@ public class NextCardModel implements INextCardModel {
 	}
 	public void setBoxId(String boxId) {
 		this.boxId = boxId;
+	}
+	
+	@JsonProperty
+	public Boolean getReverse() {
+		return this.reverse;
+	}
+	public void setReverse(Boolean reverse) {
+		this.reverse = reverse;
 	}
 	
 	@JsonProperty
@@ -210,6 +226,14 @@ public class NextCardModel implements INextCardModel {
 	}
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
+	}
+	
+	@JsonProperty
+	public String getCategoryName() {
+		return this.categoryName;
+	}
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 	
 	@JsonProperty

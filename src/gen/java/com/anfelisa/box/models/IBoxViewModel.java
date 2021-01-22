@@ -29,6 +29,9 @@ public interface IBoxViewModel {
 	Boolean getReverse();
 	void setReverse(Boolean reverse);
 	
+	Boolean getShared();
+	void setShared(Boolean shared);
+	
 	
 }
 
