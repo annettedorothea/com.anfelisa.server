@@ -20,8 +20,7 @@ public class GetCategoryTreeAction extends AbstractGetCategoryTreeAction {
 	static final Logger LOG = LoggerFactory.getLogger(GetCategoryTreeAction.class);
 
 	public GetCategoryTreeAction(PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration,
-			IDaoProvider daoProvider,
-			ViewProvider viewProvider) {
+			IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super(persistenceConnection, appConfiguration, daoProvider, viewProvider);
 	}
 
@@ -32,37 +31,43 @@ public class GetCategoryTreeAction extends AbstractGetCategoryTreeAction {
 			throwSecurityException();
 		}
 		ICategoryTreeItemModel rootCategory = daoProvider.getCategoryDao().selectRoot(readonlyHandle,
-				actionData.getRootCategoryId(), actionData.getUserId());
+				actionData.getRootCategoryId(), actionData.getUserId(), actionData.getReverse());
 		loadChildren(rootCategory, rootCategory.getCategoryId(), readonlyHandle);
-		
-		IBoxModel box = daoProvider.getBoxDao().selectByCategoryIdAndUserId(readonlyHandle, rootCategory.getCategoryId(), actionData.getUserId(), actionData.getReverse());
+
+		IBoxModel box = daoProvider.getBoxDao().selectByCategoryIdAndUserId(readonlyHandle,
+				rootCategory.getCategoryId(), actionData.getUserId(), actionData.getReverse());
 		if (box == null) {
 			throwIllegalArgumentException("boxNotFound");
 		}
-		
-		if (this.actionData.getFilterNonScheduled() != null && this.actionData.getFilterNonScheduled() && box != null) {
+
+		if (this.actionData.getFilterNonScheduled() != null && this.actionData.getFilterNonScheduled()) {
 			initNonScheduledCount(rootCategory, box.getBoxId(), this.actionData.getPriority(), readonlyHandle);
 		}
 		actionData.setRootCategory(rootCategory);
 
-		IBoxModel reverseBox = daoProvider.getBoxDao().selectByCategoryIdAndUserId(readonlyHandle, rootCategory.getCategoryId(), actionData.getUserId(), true);
-		this.actionData.setReverseBoxExists(reverseBox != null);
+		if (box.getReverse()) {
+			this.actionData.setReverseBoxExists(true);
+		} else {
+			IBoxModel reverseBox = daoProvider.getBoxDao().selectByCategoryIdAndUserId(readonlyHandle,
+					rootCategory.getCategoryId(), actionData.getUserId(), true);
+			this.actionData.setReverseBoxExists(reverseBox != null);
+		}
 	}
 
 	private void loadChildren(ICategoryTreeItemModel categoryItemModel, String rootCategoryId,
 			PersistenceHandle readonlyHandle) {
 		List<ICategoryTreeItemModel> children = daoProvider.getCategoryDao().selectAllChildrenForTree(readonlyHandle,
-				categoryItemModel.getCategoryId(), actionData.getUserId());
+				categoryItemModel.getCategoryId(), actionData.getUserId(), actionData.getReverse());
 		categoryItemModel.setChildCategories(children);
 		for (ICategoryTreeItemModel child : children) {
 			loadChildren(child, rootCategoryId, readonlyHandle);
 		}
 	}
 
-	private void initNonScheduledCount(ICategoryTreeItemModel categoryItemModel, String boxId,
-			Integer priority, PersistenceHandle readonlyHandle) {
-		Integer nonScheduledCardCount = daoProvider.getCardDao().selectNonScheduledCardCountOfCategory(
-				readonlyHandle, categoryItemModel.getCategoryId(), boxId, priority);
+	private void initNonScheduledCount(ICategoryTreeItemModel categoryItemModel, String boxId, Integer priority,
+			PersistenceHandle readonlyHandle) {
+		Integer nonScheduledCardCount = daoProvider.getCardDao().selectNonScheduledCardCountOfCategory(readonlyHandle,
+				categoryItemModel.getCategoryId(), boxId, priority);
 		for (ICategoryTreeItemModel child : categoryItemModel.getChildCategories()) {
 			initNonScheduledCount(child, boxId, priority, readonlyHandle);
 			nonScheduledCardCount += child.getNonScheduledCount();

@@ -36,12 +36,15 @@ public abstract class AbstractBoxViewData extends AbstractData implements IBoxVi
 	
 	private String boxId;
 	
+	private Boolean reverse = false;
+	
 
 	public AbstractBoxViewData(
 		@JsonProperty("openTodaysCards") Integer openTodaysCards,
 		@JsonProperty("categoryName") String categoryName,
 		@JsonProperty("categoryId") String categoryId,
-		@JsonProperty("boxId") String boxId
+		@JsonProperty("boxId") String boxId,
+		@JsonProperty("reverse") Boolean reverse
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
@@ -49,6 +52,7 @@ public abstract class AbstractBoxViewData extends AbstractData implements IBoxVi
 		this.categoryName = categoryName;
 		this.categoryId = categoryId;
 		this.boxId = boxId;
+		this.reverse = reverse;
 	}
 
 	public AbstractBoxViewData( String uuid ) {
@@ -100,6 +104,18 @@ public abstract class AbstractBoxViewData extends AbstractData implements IBoxVi
 	}
 	public IBoxViewData withBoxId(String boxId) {
 		this.boxId = boxId;
+		return this;
+	}
+	
+	@JsonProperty
+	public Boolean getReverse() {
+		return this.reverse;
+	}
+	public void setReverse(Boolean reverse) {
+		this.reverse = reverse;
+	}
+	public IBoxViewData withReverse(Boolean reverse) {
+		this.reverse = reverse;
 		return this;
 	}
 	

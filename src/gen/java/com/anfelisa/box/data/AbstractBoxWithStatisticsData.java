@@ -38,6 +38,8 @@ public abstract class AbstractBoxWithStatisticsData extends AbstractData impleme
 	
 	private String boxId;
 	
+	private Boolean reverse = false;
+	
 	private Integer quality0Count;
 	
 	private Integer quality1Count;
@@ -60,6 +62,7 @@ public abstract class AbstractBoxWithStatisticsData extends AbstractData impleme
 		@JsonProperty("categoryName") String categoryName,
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("boxId") String boxId,
+		@JsonProperty("reverse") Boolean reverse,
 		@JsonProperty("quality0Count") Integer quality0Count,
 		@JsonProperty("quality1Count") Integer quality1Count,
 		@JsonProperty("quality2Count") Integer quality2Count,
@@ -75,6 +78,7 @@ public abstract class AbstractBoxWithStatisticsData extends AbstractData impleme
 		this.categoryName = categoryName;
 		this.categoryId = categoryId;
 		this.boxId = boxId;
+		this.reverse = reverse;
 		this.quality0Count = quality0Count;
 		this.quality1Count = quality1Count;
 		this.quality2Count = quality2Count;
@@ -134,6 +138,18 @@ public abstract class AbstractBoxWithStatisticsData extends AbstractData impleme
 	}
 	public IBoxWithStatisticsData withBoxId(String boxId) {
 		this.boxId = boxId;
+		return this;
+	}
+	
+	@JsonProperty
+	public Boolean getReverse() {
+		return this.reverse;
+	}
+	public void setReverse(Boolean reverse) {
+		this.reverse = reverse;
+	}
+	public IBoxWithStatisticsData withReverse(Boolean reverse) {
+		this.reverse = reverse;
 		return this;
 	}
 	
@@ -239,6 +255,7 @@ public abstract class AbstractBoxWithStatisticsData extends AbstractData impleme
 		this.categoryName = model.getCategoryName();
 		this.categoryId = model.getCategoryId();
 		this.boxId = model.getBoxId();
+		this.reverse = model.getReverse();
 	}
 	public void mapFrom(com.anfelisa.box.models.IBoxStatisticsModel model) {
 		this.boxId = model.getBoxId();

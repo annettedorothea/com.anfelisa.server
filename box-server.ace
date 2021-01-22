@@ -249,6 +249,7 @@ models
 		String categoryName
 		String categoryId
 		String boxId
+		Boolean reverse
 	}
 
 	BoxStatistics {

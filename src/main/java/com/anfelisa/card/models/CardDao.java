@@ -13,34 +13,12 @@ import de.acegen.PersistenceHandle;
 
 public class CardDao extends AbstractCardDao {
 
-	public List<ICardWithInfoModel> selectAllOfCategoryWithBoxInfo(PersistenceHandle handle, String categoryId,
-			String boxId) {
-		return handle.getHandle().createQuery(
-				"SELECT c.cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid, priority, s.scheduleddate as next "
-						+ "FROM public.card c "
-						+ "left outer join scheduledcard s on c.cardid = s.cardid and s.boxid = :boxid and s.quality is null "
-						+ "WHERE categoryid = :categoryid "
-						+ "ORDER BY cardindex, given")
+	public List<ICardWithInfoModel> selectAllOfCategory(PersistenceHandle handle, String categoryId) {
+		return handle.getHandle().createQuery("SELECT cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid, priority, null as next FROM card "
+				+ "WHERE categoryid = :categoryid")
 				.bind("categoryid", categoryId)
-				.bind("boxid", boxId)
-				.map(new CardWithInfoMapper()).list();
-	}
-
-	public List<ICardWithInfoModel> selectAllNonScheduledOfCategoryWithBoxInfo(PersistenceHandle handle,
-			String categoryId,
-			String boxId, Integer priority) {
-		return handle.getHandle().createQuery(
-				"SELECT c.cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid, priority, s.scheduleddate as next "
-						+ "FROM public.card c "
-						+ "left outer join scheduledcard s on c.cardid = s.cardid and s.boxid = :boxid and s.quality is null "
-						+ "WHERE categoryid = :categoryid "
-						+ "AND s.scheduleddate is null "
-						+ "AND (:priority is null OR c.priority = :priority)"
-						+ "ORDER BY cardindex, given")
-				.bind("categoryid", categoryId)
-				.bind("boxid", boxId)
-				.bind("priority", priority)
-				.map(new CardWithInfoMapper()).list();
+				.map(new CardWithInfoMapper())
+				.list();
 	}
 
 	public List<ICardWithStatisticsModel> selectAllActiveCards(PersistenceHandle handle, String boxId) {
@@ -59,11 +37,13 @@ public class CardDao extends AbstractCardDao {
 	public Integer selectNonScheduledCardCountOfCategory(PersistenceHandle handle, String categoryId,
 			String boxId, Integer priority) {
 		Optional<Integer> optional = handle.getHandle().createQuery(
-				"SELECT count(c.cardid) "
-						+ "FROM public.card c "
-						+ "left outer join scheduledcard s on c.cardid = s.cardid and s.boxid = :boxid and s.quality is null "
-						+ "WHERE categoryid = :categoryid AND (:priority is null OR c.priority = :priority) "
-						+ "AND s.scheduleddate is null")
+				"SELECT ((select count(cardid) from card where categoryid = :categoryid and (:priority is null OR priority = :priority)) - "
+				+ "(select count(sc.scheduledcardid) from scheduledcard sc "
+				+ "inner join card c on sc.cardid = c.cardid "
+				+ "where boxid = :boxid "
+				+ "and quality is null and scheduleddate is not null "
+				+ "and c.categoryid = :categoryid "
+				+ "and (:priority is null OR c.priority = :priority))) as nonScheduledCardCount")
 				.bind("categoryid", categoryId)
 				.bind("boxid", boxId)
 				.bind("priority", priority)

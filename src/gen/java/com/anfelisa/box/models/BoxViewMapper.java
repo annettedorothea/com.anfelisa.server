@@ -20,7 +20,8 @@ public class BoxViewMapper implements RowMapper<IBoxViewModel> {
 			r.getObject("openTodaysCards") != null ? r.getInt("openTodaysCards") : null,
 			r.getString("categoryName"),
 			r.getString("categoryId"),
-			r.getString("boxId")
+			r.getString("boxId"),
+			r.getBoolean("reverse")
 		);
 	}
 }

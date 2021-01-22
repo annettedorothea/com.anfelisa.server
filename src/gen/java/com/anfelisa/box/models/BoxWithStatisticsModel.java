@@ -28,6 +28,8 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 
 	private String boxId;
 
+	private Boolean reverse = false;
+
 	private Integer quality0Count;
 
 	private Integer quality1Count;
@@ -53,6 +55,7 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 		@JsonProperty("categoryName") String categoryName,
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("boxId") String boxId,
+		@JsonProperty("reverse") Boolean reverse,
 		@JsonProperty("quality0Count") Integer quality0Count,
 		@JsonProperty("quality1Count") Integer quality1Count,
 		@JsonProperty("quality2Count") Integer quality2Count,
@@ -66,6 +69,7 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 		this.categoryName = categoryName;
 		this.categoryId = categoryId;
 		this.boxId = boxId;
+		this.reverse = reverse;
 		this.quality0Count = quality0Count;
 		this.quality1Count = quality1Count;
 		this.quality2Count = quality2Count;
@@ -106,6 +110,14 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 	}
 	public void setBoxId(String boxId) {
 		this.boxId = boxId;
+	}
+	
+	@JsonProperty
+	public Boolean getReverse() {
+		return this.reverse;
+	}
+	public void setReverse(Boolean reverse) {
+		this.reverse = reverse;
 	}
 	
 	@JsonProperty

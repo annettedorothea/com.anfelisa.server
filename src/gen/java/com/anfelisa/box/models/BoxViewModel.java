@@ -28,6 +28,8 @@ public class BoxViewModel implements IBoxViewModel {
 
 	private String boxId;
 
+	private Boolean reverse = false;
+
 
 	public BoxViewModel() {
 	}
@@ -36,12 +38,14 @@ public class BoxViewModel implements IBoxViewModel {
 		@JsonProperty("openTodaysCards") Integer openTodaysCards,
 		@JsonProperty("categoryName") String categoryName,
 		@JsonProperty("categoryId") String categoryId,
-		@JsonProperty("boxId") String boxId
+		@JsonProperty("boxId") String boxId,
+		@JsonProperty("reverse") Boolean reverse
 	) {
 		this.openTodaysCards = openTodaysCards;
 		this.categoryName = categoryName;
 		this.categoryId = categoryId;
 		this.boxId = boxId;
+		this.reverse = reverse;
 	}
 
 	@JsonProperty
@@ -74,6 +78,14 @@ public class BoxViewModel implements IBoxViewModel {
 	}
 	public void setBoxId(String boxId) {
 		this.boxId = boxId;
+	}
+	
+	@JsonProperty
+	public Boolean getReverse() {
+		return this.reverse;
+	}
+	public void setReverse(Boolean reverse) {
+		this.reverse = reverse;
 	}
 	
 

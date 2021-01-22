@@ -26,6 +26,8 @@ public interface IBoxWithStatisticsData extends IBoxWithStatisticsModel, IDataCo
 	
 	IBoxWithStatisticsData withBoxId(String boxId);
 	
+	IBoxWithStatisticsData withReverse(Boolean reverse);
+	
 	IBoxWithStatisticsData withQuality0Count(Integer quality0Count);
 	
 	IBoxWithStatisticsData withQuality1Count(Integer quality1Count);

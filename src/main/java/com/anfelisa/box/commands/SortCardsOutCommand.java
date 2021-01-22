@@ -62,7 +62,7 @@ public class SortCardsOutCommand extends AbstractSortCardsOutCommand {
 				if (box == null) {
 					throwIllegalArgumentException("boxDoesNotExist");
 				}
-				if (box.getUserId().equals(commandData.getUserId())) {
+				if (!box.getUserId().equals(commandData.getUserId())) {
 					throwSecurityException();
 				}
 				IScheduledCardModel scheduledCard = daoProvider.getScheduledCardDao()

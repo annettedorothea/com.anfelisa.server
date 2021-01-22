@@ -16,6 +16,7 @@ public class BoxWithStatisticsData extends AbstractBoxWithStatisticsData impleme
 		@JsonProperty("categoryName") String categoryName, 
 		@JsonProperty("categoryId") String categoryId, 
 		@JsonProperty("boxId") String boxId, 
+		@JsonProperty("reverse") Boolean reverse, 
 		@JsonProperty("quality0Count") Integer quality0Count, 
 		@JsonProperty("quality1Count") Integer quality1Count, 
 		@JsonProperty("quality2Count") Integer quality2Count, 
@@ -31,6 +32,7 @@ public class BoxWithStatisticsData extends AbstractBoxWithStatisticsData impleme
 			categoryName,
 			categoryId,
 			boxId,
+			reverse,
 			quality0Count,
 			quality1Count,
 			quality2Count,
@@ -58,6 +60,7 @@ public class BoxWithStatisticsData extends AbstractBoxWithStatisticsData impleme
 		testData.setCategoryName(randomString(random));
 		testData.setCategoryId(randomString(random));
 		testData.setBoxId(randomString(random));
+		testData.setReverse(random.nextBoolean());
 		testData.setQuality0Count(random.nextInt(50));
 		testData.setQuality1Count(random.nextInt(50));
 		testData.setQuality2Count(random.nextInt(50));

@@ -16,6 +16,7 @@ public class BoxViewData extends AbstractBoxViewData implements IBoxViewData {
 		@JsonProperty("categoryName") String categoryName, 
 		@JsonProperty("categoryId") String categoryId, 
 		@JsonProperty("boxId") String boxId, 
+		@JsonProperty("reverse") Boolean reverse, 
 		@JsonProperty("uuid") String uuid
 	) {
 		super(
@@ -23,6 +24,7 @@ public class BoxViewData extends AbstractBoxViewData implements IBoxViewData {
 			categoryName,
 			categoryId,
 			boxId,
+			reverse,
 			uuid
 		);
 	}
@@ -41,6 +43,7 @@ public class BoxViewData extends AbstractBoxViewData implements IBoxViewData {
 		testData.setCategoryName(randomString(random));
 		testData.setCategoryId(randomString(random));
 		testData.setBoxId(randomString(random));
+		testData.setReverse(random.nextBoolean());
 		return testData;
 	}
 	

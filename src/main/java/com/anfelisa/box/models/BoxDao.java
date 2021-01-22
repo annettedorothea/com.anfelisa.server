@@ -22,7 +22,7 @@ public class BoxDao extends AbstractBoxDao {
 				+ "AND scheduledDate < :endofday) + "
 				+ "(select count(reinforcecardid) from public.reinforcecard "
 				+ "where boxid = b.boxid ) as openTodaysCards, "
-				+ "b.boxid, b.categoryid, c.categoryname, c.categoryindex "
+				+ "b.boxid, b.categoryid, c.categoryname, c.categoryindex, b.reverse "
 				+ "FROM public.box b inner join public.category c on c.categoryid = b.categoryid where userid = :userid order by c.categoryindex")
 				.bind("userid", userId)
 				.bind("today", today)
@@ -138,7 +138,7 @@ public class BoxDao extends AbstractBoxDao {
 				.map(new BoxMapper())
 				.list();
 	}
-
+	
 }
 
 /* S.D.G. */

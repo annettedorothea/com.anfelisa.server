@@ -1,5 +1,7 @@
 package com.anfelisa.card.actions;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -21,8 +23,7 @@ public class GetCardsAction extends AbstractGetCardsAction {
 	static final Logger LOG = LoggerFactory.getLogger(GetCardsAction.class);
 
 	public GetCardsAction(PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration,
-			IDaoProvider daoProvider,
-			ViewProvider viewProvider) {
+			IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super(persistenceConnection, appConfiguration, daoProvider, viewProvider);
 	}
 
@@ -42,16 +43,21 @@ public class GetCardsAction extends AbstractGetCardsAction {
 		if (box == null) {
 			throwIllegalArgumentException("boxNotFound");
 		}
-		
-		List<ICardWithInfoModel> allCards = null;
-		if (!this.actionData.getFilterNonScheduled()) {
-			allCards = daoProvider.getCardDao().selectAllOfCategoryWithBoxInfo(readonlyHandle,
-					actionData.getCategoryId(), box.getBoxId());
-		} else {
-			allCards = daoProvider.getCardDao().selectAllNonScheduledOfCategoryWithBoxInfo(readonlyHandle,
-					actionData.getCategoryId(), box.getBoxId(), actionData.getPriority());
+
+		List<ICardWithInfoModel> allCards = daoProvider.getCardDao().selectAllOfCategory(readonlyHandle,
+				actionData.getCategoryId());
+		List<ICardWithInfoModel> cardList = new ArrayList<>();
+		for (ICardWithInfoModel card : allCards) {
+			LocalDateTime scheduledDate = daoProvider.getScheduledCardDao()
+					.selectUnscoredScheduledDateByCardIdAndBoxId(readonlyHandle, card.getCardId(), box.getBoxId());
+			if (scheduledDate == null) {
+				cardList.add(card);
+			} else if (!this.actionData.getFilterNonScheduled()) {
+				card.setNext(scheduledDate);
+				cardList.add(card);
+			}
 		}
-		this.actionData.setCardList(allCards);
+		this.actionData.setCardList(cardList);
 	}
 
 	@Override
