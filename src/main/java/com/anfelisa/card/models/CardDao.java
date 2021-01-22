@@ -7,20 +7,23 @@ import org.jdbi.v3.core.statement.Update;
 
 import com.anfelisa.box.models.CardWithStatisticsMapper;
 import com.anfelisa.box.models.ICardWithStatisticsModel;
+import com.anfelisa.box.models.IScheduledCardModel;
+import com.anfelisa.box.models.ScheduledCardMapper;
 import com.anfelisa.card.data.ICardUpdateData;
 
 import de.acegen.PersistenceHandle;
 
 public class CardDao extends AbstractCardDao {
 
-	public List<ICardWithInfoModel> selectAllOfCategory(PersistenceHandle handle, String categoryId) {
+	public List<ICardWithInfoModel> selectAllOfCategory(PersistenceHandle handle, String categoryId, Integer priority) {
 		return handle.getHandle().createQuery("SELECT cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid, priority, null as next FROM card "
-				+ "WHERE categoryid = :categoryid")
+				+ "WHERE categoryid = :categoryid and (:priority is null OR priority = :priority)")
 				.bind("categoryid", categoryId)
+				.bind("priority", priority)
 				.map(new CardWithInfoMapper())
 				.list();
 	}
-
+	
 	public List<ICardWithStatisticsModel> selectAllActiveCards(PersistenceHandle handle, String boxId) {
 		return handle.getHandle().createQuery(
 				"SELECT c.cardid, given, wanted, image, cardauthor, cardindex, c.categoryid, rootcategoryid, priority, s.scheduleddate as next, s.ef, s.interval, s.count, s.lastquality "
@@ -49,6 +52,21 @@ public class CardDao extends AbstractCardDao {
 				.bind("priority", priority)
 				.mapTo(Integer.class).findFirst();
 		return optional.isPresent() ? optional.get() : null;
+	}
+
+	public List<IScheduledCardModel> selectUnscoredByCategoryAndBoxId(PersistenceHandle handle, String categoryId, String boxId, Integer priority) {
+		return  handle.getHandle().createQuery("select * from scheduledcard sc "
+				+ "inner join card c on sc.cardid = c.cardid\n"
+				+ "where boxid = :boxid "
+				+ "and quality is null "
+				+ "and scheduleddate is not null "
+				+ "and c.categoryid = :categoryid "
+				+ "and (:priority is null OR c.priority = :priority)")
+				.bind("categoryid", categoryId)
+				.bind("boxid", boxId)
+				.bind("priority", priority)
+				.map(new ScheduledCardMapper())
+				.list();
 	}
 
 	public List<ICardModel> selectAll(PersistenceHandle handle, String categoryId) {

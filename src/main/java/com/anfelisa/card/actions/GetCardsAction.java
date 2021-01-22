@@ -1,6 +1,5 @@
 package com.anfelisa.card.actions;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.box.models.IBoxModel;
+import com.anfelisa.box.models.IScheduledCardModel;
 import com.anfelisa.card.models.ICardWithInfoModel;
 import com.anfelisa.category.models.ICategoryModel;
 import com.anfelisa.category.models.IUserAccessToCategoryModel;
@@ -45,25 +45,35 @@ public class GetCardsAction extends AbstractGetCardsAction {
 		}
 
 		List<ICardWithInfoModel> allCards = daoProvider.getCardDao().selectAllOfCategory(readonlyHandle,
-				actionData.getCategoryId());
+				actionData.getCategoryId(), actionData.getPriority());
 		List<ICardWithInfoModel> cardList = new ArrayList<>();
+		List<IScheduledCardModel> allUnscored = daoProvider.getCardDao()
+				.selectUnscoredByCategoryAndBoxId(readonlyHandle, actionData.getCategoryId(), box.getBoxId(), actionData.getPriority());
 		for (ICardWithInfoModel card : allCards) {
-			LocalDateTime scheduledDate = daoProvider.getScheduledCardDao()
-					.selectUnscoredScheduledDateByCardIdAndBoxId(readonlyHandle, card.getCardId(), box.getBoxId());
-			if (scheduledDate == null) {
+			IScheduledCardModel scheduledCardModel = find(allUnscored, card);
+			if (scheduledCardModel == null) {
 				cardList.add(card);
 			} else if (!this.actionData.getFilterNonScheduled()) {
-				card.setNext(scheduledDate);
+				card.setNext(scheduledCardModel.getScheduledDate());
 				cardList.add(card);
 			}
 		}
 		this.actionData.setCardList(cardList);
 	}
 
+	private IScheduledCardModel find(List<IScheduledCardModel> allUnscored, ICardWithInfoModel card) {
+		for (IScheduledCardModel scheduledCardModel : allUnscored) {
+			if (scheduledCardModel.getCardId().equals(card.getCardId())) {
+				return scheduledCardModel;
+			}
+		}
+		return null;
+	}
+
 	@Override
 	public void initActionData() {
 	}
-
+	
 }
 
 /* S.D.G. */

@@ -126,20 +126,6 @@ public class ScheduledCardDao extends AbstractScheduledCardDao {
 		return optional.isPresent() ? optional.get() : null;
 	}
 
-	public LocalDateTime selectUnscoredScheduledDateByCardIdAndBoxId(PersistenceHandle handle, String cardId, String boxId) {
-		Optional<LocalDateTime> optional = handle.getHandle().createQuery("SELECT "
-				+ "scheduleddate "
-				+ "FROM scheduledcard "
-				+ "WHERE cardid = :cardid "
-				+ "AND boxid = :boxid "
-				+ "AND quality is NULL")
-				.bind("cardid", cardId)
-				.bind("boxid", boxId)
-				.mapTo(LocalDateTime.class)
-				.findFirst();
-		return optional.isPresent() ? optional.get() : null;
-	}
-	
 	public IScheduledCardModel selectLastScoredByCardIdAndBoxId(PersistenceHandle handle, String cardId, String boxId) {
 		Optional<IScheduledCardModel> optional = handle.getHandle().createQuery("SELECT "
 				+ "scheduledcardid, cardid, boxid, createddate, ef, interval, n, count, scheduleddate, lastquality, quality, scoreddate "
