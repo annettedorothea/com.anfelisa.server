@@ -308,13 +308,15 @@ public abstract class AbstractLoadNextCardFinished5Scenario extends BaseScenario
 			com.anfelisa.box.data.ScheduleCardsPayload payload_8 = objectMapper.readValue("{" +
 				"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"," + 
 				"\"c3-" + this.getTestId() + "\"," + 
-				"\"c4-" + this.getTestId() + "\"]} ",
+				"\"c4-" + this.getTestId() + "\"]," + 
+				"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.ScheduleCardsPayload.class);
 			com.anfelisa.box.data.ScheduledCardsData data_8 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 			"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"," + 
 			"\"c3-" + this.getTestId() + "\"," + 
-			"\"c4-" + this.getTestId() + "\"]} ",
+			"\"c4-" + this.getTestId() + "\"]," + 
+			"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.ScheduledCardsData.class);
 			HttpResponse<Object> response_8 = 
 			this.httpPost(
@@ -577,7 +579,8 @@ public abstract class AbstractLoadNextCardFinished5Scenario extends BaseScenario
 					com.anfelisa.box.data.NextCardData expectedData = objectMapper.readValue("{" +
 						"\"uuid\" : \"\"," + 
 						"\"allTodaysCards\" : 3," + 
-						"\"openTodaysCards\" : 0} ",
+						"\"openTodaysCards\" : 0," + 
+						"\"reverse\" : false} ",
 					com.anfelisa.box.data.NextCardData.class);
 					
 					com.anfelisa.box.data.LoadNextCardResponse expected = new com.anfelisa.box.data.LoadNextCardResponse(expectedData);

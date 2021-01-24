@@ -174,11 +174,13 @@ public abstract class AbstractScheduleCardsAsAdminScenario extends BaseScenario 
 		String uuid = "sc6-" + this.getTestId() + "";
 		this.callNonDeterministicDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 10:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 		com.anfelisa.box.data.ScheduleCardsPayload payload_0 = objectMapper.readValue("{" +
-			"\"cardIds\" : [ \"c6-" + this.getTestId() + "\"]} ",
+			"\"cardIds\" : [ \"c6-" + this.getTestId() + "\"]," + 
+			"\"boxId\" : \"adminBox-" + this.getTestId() + "\"} ",
 				com.anfelisa.box.data.ScheduleCardsPayload.class);
 		com.anfelisa.box.data.ScheduledCardsData data_0 = objectMapper.readValue("{" +
 		"\"uuid\" : \"" + uuid + "\"," + 
-		"\"cardIds\" : [ \"c6-" + this.getTestId() + "\"]} ",
+		"\"cardIds\" : [ \"c6-" + this.getTestId() + "\"]," + 
+		"\"boxId\" : \"adminBox-" + this.getTestId() + "\"} ",
 				com.anfelisa.box.data.ScheduledCardsData.class);
 		HttpResponse<Object> response = 
 		this.httpPost(

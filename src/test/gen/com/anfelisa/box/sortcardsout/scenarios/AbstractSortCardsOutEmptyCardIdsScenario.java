@@ -308,13 +308,15 @@ public abstract class AbstractSortCardsOutEmptyCardIdsScenario extends BaseScena
 			com.anfelisa.box.data.ScheduleCardsPayload payload_8 = objectMapper.readValue("{" +
 				"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"," + 
 				"\"c3-" + this.getTestId() + "\"," + 
-				"\"c4-" + this.getTestId() + "\"]} ",
+				"\"c4-" + this.getTestId() + "\"]," + 
+				"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.ScheduleCardsPayload.class);
 			com.anfelisa.box.data.ScheduledCardsData data_8 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 			"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"," + 
 			"\"c3-" + this.getTestId() + "\"," + 
-			"\"c4-" + this.getTestId() + "\"]} ",
+			"\"c4-" + this.getTestId() + "\"]," + 
+			"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.ScheduledCardsData.class);
 			HttpResponse<Object> response_8 = 
 			this.httpPost(
@@ -341,11 +343,13 @@ public abstract class AbstractSortCardsOutEmptyCardIdsScenario extends BaseScena
 	private HttpResponse<Object> when() throws Exception {
 		String uuid = this.randomUUID();
 		com.anfelisa.box.data.SortCardsOutPayload payload_0 = objectMapper.readValue("{" +
-			"\"cardIds\" : []} ",
+			"\"cardIds\" : []," + 
+			"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
 				com.anfelisa.box.data.SortCardsOutPayload.class);
 		com.anfelisa.box.data.SortCardsOutData data_0 = objectMapper.readValue("{" +
 		"\"uuid\" : \"" + uuid + "\"," + 
-		"\"cardIds\" : []} ",
+		"\"cardIds\" : []," + 
+		"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
 				com.anfelisa.box.data.SortCardsOutData.class);
 		HttpResponse<Object> response = 
 		this.httpPost(

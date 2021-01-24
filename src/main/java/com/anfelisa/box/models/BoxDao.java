@@ -133,7 +133,7 @@ public class BoxDao extends AbstractBoxDao {
 	}
 
 	public List<IBoxModel> selectAllOfUser(PersistenceHandle handle, String userId) {
-		return handle.getHandle().createQuery("SELECT boxid, userid, categoryid, maxinterval, maxcardsperday FROM box "
+		return handle.getHandle().createQuery("SELECT boxid, userid, categoryid, maxinterval, maxcardsperday, reverse FROM box "
 				+ "WHERE userid = :userid")
 				.bind("userid", userId)
 				.map(new BoxMapper())

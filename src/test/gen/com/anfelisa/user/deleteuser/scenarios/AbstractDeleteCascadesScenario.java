@@ -172,11 +172,13 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 			uuid = "sc6-" + this.getTestId() + "";
 			this.callNonDeterministicDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 10:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 			com.anfelisa.box.data.ScheduleCardsPayload payload_4 = objectMapper.readValue("{" +
-				"\"cardIds\" : [ \"c6-" + this.getTestId() + "\"]} ",
+				"\"cardIds\" : [ \"c6-" + this.getTestId() + "\"]," + 
+				"\"boxId\" : \"adminBox-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.ScheduleCardsPayload.class);
 			com.anfelisa.box.data.ScheduledCardsData data_4 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"cardIds\" : [ \"c6-" + this.getTestId() + "\"]} ",
+			"\"cardIds\" : [ \"c6-" + this.getTestId() + "\"]," + 
+			"\"boxId\" : \"adminBox-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.ScheduledCardsData.class);
 			HttpResponse<Object> response_4 = 
 			this.httpPost(
@@ -506,13 +508,15 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 			com.anfelisa.box.data.ScheduleCardsPayload payload_14 = objectMapper.readValue("{" +
 				"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"," + 
 				"\"c3-" + this.getTestId() + "\"," + 
-				"\"c4-" + this.getTestId() + "\"]} ",
+				"\"c4-" + this.getTestId() + "\"]," + 
+				"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.ScheduleCardsPayload.class);
 			com.anfelisa.box.data.ScheduledCardsData data_14 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 			"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"," + 
 			"\"c3-" + this.getTestId() + "\"," + 
-			"\"c4-" + this.getTestId() + "\"]} ",
+			"\"c4-" + this.getTestId() + "\"]," + 
+			"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.ScheduledCardsData.class);
 			HttpResponse<Object> response_14 = 
 			this.httpPost(

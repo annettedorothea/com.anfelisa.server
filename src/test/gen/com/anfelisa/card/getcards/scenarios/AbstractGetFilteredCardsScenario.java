@@ -308,13 +308,15 @@ public abstract class AbstractGetFilteredCardsScenario extends BaseScenario {
 			com.anfelisa.box.data.ScheduleCardsPayload payload_8 = objectMapper.readValue("{" +
 				"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"," + 
 				"\"c3-" + this.getTestId() + "\"," + 
-				"\"c4-" + this.getTestId() + "\"]} ",
+				"\"c4-" + this.getTestId() + "\"]," + 
+				"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.ScheduleCardsPayload.class);
 			com.anfelisa.box.data.ScheduledCardsData data_8 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 			"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"," + 
 			"\"c3-" + this.getTestId() + "\"," + 
-			"\"c4-" + this.getTestId() + "\"]} ",
+			"\"c4-" + this.getTestId() + "\"]," + 
+			"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.ScheduledCardsData.class);
 			HttpResponse<Object> response_8 = 
 			this.httpPost(
@@ -343,7 +345,8 @@ public abstract class AbstractGetFilteredCardsScenario extends BaseScenario {
 		com.anfelisa.card.data.CardListData data_0 = objectMapper.readValue("{" +
 		"\"uuid\" : \"" + uuid + "\"," + 
 		"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-		"\"filterNonScheduled\" : true} ",
+		"\"filterNonScheduled\" : true," + 
+		"\"reverse\" : false} ",
 				com.anfelisa.card.data.CardListData.class);
 		HttpResponse<com.anfelisa.card.data.GetCardsResponse> response = 
 		this.httpGet(

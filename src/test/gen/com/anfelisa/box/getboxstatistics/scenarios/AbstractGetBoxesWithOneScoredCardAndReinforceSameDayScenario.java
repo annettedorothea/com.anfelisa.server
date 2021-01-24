@@ -308,13 +308,15 @@ public abstract class AbstractGetBoxesWithOneScoredCardAndReinforceSameDayScenar
 			com.anfelisa.box.data.ScheduleCardsPayload payload_8 = objectMapper.readValue("{" +
 				"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"," + 
 				"\"c3-" + this.getTestId() + "\"," + 
-				"\"c4-" + this.getTestId() + "\"]} ",
+				"\"c4-" + this.getTestId() + "\"]," + 
+				"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.ScheduleCardsPayload.class);
 			com.anfelisa.box.data.ScheduledCardsData data_8 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 			"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"," + 
 			"\"c3-" + this.getTestId() + "\"," + 
-			"\"c4-" + this.getTestId() + "\"]} ",
+			"\"c4-" + this.getTestId() + "\"]," + 
+			"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.ScheduledCardsData.class);
 			HttpResponse<Object> response_8 = 
 			this.httpPost(

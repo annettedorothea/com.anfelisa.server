@@ -168,7 +168,8 @@ public abstract class AbstractCreateBoxMinimalAsAdminScenario extends BaseScenar
 			"\"boxId\" : \"adminBox-" + this.getTestId() + "\"," + 
 			"\"categoryId\" : \"adminBox-" + this.getTestId() + "\"," + 
 			"\"maxCardsPerDay\" : 10," + 
-			"\"userId\" : \"uuid-admin\"} ",
+			"\"userId\" : \"uuid-admin\"," + 
+			"\"reverse\" : false} ",
 		com.anfelisa.box.models.BoxModel.class);
 		assertThat(actual, expected);
 	

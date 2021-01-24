@@ -38,7 +38,7 @@ public class App extends Application<CustomAppConfiguration> {
 	}
 
 	public static String getVersion() {
-		return "1.2.0";
+		return "1.3.0";
 	}
 
 	@Override

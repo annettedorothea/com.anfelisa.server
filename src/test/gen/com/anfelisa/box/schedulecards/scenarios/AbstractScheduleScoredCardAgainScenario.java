@@ -308,13 +308,15 @@ public abstract class AbstractScheduleScoredCardAgainScenario extends BaseScenar
 			com.anfelisa.box.data.ScheduleCardsPayload payload_8 = objectMapper.readValue("{" +
 				"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"," + 
 				"\"c3-" + this.getTestId() + "\"," + 
-				"\"c4-" + this.getTestId() + "\"]} ",
+				"\"c4-" + this.getTestId() + "\"]," + 
+				"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.ScheduleCardsPayload.class);
 			com.anfelisa.box.data.ScheduledCardsData data_8 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 			"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"," + 
 			"\"c3-" + this.getTestId() + "\"," + 
-			"\"c4-" + this.getTestId() + "\"]} ",
+			"\"c4-" + this.getTestId() + "\"]," + 
+			"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.ScheduledCardsData.class);
 			HttpResponse<Object> response_8 = 
 			this.httpPost(
@@ -374,11 +376,13 @@ public abstract class AbstractScheduleScoredCardAgainScenario extends BaseScenar
 		String uuid = "again-" + this.getTestId() + "";
 		this.callNonDeterministicDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 17:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 		com.anfelisa.box.data.ScheduleCardsPayload payload_0 = objectMapper.readValue("{" +
-			"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"]} ",
+			"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"]," + 
+			"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
 				com.anfelisa.box.data.ScheduleCardsPayload.class);
 		com.anfelisa.box.data.ScheduledCardsData data_0 = objectMapper.readValue("{" +
 		"\"uuid\" : \"" + uuid + "\"," + 
-		"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"]} ",
+		"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"]," + 
+		"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
 				com.anfelisa.box.data.ScheduledCardsData.class);
 		HttpResponse<Object> response = 
 		this.httpPost(

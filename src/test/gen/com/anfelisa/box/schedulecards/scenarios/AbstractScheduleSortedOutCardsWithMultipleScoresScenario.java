@@ -308,13 +308,15 @@ public abstract class AbstractScheduleSortedOutCardsWithMultipleScoresScenario e
 			com.anfelisa.box.data.ScheduleCardsPayload payload_8 = objectMapper.readValue("{" +
 				"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"," + 
 				"\"c3-" + this.getTestId() + "\"," + 
-				"\"c4-" + this.getTestId() + "\"]} ",
+				"\"c4-" + this.getTestId() + "\"]," + 
+				"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.ScheduleCardsPayload.class);
 			com.anfelisa.box.data.ScheduledCardsData data_8 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 			"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"," + 
 			"\"c3-" + this.getTestId() + "\"," + 
-			"\"c4-" + this.getTestId() + "\"]} ",
+			"\"c4-" + this.getTestId() + "\"]," + 
+			"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.ScheduledCardsData.class);
 			HttpResponse<Object> response_8 = 
 			this.httpPost(
@@ -699,12 +701,14 @@ public abstract class AbstractScheduleSortedOutCardsWithMultipleScoresScenario e
 			uuid = this.randomUUID();
 			com.anfelisa.box.data.SortCardsOutPayload payload_20 = objectMapper.readValue("{" +
 				"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"," + 
-				"\"c4-" + this.getTestId() + "\"]} ",
+				"\"c4-" + this.getTestId() + "\"]," + 
+				"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.SortCardsOutPayload.class);
 			com.anfelisa.box.data.SortCardsOutData data_20 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 			"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"," + 
-			"\"c4-" + this.getTestId() + "\"]} ",
+			"\"c4-" + this.getTestId() + "\"]," + 
+			"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.SortCardsOutData.class);
 			HttpResponse<Object> response_20 = 
 			this.httpPost(
@@ -732,11 +736,13 @@ public abstract class AbstractScheduleSortedOutCardsWithMultipleScoresScenario e
 		String uuid = "reschedule-" + this.getTestId() + "";
 		this.callNonDeterministicDataProviderPutSystemTime(uuid, LocalDateTime.parse("20220318 10:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 		com.anfelisa.box.data.ScheduleCardsPayload payload_0 = objectMapper.readValue("{" +
-			"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"]} ",
+			"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"]," + 
+			"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
 				com.anfelisa.box.data.ScheduleCardsPayload.class);
 		com.anfelisa.box.data.ScheduledCardsData data_0 = objectMapper.readValue("{" +
 		"\"uuid\" : \"" + uuid + "\"," + 
-		"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"]} ",
+		"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"]," + 
+		"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
 				com.anfelisa.box.data.ScheduledCardsData.class);
 		HttpResponse<Object> response = 
 		this.httpPost(

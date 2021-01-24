@@ -33,7 +33,8 @@ scenarios
 				boxId: "boxId-${testId}",
 				categoryId: "boxId-${testId}",
 				maxCardsPerDay: 11,
-				userId: "uuid-${testId}"
+				userId: "uuid-${testId}",
+				reverse: false
 			}
 
 	UpdateBoxMaxInterval
@@ -68,7 +69,8 @@ scenarios
 				categoryId: "boxId-${testId}",
 				maxCardsPerDay: 11,
 				userId: "uuid-${testId}",
-				maxInterval: 90
+				maxInterval: 90,
+				reverse: false
 			}
 
 	UpdateBoxMaxIntervalSetToNull
@@ -103,7 +105,8 @@ scenarios
 				categoryId: "boxId-${testId}",
 				maxCardsPerDay: 11,
 				userId: "uuid-${testId}",
-				maxInterval: null
+				maxInterval: null,
+				reverse: false
 			}
 
 	UpdateBoxDictionaryLookupNull
@@ -237,7 +240,8 @@ scenarios
 				boxId: "boxId-${testId}",
 				categoryId: "boxId-${testId}",
 				maxCardsPerDay: 10,
-				userId: "uuid-${testId}"
+				userId: "uuid-${testId}",
+				reverse: false
 			}
 		
 	UpdateBoxSetMaxCardsTo1
@@ -259,7 +263,8 @@ scenarios
 				boxId: "boxId-${testId}",
 				categoryId: "boxId-${testId}",
 				maxCardsPerDay: 1,
-				userId: "uuid-${testId}"
+				userId: "uuid-${testId}",
+				reverse: false
 			}
 		
 	UpdateBoxSetMaxCardsTo0
@@ -281,7 +286,8 @@ scenarios
 				boxId: "boxId-${testId}",
 				categoryId: "boxId-${testId}",
 				maxCardsPerDay: 10,
-				userId: "uuid-${testId}"
+				userId: "uuid-${testId}",
+				reverse: false
 			}
 		
 	UpdateBoxBoxIdNull
@@ -326,7 +332,8 @@ scenarios
 				boxId: "boxId-${testId}",
 				categoryId: "boxId-${testId}",
 				maxCardsPerDay: 10,
-				userId: "uuid-${testId}"
+				userId: "uuid-${testId}",
+				reverse: false
 			}
 		
 		
@@ -358,7 +365,8 @@ scenarios
 				boxId: "boxId-${testId}",
 				categoryId: "boxId-${testId}",
 				maxCardsPerDay: 10,
-				userId: "uuid-${testId}"
+				userId: "uuid-${testId}",
+				reverse: false
 			}
 		
 	UpdateBoxCategoryNameEmpty
@@ -390,7 +398,8 @@ scenarios
 				boxId: "boxId-${testId}",
 				categoryId: "boxId-${testId}",
 				maxCardsPerDay: 10,
-				userId: "uuid-${testId}"
+				userId: "uuid-${testId}",
+				reverse: false
 			}
 		
 	UpdateBoxCategoryNameBlank
@@ -422,7 +431,8 @@ scenarios
 				boxId: "boxId-${testId}",
 				categoryId: "boxId-${testId}",
 				maxCardsPerDay: 10,
-				userId: "uuid-${testId}"
+				userId: "uuid-${testId}",
+				reverse: false
 			}
 		
 	UpdateBoxUnauthorized
@@ -453,7 +463,8 @@ scenarios
 				boxId: "boxId-${testId}",
 				categoryId: "boxId-${testId}",
 				maxCardsPerDay: 10,
-				userId: "uuid-${testId}"
+				userId: "uuid-${testId}",
+				reverse: false
 			}
 	
 	UpdateBoxNoAccess
@@ -486,6 +497,7 @@ scenarios
 				boxId: "boxId-${testId}",
 				categoryId: "boxId-${testId}",
 				maxCardsPerDay: 10,
-				userId: "uuid-${testId}"
+				userId: "uuid-${testId}",
+				reverse: false
 			}
 

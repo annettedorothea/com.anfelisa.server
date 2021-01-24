@@ -373,7 +373,8 @@ public abstract class AbstractGetCardsScenario extends BaseScenario {
 		com.anfelisa.card.data.CardListData data_0 = objectMapper.readValue("{" +
 		"\"uuid\" : \"" + uuid + "\"," + 
 		"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-		"\"filterNonScheduled\" : false} ",
+		"\"filterNonScheduled\" : false," + 
+		"\"reverse\" : false} ",
 				com.anfelisa.card.data.CardListData.class);
 		HttpResponse<com.anfelisa.card.data.GetCardsResponse> response = 
 		this.httpGet(

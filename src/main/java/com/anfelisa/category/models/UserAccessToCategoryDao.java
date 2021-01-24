@@ -27,12 +27,14 @@ public class UserAccessToCategoryDao extends AbstractUserAccessToCategoryDao {
 				.list();
 	}
 
-	public List<IUserWithAccessModel> selectByCategoryId(PersistenceHandle handle, String categoryId) {
+	public List<IUserAccessToCategoryModel> selectByCategoryIdAndNotMine(PersistenceHandle handle, String categoryId, String userId) {
 		return handle.getHandle().createQuery(
-				"SELECT a.userid, u.username, a.editable FROM public.useraccesstocategory a inner join public.user u on a.userid = u.userid where categoryid = :categoryid order by u.username")
-				.bind("categoryid", categoryId).map(new UserWithAccessMapper()).list();
+				"SELECT categoryid, userid, editable FROM public.useraccesstocategory where categoryid = :categoryid and userid != :userid")
+				.bind("categoryid", categoryId)
+				.bind("userid", userId)
+				.map(new UserAccessToCategoryMapper()).list();
 	}
-
+	
 	public List<IUserWithAccessModel> selectByCategoryIdWhereEditable(PersistenceHandle handle, String categoryId) {
 		return handle.getHandle().createQuery(
 				"SELECT a.userid, u.username, a.editable FROM public.useraccesstocategory a inner join public.user u on a.userid = u.userid where categoryid = :categoryid and editable = true order by u.username")

@@ -372,7 +372,8 @@ public abstract class AbstractGetFilteredCategoryPriority3TreeScenario extends B
 		"\"uuid\" : \"" + uuid + "\"," + 
 		"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 		"\"filterNonScheduled\" : true," + 
-		"\"priority\" : 3} ",
+		"\"priority\" : 3," + 
+		"\"reverse\" : false} ",
 				com.anfelisa.category.data.CategoryTreeData.class);
 		HttpResponse<com.anfelisa.category.data.GetCategoryTreeResponse> response = 
 		this.httpGet(

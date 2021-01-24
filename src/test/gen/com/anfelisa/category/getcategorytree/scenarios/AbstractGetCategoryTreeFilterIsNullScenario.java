@@ -139,7 +139,8 @@ public abstract class AbstractGetCategoryTreeFilterIsNullScenario extends BaseSc
 		String uuid = this.randomUUID();
 		com.anfelisa.category.data.CategoryTreeData data_0 = objectMapper.readValue("{" +
 		"\"uuid\" : \"" + uuid + "\"," + 
-		"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
+		"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+		"\"reverse\" : false} ",
 				com.anfelisa.category.data.CategoryTreeData.class);
 		HttpResponse<com.anfelisa.category.data.GetCategoryTreeResponse> response = 
 		this.httpGet(

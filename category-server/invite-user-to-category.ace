@@ -30,7 +30,8 @@ scenarios
 				userId: "uuid2-${testId}",
 				boxId: "boxIdOfInvitedUser-${testId}",
 				maxCardsPerDay: 10,
-				maxInterval: null
+				maxInterval: null,
+				reverse: false
 			}
 			
 	InviteUserToCategoryThatDoesNotExist

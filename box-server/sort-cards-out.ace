@@ -10,7 +10,8 @@ scenarios
 		WHEN
 			com.anfelisa.box.SortCardsOut
 				{
-					cardIds: ["c1-${testId}", "c4-${testId}" ]
+					cardIds: ["c1-${testId}", "c4-${testId}" ],
+					boxId: "boxId-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -67,7 +68,8 @@ scenarios
 		WHEN
 			com.anfelisa.box.SortCardsOut
 				{
-					cardIds: ["c1-${testId}", "c4-${testId}" ]
+					cardIds: ["c1-${testId}", "c4-${testId}" ],
+					boxId: "boxId-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -124,7 +126,8 @@ scenarios
 		WHEN
 			com.anfelisa.box.SortCardsOut
 				{
-					cardIds: ["c1-${testId}", "xx", "c4-${testId}" ]
+					cardIds: ["c1-${testId}", "xx", "c4-${testId}" ],
+					boxId: "boxId-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
@@ -181,7 +184,8 @@ scenarios
 		WHEN
 			com.anfelisa.box.SortCardsOut
 				{
-					cardIds: []
+					cardIds: [],
+					boxId: "boxId-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -247,7 +251,8 @@ scenarios
 		WHEN
 			com.anfelisa.box.SortCardsOut
 				{
-					cardIds: ["c1-${testId}", "c4-${testId}" ]
+					cardIds: ["c1-${testId}", "c4-${testId}" ],
+					boxId: "boxId-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -342,7 +347,8 @@ scenarios
 		WHEN
 			com.anfelisa.box.SortCardsOut
 				{
-					cardIds: ["c1-${testId}", "c4-${testId}" ]
+					cardIds: ["c1-${testId}", "c4-${testId}" ],
+					boxId: "boxId-${testId}"
 				}
 		THEN 401
 		persistence
@@ -399,7 +405,8 @@ scenarios
 		WHEN
 			com.anfelisa.box.SortCardsOut
 				{
-					cardIds: ["c1-${testId}", "c4-${testId}" ]
+					cardIds: ["c1-${testId}", "c4-${testId}" ],
+					boxId: "boxId-${testId}"
 				}
 				authorization "Admin" : "admin-password"
 		THEN 401

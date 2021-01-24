@@ -173,7 +173,8 @@ public abstract class AbstractUpdateBoxSetMaxCardsTo1Scenario extends BaseScenar
 			"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 			"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 			"\"maxCardsPerDay\" : 1," + 
-			"\"userId\" : \"uuid-" + this.getTestId() + "\"} ",
+			"\"userId\" : \"uuid-" + this.getTestId() + "\"," + 
+			"\"reverse\" : false} ",
 		com.anfelisa.box.models.BoxModel.class);
 		assertThat(actual, expected);
 	

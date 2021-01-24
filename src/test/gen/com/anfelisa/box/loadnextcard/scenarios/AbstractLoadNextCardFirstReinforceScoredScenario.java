@@ -308,13 +308,15 @@ public abstract class AbstractLoadNextCardFirstReinforceScoredScenario extends B
 			com.anfelisa.box.data.ScheduleCardsPayload payload_8 = objectMapper.readValue("{" +
 				"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"," + 
 				"\"c3-" + this.getTestId() + "\"," + 
-				"\"c4-" + this.getTestId() + "\"]} ",
+				"\"c4-" + this.getTestId() + "\"]," + 
+				"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.ScheduleCardsPayload.class);
 			com.anfelisa.box.data.ScheduledCardsData data_8 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 			"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"," + 
 			"\"c3-" + this.getTestId() + "\"," + 
-			"\"c4-" + this.getTestId() + "\"]} ",
+			"\"c4-" + this.getTestId() + "\"]," + 
+			"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.ScheduledCardsData.class);
 			HttpResponse<Object> response_8 = 
 			this.httpPost(
@@ -523,7 +525,9 @@ public abstract class AbstractLoadNextCardFirstReinforceScoredScenario extends B
 						"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 						"\"scheduledDate\" : \"2020-04-18T10:30\"," + 
 						"\"scoredDate\" : \"2020-04-18T16:30\"," + 
-						"\"wanted\" : \"3wanted\"} ",
+						"\"wanted\" : \"3wanted\"," + 
+						"\"reverse\" : false," + 
+						"\"categoryName\" : \"level 1 #1\"} ",
 					com.anfelisa.box.data.NextCardData.class);
 					
 					com.anfelisa.box.data.LoadNextCardResponse expected = new com.anfelisa.box.data.LoadNextCardResponse(expectedData);

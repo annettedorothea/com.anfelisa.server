@@ -10,7 +10,8 @@ scenarios
 			com.anfelisa.category.GetCategoryTree
 				{
 					rootCategoryId: "boxId-${testId}",
-					filterNonScheduled: false
+					filterNonScheduled: false,
+					reverse: false
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -73,7 +74,8 @@ scenarios
 				{
 					rootCategoryId: "boxId-${testId}",
 					filterNonScheduled: true,
-					priority: null
+					priority: null,
+					reverse: false
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -139,7 +141,8 @@ scenarios
 				{
 					rootCategoryId: "boxId-${testId}",
 					filterNonScheduled: true,
-					priority: 1
+					priority: 1,
+					reverse: false
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -192,7 +195,8 @@ scenarios
 				{
 					rootCategoryId: "boxId-${testId}",
 					filterNonScheduled: true,
-					priority: 2
+					priority: 2,
+					reverse: false
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -245,7 +249,8 @@ scenarios
 				{
 					rootCategoryId: "boxId-${testId}",
 					filterNonScheduled: true,
-					priority: 3
+					priority: 3,
+					reverse: false
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -295,7 +300,8 @@ scenarios
 			com.anfelisa.category.GetCategoryTree
 				{
 					rootCategoryId: "boxId-${testId}",
-					filterNonScheduled: false
+					filterNonScheduled: false,
+					reverse: false
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -334,7 +340,8 @@ scenarios
 		WHEN
 			com.anfelisa.category.GetCategoryTree
 				{
-					rootCategoryId: "boxId-${testId}"
+					rootCategoryId: "boxId-${testId}",
+					reverse: false
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
@@ -346,7 +353,8 @@ scenarios
 			com.anfelisa.category.GetCategoryTree
 				{
 					rootCategoryId: "boxId-${testId}",
-					filterNonScheduled: false
+					filterNonScheduled: false,
+					reverse: false
 				}
 		THEN 401
 
@@ -358,7 +366,8 @@ scenarios
 			com.anfelisa.category.GetCategoryTree
 				{
 					rootCategoryId: "boxId-${testId}",
-					filterNonScheduled: false
+					filterNonScheduled: false,
+					reverse: false
 				}
 				authorization "Admin" : "admin-password"
 		THEN 401
@@ -372,7 +381,8 @@ scenarios
 			com.anfelisa.category.GetCategoryTree
 				{
 					rootCategoryId: "boxId-${testId}",
-					filterNonScheduled: false
+					filterNonScheduled: false,
+					reverse: false
 				}
 				authorization "Anne-${testId}" : "pw"
 		THEN 200

@@ -372,7 +372,8 @@ public abstract class AbstractGetCardsFilterIsNullScenario extends BaseScenario 
 		String uuid = this.randomUUID();
 		com.anfelisa.card.data.CardListData data_0 = objectMapper.readValue("{" +
 		"\"uuid\" : \"" + uuid + "\"," + 
-		"\"categoryId\" : \"cat1-" + this.getTestId() + "\"} ",
+		"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
+		"\"reverse\" : false} ",
 				com.anfelisa.card.data.CardListData.class);
 		HttpResponse<com.anfelisa.card.data.GetCardsResponse> response = 
 		this.httpGet(

@@ -346,12 +346,14 @@ public abstract class AbstractScheduleCardsNotMyBoxScenario extends BaseScenario
 		this.callNonDeterministicDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200419 12:20", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 		com.anfelisa.box.data.ScheduleCardsPayload payload_0 = objectMapper.readValue("{" +
 			"\"cardIds\" : [ \"c2-" + this.getTestId() + "\"," + 
-			"\"c5-" + this.getTestId() + "\"]} ",
+			"\"c5-" + this.getTestId() + "\"]," + 
+			"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
 				com.anfelisa.box.data.ScheduleCardsPayload.class);
 		com.anfelisa.box.data.ScheduledCardsData data_0 = objectMapper.readValue("{" +
 		"\"uuid\" : \"" + uuid + "\"," + 
 		"\"cardIds\" : [ \"c2-" + this.getTestId() + "\"," + 
-		"\"c5-" + this.getTestId() + "\"]} ",
+		"\"c5-" + this.getTestId() + "\"]," + 
+		"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
 				com.anfelisa.box.data.ScheduledCardsData.class);
 		HttpResponse<Object> response = 
 		this.httpPost(

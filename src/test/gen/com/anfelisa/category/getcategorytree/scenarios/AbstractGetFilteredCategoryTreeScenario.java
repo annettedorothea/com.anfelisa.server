@@ -308,13 +308,15 @@ public abstract class AbstractGetFilteredCategoryTreeScenario extends BaseScenar
 			com.anfelisa.box.data.ScheduleCardsPayload payload_8 = objectMapper.readValue("{" +
 				"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"," + 
 				"\"c3-" + this.getTestId() + "\"," + 
-				"\"c4-" + this.getTestId() + "\"]} ",
+				"\"c4-" + this.getTestId() + "\"]," + 
+				"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.ScheduleCardsPayload.class);
 			com.anfelisa.box.data.ScheduledCardsData data_8 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 			"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"," + 
 			"\"c3-" + this.getTestId() + "\"," + 
-			"\"c4-" + this.getTestId() + "\"]} ",
+			"\"c4-" + this.getTestId() + "\"]," + 
+			"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.ScheduledCardsData.class);
 			HttpResponse<Object> response_8 = 
 			this.httpPost(
@@ -439,7 +441,8 @@ public abstract class AbstractGetFilteredCategoryTreeScenario extends BaseScenar
 		"\"uuid\" : \"" + uuid + "\"," + 
 		"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 		"\"filterNonScheduled\" : true," + 
-		"\"priority\" : null} ",
+		"\"priority\" : null," + 
+		"\"reverse\" : false} ",
 				com.anfelisa.category.data.CategoryTreeData.class);
 		HttpResponse<com.anfelisa.category.data.GetCategoryTreeResponse> response = 
 		this.httpGet(

@@ -26,7 +26,9 @@ scenarios
 				rootCategoryId: "boxId-${testId}",
 				scheduledCardId: "c1-${testId}-sc1-${testId}",
 				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
-				wanted: "wanted"
+				wanted: "wanted",
+				reverse: false,
+				categoryName: "level 1 #1"
 			}		
 
 	LoadNextCardFirstScored
@@ -50,7 +52,9 @@ scenarios
 				rootCategoryId: "boxId-${testId}",
 				scheduledCardId: "c3-${testId}-sc1-${testId}",
 				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
-				wanted: "3wanted"
+				wanted: "3wanted",
+				reverse: false,
+				categoryName: "level 1 #1"
 			}		
 
 	LoadNextCardSecondScored
@@ -75,7 +79,9 @@ scenarios
 				rootCategoryId: "boxId-${testId}",
 				scheduledCardId: "c4-${testId}-sc1-${testId}",
 				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
-				wanted: "4wanted4"
+				wanted: "4wanted4",
+				reverse: false,
+				categoryName: "level 1 #1"
 			}		
 
 	LoadNextCardThirdScored
@@ -104,7 +110,9 @@ scenarios
 				rootCategoryId: "boxId-${testId}",
 				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
 				scoredDate: "20200418 16:30" "yyyyMMdd HH:mm",
-				wanted: "wanted"
+				wanted: "wanted",
+				reverse: false,
+				categoryName: "level 1 #1"
 			}		
 
 	LoadNextCardAllScoredNextDay
@@ -131,7 +139,9 @@ scenarios
 				scheduledCardId: "score0-${testId}",
 				scheduledDate: "20200419 16:30" "yyyyMMdd HH:mm",
 				scoredDate: "20200418 16:30" "yyyyMMdd HH:mm",
-				wanted: "wanted"
+				wanted: "wanted",
+				reverse: false,
+				categoryName: "level 1 #1"
 			}		
 
 	LoadNextCardFirstReinforceScored
@@ -160,7 +170,9 @@ scenarios
 				rootCategoryId: "boxId-${testId}",
 				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
 				scoredDate: "20200418 16:30" "yyyyMMdd HH:mm",
-				wanted: "3wanted"
+				wanted: "3wanted",
+				reverse: false,
+				categoryName: "level 1 #1"
 			}		
 
 	LoadNextCardScored2
@@ -189,7 +201,9 @@ scenarios
 				rootCategoryId: "boxId-${testId}",
 				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
 				scoredDate: "20200418 16:30" "yyyyMMdd HH:mm",
-				wanted: "wanted"
+				wanted: "wanted",
+				reverse: false,
+				categoryName: "level 1 #1"
 			}		
 
 	LoadNextCardScored3
@@ -218,7 +232,9 @@ scenarios
 				rootCategoryId: "boxId-${testId}",
 				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
 				scoredDate: "20200418 16:30" "yyyyMMdd HH:mm",
-				wanted: "wanted"
+				wanted: "wanted",
+				reverse: false,
+				categoryName: "level 1 #1"
 			}		
 
 	LoadNextCardScored4
@@ -246,7 +262,9 @@ scenarios
 				rootCategoryId: "boxId-${testId}",
 				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
 				scoredDate: "20200418 16:30" "yyyyMMdd HH:mm",
-				wanted: "3wanted"
+				wanted: "3wanted",
+				reverse: false,
+				categoryName: "level 1 #1"
 			}		
 
 	LoadNextCardSecondReinforceScored
@@ -277,7 +295,9 @@ scenarios
 				rootCategoryId: "boxId-${testId}",
 				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
 				scoredDate: "20200418 16:30" "yyyyMMdd HH:mm",
-				wanted: "wanted"
+				wanted: "wanted",
+				reverse: false,
+				categoryName: "level 1 #1"
 			}
 					
 	LoadNextCardFinished4
@@ -298,7 +318,8 @@ scenarios
 		THEN 200
 			response shouldBe {
 				allTodaysCards: 3,
-				openTodaysCards: 0
+				openTodaysCards: 0,
+				reverse: false
 			}		
 
 	LoadNextCardFinished5
@@ -319,7 +340,8 @@ scenarios
 		THEN 200
 			response shouldBe {
 				allTodaysCards: 3,
-				openTodaysCards: 0
+				openTodaysCards: 0,
+				reverse: false
 			}
 
 	LoadNextCardSortedOutReinforce
@@ -345,7 +367,9 @@ scenarios
 				rootCategoryId: "boxId-${testId}",
 				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
 				scoredDate: "20200418 16:30" "yyyyMMdd HH:mm",
-				wanted: "3wanted"
+				wanted: "3wanted",
+				reverse: false,
+				categoryName: "level 1 #1"
 			}		
 
 	LoadNextCardSortedOut
@@ -372,7 +396,9 @@ scenarios
 				scheduledCardId: "c3-${testId}-sc1-${testId}",
 				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
 				scoredDate: null,
-				wanted: "3wanted"
+				wanted: "3wanted",
+				reverse: false,
+				categoryName: "level 1 #1"
 			}		
 					
 	LoadNextCardNoCards
@@ -388,7 +414,8 @@ scenarios
 		THEN 200
 			response shouldBe {
 				allTodaysCards: 0,
-				openTodaysCards: 0
+				openTodaysCards: 0,
+				reverse: false
 			}		
 
 	LoadNextCardTodayAtMidnightInUTCNull

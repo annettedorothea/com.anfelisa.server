@@ -308,13 +308,15 @@ public abstract class AbstractSortCardsOutTwiceScenario extends BaseScenario {
 			com.anfelisa.box.data.ScheduleCardsPayload payload_8 = objectMapper.readValue("{" +
 				"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"," + 
 				"\"c3-" + this.getTestId() + "\"," + 
-				"\"c4-" + this.getTestId() + "\"]} ",
+				"\"c4-" + this.getTestId() + "\"]," + 
+				"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.ScheduleCardsPayload.class);
 			com.anfelisa.box.data.ScheduledCardsData data_8 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 			"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"," + 
 			"\"c3-" + this.getTestId() + "\"," + 
-			"\"c4-" + this.getTestId() + "\"]} ",
+			"\"c4-" + this.getTestId() + "\"]," + 
+			"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.ScheduledCardsData.class);
 			HttpResponse<Object> response_8 = 
 			this.httpPost(
@@ -340,12 +342,14 @@ public abstract class AbstractSortCardsOutTwiceScenario extends BaseScenario {
 			uuid = this.randomUUID();
 			com.anfelisa.box.data.SortCardsOutPayload payload_9 = objectMapper.readValue("{" +
 				"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"," + 
-				"\"c4-" + this.getTestId() + "\"]} ",
+				"\"c4-" + this.getTestId() + "\"]," + 
+				"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.SortCardsOutPayload.class);
 			com.anfelisa.box.data.SortCardsOutData data_9 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 			"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"," + 
-			"\"c4-" + this.getTestId() + "\"]} ",
+			"\"c4-" + this.getTestId() + "\"]," + 
+			"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.SortCardsOutData.class);
 			HttpResponse<Object> response_9 = 
 			this.httpPost(
@@ -373,12 +377,14 @@ public abstract class AbstractSortCardsOutTwiceScenario extends BaseScenario {
 		String uuid = this.randomUUID();
 		com.anfelisa.box.data.SortCardsOutPayload payload_0 = objectMapper.readValue("{" +
 			"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"," + 
-			"\"c4-" + this.getTestId() + "\"]} ",
+			"\"c4-" + this.getTestId() + "\"]," + 
+			"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
 				com.anfelisa.box.data.SortCardsOutPayload.class);
 		com.anfelisa.box.data.SortCardsOutData data_0 = objectMapper.readValue("{" +
 		"\"uuid\" : \"" + uuid + "\"," + 
 		"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"," + 
-		"\"c4-" + this.getTestId() + "\"]} ",
+		"\"c4-" + this.getTestId() + "\"]," + 
+		"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
 				com.anfelisa.box.data.SortCardsOutData.class);
 		HttpResponse<Object> response = 
 		this.httpPost(

@@ -1,5 +1,7 @@
 package com.anfelisa.box.commands;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,6 +38,10 @@ public class DeleteBoxCommand extends AbstractDeleteBoxCommand {
 		}
 		if (access.getEditable() && !box.getReverse()) {
 			this.commandData.setRootCategoryId(box.getCategoryId());
+			List<IUserAccessToCategoryModel> accesses = daoProvider.getUserAccessToCategoryDao().selectByCategoryIdAndNotMine(readonlyHandle, box.getCategoryId(), commandData.getUserId());
+			if (accesses.size() > 0) {
+				throwIllegalArgumentException("cannotDeleteSharedBox");
+			}
 			this.addDeleteCategoryOutcome();
 		}
 		this.addDeleteBoxOutcome();

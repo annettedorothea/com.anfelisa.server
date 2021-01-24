@@ -341,7 +341,8 @@ public abstract class AbstractGetFilteredCardsPriority1Scenario extends BaseScen
 		"\"uuid\" : \"" + uuid + "\"," + 
 		"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 		"\"filterNonScheduled\" : true," + 
-		"\"priority\" : 1} ",
+		"\"priority\" : 1," + 
+		"\"reverse\" : false} ",
 				com.anfelisa.card.data.CardListData.class);
 		HttpResponse<com.anfelisa.card.data.GetCardsResponse> response = 
 		this.httpGet(

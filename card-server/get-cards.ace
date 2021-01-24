@@ -12,7 +12,8 @@ scenarios
 			com.anfelisa.card.GetCards
 				{
 					categoryId: "cat1-${testId}",
-					filterNonScheduled: false
+					filterNonScheduled: false,
+					reverse: false
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -76,7 +77,8 @@ scenarios
 		WHEN
 			com.anfelisa.card.GetCards
 				{
-					categoryId: "cat1-${testId}"
+					categoryId: "cat1-${testId}",
+					reverse: false
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
@@ -88,7 +90,8 @@ scenarios
 			com.anfelisa.card.GetCards
 				{
 					categoryId: "cat1-${testId}",
-					filterNonScheduled: true
+					filterNonScheduled: true,
+					reverse: false
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -125,7 +128,8 @@ scenarios
 				{
 					categoryId: "cat1-${testId}",
 					filterNonScheduled: true,
-					priority: 1
+					priority: 1,
+					reverse: false
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -152,7 +156,8 @@ scenarios
 			com.anfelisa.card.GetCards
 				{
 					categoryId: "lala",
-					filterNonScheduled: false
+					filterNonScheduled: false,
+					reverse: false
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
@@ -165,7 +170,8 @@ scenarios
 			com.anfelisa.card.GetCards
 				{
 					categoryId: "cat1-${testId}",
-					filterNonScheduled: false
+					filterNonScheduled: false,
+					reverse: false
 				}
 				authorization "Admin" : "admin-password"
 		THEN 401
@@ -177,7 +183,8 @@ scenarios
 			com.anfelisa.card.GetCards
 				{
 					categoryId: "cat1-${testId}",
-					filterNonScheduled: false
+					filterNonScheduled: false,
+					reverse: false
 				}
 		THEN 401
 		

@@ -177,7 +177,8 @@ public abstract class AbstractGetCategoryTreeNoAccessScenario extends BaseScenar
 		com.anfelisa.category.data.CategoryTreeData data_0 = objectMapper.readValue("{" +
 		"\"uuid\" : \"" + uuid + "\"," + 
 		"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
-		"\"filterNonScheduled\" : false} ",
+		"\"filterNonScheduled\" : false," + 
+		"\"reverse\" : false} ",
 				com.anfelisa.category.data.CategoryTreeData.class);
 		HttpResponse<com.anfelisa.category.data.GetCategoryTreeResponse> response = 
 		this.httpGet(

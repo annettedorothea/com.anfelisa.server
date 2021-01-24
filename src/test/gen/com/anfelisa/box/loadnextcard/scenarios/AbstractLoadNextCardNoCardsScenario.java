@@ -351,7 +351,8 @@ public abstract class AbstractLoadNextCardNoCardsScenario extends BaseScenario {
 					com.anfelisa.box.data.NextCardData expectedData = objectMapper.readValue("{" +
 						"\"uuid\" : \"\"," + 
 						"\"allTodaysCards\" : 0," + 
-						"\"openTodaysCards\" : 0} ",
+						"\"openTodaysCards\" : 0," + 
+						"\"reverse\" : false} ",
 					com.anfelisa.box.data.NextCardData.class);
 					
 					com.anfelisa.box.data.LoadNextCardResponse expected = new com.anfelisa.box.data.LoadNextCardResponse(expectedData);

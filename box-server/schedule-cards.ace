@@ -11,7 +11,8 @@ scenarios
 				uuid "sc1-${testId}"
 				systemTime "20200418 10:30" "yyyyMMdd HH:mm"
 				{
-					cardIds: ["c1-${testId}", "c3-${testId}", "c4-${testId}" ]
+					cardIds: ["c1-${testId}", "c3-${testId}", "c4-${testId}" ],
+					boxId: "boxId-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -72,7 +73,8 @@ scenarios
 				uuid "again-${testId}"
 				systemTime "20200418 17:30" "yyyyMMdd HH:mm"
 				{
-					cardIds: ["c1-${testId}"]
+					cardIds: ["c1-${testId}"],
+					boxId: "boxId-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -109,7 +111,8 @@ scenarios
 				uuid "again-${testId}"
 				systemTime "20200418 17:30" "yyyyMMdd HH:mm"
 				{
-					cardIds: ["c1-${testId}"]
+					cardIds: ["c1-${testId}"],
+					boxId: "boxId-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -138,7 +141,8 @@ scenarios
 				uuid "again-${testId}"
 				systemTime "20200420 09:30" "yyyyMMdd HH:mm"
 				{
-					cardIds: ["c1-${testId}"]
+					cardIds: ["c1-${testId}"],
+					boxId: "boxId-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -167,7 +171,8 @@ scenarios
 				uuid "sc6-${testId}"
 				systemTime "20200418 10:30" "yyyyMMdd HH:mm"
 				{
-					cardIds: ["c6-${testId}"]
+					cardIds: ["c6-${testId}"],
+					boxId: "adminBox-${testId}"
 				}
 				authorization "Admin" : "admin-password"
 		THEN 200
@@ -196,7 +201,8 @@ scenarios
 				uuid "s12-${testId}"
 				systemTime "20200419 12:20" "yyyyMMdd HH:mm"
 				{
-					cardIds: ["c2-${testId}", "c5-${testId}" ]
+					cardIds: ["c2-${testId}", "c5-${testId}" ],
+					boxId: "boxId-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -285,7 +291,8 @@ scenarios
 				uuid "sc1-empty-${testId}"
 				systemTime "20200419 12:20" "yyyyMMdd HH:mm"
 				{
-					cardIds: []
+					cardIds: [],
+					boxId: "boxId-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -401,7 +408,8 @@ scenarios
 				uuid "sc1-${testId}"
 				systemTime "20200419 12:20" "yyyyMMdd HH:mm"
 				{
-					cardIds: ["c2-${testId}", "c5-${testId}" ]
+					cardIds: ["c2-${testId}", "c5-${testId}" ],
+					boxId: "boxId-${testId}"
 				}
 		THEN 401
 		persistence
@@ -417,7 +425,8 @@ scenarios
 				uuid "sc1-${testId}"
 				systemTime "20200419 12:20" "yyyyMMdd HH:mm"
 				{
-					cardIds: ["c2-${testId}", "c5-${testId}" ]
+					cardIds: ["c2-${testId}", "c5-${testId}" ],
+					boxId: "boxId-${testId}"
 				}
 				authorization "Admin" : "admin-password"
 		THEN 401
@@ -434,7 +443,8 @@ scenarios
 				uuid "reschedule-${testId}"
 				systemTime "20220318 10:30" "yyyyMMdd HH:mm"
 				{
-					cardIds: ["c1-${testId}" ]
+					cardIds: ["c1-${testId}" ],
+					boxId: "boxId-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200

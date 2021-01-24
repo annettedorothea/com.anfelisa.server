@@ -17,7 +17,7 @@ public class CardDao extends AbstractCardDao {
 
 	public List<ICardWithInfoModel> selectAllOfCategory(PersistenceHandle handle, String categoryId, Integer priority) {
 		return handle.getHandle().createQuery("SELECT cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid, priority, null as next FROM card "
-				+ "WHERE categoryid = :categoryid and (:priority is null OR priority = :priority)")
+				+ "WHERE categoryid = :categoryid and (:priority is null OR priority = :priority) order by cardindex")
 				.bind("categoryid", categoryId)
 				.bind("priority", priority)
 				.map(new CardWithInfoMapper())
