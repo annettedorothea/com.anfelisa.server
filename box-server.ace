@@ -39,7 +39,7 @@ ACE
 		on ok ( Box.updateBox RootCategory.update)
 		
 	GetBoxSettings<BoxSettingsWrapper>
-	GET "/box/settings/{boxId}" 
+		GET "/box/settings/{boxId}" 
 		authorize 
 		pathParams 
 			NotNull boxId
@@ -98,7 +98,7 @@ ACE
 		on ok ( ScheduledCard.postponeCards ReinforceCard.clear )
 	
 	GetBoxes<BoxList>
-	GET "/boxes/my/" 
+		GET "/boxes/my/" 
 		authorize 
 		queryParams 
 			NotNull todayAtMidnightInUTC
@@ -106,7 +106,7 @@ ACE
 			boxList
 		
 	GetBoxStatistics<BoxStatisticsList>
-	GET "/boxes/statistics/" 
+		GET "/boxes/statistics/" 
 		authorize 
 		queryParams 
 			NotNull todayAtMidnightInUTC

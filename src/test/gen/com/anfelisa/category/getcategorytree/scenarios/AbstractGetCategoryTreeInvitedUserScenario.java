@@ -312,6 +312,8 @@ public abstract class AbstractGetCategoryTreeInvitedUserScenario extends BaseSce
 
 					com.anfelisa.category.data.CategoryTreeData expectedData = objectMapper.readValue("{" +
 						"\"uuid\" : \"\"," + 
+						"\"boxId\" : \"boxIdOfInvitedUser-" + this.getTestId() + "\"," + 
+						"\"reverseBoxExists\" : false," + 
 						"\"rootCategory\" : { \"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 						"\"categoryIndex\" : null," + 
 						"\"categoryName\" : \"cat\"," + 

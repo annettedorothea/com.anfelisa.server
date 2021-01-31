@@ -414,6 +414,8 @@ public abstract class AbstractGetFilteredCategoryPriority1TreeScenario extends B
 
 					com.anfelisa.category.data.CategoryTreeData expectedData = objectMapper.readValue("{" +
 						"\"uuid\" : \"\"," + 
+						"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
+						"\"reverseBoxExists\" : false," + 
 						"\"rootCategory\" : { \"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 						"\"categoryIndex\" : null," + 
 						"\"categoryName\" : \"cat\"," + 

@@ -16,6 +16,8 @@ scenarios
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response shouldBe {
+				boxId: "boxId-${testId}",
+				reverseBoxExists: false,
 				rootCategory : {
 					categoryId: "boxId-${testId}",
 					categoryIndex: null,
@@ -80,6 +82,8 @@ scenarios
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response shouldBe {
+				boxId: "boxId-${testId}",
+				reverseBoxExists: false,
 				rootCategory : {
 					categoryId: "boxId-${testId}",
 					categoryIndex: null,
@@ -147,6 +151,8 @@ scenarios
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response shouldBe {
+				boxId: "boxId-${testId}",
+				reverseBoxExists: false,
 				rootCategory : {
 					categoryId: "boxId-${testId}",
 					categoryIndex: null,
@@ -201,6 +207,8 @@ scenarios
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response shouldBe {
+				boxId: "boxId-${testId}",
+				reverseBoxExists: false,
 				rootCategory : {
 					categoryId: "boxId-${testId}",
 					categoryIndex: null,
@@ -255,6 +263,8 @@ scenarios
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response shouldBe {
+				boxId: "boxId-${testId}",
+				reverseBoxExists: false,
 				rootCategory : {
 					categoryId: "boxId-${testId}",
 					categoryIndex: null,
@@ -306,6 +316,8 @@ scenarios
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response shouldBe {
+				boxId: "boxId-${testId}",
+				reverseBoxExists: false,
 				rootCategory : {
 					categoryId: "boxId-${testId}",
 					categoryIndex: null,
@@ -387,6 +399,8 @@ scenarios
 				authorization "Anne-${testId}" : "pw"
 		THEN 200
 			response shouldBe {
+				boxId: "boxIdOfInvitedUser-${testId}",
+				reverseBoxExists: false,
 				rootCategory : {
 					categoryId: "boxId-${testId}",
 					categoryIndex: null,
@@ -433,5 +447,137 @@ scenarios
 					]
 				}
 			}
+
+	GetFilteredCategoryTreeOfInvitedUser
+		GIVEN
+			com.anfelisa.category.createcategory.CreateCategorySecondLevel
+			com.anfelisa.user.registeruser.RegisterTwoUsers excludeGIVEN
+			com.anfelisa.category.inviteusertocategory.InviteUserToCategory excludeGIVEN
+		WHEN
+			com.anfelisa.category.GetCategoryTree
+				{
+					rootCategoryId: "boxId-${testId}",
+					filterNonScheduled: true,
+					reverse: false
+				}
+				authorization "Anne-${testId}" : "pw"
+		THEN 200
+			response shouldBe {
+				boxId: "boxIdOfInvitedUser-${testId}",
+				reverseBoxExists: false,
+				rootCategory : {
+					categoryId: "boxId-${testId}",
+					categoryIndex: null,
+					categoryName: "cat",
+					dictionaryLookup: false,
+					empty: false,
+					rootCategoryId: "boxId-${testId}",
+					editable: false,
+					nonScheduledCount: 0,
+					childCategories: [
+						{
+							categoryId: "cat1-${testId}",
+							categoryIndex: 1,
+							categoryName: "level 1 #1",
+							dictionaryLookup: false,
+							empty: true,
+							parentCategoryId: "boxId-${testId}",
+							rootCategoryId: "boxId-${testId}",
+							editable: false,
+							nonScheduledCount: 0,
+							childCategories: []
+						},
+						{
+							categoryId: "cat2-${testId}",
+							categoryIndex: 2,
+							categoryName: "level 1 #2",
+							dictionaryLookup: false,
+							empty: false,
+							parentCategoryId: "boxId-${testId}",
+							rootCategoryId: "boxId-${testId}",
+							editable: false,
+							nonScheduledCount: 0,
+							childCategories : [
+								{
+									categoryId: "cat3-${testId}",
+									categoryIndex: 1,
+									categoryName: "level 2 #1",
+									dictionaryLookup: false,
+									empty: true,
+									parentCategoryId: "cat2-${testId}",
+									rootCategoryId: "boxId-${testId}",
+									editable: false,
+									nonScheduledCount: 0,
+									childCategories: []
+								}
+							]
+						}
+					]
+				}
+			}
+
+	GetReverseCategoryTree
+		GIVEN
+			com.anfelisa.category.createcategory.CreateCategorySecondLevel
+			com.anfelisa.box.createreversebox.CreateReverseBox excludeGIVEN
+		WHEN
+			com.anfelisa.category.GetCategoryTree
+				{
+					rootCategoryId: "boxId-${testId}",
+					filterNonScheduled: false,
+					reverse: true
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+			response shouldBe {
+				boxId: "reverseBoxId-${testId}",
+				reverseBoxExists: true,
+				rootCategory : {
+					categoryId: "boxId-${testId}",
+					categoryIndex: null,
+					categoryName: "cat",
+					dictionaryLookup: false,
+					empty: false,
+					rootCategoryId: "boxId-${testId}",
+					editable: false,
+					childCategories: [
+						{
+							categoryId: "cat1-${testId}",
+							categoryIndex: 1,
+							categoryName: "level 1 #1",
+							dictionaryLookup: false,
+							empty: true,
+							parentCategoryId: "boxId-${testId}",
+							rootCategoryId: "boxId-${testId}",
+							editable: false,
+							childCategories: []
+						},
+						{
+							categoryId: "cat2-${testId}",
+							categoryIndex: 2,
+							categoryName: "level 1 #2",
+							dictionaryLookup: false,
+							empty: false,
+							parentCategoryId: "boxId-${testId}",
+							rootCategoryId: "boxId-${testId}",
+							editable: false,
+							childCategories : [
+								{
+									categoryId: "cat3-${testId}",
+									categoryIndex: 1,
+									categoryName: "level 2 #1",
+									dictionaryLookup: false,
+									empty: true,
+									parentCategoryId: "cat2-${testId}",
+									rootCategoryId: "boxId-${testId}",
+									editable: false,
+									childCategories: []
+								}
+							]
+						}
+					]
+				}
+			}
+
 
 		

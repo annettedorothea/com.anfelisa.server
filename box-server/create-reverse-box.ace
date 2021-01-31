@@ -1,0 +1,93 @@
+HttpServer Java 
+
+
+com.anfelisa.box.createreversebox
+
+scenarios 
+	CreateReverseBox
+		GIVEN
+			com.anfelisa.box.createbox.CreateBoxMinimal
+		WHEN
+			com.anfelisa.box.CreateReverseBox
+				uuid "reverseBoxId-${testId}"
+				{
+					rootCategoryId: "boxId-${testId}"
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+		persistence
+			reverseBoxWasCreated Box selectBy ( boxId: "reverseBoxId-${testId}") shouldBe
+			{
+				boxId: "reverseBoxId-${testId}",
+				categoryId: "boxId-${testId}",
+				maxCardsPerDay: 10,
+				userId: "uuid-${testId}",
+				reverse: true
+			}
+			
+	CreateReverseBoxBoxDoesNotExist
+		GIVEN
+			com.anfelisa.box.createbox.CreateBoxMinimal
+		WHEN
+			com.anfelisa.box.CreateReverseBox
+				uuid "reverseBoxId-${testId}"
+				{
+					rootCategoryId: "xxx-${testId}"
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 401
+		persistence
+			boxWasNotCreated Box selectBy ( boxId: "reverseBoxId-${testId}") shouldBe null
+			
+	CreateReverseBoxNoAccess
+		GIVEN
+			com.anfelisa.box.createbox.CreateBoxMinimal
+			com.anfelisa.user.registeruser.RegisterTwoUsers excludeGIVEN
+		WHEN
+			com.anfelisa.box.CreateReverseBox
+				uuid "reverseBoxId-${testId}"
+				{
+					rootCategoryId: "boxId-${testId}"
+				}
+				authorization "Anne-${testId}" : "pw"
+		THEN 401
+		persistence
+			boxWasNotCreated Box selectBy ( boxId: "reverseBoxId-${testId}") shouldBe null
+			
+	CreateReverseBoxUnauthorized
+		GIVEN
+			com.anfelisa.box.createbox.CreateBoxMinimal
+		WHEN
+			com.anfelisa.box.CreateReverseBox
+				uuid "reverseBoxId-${testId}"
+				{
+					rootCategoryId: "boxId-${testId}"
+				}
+		THEN 401
+		persistence
+			boxWasNotCreated Box selectBy ( boxId: "reverseBoxId-${testId}") shouldBe null
+			
+	CreateReverseBoxByInvitedUser
+		GIVEN
+			com.anfelisa.category.inviteusertocategory.InviteUserToCategory
+		WHEN
+			com.anfelisa.box.CreateReverseBox
+				uuid "reverseBoxId-${testId}"
+				{
+					rootCategoryId: "boxId-${testId}"
+				}
+				authorization "Anne-${testId}" : "pw"
+		THEN 200
+		persistence
+			reverseBoxWasCreated Box selectBy ( boxId: "reverseBoxId-${testId}") shouldBe
+			{
+				boxId: "reverseBoxId-${testId}",
+				categoryId: "boxId-${testId}",
+				maxCardsPerDay: 10,
+				userId: "uuid2-${testId}",
+				reverse: true
+			}
+			
+			
+	
+		

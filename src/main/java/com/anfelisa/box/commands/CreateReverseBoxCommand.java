@@ -39,9 +39,6 @@ public class CreateReverseBoxCommand extends AbstractCreateReverseBoxCommand {
 		if (box == null) {
 			throwIllegalArgumentException("boxNotFound");
 		}
-		if (!box.getUserId().equals(commandData.getUserId())) {
-			throwSecurityException();
-		}
 
 		this.commandData.setCategoryId(box.getCategoryId());
 		this.commandData.setMaxInterval(box.getMaxInterval());

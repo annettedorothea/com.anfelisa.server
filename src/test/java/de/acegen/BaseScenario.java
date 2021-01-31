@@ -348,6 +348,8 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 		ICategoryTreeItemModel actualRootCategory = actual.getRootCategory();
 		ICategoryTreeItemModel expectedRootCategory = expected.getRootCategory();
 		assertThat(actualRootCategory, expectedRootCategory);
+		assertThat(actual.getBoxId(), expected.getBoxId());
+		assertThat(actual.getReverseBoxExists(), expected.getReverseBoxExists());
 	}
 
 	private void assertThat(ICategoryTreeItemModel actual, ICategoryTreeItemModel expected) {

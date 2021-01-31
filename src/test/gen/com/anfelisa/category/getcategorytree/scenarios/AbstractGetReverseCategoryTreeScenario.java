@@ -25,9 +25,9 @@ import de.acegen.NonDeterministicDataProvider;
 import de.acegen.HttpResponse;
 
 @SuppressWarnings("unused")
-public abstract class AbstractGetFilteredCategoryPriority2TreeScenario extends BaseScenario {
+public abstract class AbstractGetReverseCategoryTreeScenario extends BaseScenario {
 
-	static final Logger LOG = LoggerFactory.getLogger(AbstractGetFilteredCategoryPriority2TreeScenario.class);
+	static final Logger LOG = LoggerFactory.getLogger(AbstractGetReverseCategoryTreeScenario.class);
 	
 	private void given() throws Exception {
 		String uuid;
@@ -133,24 +133,20 @@ public abstract class AbstractGetFilteredCategoryPriority2TreeScenario extends B
 			LOG.info("GIVEN: prerequisite for CreateCategory not met");
 		}
 
-		if (prerequisite("CreateCard")) {
-			uuid = "c1-" + this.getTestId() + "";
-			com.anfelisa.card.data.CreateCardPayload payload_3 = objectMapper.readValue("{" +
-				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-				"\"given\" : \"given\"," + 
-				"\"image\" : \"image\"," + 
-				"\"wanted\" : \"wanted\"} ",
-					com.anfelisa.card.data.CreateCardPayload.class);
-			com.anfelisa.card.data.CardCreationData data_3 = objectMapper.readValue("{" +
+		if (prerequisite("CreateSecondCategory")) {
+			uuid = "cat2-" + this.getTestId() + "";
+			com.anfelisa.category.data.CreateCategoryPayload payload_3 = objectMapper.readValue("{" +
+				"\"categoryName\" : \"level 1 #2\"," + 
+				"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
+					com.anfelisa.category.data.CreateCategoryPayload.class);
+			com.anfelisa.category.data.CategoryCreationData data_3 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-			"\"given\" : \"given\"," + 
-			"\"image\" : \"image\"," + 
-			"\"wanted\" : \"wanted\"} ",
-					com.anfelisa.card.data.CardCreationData.class);
+			"\"categoryName\" : \"level 1 #2\"," + 
+			"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
+					com.anfelisa.category.data.CategoryCreationData.class);
 			HttpResponse<Object> response_3 = 
 			this.httpPost(
-				"/card/create", 
+				"/category/create", 
 			 	payload_3,
 				authorization("Annette-${testId}", "password"),
 				uuid,
@@ -158,34 +154,30 @@ public abstract class AbstractGetFilteredCategoryPriority2TreeScenario extends B
 			);
 			
 			if (response_3.getStatusCode() >= 400) {
-				String message = "GIVEN CreateCard fails\n" + response_3.getStatusMessage();
-				LOG.error("GIVEN: CreateCard fails due to {} in {} ms", message, response_3.getDuration());
+				String message = "GIVEN CreateSecondCategory fails\n" + response_3.getStatusMessage();
+				LOG.error("GIVEN: CreateSecondCategory fails due to {} in {} ms", message, response_3.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateCard success in {} ms", response_3.getDuration());
-			addToMetrics("CreateCard", response_3.getDuration());
+			LOG.info("GIVEN: CreateSecondCategory success in {} ms", response_3.getDuration());
+			addToMetrics("CreateCategory", response_3.getDuration());
 		} else {
-			LOG.info("GIVEN: prerequisite for CreateCard not met");
+			LOG.info("GIVEN: prerequisite for CreateSecondCategory not met");
 		}
 
-		if (prerequisite("CreateSecondCard")) {
-			uuid = "c2-" + this.getTestId() + "";
-			com.anfelisa.card.data.CreateCardPayload payload_4 = objectMapper.readValue("{" +
-				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-				"\"given\" : \"given2\"," + 
-				"\"image\" : \"image2\"," + 
-				"\"wanted\" : \"wanted2\"} ",
-					com.anfelisa.card.data.CreateCardPayload.class);
-			com.anfelisa.card.data.CardCreationData data_4 = objectMapper.readValue("{" +
+		if (prerequisite("CreateCategorySecondLevel")) {
+			uuid = "cat3-" + this.getTestId() + "";
+			com.anfelisa.category.data.CreateCategoryPayload payload_4 = objectMapper.readValue("{" +
+				"\"categoryName\" : \"level 2 #1\"," + 
+				"\"parentCategoryId\" : \"cat2-" + this.getTestId() + "\"} ",
+					com.anfelisa.category.data.CreateCategoryPayload.class);
+			com.anfelisa.category.data.CategoryCreationData data_4 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-			"\"given\" : \"given2\"," + 
-			"\"image\" : \"image2\"," + 
-			"\"wanted\" : \"wanted2\"} ",
-					com.anfelisa.card.data.CardCreationData.class);
+			"\"categoryName\" : \"level 2 #1\"," + 
+			"\"parentCategoryId\" : \"cat2-" + this.getTestId() + "\"} ",
+					com.anfelisa.category.data.CategoryCreationData.class);
 			HttpResponse<Object> response_4 = 
 			this.httpPost(
-				"/card/create", 
+				"/category/create", 
 			 	payload_4,
 				authorization("Annette-${testId}", "password"),
 				uuid,
@@ -193,32 +185,28 @@ public abstract class AbstractGetFilteredCategoryPriority2TreeScenario extends B
 			);
 			
 			if (response_4.getStatusCode() >= 400) {
-				String message = "GIVEN CreateSecondCard fails\n" + response_4.getStatusMessage();
-				LOG.error("GIVEN: CreateSecondCard fails due to {} in {} ms", message, response_4.getDuration());
+				String message = "GIVEN CreateCategorySecondLevel fails\n" + response_4.getStatusMessage();
+				LOG.error("GIVEN: CreateCategorySecondLevel fails due to {} in {} ms", message, response_4.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateSecondCard success in {} ms", response_4.getDuration());
-			addToMetrics("CreateCard", response_4.getDuration());
+			LOG.info("GIVEN: CreateCategorySecondLevel success in {} ms", response_4.getDuration());
+			addToMetrics("CreateCategory", response_4.getDuration());
 		} else {
-			LOG.info("GIVEN: prerequisite for CreateSecondCard not met");
+			LOG.info("GIVEN: prerequisite for CreateCategorySecondLevel not met");
 		}
 
-		if (prerequisite("CreateThirdCard")) {
-			uuid = "c3-" + this.getTestId() + "";
-			com.anfelisa.card.data.CreateCardPayload payload_5 = objectMapper.readValue("{" +
-				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-				"\"given\" : \"3given\"," + 
-				"\"wanted\" : \"3wanted\"} ",
-					com.anfelisa.card.data.CreateCardPayload.class);
-			com.anfelisa.card.data.CardCreationData data_5 = objectMapper.readValue("{" +
+		if (prerequisite("CreateReverseBox")) {
+			uuid = "reverseBoxId-" + this.getTestId() + "";
+			com.anfelisa.box.data.CreateReverseBoxPayload payload_5 = objectMapper.readValue("{" +
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
+					com.anfelisa.box.data.CreateReverseBoxPayload.class);
+			com.anfelisa.box.data.BoxCreationData data_5 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-			"\"given\" : \"3given\"," + 
-			"\"wanted\" : \"3wanted\"} ",
-					com.anfelisa.card.data.CardCreationData.class);
+			"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
+					com.anfelisa.box.data.BoxCreationData.class);
 			HttpResponse<Object> response_5 = 
 			this.httpPost(
-				"/card/create", 
+				"/box/create-reverse", 
 			 	payload_5,
 				authorization("Annette-${testId}", "password"),
 				uuid,
@@ -226,142 +214,14 @@ public abstract class AbstractGetFilteredCategoryPriority2TreeScenario extends B
 			);
 			
 			if (response_5.getStatusCode() >= 400) {
-				String message = "GIVEN CreateThirdCard fails\n" + response_5.getStatusMessage();
-				LOG.error("GIVEN: CreateThirdCard fails due to {} in {} ms", message, response_5.getDuration());
+				String message = "GIVEN CreateReverseBox fails\n" + response_5.getStatusMessage();
+				LOG.error("GIVEN: CreateReverseBox fails due to {} in {} ms", message, response_5.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateThirdCard success in {} ms", response_5.getDuration());
-			addToMetrics("CreateCard", response_5.getDuration());
+			LOG.info("GIVEN: CreateReverseBox success in {} ms", response_5.getDuration());
+			addToMetrics("CreateReverseBox", response_5.getDuration());
 		} else {
-			LOG.info("GIVEN: prerequisite for CreateThirdCard not met");
-		}
-
-		if (prerequisite("CreateFourthCard")) {
-			uuid = "c4-" + this.getTestId() + "";
-			com.anfelisa.card.data.CreateCardPayload payload_6 = objectMapper.readValue("{" +
-				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-				"\"given\" : \"4given4\"," + 
-				"\"wanted\" : \"4wanted4\"} ",
-					com.anfelisa.card.data.CreateCardPayload.class);
-			com.anfelisa.card.data.CardCreationData data_6 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-			"\"given\" : \"4given4\"," + 
-			"\"wanted\" : \"4wanted4\"} ",
-					com.anfelisa.card.data.CardCreationData.class);
-			HttpResponse<Object> response_6 = 
-			this.httpPost(
-				"/card/create", 
-			 	payload_6,
-				authorization("Annette-${testId}", "password"),
-				uuid,
-				null
-			);
-			
-			if (response_6.getStatusCode() >= 400) {
-				String message = "GIVEN CreateFourthCard fails\n" + response_6.getStatusMessage();
-				LOG.error("GIVEN: CreateFourthCard fails due to {} in {} ms", message, response_6.getDuration());
-				assertFail(message);
-			}
-			LOG.info("GIVEN: CreateFourthCard success in {} ms", response_6.getDuration());
-			addToMetrics("CreateCard", response_6.getDuration());
-		} else {
-			LOG.info("GIVEN: prerequisite for CreateFourthCard not met");
-		}
-
-		if (prerequisite("CreateFifthCard")) {
-			uuid = "c5-" + this.getTestId() + "";
-			com.anfelisa.card.data.CreateCardPayload payload_7 = objectMapper.readValue("{" +
-				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-				"\"given\" : \"different\"," + 
-				"\"wanted\" : \"different\"} ",
-					com.anfelisa.card.data.CreateCardPayload.class);
-			com.anfelisa.card.data.CardCreationData data_7 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-			"\"given\" : \"different\"," + 
-			"\"wanted\" : \"different\"} ",
-					com.anfelisa.card.data.CardCreationData.class);
-			HttpResponse<Object> response_7 = 
-			this.httpPost(
-				"/card/create", 
-			 	payload_7,
-				authorization("Annette-${testId}", "password"),
-				uuid,
-				null
-			);
-			
-			if (response_7.getStatusCode() >= 400) {
-				String message = "GIVEN CreateFifthCard fails\n" + response_7.getStatusMessage();
-				LOG.error("GIVEN: CreateFifthCard fails due to {} in {} ms", message, response_7.getDuration());
-				assertFail(message);
-			}
-			LOG.info("GIVEN: CreateFifthCard success in {} ms", response_7.getDuration());
-			addToMetrics("CreateCard", response_7.getDuration());
-		} else {
-			LOG.info("GIVEN: prerequisite for CreateFifthCard not met");
-		}
-
-		if (prerequisite("CreateSecondCategory")) {
-			uuid = "cat2-" + this.getTestId() + "";
-			com.anfelisa.category.data.CreateCategoryPayload payload_8 = objectMapper.readValue("{" +
-				"\"categoryName\" : \"level 1 #2\"," + 
-				"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
-					com.anfelisa.category.data.CreateCategoryPayload.class);
-			com.anfelisa.category.data.CategoryCreationData data_8 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"categoryName\" : \"level 1 #2\"," + 
-			"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
-					com.anfelisa.category.data.CategoryCreationData.class);
-			HttpResponse<Object> response_8 = 
-			this.httpPost(
-				"/category/create", 
-			 	payload_8,
-				authorization("Annette-${testId}", "password"),
-				uuid,
-				null
-			);
-			
-			if (response_8.getStatusCode() >= 400) {
-				String message = "GIVEN CreateSecondCategory fails\n" + response_8.getStatusMessage();
-				LOG.error("GIVEN: CreateSecondCategory fails due to {} in {} ms", message, response_8.getDuration());
-				assertFail(message);
-			}
-			LOG.info("GIVEN: CreateSecondCategory success in {} ms", response_8.getDuration());
-			addToMetrics("CreateCategory", response_8.getDuration());
-		} else {
-			LOG.info("GIVEN: prerequisite for CreateSecondCategory not met");
-		}
-
-		if (prerequisite("UpdateCardPriority2")) {
-			uuid = this.randomUUID();
-			com.anfelisa.card.data.UpdateCardPriorityPayload payload_9 = objectMapper.readValue("{" +
-				"\"cardId\" : \"c1-" + this.getTestId() + "\"," + 
-				"\"priority\" : 2} ",
-					com.anfelisa.card.data.UpdateCardPriorityPayload.class);
-			com.anfelisa.card.data.CardUpdatePriorityData data_9 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"cardId\" : \"c1-" + this.getTestId() + "\"," + 
-			"\"priority\" : 2} ",
-					com.anfelisa.card.data.CardUpdatePriorityData.class);
-			HttpResponse<Object> response_9 = 
-			this.httpPut(
-				"/card/update-priority", 
-			 	payload_9,
-				authorization("Annette-${testId}", "password"),
-				uuid,
-				null
-			);
-			
-			if (response_9.getStatusCode() >= 400) {
-				String message = "GIVEN UpdateCardPriority2 fails\n" + response_9.getStatusMessage();
-				LOG.error("GIVEN: UpdateCardPriority2 fails due to {} in {} ms", message, response_9.getDuration());
-				assertFail(message);
-			}
-			LOG.info("GIVEN: UpdateCardPriority2 success in {} ms", response_9.getDuration());
-			addToMetrics("UpdateCardPriority", response_9.getDuration());
-		} else {
-			LOG.info("GIVEN: prerequisite for UpdateCardPriority2 not met");
+			LOG.info("GIVEN: prerequisite for CreateReverseBox not met");
 		}
 
 	}
@@ -371,9 +231,8 @@ public abstract class AbstractGetFilteredCategoryPriority2TreeScenario extends B
 		com.anfelisa.category.data.CategoryTreeData data_0 = objectMapper.readValue("{" +
 		"\"uuid\" : \"" + uuid + "\"," + 
 		"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
-		"\"filterNonScheduled\" : true," + 
-		"\"priority\" : 2," + 
-		"\"reverse\" : false} ",
+		"\"filterNonScheduled\" : false," + 
+		"\"reverse\" : true} ",
 				com.anfelisa.category.data.CategoryTreeData.class);
 		HttpResponse<com.anfelisa.category.data.GetCategoryTreeResponse> response = 
 		this.httpGet(
@@ -414,16 +273,15 @@ public abstract class AbstractGetFilteredCategoryPriority2TreeScenario extends B
 
 					com.anfelisa.category.data.CategoryTreeData expectedData = objectMapper.readValue("{" +
 						"\"uuid\" : \"\"," + 
-						"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
-						"\"reverseBoxExists\" : false," + 
+						"\"boxId\" : \"reverseBoxId-" + this.getTestId() + "\"," + 
+						"\"reverseBoxExists\" : true," + 
 						"\"rootCategory\" : { \"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 						"\"categoryIndex\" : null," + 
 						"\"categoryName\" : \"cat\"," + 
 						"\"dictionaryLookup\" : false," + 
 						"\"empty\" : false," + 
 						"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
-						"\"nonScheduledCount\" : 1," + 
-						"\"editable\" : true," + 
+						"\"editable\" : false," + 
 						"\"childCategories\" : [ { \"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 						"\"categoryIndex\" : 1," + 
 						"\"categoryName\" : \"level 1 #1\"," + 
@@ -431,19 +289,25 @@ public abstract class AbstractGetFilteredCategoryPriority2TreeScenario extends B
 						"\"empty\" : true," + 
 						"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 						"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
-						"\"nonScheduledCount\" : 1," + 
-						"\"editable\" : true," + 
+						"\"editable\" : false," + 
 						"\"childCategories\" : []}," + 
 						"{ \"categoryId\" : \"cat2-" + this.getTestId() + "\"," + 
 						"\"categoryIndex\" : 2," + 
 						"\"categoryName\" : \"level 1 #2\"," + 
 						"\"dictionaryLookup\" : false," + 
-						"\"empty\" : true," + 
+						"\"empty\" : false," + 
 						"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 						"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
-						"\"nonScheduledCount\" : 0," + 
-						"\"editable\" : true," + 
-						"\"childCategories\" : []}]}} ",
+						"\"editable\" : false," + 
+						"\"childCategories\" : [ { \"categoryId\" : \"cat3-" + this.getTestId() + "\"," + 
+						"\"categoryIndex\" : 1," + 
+						"\"categoryName\" : \"level 2 #1\"," + 
+						"\"dictionaryLookup\" : false," + 
+						"\"empty\" : true," + 
+						"\"parentCategoryId\" : \"cat2-" + this.getTestId() + "\"," + 
+						"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+						"\"editable\" : false," + 
+						"\"childCategories\" : []}]}]}} ",
 					com.anfelisa.category.data.CategoryTreeData.class);
 					
 					com.anfelisa.category.data.GetCategoryTreeResponse expected = new com.anfelisa.category.data.GetCategoryTreeResponse(expectedData);
@@ -460,14 +324,14 @@ public abstract class AbstractGetFilteredCategoryPriority2TreeScenario extends B
 	public void runTest() throws Exception {
 		given();
 			
-		if (prerequisite("GetFilteredCategoryPriority2Tree")) {
+		if (prerequisite("GetReverseCategoryTree")) {
 			HttpResponse<com.anfelisa.category.data.GetCategoryTreeResponse> response = when();
 
 			com.anfelisa.category.data.GetCategoryTreeResponse actualResponse = then(response);
 			
 	
 		} else {
-			LOG.info("WHEN: prerequisite for GetFilteredCategoryPriority2Tree not met");
+			LOG.info("WHEN: prerequisite for GetReverseCategoryTree not met");
 		}
 	}
 	
@@ -475,7 +339,7 @@ public abstract class AbstractGetFilteredCategoryPriority2TreeScenario extends B
 		
 	@Override
 	protected String scenarioName() {
-		return "GetFilteredCategoryPriority2Tree";
+		return "GetReverseCategoryTree";
 	}
 	
 }
