@@ -106,7 +106,8 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 		port = Integer.parseInt(config.getServer().getApplicationConnectors()[0].getPort());
 		protocol = config.getServer().getApplicationConnectors()[0].getType();
 		rootPath = config.getServer().getRootPath();
-		jdbi = Jdbi.create(config.getDatabase().getUrl(), config.getDatabase().getUser(), config.getDatabase().getPassword());
+		jdbi = Jdbi.create(config.getDatabase().getUrl(), config.getDatabase().getUser(),
+				config.getDatabase().getPassword());
 		if (metrics == null) {
 			metrics = new HashMap<>();
 		}
@@ -121,12 +122,14 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 				+ padLeft("max", 9));
 		for (Object action : actions) {
 			DescriptiveStatistics values = metrics.get(action);
-			LOG.info(padRight(action.toString(), 25) + padLeft(values.getN() + "", 9)
-					+ padLeft(format(values.getMean()), 9) + padLeft(format(values.getStandardDeviation()), 9)
-					+ padLeft(format(values.getPercentile(50)), 9)
-					+ padLeft(format(values.getPercentile(10)), 9)
-					+ padLeft(format(values.getPercentile(90)), 9) + padLeft(values.getMin(), 9)
-					+ padLeft(values.getMax(), 9));
+			String actionName = action.toString();
+			if (actionName.length() > 22) {
+				actionName = actionName.substring(0, 22) + "...";
+			}
+			LOG.info(padRight(actionName, 25) + padLeft(values.getN() + "", 9) + padLeft(format(values.getMean()), 9)
+					+ padLeft(format(values.getStandardDeviation()), 9) + padLeft(format(values.getPercentile(50)), 9)
+					+ padLeft(format(values.getPercentile(10)), 9) + padLeft(format(values.getPercentile(90)), 9)
+					+ padLeft(values.getMin(), 9) + padLeft(values.getMax(), 9));
 		}
 	}
 
@@ -343,7 +346,7 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 			org.hamcrest.MatcherAssert.assertThat(actualUser, is(samePropertyValuesAs(expectedUser)));
 		}
 	}
-	
+
 	private void assertThat(GetCategoryTreeResponse actual, GetCategoryTreeResponse expected) {
 		ICategoryTreeItemModel actualRootCategory = actual.getRootCategory();
 		ICategoryTreeItemModel expectedRootCategory = expected.getRootCategory();
