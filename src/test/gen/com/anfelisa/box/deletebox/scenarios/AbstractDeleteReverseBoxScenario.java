@@ -25,9 +25,9 @@ import de.acegen.NonDeterministicDataProvider;
 import de.acegen.HttpResponse;
 
 @SuppressWarnings("unused")
-public abstract class AbstractDeleteBoxNotMyBoxScenario extends BaseScenario {
+public abstract class AbstractDeleteReverseBoxScenario extends BaseScenario {
 
-	static final Logger LOG = LoggerFactory.getLogger(AbstractDeleteBoxNotMyBoxScenario.class);
+	static final Logger LOG = LoggerFactory.getLogger(AbstractDeleteReverseBoxScenario.class);
 	
 	private void given() throws Exception {
 		String uuid;
@@ -370,22 +370,22 @@ public abstract class AbstractDeleteBoxNotMyBoxScenario extends BaseScenario {
 			LOG.info("GIVEN: prerequisite for ScoreCard0 not met");
 		}
 
-		if (prerequisite("RegisterUserAdmin")) {
-			uuid = "uuid-admin";
+		if (prerequisite("RegisterUser")) {
+			uuid = "uuid-" + this.getTestId() + "";
 			this.callNonDeterministicDataProviderPutValue(uuid, "token", 
-						objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class));
+						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class));
 			com.anfelisa.user.data.RegisterUserPayload payload_10 = objectMapper.readValue("{" +
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
 				"\"language\" : \"de\"," + 
-				"\"password\" : \"admin-password\"," + 
-				"\"username\" : \"Admin\"} ",
+				"\"password\" : \"password\"," + 
+				"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 					com.anfelisa.user.data.RegisterUserPayload.class);
 			com.anfelisa.user.data.UserRegistrationData data_10 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 			"\"email\" : \"annette.pohl@anfelisa.de\"," + 
 			"\"language\" : \"de\"," + 
-			"\"password\" : \"admin-password\"," + 
-			"\"username\" : \"Admin\"} ",
+			"\"password\" : \"password\"," + 
+			"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 					com.anfelisa.user.data.UserRegistrationData.class);
 			HttpResponse<Object> response_10 = 
 			this.httpPost(
@@ -397,14 +397,76 @@ public abstract class AbstractDeleteBoxNotMyBoxScenario extends BaseScenario {
 			);
 			
 			if (response_10.getStatusCode() >= 400) {
-				String message = "GIVEN RegisterUserAdmin fails\n" + response_10.getStatusMessage();
-				LOG.error("GIVEN: RegisterUserAdmin fails due to {} in {} ms", message, response_10.getDuration());
+				String message = "GIVEN RegisterUser fails\n" + response_10.getStatusMessage();
+				LOG.error("GIVEN: RegisterUser fails due to {} in {} ms", message, response_10.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUserAdmin success in {} ms", response_10.getDuration());
+			LOG.info("GIVEN: RegisterUser success in {} ms", response_10.getDuration());
 			addToMetrics("RegisterUser", response_10.getDuration());
 		} else {
-			LOG.info("GIVEN: prerequisite for RegisterUserAdmin not met");
+			LOG.info("GIVEN: prerequisite for RegisterUser not met");
+		}
+
+		if (prerequisite("CreateBoxMinimal")) {
+			uuid = "boxId-" + this.getTestId() + "";
+			com.anfelisa.box.data.CreateBoxPayload payload_11 = objectMapper.readValue("{" +
+				"\"categoryName\" : \"cat\"," + 
+				"\"dictionaryLookup\" : false," + 
+				"\"maxCardsPerDay\" : 10} ",
+					com.anfelisa.box.data.CreateBoxPayload.class);
+			com.anfelisa.box.data.BoxCreationData data_11 = objectMapper.readValue("{" +
+			"\"uuid\" : \"" + uuid + "\"," + 
+			"\"categoryName\" : \"cat\"," + 
+			"\"dictionaryLookup\" : false," + 
+			"\"maxCardsPerDay\" : 10} ",
+					com.anfelisa.box.data.BoxCreationData.class);
+			HttpResponse<Object> response_11 = 
+			this.httpPost(
+				"/box/create", 
+			 	payload_11,
+				authorization("Annette-${testId}", "password"),
+				uuid,
+				null
+			);
+			
+			if (response_11.getStatusCode() >= 400) {
+				String message = "GIVEN CreateBoxMinimal fails\n" + response_11.getStatusMessage();
+				LOG.error("GIVEN: CreateBoxMinimal fails due to {} in {} ms", message, response_11.getDuration());
+				assertFail(message);
+			}
+			LOG.info("GIVEN: CreateBoxMinimal success in {} ms", response_11.getDuration());
+			addToMetrics("CreateBox", response_11.getDuration());
+		} else {
+			LOG.info("GIVEN: prerequisite for CreateBoxMinimal not met");
+		}
+
+		if (prerequisite("CreateReverseBox")) {
+			uuid = "reverseBoxId-" + this.getTestId() + "";
+			com.anfelisa.box.data.CreateReverseBoxPayload payload_12 = objectMapper.readValue("{" +
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
+					com.anfelisa.box.data.CreateReverseBoxPayload.class);
+			com.anfelisa.box.data.BoxCreationData data_12 = objectMapper.readValue("{" +
+			"\"uuid\" : \"" + uuid + "\"," + 
+			"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
+					com.anfelisa.box.data.BoxCreationData.class);
+			HttpResponse<Object> response_12 = 
+			this.httpPost(
+				"/box/create-reverse", 
+			 	payload_12,
+				authorization("Annette-${testId}", "password"),
+				uuid,
+				null
+			);
+			
+			if (response_12.getStatusCode() >= 400) {
+				String message = "GIVEN CreateReverseBox fails\n" + response_12.getStatusMessage();
+				LOG.error("GIVEN: CreateReverseBox fails due to {} in {} ms", message, response_12.getDuration());
+				assertFail(message);
+			}
+			LOG.info("GIVEN: CreateReverseBox success in {} ms", response_12.getDuration());
+			addToMetrics("CreateReverseBox", response_12.getDuration());
+		} else {
+			LOG.info("GIVEN: prerequisite for CreateReverseBox not met");
 		}
 
 	}
@@ -413,12 +475,12 @@ public abstract class AbstractDeleteBoxNotMyBoxScenario extends BaseScenario {
 		String uuid = this.randomUUID();
 		com.anfelisa.box.data.DeleteBoxData data_0 = objectMapper.readValue("{" +
 		"\"uuid\" : \"" + uuid + "\"," + 
-		"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
+		"\"boxId\" : \"reverseBoxId-" + this.getTestId() + "\"} ",
 				com.anfelisa.box.data.DeleteBoxData.class);
 		HttpResponse<Object> response = 
 		this.httpDelete(
 			"/box/delete?boxId=" + data_0.getBoxId() + "", 
-			authorization("Admin", "admin-password"),
+			authorization("Annette-${testId}", "password"),
 			uuid,
 			null
 		);
@@ -435,11 +497,11 @@ public abstract class AbstractDeleteBoxNotMyBoxScenario extends BaseScenario {
 			LOG.error("THEN: status " + response.getStatusCode() + " failed: " + response.getStatusMessage());
 			assertFail(response.getStatusMessage());
 		}
-		if (response.getStatusCode() != 401) {
-			LOG.error("THEN: status " + response.getStatusCode() + " failed, expected 401: " + response.getStatusMessage());
+		if (response.getStatusCode() != 200) {
+			LOG.error("THEN: status " + response.getStatusCode() + " failed, expected 200: " + response.getStatusMessage());
 			assertFail(response.getStatusMessage());
 		} else {
-			LOG.info("THEN: status 401 passed");
+			LOG.info("THEN: status 200 passed");
 		}
 		
 	}
@@ -448,37 +510,37 @@ public abstract class AbstractDeleteBoxNotMyBoxScenario extends BaseScenario {
 	public void runTest() throws Exception {
 		given();
 			
-		if (prerequisite("DeleteBoxNotMyBox")) {
+		if (prerequisite("DeleteReverseBox")) {
 			HttpResponse<Object> response = when();
 
 			then(response);
 			
-			this.boxWasNotDeleted();
-			this.accessToCategoryWasNotDeleted();
+			this.boxWasDeleted();
+			this.accessToCategoryWasDeleted();
 			this.categoriesWereNotDeleted();
 			this.cardsWereNotDeleted();
-			this.scheduledCardsWereNotDeleted();
-			this.reinforceCardsWereNotDeleted();
+			this.allScheduledCardsOfOtherUserWereNotDeleted();
+			this.allReinforceCardsOfOtherUserWereNotDeleted();
 	
 		} else {
-			LOG.info("WHEN: prerequisite for DeleteBoxNotMyBox not met");
+			LOG.info("WHEN: prerequisite for DeleteReverseBox not met");
 		}
 	}
 	
 	
-	private void boxWasNotDeleted() throws Exception {
-		com.anfelisa.box.models.IBoxModel actual = daoProvider.getBoxDao().selectByBoxId(handle, "boxId-" + this.getTestId() + "");
+	private void boxWasDeleted() throws Exception {
+		com.anfelisa.box.models.IBoxModel actual = daoProvider.getBoxDao().selectByBoxId(handle, "reverseBoxId-" + this.getTestId() + "");
 		
-		assertIsNotNull(actual);
+		assertIsNull(actual);
 	
-		LOG.info("THEN: boxWasNotDeleted passed");
+		LOG.info("THEN: boxWasDeleted passed");
 	}
-	private void accessToCategoryWasNotDeleted() throws Exception {
-		com.anfelisa.category.models.IUserAccessToCategoryModel actual = daoProvider.getUserAccessToCategoryDao().selectByPrimaryKey(handle, "boxId-" + this.getTestId() + "", "uuid-" + this.getTestId() + "");
+	private void accessToCategoryWasDeleted() throws Exception {
+		com.anfelisa.category.models.IUserAccessToCategoryModel actual = daoProvider.getUserAccessToCategoryDao().selectByPrimaryKey(handle, "reverseBoxId-" + this.getTestId() + "", "uuid2-" + this.getTestId() + "");
 		
-		assertIsNotNull(actual);
+		assertIsNull(actual);
 	
-		LOG.info("THEN: accessToCategoryWasNotDeleted passed");
+		LOG.info("THEN: accessToCategoryWasDeleted passed");
 	}
 	private void categoriesWereNotDeleted() throws Exception {
 		Map<String, String> filterMap = new HashMap<String, String>();
@@ -498,28 +560,28 @@ public abstract class AbstractDeleteBoxNotMyBoxScenario extends BaseScenario {
 	
 		LOG.info("THEN: cardsWereNotDeleted passed");
 	}
-	private void scheduledCardsWereNotDeleted() throws Exception {
+	private void allScheduledCardsOfOtherUserWereNotDeleted() throws Exception {
 		Map<String, String> filterMap = new HashMap<String, String>();
 		filterMap.put("boxId", "boxId-" + this.getTestId() + "");
 		int actual = daoProvider.getScheduledCardDao().filterAndCountBy(handle, filterMap);
 		
 		assertThat(actual, 4);
 	
-		LOG.info("THEN: scheduledCardsWereNotDeleted passed");
+		LOG.info("THEN: allScheduledCardsOfOtherUserWereNotDeleted passed");
 	}
-	private void reinforceCardsWereNotDeleted() throws Exception {
+	private void allReinforceCardsOfOtherUserWereNotDeleted() throws Exception {
 		Map<String, String> filterMap = new HashMap<String, String>();
 		filterMap.put("boxId", "boxId-" + this.getTestId() + "");
 		int actual = daoProvider.getReinforceCardDao().filterAndCountBy(handle, filterMap);
 		
 		assertThat(actual, 1);
 	
-		LOG.info("THEN: reinforceCardsWereNotDeleted passed");
+		LOG.info("THEN: allReinforceCardsOfOtherUserWereNotDeleted passed");
 	}
 		
 	@Override
 	protected String scenarioName() {
-		return "DeleteBoxNotMyBox";
+		return "DeleteReverseBox";
 	}
 	
 }

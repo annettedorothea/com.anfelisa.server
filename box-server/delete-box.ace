@@ -24,6 +24,7 @@ scenarios
 	DeleteBoxNotMyBox
 		GIVEN
 			com.anfelisa.box.scorecard.ScoreCard0
+			com.anfelisa.user.registeruser.RegisterUserAdmin 
 		WHEN
 			com.anfelisa.box.DeleteBox
 				{
@@ -54,6 +55,26 @@ scenarios
 		persistence
 			boxWasDeleted Box selectBy(boxId: "boxIdOfInvitedUser-${testId}") shouldBe null
 			accessToCategoryWasDeleted UserAccessToCategory selectByPrimaryKey( categoryId: "boxIdOfInvitedUser-${testId}", userId: "uuid2-${testId}") shouldBe null
+			categoriesWereNotDeleted Category filterAndCountBy (rootCategoryId: "boxId-${testId}") shouldBe 2
+			cardsWereNotDeleted Card filterAndCountBy (rootCategoryId:  "boxId-${testId}") shouldBe 5
+			allScheduledCardsOfOtherUserWereNotDeleted ScheduledCard filterAndCountBy (boxId: "boxId-${testId}") shouldBe 4
+			allReinforceCardsOfOtherUserWereNotDeleted ReinforceCard filterAndCountBy (boxId: "boxId-${testId}") shouldBe 1
+
+	DeleteReverseBox
+		GIVEN
+			com.anfelisa.box.scorecard.ScoreCard0
+			com.anfelisa.box.createreversebox.CreateReverseBox
+			
+		WHEN
+			com.anfelisa.box.DeleteBox
+				{
+					boxId: "reverseBoxId-${testId}"
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+		persistence
+			boxWasDeleted Box selectBy(boxId: "reverseBoxId-${testId}") shouldBe null
+			accessToCategoryWasDeleted UserAccessToCategory selectByPrimaryKey( categoryId: "reverseBoxId-${testId}", userId: "uuid2-${testId}") shouldBe null
 			categoriesWereNotDeleted Category filterAndCountBy (rootCategoryId: "boxId-${testId}") shouldBe 2
 			cardsWereNotDeleted Card filterAndCountBy (rootCategoryId:  "boxId-${testId}") shouldBe 5
 			allScheduledCardsOfOtherUserWereNotDeleted ScheduledCard filterAndCountBy (boxId: "boxId-${testId}") shouldBe 4
