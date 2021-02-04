@@ -59,7 +59,8 @@ public abstract class AbstractScheduleCardsAsAdminScenario extends BaseScenario 
 			);
 			
 			if (response_0.getStatusCode() >= 400) {
-				String message = "GIVEN RegisterUserAdmin fails\n" + response_0.getStatusMessage();
+				String statusMessage = response_0.getStatusMessage() != null ? response_0.getStatusMessage() : "";
+				String message = "GIVEN RegisterUserAdmin fails\n" + statusMessage;
 				LOG.error("GIVEN: RegisterUserAdmin fails due to {} in {} ms", message, response_0.getDuration());
 				assertFail(message);
 			}
@@ -92,7 +93,8 @@ public abstract class AbstractScheduleCardsAsAdminScenario extends BaseScenario 
 			);
 			
 			if (response_1.getStatusCode() >= 400) {
-				String message = "GIVEN CreateBoxMinimalAsAdmin fails\n" + response_1.getStatusMessage();
+				String statusMessage = response_1.getStatusMessage() != null ? response_1.getStatusMessage() : "";
+				String message = "GIVEN CreateBoxMinimalAsAdmin fails\n" + statusMessage;
 				LOG.error("GIVEN: CreateBoxMinimalAsAdmin fails due to {} in {} ms", message, response_1.getDuration());
 				assertFail(message);
 			}
@@ -123,7 +125,8 @@ public abstract class AbstractScheduleCardsAsAdminScenario extends BaseScenario 
 			);
 			
 			if (response_2.getStatusCode() >= 400) {
-				String message = "GIVEN CreateCategoryAsAdmin fails\n" + response_2.getStatusMessage();
+				String statusMessage = response_2.getStatusMessage() != null ? response_2.getStatusMessage() : "";
+				String message = "GIVEN CreateCategoryAsAdmin fails\n" + statusMessage;
 				LOG.error("GIVEN: CreateCategoryAsAdmin fails due to {} in {} ms", message, response_2.getDuration());
 				assertFail(message);
 			}
@@ -158,7 +161,8 @@ public abstract class AbstractScheduleCardsAsAdminScenario extends BaseScenario 
 			);
 			
 			if (response_3.getStatusCode() >= 400) {
-				String message = "GIVEN CreateCardAsAdmin fails\n" + response_3.getStatusMessage();
+				String statusMessage = response_3.getStatusMessage() != null ? response_3.getStatusMessage() : "";
+				String message = "GIVEN CreateCardAsAdmin fails\n" + statusMessage;
 				LOG.error("GIVEN: CreateCardAsAdmin fails due to {} in {} ms", message, response_3.getDuration());
 				assertFail(message);
 			}
@@ -200,12 +204,14 @@ public abstract class AbstractScheduleCardsAsAdminScenario extends BaseScenario 
 	
 	private void then(HttpResponse<Object> response) throws Exception {
 		if (response.getStatusCode() == 500) {
-			LOG.error("THEN: status " + response.getStatusCode() + " failed: " + response.getStatusMessage());
-			assertFail(response.getStatusMessage());
+			String statusMessage = response.getStatusMessage() != null ? response.getStatusMessage() : "";
+			LOG.error("THEN: status " + response.getStatusCode() + " failed: " + statusMessage);
+			assertFail(statusMessage);
 		}
 		if (response.getStatusCode() != 200) {
-			LOG.error("THEN: status " + response.getStatusCode() + " failed, expected 200: " + response.getStatusMessage());
-			assertFail(response.getStatusMessage());
+			String statusMessage = response.getStatusMessage() != null ? response.getStatusMessage() : "";
+			LOG.error("THEN: status " + response.getStatusCode() + " failed, expected 200: " + statusMessage);
+			assertFail(statusMessage);
 		} else {
 			LOG.info("THEN: status 200 passed");
 		}

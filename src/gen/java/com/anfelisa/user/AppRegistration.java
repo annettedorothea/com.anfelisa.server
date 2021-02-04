@@ -37,7 +37,7 @@ public class AppRegistration {
 			viewProvider.userView.registerUser((com.anfelisa.user.data.UserRegistrationData) dataContainer, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.user.events.RegisterUserOkEvent", (dataContainer, handle) -> {
+		viewProvider.addAfterCommitConsumer("com.anfelisa.user.events.RegisterUserOkEvent", (dataContainer, handle) -> {
 			viewProvider.emailConfirmationView.insert((com.anfelisa.user.data.UserRegistrationData) dataContainer, handle);
 		});
 		
@@ -49,7 +49,7 @@ public class AppRegistration {
 			viewProvider.userView.confirmEmail((com.anfelisa.user.data.ConfirmEmailData) dataContainer, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.user.events.ConfirmEmailOkEvent", (dataContainer, handle) -> {
+		viewProvider.addAfterCommitConsumer("com.anfelisa.user.events.ConfirmEmailOkEvent", (dataContainer, handle) -> {
 			viewProvider.emailConfirmationView.delete((com.anfelisa.user.data.ConfirmEmailData) dataContainer, handle);
 		});
 		

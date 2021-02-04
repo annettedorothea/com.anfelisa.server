@@ -8,6 +8,7 @@
 package com.anfelisa.box.models;
 
 import de.acegen.PersistenceHandle;
+import de.acegen.AbstractDao;
 import org.jdbi.v3.core.statement.Update;
 
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @SuppressWarnings("all")
-public class AbstractScheduledCardDao {
+public class AbstractScheduledCardDao extends AbstractDao {
 	
 	public void insert(PersistenceHandle handle, IScheduledCardModel scheduledCardModel) {
 		Update statement = handle.getHandle().createUpdate("INSERT INTO \"scheduledcard\" (scheduledcardid, cardid, boxid, createddate, ef, interval, n, count, scheduleddate, lastquality, quality, scoreddate) VALUES (:scheduledcardid, :cardid, :boxid, :createddate, :ef, :interval, :n, :count, :scheduleddate, :lastquality, :quality, :scoreddate)");

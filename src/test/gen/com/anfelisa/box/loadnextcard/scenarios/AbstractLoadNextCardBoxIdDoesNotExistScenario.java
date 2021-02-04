@@ -59,7 +59,8 @@ public abstract class AbstractLoadNextCardBoxIdDoesNotExistScenario extends Base
 			);
 			
 			if (response_0.getStatusCode() >= 400) {
-				String message = "GIVEN RegisterUser fails\n" + response_0.getStatusMessage();
+				String statusMessage = response_0.getStatusMessage() != null ? response_0.getStatusMessage() : "";
+				String message = "GIVEN RegisterUser fails\n" + statusMessage;
 				LOG.error("GIVEN: RegisterUser fails due to {} in {} ms", message, response_0.getDuration());
 				assertFail(message);
 			}
@@ -92,7 +93,8 @@ public abstract class AbstractLoadNextCardBoxIdDoesNotExistScenario extends Base
 			);
 			
 			if (response_1.getStatusCode() >= 400) {
-				String message = "GIVEN CreateBoxMinimal fails\n" + response_1.getStatusMessage();
+				String statusMessage = response_1.getStatusMessage() != null ? response_1.getStatusMessage() : "";
+				String message = "GIVEN CreateBoxMinimal fails\n" + statusMessage;
 				LOG.error("GIVEN: CreateBoxMinimal fails due to {} in {} ms", message, response_1.getDuration());
 				assertFail(message);
 			}
@@ -123,7 +125,8 @@ public abstract class AbstractLoadNextCardBoxIdDoesNotExistScenario extends Base
 			);
 			
 			if (response_2.getStatusCode() >= 400) {
-				String message = "GIVEN CreateCategory fails\n" + response_2.getStatusMessage();
+				String statusMessage = response_2.getStatusMessage() != null ? response_2.getStatusMessage() : "";
+				String message = "GIVEN CreateCategory fails\n" + statusMessage;
 				LOG.error("GIVEN: CreateCategory fails due to {} in {} ms", message, response_2.getDuration());
 				assertFail(message);
 			}
@@ -158,7 +161,8 @@ public abstract class AbstractLoadNextCardBoxIdDoesNotExistScenario extends Base
 			);
 			
 			if (response_3.getStatusCode() >= 400) {
-				String message = "GIVEN CreateCard fails\n" + response_3.getStatusMessage();
+				String statusMessage = response_3.getStatusMessage() != null ? response_3.getStatusMessage() : "";
+				String message = "GIVEN CreateCard fails\n" + statusMessage;
 				LOG.error("GIVEN: CreateCard fails due to {} in {} ms", message, response_3.getDuration());
 				assertFail(message);
 			}
@@ -193,7 +197,8 @@ public abstract class AbstractLoadNextCardBoxIdDoesNotExistScenario extends Base
 			);
 			
 			if (response_4.getStatusCode() >= 400) {
-				String message = "GIVEN CreateSecondCard fails\n" + response_4.getStatusMessage();
+				String statusMessage = response_4.getStatusMessage() != null ? response_4.getStatusMessage() : "";
+				String message = "GIVEN CreateSecondCard fails\n" + statusMessage;
 				LOG.error("GIVEN: CreateSecondCard fails due to {} in {} ms", message, response_4.getDuration());
 				assertFail(message);
 			}
@@ -226,7 +231,8 @@ public abstract class AbstractLoadNextCardBoxIdDoesNotExistScenario extends Base
 			);
 			
 			if (response_5.getStatusCode() >= 400) {
-				String message = "GIVEN CreateThirdCard fails\n" + response_5.getStatusMessage();
+				String statusMessage = response_5.getStatusMessage() != null ? response_5.getStatusMessage() : "";
+				String message = "GIVEN CreateThirdCard fails\n" + statusMessage;
 				LOG.error("GIVEN: CreateThirdCard fails due to {} in {} ms", message, response_5.getDuration());
 				assertFail(message);
 			}
@@ -259,7 +265,8 @@ public abstract class AbstractLoadNextCardBoxIdDoesNotExistScenario extends Base
 			);
 			
 			if (response_6.getStatusCode() >= 400) {
-				String message = "GIVEN CreateFourthCard fails\n" + response_6.getStatusMessage();
+				String statusMessage = response_6.getStatusMessage() != null ? response_6.getStatusMessage() : "";
+				String message = "GIVEN CreateFourthCard fails\n" + statusMessage;
 				LOG.error("GIVEN: CreateFourthCard fails due to {} in {} ms", message, response_6.getDuration());
 				assertFail(message);
 			}
@@ -292,7 +299,8 @@ public abstract class AbstractLoadNextCardBoxIdDoesNotExistScenario extends Base
 			);
 			
 			if (response_7.getStatusCode() >= 400) {
-				String message = "GIVEN CreateFifthCard fails\n" + response_7.getStatusMessage();
+				String statusMessage = response_7.getStatusMessage() != null ? response_7.getStatusMessage() : "";
+				String message = "GIVEN CreateFifthCard fails\n" + statusMessage;
 				LOG.error("GIVEN: CreateFifthCard fails due to {} in {} ms", message, response_7.getDuration());
 				assertFail(message);
 			}
@@ -328,7 +336,8 @@ public abstract class AbstractLoadNextCardBoxIdDoesNotExistScenario extends Base
 			);
 			
 			if (response_8.getStatusCode() >= 400) {
-				String message = "GIVEN ScheduleCards fails\n" + response_8.getStatusMessage();
+				String statusMessage = response_8.getStatusMessage() != null ? response_8.getStatusMessage() : "";
+				String message = "GIVEN ScheduleCards fails\n" + statusMessage;
 				LOG.error("GIVEN: ScheduleCards fails due to {} in {} ms", message, response_8.getDuration());
 				assertFail(message);
 			}
@@ -364,12 +373,14 @@ public abstract class AbstractLoadNextCardBoxIdDoesNotExistScenario extends Base
 	
 	private com.anfelisa.box.data.LoadNextCardResponse then(HttpResponse<com.anfelisa.box.data.LoadNextCardResponse> response) throws Exception {
 		if (response.getStatusCode() == 500) {
-			LOG.error("THEN: status " + response.getStatusCode() + " failed: " + response.getStatusMessage());
-			assertFail(response.getStatusMessage());
+			String statusMessage = response.getStatusMessage() != null ? response.getStatusMessage() : "";
+			LOG.error("THEN: status " + response.getStatusCode() + " failed: " + statusMessage);
+			assertFail(statusMessage);
 		}
 		if (response.getStatusCode() != 400) {
-			LOG.error("THEN: status " + response.getStatusCode() + " failed, expected 400: " + response.getStatusMessage());
-			assertFail(response.getStatusMessage());
+			String statusMessage = response.getStatusMessage() != null ? response.getStatusMessage() : "";
+			LOG.error("THEN: status " + response.getStatusCode() + " failed, expected 400: " + statusMessage);
+			assertFail(statusMessage);
 		} else {
 			LOG.info("THEN: status 400 passed");
 		}

@@ -32,6 +32,13 @@ public abstract class AbstractRegisterUserCommand extends Command<IUserRegistrat
 		}
 	}
 	
+	@Override
+	public void publishAfterCommitEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
+		if (this.commandData.hasOutcome("ok")){
+			new com.anfelisa.user.events.RegisterUserOkEvent(this.commandData, daoProvider, viewProvider, appConfiguration).publishAfterCommit(handle, timelineHandle);
+		}
+	}
+	
 }
 
 

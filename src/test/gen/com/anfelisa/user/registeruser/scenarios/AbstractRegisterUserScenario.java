@@ -69,12 +69,14 @@ public abstract class AbstractRegisterUserScenario extends BaseScenario {
 	
 	private void then(HttpResponse<Object> response) throws Exception {
 		if (response.getStatusCode() == 500) {
-			LOG.error("THEN: status " + response.getStatusCode() + " failed: " + response.getStatusMessage());
-			assertFail(response.getStatusMessage());
+			String statusMessage = response.getStatusMessage() != null ? response.getStatusMessage() : "";
+			LOG.error("THEN: status " + response.getStatusCode() + " failed: " + statusMessage);
+			assertFail(statusMessage);
 		}
 		if (response.getStatusCode() != 200) {
-			LOG.error("THEN: status " + response.getStatusCode() + " failed, expected 200: " + response.getStatusMessage());
-			assertFail(response.getStatusMessage());
+			String statusMessage = response.getStatusMessage() != null ? response.getStatusMessage() : "";
+			LOG.error("THEN: status " + response.getStatusCode() + " failed, expected 200: " + statusMessage);
+			assertFail(statusMessage);
 		} else {
 			LOG.info("THEN: status 200 passed");
 		}

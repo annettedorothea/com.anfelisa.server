@@ -8,6 +8,7 @@
 package com.anfelisa.user.models;
 
 import de.acegen.PersistenceHandle;
+import de.acegen.AbstractDao;
 import org.jdbi.v3.core.statement.Update;
 
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @SuppressWarnings("all")
-public class AbstractUserDao {
+public class AbstractUserDao extends AbstractDao {
 	
 	public void insert(PersistenceHandle handle, IUserModel userModel) {
 		Update statement = handle.getHandle().createUpdate("INSERT INTO \"user\" (userid, username, password, email, role, emailconfirmed) VALUES (:userid, :username, :password, :email, :role, :emailconfirmed)");

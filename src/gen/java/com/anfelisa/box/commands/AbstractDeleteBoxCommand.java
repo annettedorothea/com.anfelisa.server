@@ -39,6 +39,10 @@ public abstract class AbstractDeleteBoxCommand extends Command<IDeleteBoxData> {
 		}
 	}
 	
+	@Override
+	public void publishAfterCommitEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	}
+	
 }
 
 

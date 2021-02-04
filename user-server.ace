@@ -96,7 +96,7 @@ views
 		resetPassword(ResetPasswordWithNewPassword)
 	}
 	
-	EmailConfirmation { 
+	afterCommit EmailConfirmation { 
 		insert(UserRegistration)
 		delete(ConfirmEmail)
 	}

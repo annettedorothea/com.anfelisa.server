@@ -8,6 +8,7 @@
 package com.anfelisa.user.models;
 
 import de.acegen.PersistenceHandle;
+import de.acegen.AbstractDao;
 import org.jdbi.v3.core.statement.Update;
 
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @SuppressWarnings("all")
-public class AbstractEmailConfirmationDao {
+public class AbstractEmailConfirmationDao extends AbstractDao {
 	
 	public void insert(PersistenceHandle handle, IEmailConfirmationModel emailConfirmationModel) {
 		Update statement = handle.getHandle().createUpdate("INSERT INTO \"emailconfirmation\" (token, userid) VALUES (:token, :userid)");

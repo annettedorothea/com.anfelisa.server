@@ -32,6 +32,10 @@ public abstract class AbstractInviteUserToCategoryCommand extends Command<IUserT
 		}
 	}
 	
+	@Override
+	public void publishAfterCommitEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	}
+	
 }
 
 

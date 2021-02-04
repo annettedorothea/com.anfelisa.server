@@ -59,7 +59,8 @@ public abstract class AbstractUsernameNotAvailableScenario extends BaseScenario 
 			);
 			
 			if (response_0.getStatusCode() >= 400) {
-				String message = "GIVEN RegisterUser fails\n" + response_0.getStatusMessage();
+				String statusMessage = response_0.getStatusMessage() != null ? response_0.getStatusMessage() : "";
+				String message = "GIVEN RegisterUser fails\n" + statusMessage;
 				LOG.error("GIVEN: RegisterUser fails due to {} in {} ms", message, response_0.getDuration());
 				assertFail(message);
 			}
@@ -94,12 +95,14 @@ public abstract class AbstractUsernameNotAvailableScenario extends BaseScenario 
 	
 	private com.anfelisa.user.data.UsernameAvailableResponse then(HttpResponse<com.anfelisa.user.data.UsernameAvailableResponse> response) throws Exception {
 		if (response.getStatusCode() == 500) {
-			LOG.error("THEN: status " + response.getStatusCode() + " failed: " + response.getStatusMessage());
-			assertFail(response.getStatusMessage());
+			String statusMessage = response.getStatusMessage() != null ? response.getStatusMessage() : "";
+			LOG.error("THEN: status " + response.getStatusCode() + " failed: " + statusMessage);
+			assertFail(statusMessage);
 		}
 		if (response.getStatusCode() != 200) {
-			LOG.error("THEN: status " + response.getStatusCode() + " failed, expected 200: " + response.getStatusMessage());
-			assertFail(response.getStatusMessage());
+			String statusMessage = response.getStatusMessage() != null ? response.getStatusMessage() : "";
+			LOG.error("THEN: status " + response.getStatusCode() + " failed, expected 200: " + statusMessage);
+			assertFail(statusMessage);
 		} else {
 			LOG.info("THEN: status 200 passed");
 		}

@@ -14,8 +14,12 @@ public interface IEvent {
 	IDataContainer getEventData();
 	
 	void publish(PersistenceHandle handle, PersistenceHandle timelineHandle);
+
+	void publishAfterCommit(PersistenceHandle handle, PersistenceHandle timelineHandle);
 	
 	void notifyListeners(PersistenceHandle handle);
+
+	void notifyAfterCommitListeners(PersistenceHandle handle);
 
 }
 

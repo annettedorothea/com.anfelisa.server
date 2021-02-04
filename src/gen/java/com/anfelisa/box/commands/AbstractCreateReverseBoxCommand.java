@@ -32,6 +32,10 @@ public abstract class AbstractCreateReverseBoxCommand extends Command<IBoxCreati
 		}
 	}
 	
+	@Override
+	public void publishAfterCommitEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	}
+	
 }
 
 

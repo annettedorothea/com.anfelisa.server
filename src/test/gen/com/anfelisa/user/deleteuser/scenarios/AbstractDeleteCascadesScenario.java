@@ -59,7 +59,8 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 			);
 			
 			if (response_0.getStatusCode() >= 400) {
-				String message = "GIVEN RegisterUserAdmin fails\n" + response_0.getStatusMessage();
+				String statusMessage = response_0.getStatusMessage() != null ? response_0.getStatusMessage() : "";
+				String message = "GIVEN RegisterUserAdmin fails\n" + statusMessage;
 				LOG.error("GIVEN: RegisterUserAdmin fails due to {} in {} ms", message, response_0.getDuration());
 				assertFail(message);
 			}
@@ -92,7 +93,8 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 			);
 			
 			if (response_1.getStatusCode() >= 400) {
-				String message = "GIVEN CreateBoxMinimalAsAdmin fails\n" + response_1.getStatusMessage();
+				String statusMessage = response_1.getStatusMessage() != null ? response_1.getStatusMessage() : "";
+				String message = "GIVEN CreateBoxMinimalAsAdmin fails\n" + statusMessage;
 				LOG.error("GIVEN: CreateBoxMinimalAsAdmin fails due to {} in {} ms", message, response_1.getDuration());
 				assertFail(message);
 			}
@@ -123,7 +125,8 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 			);
 			
 			if (response_2.getStatusCode() >= 400) {
-				String message = "GIVEN CreateCategoryAsAdmin fails\n" + response_2.getStatusMessage();
+				String statusMessage = response_2.getStatusMessage() != null ? response_2.getStatusMessage() : "";
+				String message = "GIVEN CreateCategoryAsAdmin fails\n" + statusMessage;
 				LOG.error("GIVEN: CreateCategoryAsAdmin fails due to {} in {} ms", message, response_2.getDuration());
 				assertFail(message);
 			}
@@ -158,7 +161,8 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 			);
 			
 			if (response_3.getStatusCode() >= 400) {
-				String message = "GIVEN CreateCardAsAdmin fails\n" + response_3.getStatusMessage();
+				String statusMessage = response_3.getStatusMessage() != null ? response_3.getStatusMessage() : "";
+				String message = "GIVEN CreateCardAsAdmin fails\n" + statusMessage;
 				LOG.error("GIVEN: CreateCardAsAdmin fails due to {} in {} ms", message, response_3.getDuration());
 				assertFail(message);
 			}
@@ -190,7 +194,8 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 			);
 			
 			if (response_4.getStatusCode() >= 400) {
-				String message = "GIVEN ScheduleCardsAsAdmin fails\n" + response_4.getStatusMessage();
+				String statusMessage = response_4.getStatusMessage() != null ? response_4.getStatusMessage() : "";
+				String message = "GIVEN ScheduleCardsAsAdmin fails\n" + statusMessage;
 				LOG.error("GIVEN: ScheduleCardsAsAdmin fails due to {} in {} ms", message, response_4.getDuration());
 				assertFail(message);
 			}
@@ -222,7 +227,8 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 			);
 			
 			if (response_5.getStatusCode() >= 400) {
-				String message = "GIVEN ScoreCardAsAdmin fails\n" + response_5.getStatusMessage();
+				String statusMessage = response_5.getStatusMessage() != null ? response_5.getStatusMessage() : "";
+				String message = "GIVEN ScoreCardAsAdmin fails\n" + statusMessage;
 				LOG.error("GIVEN: ScoreCardAsAdmin fails due to {} in {} ms", message, response_5.getDuration());
 				assertFail(message);
 			}
@@ -259,7 +265,8 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 			);
 			
 			if (response_6.getStatusCode() >= 400) {
-				String message = "GIVEN RegisterUser fails\n" + response_6.getStatusMessage();
+				String statusMessage = response_6.getStatusMessage() != null ? response_6.getStatusMessage() : "";
+				String message = "GIVEN RegisterUser fails\n" + statusMessage;
 				LOG.error("GIVEN: RegisterUser fails due to {} in {} ms", message, response_6.getDuration());
 				assertFail(message);
 			}
@@ -292,7 +299,8 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 			);
 			
 			if (response_7.getStatusCode() >= 400) {
-				String message = "GIVEN CreateBoxMinimal fails\n" + response_7.getStatusMessage();
+				String statusMessage = response_7.getStatusMessage() != null ? response_7.getStatusMessage() : "";
+				String message = "GIVEN CreateBoxMinimal fails\n" + statusMessage;
 				LOG.error("GIVEN: CreateBoxMinimal fails due to {} in {} ms", message, response_7.getDuration());
 				assertFail(message);
 			}
@@ -323,7 +331,8 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 			);
 			
 			if (response_8.getStatusCode() >= 400) {
-				String message = "GIVEN CreateCategory fails\n" + response_8.getStatusMessage();
+				String statusMessage = response_8.getStatusMessage() != null ? response_8.getStatusMessage() : "";
+				String message = "GIVEN CreateCategory fails\n" + statusMessage;
 				LOG.error("GIVEN: CreateCategory fails due to {} in {} ms", message, response_8.getDuration());
 				assertFail(message);
 			}
@@ -358,7 +367,8 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 			);
 			
 			if (response_9.getStatusCode() >= 400) {
-				String message = "GIVEN CreateCard fails\n" + response_9.getStatusMessage();
+				String statusMessage = response_9.getStatusMessage() != null ? response_9.getStatusMessage() : "";
+				String message = "GIVEN CreateCard fails\n" + statusMessage;
 				LOG.error("GIVEN: CreateCard fails due to {} in {} ms", message, response_9.getDuration());
 				assertFail(message);
 			}
@@ -393,7 +403,8 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 			);
 			
 			if (response_10.getStatusCode() >= 400) {
-				String message = "GIVEN CreateSecondCard fails\n" + response_10.getStatusMessage();
+				String statusMessage = response_10.getStatusMessage() != null ? response_10.getStatusMessage() : "";
+				String message = "GIVEN CreateSecondCard fails\n" + statusMessage;
 				LOG.error("GIVEN: CreateSecondCard fails due to {} in {} ms", message, response_10.getDuration());
 				assertFail(message);
 			}
@@ -426,7 +437,8 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 			);
 			
 			if (response_11.getStatusCode() >= 400) {
-				String message = "GIVEN CreateThirdCard fails\n" + response_11.getStatusMessage();
+				String statusMessage = response_11.getStatusMessage() != null ? response_11.getStatusMessage() : "";
+				String message = "GIVEN CreateThirdCard fails\n" + statusMessage;
 				LOG.error("GIVEN: CreateThirdCard fails due to {} in {} ms", message, response_11.getDuration());
 				assertFail(message);
 			}
@@ -459,7 +471,8 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 			);
 			
 			if (response_12.getStatusCode() >= 400) {
-				String message = "GIVEN CreateFourthCard fails\n" + response_12.getStatusMessage();
+				String statusMessage = response_12.getStatusMessage() != null ? response_12.getStatusMessage() : "";
+				String message = "GIVEN CreateFourthCard fails\n" + statusMessage;
 				LOG.error("GIVEN: CreateFourthCard fails due to {} in {} ms", message, response_12.getDuration());
 				assertFail(message);
 			}
@@ -492,7 +505,8 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 			);
 			
 			if (response_13.getStatusCode() >= 400) {
-				String message = "GIVEN CreateFifthCard fails\n" + response_13.getStatusMessage();
+				String statusMessage = response_13.getStatusMessage() != null ? response_13.getStatusMessage() : "";
+				String message = "GIVEN CreateFifthCard fails\n" + statusMessage;
 				LOG.error("GIVEN: CreateFifthCard fails due to {} in {} ms", message, response_13.getDuration());
 				assertFail(message);
 			}
@@ -528,7 +542,8 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 			);
 			
 			if (response_14.getStatusCode() >= 400) {
-				String message = "GIVEN ScheduleCards fails\n" + response_14.getStatusMessage();
+				String statusMessage = response_14.getStatusMessage() != null ? response_14.getStatusMessage() : "";
+				String message = "GIVEN ScheduleCards fails\n" + statusMessage;
 				LOG.error("GIVEN: ScheduleCards fails due to {} in {} ms", message, response_14.getDuration());
 				assertFail(message);
 			}
@@ -560,7 +575,8 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 			);
 			
 			if (response_15.getStatusCode() >= 400) {
-				String message = "GIVEN ScoreCard0 fails\n" + response_15.getStatusMessage();
+				String statusMessage = response_15.getStatusMessage() != null ? response_15.getStatusMessage() : "";
+				String message = "GIVEN ScoreCard0 fails\n" + statusMessage;
 				LOG.error("GIVEN: ScoreCard0 fails due to {} in {} ms", message, response_15.getDuration());
 				assertFail(message);
 			}
@@ -595,12 +611,14 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 	
 	private void then(HttpResponse<Object> response) throws Exception {
 		if (response.getStatusCode() == 500) {
-			LOG.error("THEN: status " + response.getStatusCode() + " failed: " + response.getStatusMessage());
-			assertFail(response.getStatusMessage());
+			String statusMessage = response.getStatusMessage() != null ? response.getStatusMessage() : "";
+			LOG.error("THEN: status " + response.getStatusCode() + " failed: " + statusMessage);
+			assertFail(statusMessage);
 		}
 		if (response.getStatusCode() != 200) {
-			LOG.error("THEN: status " + response.getStatusCode() + " failed, expected 200: " + response.getStatusMessage());
-			assertFail(response.getStatusMessage());
+			String statusMessage = response.getStatusMessage() != null ? response.getStatusMessage() : "";
+			LOG.error("THEN: status " + response.getStatusCode() + " failed, expected 200: " + statusMessage);
+			assertFail(statusMessage);
 		} else {
 			LOG.info("THEN: status 200 passed");
 		}

@@ -36,6 +36,10 @@ public abstract class AbstractForgotPasswordCommand extends Command<IForgotPassw
 		}
 	}
 	
+	@Override
+	public void publishAfterCommitEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	}
+	
 }
 
 

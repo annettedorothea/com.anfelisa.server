@@ -8,6 +8,7 @@
 package com.anfelisa.card.models;
 
 import de.acegen.PersistenceHandle;
+import de.acegen.AbstractDao;
 import org.jdbi.v3.core.statement.Update;
 
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @SuppressWarnings("all")
-public class AbstractCardDao {
+public class AbstractCardDao extends AbstractDao {
 	
 	public void insert(PersistenceHandle handle, ICardModel cardModel) {
 		Update statement = handle.getHandle().createUpdate("INSERT INTO \"card\" (cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid, priority) VALUES (:cardid, :given, :wanted, :image, :cardauthor, :cardindex, :categoryid, :rootcategoryid, :priority)");
