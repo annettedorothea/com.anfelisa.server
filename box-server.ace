@@ -402,7 +402,6 @@ models
 	}
 
 	CardWithStatistics extends com.anfelisa.card.CardWithInfo {
-		DateTime next
 		NotNull Float ef
 		Integer interval
 		NotNull Integer count

@@ -14,9 +14,6 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @JsonDeserialize(as=CardWithStatisticsModel.class)
 public interface ICardWithStatisticsModel extends com.anfelisa.card.models.ICardWithInfoModel{
 
-	java.time.LocalDateTime getNext();
-	void setNext(java.time.LocalDateTime next);
-	
 	Float getEf();
 	void setEf(Float ef);
 	

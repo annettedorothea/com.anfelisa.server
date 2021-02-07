@@ -17,11 +17,11 @@ public class CardWithStatisticsMapper implements RowMapper<ICardWithStatisticsMo
 	
 	public ICardWithStatisticsModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new CardWithStatisticsModel(
-			r.getTimestamp("next") != null ? r.getTimestamp("next").toLocalDateTime() : null,
 			r.getFloat("ef"),
 			r.getObject("interval") != null ? r.getInt("interval") : null,
 			r.getObject("count") != null ? r.getInt("count") : null,
 			r.getObject("lastQuality") != null ? r.getInt("lastQuality") : null,
+			r.getTimestamp("next") != null ? r.getTimestamp("next").toLocalDateTime() : null,
 			r.getString("cardId"),
 			r.getString("given"),
 			r.getString("wanted"),

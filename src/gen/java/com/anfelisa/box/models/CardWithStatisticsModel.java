@@ -20,8 +20,6 @@ import de.acegen.StringToDateTimeConverter;
 @SuppressWarnings("all")
 public class CardWithStatisticsModel implements ICardWithStatisticsModel {
 
-	private java.time.LocalDateTime next;
-
 	private Float ef;
 
 	private Integer interval;
@@ -29,6 +27,8 @@ public class CardWithStatisticsModel implements ICardWithStatisticsModel {
 	private Integer count;
 
 	private Integer lastQuality;
+
+	private java.time.LocalDateTime next;
 
 	private String cardId;
 
@@ -53,11 +53,11 @@ public class CardWithStatisticsModel implements ICardWithStatisticsModel {
 	}
 
 	public CardWithStatisticsModel(
-		@JsonProperty("next") java.time.LocalDateTime next,
 		@JsonProperty("ef") Float ef,
 		@JsonProperty("interval") Integer interval,
 		@JsonProperty("count") Integer count,
 		@JsonProperty("lastQuality") Integer lastQuality,
+		@JsonProperty("next") java.time.LocalDateTime next,
 		@JsonProperty("cardId") String cardId,
 		@JsonProperty("given") String given,
 		@JsonProperty("wanted") String wanted,
@@ -68,11 +68,11 @@ public class CardWithStatisticsModel implements ICardWithStatisticsModel {
 		@JsonProperty("rootCategoryId") String rootCategoryId,
 		@JsonProperty("priority") Integer priority
 	) {
-		this.next = next;
 		this.ef = ef;
 		this.interval = interval;
 		this.count = count;
 		this.lastQuality = lastQuality;
+		this.next = next;
 		this.cardId = cardId;
 		this.given = given;
 		this.wanted = wanted;
@@ -84,16 +84,6 @@ public class CardWithStatisticsModel implements ICardWithStatisticsModel {
 		this.priority = priority;
 	}
 
-	@JsonProperty
-	@JsonSerialize(converter = DateTimeToStringConverter.class)
-	@JsonDeserialize(converter = StringToDateTimeConverter.class)
-	public java.time.LocalDateTime getNext() {
-		return this.next;
-	}
-	public void setNext(java.time.LocalDateTime next) {
-		this.next = next;
-	}
-	
 	@JsonProperty
 	public Float getEf() {
 		return this.ef;
@@ -124,6 +114,16 @@ public class CardWithStatisticsModel implements ICardWithStatisticsModel {
 	}
 	public void setLastQuality(Integer lastQuality) {
 		this.lastQuality = lastQuality;
+	}
+	
+	@JsonProperty
+	@JsonSerialize(converter = DateTimeToStringConverter.class)
+	@JsonDeserialize(converter = StringToDateTimeConverter.class)
+	public java.time.LocalDateTime getNext() {
+		return this.next;
+	}
+	public void setNext(java.time.LocalDateTime next) {
+		this.next = next;
 	}
 	
 	@JsonProperty

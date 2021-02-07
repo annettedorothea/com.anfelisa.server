@@ -12,11 +12,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class CardWithStatisticsData extends AbstractCardWithStatisticsData implements ICardWithStatisticsData {
 	
 	public CardWithStatisticsData(
-		@JsonProperty("next") java.time.LocalDateTime next, 
 		@JsonProperty("ef") Float ef, 
 		@JsonProperty("interval") Integer interval, 
 		@JsonProperty("count") Integer count, 
 		@JsonProperty("lastQuality") Integer lastQuality, 
+		@JsonProperty("next") java.time.LocalDateTime next, 
 		@JsonProperty("cardId") String cardId, 
 		@JsonProperty("given") String given, 
 		@JsonProperty("wanted") String wanted, 
@@ -29,11 +29,11 @@ public class CardWithStatisticsData extends AbstractCardWithStatisticsData imple
 		@JsonProperty("uuid") String uuid
 	) {
 		super(
-			next,
 			ef,
 			interval,
 			count,
 			lastQuality,
+			next,
 			cardId,
 			given,
 			wanted,
@@ -57,11 +57,11 @@ public class CardWithStatisticsData extends AbstractCardWithStatisticsData imple
 	public static com.anfelisa.box.models.ICardWithStatisticsModel generateTestData() {
 		java.util.Random random = new java.util.Random();
 		com.anfelisa.box.models.ICardWithStatisticsModel testData = new com.anfelisa.box.models.CardWithStatisticsModel();
-		testData.setNext(random.nextBoolean() ? java.time.LocalDateTime.now().plusMinutes(random.nextInt(60)) : java.time.LocalDateTime.now().minusMinutes(random.nextInt(60)) );
 		testData.setEf(random.nextFloat());
 		testData.setInterval(random.nextInt(50));
 		testData.setCount(random.nextInt(50));
 		testData.setLastQuality(random.nextInt(50));
+		testData.setNext(random.nextBoolean() ? java.time.LocalDateTime.now().plusMinutes(random.nextInt(60)) : java.time.LocalDateTime.now().minusMinutes(random.nextInt(60)) );
 		testData.setCardId(randomString(random));
 		testData.setGiven(randomString(random));
 		testData.setWanted(randomString(random));

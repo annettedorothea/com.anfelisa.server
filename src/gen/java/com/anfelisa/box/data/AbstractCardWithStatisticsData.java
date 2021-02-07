@@ -29,8 +29,6 @@ public abstract class AbstractCardWithStatisticsData extends AbstractData implem
 	
 	static final Logger LOG = LoggerFactory.getLogger(AbstractCardWithStatisticsData.class);
 	
-	private java.time.LocalDateTime next;
-	
 	private Float ef;
 	
 	private Integer interval;
@@ -38,6 +36,8 @@ public abstract class AbstractCardWithStatisticsData extends AbstractData implem
 	private Integer count;
 	
 	private Integer lastQuality;
+	
+	private java.time.LocalDateTime next;
 	
 	private String cardId;
 	
@@ -59,11 +59,11 @@ public abstract class AbstractCardWithStatisticsData extends AbstractData implem
 	
 
 	public AbstractCardWithStatisticsData(
-		@JsonProperty("next") java.time.LocalDateTime next,
 		@JsonProperty("ef") Float ef,
 		@JsonProperty("interval") Integer interval,
 		@JsonProperty("count") Integer count,
 		@JsonProperty("lastQuality") Integer lastQuality,
+		@JsonProperty("next") java.time.LocalDateTime next,
 		@JsonProperty("cardId") String cardId,
 		@JsonProperty("given") String given,
 		@JsonProperty("wanted") String wanted,
@@ -76,11 +76,11 @@ public abstract class AbstractCardWithStatisticsData extends AbstractData implem
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
-		this.next = next;
 		this.ef = ef;
 		this.interval = interval;
 		this.count = count;
 		this.lastQuality = lastQuality;
+		this.next = next;
 		this.cardId = cardId;
 		this.given = given;
 		this.wanted = wanted;
@@ -96,20 +96,6 @@ public abstract class AbstractCardWithStatisticsData extends AbstractData implem
 		super(uuid);
 	}
 
-	@JsonProperty
-	@JsonSerialize(converter = DateTimeToStringConverter.class)
-	@JsonDeserialize(converter = StringToDateTimeConverter.class)
-	public java.time.LocalDateTime getNext() {
-		return this.next;
-	}
-	public void setNext(java.time.LocalDateTime next) {
-		this.next = next;
-	}
-	public ICardWithStatisticsData withNext(java.time.LocalDateTime next) {
-		this.next = next;
-		return this;
-	}
-	
 	@JsonProperty
 	public Float getEf() {
 		return this.ef;
@@ -155,6 +141,20 @@ public abstract class AbstractCardWithStatisticsData extends AbstractData implem
 	}
 	public ICardWithStatisticsData withLastQuality(Integer lastQuality) {
 		this.lastQuality = lastQuality;
+		return this;
+	}
+	
+	@JsonProperty
+	@JsonSerialize(converter = DateTimeToStringConverter.class)
+	@JsonDeserialize(converter = StringToDateTimeConverter.class)
+	public java.time.LocalDateTime getNext() {
+		return this.next;
+	}
+	public void setNext(java.time.LocalDateTime next) {
+		this.next = next;
+	}
+	public ICardWithStatisticsData withNext(java.time.LocalDateTime next) {
+		this.next = next;
 		return this;
 	}
 	

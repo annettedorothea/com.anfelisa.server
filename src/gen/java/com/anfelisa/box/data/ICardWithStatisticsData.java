@@ -17,8 +17,6 @@ import com.anfelisa.box.models.ICardWithStatisticsModel;
 public interface ICardWithStatisticsData extends ICardWithStatisticsModel, IDataContainer {
 	void mapFrom(com.anfelisa.card.models.ICardWithInfoModel model);
 	
-	ICardWithStatisticsData withNext(java.time.LocalDateTime next);
-	
 	ICardWithStatisticsData withEf(Float ef);
 	
 	ICardWithStatisticsData withInterval(Integer interval);
@@ -26,6 +24,8 @@ public interface ICardWithStatisticsData extends ICardWithStatisticsModel, IData
 	ICardWithStatisticsData withCount(Integer count);
 	
 	ICardWithStatisticsData withLastQuality(Integer lastQuality);
+	
+	ICardWithStatisticsData withNext(java.time.LocalDateTime next);
 	
 	ICardWithStatisticsData withCardId(String cardId);
 	
