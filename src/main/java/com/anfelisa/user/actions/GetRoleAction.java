@@ -3,8 +3,6 @@ package com.anfelisa.user.actions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.user.models.IUserModel;
-
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceConnection;
@@ -21,10 +19,6 @@ public class GetRoleAction extends AbstractGetRoleAction {
 
 
 	protected final void loadDataForGetRequest(PersistenceHandle readonlyHandle) {
-		IUserModel user = daoProvider.getUserDao().selectByUsername(readonlyHandle, actionData.getUsername());
-		if (user == null) {
-			throwIllegalArgumentException("userDoesNotExist");
-		}
 	}
 
 
