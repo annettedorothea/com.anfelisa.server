@@ -16,7 +16,7 @@
 		
 		private static ConcurrentMap<String, LocalDateTime> systemTimeMap = new ConcurrentHashMap<>();
 
-		private static ConcurrentMap<String, ConcurrentMap<String, Object>> valueMap = new ConcurrentHashMap<>();
+		private static ConcurrentMap<String, ConcurrentMap<String, String>> valueMap = new ConcurrentHashMap<>();
 	
 		public static void putSystemTime(String uuid, LocalDateTime systemTime) {
 			if (uuid != null && systemTime != null) {
@@ -24,11 +24,11 @@
 			}
 		}
 		
-		public static void put(String uuid, String key, Object value) {
+		public static void put(String uuid, String key, String value) {
 			if (uuid != null && value != null) {
-				ConcurrentMap<String, Object> mapForUuid = valueMap.get(uuid);
+				ConcurrentMap<String, String> mapForUuid = valueMap.get(uuid);
 				if (mapForUuid == null) {
-					mapForUuid = new ConcurrentHashMap<String, Object>();
+					mapForUuid = new ConcurrentHashMap<String, String>();
 					valueMap.put(uuid, mapForUuid);
 				}
 				mapForUuid.put(key, value);
@@ -49,7 +49,7 @@
 	
 		public static Object consumeValue(String uuid, String key) {
 			if (uuid != null && key != null) {
-				ConcurrentMap<String, Object> mapForUuid = valueMap.get(uuid);
+				ConcurrentMap<String, String> mapForUuid = valueMap.get(uuid);
 				if (mapForUuid == null) {
 					return null;
 				}
