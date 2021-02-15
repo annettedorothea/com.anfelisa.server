@@ -51,7 +51,7 @@ public abstract class AbstractRegisterUserAction extends WriteAction<IUserRegist
 		if (systemTime != null) {
 			this.actionData.setSystemTime(systemTime);
 		}
-		Object tokenObject = NonDeterministicDataProvider.consumeValue(this.actionData.getUuid(), "token");
+		String tokenObject = NonDeterministicDataProvider.consumeValue(this.actionData.getUuid(), "token");
 		if (tokenObject != null) {
 			try {
 				String token = (String)tokenObject;

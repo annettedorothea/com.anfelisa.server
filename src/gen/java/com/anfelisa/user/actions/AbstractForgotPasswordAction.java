@@ -51,7 +51,7 @@ public abstract class AbstractForgotPasswordAction extends WriteAction<IForgotPa
 		if (systemTime != null) {
 			this.actionData.setSystemTime(systemTime);
 		}
-		Object tokenObject = NonDeterministicDataProvider.consumeValue(this.actionData.getUuid(), "token");
+		String tokenObject = NonDeterministicDataProvider.consumeValue(this.actionData.getUuid(), "token");
 		if (tokenObject != null) {
 			try {
 				String token = (String)tokenObject;

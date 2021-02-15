@@ -47,13 +47,13 @@
 			}
 		}
 	
-		public static Object consumeValue(String uuid, String key) {
+		public static String consumeValue(String uuid, String key) {
 			if (uuid != null && key != null) {
 				ConcurrentMap<String, String> mapForUuid = valueMap.get(uuid);
 				if (mapForUuid == null) {
 					return null;
 				}
-				Object value = mapForUuid.get(key);
+				String value = mapForUuid.get(key);
 				mapForUuid.remove(key);
 				if (mapForUuid.size() == 0) {
 					valueMap.remove(uuid);
