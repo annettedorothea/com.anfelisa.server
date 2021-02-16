@@ -528,8 +528,8 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 	}
 
 	@Override
-	protected HttpResponse<Object> callNonDeterministicDataProviderPutValue(String uuid, String key, Object data) {
-		return this.httpPut("/test/non-deterministic/value?uuid=" + uuid + "&key=" + key, data, null, null,
+	protected HttpResponse<Object> callNonDeterministicDataProviderPutValue(String uuid, String key, String value) {
+		return this.httpPut("/test/non-deterministic/value?uuid=" + uuid + "&key=" + key + "&value=" + value, null, null, null,
 				Object.class);
 	}
 

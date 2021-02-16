@@ -24,7 +24,7 @@ public class ConfirmEmailCommand extends AbstractConfirmEmailCommand {
 
 	@Override
 	protected void executeCommand(PersistenceHandle readonlyHandle) {
-		IUserModel user = daoProvider.getUserDao().selectByUsername(readonlyHandle,  commandData.getUsername());
+		IUserModel user = daoProvider.getUserDao().selectByUsername(readonlyHandle, commandData.getUsername());
 		if (user == null) {
 			throwIllegalArgumentException("userDoesNotExist");
 		}

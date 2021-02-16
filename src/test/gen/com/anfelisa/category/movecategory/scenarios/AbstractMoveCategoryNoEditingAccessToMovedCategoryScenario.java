@@ -34,8 +34,7 @@ public abstract class AbstractMoveCategoryNoEditingAccessToMovedCategoryScenario
 		
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-" + this.getTestId() + "";
-			this.callNonDeterministicDataProviderPutValue(uuid, "token", 
-						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class));
+			this.callNonDeterministicDataProviderPutValue(uuid, "token",	"TOKEN-" + this.getTestId() + "");
 			com.anfelisa.user.data.RegisterUserPayload payload_0 = objectMapper.readValue("{" +
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
 				"\"language\" : \"de\"," + 
@@ -202,8 +201,7 @@ public abstract class AbstractMoveCategoryNoEditingAccessToMovedCategoryScenario
 
 		if (prerequisite("RegisterTwoUsers")) {
 			uuid = "uuid2-" + this.getTestId() + "";
-			this.callNonDeterministicDataProviderPutValue(uuid, "token", 
-						objectMapper.readValue("\"TOKEN_2-" + this.getTestId() + "\"",  String.class));
+			this.callNonDeterministicDataProviderPutValue(uuid, "token",	"TOKEN_2-" + this.getTestId() + "");
 			com.anfelisa.user.data.RegisterUserPayload payload_5 = objectMapper.readValue("{" +
 				"\"email\" : \"info@anfelisa.de\"," + 
 				"\"language\" : \"de\"," + 

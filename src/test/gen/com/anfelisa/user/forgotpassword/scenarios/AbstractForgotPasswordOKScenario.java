@@ -34,8 +34,7 @@ public abstract class AbstractForgotPasswordOKScenario extends BaseScenario {
 		
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-" + this.getTestId() + "";
-			this.callNonDeterministicDataProviderPutValue(uuid, "token", 
-						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class));
+			this.callNonDeterministicDataProviderPutValue(uuid, "token",	"TOKEN-" + this.getTestId() + "");
 			com.anfelisa.user.data.RegisterUserPayload payload_0 = objectMapper.readValue("{" +
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
 				"\"language\" : \"de\"," + 
@@ -74,8 +73,7 @@ public abstract class AbstractForgotPasswordOKScenario extends BaseScenario {
 	
 	private HttpResponse<Object> when() throws Exception {
 		String uuid = this.randomUUID();
-		this.callNonDeterministicDataProviderPutValue(uuid, "token", 
-					objectMapper.readValue("\"RESET-PW-TOKEN-" + this.getTestId() + "\"",  String.class));
+		this.callNonDeterministicDataProviderPutValue(uuid, "token",	"RESET-PW-TOKEN-" + this.getTestId() + "");
 		com.anfelisa.user.data.ForgotPasswordPayload payload_0 = objectMapper.readValue("{" +
 			"\"language\" : \"de\"," + 
 			"\"username\" : \"Annette-" + this.getTestId() + "\"} ",

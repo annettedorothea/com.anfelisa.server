@@ -34,8 +34,7 @@ public abstract class AbstractGetCategoryTreeNoAccessScenario extends BaseScenar
 		
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-" + this.getTestId() + "";
-			this.callNonDeterministicDataProviderPutValue(uuid, "token", 
-						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class));
+			this.callNonDeterministicDataProviderPutValue(uuid, "token",	"TOKEN-" + this.getTestId() + "");
 			com.anfelisa.user.data.RegisterUserPayload payload_0 = objectMapper.readValue("{" +
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
 				"\"language\" : \"de\"," + 
@@ -138,8 +137,7 @@ public abstract class AbstractGetCategoryTreeNoAccessScenario extends BaseScenar
 
 		if (prerequisite("RegisterUserAdmin")) {
 			uuid = "uuid-admin";
-			this.callNonDeterministicDataProviderPutValue(uuid, "token", 
-						objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class));
+			this.callNonDeterministicDataProviderPutValue(uuid, "token",	"ADMIN-TOKEN");
 			com.anfelisa.user.data.RegisterUserPayload payload_3 = objectMapper.readValue("{" +
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
 				"\"language\" : \"de\"," + 

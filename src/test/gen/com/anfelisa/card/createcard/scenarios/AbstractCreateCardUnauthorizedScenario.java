@@ -34,8 +34,7 @@ public abstract class AbstractCreateCardUnauthorizedScenario extends BaseScenari
 		
 		if (prerequisite("RegisterUserAdmin")) {
 			uuid = "uuid-admin";
-			this.callNonDeterministicDataProviderPutValue(uuid, "token", 
-						objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class));
+			this.callNonDeterministicDataProviderPutValue(uuid, "token",	"ADMIN-TOKEN");
 			com.anfelisa.user.data.RegisterUserPayload payload_0 = objectMapper.readValue("{" +
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
 				"\"language\" : \"de\"," + 

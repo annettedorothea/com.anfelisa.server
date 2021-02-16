@@ -65,7 +65,7 @@ public abstract class AbstractBaseScenario {
 	protected abstract boolean prerequisite(String scenarioName);
 	
 	protected abstract HttpResponse<Object> callNonDeterministicDataProviderPutValue(
-				String uuid, String key, Object data);
+				String uuid, String key, String data);
 				
 	protected abstract HttpResponse<Object> callNonDeterministicDataProviderPutSystemTime(
 				String uuid, LocalDateTime dateTime);
