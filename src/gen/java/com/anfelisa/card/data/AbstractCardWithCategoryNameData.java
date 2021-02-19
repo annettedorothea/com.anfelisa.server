@@ -37,8 +37,6 @@ public abstract class AbstractCardWithCategoryNameData extends AbstractData impl
 	
 	private String wanted;
 	
-	private String image;
-	
 	private String cardAuthor;
 	
 	private Integer cardIndex;
@@ -55,7 +53,6 @@ public abstract class AbstractCardWithCategoryNameData extends AbstractData impl
 		@JsonProperty("cardId") String cardId,
 		@JsonProperty("given") String given,
 		@JsonProperty("wanted") String wanted,
-		@JsonProperty("image") String image,
 		@JsonProperty("cardAuthor") String cardAuthor,
 		@JsonProperty("cardIndex") Integer cardIndex,
 		@JsonProperty("categoryId") String categoryId,
@@ -68,7 +65,6 @@ public abstract class AbstractCardWithCategoryNameData extends AbstractData impl
 		this.cardId = cardId;
 		this.given = given;
 		this.wanted = wanted;
-		this.image = image;
 		this.cardAuthor = cardAuthor;
 		this.cardIndex = cardIndex;
 		this.categoryId = categoryId;
@@ -125,18 +121,6 @@ public abstract class AbstractCardWithCategoryNameData extends AbstractData impl
 	}
 	public ICardWithCategoryNameData withWanted(String wanted) {
 		this.wanted = wanted;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getImage() {
-		return this.image;
-	}
-	public void setImage(String image) {
-		this.image = image;
-	}
-	public ICardWithCategoryNameData withImage(String image) {
-		this.image = image;
 		return this;
 	}
 	
@@ -205,7 +189,6 @@ public abstract class AbstractCardWithCategoryNameData extends AbstractData impl
 		this.cardId = model.getCardId();
 		this.given = model.getGiven();
 		this.wanted = model.getWanted();
-		this.image = model.getImage();
 		this.cardAuthor = model.getCardAuthor();
 		this.cardIndex = model.getCardIndex();
 		this.categoryId = model.getCategoryId();

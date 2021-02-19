@@ -20,7 +20,6 @@ public class CardMapper implements RowMapper<ICardModel> {
 			r.getString("cardId"),
 			r.getString("given"),
 			r.getString("wanted"),
-			r.getString("image"),
 			r.getString("cardAuthor"),
 			r.getObject("cardIndex") != null ? r.getInt("cardIndex") : null,
 			r.getString("categoryId"),

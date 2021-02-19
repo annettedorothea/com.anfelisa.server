@@ -140,14 +140,12 @@ public abstract class AbstractChangeOrderFifthToFirstScenario extends BaseScenar
 			com.anfelisa.card.data.CreateCardPayload payload_3 = objectMapper.readValue("{" +
 				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 				"\"given\" : \"given\"," + 
-				"\"image\" : \"image\"," + 
 				"\"wanted\" : \"wanted\"} ",
 					com.anfelisa.card.data.CreateCardPayload.class);
 			com.anfelisa.card.data.CardCreationData data_3 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 			"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 			"\"given\" : \"given\"," + 
-			"\"image\" : \"image\"," + 
 			"\"wanted\" : \"wanted\"} ",
 					com.anfelisa.card.data.CardCreationData.class);
 			HttpResponse<Object> response_3 = 
@@ -176,14 +174,12 @@ public abstract class AbstractChangeOrderFifthToFirstScenario extends BaseScenar
 			com.anfelisa.card.data.CreateCardPayload payload_4 = objectMapper.readValue("{" +
 				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 				"\"given\" : \"given2\"," + 
-				"\"image\" : \"image2\"," + 
 				"\"wanted\" : \"wanted2\"} ",
 					com.anfelisa.card.data.CreateCardPayload.class);
 			com.anfelisa.card.data.CardCreationData data_4 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 			"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 			"\"given\" : \"given2\"," + 
-			"\"image\" : \"image2\"," + 
 			"\"wanted\" : \"wanted2\"} ",
 					com.anfelisa.card.data.CardCreationData.class);
 			HttpResponse<Object> response_4 = 
@@ -384,7 +380,6 @@ public abstract class AbstractChangeOrderFifthToFirstScenario extends BaseScenar
 			"\"cardIndex\" : 2," + 
 			"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 			"\"given\" : \"given\"," + 
-			"\"image\" : \"image\"," + 
 			"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 			"\"wanted\" : \"wanted\"} ",
 		com.anfelisa.card.models.CardModel.class);
@@ -401,7 +396,6 @@ public abstract class AbstractChangeOrderFifthToFirstScenario extends BaseScenar
 			"\"cardIndex\" : 3," + 
 			"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 			"\"given\" : \"given2\"," + 
-			"\"image\" : \"image2\"," + 
 			"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 			"\"wanted\" : \"wanted2\"} ",
 		com.anfelisa.card.models.CardModel.class);

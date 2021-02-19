@@ -22,7 +22,6 @@ public class ScheduledCardDao extends AbstractScheduledCardDao {
 						+ "sc.lastquality, "
 						+ "c.given, "
 						+ "c.wanted, "
-						+ "c.image, "
 						+ "c.categoryid, "
 						+ "ct.categoryname, "
 						+ "c.rootcategoryid, "

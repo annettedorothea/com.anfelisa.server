@@ -7,9 +7,6 @@
 
 package com.anfelisa.card.updatecardpriority.scenarios;
 
-import com.anfelisa.card.data.UpdateCardPriorityResponse;
-import javax.ws.rs.core.Response;
-
 @SuppressWarnings("unused")
 public class UpdateCardPriorityMissingCardIdScenario extends AbstractUpdateCardPriorityMissingCardIdScenario {
 

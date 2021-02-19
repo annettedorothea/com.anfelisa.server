@@ -7,8 +7,6 @@
 
 package com.anfelisa.category.deletecategory.scenarios;
 
-import com.anfelisa.category.data.DeleteCategoryResponse;
-
 @SuppressWarnings("unused")
 public class DeleteCategoryNoEditingAccessScenario extends AbstractDeleteCategoryNoEditingAccessScenario {
 

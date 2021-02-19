@@ -25,8 +25,6 @@ public interface ICardWithInfoData extends ICardWithInfoModel, IDataContainer {
 	
 	ICardWithInfoData withWanted(String wanted);
 	
-	ICardWithInfoData withImage(String image);
-	
 	ICardWithInfoData withCardAuthor(String cardAuthor);
 	
 	ICardWithInfoData withCardIndex(Integer cardIndex);

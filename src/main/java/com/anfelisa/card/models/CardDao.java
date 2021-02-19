@@ -16,7 +16,7 @@ import de.acegen.PersistenceHandle;
 public class CardDao extends AbstractCardDao {
 
 	public List<ICardWithInfoModel> selectAllOfCategory(PersistenceHandle handle, String categoryId, Integer priority) {
-		return handle.getHandle().createQuery("SELECT cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid, priority, null as next FROM card "
+		return handle.getHandle().createQuery("SELECT cardid, given, wanted, cardauthor, cardindex, categoryid, rootcategoryid, priority, null as next FROM card "
 				+ "WHERE categoryid = :categoryid and (:priority is null OR priority = :priority) order by cardindex")
 				.bind("categoryid", categoryId)
 				.bind("priority", priority)
@@ -26,7 +26,7 @@ public class CardDao extends AbstractCardDao {
 	
 	public List<ICardWithStatisticsModel> selectAllActiveCards(PersistenceHandle handle, String boxId) {
 		return handle.getHandle().createQuery(
-				"SELECT c.cardid, given, wanted, image, cardauthor, cardindex, c.categoryid, rootcategoryid, priority, s.scheduleddate as next, s.ef, s.interval, s.count, s.lastquality "
+				"SELECT c.cardid, given, wanted, cardauthor, cardindex, c.categoryid, rootcategoryid, priority, s.scheduleddate as next, s.ef, s.interval, s.count, s.lastquality "
 						+ "FROM public.card c "
 						+ "inner join scheduledcard s on c.cardid = s.cardid "
 						+ "WHERE s.boxid = :boxid and s.scheduleddate is not null and s.quality is null "
@@ -69,7 +69,7 @@ public class CardDao extends AbstractCardDao {
 
 	public List<ICardModel> selectAll(PersistenceHandle handle, String categoryId) {
 		return handle.getHandle().createQuery(
-				"SELECT cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid, priority FROM \"card\" "
+				"SELECT cardid, given, wanted, cardauthor, cardindex, categoryid, rootcategoryid, priority FROM \"card\" "
 						+ "WHERE categoryid = :categoryid ORDER BY cardindex")
 				.bind("categoryid", categoryId)
 				.map(new CardMapper())
@@ -78,7 +78,7 @@ public class CardDao extends AbstractCardDao {
 
 	public List<ICardModel> selectAllByRootCategoryId(PersistenceHandle handle, String rootCategoryId) {
 		return handle.getHandle().createQuery(
-				"SELECT cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid, priority FROM \"card\" "
+				"SELECT cardid, given, wanted, cardauthor, cardindex, categoryid, rootcategoryid, priority FROM \"card\" "
 						+ "WHERE rootcategoryid = :rootcategoryid")
 				.bind("rootcategoryid", rootCategoryId)
 				.map(new CardMapper())
@@ -94,11 +94,10 @@ public class CardDao extends AbstractCardDao {
 
 	public void update(PersistenceHandle handle, ICardUpdateData cardModel) {
 		Update statement = handle.getHandle().createUpdate(
-				"UPDATE public.card SET given = :given, wanted = :wanted, image = :image WHERE cardid = :cardid");
+				"UPDATE public.card SET given = :given, wanted = :wanted WHERE cardid = :cardid");
 		statement.bind("cardid", cardModel.getCardId());
 		statement.bind("given", cardModel.getGiven());
 		statement.bind("wanted", cardModel.getWanted());
-		statement.bind("image", cardModel.getImage());
 		statement.execute();
 	}
 
@@ -118,7 +117,7 @@ public class CardDao extends AbstractCardDao {
 		String wantedSearchString = "%" + wanted + "%";
 		String orderBy = naturalInputOrder == null || naturalInputOrder ? "given" : "wanted";
 		return handle.getHandle().createQuery(
-				"SELECT cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid, priority, "
+				"SELECT cardid, given, wanted, cardauthor, cardindex, categoryid, rootcategoryid, priority, "
 						+ "(select categoryname from category where category.categoryid = cd.categoryid) as categoryname "
 						+ "FROM public.card cd where cd.rootcategoryid = (select rootcategoryid from category where category.categoryid = :categoryid) and "
 						+ "( length(:given) > 0 and given like :givenSearchString or "

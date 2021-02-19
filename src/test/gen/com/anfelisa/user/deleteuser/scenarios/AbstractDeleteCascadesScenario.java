@@ -140,14 +140,12 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 			com.anfelisa.card.data.CreateCardPayload payload_3 = objectMapper.readValue("{" +
 				"\"categoryId\" : \"adminCat-" + this.getTestId() + "\"," + 
 				"\"given\" : \"given\"," + 
-				"\"image\" : \"image\"," + 
 				"\"wanted\" : \"wanted\"} ",
 					com.anfelisa.card.data.CreateCardPayload.class);
 			com.anfelisa.card.data.CardCreationData data_3 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 			"\"categoryId\" : \"adminCat-" + this.getTestId() + "\"," + 
 			"\"given\" : \"given\"," + 
-			"\"image\" : \"image\"," + 
 			"\"wanted\" : \"wanted\"} ",
 					com.anfelisa.card.data.CardCreationData.class);
 			HttpResponse<Object> response_3 = 
@@ -345,14 +343,12 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 			com.anfelisa.card.data.CreateCardPayload payload_9 = objectMapper.readValue("{" +
 				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 				"\"given\" : \"given\"," + 
-				"\"image\" : \"image\"," + 
 				"\"wanted\" : \"wanted\"} ",
 					com.anfelisa.card.data.CreateCardPayload.class);
 			com.anfelisa.card.data.CardCreationData data_9 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 			"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 			"\"given\" : \"given\"," + 
-			"\"image\" : \"image\"," + 
 			"\"wanted\" : \"wanted\"} ",
 					com.anfelisa.card.data.CardCreationData.class);
 			HttpResponse<Object> response_9 = 
@@ -381,14 +377,12 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 			com.anfelisa.card.data.CreateCardPayload payload_10 = objectMapper.readValue("{" +
 				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 				"\"given\" : \"given2\"," + 
-				"\"image\" : \"image2\"," + 
 				"\"wanted\" : \"wanted2\"} ",
 					com.anfelisa.card.data.CreateCardPayload.class);
 			com.anfelisa.card.data.CardCreationData data_10 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 			"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 			"\"given\" : \"given2\"," + 
-			"\"image\" : \"image2\"," + 
 			"\"wanted\" : \"wanted2\"} ",
 					com.anfelisa.card.data.CardCreationData.class);
 			HttpResponse<Object> response_10 = 

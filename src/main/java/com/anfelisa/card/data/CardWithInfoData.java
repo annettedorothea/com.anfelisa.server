@@ -16,7 +16,6 @@ public class CardWithInfoData extends AbstractCardWithInfoData implements ICardW
 		@JsonProperty("cardId") String cardId, 
 		@JsonProperty("given") String given, 
 		@JsonProperty("wanted") String wanted, 
-		@JsonProperty("image") String image, 
 		@JsonProperty("cardAuthor") String cardAuthor, 
 		@JsonProperty("cardIndex") Integer cardIndex, 
 		@JsonProperty("categoryId") String categoryId, 
@@ -29,7 +28,6 @@ public class CardWithInfoData extends AbstractCardWithInfoData implements ICardW
 			cardId,
 			given,
 			wanted,
-			image,
 			cardAuthor,
 			cardIndex,
 			categoryId,
@@ -53,7 +51,6 @@ public class CardWithInfoData extends AbstractCardWithInfoData implements ICardW
 		testData.setCardId(randomString(random));
 		testData.setGiven(randomString(random));
 		testData.setWanted(randomString(random));
-		testData.setImage(randomString(random));
 		testData.setCardAuthor(randomString(random));
 		testData.setCardIndex(random.nextInt(50));
 		testData.setCategoryId(randomString(random));

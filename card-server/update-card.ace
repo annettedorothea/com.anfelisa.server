@@ -11,7 +11,6 @@ scenarios
 				{
 					cardId: "c1-${testId}",
 					given: "given-updated",
-					image: "image-updated",
 					wanted: "wanted-updated"
 				}
 				authorization "Annette-${testId}" : "password"
@@ -24,7 +23,6 @@ scenarios
 				cardIndex: 1,
 				categoryId: "cat1-${testId}",
 				given: "given-updated",
-				image: "image-updated",
 				rootCategoryId: "boxId-${testId}",
 				wanted: "wanted-updated"
 			}
@@ -36,7 +34,6 @@ scenarios
 			com.anfelisa.card.UpdateCard
 				{,
 					given: "given",
-					image: "image",
 					wanted: "wanted"
 				}
 				authorization "Annette-${testId}" : "password"
@@ -49,7 +46,6 @@ scenarios
 				cardIndex: 1,
 				categoryId: "cat1-${testId}",
 				given: "given",
-				image: "image",
 				rootCategoryId: "boxId-${testId}",
 				wanted: "wanted"
 			}
@@ -61,7 +57,6 @@ scenarios
 			com.anfelisa.card.UpdateCard
 				{
 					cardId: "c1-${testId}",
-					image: "image",
 					wanted: "wanted"
 				}
 				authorization "Annette-${testId}" : "password"
@@ -74,7 +69,6 @@ scenarios
 				cardIndex: 1,
 				categoryId: "cat1-${testId}",
 				given: "given",
-				image: "image",
 				rootCategoryId: "boxId-${testId}",
 				wanted: "wanted"
 			}
@@ -87,7 +81,6 @@ scenarios
 				{
 					cardId: "c1-${testId}",
 					given: "  ",
-					image: "image",
 					wanted: "wanted"
 				}
 				authorization "Annette-${testId}" : "password"
@@ -100,7 +93,6 @@ scenarios
 				cardIndex: 1,
 				categoryId: "cat1-${testId}",
 				given: "given",
-				image: "image",
 				rootCategoryId: "boxId-${testId}",
 				wanted: "wanted"
 			}
@@ -112,8 +104,7 @@ scenarios
 			com.anfelisa.card.UpdateCard
 				{
 					cardId: "c1-${testId}",
-					given: "given",
-					image: "image"
+					given: "given"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
@@ -125,7 +116,6 @@ scenarios
 				cardIndex: 1,
 				categoryId: "cat1-${testId}",
 				given: "given",
-				image: "image",
 				rootCategoryId: "boxId-${testId}",
 				wanted: "wanted"
 			}
@@ -138,7 +128,6 @@ scenarios
 				{
 					cardId: "c1-${testId}",
 					given: "given",
-					image: "image",
 					wanted: "  "
 				}
 				authorization "Annette-${testId}" : "password"
@@ -151,7 +140,6 @@ scenarios
 				cardIndex: 1,
 				categoryId: "cat1-${testId}",
 				given: "given",
-				image: "image",
 				rootCategoryId: "boxId-${testId}",
 				wanted: "wanted"
 			}
@@ -176,7 +164,6 @@ scenarios
 				cardIndex: 1,
 				categoryId: "cat1-${testId}",
 				given: "given-x",
-				image: null,
 				rootCategoryId: "boxId-${testId}",
 				wanted: "wanted-x"
 			}
@@ -189,7 +176,6 @@ scenarios
 				{
 					cardId: "c1-${testId}",
 					given: "given",
-					image: "  ",
 					wanted: "wanted"
 				}
 				authorization "Annette-${testId}" : "password"
@@ -202,7 +188,6 @@ scenarios
 				cardIndex: 1,
 				categoryId: "cat1-${testId}",
 				given: "given",
-				image: "  ",
 				rootCategoryId: "boxId-${testId}",
 				wanted: "wanted"
 			}
@@ -215,7 +200,6 @@ scenarios
 				{
 					cardId: "lala",
 					given: "given",
-					image: "image",
 					wanted: "wanted"
 				}
 				authorization "Annette-${testId}" : "password"
@@ -228,7 +212,6 @@ scenarios
 				cardIndex: 1,
 				categoryId: "cat1-${testId}",
 				given: "given",
-				image: "image",
 				rootCategoryId: "boxId-${testId}",
 				wanted: "wanted"
 			}
@@ -242,7 +225,6 @@ scenarios
 				{
 					cardId: "c1-${testId}",
 					given: "given",
-					image: "image",
 					wanted: "wanted"
 				}
 				authorization "Admin" : "admin-password"
@@ -255,7 +237,6 @@ scenarios
 				cardIndex: 1,
 				categoryId: "cat1-${testId}",
 				given: "given",
-				image: "image",
 				rootCategoryId: "boxId-${testId}",
 				wanted: "wanted"
 			}
@@ -270,7 +251,6 @@ scenarios
 				{
 					cardId: "c1-${testId}",
 					given: "given-updated",
-					image: "image-updated",
 					wanted: "wanted-updated"
 				}
 				authorization "Anne-${testId}" : "pw"
@@ -283,7 +263,6 @@ scenarios
 				cardIndex: 1,
 				categoryId: "cat1-${testId}",
 				given: "given",
-				image: "image",
 				rootCategoryId: "boxId-${testId}",
 				wanted: "wanted"
 			}
@@ -296,7 +275,6 @@ scenarios
 				{
 					cardId: "c1-${testId}",
 					given: "given",
-					image: "image",
 					wanted: "wanted"
 				}
 		THEN 401
@@ -308,7 +286,6 @@ scenarios
 				cardIndex: 1,
 				categoryId: "cat1-${testId}",
 				given: "given",
-				image: "image",
 				rootCategoryId: "boxId-${testId}",
 				wanted: "wanted"
 			}

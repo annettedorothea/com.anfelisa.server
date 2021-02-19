@@ -124,7 +124,6 @@ ACE
 			categoryId
 			count
 			given
-			image
 			lastQuality
 			rootCategoryId
 			scheduledCardId
@@ -315,7 +314,6 @@ models
 		Integer lastQuality
 		String given
 		String wanted
-		String image
 		String categoryId
 		String categoryName
 		String rootCategoryId

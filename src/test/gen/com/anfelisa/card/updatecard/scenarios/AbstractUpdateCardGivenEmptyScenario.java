@@ -140,14 +140,12 @@ public abstract class AbstractUpdateCardGivenEmptyScenario extends BaseScenario 
 			com.anfelisa.card.data.CreateCardPayload payload_3 = objectMapper.readValue("{" +
 				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 				"\"given\" : \"given\"," + 
-				"\"image\" : \"image\"," + 
 				"\"wanted\" : \"wanted\"} ",
 					com.anfelisa.card.data.CreateCardPayload.class);
 			com.anfelisa.card.data.CardCreationData data_3 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 			"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 			"\"given\" : \"given\"," + 
-			"\"image\" : \"image\"," + 
 			"\"wanted\" : \"wanted\"} ",
 					com.anfelisa.card.data.CardCreationData.class);
 			HttpResponse<Object> response_3 = 
@@ -178,14 +176,12 @@ public abstract class AbstractUpdateCardGivenEmptyScenario extends BaseScenario 
 		com.anfelisa.card.data.UpdateCardPayload payload_0 = objectMapper.readValue("{" +
 			"\"cardId\" : \"c1-" + this.getTestId() + "\"," + 
 			"\"given\" : \"  \"," + 
-			"\"image\" : \"image\"," + 
 			"\"wanted\" : \"wanted\"} ",
 				com.anfelisa.card.data.UpdateCardPayload.class);
 		com.anfelisa.card.data.CardUpdateData data_0 = objectMapper.readValue("{" +
 		"\"uuid\" : \"" + uuid + "\"," + 
 		"\"cardId\" : \"c1-" + this.getTestId() + "\"," + 
 		"\"given\" : \"  \"," + 
-		"\"image\" : \"image\"," + 
 		"\"wanted\" : \"wanted\"} ",
 				com.anfelisa.card.data.CardUpdateData.class);
 		HttpResponse<Object> response = 
@@ -246,7 +242,6 @@ public abstract class AbstractUpdateCardGivenEmptyScenario extends BaseScenario 
 			"\"cardIndex\" : 1," + 
 			"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 			"\"given\" : \"given\"," + 
-			"\"image\" : \"image\"," + 
 			"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 			"\"wanted\" : \"wanted\"} ",
 		com.anfelisa.card.models.CardModel.class);

@@ -7,8 +7,6 @@
 
 package com.anfelisa.category.getinvitedusernames.scenarios;
 
-import com.anfelisa.category.data.GetInvitedUsersResponse;
-
 @SuppressWarnings("unused")
 public class GetInvitedUsersNoEditingAccessToCategoryScenario extends AbstractGetInvitedUsersNoEditingAccessToCategoryScenario {
 

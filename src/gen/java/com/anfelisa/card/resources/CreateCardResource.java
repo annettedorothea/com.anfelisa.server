@@ -102,7 +102,6 @@ public class CreateCardResource extends Resource {
 				return badRequest("given is mandatory");
 			}
 			actionData.setGiven(payload.getGiven());
-			actionData.setImage(payload.getImage());
 			if (StringUtils.isBlank(payload.getCategoryId()) || "null".equals(payload.getCategoryId())) {
 				return badRequest("categoryId is mandatory");
 			}

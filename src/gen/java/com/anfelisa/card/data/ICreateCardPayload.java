@@ -12,8 +12,6 @@ public interface ICreateCardPayload {
 	
 	String getGiven();
 	
-	String getImage();
-	
 	String getCategoryId();
 	
 

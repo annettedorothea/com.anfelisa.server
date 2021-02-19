@@ -7,8 +7,6 @@
 
 package com.anfelisa.card.getcards.scenarios;
 
-import com.anfelisa.card.data.GetCardsResponse;
-
 @SuppressWarnings("unused")
 public class GetFilteredCardsScenario extends AbstractGetFilteredCardsScenario {
 

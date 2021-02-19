@@ -7,8 +7,6 @@
 
 package com.anfelisa.card.updatecard.scenarios;
 
-import com.anfelisa.card.data.UpdateCardResponse;
-
 @SuppressWarnings("unused")
 public class UpdateCardNoEditingAccessToCardScenario extends AbstractUpdateCardNoEditingAccessToCardScenario {
 

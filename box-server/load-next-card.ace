@@ -21,7 +21,6 @@ scenarios
 				categoryId: "cat1-${testId}",
 				count: 0,
 				given: "given",
-				image: "image",
 				openTodaysCards: 3,
 				rootCategoryId: "boxId-${testId}",
 				scheduledCardId: "c1-${testId}-sc1-${testId}",
@@ -103,7 +102,6 @@ scenarios
 				categoryId: "cat1-${testId}",
 				count: 0,
 				given: "given",
-				image: "image",
 				lastQuality: 0,
 				openTodaysCards: 2,
 				reinforceCardId: "score0-${testId}",
@@ -132,8 +130,6 @@ scenarios
 				categoryId: "cat1-${testId}",
 				count: 1,
 				given: "given",
-				image: "image",
-				lastQuality: 0,
 				openTodaysCards: 2,
 				rootCategoryId: "boxId-${testId}",
 				scheduledCardId: "score0-${testId}",
@@ -141,7 +137,8 @@ scenarios
 				scoredDate: "20200418 16:30" "yyyyMMdd HH:mm",
 				wanted: "wanted",
 				reverse: false,
-				categoryName: "level 1 #1"
+				categoryName: "level 1 #1",
+				lastQuality: 0
 			}		
 
 	LoadNextCardFirstReinforceScored
@@ -194,7 +191,6 @@ scenarios
 				categoryId: "cat1-${testId}",
 				count: 0,
 				given: "given",
-				image: "image",
 				lastQuality: 2,
 				openTodaysCards: 2,
 				reinforceCardId: "score2-${testId}",
@@ -225,7 +221,6 @@ scenarios
 				categoryId: "cat1-${testId}",
 				count: 0,
 				given: "given",
-				image: "image",
 				lastQuality: 3,
 				openTodaysCards: 2,
 				reinforceCardId: "score3-${testId}",
@@ -288,7 +283,6 @@ scenarios
 				categoryId: "cat1-${testId}",
 				count: 0,
 				given: "given",
-				image: "image",
 				lastQuality: 0,
 				openTodaysCards: 1,
 				reinforceCardId: "score0-${testId}",

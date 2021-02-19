@@ -86,14 +86,6 @@ public class AceDataFactory {
 				data.migrateLegacyData(json);
 				return data;
 			}
-			if (className.equals("com.anfelisa.card.actions.ImportCsvAction") ||
-					className.equals("com.anfelisa.card.commands.ImportCsvCommand") ||
-					className.equals("com.anfelisa.card.events.ImportCsvOkEvent")
-			) {
-				CsvUploadData data = mapper.readValue(json, CsvUploadData.class);
-				data.migrateLegacyData(json);
-				return data;
-			}
 			if (className.equals("com.anfelisa.card.actions.GetTranslationAction")) {
 				CardTranslationData data = mapper.readValue(json, CardTranslationData.class);
 				data.migrateLegacyData(json);

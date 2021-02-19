@@ -141,13 +141,11 @@ public abstract class AbstractCreateCardGivenNullScenario extends BaseScenario {
 		String uuid = "c1-" + this.getTestId() + "";
 		com.anfelisa.card.data.CreateCardPayload payload_0 = objectMapper.readValue("{" +
 			"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-			"\"image\" : \"image\"," + 
 			"\"wanted\" : \"wanted\"} ",
 				com.anfelisa.card.data.CreateCardPayload.class);
 		com.anfelisa.card.data.CardCreationData data_0 = objectMapper.readValue("{" +
 		"\"uuid\" : \"" + uuid + "\"," + 
 		"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-		"\"image\" : \"image\"," + 
 		"\"wanted\" : \"wanted\"} ",
 				com.anfelisa.card.data.CardCreationData.class);
 		HttpResponse<Object> response = 

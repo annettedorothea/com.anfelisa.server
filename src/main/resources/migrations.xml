@@ -395,6 +395,12 @@
 		</addColumn>
 	</changeSet>
 
+	<changeSet id="019" author="annette">
+
+		<dropColumn columnName="image" tableName="card" />
+
+	</changeSet>
+
 
 
 

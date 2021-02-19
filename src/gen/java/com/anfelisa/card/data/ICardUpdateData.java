@@ -22,8 +22,6 @@ public interface ICardUpdateData extends ICardUpdateModel, IDataContainer {
 	
 	ICardUpdateData withWanted(String wanted);
 	
-	ICardUpdateData withImage(String image);
-	
 	ICardUpdateData withUserId(String userId);
 	
 	

@@ -140,14 +140,12 @@ public abstract class AbstractScoreCardAsAdminScenario extends BaseScenario {
 			com.anfelisa.card.data.CreateCardPayload payload_3 = objectMapper.readValue("{" +
 				"\"categoryId\" : \"adminCat-" + this.getTestId() + "\"," + 
 				"\"given\" : \"given\"," + 
-				"\"image\" : \"image\"," + 
 				"\"wanted\" : \"wanted\"} ",
 					com.anfelisa.card.data.CreateCardPayload.class);
 			com.anfelisa.card.data.CardCreationData data_3 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 			"\"categoryId\" : \"adminCat-" + this.getTestId() + "\"," + 
 			"\"given\" : \"given\"," + 
-			"\"image\" : \"image\"," + 
 			"\"wanted\" : \"wanted\"} ",
 					com.anfelisa.card.data.CardCreationData.class);
 			HttpResponse<Object> response_3 = 

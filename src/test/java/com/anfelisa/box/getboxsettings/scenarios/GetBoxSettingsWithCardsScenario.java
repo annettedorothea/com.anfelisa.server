@@ -7,8 +7,6 @@
 
 package com.anfelisa.box.getboxsettings.scenarios;
 
-import com.anfelisa.box.data.GetBoxSettingsResponse;
-
 @SuppressWarnings("unused")
 public class GetBoxSettingsWithCardsScenario extends AbstractGetBoxSettingsWithCardsScenario {
 

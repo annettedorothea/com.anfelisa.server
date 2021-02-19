@@ -23,9 +23,6 @@ public interface ICardModel {
 	String getWanted();
 	void setWanted(String wanted);
 	
-	String getImage();
-	void setImage(String image);
-	
 	String getCardAuthor();
 	void setCardAuthor(String cardAuthor);
 	

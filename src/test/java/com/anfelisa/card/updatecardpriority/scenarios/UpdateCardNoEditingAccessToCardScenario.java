@@ -7,8 +7,6 @@
 
 package com.anfelisa.card.updatecardpriority.scenarios;
 
-import com.anfelisa.card.data.UpdateCardPriorityResponse;
-
 @SuppressWarnings("unused")
 public class UpdateCardNoEditingAccessToCardScenario extends AbstractUpdateCardNoEditingAccessToCardScenario {
 

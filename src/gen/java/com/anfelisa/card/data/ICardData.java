@@ -22,8 +22,6 @@ public interface ICardData extends ICardModel, IDataContainer {
 	
 	ICardData withWanted(String wanted);
 	
-	ICardData withImage(String image);
-	
 	ICardData withCardAuthor(String cardAuthor);
 	
 	ICardData withCardIndex(Integer cardIndex);

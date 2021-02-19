@@ -9,6 +9,11 @@ package com.anfelisa.box.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
+import de.acegen.AbstractData;
+
 public class NextCardViewData extends AbstractNextCardViewData implements INextCardViewData {
 	
 	public NextCardViewData(
@@ -19,7 +24,6 @@ public class NextCardViewData extends AbstractNextCardViewData implements INextC
 		@JsonProperty("lastQuality") Integer lastQuality, 
 		@JsonProperty("given") String given, 
 		@JsonProperty("wanted") String wanted, 
-		@JsonProperty("image") String image, 
 		@JsonProperty("categoryId") String categoryId, 
 		@JsonProperty("categoryName") String categoryName, 
 		@JsonProperty("rootCategoryId") String rootCategoryId, 
@@ -35,7 +39,6 @@ public class NextCardViewData extends AbstractNextCardViewData implements INextC
 			lastQuality,
 			given,
 			wanted,
-			image,
 			categoryId,
 			categoryName,
 			rootCategoryId,
@@ -62,7 +65,6 @@ public class NextCardViewData extends AbstractNextCardViewData implements INextC
 		testData.setLastQuality(random.nextInt(50));
 		testData.setGiven(randomString(random));
 		testData.setWanted(randomString(random));
-		testData.setImage(randomString(random));
 		testData.setCategoryId(randomString(random));
 		testData.setCategoryName(randomString(random));
 		testData.setRootCategoryId(randomString(random));

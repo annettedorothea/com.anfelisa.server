@@ -179,14 +179,12 @@ public abstract class AbstractCreateCardNoAccessToCategoryScenario extends BaseS
 		com.anfelisa.card.data.CreateCardPayload payload_0 = objectMapper.readValue("{" +
 			"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 			"\"given\" : \"given\"," + 
-			"\"image\" : \"image\"," + 
 			"\"wanted\" : \"wanted\"} ",
 				com.anfelisa.card.data.CreateCardPayload.class);
 		com.anfelisa.card.data.CardCreationData data_0 = objectMapper.readValue("{" +
 		"\"uuid\" : \"" + uuid + "\"," + 
 		"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 		"\"given\" : \"given\"," + 
-		"\"image\" : \"image\"," + 
 		"\"wanted\" : \"wanted\"} ",
 				com.anfelisa.card.data.CardCreationData.class);
 		HttpResponse<Object> response = 

@@ -26,8 +26,6 @@ public class CreateCardPayload implements ICreateCardPayload {
 	
 	private String given;
 	
-	private String image;
-	
 	private String categoryId;
 	
 	public CreateCardPayload() {
@@ -36,7 +34,6 @@ public class CreateCardPayload implements ICreateCardPayload {
 	public CreateCardPayload(com.anfelisa.card.models.ICardCreationModel data) {
 		wanted = data.getWanted();
 		given = data.getGiven();
-		image = data.getImage();
 		categoryId = data.getCategoryId();
 	}
 	
@@ -48,11 +45,6 @@ public class CreateCardPayload implements ICreateCardPayload {
 	@JsonProperty
 	public String getGiven() {
 		return this.given;
-	}
-	
-	@JsonProperty
-	public String getImage() {
-		return this.image;
 	}
 	
 	@JsonProperty

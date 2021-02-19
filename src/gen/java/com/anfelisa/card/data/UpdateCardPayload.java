@@ -26,8 +26,6 @@ public class UpdateCardPayload implements IUpdateCardPayload {
 	
 	private String given;
 	
-	private String image;
-	
 	private String wanted;
 	
 	public UpdateCardPayload() {
@@ -36,7 +34,6 @@ public class UpdateCardPayload implements IUpdateCardPayload {
 	public UpdateCardPayload(com.anfelisa.card.models.ICardUpdateModel data) {
 		cardId = data.getCardId();
 		given = data.getGiven();
-		image = data.getImage();
 		wanted = data.getWanted();
 	}
 	
@@ -48,11 +45,6 @@ public class UpdateCardPayload implements IUpdateCardPayload {
 	@JsonProperty
 	public String getGiven() {
 		return this.given;
-	}
-	
-	@JsonProperty
-	public String getImage() {
-		return this.image;
 	}
 	
 	@JsonProperty

@@ -7,8 +7,6 @@
 
 package com.anfelisa.card.movecard.scenarios;
 
-import com.anfelisa.card.data.MoveCardsResponse;
-
 @SuppressWarnings("unused")
 public class MoveCardsNoEditingAccessToCategoryScenario extends AbstractMoveCardsNoEditingAccessToCategoryScenario {
 

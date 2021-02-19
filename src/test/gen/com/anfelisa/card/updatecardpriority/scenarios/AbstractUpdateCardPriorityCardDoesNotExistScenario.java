@@ -140,14 +140,12 @@ public abstract class AbstractUpdateCardPriorityCardDoesNotExistScenario extends
 			com.anfelisa.card.data.CreateCardPayload payload_3 = objectMapper.readValue("{" +
 				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 				"\"given\" : \"given\"," + 
-				"\"image\" : \"image\"," + 
 				"\"wanted\" : \"wanted\"} ",
 					com.anfelisa.card.data.CreateCardPayload.class);
 			com.anfelisa.card.data.CardCreationData data_3 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 			"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 			"\"given\" : \"given\"," + 
-			"\"image\" : \"image\"," + 
 			"\"wanted\" : \"wanted\"} ",
 					com.anfelisa.card.data.CardCreationData.class);
 			HttpResponse<Object> response_3 = 
@@ -242,7 +240,6 @@ public abstract class AbstractUpdateCardPriorityCardDoesNotExistScenario extends
 			"\"cardIndex\" : 1," + 
 			"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 			"\"given\" : \"given\"," + 
-			"\"image\" : \"image\"," + 
 			"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 			"\"wanted\" : \"wanted\"} ",
 		com.anfelisa.card.models.CardModel.class);

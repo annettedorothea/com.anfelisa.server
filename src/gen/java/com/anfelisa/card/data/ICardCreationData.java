@@ -27,8 +27,6 @@ public interface ICardCreationData extends ICardCreationModel, IDataContainer {
 	
 	ICardCreationData withWanted(String wanted);
 	
-	ICardCreationData withImage(String image);
-	
 	ICardCreationData withCardAuthor(String cardAuthor);
 	
 	ICardCreationData withCardIndex(Integer cardIndex);

@@ -7,8 +7,6 @@
 
 package com.anfelisa.box.createreversebox.scenarios;
 
-import com.anfelisa.box.data.CreateReverseBoxResponse;
-
 @SuppressWarnings("unused")
 public class CreateReverseBoxUnauthorizedScenario extends AbstractCreateReverseBoxUnauthorizedScenario {
 

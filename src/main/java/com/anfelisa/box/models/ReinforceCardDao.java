@@ -32,7 +32,6 @@ public class ReinforceCardDao extends AbstractReinforceCardDao {
 						+ "sc.quality as lastQuality, "
 						+ "c.given, "
 						+ "c.wanted, "
-						+ "c.image, "
 						+ "c.categoryid, "
 						+ "ct.categoryname, "
 						+ "c.rootcategoryid, "

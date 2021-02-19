@@ -44,8 +44,6 @@ public interface INextCardData extends INextCardModel, IDataContainer {
 	
 	INextCardData withWanted(String wanted);
 	
-	INextCardData withImage(String image);
-	
 	INextCardData withCategoryId(String categoryId);
 	
 	INextCardData withCategoryName(String categoryName);

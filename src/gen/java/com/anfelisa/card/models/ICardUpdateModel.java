@@ -23,9 +23,6 @@ public interface ICardUpdateModel {
 	String getWanted();
 	void setWanted(String wanted);
 	
-	String getImage();
-	void setImage(String image);
-	
 	String getUserId();
 	void setUserId(String userId);
 	

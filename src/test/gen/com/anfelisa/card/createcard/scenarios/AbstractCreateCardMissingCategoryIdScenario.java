@@ -141,13 +141,11 @@ public abstract class AbstractCreateCardMissingCategoryIdScenario extends BaseSc
 		String uuid = "c2-" + this.getTestId() + "";
 		com.anfelisa.card.data.CreateCardPayload payload_0 = objectMapper.readValue("{" +
 			"\"given\" : \"given\"," + 
-			"\"image\" : \"image\"," + 
 			"\"wanted\" : \"wanted\"} ",
 				com.anfelisa.card.data.CreateCardPayload.class);
 		com.anfelisa.card.data.CardCreationData data_0 = objectMapper.readValue("{" +
 		"\"uuid\" : \"" + uuid + "\"," + 
 		"\"given\" : \"given\"," + 
-		"\"image\" : \"image\"," + 
 		"\"wanted\" : \"wanted\"} ",
 				com.anfelisa.card.data.CardCreationData.class);
 		HttpResponse<Object> response = 

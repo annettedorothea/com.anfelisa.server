@@ -7,8 +7,6 @@
 
 package com.anfelisa.card.changeorder.scenarios;
 
-import com.anfelisa.card.data.ChangeOrderResponse;
-
 @SuppressWarnings("unused")
 public class ChangeOrderNoEditingAccessToTargetCardScenario extends AbstractChangeOrderNoEditingAccessToTargetCardScenario {
 

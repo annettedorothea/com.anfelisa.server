@@ -26,8 +26,6 @@ public class CardUpdateModel implements ICardUpdateModel {
 
 	private String wanted;
 
-	private String image;
-
 	private String userId;
 
 
@@ -38,13 +36,11 @@ public class CardUpdateModel implements ICardUpdateModel {
 		@JsonProperty("cardId") String cardId,
 		@JsonProperty("given") String given,
 		@JsonProperty("wanted") String wanted,
-		@JsonProperty("image") String image,
 		@JsonProperty("userId") String userId
 	) {
 		this.cardId = cardId;
 		this.given = given;
 		this.wanted = wanted;
-		this.image = image;
 		this.userId = userId;
 	}
 
@@ -70,14 +66,6 @@ public class CardUpdateModel implements ICardUpdateModel {
 	}
 	public void setWanted(String wanted) {
 		this.wanted = wanted;
-	}
-	
-	@JsonProperty
-	public String getImage() {
-		return this.image;
-	}
-	public void setImage(String image) {
-		this.image = image;
 	}
 	
 	@JsonProperty

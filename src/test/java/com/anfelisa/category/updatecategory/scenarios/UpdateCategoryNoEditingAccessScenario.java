@@ -7,8 +7,6 @@
 
 package com.anfelisa.category.updatecategory.scenarios;
 
-import com.anfelisa.category.data.UpdateCategoryResponse;
-
 @SuppressWarnings("unused")
 public class UpdateCategoryNoEditingAccessScenario extends AbstractUpdateCategoryNoEditingAccessScenario {
 

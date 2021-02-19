@@ -7,8 +7,6 @@
 
 package com.anfelisa.card.createcard.scenarios;
 
-import com.anfelisa.card.data.CreateCardResponse;
-
 @SuppressWarnings("unused")
 public class CreateCardNoEditingAccessToCategoryScenario extends AbstractCreateCardNoEditingAccessToCategoryScenario {
 

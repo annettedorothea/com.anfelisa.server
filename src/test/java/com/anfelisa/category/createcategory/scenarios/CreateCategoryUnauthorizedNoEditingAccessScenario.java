@@ -7,8 +7,6 @@
 
 package com.anfelisa.category.createcategory.scenarios;
 
-import com.anfelisa.category.data.CreateCategoryResponse;
-
 @SuppressWarnings("unused")
 public class CreateCategoryUnauthorizedNoEditingAccessScenario extends AbstractCreateCategoryUnauthorizedNoEditingAccessScenario {
 

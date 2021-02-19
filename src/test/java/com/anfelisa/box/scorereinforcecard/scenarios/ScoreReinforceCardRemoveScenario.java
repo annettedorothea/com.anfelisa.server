@@ -7,8 +7,6 @@
 
 package com.anfelisa.box.scorereinforcecard.scenarios;
 
-import com.anfelisa.box.data.ScoreReinforceCardResponse;
-
 @SuppressWarnings("unused")
 public class ScoreReinforceCardRemoveScenario extends AbstractScoreReinforceCardRemoveScenario {
 

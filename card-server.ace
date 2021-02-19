@@ -11,7 +11,6 @@ ACE
 		payload 
 			NotNull wanted
 			NotNull given
-			image
 			NotNull categoryId
 		on ok (Card.insert)
 	
@@ -21,7 +20,6 @@ ACE
 		payload 
 			NotNull cardId
 			NotNull given
-			image
 			NotNull wanted
 		on ok (Card.update)
 	
@@ -78,14 +76,6 @@ ACE
 			NotNull cardId
 		on ok (Card.changeCardOrder)
 
-	ImportCsv<CsvUpload>
-		PUT "/category/import-csv"
-		authorize
-		payload
-			NotNull previewCsv
-			NotNull categoryId
-		on ok (Card.bulkInsert)
-		
 	GetTranslation<CardTranslation>
 		GET "/card/translation" 
 		authorize 
@@ -113,7 +103,6 @@ models
 		Unique PrimaryKey NotNull String cardId
 		String given
 		String wanted
-		String image
 		NotNull String cardAuthor
 		NotNull Integer cardIndex
 		NotNull String categoryId references com.anfelisa.category.Category.categoryId
@@ -125,7 +114,6 @@ models
 		String cardId
 		String given
 		String wanted
-		String image
 		String userId
 	}
 	

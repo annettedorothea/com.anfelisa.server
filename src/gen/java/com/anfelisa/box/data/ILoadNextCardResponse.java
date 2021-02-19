@@ -16,8 +16,6 @@ public interface ILoadNextCardResponse {
 	
 	String getGiven();
 	
-	String getImage();
-	
 	Integer getLastQuality();
 	
 	String getRootCategoryId();

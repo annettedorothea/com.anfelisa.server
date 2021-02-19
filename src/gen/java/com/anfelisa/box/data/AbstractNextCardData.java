@@ -56,8 +56,6 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 	
 	private String wanted;
 	
-	private String image;
-	
 	private String categoryId;
 	
 	private String categoryName;
@@ -83,7 +81,6 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 		@JsonProperty("lastQuality") Integer lastQuality,
 		@JsonProperty("given") String given,
 		@JsonProperty("wanted") String wanted,
-		@JsonProperty("image") String image,
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("categoryName") String categoryName,
 		@JsonProperty("rootCategoryId") String rootCategoryId,
@@ -105,7 +102,6 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 		this.lastQuality = lastQuality;
 		this.given = given;
 		this.wanted = wanted;
-		this.image = image;
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
 		this.rootCategoryId = rootCategoryId;
@@ -278,18 +274,6 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 	}
 	
 	@JsonProperty
-	public String getImage() {
-		return this.image;
-	}
-	public void setImage(String image) {
-		this.image = image;
-	}
-	public INextCardData withImage(String image) {
-		this.image = image;
-		return this;
-	}
-	
-	@JsonProperty
 	public String getCategoryId() {
 		return this.categoryId;
 	}
@@ -360,7 +344,6 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 		this.lastQuality = model.getLastQuality();
 		this.given = model.getGiven();
 		this.wanted = model.getWanted();
-		this.image = model.getImage();
 		this.categoryId = model.getCategoryId();
 		this.categoryName = model.getCategoryName();
 		this.rootCategoryId = model.getRootCategoryId();

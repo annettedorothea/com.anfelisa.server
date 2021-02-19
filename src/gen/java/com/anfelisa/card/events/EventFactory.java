@@ -69,12 +69,6 @@ public class EventFactory {
 				ChangeOrderOkEvent event = new ChangeOrderOkEvent(data, daoProvider, viewProvider, appConfiguration);
 				return event;
 			}
-			if (eventClass.equals("com.anfelisa.card.events.ImportCsvOkEvent")) {
-				CsvUploadData data = mapper.readValue(json, CsvUploadData.class);
-				data.migrateLegacyData(json);
-				ImportCsvOkEvent event = new ImportCsvOkEvent(data, daoProvider, viewProvider, appConfiguration);
-				return event;
-			}
 		} catch (IOException e) {
 			LOG.error("failed to create event {} with data {}", eventClass, json, e);
 		}
@@ -107,10 +101,6 @@ public class EventFactory {
 
 		if (eventClass.equals("com.anfelisa.card.events.ChangeOrderOkEvent")) {
 			return new ChangeOrderOkEvent((ChangeCardOrderListData)data, daoProvider, viewProvider, appConfiguration);
-		}
-
-		if (eventClass.equals("com.anfelisa.card.events.ImportCsvOkEvent")) {
-			return new ImportCsvOkEvent((CsvUploadData)data, daoProvider, viewProvider, appConfiguration);
 		}
 
 

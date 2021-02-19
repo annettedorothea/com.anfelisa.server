@@ -25,7 +25,6 @@ scenarios
 				cardIndex: 1,
 				categoryId: "cat2-${testId}",
 				given: "given",
-				image: "image",
 				rootCategoryId: "boxId-${testId}",
 				wanted: "wanted"
 			}
@@ -36,7 +35,6 @@ scenarios
 				cardIndex: 2,
 				categoryId: "cat2-${testId}",
 				given: "given2",
-				image: "image2",
 				rootCategoryId: "boxId-${testId}",
 				wanted: "wanted2"
 			}
@@ -94,7 +92,6 @@ scenarios
 				cardIndex: 2,
 				categoryId: "cat2-${testId}",
 				given: "given",
-				image: "image",
 				rootCategoryId: "boxId-${testId}",
 				wanted: "wanted"
 			}
@@ -105,7 +102,6 @@ scenarios
 				cardIndex: 3,
 				categoryId: "cat2-${testId}",
 				given: "given2",
-				image: "image2",
 				rootCategoryId: "boxId-${testId}",
 				wanted: "wanted2"
 			}
@@ -162,7 +158,6 @@ scenarios
 				cardIndex: 1,
 				categoryId: "cat1-${testId}",
 				given: "given",
-				image: "image",
 				rootCategoryId: "boxId-${testId}",
 				wanted: "wanted"
 			}
@@ -173,7 +168,6 @@ scenarios
 				cardIndex: 2,
 				categoryId: "cat1-${testId}",
 				given: "given2",
-				image: "image2",
 				rootCategoryId: "boxId-${testId}",
 				wanted: "wanted2"
 			}
@@ -230,7 +224,6 @@ scenarios
 				cardIndex: 1,
 				categoryId: "cat1-${testId}",
 				given: "given",
-				image: "image",
 				rootCategoryId: "boxId-${testId}",
 				wanted: "wanted"
 			}
@@ -257,7 +250,6 @@ scenarios
 				cardIndex: 1,
 				categoryId: "cat1-${testId}",
 				given: "given",
-				image: "image",
 				rootCategoryId: "boxId-${testId}",
 				wanted: "wanted"
 			}
@@ -284,7 +276,6 @@ scenarios
 				cardIndex: 1,
 				categoryId: "cat1-${testId}",
 				given: "given",
-				image: "image",
 				rootCategoryId: "boxId-${testId}",
 				wanted: "wanted"
 			}
@@ -311,7 +302,6 @@ scenarios
 				cardIndex: 1,
 				categoryId: "cat1-${testId}",
 				given: "given",
-				image: "image",
 				rootCategoryId: "boxId-${testId}",
 				wanted: "wanted"
 			}
@@ -337,7 +327,6 @@ scenarios
 				cardIndex: 1,
 				categoryId: "cat1-${testId}",
 				given: "given",
-				image: "image",
 				rootCategoryId: "boxId-${testId}",
 				wanted: "wanted"
 			}
@@ -348,7 +337,6 @@ scenarios
 				cardIndex: 2,
 				categoryId: "cat1-${testId}",
 				given: "given2",
-				image: "image2",
 				rootCategoryId: "boxId-${testId}",
 				wanted: "wanted2"
 			}

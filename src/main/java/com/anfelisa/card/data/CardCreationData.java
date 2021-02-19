@@ -17,7 +17,6 @@ public class CardCreationData extends AbstractCardCreationData implements ICardC
 		@JsonProperty("cardId") String cardId, 
 		@JsonProperty("given") String given, 
 		@JsonProperty("wanted") String wanted, 
-		@JsonProperty("image") String image, 
 		@JsonProperty("cardAuthor") String cardAuthor, 
 		@JsonProperty("cardIndex") Integer cardIndex, 
 		@JsonProperty("categoryId") String categoryId, 
@@ -31,7 +30,6 @@ public class CardCreationData extends AbstractCardCreationData implements ICardC
 			cardId,
 			given,
 			wanted,
-			image,
 			cardAuthor,
 			cardIndex,
 			categoryId,
@@ -56,7 +54,6 @@ public class CardCreationData extends AbstractCardCreationData implements ICardC
 		testData.setCardId(randomString(random));
 		testData.setGiven(randomString(random));
 		testData.setWanted(randomString(random));
-		testData.setImage(randomString(random));
 		testData.setCardAuthor(randomString(random));
 		testData.setCardIndex(random.nextInt(50));
 		testData.setCategoryId(randomString(random));

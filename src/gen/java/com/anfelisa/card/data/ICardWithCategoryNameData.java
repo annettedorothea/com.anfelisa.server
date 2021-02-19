@@ -25,8 +25,6 @@ public interface ICardWithCategoryNameData extends ICardWithCategoryNameModel, I
 	
 	ICardWithCategoryNameData withWanted(String wanted);
 	
-	ICardWithCategoryNameData withImage(String image);
-	
 	ICardWithCategoryNameData withCardAuthor(String cardAuthor);
 	
 	ICardWithCategoryNameData withCardIndex(Integer cardIndex);

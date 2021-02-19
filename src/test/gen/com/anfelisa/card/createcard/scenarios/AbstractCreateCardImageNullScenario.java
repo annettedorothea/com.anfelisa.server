@@ -208,7 +208,6 @@ public abstract class AbstractCreateCardImageNullScenario extends BaseScenario {
 			"\"cardIndex\" : 1," + 
 			"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 			"\"given\" : \"given\"," + 
-			"\"image\" : null," + 
 			"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 			"\"wanted\" : \"wanted\"} ",
 		com.anfelisa.card.models.CardModel.class);

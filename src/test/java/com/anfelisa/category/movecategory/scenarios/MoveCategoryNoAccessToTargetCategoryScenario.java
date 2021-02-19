@@ -7,8 +7,6 @@
 
 package com.anfelisa.category.movecategory.scenarios;
 
-import com.anfelisa.category.data.MoveCategoryResponse;
-
 @SuppressWarnings("unused")
 public class MoveCategoryNoAccessToTargetCategoryScenario extends AbstractMoveCategoryNoAccessToTargetCategoryScenario {
 

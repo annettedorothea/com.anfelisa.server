@@ -142,14 +142,12 @@ public abstract class AbstractCreateCardCategoryDoesNotExistScenario extends Bas
 		com.anfelisa.card.data.CreateCardPayload payload_0 = objectMapper.readValue("{" +
 			"\"categoryId\" : \"lala\"," + 
 			"\"given\" : \"given\"," + 
-			"\"image\" : \"image\"," + 
 			"\"wanted\" : \"wanted\"} ",
 				com.anfelisa.card.data.CreateCardPayload.class);
 		com.anfelisa.card.data.CardCreationData data_0 = objectMapper.readValue("{" +
 		"\"uuid\" : \"" + uuid + "\"," + 
 		"\"categoryId\" : \"lala\"," + 
 		"\"given\" : \"given\"," + 
-		"\"image\" : \"image\"," + 
 		"\"wanted\" : \"wanted\"} ",
 				com.anfelisa.card.data.CardCreationData.class);
 		HttpResponse<Object> response = 

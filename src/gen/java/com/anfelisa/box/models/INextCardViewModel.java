@@ -35,9 +35,6 @@ public interface INextCardViewModel {
 	String getWanted();
 	void setWanted(String wanted);
 	
-	String getImage();
-	void setImage(String image);
-	
 	String getCategoryId();
 	void setCategoryId(String categoryId);
 	

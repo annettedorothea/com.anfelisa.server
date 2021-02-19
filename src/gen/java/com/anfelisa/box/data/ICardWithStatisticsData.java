@@ -33,8 +33,6 @@ public interface ICardWithStatisticsData extends ICardWithStatisticsModel, IData
 	
 	ICardWithStatisticsData withWanted(String wanted);
 	
-	ICardWithStatisticsData withImage(String image);
-	
 	ICardWithStatisticsData withCardAuthor(String cardAuthor);
 	
 	ICardWithStatisticsData withCardIndex(Integer cardIndex);

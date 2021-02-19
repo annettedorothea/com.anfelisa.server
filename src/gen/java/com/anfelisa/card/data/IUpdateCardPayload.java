@@ -12,8 +12,6 @@ public interface IUpdateCardPayload {
 	
 	String getGiven();
 	
-	String getImage();
-	
 	String getWanted();
 	
 

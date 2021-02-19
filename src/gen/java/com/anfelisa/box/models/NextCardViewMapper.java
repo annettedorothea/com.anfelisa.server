@@ -24,7 +24,6 @@ public class NextCardViewMapper implements RowMapper<INextCardViewModel> {
 			r.getObject("lastQuality") != null ? r.getInt("lastQuality") : null,
 			r.getString("given"),
 			r.getString("wanted"),
-			r.getString("image"),
 			r.getString("categoryId"),
 			r.getString("categoryName"),
 			r.getString("rootCategoryId"),

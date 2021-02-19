@@ -30,8 +30,6 @@ public class LoadNextCardResponse implements ILoadNextCardResponse {
 	
 	private String given;
 	
-	private String image;
-	
 	private Integer lastQuality;
 	
 	private String rootCategoryId;
@@ -62,7 +60,6 @@ public class LoadNextCardResponse implements ILoadNextCardResponse {
 		categoryId = data.getCategoryId();
 		count = data.getCount();
 		given = data.getGiven();
-		image = data.getImage();
 		lastQuality = data.getLastQuality();
 		rootCategoryId = data.getRootCategoryId();
 		scheduledCardId = data.getScheduledCardId();
@@ -94,11 +91,6 @@ public class LoadNextCardResponse implements ILoadNextCardResponse {
 	@JsonProperty
 	public String getGiven() {
 		return this.given;
-	}
-	
-	@JsonProperty
-	public String getImage() {
-		return this.image;
 	}
 	
 	@JsonProperty

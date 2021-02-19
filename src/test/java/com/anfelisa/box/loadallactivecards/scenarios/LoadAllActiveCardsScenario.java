@@ -7,8 +7,6 @@
 
 package com.anfelisa.box.loadallactivecards.scenarios;
 
-import com.anfelisa.box.data.LoadAllActiveCardsResponse;
-
 @SuppressWarnings("unused")
 public class LoadAllActiveCardsScenario extends AbstractLoadAllActiveCardsScenario {
 

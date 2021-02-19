@@ -7,8 +7,6 @@
 
 package com.anfelisa.category.searchusername.scenarios;
 
-import com.anfelisa.category.data.SearchUsernameForInvitationResponse;
-
 @SuppressWarnings("unused")
 public class SearchUsernameUnauthorizedScenario extends AbstractSearchUsernameUnauthorizedScenario {
 

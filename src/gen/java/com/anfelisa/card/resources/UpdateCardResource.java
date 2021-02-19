@@ -102,7 +102,6 @@ public class UpdateCardResource extends Resource {
 				return badRequest("given is mandatory");
 			}
 			actionData.setGiven(payload.getGiven());
-			actionData.setImage(payload.getImage());
 			if (StringUtils.isBlank(payload.getWanted()) || "null".equals(payload.getWanted())) {
 				return badRequest("wanted is mandatory");
 			}

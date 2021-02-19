@@ -7,12 +7,6 @@
 
 package com.anfelisa.category.actions;
 
-import de.acegen.CustomAppConfiguration;
-import de.acegen.ViewProvider;
-import de.acegen.IDaoProvider;
-import de.acegen.PersistenceConnection;
-import de.acegen.PersistenceHandle;
-
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -20,6 +14,12 @@ import org.slf4j.LoggerFactory;
 
 import com.anfelisa.category.models.ICategoryModel;
 import com.anfelisa.category.models.IUserAccessToCategoryModel;
+
+import de.acegen.CustomAppConfiguration;
+import de.acegen.IDaoProvider;
+import de.acegen.PersistenceConnection;
+import de.acegen.PersistenceHandle;
+import de.acegen.ViewProvider;
 
 public class GetInvitedUsersAction extends AbstractGetInvitedUsersAction {
 

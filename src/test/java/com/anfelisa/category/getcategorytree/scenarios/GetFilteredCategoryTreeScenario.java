@@ -7,8 +7,6 @@
 
 package com.anfelisa.category.getcategorytree.scenarios;
 
-import com.anfelisa.category.data.GetCategoryTreeResponse;
-
 @SuppressWarnings("unused")
 public class GetFilteredCategoryTreeScenario extends AbstractGetFilteredCategoryTreeScenario {
 

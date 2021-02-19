@@ -30,8 +30,6 @@ public interface INextCardViewData extends INextCardViewModel, IDataContainer {
 	
 	INextCardViewData withWanted(String wanted);
 	
-	INextCardViewData withImage(String image);
-	
 	INextCardViewData withCategoryId(String categoryId);
 	
 	INextCardViewData withCategoryName(String categoryName);

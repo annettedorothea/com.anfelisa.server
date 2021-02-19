@@ -142,14 +142,12 @@ public abstract class AbstractCreateCardAsAdminScenario extends BaseScenario {
 		com.anfelisa.card.data.CreateCardPayload payload_0 = objectMapper.readValue("{" +
 			"\"categoryId\" : \"adminCat-" + this.getTestId() + "\"," + 
 			"\"given\" : \"given\"," + 
-			"\"image\" : \"image\"," + 
 			"\"wanted\" : \"wanted\"} ",
 				com.anfelisa.card.data.CreateCardPayload.class);
 		com.anfelisa.card.data.CardCreationData data_0 = objectMapper.readValue("{" +
 		"\"uuid\" : \"" + uuid + "\"," + 
 		"\"categoryId\" : \"adminCat-" + this.getTestId() + "\"," + 
 		"\"given\" : \"given\"," + 
-		"\"image\" : \"image\"," + 
 		"\"wanted\" : \"wanted\"} ",
 				com.anfelisa.card.data.CardCreationData.class);
 		HttpResponse<Object> response = 
@@ -210,7 +208,6 @@ public abstract class AbstractCreateCardAsAdminScenario extends BaseScenario {
 			"\"cardIndex\" : 1," + 
 			"\"categoryId\" : \"adminCat-" + this.getTestId() + "\"," + 
 			"\"given\" : \"given\"," + 
-			"\"image\" : \"image\"," + 
 			"\"rootCategoryId\" : \"adminBox-" + this.getTestId() + "\"," + 
 			"\"wanted\" : \"wanted\"} ",
 		com.anfelisa.card.models.CardModel.class);

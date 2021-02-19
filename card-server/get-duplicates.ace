@@ -58,7 +58,6 @@ scenarios
 					cardIndex: 1,
 					categoryId: "cat1-${testId}",
 					given: "given",
-					image: "image",
 					rootCategoryId: "boxId-${testId}",
 					wanted: "wanted",
 					categoryName: "level 1 #1"
@@ -69,7 +68,6 @@ scenarios
 					cardIndex: 2,
 					categoryId: "cat1-${testId}",
 					given: "given2",
-					image: "image2",
 					rootCategoryId: "boxId-${testId}",
 					wanted: "wanted2",
 					categoryName: "level 1 #1"
@@ -98,7 +96,6 @@ scenarios
 					cardIndex: 1,
 					categoryId: "cat1-${testId}",
 					given: "given",
-					image: "image",
 					rootCategoryId: "boxId-${testId}",
 					wanted: "wanted",
 					categoryName: "level 1 #1"
@@ -184,7 +181,6 @@ scenarios
 					cardIndex: 1,
 					categoryId: "cat1-${testId}",
 					given: "given",
-					image: "image",
 					rootCategoryId: "boxId-${testId}",
 					wanted: "wanted",
 					categoryName: "level 1 #1"
@@ -195,7 +191,6 @@ scenarios
 					cardIndex: 2,
 					categoryId: "cat1-${testId}",
 					given: "given2",
-					image: "image2",
 					rootCategoryId: "boxId-${testId}",
 					wanted: "wanted2",
 					categoryName: "level 1 #1"

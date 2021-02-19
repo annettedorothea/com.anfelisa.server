@@ -15,7 +15,6 @@ public class CardUpdateData extends AbstractCardUpdateData implements ICardUpdat
 		@JsonProperty("cardId") String cardId, 
 		@JsonProperty("given") String given, 
 		@JsonProperty("wanted") String wanted, 
-		@JsonProperty("image") String image, 
 		@JsonProperty("userId") String userId, 
 		@JsonProperty("uuid") String uuid
 	) {
@@ -23,7 +22,6 @@ public class CardUpdateData extends AbstractCardUpdateData implements ICardUpdat
 			cardId,
 			given,
 			wanted,
-			image,
 			userId,
 			uuid
 		);
@@ -42,7 +40,6 @@ public class CardUpdateData extends AbstractCardUpdateData implements ICardUpdat
 		testData.setCardId(randomString(random));
 		testData.setGiven(randomString(random));
 		testData.setWanted(randomString(random));
-		testData.setImage(randomString(random));
 		testData.setUserId(randomString(random));
 		return testData;
 	}

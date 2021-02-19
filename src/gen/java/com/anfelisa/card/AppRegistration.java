@@ -28,7 +28,6 @@ public class AppRegistration {
 		environment.jersey().register(new GetDuplicatesResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new MoveCardsResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new ChangeOrderResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
-		environment.jersey().register(new ImportCsvResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new GetTranslationResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
 	}
 	
@@ -55,10 +54,6 @@ public class AppRegistration {
 		
 		viewProvider.addConsumer("com.anfelisa.card.events.ChangeOrderOkEvent", (dataContainer, handle) -> {
 			viewProvider.cardView.changeCardOrder((com.anfelisa.card.data.ChangeCardOrderListData) dataContainer, handle);
-		});
-		
-		viewProvider.addConsumer("com.anfelisa.card.events.ImportCsvOkEvent", (dataContainer, handle) -> {
-			viewProvider.cardView.bulkInsert((com.anfelisa.card.data.CsvUploadData) dataContainer, handle);
 		});
 		
 	}
