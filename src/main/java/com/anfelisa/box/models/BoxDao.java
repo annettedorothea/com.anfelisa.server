@@ -22,8 +22,9 @@ public class BoxDao extends AbstractBoxDao {
 				+ "AND scheduledDate < :endofday) + "
 				+ "(select count(reinforcecardid) from public.reinforcecard "
 				+ "where boxid = b.boxid ) as openTodaysCards, "
-				+ "b.boxid, b.categoryid, c.categoryname, c.categoryindex, b.reverse, "
-				+ "(select count(uac.userid) from useraccesstocategory uac where b.categoryid = uac.categoryid and uac.userid != :userid) > 0 as shared "
+				+ "b.boxid, b.categoryid, c.categoryname, c.categoryauthor, c.categoryindex, b.reverse, "
+				+ "(select count(uac.userid) from useraccesstocategory uac where b.categoryid = uac.categoryid and uac.userid != :userid) > 0 as shared,"
+				+ "(select editable from useraccesstocategory where userid = :userid and categoryid = b.categoryid) as editable "
 				+ "FROM public.box b inner join public.category c on c.categoryid = b.categoryid where userid = :userid order by c.categoryname, b.reverse")
 				.bind("userid", userId)
 				.bind("today", today)
@@ -116,7 +117,8 @@ public class BoxDao extends AbstractBoxDao {
 				+ "b.boxId, b.maxinterval, b.maxcardsperday,"
 				+ "c.categoryname, c.dictionarylookup, c.givenlanguage, c.wantedLanguage, c.categoryid,"
 				+ "(select count(cardid) from card where rootcategoryid = c.categoryid) as allcards,"
-				+ "(select count(scheduledcardid) from scheduledcard where boxid = :boxid and quality is null AND scheduleddate is not null) as allactivecards "
+				+ "(select count(scheduledcardid) from scheduledcard where boxid = :boxid and quality is null AND scheduleddate is not null) as allactivecards, "
+				+ "(select count(uac.userid) from useraccesstocategory uac where b.categoryid = uac.categoryid and uac.userid != b.userid) > 0 as shared "
 				+ "FROM \"box\" b, category c "
 				+ "WHERE b.boxid = :boxid "
 				+ "AND c.categoryid = b.categoryid")

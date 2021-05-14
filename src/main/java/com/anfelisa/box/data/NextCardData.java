@@ -9,11 +9,6 @@ package com.anfelisa.box.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
-import de.acegen.AbstractData;
-
 public class NextCardData extends AbstractNextCardData implements INextCardData {
 	
 	public NextCardData(

@@ -18,7 +18,6 @@ package com.anfelisa.box.views;
 
 import com.anfelisa.box.data.IBoxCreationData;
 import com.anfelisa.box.data.IDeleteBoxData;
-import com.anfelisa.category.data.UserToCategoryInvitationData;
 
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceHandle;
@@ -40,11 +39,6 @@ public class UserAccessToCategoryView implements IUserAccessToCategoryView {
 	@Override
 	public void delete(IDeleteBoxData data, PersistenceHandle handle) {
 		daoProvider.getUserAccessToCategoryDao().deleteByCategoryId(handle, data.getRootCategoryId());
-	}
-
-	public void invite(UserToCategoryInvitationData dataContainer, PersistenceHandle handle) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

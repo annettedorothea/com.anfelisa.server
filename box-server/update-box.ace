@@ -37,6 +37,42 @@ scenarios
 				reverse: false
 			}
 
+	InvitedUserCannotChangeNameAndDistionaryLookup
+		GIVEN
+			com.anfelisa.category.inviteusertocategory.InviteUserToCategory
+		WHEN
+			com.anfelisa.box.UpdateBox
+				{
+					boxId: "boxIdOfInvitedUser-${testId}",
+					categoryId: "boxId-${testId}",
+					categoryName: "changed",
+					dictionaryLookup: true,
+					givenLanguage: "de",
+					wantedLanguage: "en",
+					maxCardsPerDay: 11
+				}
+				authorization "Anne-${testId}" : "pw"
+		THEN 200
+		persistence
+			categoryWasNotUpdated Category selectBy(categoryId: "boxId-${testId}") shouldBe 
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "boxId-${testId}",
+				categoryIndex: null,
+				categoryName: "cat",
+				dictionaryLookup: false,
+				parentCategoryId: null,
+				rootCategoryId: "boxId-${testId}"
+			}
+			boxWasUpdated Box selectBy ( boxId: "boxIdOfInvitedUser-${testId}") shouldBe
+			{
+				boxId: "boxIdOfInvitedUser-${testId}",
+				categoryId: "boxId-${testId}",
+				maxCardsPerDay: 11,
+				userId: "uuid2-${testId}",
+				reverse: false
+			}
+
 	UpdateBoxMaxInterval
 		GIVEN
 			com.anfelisa.box.createbox.CreateBoxMinimal

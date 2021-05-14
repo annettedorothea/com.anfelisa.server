@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import com.anfelisa.box.data.IBoxUpdateData;
 import com.anfelisa.box.models.IBoxModel;
 import com.anfelisa.box.utils.LanguageValidator;
+import com.anfelisa.category.models.IUserAccessToCategoryModel;
 
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
@@ -23,9 +24,17 @@ public class UpdateBoxCommand extends AbstractUpdateBoxCommand {
 
 	@Override
 	protected void executeCommand(PersistenceHandle readonlyHandle) {
+
 		IBoxModel box = daoProvider.getBoxDao().selectByBoxId(readonlyHandle, this.commandData.getBoxId());
 		if (!box.getUserId().equals(commandData.getUserId())) {
 			throwSecurityException();
+		}
+		IUserAccessToCategoryModel access = daoProvider.getUserAccessToCategoryDao().selectByCategoryIdAndUserId(readonlyHandle, box.getCategoryId(), commandData.getUserId());
+		if (access == null) {
+			throwSecurityException();
+		}
+		if (access.getEditable()) {
+			this.addCanEditCategoryOutcome();
 		}
 		
 		if (this.commandData.getMaxCardsPerDay() == 0) {

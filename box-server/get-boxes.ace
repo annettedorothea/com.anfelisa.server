@@ -19,7 +19,10 @@ scenarios
 						boxId: "boxId-${testId}",
 						categoryId: "boxId-${testId}",
 						categoryName: "cat",
-						openTodaysCards: 3
+						openTodaysCards: 3,
+						categoryAuthor: "Annette-${testId}",
+						editable: true,
+						reverse: false
 					}
 				]
 			}		
@@ -42,7 +45,10 @@ scenarios
 						boxId: "boxId-${testId}",
 						categoryId: "boxId-${testId}",
 						categoryName: "cat",
-						openTodaysCards: 2
+						openTodaysCards: 2,
+						categoryAuthor: "Annette-${testId}",
+						editable: true,
+						reverse: false
 					}
 				]
 			}	
@@ -63,7 +69,10 @@ scenarios
 						boxId: "boxId-${testId}",
 						categoryId: "boxId-${testId}",
 						categoryName: "cat",
-						openTodaysCards: 3
+						openTodaysCards: 3,
+						categoryAuthor: "Annette-${testId}",
+						editable: true,
+						reverse: false
 					}
 				]
 			}		
@@ -84,7 +93,10 @@ scenarios
 						boxId: "boxId-${testId}",
 						categoryId: "boxId-${testId}",
 						categoryName: "cat",
-						openTodaysCards: 3
+						openTodaysCards: 3,
+						categoryAuthor: "Annette-${testId}",
+						editable: true,
+						reverse: false
 					}
 				]
 			}		
@@ -105,7 +117,10 @@ scenarios
 						boxId: "boxId-${testId}",
 						categoryId: "boxId-${testId}",
 						categoryName: "cat",
-						openTodaysCards: 3
+						openTodaysCards: 3,
+						categoryAuthor: "Annette-${testId}",
+						editable: true,
+						reverse: false
 					}
 				]
 			}		
@@ -126,7 +141,10 @@ scenarios
 						boxId: "boxId-${testId}",
 						categoryId: "boxId-${testId}",
 						categoryName: "cat",
-						openTodaysCards: 3
+						openTodaysCards: 3,
+						categoryAuthor: "Annette-${testId}",
+						editable: true,
+						reverse: false
 					}
 				]
 			}		
@@ -147,7 +165,10 @@ scenarios
 						boxId: "boxId-${testId}",
 						categoryId: "boxId-${testId}",
 						categoryName: "cat",
-						openTodaysCards: 2
+						openTodaysCards: 2,
+						categoryAuthor: "Annette-${testId}",
+						editable: true,
+						reverse: false
 					}
 				]
 			}		
@@ -168,7 +189,10 @@ scenarios
 						boxId: "boxId-${testId}",
 						categoryId: "boxId-${testId}",
 						categoryName: "cat",
-						openTodaysCards: 2
+						openTodaysCards: 2,
+						categoryAuthor: "Annette-${testId}",
+						editable: true,
+						reverse: false
 					}
 				]
 			}		
@@ -190,7 +214,10 @@ scenarios
 						boxId: "boxId-${testId}",
 						categoryId: "boxId-${testId}",
 						categoryName: "cat",
-						openTodaysCards: 2
+						openTodaysCards: 2,
+						categoryAuthor: "Annette-${testId}",
+						editable: true,
+						reverse: false
 					}
 				]
 			}		
@@ -211,7 +238,69 @@ scenarios
 						boxId: "boxId-${testId}",
 						categoryId: "boxId-${testId}",
 						categoryName: "cat",
-						openTodaysCards: 2
+						openTodaysCards: 2,
+						categoryAuthor: "Annette-${testId}",
+						editable: true,
+						reverse: false
+					}
+				]
+			}		
+
+
+	GetBoxesReverse
+		GIVEN
+			com.anfelisa.box.createreversebox.CreateReverseBox
+		WHEN
+			com.anfelisa.box.GetBoxes
+				{
+					todayAtMidnightInUTC: "20200420 02:00" "yyyyMMdd HH:mm"
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+			response shouldBe {
+				boxList: [
+					{
+						boxId: "boxId-${testId}",
+						categoryId: "boxId-${testId}",
+						categoryName: "cat",
+						openTodaysCards: 0,
+						categoryAuthor: "Annette-${testId}",
+						editable: true,
+						reverse: false
+					},
+					{
+						boxId: "reverseBoxId-${testId}",
+						categoryId: "boxId-${testId}",
+						categoryName: "cat",
+						openTodaysCards: 0,
+						categoryAuthor: "Annette-${testId}",
+						editable: true,
+						reverse: true
+					}
+				]
+			}		
+
+
+	GetBoxesShared
+		GIVEN
+			com.anfelisa.category.inviteusertocategory.InviteUserToCategory
+		WHEN
+			com.anfelisa.box.GetBoxes
+				{
+					todayAtMidnightInUTC: "20200420 02:00" "yyyyMMdd HH:mm"
+				}
+				authorization "Anne-${testId}" : "pw"
+		THEN 200
+			response shouldBe {
+				boxList: [
+					{
+						boxId: "boxIdOfInvitedUser-${testId}",
+						categoryId: "boxId-${testId}",
+						categoryName: "cat",
+						openTodaysCards: 0,
+						categoryAuthor: "Annette-${testId}",
+						editable: false,
+						reverse: false
 					}
 				]
 			}		

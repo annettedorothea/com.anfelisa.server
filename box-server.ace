@@ -36,7 +36,8 @@ ACE
 			dictionaryLookup
 			givenLanguage
 			wantedLanguage
-		on ok ( Box.updateBox RootCategory.update)
+		on canEditCategory ( RootCategory.update)
+		on ok ( Box.updateBox )
 		
 	GetBoxSettings<BoxSettingsWrapper>
 		GET "/box/settings/{boxId}" 
@@ -53,6 +54,7 @@ ACE
 			categoryId
 			allCards
 			allActiveCards
+			shared
 
 	ScheduleCards<ScheduledCards>
 		POST "/cards/schedule" 
@@ -231,10 +233,11 @@ models
 	BoxView {
 		Integer openTodaysCards
 		String categoryName
+		String categoryAuthor
 		String categoryId
 		String boxId
 		Boolean reverse
-		Boolean shared
+		Boolean editable
 	}
 
 	BoxStatistics {
@@ -300,6 +303,7 @@ models
 		String categoryId
 		Integer allCards
 		Integer allActiveCards
+		Boolean shared
 	}
 
 	BoxSettingsWrapper extends BoxSettings {

@@ -19,7 +19,8 @@ scenarios
 				dictionaryLookup: false,
 				maxCardsPerDay: 10,
 				allActiveCards: 0,
-				allCards: 0
+				allCards: 0,
+				shared: false
 			}		
 
 	GetBoxSettingsWithCards
@@ -38,7 +39,8 @@ scenarios
 				dictionaryLookup: false,
 				maxCardsPerDay: 10,
 				allActiveCards: 3,
-				allCards: 5
+				allCards: 5,
+				shared: false
 			}		
 
 	GetBoxSettingsWithSortedOutCards
@@ -57,7 +59,8 @@ scenarios
 				dictionaryLookup: false,
 				maxCardsPerDay: 10,
 				allActiveCards: 1,
-				allCards: 5
+				allCards: 5,
+				shared: false
 			}		
 
 	GetBoxSettingsWithDictionaryLookup
@@ -78,7 +81,28 @@ scenarios
 				wantedLanguage: "en",
 				maxCardsPerDay: 10,
 				allActiveCards: 0,
-				allCards: 0
+				allCards: 0,
+				shared: false
+			}		
+
+	GetSharedBoxSettings
+	GIVEN
+			com.anfelisa.category.inviteusertocategory.InviteUserToCategory
+		WHEN
+			com.anfelisa.box.GetBoxSettings
+				{
+					boxId: "boxIdOfInvitedUser-${testId}"
+				}
+				authorization "Anne-${testId}" : "pw"
+		THEN 200
+			response shouldBe {
+				categoryId: "boxId-${testId}",
+				categoryName: "cat",
+				dictionaryLookup: false,
+				maxCardsPerDay: 10,
+				allActiveCards: 0,
+				allCards: 0,
+				shared: true
 			}		
 
 	GetBoxSettingsNoBoxId

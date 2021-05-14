@@ -107,7 +107,7 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 		protocol = config.getServer().getApplicationConnectors()[0].getType();
 		rootPath = config.getServer().getRootPath();
 		jdbi = Jdbi.create(config.getDatabase().getUrl(), config.getDatabase().getUser(),
-				config.getDatabase().getPassword());
+				config.getDatabase().getPassword() == null ? "" : config.getDatabase().getPassword());
 		if (metrics == null) {
 			metrics = new HashMap<>();
 		}
@@ -436,6 +436,9 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 			org.junit.jupiter.api.Assertions.assertEquals(expected.getCategoryId(), actual.getCategoryId());
 			org.junit.jupiter.api.Assertions.assertEquals(expected.getCategoryName(), actual.getCategoryName());
 			org.junit.jupiter.api.Assertions.assertEquals(expected.getOpenTodaysCards(), actual.getOpenTodaysCards());
+			org.junit.jupiter.api.Assertions.assertEquals(expected.getEditable(), actual.getEditable());
+			org.junit.jupiter.api.Assertions.assertEquals(expected.getCategoryAuthor(), actual.getCategoryAuthor());
+			org.junit.jupiter.api.Assertions.assertEquals(expected.getReverse(), actual.getReverse());
 		}
 	}
 
