@@ -137,6 +137,20 @@ public class CardWithCategoryNameModel implements ICardWithCategoryNameModel {
 	}
 	
 
+	public ICardWithCategoryNameModel deepCopy() {
+		ICardWithCategoryNameModel copy = new CardWithCategoryNameModel();
+		copy.setCategoryName(this.getCategoryName());
+		copy.setCardId(this.getCardId());
+		copy.setGiven(this.getGiven());
+		copy.setWanted(this.getWanted());
+		copy.setCardAuthor(this.getCardAuthor());
+		copy.setCardIndex(this.getCardIndex());
+		copy.setCategoryId(this.getCategoryId());
+		copy.setRootCategoryId(this.getRootCategoryId());
+		copy.setPriority(this.getPriority());
+		return copy;
+	}
+
 }
 
 

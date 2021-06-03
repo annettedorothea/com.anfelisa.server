@@ -183,6 +183,19 @@ public abstract class AbstractUserRegistrationData extends AbstractData implemen
 		this.userId = model.getUserId();
 	}
 	
+	public IUserRegistrationData deepCopy() {
+		IUserRegistrationData copy = new UserRegistrationData(this.getUuid());
+		copy.setLanguage(this.getLanguage());
+		copy.setUserId(this.getUserId());
+		copy.setUsername(this.getUsername());
+		copy.setPassword(this.getPassword());
+		copy.setEmail(this.getEmail());
+		copy.setRole(this.getRole());
+		copy.setEmailConfirmed(this.getEmailConfirmed());
+		copy.setToken(this.getToken());
+		return copy;
+	}
+
 }
 
 

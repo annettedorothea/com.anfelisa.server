@@ -53,6 +53,13 @@ public class ResetPasswordModel implements IResetPasswordModel {
 	}
 	
 
+	public IResetPasswordModel deepCopy() {
+		IResetPasswordModel copy = new ResetPasswordModel();
+		copy.setToken(this.getToken());
+		copy.setUserId(this.getUserId());
+		return copy;
+	}
+
 }
 
 

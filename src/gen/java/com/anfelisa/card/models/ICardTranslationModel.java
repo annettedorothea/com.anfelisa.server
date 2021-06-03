@@ -27,6 +27,7 @@ public interface ICardTranslationModel {
 	void setTargetLanguage(String targetLanguage);
 	
 	
+	ICardTranslationModel deepCopy();
 }
 
 

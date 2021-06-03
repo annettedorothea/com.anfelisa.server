@@ -137,6 +137,17 @@ public abstract class AbstractUserData extends AbstractData implements IUserData
 	
 	
 	
+	public IUserData deepCopy() {
+		IUserData copy = new UserData(this.getUuid());
+		copy.setUserId(this.getUserId());
+		copy.setUsername(this.getUsername());
+		copy.setPassword(this.getPassword());
+		copy.setEmail(this.getEmail());
+		copy.setRole(this.getRole());
+		copy.setEmailConfirmed(this.getEmailConfirmed());
+		return copy;
+	}
+
 }
 
 

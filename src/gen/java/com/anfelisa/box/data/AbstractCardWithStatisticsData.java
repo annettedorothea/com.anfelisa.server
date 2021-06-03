@@ -263,6 +263,24 @@ public abstract class AbstractCardWithStatisticsData extends AbstractData implem
 		this.priority = model.getPriority();
 	}
 	
+	public ICardWithStatisticsData deepCopy() {
+		ICardWithStatisticsData copy = new CardWithStatisticsData(this.getUuid());
+		copy.setEf(this.getEf());
+		copy.setInterval(this.getInterval());
+		copy.setCount(this.getCount());
+		copy.setLastQuality(this.getLastQuality());
+		copy.setNext(this.getNext());
+		copy.setCardId(this.getCardId());
+		copy.setGiven(this.getGiven());
+		copy.setWanted(this.getWanted());
+		copy.setCardAuthor(this.getCardAuthor());
+		copy.setCardIndex(this.getCardIndex());
+		copy.setCategoryId(this.getCategoryId());
+		copy.setRootCategoryId(this.getRootCategoryId());
+		copy.setPriority(this.getPriority());
+		return copy;
+	}
+
 }
 
 

@@ -89,6 +89,14 @@ public abstract class AbstractDeleteBoxData extends AbstractData implements IDel
 	
 	
 	
+	public IDeleteBoxData deepCopy() {
+		IDeleteBoxData copy = new DeleteBoxData(this.getUuid());
+		copy.setUserId(this.getUserId());
+		copy.setBoxId(this.getBoxId());
+		copy.setRootCategoryId(this.getRootCategoryId());
+		return copy;
+	}
+
 }
 
 

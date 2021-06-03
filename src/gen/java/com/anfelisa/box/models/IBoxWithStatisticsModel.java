@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public interface IBoxWithStatisticsModel extends com.anfelisa.box.models.IBoxViewModel,com.anfelisa.box.models.IBoxStatisticsModel{
 
 	
+	IBoxWithStatisticsModel deepCopy();
 }
 
 

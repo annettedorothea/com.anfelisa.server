@@ -149,6 +149,21 @@ public class CardCreationModel implements ICardCreationModel {
 	}
 	
 
+	public ICardCreationModel deepCopy() {
+		ICardCreationModel copy = new CardCreationModel();
+		copy.setUserId(this.getUserId());
+		copy.setUsername(this.getUsername());
+		copy.setCardId(this.getCardId());
+		copy.setGiven(this.getGiven());
+		copy.setWanted(this.getWanted());
+		copy.setCardAuthor(this.getCardAuthor());
+		copy.setCardIndex(this.getCardIndex());
+		copy.setCategoryId(this.getCategoryId());
+		copy.setRootCategoryId(this.getRootCategoryId());
+		copy.setPriority(this.getPriority());
+		return copy;
+	}
+
 }
 
 

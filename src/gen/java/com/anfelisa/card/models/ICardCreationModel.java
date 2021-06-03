@@ -21,6 +21,7 @@ public interface ICardCreationModel extends com.anfelisa.card.models.ICardModel{
 	void setUsername(String username);
 	
 	
+	ICardCreationModel deepCopy();
 }
 
 

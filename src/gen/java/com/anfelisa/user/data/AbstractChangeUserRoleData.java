@@ -105,6 +105,15 @@ public abstract class AbstractChangeUserRoleData extends AbstractData implements
 	
 	
 	
+	public IChangeUserRoleData deepCopy() {
+		IChangeUserRoleData copy = new ChangeUserRoleData(this.getUuid());
+		copy.setEditedUserId(this.getEditedUserId());
+		copy.setNewRole(this.getNewRole());
+		copy.setUserId(this.getUserId());
+		copy.setRole(this.getRole());
+		return copy;
+	}
+
 }
 
 

@@ -18,6 +18,7 @@ public interface IUserRegistrationModel extends com.anfelisa.user.models.IUserMo
 	void setLanguage(String language);
 	
 	
+	IUserRegistrationModel deepCopy();
 }
 
 

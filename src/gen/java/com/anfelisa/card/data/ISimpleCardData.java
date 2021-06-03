@@ -23,6 +23,7 @@ public interface ISimpleCardData extends ISimpleCardModel, IDataContainer {
 	ISimpleCardData withId(String id);
 	
 	
+	ISimpleCardData deepCopy();
 }
 
 

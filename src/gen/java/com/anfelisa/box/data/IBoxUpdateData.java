@@ -35,6 +35,7 @@ public interface IBoxUpdateData extends IBoxUpdateModel, IDataContainer {
 	IBoxUpdateData withCategoryId(String categoryId);
 	
 	
+	IBoxUpdateData deepCopy();
 }
 
 

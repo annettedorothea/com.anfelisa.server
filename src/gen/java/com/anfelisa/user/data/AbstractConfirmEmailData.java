@@ -94,6 +94,14 @@ public abstract class AbstractConfirmEmailData extends AbstractData implements I
 		this.userId = model.getUserId();
 	}
 	
+	public IConfirmEmailData deepCopy() {
+		IConfirmEmailData copy = new ConfirmEmailData(this.getUuid());
+		copy.setUsername(this.getUsername());
+		copy.setToken(this.getToken());
+		copy.setUserId(this.getUserId());
+		return copy;
+	}
+
 }
 
 

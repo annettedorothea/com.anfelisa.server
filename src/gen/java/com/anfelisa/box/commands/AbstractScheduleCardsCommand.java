@@ -32,7 +32,7 @@ public abstract class AbstractScheduleCardsCommand extends Command<IScheduledCar
 	@Override
 	public void publishEvents(IScheduledCardsData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
 		if (data.hasOutcome("ok")){
-			new com.anfelisa.box.events.ScheduleCardsOkEvent(daoProvider, viewProvider, appConfiguration).publish(data, handle, timelineHandle);
+			new com.anfelisa.box.events.ScheduleCardsOkEvent(daoProvider, viewProvider, appConfiguration).publish(data.deepCopy(), handle, timelineHandle);
 		}
 	}
 	

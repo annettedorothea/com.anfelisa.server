@@ -21,6 +21,7 @@ public interface IInitBoxesModel {
 	void setBoxId(String boxId);
 	
 	
+	IInitBoxesModel deepCopy();
 }
 
 

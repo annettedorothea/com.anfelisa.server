@@ -28,7 +28,7 @@ public abstract class AbstractCreateCardCommand extends Command<ICardCreationDat
 	@Override
 	public void publishEvents(ICardCreationData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
 		if (data.hasOutcome("ok")){
-			new com.anfelisa.card.events.CreateCardOkEvent(daoProvider, viewProvider, appConfiguration).publish(data, handle, timelineHandle);
+			new com.anfelisa.card.events.CreateCardOkEvent(daoProvider, viewProvider, appConfiguration).publish(data.deepCopy(), handle, timelineHandle);
 		}
 	}
 	

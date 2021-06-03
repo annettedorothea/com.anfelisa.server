@@ -21,6 +21,7 @@ public interface IReverseBoxCreationData extends IReverseBoxCreationModel, IData
 	IReverseBoxCreationData withUsername(String username);
 	
 	
+	IReverseBoxCreationData deepCopy();
 }
 
 

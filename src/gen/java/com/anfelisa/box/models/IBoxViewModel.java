@@ -36,6 +36,7 @@ public interface IBoxViewModel {
 	void setEditable(Boolean editable);
 	
 	
+	IBoxViewModel deepCopy();
 }
 
 

@@ -65,6 +65,14 @@ public class ConfirmEmailModel implements IConfirmEmailModel {
 	}
 	
 
+	public IConfirmEmailModel deepCopy() {
+		IConfirmEmailModel copy = new ConfirmEmailModel();
+		copy.setUsername(this.getUsername());
+		copy.setToken(this.getToken());
+		copy.setUserId(this.getUserId());
+		return copy;
+	}
+
 }
 
 

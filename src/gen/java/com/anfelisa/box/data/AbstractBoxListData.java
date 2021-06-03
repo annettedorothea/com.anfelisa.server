@@ -91,6 +91,18 @@ public abstract class AbstractBoxListData extends AbstractData implements IBoxLi
 	
 	
 	
+	public IBoxListData deepCopy() {
+		IBoxListData copy = new BoxListData(this.getUuid());
+		List<com.anfelisa.box.models.IBoxViewModel> boxListCopy = new ArrayList<com.anfelisa.box.models.IBoxViewModel>();
+		for(com.anfelisa.box.models.IBoxViewModel item: this.getBoxList()) {
+			boxListCopy.add(item.deepCopy());
+		}
+		copy.setBoxList(boxListCopy);
+		copy.setUserId(this.getUserId());
+		copy.setTodayAtMidnightInUTC(this.getTodayAtMidnightInUTC());
+		return copy;
+	}
+
 }
 
 

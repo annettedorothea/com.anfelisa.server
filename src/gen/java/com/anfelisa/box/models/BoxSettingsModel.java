@@ -161,6 +161,22 @@ public class BoxSettingsModel implements IBoxSettingsModel {
 	}
 	
 
+	public IBoxSettingsModel deepCopy() {
+		IBoxSettingsModel copy = new BoxSettingsModel();
+		copy.setBoxId(this.getBoxId());
+		copy.setMaxInterval(this.getMaxInterval());
+		copy.setMaxCardsPerDay(this.getMaxCardsPerDay());
+		copy.setCategoryName(this.getCategoryName());
+		copy.setDictionaryLookup(this.getDictionaryLookup());
+		copy.setGivenLanguage(this.getGivenLanguage());
+		copy.setWantedLanguage(this.getWantedLanguage());
+		copy.setCategoryId(this.getCategoryId());
+		copy.setAllCards(this.getAllCards());
+		copy.setAllActiveCards(this.getAllActiveCards());
+		copy.setShared(this.getShared());
+		return copy;
+	}
+
 }
 
 

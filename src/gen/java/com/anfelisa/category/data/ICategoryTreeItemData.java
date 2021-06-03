@@ -41,6 +41,7 @@ public interface ICategoryTreeItemData extends ICategoryTreeItemModel, IDataCont
 	ICategoryTreeItemData withEditable(Boolean editable);
 	
 	
+	ICategoryTreeItemData deepCopy();
 }
 
 

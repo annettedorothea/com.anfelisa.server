@@ -89,6 +89,14 @@ public abstract class AbstractResetPasswordWithNewPasswordData extends AbstractD
 	
 	
 	
+	public IResetPasswordWithNewPasswordData deepCopy() {
+		IResetPasswordWithNewPasswordData copy = new ResetPasswordWithNewPasswordData(this.getUuid());
+		copy.setPassword(this.getPassword());
+		copy.setToken(this.getToken());
+		copy.setUserId(this.getUserId());
+		return copy;
+	}
+
 }
 
 

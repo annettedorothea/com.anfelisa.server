@@ -53,6 +53,17 @@ public class UserListModel implements IUserListModel {
 	}
 	
 
+	public IUserListModel deepCopy() {
+		IUserListModel copy = new UserListModel();
+		List<com.anfelisa.user.models.IUserModel> userListCopy = new ArrayList<com.anfelisa.user.models.IUserModel>();
+		for(com.anfelisa.user.models.IUserModel item: this.getUserList()) {
+			userListCopy.add(item.deepCopy());
+		}
+		copy.setUserList(userListCopy);
+		copy.setRole(this.getRole());
+		return copy;
+	}
+
 }
 
 

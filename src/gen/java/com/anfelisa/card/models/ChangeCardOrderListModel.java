@@ -77,6 +77,23 @@ public class ChangeCardOrderListModel implements IChangeCardOrderListModel {
 	}
 	
 
+	public IChangeCardOrderListModel deepCopy() {
+		IChangeCardOrderListModel copy = new ChangeCardOrderListModel();
+		List<String> cardIdListCopy = new ArrayList<String>();
+		for(String item: this.getCardIdList()) {
+			cardIdListCopy.add(item);
+		}
+		copy.setCardIdList(cardIdListCopy);
+		copy.setCardId(this.getCardId());
+		copy.setUserId(this.getUserId());
+		List<com.anfelisa.card.models.ICardModel> updatedIndicesCopy = new ArrayList<com.anfelisa.card.models.ICardModel>();
+		for(com.anfelisa.card.models.ICardModel item: this.getUpdatedIndices()) {
+			updatedIndicesCopy.add(item.deepCopy());
+		}
+		copy.setUpdatedIndices(updatedIndicesCopy);
+		return copy;
+	}
+
 }
 
 

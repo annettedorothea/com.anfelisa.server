@@ -212,6 +212,21 @@ public abstract class AbstractCardCreationData extends AbstractData implements I
 		this.priority = model.getPriority();
 	}
 	
+	public ICardCreationData deepCopy() {
+		ICardCreationData copy = new CardCreationData(this.getUuid());
+		copy.setUserId(this.getUserId());
+		copy.setUsername(this.getUsername());
+		copy.setCardId(this.getCardId());
+		copy.setGiven(this.getGiven());
+		copy.setWanted(this.getWanted());
+		copy.setCardAuthor(this.getCardAuthor());
+		copy.setCardIndex(this.getCardIndex());
+		copy.setCategoryId(this.getCategoryId());
+		copy.setRootCategoryId(this.getRootCategoryId());
+		copy.setPriority(this.getPriority());
+		return copy;
+	}
+
 }
 
 

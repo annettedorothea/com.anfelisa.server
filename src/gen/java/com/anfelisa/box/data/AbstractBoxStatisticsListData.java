@@ -91,6 +91,18 @@ public abstract class AbstractBoxStatisticsListData extends AbstractData impleme
 	
 	
 	
+	public IBoxStatisticsListData deepCopy() {
+		IBoxStatisticsListData copy = new BoxStatisticsListData(this.getUuid());
+		List<com.anfelisa.box.models.IBoxStatisticsModel> boxStatisticsListCopy = new ArrayList<com.anfelisa.box.models.IBoxStatisticsModel>();
+		for(com.anfelisa.box.models.IBoxStatisticsModel item: this.getBoxStatisticsList()) {
+			boxStatisticsListCopy.add(item.deepCopy());
+		}
+		copy.setBoxStatisticsList(boxStatisticsListCopy);
+		copy.setUserId(this.getUserId());
+		copy.setTodayAtMidnightInUTC(this.getTodayAtMidnightInUTC());
+		return copy;
+	}
+
 }
 
 

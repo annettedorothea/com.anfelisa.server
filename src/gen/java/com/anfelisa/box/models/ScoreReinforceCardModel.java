@@ -79,6 +79,15 @@ public class ScoreReinforceCardModel implements IScoreReinforceCardModel {
 	}
 	
 
+	public IScoreReinforceCardModel deepCopy() {
+		IScoreReinforceCardModel copy = new ScoreReinforceCardModel();
+		copy.setReinforceCardId(this.getReinforceCardId());
+		copy.setKeep(this.getKeep());
+		copy.setChangeDate(this.getChangeDate());
+		copy.setUserId(this.getUserId());
+		return copy;
+	}
+
 }
 
 

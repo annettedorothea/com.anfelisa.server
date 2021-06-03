@@ -21,6 +21,7 @@ public interface ICategoryCreationModel extends com.anfelisa.category.models.ICa
 	void setUserId(String userId);
 	
 	
+	ICategoryCreationModel deepCopy();
 }
 
 

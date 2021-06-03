@@ -28,7 +28,7 @@ public abstract class AbstractCreateCategoryCommand extends Command<ICategoryCre
 	@Override
 	public void publishEvents(ICategoryCreationData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
 		if (data.hasOutcome("ok")){
-			new com.anfelisa.category.events.CreateCategoryOkEvent(daoProvider, viewProvider, appConfiguration).publish(data, handle, timelineHandle);
+			new com.anfelisa.category.events.CreateCategoryOkEvent(daoProvider, viewProvider, appConfiguration).publish(data.deepCopy(), handle, timelineHandle);
 		}
 	}
 	

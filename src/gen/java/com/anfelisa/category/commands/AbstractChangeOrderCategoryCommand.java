@@ -32,7 +32,7 @@ public abstract class AbstractChangeOrderCategoryCommand extends Command<ICatego
 	@Override
 	public void publishEvents(ICategoryChangeOrderData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
 		if (data.hasOutcome("ok")){
-			new com.anfelisa.category.events.ChangeOrderCategoryOkEvent(daoProvider, viewProvider, appConfiguration).publish(data, handle, timelineHandle);
+			new com.anfelisa.category.events.ChangeOrderCategoryOkEvent(daoProvider, viewProvider, appConfiguration).publish(data.deepCopy(), handle, timelineHandle);
 		}
 	}
 	

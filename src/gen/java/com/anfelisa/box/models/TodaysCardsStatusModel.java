@@ -53,6 +53,13 @@ public class TodaysCardsStatusModel implements ITodaysCardsStatusModel {
 	}
 	
 
+	public ITodaysCardsStatusModel deepCopy() {
+		ITodaysCardsStatusModel copy = new TodaysCardsStatusModel();
+		copy.setOpenTodaysCards(this.getOpenTodaysCards());
+		copy.setAllTodaysCards(this.getAllTodaysCards());
+		return copy;
+	}
+
 }
 
 

@@ -67,6 +67,18 @@ public class BoxListModel implements IBoxListModel {
 	}
 	
 
+	public IBoxListModel deepCopy() {
+		IBoxListModel copy = new BoxListModel();
+		List<com.anfelisa.box.models.IBoxViewModel> boxListCopy = new ArrayList<com.anfelisa.box.models.IBoxViewModel>();
+		for(com.anfelisa.box.models.IBoxViewModel item: this.getBoxList()) {
+			boxListCopy.add(item.deepCopy());
+		}
+		copy.setBoxList(boxListCopy);
+		copy.setUserId(this.getUserId());
+		copy.setTodayAtMidnightInUTC(this.getTodayAtMidnightInUTC());
+		return copy;
+	}
+
 }
 
 

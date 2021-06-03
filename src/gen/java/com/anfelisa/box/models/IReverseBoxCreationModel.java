@@ -21,6 +21,7 @@ public interface IReverseBoxCreationModel {
 	void setUsername(String username);
 	
 	
+	IReverseBoxCreationModel deepCopy();
 }
 
 

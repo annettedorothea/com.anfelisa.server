@@ -107,6 +107,15 @@ public abstract class AbstractReinforceCardData extends AbstractData implements 
 	
 	
 	
+	public IReinforceCardData deepCopy() {
+		IReinforceCardData copy = new ReinforceCardData(this.getUuid());
+		copy.setReinforceCardId(this.getReinforceCardId());
+		copy.setScheduledCardId(this.getScheduledCardId());
+		copy.setBoxId(this.getBoxId());
+		copy.setChangeDate(this.getChangeDate());
+		return copy;
+	}
+
 }
 
 

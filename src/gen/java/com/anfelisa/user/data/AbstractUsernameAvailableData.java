@@ -73,6 +73,13 @@ public abstract class AbstractUsernameAvailableData extends AbstractData impleme
 	
 	
 	
+	public IUsernameAvailableData deepCopy() {
+		IUsernameAvailableData copy = new UsernameAvailableData(this.getUuid());
+		copy.setUsername(this.getUsername());
+		copy.setAvailable(this.getAvailable());
+		return copy;
+	}
+
 }
 
 

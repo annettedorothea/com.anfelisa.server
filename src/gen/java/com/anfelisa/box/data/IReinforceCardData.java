@@ -25,6 +25,7 @@ public interface IReinforceCardData extends IReinforceCardModel, IDataContainer 
 	IReinforceCardData withChangeDate(java.time.LocalDateTime changeDate);
 	
 	
+	IReinforceCardData deepCopy();
 }
 
 

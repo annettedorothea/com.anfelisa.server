@@ -247,6 +247,23 @@ public abstract class AbstractBoxSettingsWrapperData extends AbstractData implem
 		this.shared = model.getShared();
 	}
 	
+	public IBoxSettingsWrapperData deepCopy() {
+		IBoxSettingsWrapperData copy = new BoxSettingsWrapperData(this.getUuid());
+		copy.setUserId(this.getUserId());
+		copy.setBoxId(this.getBoxId());
+		copy.setMaxInterval(this.getMaxInterval());
+		copy.setMaxCardsPerDay(this.getMaxCardsPerDay());
+		copy.setCategoryName(this.getCategoryName());
+		copy.setDictionaryLookup(this.getDictionaryLookup());
+		copy.setGivenLanguage(this.getGivenLanguage());
+		copy.setWantedLanguage(this.getWantedLanguage());
+		copy.setCategoryId(this.getCategoryId());
+		copy.setAllCards(this.getAllCards());
+		copy.setAllActiveCards(this.getAllActiveCards());
+		copy.setShared(this.getShared());
+		return copy;
+	}
+
 }
 
 

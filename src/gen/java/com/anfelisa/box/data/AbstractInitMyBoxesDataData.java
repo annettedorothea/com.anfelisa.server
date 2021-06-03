@@ -107,6 +107,23 @@ public abstract class AbstractInitMyBoxesDataData extends AbstractData implement
 	
 	
 	
+	public IInitMyBoxesDataData deepCopy() {
+		IInitMyBoxesDataData copy = new InitMyBoxesDataData(this.getUuid());
+		copy.setUserId(this.getUserId());
+		copy.setTodayAtMidnightInUTC(this.getTodayAtMidnightInUTC());
+		List<com.anfelisa.box.models.IPostponeCardsModel> postponeCardsCopy = new ArrayList<com.anfelisa.box.models.IPostponeCardsModel>();
+		for(com.anfelisa.box.models.IPostponeCardsModel item: this.getPostponeCards()) {
+			postponeCardsCopy.add(item.deepCopy());
+		}
+		copy.setPostponeCards(postponeCardsCopy);
+		List<String> outdatedReinforceCardsIdsCopy = new ArrayList<String>();
+		for(String item: this.getOutdatedReinforceCardsIds()) {
+			outdatedReinforceCardsIdsCopy.add(item);
+		}
+		copy.setOutdatedReinforceCardsIds(outdatedReinforceCardsIdsCopy);
+		return copy;
+	}
+
 }
 
 

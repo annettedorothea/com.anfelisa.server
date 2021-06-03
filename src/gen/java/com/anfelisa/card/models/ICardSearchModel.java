@@ -33,6 +33,7 @@ public interface ICardSearchModel {
 	void setNaturalInputOrder(Boolean naturalInputOrder);
 	
 	
+	ICardSearchModel deepCopy();
 }
 
 

@@ -32,10 +32,10 @@ public abstract class AbstractUpdateBoxCommand extends Command<IBoxUpdateData> {
 	@Override
 	public void publishEvents(IBoxUpdateData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
 		if (data.hasOutcome("canEditCategory")){
-			new com.anfelisa.box.events.UpdateBoxCanEditCategoryEvent(daoProvider, viewProvider, appConfiguration).publish(data, handle, timelineHandle);
+			new com.anfelisa.box.events.UpdateBoxCanEditCategoryEvent(daoProvider, viewProvider, appConfiguration).publish(data.deepCopy(), handle, timelineHandle);
 		}
 		if (data.hasOutcome("ok")){
-			new com.anfelisa.box.events.UpdateBoxOkEvent(daoProvider, viewProvider, appConfiguration).publish(data, handle, timelineHandle);
+			new com.anfelisa.box.events.UpdateBoxOkEvent(daoProvider, viewProvider, appConfiguration).publish(data.deepCopy(), handle, timelineHandle);
 		}
 	}
 	

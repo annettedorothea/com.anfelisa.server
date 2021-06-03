@@ -105,6 +105,15 @@ public abstract class AbstractCardUpdateData extends AbstractData implements ICa
 	
 	
 	
+	public ICardUpdateData deepCopy() {
+		ICardUpdateData copy = new CardUpdateData(this.getUuid());
+		copy.setCardId(this.getCardId());
+		copy.setGiven(this.getGiven());
+		copy.setWanted(this.getWanted());
+		copy.setUserId(this.getUserId());
+		return copy;
+	}
+
 }
 
 

@@ -21,6 +21,7 @@ public interface IResetPasswordData extends IResetPasswordModel, IDataContainer 
 	IResetPasswordData withUserId(String userId);
 	
 	
+	IResetPasswordData deepCopy();
 }
 
 

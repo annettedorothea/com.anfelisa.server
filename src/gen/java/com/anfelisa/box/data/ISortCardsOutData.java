@@ -29,6 +29,7 @@ public interface ISortCardsOutData extends ISortCardsOutModel, IDataContainer {
 	ISortCardsOutData withReverse(Boolean reverse);
 	
 	
+	ISortCardsOutData deepCopy();
 }
 
 

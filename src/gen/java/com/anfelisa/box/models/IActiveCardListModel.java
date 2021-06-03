@@ -27,6 +27,7 @@ public interface IActiveCardListModel {
 	void setEditable(Boolean editable);
 	
 	
+	IActiveCardListModel deepCopy();
 }
 
 

@@ -31,6 +31,7 @@ public interface IScheduledCardsData extends IScheduledCardsModel, IDataContaine
 	IScheduledCardsData withReverse(Boolean reverse);
 	
 	
+	IScheduledCardsData deepCopy();
 }
 
 

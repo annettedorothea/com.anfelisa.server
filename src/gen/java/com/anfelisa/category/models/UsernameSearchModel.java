@@ -77,6 +77,19 @@ public class UsernameSearchModel implements IUsernameSearchModel {
 	}
 	
 
+	public IUsernameSearchModel deepCopy() {
+		IUsernameSearchModel copy = new UsernameSearchModel();
+		copy.setUsernameSearchString(this.getUsernameSearchString());
+		copy.setUserId(this.getUserId());
+		copy.setCategoryId(this.getCategoryId());
+		List<String> usernamesCopy = new ArrayList<String>();
+		for(String item: this.getUsernames()) {
+			usernamesCopy.add(item);
+		}
+		copy.setUsernames(usernamesCopy);
+		return copy;
+	}
+
 }
 
 

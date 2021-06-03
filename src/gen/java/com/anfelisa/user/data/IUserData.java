@@ -29,6 +29,7 @@ public interface IUserData extends IUserModel, IDataContainer {
 	IUserData withEmailConfirmed(Boolean emailConfirmed);
 	
 	
+	IUserData deepCopy();
 }
 
 

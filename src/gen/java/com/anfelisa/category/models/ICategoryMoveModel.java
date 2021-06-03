@@ -33,6 +33,7 @@ public interface ICategoryMoveModel {
 	void setUserId(String userId);
 	
 	
+	ICategoryMoveModel deepCopy();
 }
 
 

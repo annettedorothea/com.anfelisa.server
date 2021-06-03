@@ -27,6 +27,7 @@ public interface IMoveCardsData extends IMoveCardsModel, IDataContainer {
 	IMoveCardsData withUpdatedIndices(java.util.List<com.anfelisa.card.models.ICardModel> updatedIndices);
 	
 	
+	IMoveCardsData deepCopy();
 }
 
 

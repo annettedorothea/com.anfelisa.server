@@ -42,6 +42,7 @@ public interface IBoxSettingsWrapperData extends IBoxSettingsWrapperModel, IData
 	IBoxSettingsWrapperData withShared(Boolean shared);
 	
 	
+	IBoxSettingsWrapperData deepCopy();
 }
 
 

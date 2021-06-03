@@ -173,6 +173,27 @@ public class CategoryTreeItemModel implements ICategoryTreeItemModel {
 	}
 	
 
+	public ICategoryTreeItemModel deepCopy() {
+		ICategoryTreeItemModel copy = new CategoryTreeItemModel();
+		copy.setCategoryId(this.getCategoryId());
+		copy.setCategoryName(this.getCategoryName());
+		copy.setCategoryIndex(this.getCategoryIndex());
+		copy.setEmpty(this.getEmpty());
+		copy.setParentCategoryId(this.getParentCategoryId());
+		copy.setDictionaryLookup(this.getDictionaryLookup());
+		copy.setGivenLanguage(this.getGivenLanguage());
+		copy.setWantedLanguage(this.getWantedLanguage());
+		copy.setRootCategoryId(this.getRootCategoryId());
+		List<com.anfelisa.category.models.ICategoryTreeItemModel> childCategoriesCopy = new ArrayList<com.anfelisa.category.models.ICategoryTreeItemModel>();
+		for(com.anfelisa.category.models.ICategoryTreeItemModel item: this.getChildCategories()) {
+			childCategoriesCopy.add(item.deepCopy());
+		}
+		copy.setChildCategories(childCategoriesCopy);
+		copy.setNonScheduledCount(this.getNonScheduledCount());
+		copy.setEditable(this.getEditable());
+		return copy;
+	}
+
 }
 
 

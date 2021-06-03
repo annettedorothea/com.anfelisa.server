@@ -28,7 +28,7 @@ public abstract class AbstractDeleteCategoryCommand extends Command<ICategoryDel
 	@Override
 	public void publishEvents(ICategoryDeleteData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
 		if (data.hasOutcome("ok")){
-			new com.anfelisa.category.events.DeleteCategoryOkEvent(daoProvider, viewProvider, appConfiguration).publish(data, handle, timelineHandle);
+			new com.anfelisa.category.events.DeleteCategoryOkEvent(daoProvider, viewProvider, appConfiguration).publish(data.deepCopy(), handle, timelineHandle);
 		}
 	}
 	

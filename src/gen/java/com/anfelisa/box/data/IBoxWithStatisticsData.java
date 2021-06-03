@@ -49,6 +49,7 @@ public interface IBoxWithStatisticsData extends IBoxWithStatisticsModel, IDataCo
 	IBoxWithStatisticsData withMaxCardsPerDay(Integer maxCardsPerDay);
 	
 	
+	IBoxWithStatisticsData deepCopy();
 }
 
 

@@ -137,6 +137,17 @@ public abstract class AbstractCategoryMoveData extends AbstractData implements I
 	
 	
 	
+	public ICategoryMoveData deepCopy() {
+		ICategoryMoveData copy = new CategoryMoveData(this.getUuid());
+		copy.setMovedCategoryId(this.getMovedCategoryId());
+		copy.setTargetCategoryId(this.getTargetCategoryId());
+		copy.setMovedCategory(this.getMovedCategory().deepCopy());
+		copy.setCategoryIndexWhereRemoved(this.getCategoryIndexWhereRemoved());
+		copy.setParentCategoryIdWhereRemoved(this.getParentCategoryIdWhereRemoved());
+		copy.setUserId(this.getUserId());
+		return copy;
+	}
+
 }
 
 

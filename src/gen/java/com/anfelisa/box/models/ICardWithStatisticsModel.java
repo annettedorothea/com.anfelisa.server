@@ -27,6 +27,7 @@ public interface ICardWithStatisticsModel extends com.anfelisa.card.models.ICard
 	void setLastQuality(Integer lastQuality);
 	
 	
+	ICardWithStatisticsModel deepCopy();
 }
 
 

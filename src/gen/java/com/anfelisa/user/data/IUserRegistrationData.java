@@ -35,6 +35,7 @@ public interface IUserRegistrationData extends IUserRegistrationModel, IDataCont
 	IUserRegistrationData withToken(String token);
 	
 	
+	IUserRegistrationData deepCopy();
 }
 
 

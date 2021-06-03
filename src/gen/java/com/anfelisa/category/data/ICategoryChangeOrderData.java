@@ -25,6 +25,7 @@ public interface ICategoryChangeOrderData extends ICategoryChangeOrderModel, IDa
 	ICategoryChangeOrderData withUpdatedIndices(java.util.List<com.anfelisa.category.models.ICategoryModel> updatedIndices);
 	
 	
+	ICategoryChangeOrderData deepCopy();
 }
 
 

@@ -21,6 +21,7 @@ public interface ITodaysCardsStatusData extends ITodaysCardsStatusModel, IDataCo
 	ITodaysCardsStatusData withAllTodaysCards(Integer allTodaysCards);
 	
 	
+	ITodaysCardsStatusData deepCopy();
 }
 
 

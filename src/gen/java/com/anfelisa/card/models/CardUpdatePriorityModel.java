@@ -65,6 +65,14 @@ public class CardUpdatePriorityModel implements ICardUpdatePriorityModel {
 	}
 	
 
+	public ICardUpdatePriorityModel deepCopy() {
+		ICardUpdatePriorityModel copy = new CardUpdatePriorityModel();
+		copy.setCardId(this.getCardId());
+		copy.setPriority(this.getPriority());
+		copy.setUserId(this.getUserId());
+		return copy;
+	}
+
 }
 
 

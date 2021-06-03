@@ -53,6 +53,13 @@ public class ReverseBoxCreationModel implements IReverseBoxCreationModel {
 	}
 	
 
+	public IReverseBoxCreationModel deepCopy() {
+		IReverseBoxCreationModel copy = new ReverseBoxCreationModel();
+		copy.setBoxId(this.getBoxId());
+		copy.setUsername(this.getUsername());
+		return copy;
+	}
+
 }
 
 

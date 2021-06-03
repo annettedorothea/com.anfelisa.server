@@ -28,7 +28,7 @@ public abstract class AbstractUpdateCardPriorityCommand extends Command<ICardUpd
 	@Override
 	public void publishEvents(ICardUpdatePriorityData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
 		if (data.hasOutcome("ok")){
-			new com.anfelisa.card.events.UpdateCardPriorityOkEvent(daoProvider, viewProvider, appConfiguration).publish(data, handle, timelineHandle);
+			new com.anfelisa.card.events.UpdateCardPriorityOkEvent(daoProvider, viewProvider, appConfiguration).publish(data.deepCopy(), handle, timelineHandle);
 		}
 	}
 	

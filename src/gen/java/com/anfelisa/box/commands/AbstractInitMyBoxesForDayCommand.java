@@ -28,7 +28,7 @@ public abstract class AbstractInitMyBoxesForDayCommand extends Command<IInitMyBo
 	@Override
 	public void publishEvents(IInitMyBoxesDataData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
 		if (data.hasOutcome("ok")){
-			new com.anfelisa.box.events.InitMyBoxesForDayOkEvent(daoProvider, viewProvider, appConfiguration).publish(data, handle, timelineHandle);
+			new com.anfelisa.box.events.InitMyBoxesForDayOkEvent(daoProvider, viewProvider, appConfiguration).publish(data.deepCopy(), handle, timelineHandle);
 		}
 	}
 	

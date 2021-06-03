@@ -21,6 +21,7 @@ public interface IUsernameAvailableData extends IUsernameAvailableModel, IDataCo
 	IUsernameAvailableData withAvailable(Boolean available);
 	
 	
+	IUsernameAvailableData deepCopy();
 }
 
 

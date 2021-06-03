@@ -137,6 +137,25 @@ public abstract class AbstractDeleteUserData extends AbstractData implements IDe
 	
 	
 	
+	public IDeleteUserData deepCopy() {
+		IDeleteUserData copy = new DeleteUserData(this.getUuid());
+		copy.setUsernameToBeDeleted(this.getUsernameToBeDeleted());
+		copy.setUsername(this.getUsername());
+		copy.setUserId(this.getUserId());
+		copy.setRole(this.getRole());
+		List<String> boxIdsCopy = new ArrayList<String>();
+		for(String item: this.getBoxIds()) {
+			boxIdsCopy.add(item);
+		}
+		copy.setBoxIds(boxIdsCopy);
+		List<String> rootCategoryIdsCopy = new ArrayList<String>();
+		for(String item: this.getRootCategoryIds()) {
+			rootCategoryIdsCopy.add(item);
+		}
+		copy.setRootCategoryIds(rootCategoryIdsCopy);
+		return copy;
+	}
+
 }
 
 

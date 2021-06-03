@@ -177,6 +177,23 @@ public class NextCardViewModel implements INextCardViewModel {
 	}
 	
 
+	public INextCardViewModel deepCopy() {
+		INextCardViewModel copy = new NextCardViewModel();
+		copy.setScheduledCardId(this.getScheduledCardId());
+		copy.setReinforceCardId(this.getReinforceCardId());
+		copy.setCardId(this.getCardId());
+		copy.setScheduledDate(this.getScheduledDate());
+		copy.setLastQuality(this.getLastQuality());
+		copy.setGiven(this.getGiven());
+		copy.setWanted(this.getWanted());
+		copy.setCategoryId(this.getCategoryId());
+		copy.setCategoryName(this.getCategoryName());
+		copy.setRootCategoryId(this.getRootCategoryId());
+		copy.setCount(this.getCount());
+		copy.setScoredDate(this.getScoredDate());
+		return copy;
+	}
+
 }
 
 

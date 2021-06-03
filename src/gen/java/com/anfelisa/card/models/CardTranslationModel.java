@@ -77,6 +77,15 @@ public class CardTranslationModel implements ICardTranslationModel {
 	}
 	
 
+	public ICardTranslationModel deepCopy() {
+		ICardTranslationModel copy = new CardTranslationModel();
+		copy.setSourceValue(this.getSourceValue());
+		copy.setTargetValue(this.getTargetValue());
+		copy.setSourceLanguage(this.getSourceLanguage());
+		copy.setTargetLanguage(this.getTargetLanguage());
+		return copy;
+	}
+
 }
 
 

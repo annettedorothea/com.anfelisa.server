@@ -67,6 +67,18 @@ public class BoxStatisticsListModel implements IBoxStatisticsListModel {
 	}
 	
 
+	public IBoxStatisticsListModel deepCopy() {
+		IBoxStatisticsListModel copy = new BoxStatisticsListModel();
+		List<com.anfelisa.box.models.IBoxStatisticsModel> boxStatisticsListCopy = new ArrayList<com.anfelisa.box.models.IBoxStatisticsModel>();
+		for(com.anfelisa.box.models.IBoxStatisticsModel item: this.getBoxStatisticsList()) {
+			boxStatisticsListCopy.add(item.deepCopy());
+		}
+		copy.setBoxStatisticsList(boxStatisticsListCopy);
+		copy.setUserId(this.getUserId());
+		copy.setTodayAtMidnightInUTC(this.getTodayAtMidnightInUTC());
+		return copy;
+	}
+
 }
 
 

@@ -28,7 +28,7 @@ public abstract class AbstractCreateBoxCommand extends Command<IBoxCreationData>
 	@Override
 	public void publishEvents(IBoxCreationData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
 		if (data.hasOutcome("ok")){
-			new com.anfelisa.box.events.CreateBoxOkEvent(daoProvider, viewProvider, appConfiguration).publish(data, handle, timelineHandle);
+			new com.anfelisa.box.events.CreateBoxOkEvent(daoProvider, viewProvider, appConfiguration).publish(data.deepCopy(), handle, timelineHandle);
 		}
 	}
 	

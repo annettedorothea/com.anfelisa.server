@@ -33,6 +33,7 @@ public interface ICardData extends ICardModel, IDataContainer {
 	ICardData withPriority(Integer priority);
 	
 	
+	ICardData deepCopy();
 }
 
 

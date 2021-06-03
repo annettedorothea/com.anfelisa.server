@@ -27,6 +27,7 @@ public interface IReinforceCardModel {
 	void setChangeDate(java.time.LocalDateTime changeDate);
 	
 	
+	IReinforceCardModel deepCopy();
 }
 
 

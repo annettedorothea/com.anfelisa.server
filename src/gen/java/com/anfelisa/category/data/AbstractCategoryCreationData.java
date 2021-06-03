@@ -229,6 +229,22 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 		this.wantedLanguage = model.getWantedLanguage();
 	}
 	
+	public ICategoryCreationData deepCopy() {
+		ICategoryCreationData copy = new CategoryCreationData(this.getUuid());
+		copy.setUsername(this.getUsername());
+		copy.setUserId(this.getUserId());
+		copy.setCategoryId(this.getCategoryId());
+		copy.setCategoryName(this.getCategoryName());
+		copy.setCategoryAuthor(this.getCategoryAuthor());
+		copy.setCategoryIndex(this.getCategoryIndex());
+		copy.setParentCategoryId(this.getParentCategoryId());
+		copy.setRootCategoryId(this.getRootCategoryId());
+		copy.setDictionaryLookup(this.getDictionaryLookup());
+		copy.setGivenLanguage(this.getGivenLanguage());
+		copy.setWantedLanguage(this.getWantedLanguage());
+		return copy;
+	}
+
 }
 
 

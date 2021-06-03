@@ -33,6 +33,7 @@ public interface ISortCardsOutModel {
 	void setReverse(Boolean reverse);
 	
 	
+	ISortCardsOutModel deepCopy();
 }
 
 

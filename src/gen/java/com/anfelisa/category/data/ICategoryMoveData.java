@@ -29,6 +29,7 @@ public interface ICategoryMoveData extends ICategoryMoveModel, IDataContainer {
 	ICategoryMoveData withUserId(String userId);
 	
 	
+	ICategoryMoveData deepCopy();
 }
 
 

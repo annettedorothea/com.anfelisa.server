@@ -185,6 +185,20 @@ public abstract class AbstractBoxUpdateData extends AbstractData implements IBox
 	
 	
 	
+	public IBoxUpdateData deepCopy() {
+		IBoxUpdateData copy = new BoxUpdateData(this.getUuid());
+		copy.setUserId(this.getUserId());
+		copy.setBoxId(this.getBoxId());
+		copy.setMaxInterval(this.getMaxInterval());
+		copy.setMaxCardsPerDay(this.getMaxCardsPerDay());
+		copy.setCategoryName(this.getCategoryName());
+		copy.setDictionaryLookup(this.getDictionaryLookup());
+		copy.setGivenLanguage(this.getGivenLanguage());
+		copy.setWantedLanguage(this.getWantedLanguage());
+		copy.setCategoryId(this.getCategoryId());
+		return copy;
+	}
+
 }
 
 

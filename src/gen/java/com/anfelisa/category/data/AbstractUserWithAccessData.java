@@ -89,6 +89,14 @@ public abstract class AbstractUserWithAccessData extends AbstractData implements
 	
 	
 	
+	public IUserWithAccessData deepCopy() {
+		IUserWithAccessData copy = new UserWithAccessData(this.getUuid());
+		copy.setUserId(this.getUserId());
+		copy.setUsername(this.getUsername());
+		copy.setEditable(this.getEditable());
+		return copy;
+	}
+
 }
 
 

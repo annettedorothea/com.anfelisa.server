@@ -89,6 +89,14 @@ public abstract class AbstractCardUpdatePriorityData extends AbstractData implem
 	
 	
 	
+	public ICardUpdatePriorityData deepCopy() {
+		ICardUpdatePriorityData copy = new CardUpdatePriorityData(this.getUuid());
+		copy.setCardId(this.getCardId());
+		copy.setPriority(this.getPriority());
+		copy.setUserId(this.getUserId());
+		return copy;
+	}
+
 }
 
 

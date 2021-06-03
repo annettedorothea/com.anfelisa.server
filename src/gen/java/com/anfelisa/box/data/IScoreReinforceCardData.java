@@ -25,6 +25,7 @@ public interface IScoreReinforceCardData extends IScoreReinforceCardModel, IData
 	IScoreReinforceCardData withUserId(String userId);
 	
 	
+	IScoreReinforceCardData deepCopy();
 }
 
 

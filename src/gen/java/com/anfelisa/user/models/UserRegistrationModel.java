@@ -125,6 +125,19 @@ public class UserRegistrationModel implements IUserRegistrationModel {
 	}
 	
 
+	public IUserRegistrationModel deepCopy() {
+		IUserRegistrationModel copy = new UserRegistrationModel();
+		copy.setLanguage(this.getLanguage());
+		copy.setUserId(this.getUserId());
+		copy.setUsername(this.getUsername());
+		copy.setPassword(this.getPassword());
+		copy.setEmail(this.getEmail());
+		copy.setRole(this.getRole());
+		copy.setEmailConfirmed(this.getEmailConfirmed());
+		copy.setToken(this.getToken());
+		return copy;
+	}
+
 }
 
 

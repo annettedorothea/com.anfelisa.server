@@ -32,7 +32,7 @@ public abstract class AbstractMoveCategoryCommand extends Command<ICategoryMoveD
 	@Override
 	public void publishEvents(ICategoryMoveData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
 		if (data.hasOutcome("ok")){
-			new com.anfelisa.category.events.MoveCategoryOkEvent(daoProvider, viewProvider, appConfiguration).publish(data, handle, timelineHandle);
+			new com.anfelisa.category.events.MoveCategoryOkEvent(daoProvider, viewProvider, appConfiguration).publish(data.deepCopy(), handle, timelineHandle);
 		}
 	}
 	

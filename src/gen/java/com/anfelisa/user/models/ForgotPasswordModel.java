@@ -89,6 +89,16 @@ public class ForgotPasswordModel implements IForgotPasswordModel {
 	}
 	
 
+	public IForgotPasswordModel deepCopy() {
+		IForgotPasswordModel copy = new ForgotPasswordModel();
+		copy.setLanguage(this.getLanguage());
+		copy.setEmail(this.getEmail());
+		copy.setUsername(this.getUsername());
+		copy.setToken(this.getToken());
+		copy.setUserId(this.getUserId());
+		return copy;
+	}
+
 }
 
 

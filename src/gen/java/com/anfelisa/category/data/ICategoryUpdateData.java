@@ -23,6 +23,7 @@ public interface ICategoryUpdateData extends ICategoryUpdateModel, IDataContaine
 	ICategoryUpdateData withUserId(String userId);
 	
 	
+	ICategoryUpdateData deepCopy();
 }
 
 

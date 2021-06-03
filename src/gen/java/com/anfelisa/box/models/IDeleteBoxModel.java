@@ -24,6 +24,7 @@ public interface IDeleteBoxModel {
 	void setRootCategoryId(String rootCategoryId);
 	
 	
+	IDeleteBoxModel deepCopy();
 }
 
 

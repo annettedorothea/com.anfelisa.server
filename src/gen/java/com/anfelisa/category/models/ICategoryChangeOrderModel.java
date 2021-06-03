@@ -27,6 +27,7 @@ public interface ICategoryChangeOrderModel {
 	void setUpdatedIndices(java.util.List<com.anfelisa.category.models.ICategoryModel> updatedIndices);
 	
 	
+	ICategoryChangeOrderModel deepCopy();
 }
 
 

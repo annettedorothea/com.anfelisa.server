@@ -36,6 +36,7 @@ public interface ICardWithInfoData extends ICardWithInfoModel, IDataContainer {
 	ICardWithInfoData withPriority(Integer priority);
 	
 	
+	ICardWithInfoData deepCopy();
 }
 
 

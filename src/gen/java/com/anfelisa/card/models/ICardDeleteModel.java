@@ -27,6 +27,7 @@ public interface ICardDeleteModel {
 	void setUserId(String userId);
 	
 	
+	ICardDeleteModel deepCopy();
 }
 
 

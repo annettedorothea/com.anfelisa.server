@@ -28,7 +28,7 @@ public abstract class AbstractResetPasswordCommand extends Command<IResetPasswor
 	@Override
 	public void publishEvents(IResetPasswordWithNewPasswordData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
 		if (data.hasOutcome("ok")){
-			new com.anfelisa.user.events.ResetPasswordOkEvent(daoProvider, viewProvider, appConfiguration).publish(data, handle, timelineHandle);
+			new com.anfelisa.user.events.ResetPasswordOkEvent(daoProvider, viewProvider, appConfiguration).publish(data.deepCopy(), handle, timelineHandle);
 		}
 	}
 	

@@ -42,6 +42,7 @@ public interface IBoxStatisticsModel {
 	void setMaxCardsPerDay(Integer maxCardsPerDay);
 	
 	
+	IBoxStatisticsModel deepCopy();
 }
 
 

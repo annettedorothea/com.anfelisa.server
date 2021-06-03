@@ -42,6 +42,7 @@ public interface ICategoryTreeModel {
 	void setBoxId(String boxId);
 	
 	
+	ICategoryTreeModel deepCopy();
 }
 
 

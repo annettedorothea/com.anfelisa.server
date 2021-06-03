@@ -23,6 +23,7 @@ public interface IUserAccessToCategoryData extends IUserAccessToCategoryModel, I
 	IUserAccessToCategoryData withEditable(Boolean editable);
 	
 	
+	IUserAccessToCategoryData deepCopy();
 }
 
 

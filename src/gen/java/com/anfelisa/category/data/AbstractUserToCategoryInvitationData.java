@@ -121,6 +121,16 @@ public abstract class AbstractUserToCategoryInvitationData extends AbstractData 
 	
 	
 	
+	public IUserToCategoryInvitationData deepCopy() {
+		IUserToCategoryInvitationData copy = new UserToCategoryInvitationData(this.getUuid());
+		copy.setCategoryId(this.getCategoryId());
+		copy.setUserId(this.getUserId());
+		copy.setInvitedUsername(this.getInvitedUsername());
+		copy.setInvitedUserId(this.getInvitedUserId());
+		copy.setBoxForInvitedUser(this.getBoxForInvitedUser().deepCopy());
+		return copy;
+	}
+
 }
 
 

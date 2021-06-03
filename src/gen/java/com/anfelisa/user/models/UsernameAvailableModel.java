@@ -53,6 +53,13 @@ public class UsernameAvailableModel implements IUsernameAvailableModel {
 	}
 	
 
+	public IUsernameAvailableModel deepCopy() {
+		IUsernameAvailableModel copy = new UsernameAvailableModel();
+		copy.setUsername(this.getUsername());
+		copy.setAvailable(this.getAvailable());
+		return copy;
+	}
+
 }
 
 

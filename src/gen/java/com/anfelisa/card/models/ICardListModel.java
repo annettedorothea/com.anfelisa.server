@@ -33,6 +33,7 @@ public interface ICardListModel {
 	void setReverse(Boolean reverse);
 	
 	
+	ICardListModel deepCopy();
 }
 
 

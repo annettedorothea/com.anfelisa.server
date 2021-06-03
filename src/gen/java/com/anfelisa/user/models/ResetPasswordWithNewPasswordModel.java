@@ -65,6 +65,14 @@ public class ResetPasswordWithNewPasswordModel implements IResetPasswordWithNewP
 	}
 	
 
+	public IResetPasswordWithNewPasswordModel deepCopy() {
+		IResetPasswordWithNewPasswordModel copy = new ResetPasswordWithNewPasswordModel();
+		copy.setPassword(this.getPassword());
+		copy.setToken(this.getToken());
+		copy.setUserId(this.getUserId());
+		return copy;
+	}
+
 }
 
 

@@ -32,14 +32,14 @@ public abstract class AbstractConfirmEmailCommand extends Command<IConfirmEmailD
 	@Override
 	public void publishEvents(IConfirmEmailData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
 		if (data.hasOutcome("ok")){
-			new com.anfelisa.user.events.ConfirmEmailOkEvent(daoProvider, viewProvider, appConfiguration).publish(data, handle, timelineHandle);
+			new com.anfelisa.user.events.ConfirmEmailOkEvent(daoProvider, viewProvider, appConfiguration).publish(data.deepCopy(), handle, timelineHandle);
 		}
 	}
 	
 	@Override
 	public void publishAfterCommitEvents(IConfirmEmailData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
 		if (data.hasOutcome("ok")){
-			new com.anfelisa.user.events.ConfirmEmailOkEvent(daoProvider, viewProvider, appConfiguration).publishAfterCommit(data, handle, timelineHandle);
+			new com.anfelisa.user.events.ConfirmEmailOkEvent(daoProvider, viewProvider, appConfiguration).publishAfterCommit(data.deepCopy(), handle, timelineHandle);
 		}
 	}
 	

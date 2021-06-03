@@ -28,7 +28,7 @@ public abstract class AbstractMoveCardsCommand extends Command<IMoveCardsData> {
 	@Override
 	public void publishEvents(IMoveCardsData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
 		if (data.hasOutcome("ok")){
-			new com.anfelisa.card.events.MoveCardsOkEvent(daoProvider, viewProvider, appConfiguration).publish(data, handle, timelineHandle);
+			new com.anfelisa.card.events.MoveCardsOkEvent(daoProvider, viewProvider, appConfiguration).publish(data.deepCopy(), handle, timelineHandle);
 		}
 	}
 	

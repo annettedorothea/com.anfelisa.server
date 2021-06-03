@@ -55,6 +55,7 @@ public interface INextCardData extends INextCardModel, IDataContainer {
 	INextCardData withScoredDate(java.time.LocalDateTime scoredDate);
 	
 	
+	INextCardData deepCopy();
 }
 
 

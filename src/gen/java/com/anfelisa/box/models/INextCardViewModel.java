@@ -51,6 +51,7 @@ public interface INextCardViewModel {
 	void setScoredDate(java.time.LocalDateTime scoredDate);
 	
 	
+	INextCardViewModel deepCopy();
 }
 
 

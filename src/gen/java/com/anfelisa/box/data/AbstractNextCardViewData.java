@@ -237,6 +237,23 @@ public abstract class AbstractNextCardViewData extends AbstractData implements I
 	
 	
 	
+	public INextCardViewData deepCopy() {
+		INextCardViewData copy = new NextCardViewData(this.getUuid());
+		copy.setScheduledCardId(this.getScheduledCardId());
+		copy.setReinforceCardId(this.getReinforceCardId());
+		copy.setCardId(this.getCardId());
+		copy.setScheduledDate(this.getScheduledDate());
+		copy.setLastQuality(this.getLastQuality());
+		copy.setGiven(this.getGiven());
+		copy.setWanted(this.getWanted());
+		copy.setCategoryId(this.getCategoryId());
+		copy.setCategoryName(this.getCategoryName());
+		copy.setRootCategoryId(this.getRootCategoryId());
+		copy.setCount(this.getCount());
+		copy.setScoredDate(this.getScoredDate());
+		return copy;
+	}
+
 }
 
 

@@ -65,6 +65,14 @@ public class UserAccessToCategoryModel implements IUserAccessToCategoryModel {
 	}
 	
 
+	public IUserAccessToCategoryModel deepCopy() {
+		IUserAccessToCategoryModel copy = new UserAccessToCategoryModel();
+		copy.setCategoryId(this.getCategoryId());
+		copy.setUserId(this.getUserId());
+		copy.setEditable(this.getEditable());
+		return copy;
+	}
+
 }
 
 

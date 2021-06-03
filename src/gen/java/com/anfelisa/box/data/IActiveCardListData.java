@@ -25,6 +25,7 @@ public interface IActiveCardListData extends IActiveCardListModel, IDataContaine
 	IActiveCardListData withEditable(Boolean editable);
 	
 	
+	IActiveCardListData deepCopy();
 }
 
 

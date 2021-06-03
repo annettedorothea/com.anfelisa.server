@@ -73,6 +73,17 @@ public abstract class AbstractUserListData extends AbstractData implements IUser
 	
 	
 	
+	public IUserListData deepCopy() {
+		IUserListData copy = new UserListData(this.getUuid());
+		List<com.anfelisa.user.models.IUserModel> userListCopy = new ArrayList<com.anfelisa.user.models.IUserModel>();
+		for(com.anfelisa.user.models.IUserModel item: this.getUserList()) {
+			userListCopy.add(item.deepCopy());
+		}
+		copy.setUserList(userListCopy);
+		copy.setRole(this.getRole());
+		return copy;
+	}
+
 }
 
 

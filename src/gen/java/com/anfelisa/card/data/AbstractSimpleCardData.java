@@ -89,6 +89,14 @@ public abstract class AbstractSimpleCardData extends AbstractData implements ISi
 	
 	
 	
+	public ISimpleCardData deepCopy() {
+		ISimpleCardData copy = new SimpleCardData(this.getUuid());
+		copy.setGiven(this.getGiven());
+		copy.setWanted(this.getWanted());
+		copy.setId(this.getId());
+		return copy;
+	}
+
 }
 
 

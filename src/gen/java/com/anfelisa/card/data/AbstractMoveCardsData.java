@@ -121,6 +121,28 @@ public abstract class AbstractMoveCardsData extends AbstractData implements IMov
 	
 	
 	
+	public IMoveCardsData deepCopy() {
+		IMoveCardsData copy = new MoveCardsData(this.getUuid());
+		List<String> cardIdListCopy = new ArrayList<String>();
+		for(String item: this.getCardIdList()) {
+			cardIdListCopy.add(item);
+		}
+		copy.setCardIdList(cardIdListCopy);
+		copy.setCategoryId(this.getCategoryId());
+		copy.setUserId(this.getUserId());
+		List<com.anfelisa.card.models.ICardModel> movedCardsCopy = new ArrayList<com.anfelisa.card.models.ICardModel>();
+		for(com.anfelisa.card.models.ICardModel item: this.getMovedCards()) {
+			movedCardsCopy.add(item.deepCopy());
+		}
+		copy.setMovedCards(movedCardsCopy);
+		List<com.anfelisa.card.models.ICardModel> updatedIndicesCopy = new ArrayList<com.anfelisa.card.models.ICardModel>();
+		for(com.anfelisa.card.models.ICardModel item: this.getUpdatedIndices()) {
+			updatedIndicesCopy.add(item.deepCopy());
+		}
+		copy.setUpdatedIndices(updatedIndicesCopy);
+		return copy;
+	}
+
 }
 
 

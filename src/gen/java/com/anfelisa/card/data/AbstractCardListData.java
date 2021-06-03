@@ -137,6 +137,21 @@ public abstract class AbstractCardListData extends AbstractData implements ICard
 	
 	
 	
+	public ICardListData deepCopy() {
+		ICardListData copy = new CardListData(this.getUuid());
+		copy.setUserId(this.getUserId());
+		List<com.anfelisa.card.models.ICardWithInfoModel> cardListCopy = new ArrayList<com.anfelisa.card.models.ICardWithInfoModel>();
+		for(com.anfelisa.card.models.ICardWithInfoModel item: this.getCardList()) {
+			cardListCopy.add(item.deepCopy());
+		}
+		copy.setCardList(cardListCopy);
+		copy.setCategoryId(this.getCategoryId());
+		copy.setFilterNonScheduled(this.getFilterNonScheduled());
+		copy.setPriority(this.getPriority());
+		copy.setReverse(this.getReverse());
+		return copy;
+	}
+
 }
 
 

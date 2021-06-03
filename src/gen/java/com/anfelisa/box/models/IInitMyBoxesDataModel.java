@@ -27,6 +27,7 @@ public interface IInitMyBoxesDataModel {
 	void setOutdatedReinforceCardsIds(java.util.List<String> outdatedReinforceCardsIds);
 	
 	
+	IInitMyBoxesDataModel deepCopy();
 }
 
 

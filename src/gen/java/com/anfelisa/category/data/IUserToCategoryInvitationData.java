@@ -27,6 +27,7 @@ public interface IUserToCategoryInvitationData extends IUserToCategoryInvitation
 	IUserToCategoryInvitationData withBoxForInvitedUser(com.anfelisa.box.models.IBoxModel boxForInvitedUser);
 	
 	
+	IUserToCategoryInvitationData deepCopy();
 }
 
 

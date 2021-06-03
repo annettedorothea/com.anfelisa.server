@@ -77,6 +77,19 @@ public class ActiveCardListModel implements IActiveCardListModel {
 	}
 	
 
+	public IActiveCardListModel deepCopy() {
+		IActiveCardListModel copy = new ActiveCardListModel();
+		copy.setUserId(this.getUserId());
+		copy.setBoxId(this.getBoxId());
+		List<com.anfelisa.box.models.ICardWithStatisticsModel> cardListCopy = new ArrayList<com.anfelisa.box.models.ICardWithStatisticsModel>();
+		for(com.anfelisa.box.models.ICardWithStatisticsModel item: this.getCardList()) {
+			cardListCopy.add(item.deepCopy());
+		}
+		copy.setCardList(cardListCopy);
+		copy.setEditable(this.getEditable());
+		return copy;
+	}
+
 }
 
 

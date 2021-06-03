@@ -39,6 +39,7 @@ public interface ICardModel {
 	void setPriority(Integer priority);
 	
 	
+	ICardModel deepCopy();
 }
 
 

@@ -101,6 +101,17 @@ public class BoxModel implements IBoxModel {
 	}
 	
 
+	public IBoxModel deepCopy() {
+		IBoxModel copy = new BoxModel();
+		copy.setBoxId(this.getBoxId());
+		copy.setUserId(this.getUserId());
+		copy.setCategoryId(this.getCategoryId());
+		copy.setMaxInterval(this.getMaxInterval());
+		copy.setMaxCardsPerDay(this.getMaxCardsPerDay());
+		copy.setReverse(this.getReverse());
+		return copy;
+	}
+
 }
 
 

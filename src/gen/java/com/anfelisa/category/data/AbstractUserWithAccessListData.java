@@ -73,6 +73,17 @@ public abstract class AbstractUserWithAccessListData extends AbstractData implem
 	
 	
 	
+	public IUserWithAccessListData deepCopy() {
+		IUserWithAccessListData copy = new UserWithAccessListData(this.getUuid());
+		copy.setCategoryId(this.getCategoryId());
+		List<com.anfelisa.category.models.IUserWithAccessModel> userListCopy = new ArrayList<com.anfelisa.category.models.IUserWithAccessModel>();
+		for(com.anfelisa.category.models.IUserWithAccessModel item: this.getUserList()) {
+			userListCopy.add(item.deepCopy());
+		}
+		copy.setUserList(userListCopy);
+		return copy;
+	}
+
 }
 
 

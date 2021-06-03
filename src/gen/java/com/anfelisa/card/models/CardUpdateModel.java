@@ -77,6 +77,15 @@ public class CardUpdateModel implements ICardUpdateModel {
 	}
 	
 
+	public ICardUpdateModel deepCopy() {
+		ICardUpdateModel copy = new CardUpdateModel();
+		copy.setCardId(this.getCardId());
+		copy.setGiven(this.getGiven());
+		copy.setWanted(this.getWanted());
+		copy.setUserId(this.getUserId());
+		return copy;
+	}
+
 }
 
 

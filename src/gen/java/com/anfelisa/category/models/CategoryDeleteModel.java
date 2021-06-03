@@ -77,6 +77,15 @@ public class CategoryDeleteModel implements ICategoryDeleteModel {
 	}
 	
 
+	public ICategoryDeleteModel deepCopy() {
+		ICategoryDeleteModel copy = new CategoryDeleteModel();
+		copy.setCategoryId(this.getCategoryId());
+		copy.setCategoryIndex(this.getCategoryIndex());
+		copy.setParentCategoryId(this.getParentCategoryId());
+		copy.setUserId(this.getUserId());
+		return copy;
+	}
+
 }
 
 

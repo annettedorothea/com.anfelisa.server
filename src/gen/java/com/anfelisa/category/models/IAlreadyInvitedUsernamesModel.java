@@ -24,6 +24,7 @@ public interface IAlreadyInvitedUsernamesModel {
 	void setInvitedUsernames(java.util.List<String> invitedUsernames);
 	
 	
+	IAlreadyInvitedUsernamesModel deepCopy();
 }
 
 

@@ -27,6 +27,7 @@ public interface IScoreReinforceCardModel {
 	void setUserId(String userId);
 	
 	
+	IScoreReinforceCardModel deepCopy();
 }
 
 

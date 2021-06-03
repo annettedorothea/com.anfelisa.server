@@ -23,6 +23,7 @@ public interface IDeleteBoxData extends IDeleteBoxModel, IDataContainer {
 	IDeleteBoxData withRootCategoryId(String rootCategoryId);
 	
 	
+	IDeleteBoxData deepCopy();
 }
 
 

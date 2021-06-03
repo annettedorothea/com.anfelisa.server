@@ -101,6 +101,17 @@ public class CategoryMoveModel implements ICategoryMoveModel {
 	}
 	
 
+	public ICategoryMoveModel deepCopy() {
+		ICategoryMoveModel copy = new CategoryMoveModel();
+		copy.setMovedCategoryId(this.getMovedCategoryId());
+		copy.setTargetCategoryId(this.getTargetCategoryId());
+		copy.setMovedCategory(this.getMovedCategory().deepCopy());
+		copy.setCategoryIndexWhereRemoved(this.getCategoryIndexWhereRemoved());
+		copy.setParentCategoryIdWhereRemoved(this.getParentCategoryIdWhereRemoved());
+		copy.setUserId(this.getUserId());
+		return copy;
+	}
+
 }
 
 

@@ -28,7 +28,7 @@ public abstract class AbstractUpdateCardCommand extends Command<ICardUpdateData>
 	@Override
 	public void publishEvents(ICardUpdateData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
 		if (data.hasOutcome("ok")){
-			new com.anfelisa.card.events.UpdateCardOkEvent(daoProvider, viewProvider, appConfiguration).publish(data, handle, timelineHandle);
+			new com.anfelisa.card.events.UpdateCardOkEvent(daoProvider, viewProvider, appConfiguration).publish(data.deepCopy(), handle, timelineHandle);
 		}
 	}
 	

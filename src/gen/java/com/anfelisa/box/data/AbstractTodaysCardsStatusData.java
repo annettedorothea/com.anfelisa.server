@@ -73,6 +73,13 @@ public abstract class AbstractTodaysCardsStatusData extends AbstractData impleme
 	
 	
 	
+	public ITodaysCardsStatusData deepCopy() {
+		ITodaysCardsStatusData copy = new TodaysCardsStatusData(this.getUuid());
+		copy.setOpenTodaysCards(this.getOpenTodaysCards());
+		copy.setAllTodaysCards(this.getAllTodaysCards());
+		return copy;
+	}
+
 }
 
 

@@ -21,6 +21,7 @@ public interface IUserWithAccessListData extends IUserWithAccessListModel, IData
 	IUserWithAccessListData withUserList(java.util.List<com.anfelisa.category.models.IUserWithAccessModel> userList);
 	
 	
+	IUserWithAccessListData deepCopy();
 }
 
 

@@ -77,6 +77,23 @@ public class CsvUploadModel implements ICsvUploadModel {
 	}
 	
 
+	public ICsvUploadModel deepCopy() {
+		ICsvUploadModel copy = new CsvUploadModel();
+		copy.setUserId(this.getUserId());
+		copy.setCategoryId(this.getCategoryId());
+		List<com.anfelisa.card.models.ISimpleCardModel> previewCsvCopy = new ArrayList<com.anfelisa.card.models.ISimpleCardModel>();
+		for(com.anfelisa.card.models.ISimpleCardModel item: this.getPreviewCsv()) {
+			previewCsvCopy.add(item.deepCopy());
+		}
+		copy.setPreviewCsv(previewCsvCopy);
+		List<com.anfelisa.card.models.ICardModel> cardsCopy = new ArrayList<com.anfelisa.card.models.ICardModel>();
+		for(com.anfelisa.card.models.ICardModel item: this.getCards()) {
+			cardsCopy.add(item.deepCopy());
+		}
+		copy.setCards(cardsCopy);
+		return copy;
+	}
+
 }
 
 

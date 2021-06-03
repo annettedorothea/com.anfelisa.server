@@ -305,6 +305,27 @@ public abstract class AbstractScoreCardData extends AbstractData implements ISco
 	
 	
 	
+	public IScoreCardData deepCopy() {
+		IScoreCardData copy = new ScoreCardData(this.getUuid());
+		copy.setCardId(this.getCardId());
+		copy.setNextScheduledCardScheduledCardId(this.getNextScheduledCardScheduledCardId());
+		copy.setNextScheduledCardCreatedDate(this.getNextScheduledCardCreatedDate());
+		copy.setNextScheduledCardEf(this.getNextScheduledCardEf());
+		copy.setNextScheduledCardInterval(this.getNextScheduledCardInterval());
+		copy.setNextScheduledCardN(this.getNextScheduledCardN());
+		copy.setNextScheduledCardCount(this.getNextScheduledCardCount());
+		copy.setNextScheduledCardScheduledDate(this.getNextScheduledCardScheduledDate());
+		copy.setNextScheduledCardLastQuality(this.getNextScheduledCardLastQuality());
+		copy.setScheduledCardId(this.getScheduledCardId());
+		copy.setScoredCardQuality(this.getScoredCardQuality());
+		copy.setScoredCardScoredDate(this.getScoredCardScoredDate());
+		copy.setReinforceCardId(this.getReinforceCardId());
+		copy.setReinforceCardCreatedDate(this.getReinforceCardCreatedDate());
+		copy.setUserId(this.getUserId());
+		copy.setBoxId(this.getBoxId());
+		return copy;
+	}
+
 }
 
 

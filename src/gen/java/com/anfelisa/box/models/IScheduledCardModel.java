@@ -51,6 +51,7 @@ public interface IScheduledCardModel {
 	void setScoredDate(java.time.LocalDateTime scoredDate);
 	
 	
+	IScheduledCardModel deepCopy();
 }
 
 

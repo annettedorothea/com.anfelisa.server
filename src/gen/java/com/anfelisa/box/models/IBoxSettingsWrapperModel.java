@@ -18,6 +18,7 @@ public interface IBoxSettingsWrapperModel extends com.anfelisa.box.models.IBoxSe
 	void setUserId(String userId);
 	
 	
+	IBoxSettingsWrapperModel deepCopy();
 }
 
 

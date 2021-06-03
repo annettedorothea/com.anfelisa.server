@@ -137,6 +137,29 @@ public abstract class AbstractSortCardsOutData extends AbstractData implements I
 	
 	
 	
+	public ISortCardsOutData deepCopy() {
+		ISortCardsOutData copy = new SortCardsOutData(this.getUuid());
+		List<String> sortedOutScheduledCardIdsCopy = new ArrayList<String>();
+		for(String item: this.getSortedOutScheduledCardIds()) {
+			sortedOutScheduledCardIdsCopy.add(item);
+		}
+		copy.setSortedOutScheduledCardIds(sortedOutScheduledCardIdsCopy);
+		List<String> sortedOutReinforceCardIdsCopy = new ArrayList<String>();
+		for(String item: this.getSortedOutReinforceCardIds()) {
+			sortedOutReinforceCardIdsCopy.add(item);
+		}
+		copy.setSortedOutReinforceCardIds(sortedOutReinforceCardIdsCopy);
+		List<String> cardIdsCopy = new ArrayList<String>();
+		for(String item: this.getCardIds()) {
+			cardIdsCopy.add(item);
+		}
+		copy.setCardIds(cardIdsCopy);
+		copy.setUserId(this.getUserId());
+		copy.setBoxId(this.getBoxId());
+		copy.setReverse(this.getReverse());
+		return copy;
+	}
+
 }
 
 

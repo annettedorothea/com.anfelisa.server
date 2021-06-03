@@ -75,6 +75,13 @@ public abstract class AbstractInitBoxesData extends AbstractData implements IIni
 	
 	
 	
+	public IInitBoxesData deepCopy() {
+		IInitBoxesData copy = new InitBoxesData(this.getUuid());
+		copy.setMinScheduledDate(this.getMinScheduledDate());
+		copy.setBoxId(this.getBoxId());
+		return copy;
+	}
+
 }
 
 

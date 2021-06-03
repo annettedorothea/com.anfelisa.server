@@ -29,6 +29,7 @@ public interface ICardListData extends ICardListModel, IDataContainer {
 	ICardListData withReverse(Boolean reverse);
 	
 	
+	ICardListData deepCopy();
 }
 
 

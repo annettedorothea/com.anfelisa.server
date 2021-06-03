@@ -42,6 +42,7 @@ public interface IBoxUpdateModel {
 	void setCategoryId(String categoryId);
 	
 	
+	IBoxUpdateModel deepCopy();
 }
 
 

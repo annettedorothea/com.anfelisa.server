@@ -42,6 +42,7 @@ public interface ICategoryModel {
 	void setWantedLanguage(String wantedLanguage);
 	
 	
+	ICategoryModel deepCopy();
 }
 
 

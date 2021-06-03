@@ -65,6 +65,18 @@ public class AlreadyInvitedUsernamesModel implements IAlreadyInvitedUsernamesMod
 	}
 	
 
+	public IAlreadyInvitedUsernamesModel deepCopy() {
+		IAlreadyInvitedUsernamesModel copy = new AlreadyInvitedUsernamesModel();
+		copy.setCategoryId(this.getCategoryId());
+		copy.setUserId(this.getUserId());
+		List<String> invitedUsernamesCopy = new ArrayList<String>();
+		for(String item: this.getInvitedUsernames()) {
+			invitedUsernamesCopy.add(item);
+		}
+		copy.setInvitedUsernames(invitedUsernamesCopy);
+		return copy;
+	}
+
 }
 
 

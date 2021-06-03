@@ -27,6 +27,7 @@ public interface IChangeCardOrderListModel {
 	void setUpdatedIndices(java.util.List<com.anfelisa.card.models.ICardModel> updatedIndices);
 	
 	
+	IChangeCardOrderListModel deepCopy();
 }
 
 

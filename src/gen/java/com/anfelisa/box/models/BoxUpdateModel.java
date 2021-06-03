@@ -137,6 +137,20 @@ public class BoxUpdateModel implements IBoxUpdateModel {
 	}
 	
 
+	public IBoxUpdateModel deepCopy() {
+		IBoxUpdateModel copy = new BoxUpdateModel();
+		copy.setUserId(this.getUserId());
+		copy.setBoxId(this.getBoxId());
+		copy.setMaxInterval(this.getMaxInterval());
+		copy.setMaxCardsPerDay(this.getMaxCardsPerDay());
+		copy.setCategoryName(this.getCategoryName());
+		copy.setDictionaryLookup(this.getDictionaryLookup());
+		copy.setGivenLanguage(this.getGivenLanguage());
+		copy.setWantedLanguage(this.getWantedLanguage());
+		copy.setCategoryId(this.getCategoryId());
+		return copy;
+	}
+
 }
 
 

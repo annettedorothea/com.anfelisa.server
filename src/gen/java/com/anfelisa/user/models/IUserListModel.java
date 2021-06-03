@@ -21,6 +21,7 @@ public interface IUserListModel {
 	void setRole(String role);
 	
 	
+	IUserListModel deepCopy();
 }
 
 

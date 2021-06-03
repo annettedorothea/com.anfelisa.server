@@ -105,6 +105,15 @@ public abstract class AbstractCardTranslationData extends AbstractData implement
 	
 	
 	
+	public ICardTranslationData deepCopy() {
+		ICardTranslationData copy = new CardTranslationData(this.getUuid());
+		copy.setSourceValue(this.getSourceValue());
+		copy.setTargetValue(this.getTargetValue());
+		copy.setSourceLanguage(this.getSourceLanguage());
+		copy.setTargetLanguage(this.getTargetLanguage());
+		return copy;
+	}
+
 }
 
 

@@ -53,6 +53,13 @@ public class PostponeCardsModel implements IPostponeCardsModel {
 	}
 	
 
+	public IPostponeCardsModel deepCopy() {
+		IPostponeCardsModel copy = new PostponeCardsModel();
+		copy.setDays(this.getDays());
+		copy.setBoxId(this.getBoxId());
+		return copy;
+	}
+
 }
 
 

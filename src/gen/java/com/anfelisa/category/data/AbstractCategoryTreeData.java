@@ -185,6 +185,20 @@ public abstract class AbstractCategoryTreeData extends AbstractData implements I
 	
 	
 	
+	public ICategoryTreeData deepCopy() {
+		ICategoryTreeData copy = new CategoryTreeData(this.getUuid());
+		copy.setRootCategory(this.getRootCategory().deepCopy());
+		copy.setUserId(this.getUserId());
+		copy.setRootCategoryId(this.getRootCategoryId());
+		copy.setFilterNonScheduled(this.getFilterNonScheduled());
+		copy.setPriority(this.getPriority());
+		copy.setEditable(this.getEditable());
+		copy.setReverse(this.getReverse());
+		copy.setReverseBoxExists(this.getReverseBoxExists());
+		copy.setBoxId(this.getBoxId());
+		return copy;
+	}
+
 }
 
 

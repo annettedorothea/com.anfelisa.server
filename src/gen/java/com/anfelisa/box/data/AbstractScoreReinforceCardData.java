@@ -107,6 +107,15 @@ public abstract class AbstractScoreReinforceCardData extends AbstractData implem
 	
 	
 	
+	public IScoreReinforceCardData deepCopy() {
+		IScoreReinforceCardData copy = new ScoreReinforceCardData(this.getUuid());
+		copy.setReinforceCardId(this.getReinforceCardId());
+		copy.setKeep(this.getKeep());
+		copy.setChangeDate(this.getChangeDate());
+		copy.setUserId(this.getUserId());
+		return copy;
+	}
+
 }
 
 

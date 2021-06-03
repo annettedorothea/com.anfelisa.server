@@ -21,6 +21,7 @@ public interface IPostponeCardsData extends IPostponeCardsModel, IDataContainer 
 	IPostponeCardsData withBoxId(String boxId);
 	
 	
+	IPostponeCardsData deepCopy();
 }
 
 

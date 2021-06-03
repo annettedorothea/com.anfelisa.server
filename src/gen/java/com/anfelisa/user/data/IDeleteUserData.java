@@ -29,6 +29,7 @@ public interface IDeleteUserData extends IDeleteUserModel, IDataContainer {
 	IDeleteUserData withRootCategoryIds(java.util.List<String> rootCategoryIds);
 	
 	
+	IDeleteUserData deepCopy();
 }
 
 

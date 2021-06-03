@@ -21,6 +21,7 @@ public interface ITodaysCardsStatusModel {
 	void setAllTodaysCards(Integer allTodaysCards);
 	
 	
+	ITodaysCardsStatusModel deepCopy();
 }
 
 

@@ -28,7 +28,7 @@ public abstract class AbstractDeleteUserCommand extends Command<IDeleteUserData>
 	@Override
 	public void publishEvents(IDeleteUserData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
 		if (data.hasOutcome("ok")){
-			new com.anfelisa.user.events.DeleteUserOkEvent(daoProvider, viewProvider, appConfiguration).publish(data, handle, timelineHandle);
+			new com.anfelisa.user.events.DeleteUserOkEvent(daoProvider, viewProvider, appConfiguration).publish(data.deepCopy(), handle, timelineHandle);
 		}
 	}
 	

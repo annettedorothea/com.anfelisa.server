@@ -161,6 +161,22 @@ public class CategoryCreationModel implements ICategoryCreationModel {
 	}
 	
 
+	public ICategoryCreationModel deepCopy() {
+		ICategoryCreationModel copy = new CategoryCreationModel();
+		copy.setUsername(this.getUsername());
+		copy.setUserId(this.getUserId());
+		copy.setCategoryId(this.getCategoryId());
+		copy.setCategoryName(this.getCategoryName());
+		copy.setCategoryAuthor(this.getCategoryAuthor());
+		copy.setCategoryIndex(this.getCategoryIndex());
+		copy.setParentCategoryId(this.getParentCategoryId());
+		copy.setRootCategoryId(this.getRootCategoryId());
+		copy.setDictionaryLookup(this.getDictionaryLookup());
+		copy.setGivenLanguage(this.getGivenLanguage());
+		copy.setWantedLanguage(this.getWantedLanguage());
+		return copy;
+	}
+
 }
 
 

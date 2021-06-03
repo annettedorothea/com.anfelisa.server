@@ -30,6 +30,7 @@ public interface IForgotPasswordModel {
 	void setUserId(String userId);
 	
 	
+	IForgotPasswordModel deepCopy();
 }
 
 

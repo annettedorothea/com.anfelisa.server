@@ -44,6 +44,7 @@ public interface ICardWithStatisticsData extends ICardWithStatisticsModel, IData
 	ICardWithStatisticsData withPriority(Integer priority);
 	
 	
+	ICardWithStatisticsData deepCopy();
 }
 
 

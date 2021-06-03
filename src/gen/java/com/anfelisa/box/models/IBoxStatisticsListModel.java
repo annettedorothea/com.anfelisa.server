@@ -24,6 +24,7 @@ public interface IBoxStatisticsListModel {
 	void setTodayAtMidnightInUTC(java.time.LocalDateTime todayAtMidnightInUTC);
 	
 	
+	IBoxStatisticsListModel deepCopy();
 }
 
 

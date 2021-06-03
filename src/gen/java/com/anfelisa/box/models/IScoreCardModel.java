@@ -63,6 +63,7 @@ public interface IScoreCardModel {
 	void setBoxId(String boxId);
 	
 	
+	IScoreCardModel deepCopy();
 }
 
 

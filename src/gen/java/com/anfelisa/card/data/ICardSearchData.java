@@ -29,6 +29,7 @@ public interface ICardSearchData extends ICardSearchModel, IDataContainer {
 	ICardSearchData withNaturalInputOrder(Boolean naturalInputOrder);
 	
 	
+	ICardSearchData deepCopy();
 }
 
 

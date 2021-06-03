@@ -101,6 +101,17 @@ public class UserModel implements IUserModel {
 	}
 	
 
+	public IUserModel deepCopy() {
+		IUserModel copy = new UserModel();
+		copy.setUserId(this.getUserId());
+		copy.setUsername(this.getUsername());
+		copy.setPassword(this.getPassword());
+		copy.setEmail(this.getEmail());
+		copy.setRole(this.getRole());
+		copy.setEmailConfirmed(this.getEmailConfirmed());
+		return copy;
+	}
+
 }
 
 

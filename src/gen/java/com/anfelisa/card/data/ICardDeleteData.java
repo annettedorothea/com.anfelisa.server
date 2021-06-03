@@ -25,6 +25,7 @@ public interface ICardDeleteData extends ICardDeleteModel, IDataContainer {
 	ICardDeleteData withUserId(String userId);
 	
 	
+	ICardDeleteData deepCopy();
 }
 
 

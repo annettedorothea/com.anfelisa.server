@@ -33,6 +33,7 @@ public interface IBoxModel {
 	void setReverse(Boolean reverse);
 	
 	
+	IBoxModel deepCopy();
 }
 
 

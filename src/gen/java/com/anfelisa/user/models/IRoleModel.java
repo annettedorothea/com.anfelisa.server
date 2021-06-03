@@ -21,6 +21,7 @@ public interface IRoleModel {
 	void setRole(String role);
 	
 	
+	IRoleModel deepCopy();
 }
 
 

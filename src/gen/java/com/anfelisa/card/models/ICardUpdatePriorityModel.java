@@ -24,6 +24,7 @@ public interface ICardUpdatePriorityModel {
 	void setUserId(String userId);
 	
 	
+	ICardUpdatePriorityModel deepCopy();
 }
 
 

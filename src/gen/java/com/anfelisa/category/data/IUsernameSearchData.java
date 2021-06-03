@@ -25,6 +25,7 @@ public interface IUsernameSearchData extends IUsernameSearchModel, IDataContaine
 	IUsernameSearchData withUsernames(java.util.List<String> usernames);
 	
 	
+	IUsernameSearchData deepCopy();
 }
 
 

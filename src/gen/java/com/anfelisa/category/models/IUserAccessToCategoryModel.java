@@ -24,6 +24,7 @@ public interface IUserAccessToCategoryModel {
 	void setEditable(Boolean editable);
 	
 	
+	IUserAccessToCategoryModel deepCopy();
 }
 
 

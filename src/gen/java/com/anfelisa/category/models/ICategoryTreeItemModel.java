@@ -51,6 +51,7 @@ public interface ICategoryTreeItemModel {
 	void setEditable(Boolean editable);
 	
 	
+	ICategoryTreeItemModel deepCopy();
 }
 
 

@@ -73,6 +73,13 @@ public abstract class AbstractResetPasswordData extends AbstractData implements 
 	
 	
 	
+	public IResetPasswordData deepCopy() {
+		IResetPasswordData copy = new ResetPasswordData(this.getUuid());
+		copy.setToken(this.getToken());
+		copy.setUserId(this.getUserId());
+		return copy;
+	}
+
 }
 
 

@@ -18,6 +18,7 @@ public interface IBoxCreationModel extends com.anfelisa.category.models.ICategor
 	void setUsername(String username);
 	
 	
+	IBoxCreationModel deepCopy();
 }
 
 

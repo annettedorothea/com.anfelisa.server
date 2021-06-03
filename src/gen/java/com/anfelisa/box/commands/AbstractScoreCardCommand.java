@@ -32,10 +32,10 @@ public abstract class AbstractScoreCardCommand extends Command<IScoreCardData> {
 	@Override
 	public void publishEvents(IScoreCardData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
 		if (data.hasOutcome("score")){
-			new com.anfelisa.box.events.ScoreCardScoreEvent(daoProvider, viewProvider, appConfiguration).publish(data, handle, timelineHandle);
+			new com.anfelisa.box.events.ScoreCardScoreEvent(daoProvider, viewProvider, appConfiguration).publish(data.deepCopy(), handle, timelineHandle);
 		}
 		if (data.hasOutcome("reinforce")){
-			new com.anfelisa.box.events.ScoreCardReinforceEvent(daoProvider, viewProvider, appConfiguration).publish(data, handle, timelineHandle);
+			new com.anfelisa.box.events.ScoreCardReinforceEvent(daoProvider, viewProvider, appConfiguration).publish(data.deepCopy(), handle, timelineHandle);
 		}
 	}
 	

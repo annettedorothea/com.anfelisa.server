@@ -121,6 +121,16 @@ public abstract class AbstractForgotPasswordData extends AbstractData implements
 	
 	
 	
+	public IForgotPasswordData deepCopy() {
+		IForgotPasswordData copy = new ForgotPasswordData(this.getUuid());
+		copy.setLanguage(this.getLanguage());
+		copy.setEmail(this.getEmail());
+		copy.setUsername(this.getUsername());
+		copy.setToken(this.getToken());
+		copy.setUserId(this.getUserId());
+		return copy;
+	}
+
 }
 
 

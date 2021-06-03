@@ -21,6 +21,7 @@ public interface IRoleData extends IRoleModel, IDataContainer {
 	IRoleData withRole(String role);
 	
 	
+	IRoleData deepCopy();
 }
 
 

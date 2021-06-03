@@ -53,6 +53,13 @@ public class RoleModel implements IRoleModel {
 	}
 	
 
+	public IRoleModel deepCopy() {
+		IRoleModel copy = new RoleModel();
+		copy.setUsername(this.getUsername());
+		copy.setRole(this.getRole());
+		return copy;
+	}
+
 }
 
 

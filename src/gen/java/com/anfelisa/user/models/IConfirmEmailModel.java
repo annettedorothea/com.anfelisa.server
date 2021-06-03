@@ -24,6 +24,7 @@ public interface IConfirmEmailModel extends com.anfelisa.user.models.IEmailConfi
 	void setUserId(String userId);
 	
 	
+	IConfirmEmailModel deepCopy();
 }
 
 

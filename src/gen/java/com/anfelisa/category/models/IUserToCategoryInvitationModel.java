@@ -30,6 +30,7 @@ public interface IUserToCategoryInvitationModel {
 	void setBoxForInvitedUser(com.anfelisa.box.models.IBoxModel boxForInvitedUser);
 	
 	
+	IUserToCategoryInvitationModel deepCopy();
 }
 
 

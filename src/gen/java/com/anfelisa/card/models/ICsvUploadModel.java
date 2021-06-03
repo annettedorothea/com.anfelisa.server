@@ -27,6 +27,7 @@ public interface ICsvUploadModel {
 	void setCards(java.util.List<com.anfelisa.card.models.ICardModel> cards);
 	
 	
+	ICsvUploadModel deepCopy();
 }
 
 

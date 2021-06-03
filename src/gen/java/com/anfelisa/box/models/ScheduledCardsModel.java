@@ -115,6 +115,30 @@ public class ScheduledCardsModel implements IScheduledCardsModel {
 	}
 	
 
+	public IScheduledCardsModel deepCopy() {
+		IScheduledCardsModel copy = new ScheduledCardsModel();
+		List<com.anfelisa.box.models.IScheduledCardModel> newScheduledCardsCopy = new ArrayList<com.anfelisa.box.models.IScheduledCardModel>();
+		for(com.anfelisa.box.models.IScheduledCardModel item: this.getNewScheduledCards()) {
+			newScheduledCardsCopy.add(item.deepCopy());
+		}
+		copy.setNewScheduledCards(newScheduledCardsCopy);
+		List<String> existingScheduledCardIdsCopy = new ArrayList<String>();
+		for(String item: this.getExistingScheduledCardIds()) {
+			existingScheduledCardIdsCopy.add(item);
+		}
+		copy.setExistingScheduledCardIds(existingScheduledCardIdsCopy);
+		List<String> cardIdsCopy = new ArrayList<String>();
+		for(String item: this.getCardIds()) {
+			cardIdsCopy.add(item);
+		}
+		copy.setCardIds(cardIdsCopy);
+		copy.setScheduledDate(this.getScheduledDate());
+		copy.setUserId(this.getUserId());
+		copy.setBoxId(this.getBoxId());
+		copy.setReverse(this.getReverse());
+		return copy;
+	}
+
 }
 
 

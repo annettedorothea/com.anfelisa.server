@@ -21,6 +21,7 @@ public interface IPostponeCardsModel {
 	void setBoxId(String boxId);
 	
 	
+	IPostponeCardsModel deepCopy();
 }
 
 

@@ -23,6 +23,7 @@ public interface IResetPasswordWithNewPasswordData extends IResetPasswordWithNew
 	IResetPasswordWithNewPasswordData withUserId(String userId);
 	
 	
+	IResetPasswordWithNewPasswordData deepCopy();
 }
 
 

@@ -73,6 +73,13 @@ public abstract class AbstractRoleData extends AbstractData implements IRoleData
 	
 	
 	
+	public IRoleData deepCopy() {
+		IRoleData copy = new RoleData(this.getUuid());
+		copy.setUsername(this.getUsername());
+		copy.setRole(this.getRole());
+		return copy;
+	}
+
 }
 
 

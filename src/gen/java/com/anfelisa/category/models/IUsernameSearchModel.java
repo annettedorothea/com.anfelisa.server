@@ -27,6 +27,7 @@ public interface IUsernameSearchModel {
 	void setUsernames(java.util.List<String> usernames);
 	
 	
+	IUsernameSearchModel deepCopy();
 }
 
 

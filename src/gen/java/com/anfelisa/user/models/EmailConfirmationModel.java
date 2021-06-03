@@ -53,6 +53,13 @@ public class EmailConfirmationModel implements IEmailConfirmationModel {
 	}
 	
 
+	public IEmailConfirmationModel deepCopy() {
+		IEmailConfirmationModel copy = new EmailConfirmationModel();
+		copy.setToken(this.getToken());
+		copy.setUserId(this.getUserId());
+		return copy;
+	}
+
 }
 
 

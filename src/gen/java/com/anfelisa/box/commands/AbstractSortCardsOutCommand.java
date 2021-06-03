@@ -32,7 +32,7 @@ public abstract class AbstractSortCardsOutCommand extends Command<ISortCardsOutD
 	@Override
 	public void publishEvents(ISortCardsOutData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
 		if (data.hasOutcome("ok")){
-			new com.anfelisa.box.events.SortCardsOutOkEvent(daoProvider, viewProvider, appConfiguration).publish(data, handle, timelineHandle);
+			new com.anfelisa.box.events.SortCardsOutOkEvent(daoProvider, viewProvider, appConfiguration).publish(data.deepCopy(), handle, timelineHandle);
 		}
 	}
 	

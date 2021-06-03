@@ -25,6 +25,7 @@ public interface IInitMyBoxesDataData extends IInitMyBoxesDataModel, IDataContai
 	IInitMyBoxesDataData withOutdatedReinforceCardsIds(java.util.List<String> outdatedReinforceCardsIds);
 	
 	
+	IInitMyBoxesDataData deepCopy();
 }
 
 

@@ -33,6 +33,7 @@ public interface INextCardModel extends com.anfelisa.box.models.INextCardViewMod
 	void setAllTodaysCards(Integer allTodaysCards);
 	
 	
+	INextCardModel deepCopy();
 }
 
 

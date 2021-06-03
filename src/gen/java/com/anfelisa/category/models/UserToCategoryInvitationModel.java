@@ -89,6 +89,16 @@ public class UserToCategoryInvitationModel implements IUserToCategoryInvitationM
 	}
 	
 
+	public IUserToCategoryInvitationModel deepCopy() {
+		IUserToCategoryInvitationModel copy = new UserToCategoryInvitationModel();
+		copy.setCategoryId(this.getCategoryId());
+		copy.setUserId(this.getUserId());
+		copy.setInvitedUsername(this.getInvitedUsername());
+		copy.setInvitedUserId(this.getInvitedUserId());
+		copy.setBoxForInvitedUser(this.getBoxForInvitedUser().deepCopy());
+		return copy;
+	}
+
 }
 
 

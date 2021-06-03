@@ -38,6 +38,7 @@ public interface ICardCreationData extends ICardCreationModel, IDataContainer {
 	ICardCreationData withPriority(Integer priority);
 	
 	
+	ICardCreationData deepCopy();
 }
 
 

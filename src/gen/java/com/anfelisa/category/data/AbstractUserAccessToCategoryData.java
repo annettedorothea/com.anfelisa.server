@@ -89,6 +89,14 @@ public abstract class AbstractUserAccessToCategoryData extends AbstractData impl
 	
 	
 	
+	public IUserAccessToCategoryData deepCopy() {
+		IUserAccessToCategoryData copy = new UserAccessToCategoryData(this.getUuid());
+		copy.setCategoryId(this.getCategoryId());
+		copy.setUserId(this.getUserId());
+		copy.setEditable(this.getEditable());
+		return copy;
+	}
+
 }
 
 

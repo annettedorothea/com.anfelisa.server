@@ -65,6 +65,14 @@ public class DeleteBoxModel implements IDeleteBoxModel {
 	}
 	
 
+	public IDeleteBoxModel deepCopy() {
+		IDeleteBoxModel copy = new DeleteBoxModel();
+		copy.setUserId(this.getUserId());
+		copy.setBoxId(this.getBoxId());
+		copy.setRootCategoryId(this.getRootCategoryId());
+		return copy;
+	}
+
 }
 
 

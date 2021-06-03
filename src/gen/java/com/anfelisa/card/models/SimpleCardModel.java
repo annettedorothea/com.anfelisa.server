@@ -65,6 +65,14 @@ public class SimpleCardModel implements ISimpleCardModel {
 	}
 	
 
+	public ISimpleCardModel deepCopy() {
+		ISimpleCardModel copy = new SimpleCardModel();
+		copy.setGiven(this.getGiven());
+		copy.setWanted(this.getWanted());
+		copy.setId(this.getId());
+		return copy;
+	}
+
 }
 
 

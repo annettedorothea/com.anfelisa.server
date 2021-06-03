@@ -23,6 +23,7 @@ public interface ICardUpdatePriorityData extends ICardUpdatePriorityModel, IData
 	ICardUpdatePriorityData withUserId(String userId);
 	
 	
+	ICardUpdatePriorityData deepCopy();
 }
 
 

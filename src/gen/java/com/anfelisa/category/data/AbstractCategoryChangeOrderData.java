@@ -105,6 +105,19 @@ public abstract class AbstractCategoryChangeOrderData extends AbstractData imple
 	
 	
 	
+	public ICategoryChangeOrderData deepCopy() {
+		ICategoryChangeOrderData copy = new CategoryChangeOrderData(this.getUuid());
+		copy.setMovedCategoryId(this.getMovedCategoryId());
+		copy.setTargetCategoryId(this.getTargetCategoryId());
+		copy.setUserId(this.getUserId());
+		List<com.anfelisa.category.models.ICategoryModel> updatedIndicesCopy = new ArrayList<com.anfelisa.category.models.ICategoryModel>();
+		for(com.anfelisa.category.models.ICategoryModel item: this.getUpdatedIndices()) {
+			updatedIndicesCopy.add(item.deepCopy());
+		}
+		copy.setUpdatedIndices(updatedIndicesCopy);
+		return copy;
+	}
+
 }
 
 

@@ -23,6 +23,7 @@ public interface IUserWithAccessData extends IUserWithAccessModel, IDataContaine
 	IUserWithAccessData withEditable(Boolean editable);
 	
 	
+	IUserWithAccessData deepCopy();
 }
 
 

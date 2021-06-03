@@ -28,7 +28,7 @@ public abstract class AbstractChangeOrderCommand extends Command<IChangeCardOrde
 	@Override
 	public void publishEvents(IChangeCardOrderListData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
 		if (data.hasOutcome("ok")){
-			new com.anfelisa.card.events.ChangeOrderOkEvent(daoProvider, viewProvider, appConfiguration).publish(data, handle, timelineHandle);
+			new com.anfelisa.card.events.ChangeOrderOkEvent(daoProvider, viewProvider, appConfiguration).publish(data.deepCopy(), handle, timelineHandle);
 		}
 	}
 	

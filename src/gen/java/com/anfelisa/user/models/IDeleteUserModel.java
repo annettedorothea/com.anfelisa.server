@@ -33,6 +33,7 @@ public interface IDeleteUserModel {
 	void setRootCategoryIds(java.util.List<String> rootCategoryIds);
 	
 	
+	IDeleteUserModel deepCopy();
 }
 
 

@@ -77,6 +77,15 @@ public class ChangeUserRoleModel implements IChangeUserRoleModel {
 	}
 	
 
+	public IChangeUserRoleModel deepCopy() {
+		IChangeUserRoleModel copy = new ChangeUserRoleModel();
+		copy.setEditedUserId(this.getEditedUserId());
+		copy.setNewRole(this.getNewRole());
+		copy.setUserId(this.getUserId());
+		copy.setRole(this.getRole());
+		return copy;
+	}
+
 }
 
 

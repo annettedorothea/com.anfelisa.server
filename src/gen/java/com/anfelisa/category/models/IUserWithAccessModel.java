@@ -24,6 +24,7 @@ public interface IUserWithAccessModel {
 	void setEditable(Boolean editable);
 	
 	
+	IUserWithAccessModel deepCopy();
 }
 
 

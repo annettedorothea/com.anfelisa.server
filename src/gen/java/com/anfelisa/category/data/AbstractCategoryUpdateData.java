@@ -89,6 +89,14 @@ public abstract class AbstractCategoryUpdateData extends AbstractData implements
 	
 	
 	
+	public ICategoryUpdateData deepCopy() {
+		ICategoryUpdateData copy = new CategoryUpdateData(this.getUuid());
+		copy.setCategoryId(this.getCategoryId());
+		copy.setCategoryName(this.getCategoryName());
+		copy.setUserId(this.getUserId());
+		return copy;
+	}
+
 }
 
 

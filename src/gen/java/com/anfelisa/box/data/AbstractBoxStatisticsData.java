@@ -185,6 +185,24 @@ public abstract class AbstractBoxStatisticsData extends AbstractData implements 
 	
 	
 	
+	public IBoxStatisticsData deepCopy() {
+		IBoxStatisticsData copy = new BoxStatisticsData(this.getUuid());
+		copy.setBoxId(this.getBoxId());
+		copy.setQuality0Count(this.getQuality0Count());
+		copy.setQuality1Count(this.getQuality1Count());
+		copy.setQuality2Count(this.getQuality2Count());
+		copy.setQuality3Count(this.getQuality3Count());
+		copy.setQuality4Count(this.getQuality4Count());
+		copy.setQuality5Count(this.getQuality5Count());
+		List<Integer> countsPerDayNextWeekCopy = new ArrayList<Integer>();
+		for(Integer item: this.getCountsPerDayNextWeek()) {
+			countsPerDayNextWeekCopy.add(item);
+		}
+		copy.setCountsPerDayNextWeek(countsPerDayNextWeekCopy);
+		copy.setMaxCardsPerDay(this.getMaxCardsPerDay());
+		return copy;
+	}
+
 }
 
 

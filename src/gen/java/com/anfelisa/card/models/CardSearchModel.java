@@ -101,6 +101,21 @@ public class CardSearchModel implements ICardSearchModel {
 	}
 	
 
+	public ICardSearchModel deepCopy() {
+		ICardSearchModel copy = new CardSearchModel();
+		copy.setUserId(this.getUserId());
+		copy.setGiven(this.getGiven());
+		copy.setWanted(this.getWanted());
+		copy.setCategoryId(this.getCategoryId());
+		List<com.anfelisa.card.models.ICardWithCategoryNameModel> cardListCopy = new ArrayList<com.anfelisa.card.models.ICardWithCategoryNameModel>();
+		for(com.anfelisa.card.models.ICardWithCategoryNameModel item: this.getCardList()) {
+			cardListCopy.add(item.deepCopy());
+		}
+		copy.setCardList(cardListCopy);
+		copy.setNaturalInputOrder(this.getNaturalInputOrder());
+		return copy;
+	}
+
 }
 
 

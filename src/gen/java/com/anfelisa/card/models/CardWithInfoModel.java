@@ -139,6 +139,20 @@ public class CardWithInfoModel implements ICardWithInfoModel {
 	}
 	
 
+	public ICardWithInfoModel deepCopy() {
+		ICardWithInfoModel copy = new CardWithInfoModel();
+		copy.setNext(this.getNext());
+		copy.setCardId(this.getCardId());
+		copy.setGiven(this.getGiven());
+		copy.setWanted(this.getWanted());
+		copy.setCardAuthor(this.getCardAuthor());
+		copy.setCardIndex(this.getCardIndex());
+		copy.setCategoryId(this.getCategoryId());
+		copy.setRootCategoryId(this.getRootCategoryId());
+		copy.setPriority(this.getPriority());
+		return copy;
+	}
+
 }
 
 

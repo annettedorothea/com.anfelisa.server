@@ -239,6 +239,23 @@ public abstract class AbstractScheduledCardData extends AbstractData implements 
 	
 	
 	
+	public IScheduledCardData deepCopy() {
+		IScheduledCardData copy = new ScheduledCardData(this.getUuid());
+		copy.setScheduledCardId(this.getScheduledCardId());
+		copy.setCardId(this.getCardId());
+		copy.setBoxId(this.getBoxId());
+		copy.setCreatedDate(this.getCreatedDate());
+		copy.setEf(this.getEf());
+		copy.setInterval(this.getInterval());
+		copy.setN(this.getN());
+		copy.setCount(this.getCount());
+		copy.setScheduledDate(this.getScheduledDate());
+		copy.setLastQuality(this.getLastQuality());
+		copy.setQuality(this.getQuality());
+		copy.setScoredDate(this.getScoredDate());
+		return copy;
+	}
+
 }
 
 

@@ -25,6 +25,7 @@ public interface ICardTranslationData extends ICardTranslationModel, IDataContai
 	ICardTranslationData withTargetLanguage(String targetLanguage);
 	
 	
+	ICardTranslationData deepCopy();
 }
 
 

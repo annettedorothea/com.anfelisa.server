@@ -24,6 +24,7 @@ public interface ISimpleCardModel {
 	void setId(String id);
 	
 	
+	ISimpleCardModel deepCopy();
 }
 
 

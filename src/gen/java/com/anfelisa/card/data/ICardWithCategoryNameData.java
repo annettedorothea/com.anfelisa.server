@@ -36,6 +36,7 @@ public interface ICardWithCategoryNameData extends ICardWithCategoryNameModel, I
 	ICardWithCategoryNameData withPriority(Integer priority);
 	
 	
+	ICardWithCategoryNameData deepCopy();
 }
 
 

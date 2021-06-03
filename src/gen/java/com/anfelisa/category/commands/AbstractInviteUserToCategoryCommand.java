@@ -28,7 +28,7 @@ public abstract class AbstractInviteUserToCategoryCommand extends Command<IUserT
 	@Override
 	public void publishEvents(IUserToCategoryInvitationData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
 		if (data.hasOutcome("ok")){
-			new com.anfelisa.category.events.InviteUserToCategoryOkEvent(daoProvider, viewProvider, appConfiguration).publish(data, handle, timelineHandle);
+			new com.anfelisa.category.events.InviteUserToCategoryOkEvent(daoProvider, viewProvider, appConfiguration).publish(data.deepCopy(), handle, timelineHandle);
 		}
 	}
 	

@@ -39,6 +39,7 @@ public interface IBoxSettingsData extends IBoxSettingsModel, IDataContainer {
 	IBoxSettingsData withShared(Boolean shared);
 	
 	
+	IBoxSettingsData deepCopy();
 }
 
 

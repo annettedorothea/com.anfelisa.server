@@ -25,6 +25,7 @@ public interface IChangeCardOrderListData extends IChangeCardOrderListModel, IDa
 	IChangeCardOrderListData withUpdatedIndices(java.util.List<com.anfelisa.card.models.ICardModel> updatedIndices);
 	
 	
+	IChangeCardOrderListData deepCopy();
 }
 
 

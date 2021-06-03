@@ -21,6 +21,7 @@ public interface IEmailConfirmationData extends IEmailConfirmationModel, IDataCo
 	IEmailConfirmationData withUserId(String userId);
 	
 	
+	IEmailConfirmationData deepCopy();
 }
 
 

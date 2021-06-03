@@ -73,6 +73,13 @@ public abstract class AbstractEmailConfirmationData extends AbstractData impleme
 	
 	
 	
+	public IEmailConfirmationData deepCopy() {
+		IEmailConfirmationData copy = new EmailConfirmationData(this.getUuid());
+		copy.setToken(this.getToken());
+		copy.setUserId(this.getUserId());
+		return copy;
+	}
+
 }
 
 

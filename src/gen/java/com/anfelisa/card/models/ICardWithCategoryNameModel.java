@@ -18,6 +18,7 @@ public interface ICardWithCategoryNameModel extends com.anfelisa.card.models.ICa
 	void setCategoryName(String categoryName);
 	
 	
+	ICardWithCategoryNameModel deepCopy();
 }
 
 

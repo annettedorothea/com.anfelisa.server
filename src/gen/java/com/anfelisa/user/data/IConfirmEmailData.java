@@ -24,6 +24,7 @@ public interface IConfirmEmailData extends IConfirmEmailModel, IDataContainer {
 	IConfirmEmailData withUserId(String userId);
 	
 	
+	IConfirmEmailData deepCopy();
 }
 
 

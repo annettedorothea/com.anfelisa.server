@@ -28,7 +28,7 @@ public abstract class AbstractDeleteCardCommand extends Command<ICardDeleteData>
 	@Override
 	public void publishEvents(ICardDeleteData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
 		if (data.hasOutcome("ok")){
-			new com.anfelisa.card.events.DeleteCardOkEvent(daoProvider, viewProvider, appConfiguration).publish(data, handle, timelineHandle);
+			new com.anfelisa.card.events.DeleteCardOkEvent(daoProvider, viewProvider, appConfiguration).publish(data.deepCopy(), handle, timelineHandle);
 		}
 	}
 	

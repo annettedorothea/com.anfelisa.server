@@ -65,6 +65,14 @@ public class UserWithAccessModel implements IUserWithAccessModel {
 	}
 	
 
+	public IUserWithAccessModel deepCopy() {
+		IUserWithAccessModel copy = new UserWithAccessModel();
+		copy.setUserId(this.getUserId());
+		copy.setUsername(this.getUsername());
+		copy.setEditable(this.getEditable());
+		return copy;
+	}
+
 }
 
 

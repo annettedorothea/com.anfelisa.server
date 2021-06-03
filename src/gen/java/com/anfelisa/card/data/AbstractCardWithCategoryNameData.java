@@ -196,6 +196,20 @@ public abstract class AbstractCardWithCategoryNameData extends AbstractData impl
 		this.priority = model.getPriority();
 	}
 	
+	public ICardWithCategoryNameData deepCopy() {
+		ICardWithCategoryNameData copy = new CardWithCategoryNameData(this.getUuid());
+		copy.setCategoryName(this.getCategoryName());
+		copy.setCardId(this.getCardId());
+		copy.setGiven(this.getGiven());
+		copy.setWanted(this.getWanted());
+		copy.setCardAuthor(this.getCardAuthor());
+		copy.setCardIndex(this.getCardIndex());
+		copy.setCategoryId(this.getCategoryId());
+		copy.setRootCategoryId(this.getRootCategoryId());
+		copy.setPriority(this.getPriority());
+		return copy;
+	}
+
 }
 
 

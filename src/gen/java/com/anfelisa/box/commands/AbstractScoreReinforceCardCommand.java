@@ -32,10 +32,10 @@ public abstract class AbstractScoreReinforceCardCommand extends Command<IScoreRe
 	@Override
 	public void publishEvents(IScoreReinforceCardData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
 		if (data.hasOutcome("keep")){
-			new com.anfelisa.box.events.ScoreReinforceCardKeepEvent(daoProvider, viewProvider, appConfiguration).publish(data, handle, timelineHandle);
+			new com.anfelisa.box.events.ScoreReinforceCardKeepEvent(daoProvider, viewProvider, appConfiguration).publish(data.deepCopy(), handle, timelineHandle);
 		}
 		if (data.hasOutcome("remove")){
-			new com.anfelisa.box.events.ScoreReinforceCardRemoveEvent(daoProvider, viewProvider, appConfiguration).publish(data, handle, timelineHandle);
+			new com.anfelisa.box.events.ScoreReinforceCardRemoveEvent(daoProvider, viewProvider, appConfiguration).publish(data.deepCopy(), handle, timelineHandle);
 		}
 	}
 	

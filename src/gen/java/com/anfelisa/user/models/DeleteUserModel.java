@@ -101,6 +101,25 @@ public class DeleteUserModel implements IDeleteUserModel {
 	}
 	
 
+	public IDeleteUserModel deepCopy() {
+		IDeleteUserModel copy = new DeleteUserModel();
+		copy.setUsernameToBeDeleted(this.getUsernameToBeDeleted());
+		copy.setUsername(this.getUsername());
+		copy.setUserId(this.getUserId());
+		copy.setRole(this.getRole());
+		List<String> boxIdsCopy = new ArrayList<String>();
+		for(String item: this.getBoxIds()) {
+			boxIdsCopy.add(item);
+		}
+		copy.setBoxIds(boxIdsCopy);
+		List<String> rootCategoryIdsCopy = new ArrayList<String>();
+		for(String item: this.getRootCategoryIds()) {
+			rootCategoryIdsCopy.add(item);
+		}
+		copy.setRootCategoryIds(rootCategoryIdsCopy);
+		return copy;
+	}
+
 }
 
 

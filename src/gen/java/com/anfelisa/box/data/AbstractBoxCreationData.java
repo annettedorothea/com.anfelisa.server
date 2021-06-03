@@ -324,6 +324,27 @@ public abstract class AbstractBoxCreationData extends AbstractData implements IB
 		this.reverse = model.getReverse();
 	}
 	
+	public IBoxCreationData deepCopy() {
+		IBoxCreationData copy = new BoxCreationData(this.getUuid());
+		copy.setUsername(this.getUsername());
+		copy.setCategoryId(this.getCategoryId());
+		copy.setCategoryName(this.getCategoryName());
+		copy.setCategoryAuthor(this.getCategoryAuthor());
+		copy.setCategoryIndex(this.getCategoryIndex());
+		copy.setParentCategoryId(this.getParentCategoryId());
+		copy.setRootCategoryId(this.getRootCategoryId());
+		copy.setDictionaryLookup(this.getDictionaryLookup());
+		copy.setGivenLanguage(this.getGivenLanguage());
+		copy.setWantedLanguage(this.getWantedLanguage());
+		copy.setUserId(this.getUserId());
+		copy.setEditable(this.getEditable());
+		copy.setBoxId(this.getBoxId());
+		copy.setMaxInterval(this.getMaxInterval());
+		copy.setMaxCardsPerDay(this.getMaxCardsPerDay());
+		copy.setReverse(this.getReverse());
+		return copy;
+	}
+
 }
 
 

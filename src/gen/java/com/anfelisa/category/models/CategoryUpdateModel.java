@@ -65,6 +65,14 @@ public class CategoryUpdateModel implements ICategoryUpdateModel {
 	}
 	
 
+	public ICategoryUpdateModel deepCopy() {
+		ICategoryUpdateModel copy = new CategoryUpdateModel();
+		copy.setCategoryId(this.getCategoryId());
+		copy.setCategoryName(this.getCategoryName());
+		copy.setUserId(this.getUserId());
+		return copy;
+	}
+
 }
 
 

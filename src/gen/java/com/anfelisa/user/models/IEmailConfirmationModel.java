@@ -21,6 +21,7 @@ public interface IEmailConfirmationModel {
 	void setUserId(String userId);
 	
 	
+	IEmailConfirmationModel deepCopy();
 }
 
 

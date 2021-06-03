@@ -89,6 +89,18 @@ public abstract class AbstractAlreadyInvitedUsernamesData extends AbstractData i
 	
 	
 	
+	public IAlreadyInvitedUsernamesData deepCopy() {
+		IAlreadyInvitedUsernamesData copy = new AlreadyInvitedUsernamesData(this.getUuid());
+		copy.setCategoryId(this.getCategoryId());
+		copy.setUserId(this.getUserId());
+		List<String> invitedUsernamesCopy = new ArrayList<String>();
+		for(String item: this.getInvitedUsernames()) {
+			invitedUsernamesCopy.add(item);
+		}
+		copy.setInvitedUsernames(invitedUsernamesCopy);
+		return copy;
+	}
+
 }
 
 

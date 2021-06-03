@@ -35,6 +35,7 @@ public interface IBoxStatisticsData extends IBoxStatisticsModel, IDataContainer 
 	IBoxStatisticsData withMaxCardsPerDay(Integer maxCardsPerDay);
 	
 	
+	IBoxStatisticsData deepCopy();
 }
 
 

@@ -23,6 +23,7 @@ public interface IAlreadyInvitedUsernamesData extends IAlreadyInvitedUsernamesMo
 	IAlreadyInvitedUsernamesData withInvitedUsernames(java.util.List<String> invitedUsernames);
 	
 	
+	IAlreadyInvitedUsernamesData deepCopy();
 }
 
 

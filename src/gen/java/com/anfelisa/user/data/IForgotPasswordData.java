@@ -27,6 +27,7 @@ public interface IForgotPasswordData extends IForgotPasswordModel, IDataContaine
 	IForgotPasswordData withUserId(String userId);
 	
 	
+	IForgotPasswordData deepCopy();
 }
 
 

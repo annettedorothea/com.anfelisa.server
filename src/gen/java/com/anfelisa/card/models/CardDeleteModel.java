@@ -77,6 +77,15 @@ public class CardDeleteModel implements ICardDeleteModel {
 	}
 	
 
+	public ICardDeleteModel deepCopy() {
+		ICardDeleteModel copy = new CardDeleteModel();
+		copy.setCardId(this.getCardId());
+		copy.setCardIndex(this.getCardIndex());
+		copy.setCategoryId(this.getCategoryId());
+		copy.setUserId(this.getUserId());
+		return copy;
+	}
+
 }
 
 

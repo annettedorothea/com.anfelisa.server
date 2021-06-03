@@ -18,6 +18,7 @@ public interface ICardWithInfoModel extends com.anfelisa.card.models.ICardModel{
 	void setNext(java.time.LocalDateTime next);
 	
 	
+	ICardWithInfoModel deepCopy();
 }
 
 

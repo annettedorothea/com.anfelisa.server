@@ -73,6 +73,13 @@ public abstract class AbstractPostponeCardsData extends AbstractData implements 
 	
 	
 	
+	public IPostponeCardsData deepCopy() {
+		IPostponeCardsData copy = new PostponeCardsData(this.getUuid());
+		copy.setDays(this.getDays());
+		copy.setBoxId(this.getBoxId());
+		return copy;
+	}
+
 }
 
 

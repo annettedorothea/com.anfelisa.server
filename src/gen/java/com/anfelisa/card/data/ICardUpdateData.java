@@ -25,6 +25,7 @@ public interface ICardUpdateData extends ICardUpdateModel, IDataContainer {
 	ICardUpdateData withUserId(String userId);
 	
 	
+	ICardUpdateData deepCopy();
 }
 
 

@@ -21,6 +21,7 @@ public interface IUserWithAccessListModel {
 	void setUserList(java.util.List<com.anfelisa.category.models.IUserWithAccessModel> userList);
 	
 	
+	IUserWithAccessListModel deepCopy();
 }
 
 

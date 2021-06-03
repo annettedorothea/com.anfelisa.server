@@ -30,6 +30,7 @@ public interface IMoveCardsModel {
 	void setUpdatedIndices(java.util.List<com.anfelisa.card.models.ICardModel> updatedIndices);
 	
 	
+	IMoveCardsModel deepCopy();
 }
 
 

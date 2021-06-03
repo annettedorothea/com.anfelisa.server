@@ -21,6 +21,7 @@ public interface IResetPasswordModel {
 	void setUserId(String userId);
 	
 	
+	IResetPasswordModel deepCopy();
 }
 
 

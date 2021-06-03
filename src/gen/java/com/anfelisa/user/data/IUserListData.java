@@ -21,6 +21,7 @@ public interface IUserListData extends IUserListModel, IDataContainer {
 	IUserListData withRole(String role);
 	
 	
+	IUserListData deepCopy();
 }
 
 

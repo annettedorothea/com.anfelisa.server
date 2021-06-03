@@ -35,6 +35,7 @@ public interface ICategoryTreeData extends ICategoryTreeModel, IDataContainer {
 	ICategoryTreeData withBoxId(String boxId);
 	
 	
+	ICategoryTreeData deepCopy();
 }
 
 

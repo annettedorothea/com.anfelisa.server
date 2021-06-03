@@ -48,6 +48,7 @@ public interface IBoxSettingsModel {
 	void setShared(Boolean shared);
 	
 	
+	IBoxSettingsModel deepCopy();
 }
 
 

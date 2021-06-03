@@ -28,7 +28,7 @@ public abstract class AbstractUpdateCategoryCommand extends Command<ICategoryUpd
 	@Override
 	public void publishEvents(ICategoryUpdateData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
 		if (data.hasOutcome("ok")){
-			new com.anfelisa.category.events.UpdateCategoryOkEvent(daoProvider, viewProvider, appConfiguration).publish(data, handle, timelineHandle);
+			new com.anfelisa.category.events.UpdateCategoryOkEvent(daoProvider, viewProvider, appConfiguration).publish(data.deepCopy(), handle, timelineHandle);
 		}
 	}
 	

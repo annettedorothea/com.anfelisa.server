@@ -25,6 +25,7 @@ public interface ICategoryDeleteData extends ICategoryDeleteModel, IDataContaine
 	ICategoryDeleteData withUserId(String userId);
 	
 	
+	ICategoryDeleteData deepCopy();
 }
 
 

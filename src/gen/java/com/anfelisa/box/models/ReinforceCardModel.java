@@ -79,6 +79,15 @@ public class ReinforceCardModel implements IReinforceCardModel {
 	}
 	
 
+	public IReinforceCardModel deepCopy() {
+		IReinforceCardModel copy = new ReinforceCardModel();
+		copy.setReinforceCardId(this.getReinforceCardId());
+		copy.setScheduledCardId(this.getScheduledCardId());
+		copy.setBoxId(this.getBoxId());
+		copy.setChangeDate(this.getChangeDate());
+		return copy;
+	}
+
 }
 
 

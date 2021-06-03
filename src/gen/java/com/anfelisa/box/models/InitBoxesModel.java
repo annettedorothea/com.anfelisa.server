@@ -55,6 +55,13 @@ public class InitBoxesModel implements IInitBoxesModel {
 	}
 	
 
+	public IInitBoxesModel deepCopy() {
+		IInitBoxesModel copy = new InitBoxesModel();
+		copy.setMinScheduledDate(this.getMinScheduledDate());
+		copy.setBoxId(this.getBoxId());
+		return copy;
+	}
+
 }
 
 

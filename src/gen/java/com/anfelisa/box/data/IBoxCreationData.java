@@ -52,6 +52,7 @@ public interface IBoxCreationData extends IBoxCreationModel, IDataContainer {
 	IBoxCreationData withReverse(Boolean reverse);
 	
 	
+	IBoxCreationData deepCopy();
 }
 
 

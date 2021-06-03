@@ -21,6 +21,7 @@ public interface IInitBoxesData extends IInitBoxesModel, IDataContainer {
 	IInitBoxesData withBoxId(String boxId);
 	
 	
+	IInitBoxesData deepCopy();
 }
 
 

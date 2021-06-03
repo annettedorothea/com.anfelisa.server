@@ -27,6 +27,7 @@ public interface IChangeUserRoleModel {
 	void setRole(String role);
 	
 	
+	IChangeUserRoleModel deepCopy();
 }
 
 

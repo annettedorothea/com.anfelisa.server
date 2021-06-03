@@ -105,6 +105,19 @@ public abstract class AbstractUsernameSearchData extends AbstractData implements
 	
 	
 	
+	public IUsernameSearchData deepCopy() {
+		IUsernameSearchData copy = new UsernameSearchData(this.getUuid());
+		copy.setUsernameSearchString(this.getUsernameSearchString());
+		copy.setUserId(this.getUserId());
+		copy.setCategoryId(this.getCategoryId());
+		List<String> usernamesCopy = new ArrayList<String>();
+		for(String item: this.getUsernames()) {
+			usernamesCopy.add(item);
+		}
+		copy.setUsernames(usernamesCopy);
+		return copy;
+	}
+
 }
 
 

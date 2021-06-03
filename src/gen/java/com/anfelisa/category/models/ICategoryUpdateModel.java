@@ -24,6 +24,7 @@ public interface ICategoryUpdateModel {
 	void setUserId(String userId);
 	
 	
+	ICategoryUpdateModel deepCopy();
 }
 
 

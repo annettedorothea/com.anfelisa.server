@@ -221,6 +221,27 @@ public class BoxCreationModel implements IBoxCreationModel {
 	}
 	
 
+	public IBoxCreationModel deepCopy() {
+		IBoxCreationModel copy = new BoxCreationModel();
+		copy.setUsername(this.getUsername());
+		copy.setCategoryId(this.getCategoryId());
+		copy.setCategoryName(this.getCategoryName());
+		copy.setCategoryAuthor(this.getCategoryAuthor());
+		copy.setCategoryIndex(this.getCategoryIndex());
+		copy.setParentCategoryId(this.getParentCategoryId());
+		copy.setRootCategoryId(this.getRootCategoryId());
+		copy.setDictionaryLookup(this.getDictionaryLookup());
+		copy.setGivenLanguage(this.getGivenLanguage());
+		copy.setWantedLanguage(this.getWantedLanguage());
+		copy.setUserId(this.getUserId());
+		copy.setEditable(this.getEditable());
+		copy.setBoxId(this.getBoxId());
+		copy.setMaxInterval(this.getMaxInterval());
+		copy.setMaxCardsPerDay(this.getMaxCardsPerDay());
+		copy.setReverse(this.getReverse());
+		return copy;
+	}
+
 }
 
 

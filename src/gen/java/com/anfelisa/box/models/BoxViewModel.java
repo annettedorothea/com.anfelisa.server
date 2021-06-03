@@ -113,6 +113,18 @@ public class BoxViewModel implements IBoxViewModel {
 	}
 	
 
+	public IBoxViewModel deepCopy() {
+		IBoxViewModel copy = new BoxViewModel();
+		copy.setOpenTodaysCards(this.getOpenTodaysCards());
+		copy.setCategoryName(this.getCategoryName());
+		copy.setCategoryAuthor(this.getCategoryAuthor());
+		copy.setCategoryId(this.getCategoryId());
+		copy.setBoxId(this.getBoxId());
+		copy.setReverse(this.getReverse());
+		copy.setEditable(this.getEditable());
+		return copy;
+	}
+
 }
 
 

@@ -36,6 +36,7 @@ public interface IScheduledCardsModel {
 	void setReverse(Boolean reverse);
 	
 	
+	IScheduledCardsModel deepCopy();
 }
 
 

@@ -105,6 +105,15 @@ public abstract class AbstractCardDeleteData extends AbstractData implements ICa
 	
 	
 	
+	public ICardDeleteData deepCopy() {
+		ICardDeleteData copy = new CardDeleteData(this.getUuid());
+		copy.setCardId(this.getCardId());
+		copy.setCardIndex(this.getCardIndex());
+		copy.setCategoryId(this.getCategoryId());
+		copy.setUserId(this.getUserId());
+		return copy;
+	}
+
 }
 
 

@@ -25,6 +25,7 @@ public interface ICsvUploadData extends ICsvUploadModel, IDataContainer {
 	ICsvUploadData withCards(java.util.List<com.anfelisa.card.models.ICardModel> cards);
 	
 	
+	ICsvUploadData deepCopy();
 }
 
 

@@ -33,6 +33,7 @@ public interface IUserModel {
 	void setEmailConfirmed(Boolean emailConfirmed);
 	
 	
+	IUserModel deepCopy();
 }
 
 

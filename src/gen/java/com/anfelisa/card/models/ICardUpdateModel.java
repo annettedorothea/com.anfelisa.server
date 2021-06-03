@@ -27,6 +27,7 @@ public interface ICardUpdateModel {
 	void setUserId(String userId);
 	
 	
+	ICardUpdateModel deepCopy();
 }
 
 

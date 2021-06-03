@@ -77,6 +77,19 @@ public class CategoryChangeOrderModel implements ICategoryChangeOrderModel {
 	}
 	
 
+	public ICategoryChangeOrderModel deepCopy() {
+		ICategoryChangeOrderModel copy = new CategoryChangeOrderModel();
+		copy.setMovedCategoryId(this.getMovedCategoryId());
+		copy.setTargetCategoryId(this.getTargetCategoryId());
+		copy.setUserId(this.getUserId());
+		List<com.anfelisa.category.models.ICategoryModel> updatedIndicesCopy = new ArrayList<com.anfelisa.category.models.ICategoryModel>();
+		for(com.anfelisa.category.models.ICategoryModel item: this.getUpdatedIndices()) {
+			updatedIndicesCopy.add(item.deepCopy());
+		}
+		copy.setUpdatedIndices(updatedIndicesCopy);
+		return copy;
+	}
+
 }
 
 

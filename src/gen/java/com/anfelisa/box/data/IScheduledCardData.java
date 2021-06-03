@@ -41,6 +41,7 @@ public interface IScheduledCardData extends IScheduledCardModel, IDataContainer 
 	IScheduledCardData withScoredDate(java.time.LocalDateTime scoredDate);
 	
 	
+	IScheduledCardData deepCopy();
 }
 
 

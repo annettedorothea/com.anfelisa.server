@@ -21,6 +21,7 @@ public interface IUsernameAvailableModel {
 	void setAvailable(Boolean available);
 	
 	
+	IUsernameAvailableModel deepCopy();
 }
 
 

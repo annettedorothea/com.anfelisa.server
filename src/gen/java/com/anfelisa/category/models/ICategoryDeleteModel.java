@@ -27,6 +27,7 @@ public interface ICategoryDeleteModel {
 	void setUserId(String userId);
 	
 	
+	ICategoryDeleteModel deepCopy();
 }
 
 

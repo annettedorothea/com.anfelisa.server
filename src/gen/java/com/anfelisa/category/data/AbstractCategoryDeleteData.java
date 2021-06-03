@@ -105,6 +105,15 @@ public abstract class AbstractCategoryDeleteData extends AbstractData implements
 	
 	
 	
+	public ICategoryDeleteData deepCopy() {
+		ICategoryDeleteData copy = new CategoryDeleteData(this.getUuid());
+		copy.setCategoryId(this.getCategoryId());
+		copy.setCategoryIndex(this.getCategoryIndex());
+		copy.setParentCategoryId(this.getParentCategoryId());
+		copy.setUserId(this.getUserId());
+		return copy;
+	}
+
 }
 
 

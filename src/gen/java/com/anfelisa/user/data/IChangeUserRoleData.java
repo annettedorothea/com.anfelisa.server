@@ -25,6 +25,7 @@ public interface IChangeUserRoleData extends IChangeUserRoleModel, IDataContaine
 	IChangeUserRoleData withRole(String role);
 	
 	
+	IChangeUserRoleData deepCopy();
 }
 
 
