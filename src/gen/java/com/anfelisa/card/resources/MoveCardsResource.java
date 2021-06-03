@@ -93,20 +93,19 @@ public class MoveCardsResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.card.data.IMoveCardsData actionData = new MoveCardsData(uuid);
+			com.anfelisa.card.data.IMoveCardsData data = new MoveCardsData(uuid);
 			if (payload.getCardIdList() == null) {
 				return badRequest("cardIdList is mandatory");
 			}
-			actionData.setCardIdList(payload.getCardIdList());
+			data.setCardIdList(payload.getCardIdList());
 			if (StringUtils.isBlank(payload.getCategoryId()) || "null".equals(payload.getCategoryId())) {
 				return badRequest("categoryId is mandatory");
 			}
-			actionData.setCategoryId(payload.getCategoryId());
-			actionData.setUserId(authUser.getUserId());
+			data.setCategoryId(payload.getCategoryId());
+			data.setUserId(authUser.getUserId());
 			
 			com.anfelisa.card.actions.MoveCardsAction action = new com.anfelisa.card.actions.MoveCardsAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
-			action.setActionData(actionData);
-			action.apply();
+			data = action.apply(data);
 			return ok();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());

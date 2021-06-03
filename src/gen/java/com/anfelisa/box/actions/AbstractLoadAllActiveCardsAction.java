@@ -37,14 +37,19 @@ public abstract class AbstractLoadAllActiveCardsAction extends ReadAction<IActiv
 		super("com.anfelisa.box.actions.LoadAllActiveCardsAction", persistenceConnection, appConfiguration, daoProvider, viewProvider);
 	}
 
-	protected abstract void loadDataForGetRequest(PersistenceHandle readonlyHandle);
+	protected abstract IActiveCardListData loadDataForGetRequest(IActiveCardListData data, PersistenceHandle readonlyHandle);
 
 	@Override
-	protected void initActionDataFromNonDeterministicDataProvider() {
-		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(this.actionData.getUuid());
+	protected IActiveCardListData initActionDataFromNonDeterministicDataProvider(IActiveCardListData data) {
+		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
-			this.actionData.setSystemTime(systemTime);
+			data.setSystemTime(systemTime);
 		}
+		return data;
+	}
+
+	public IActiveCardListData initActionData(IActiveCardListData data) {
+		return data;
 	}
 
 }

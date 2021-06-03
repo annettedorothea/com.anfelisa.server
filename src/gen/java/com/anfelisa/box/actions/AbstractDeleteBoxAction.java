@@ -41,16 +41,21 @@ public abstract class AbstractDeleteBoxAction extends WriteAction<IDeleteBoxData
 	}
 
 	@Override
-	public ICommand getCommand() {
-		return new DeleteBoxCommand(this.actionData, daoProvider, viewProvider, this.appConfiguration);
+	public ICommand<IDeleteBoxData> getCommand() {
+		return new DeleteBoxCommand(daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	@Override
-	protected void initActionDataFromNonDeterministicDataProvider() {
-		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(this.actionData.getUuid());
+	protected IDeleteBoxData initActionDataFromNonDeterministicDataProvider(IDeleteBoxData data) {
+		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
-			this.actionData.setSystemTime(systemTime);
+			data.setSystemTime(systemTime);
 		}
+		return data;
+	}
+
+	public IDeleteBoxData initActionData(IDeleteBoxData data) {
+		return data;
 	}
 
 }

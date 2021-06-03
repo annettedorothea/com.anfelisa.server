@@ -93,26 +93,25 @@ public class GetCategoryTreeResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.category.data.ICategoryTreeData actionData = new CategoryTreeData(uuid);
+			com.anfelisa.category.data.ICategoryTreeData data = new CategoryTreeData(uuid);
 			if (StringUtils.isBlank(rootCategoryId) || "null".equals(rootCategoryId)) {
 				return badRequest("rootCategoryId is mandatory");
 			}
-			actionData.setRootCategoryId(rootCategoryId);
+			data.setRootCategoryId(rootCategoryId);
 			if (StringUtils.isBlank(filterNonScheduled) || "null".equals(filterNonScheduled)) {
 				return badRequest("filterNonScheduled is mandatory");
 			}
-			actionData.setFilterNonScheduled("null".equals(filterNonScheduled) ? null : Boolean.parseBoolean(filterNonScheduled));
-			actionData.setPriority("null".equals(priority) ? null : Integer.parseInt(priority));
+			data.setFilterNonScheduled("null".equals(filterNonScheduled) ? null : Boolean.parseBoolean(filterNonScheduled));
+			data.setPriority("null".equals(priority) ? null : Integer.parseInt(priority));
 			if (StringUtils.isBlank(reverse) || "null".equals(reverse)) {
 				return badRequest("reverse is mandatory");
 			}
-			actionData.setReverse("null".equals(reverse) ? null : Boolean.parseBoolean(reverse));
-			actionData.setUserId(authUser.getUserId());
+			data.setReverse("null".equals(reverse) ? null : Boolean.parseBoolean(reverse));
+			data.setUserId(authUser.getUserId());
 			
 			com.anfelisa.category.actions.GetCategoryTreeAction action = new com.anfelisa.category.actions.GetCategoryTreeAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
-			action.setActionData(actionData);
-			action.apply();
-			return Response.ok(new com.anfelisa.category.data.GetCategoryTreeResponse(action.getActionData())).build();
+			data = action.apply(data);
+			return Response.ok(new com.anfelisa.category.data.GetCategoryTreeResponse(data)).build();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());
 			return badRequest(x.getMessage());

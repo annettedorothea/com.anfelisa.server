@@ -41,16 +41,21 @@ public abstract class AbstractScoreCardAction extends WriteAction<IScoreCardData
 	}
 
 	@Override
-	public ICommand getCommand() {
-		return new ScoreCardCommand(this.actionData, daoProvider, viewProvider, this.appConfiguration);
+	public ICommand<IScoreCardData> getCommand() {
+		return new ScoreCardCommand(daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	@Override
-	protected void initActionDataFromNonDeterministicDataProvider() {
-		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(this.actionData.getUuid());
+	protected IScoreCardData initActionDataFromNonDeterministicDataProvider(IScoreCardData data) {
+		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
-			this.actionData.setSystemTime(systemTime);
+			data.setSystemTime(systemTime);
 		}
+		return data;
+	}
+
+	public IScoreCardData initActionData(IScoreCardData data) {
+		return data;
 	}
 
 }

@@ -17,23 +17,23 @@ import com.anfelisa.category.data.ICategoryUpdateData;
 
 public abstract class AbstractUpdateCategoryCommand extends Command<ICategoryUpdateData> {
 
-	public AbstractUpdateCategoryCommand(ICategoryUpdateData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.category.commands.UpdateCategoryCommand", commandParam, daoProvider, viewProvider, appConfiguration);
+	public AbstractUpdateCategoryCommand(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.category.commands.UpdateCategoryCommand", daoProvider, viewProvider, appConfiguration);
 	}
 
-	protected void addOkOutcome() {
-		this.commandData.addOutcome("ok");
+	protected void addOkOutcome(ICategoryUpdateData data) {
+		data.addOutcome("ok");
 	}
 
 	@Override
-	public void publishEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
-		if (this.commandData.hasOutcome("ok")){
-			new com.anfelisa.category.events.UpdateCategoryOkEvent(this.commandData, daoProvider, viewProvider, appConfiguration).publish(handle, timelineHandle);
+	public void publishEvents(ICategoryUpdateData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+		if (data.hasOutcome("ok")){
+			new com.anfelisa.category.events.UpdateCategoryOkEvent(daoProvider, viewProvider, appConfiguration).publish(data, handle, timelineHandle);
 		}
 	}
 	
 	@Override
-	public void publishAfterCommitEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	public void publishAfterCommitEvents(ICategoryUpdateData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
 	}
 	
 }

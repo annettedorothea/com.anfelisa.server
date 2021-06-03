@@ -17,27 +17,27 @@ import com.anfelisa.box.data.ISortCardsOutData;
 
 public abstract class AbstractSortCardsOutCommand extends Command<ISortCardsOutData> {
 
-	public AbstractSortCardsOutCommand(ISortCardsOutData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.box.commands.SortCardsOutCommand", commandParam, daoProvider, viewProvider, appConfiguration);
+	public AbstractSortCardsOutCommand(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.box.commands.SortCardsOutCommand", daoProvider, viewProvider, appConfiguration);
 	}
 
-	protected void addOkOutcome() {
-		this.commandData.addOutcome("ok");
+	protected void addOkOutcome(ISortCardsOutData data) {
+		data.addOutcome("ok");
 	}
 
-	protected void addNullOrEmptyOutcome() {
-		this.commandData.addOutcome("nullOrEmpty");
+	protected void addNullOrEmptyOutcome(ISortCardsOutData data) {
+		data.addOutcome("nullOrEmpty");
 	}
 
 	@Override
-	public void publishEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
-		if (this.commandData.hasOutcome("ok")){
-			new com.anfelisa.box.events.SortCardsOutOkEvent(this.commandData, daoProvider, viewProvider, appConfiguration).publish(handle, timelineHandle);
+	public void publishEvents(ISortCardsOutData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+		if (data.hasOutcome("ok")){
+			new com.anfelisa.box.events.SortCardsOutOkEvent(daoProvider, viewProvider, appConfiguration).publish(data, handle, timelineHandle);
 		}
 	}
 	
 	@Override
-	public void publishAfterCommitEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	public void publishAfterCommitEvents(ISortCardsOutData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
 	}
 	
 }

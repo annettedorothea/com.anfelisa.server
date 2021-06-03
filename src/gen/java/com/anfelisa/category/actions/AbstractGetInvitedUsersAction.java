@@ -37,14 +37,19 @@ public abstract class AbstractGetInvitedUsersAction extends ReadAction<IAlreadyI
 		super("com.anfelisa.category.actions.GetInvitedUsersAction", persistenceConnection, appConfiguration, daoProvider, viewProvider);
 	}
 
-	protected abstract void loadDataForGetRequest(PersistenceHandle readonlyHandle);
+	protected abstract IAlreadyInvitedUsernamesData loadDataForGetRequest(IAlreadyInvitedUsernamesData data, PersistenceHandle readonlyHandle);
 
 	@Override
-	protected void initActionDataFromNonDeterministicDataProvider() {
-		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(this.actionData.getUuid());
+	protected IAlreadyInvitedUsernamesData initActionDataFromNonDeterministicDataProvider(IAlreadyInvitedUsernamesData data) {
+		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
-			this.actionData.setSystemTime(systemTime);
+			data.setSystemTime(systemTime);
 		}
+		return data;
+	}
+
+	public IAlreadyInvitedUsernamesData initActionData(IAlreadyInvitedUsernamesData data) {
+		return data;
 	}
 
 }

@@ -75,7 +75,7 @@ public abstract class AbstractUsernameAvailableScenario extends BaseScenario {
 		String uuid = this.randomUUID();
 		com.anfelisa.user.data.UsernameAvailableData data_0 = objectMapper.readValue("{" +
 		"\"uuid\" : \"" + uuid + "\"," + 
-		"\"username\" : \"lala\"} ",
+		"\"username\" : \"username-available-" + this.getTestId() + "\"} ",
 				com.anfelisa.user.data.UsernameAvailableData.class);
 		HttpResponse<com.anfelisa.user.data.UsernameAvailableResponse> response = 
 		this.httpGet(

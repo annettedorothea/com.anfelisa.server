@@ -41,16 +41,21 @@ public abstract class AbstractMoveCategoryAction extends WriteAction<ICategoryMo
 	}
 
 	@Override
-	public ICommand getCommand() {
-		return new MoveCategoryCommand(this.actionData, daoProvider, viewProvider, this.appConfiguration);
+	public ICommand<ICategoryMoveData> getCommand() {
+		return new MoveCategoryCommand(daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	@Override
-	protected void initActionDataFromNonDeterministicDataProvider() {
-		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(this.actionData.getUuid());
+	protected ICategoryMoveData initActionDataFromNonDeterministicDataProvider(ICategoryMoveData data) {
+		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
-			this.actionData.setSystemTime(systemTime);
+			data.setSystemTime(systemTime);
 		}
+		return data;
+	}
+
+	public ICategoryMoveData initActionData(ICategoryMoveData data) {
+		return data;
 	}
 
 }

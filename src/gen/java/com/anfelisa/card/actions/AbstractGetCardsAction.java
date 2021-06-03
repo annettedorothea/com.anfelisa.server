@@ -37,14 +37,19 @@ public abstract class AbstractGetCardsAction extends ReadAction<ICardListData> {
 		super("com.anfelisa.card.actions.GetCardsAction", persistenceConnection, appConfiguration, daoProvider, viewProvider);
 	}
 
-	protected abstract void loadDataForGetRequest(PersistenceHandle readonlyHandle);
+	protected abstract ICardListData loadDataForGetRequest(ICardListData data, PersistenceHandle readonlyHandle);
 
 	@Override
-	protected void initActionDataFromNonDeterministicDataProvider() {
-		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(this.actionData.getUuid());
+	protected ICardListData initActionDataFromNonDeterministicDataProvider(ICardListData data) {
+		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
-			this.actionData.setSystemTime(systemTime);
+			data.setSystemTime(systemTime);
 		}
+		return data;
+	}
+
+	public ICardListData initActionData(ICardListData data) {
+		return data;
 	}
 
 }

@@ -41,16 +41,21 @@ public abstract class AbstractChangeOrderCategoryAction extends WriteAction<ICat
 	}
 
 	@Override
-	public ICommand getCommand() {
-		return new ChangeOrderCategoryCommand(this.actionData, daoProvider, viewProvider, this.appConfiguration);
+	public ICommand<ICategoryChangeOrderData> getCommand() {
+		return new ChangeOrderCategoryCommand(daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	@Override
-	protected void initActionDataFromNonDeterministicDataProvider() {
-		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(this.actionData.getUuid());
+	protected ICategoryChangeOrderData initActionDataFromNonDeterministicDataProvider(ICategoryChangeOrderData data) {
+		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
-			this.actionData.setSystemTime(systemTime);
+			data.setSystemTime(systemTime);
 		}
+		return data;
+	}
+
+	public ICategoryChangeOrderData initActionData(ICategoryChangeOrderData data) {
+		return data;
 	}
 
 }

@@ -41,16 +41,21 @@ public abstract class AbstractDeleteUserAction extends WriteAction<IDeleteUserDa
 	}
 
 	@Override
-	public ICommand getCommand() {
-		return new DeleteUserCommand(this.actionData, daoProvider, viewProvider, this.appConfiguration);
+	public ICommand<IDeleteUserData> getCommand() {
+		return new DeleteUserCommand(daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	@Override
-	protected void initActionDataFromNonDeterministicDataProvider() {
-		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(this.actionData.getUuid());
+	protected IDeleteUserData initActionDataFromNonDeterministicDataProvider(IDeleteUserData data) {
+		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
-			this.actionData.setSystemTime(systemTime);
+			data.setSystemTime(systemTime);
 		}
+		return data;
+	}
+
+	public IDeleteUserData initActionData(IDeleteUserData data) {
+		return data;
 	}
 
 }

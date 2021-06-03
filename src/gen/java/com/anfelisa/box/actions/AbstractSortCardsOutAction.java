@@ -41,16 +41,21 @@ public abstract class AbstractSortCardsOutAction extends WriteAction<ISortCardsO
 	}
 
 	@Override
-	public ICommand getCommand() {
-		return new SortCardsOutCommand(this.actionData, daoProvider, viewProvider, this.appConfiguration);
+	public ICommand<ISortCardsOutData> getCommand() {
+		return new SortCardsOutCommand(daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	@Override
-	protected void initActionDataFromNonDeterministicDataProvider() {
-		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(this.actionData.getUuid());
+	protected ISortCardsOutData initActionDataFromNonDeterministicDataProvider(ISortCardsOutData data) {
+		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
-			this.actionData.setSystemTime(systemTime);
+			data.setSystemTime(systemTime);
 		}
+		return data;
+	}
+
+	public ISortCardsOutData initActionData(ISortCardsOutData data) {
+		return data;
 	}
 
 }

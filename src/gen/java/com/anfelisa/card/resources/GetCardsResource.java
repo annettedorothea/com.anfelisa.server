@@ -93,26 +93,25 @@ public class GetCardsResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.card.data.ICardListData actionData = new CardListData(uuid);
+			com.anfelisa.card.data.ICardListData data = new CardListData(uuid);
 			if (StringUtils.isBlank(categoryId) || "null".equals(categoryId)) {
 				return badRequest("categoryId is mandatory");
 			}
-			actionData.setCategoryId(categoryId);
+			data.setCategoryId(categoryId);
 			if (StringUtils.isBlank(filterNonScheduled) || "null".equals(filterNonScheduled)) {
 				return badRequest("filterNonScheduled is mandatory");
 			}
-			actionData.setFilterNonScheduled("null".equals(filterNonScheduled) ? null : Boolean.parseBoolean(filterNonScheduled));
-			actionData.setPriority("null".equals(priority) ? null : Integer.parseInt(priority));
+			data.setFilterNonScheduled("null".equals(filterNonScheduled) ? null : Boolean.parseBoolean(filterNonScheduled));
+			data.setPriority("null".equals(priority) ? null : Integer.parseInt(priority));
 			if (StringUtils.isBlank(reverse) || "null".equals(reverse)) {
 				return badRequest("reverse is mandatory");
 			}
-			actionData.setReverse("null".equals(reverse) ? null : Boolean.parseBoolean(reverse));
-			actionData.setUserId(authUser.getUserId());
+			data.setReverse("null".equals(reverse) ? null : Boolean.parseBoolean(reverse));
+			data.setUserId(authUser.getUserId());
 			
 			com.anfelisa.card.actions.GetCardsAction action = new com.anfelisa.card.actions.GetCardsAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
-			action.setActionData(actionData);
-			action.apply();
-			return Response.ok(new com.anfelisa.card.data.GetCardsResponse(action.getActionData())).build();
+			data = action.apply(data);
+			return Response.ok(new com.anfelisa.card.data.GetCardsResponse(data)).build();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());
 			return badRequest(x.getMessage());

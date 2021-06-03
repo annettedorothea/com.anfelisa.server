@@ -41,16 +41,21 @@ public abstract class AbstractScheduleCardsAction extends WriteAction<IScheduled
 	}
 
 	@Override
-	public ICommand getCommand() {
-		return new ScheduleCardsCommand(this.actionData, daoProvider, viewProvider, this.appConfiguration);
+	public ICommand<IScheduledCardsData> getCommand() {
+		return new ScheduleCardsCommand(daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	@Override
-	protected void initActionDataFromNonDeterministicDataProvider() {
-		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(this.actionData.getUuid());
+	protected IScheduledCardsData initActionDataFromNonDeterministicDataProvider(IScheduledCardsData data) {
+		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
-			this.actionData.setSystemTime(systemTime);
+			data.setSystemTime(systemTime);
 		}
+		return data;
+	}
+
+	public IScheduledCardsData initActionData(IScheduledCardsData data) {
+		return data;
 	}
 
 }

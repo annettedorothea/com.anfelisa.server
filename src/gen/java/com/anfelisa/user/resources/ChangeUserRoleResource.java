@@ -93,21 +93,20 @@ public class ChangeUserRoleResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.user.data.IChangeUserRoleData actionData = new ChangeUserRoleData(uuid);
+			com.anfelisa.user.data.IChangeUserRoleData data = new ChangeUserRoleData(uuid);
 			if (StringUtils.isBlank(payload.getNewRole()) || "null".equals(payload.getNewRole())) {
 				return badRequest("newRole is mandatory");
 			}
-			actionData.setNewRole(payload.getNewRole());
+			data.setNewRole(payload.getNewRole());
 			if (StringUtils.isBlank(payload.getEditedUserId()) || "null".equals(payload.getEditedUserId())) {
 				return badRequest("editedUserId is mandatory");
 			}
-			actionData.setEditedUserId(payload.getEditedUserId());
-			actionData.setUserId(authUser.getUserId());
-			actionData.setRole(authUser.getRole());
+			data.setEditedUserId(payload.getEditedUserId());
+			data.setUserId(authUser.getUserId());
+			data.setRole(authUser.getRole());
 			
 			com.anfelisa.user.actions.ChangeUserRoleAction action = new com.anfelisa.user.actions.ChangeUserRoleAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
-			action.setActionData(actionData);
-			action.apply();
+			data = action.apply(data);
 			return ok();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());

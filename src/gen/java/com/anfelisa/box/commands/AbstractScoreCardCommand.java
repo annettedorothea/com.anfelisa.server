@@ -17,30 +17,30 @@ import com.anfelisa.box.data.IScoreCardData;
 
 public abstract class AbstractScoreCardCommand extends Command<IScoreCardData> {
 
-	public AbstractScoreCardCommand(IScoreCardData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.box.commands.ScoreCardCommand", commandParam, daoProvider, viewProvider, appConfiguration);
+	public AbstractScoreCardCommand(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.box.commands.ScoreCardCommand", daoProvider, viewProvider, appConfiguration);
 	}
 
-	protected void addScoreOutcome() {
-		this.commandData.addOutcome("score");
+	protected void addScoreOutcome(IScoreCardData data) {
+		data.addOutcome("score");
 	}
 
-	protected void addReinforceOutcome() {
-		this.commandData.addOutcome("reinforce");
+	protected void addReinforceOutcome(IScoreCardData data) {
+		data.addOutcome("reinforce");
 	}
 
 	@Override
-	public void publishEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
-		if (this.commandData.hasOutcome("score")){
-			new com.anfelisa.box.events.ScoreCardScoreEvent(this.commandData, daoProvider, viewProvider, appConfiguration).publish(handle, timelineHandle);
+	public void publishEvents(IScoreCardData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+		if (data.hasOutcome("score")){
+			new com.anfelisa.box.events.ScoreCardScoreEvent(daoProvider, viewProvider, appConfiguration).publish(data, handle, timelineHandle);
 		}
-		if (this.commandData.hasOutcome("reinforce")){
-			new com.anfelisa.box.events.ScoreCardReinforceEvent(this.commandData, daoProvider, viewProvider, appConfiguration).publish(handle, timelineHandle);
+		if (data.hasOutcome("reinforce")){
+			new com.anfelisa.box.events.ScoreCardReinforceEvent(daoProvider, viewProvider, appConfiguration).publish(data, handle, timelineHandle);
 		}
 	}
 	
 	@Override
-	public void publishAfterCommitEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	public void publishAfterCommitEvents(IScoreCardData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
 	}
 	
 }

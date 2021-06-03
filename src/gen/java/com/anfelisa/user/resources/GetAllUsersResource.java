@@ -89,13 +89,12 @@ public class GetAllUsersResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.user.data.IUserListData actionData = new UserListData(uuid);
-			actionData.setRole(authUser.getRole());
+			com.anfelisa.user.data.IUserListData data = new UserListData(uuid);
+			data.setRole(authUser.getRole());
 			
 			com.anfelisa.user.actions.GetAllUsersAction action = new com.anfelisa.user.actions.GetAllUsersAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
-			action.setActionData(actionData);
-			action.apply();
-			return Response.ok(new com.anfelisa.user.data.GetAllUsersResponse(action.getActionData())).build();
+			data = action.apply(data);
+			return Response.ok(new com.anfelisa.user.data.GetAllUsersResponse(data)).build();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());
 			return badRequest(x.getMessage());

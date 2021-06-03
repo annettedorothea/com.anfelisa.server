@@ -16,8 +16,8 @@ import com.anfelisa.box.data.IScoreCardData;
 
 public class ScoreCardReinforceEvent extends Event<IScoreCardData> {
 
-	public ScoreCardReinforceEvent(IScoreCardData eventData, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.box.events.ScoreCardReinforceEvent", eventData, daoProvider, viewProvider, appConfiguration);
+	public ScoreCardReinforceEvent(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.box.events.ScoreCardReinforceEvent", daoProvider, viewProvider, appConfiguration);
 	}
 
 }

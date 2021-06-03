@@ -16,8 +16,8 @@ import com.anfelisa.category.data.ICategoryCreationData;
 
 public class CreateCategoryOkEvent extends Event<ICategoryCreationData> {
 
-	public CreateCategoryOkEvent(ICategoryCreationData eventData, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.category.events.CreateCategoryOkEvent", eventData, daoProvider, viewProvider, appConfiguration);
+	public CreateCategoryOkEvent(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.category.events.CreateCategoryOkEvent", daoProvider, viewProvider, appConfiguration);
 	}
 
 }

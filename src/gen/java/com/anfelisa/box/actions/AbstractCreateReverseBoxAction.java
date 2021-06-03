@@ -41,16 +41,21 @@ public abstract class AbstractCreateReverseBoxAction extends WriteAction<IBoxCre
 	}
 
 	@Override
-	public ICommand getCommand() {
-		return new CreateReverseBoxCommand(this.actionData, daoProvider, viewProvider, this.appConfiguration);
+	public ICommand<IBoxCreationData> getCommand() {
+		return new CreateReverseBoxCommand(daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	@Override
-	protected void initActionDataFromNonDeterministicDataProvider() {
-		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(this.actionData.getUuid());
+	protected IBoxCreationData initActionDataFromNonDeterministicDataProvider(IBoxCreationData data) {
+		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
-			this.actionData.setSystemTime(systemTime);
+			data.setSystemTime(systemTime);
 		}
+		return data;
+	}
+
+	public IBoxCreationData initActionData(IBoxCreationData data) {
+		return data;
 	}
 
 }

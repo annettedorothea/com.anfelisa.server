@@ -41,16 +41,21 @@ public abstract class AbstractDeleteCategoryAction extends WriteAction<ICategory
 	}
 
 	@Override
-	public ICommand getCommand() {
-		return new DeleteCategoryCommand(this.actionData, daoProvider, viewProvider, this.appConfiguration);
+	public ICommand<ICategoryDeleteData> getCommand() {
+		return new DeleteCategoryCommand(daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	@Override
-	protected void initActionDataFromNonDeterministicDataProvider() {
-		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(this.actionData.getUuid());
+	protected ICategoryDeleteData initActionDataFromNonDeterministicDataProvider(ICategoryDeleteData data) {
+		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
-			this.actionData.setSystemTime(systemTime);
+			data.setSystemTime(systemTime);
 		}
+		return data;
+	}
+
+	public ICategoryDeleteData initActionData(ICategoryDeleteData data) {
+		return data;
 	}
 
 }

@@ -41,16 +41,21 @@ public abstract class AbstractInitMyBoxesForDayAction extends WriteAction<IInitM
 	}
 
 	@Override
-	public ICommand getCommand() {
-		return new InitMyBoxesForDayCommand(this.actionData, daoProvider, viewProvider, this.appConfiguration);
+	public ICommand<IInitMyBoxesDataData> getCommand() {
+		return new InitMyBoxesForDayCommand(daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	@Override
-	protected void initActionDataFromNonDeterministicDataProvider() {
-		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(this.actionData.getUuid());
+	protected IInitMyBoxesDataData initActionDataFromNonDeterministicDataProvider(IInitMyBoxesDataData data) {
+		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
-			this.actionData.setSystemTime(systemTime);
+			data.setSystemTime(systemTime);
 		}
+		return data;
+	}
+
+	public IInitMyBoxesDataData initActionData(IInitMyBoxesDataData data) {
+		return data;
 	}
 
 }

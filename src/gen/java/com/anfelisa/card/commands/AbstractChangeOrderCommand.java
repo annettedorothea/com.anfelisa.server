@@ -17,23 +17,23 @@ import com.anfelisa.card.data.IChangeCardOrderListData;
 
 public abstract class AbstractChangeOrderCommand extends Command<IChangeCardOrderListData> {
 
-	public AbstractChangeOrderCommand(IChangeCardOrderListData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.card.commands.ChangeOrderCommand", commandParam, daoProvider, viewProvider, appConfiguration);
+	public AbstractChangeOrderCommand(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.card.commands.ChangeOrderCommand", daoProvider, viewProvider, appConfiguration);
 	}
 
-	protected void addOkOutcome() {
-		this.commandData.addOutcome("ok");
+	protected void addOkOutcome(IChangeCardOrderListData data) {
+		data.addOutcome("ok");
 	}
 
 	@Override
-	public void publishEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
-		if (this.commandData.hasOutcome("ok")){
-			new com.anfelisa.card.events.ChangeOrderOkEvent(this.commandData, daoProvider, viewProvider, appConfiguration).publish(handle, timelineHandle);
+	public void publishEvents(IChangeCardOrderListData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+		if (data.hasOutcome("ok")){
+			new com.anfelisa.card.events.ChangeOrderOkEvent(daoProvider, viewProvider, appConfiguration).publish(data, handle, timelineHandle);
 		}
 	}
 	
 	@Override
-	public void publishAfterCommitEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	public void publishAfterCommitEvents(IChangeCardOrderListData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
 	}
 	
 }

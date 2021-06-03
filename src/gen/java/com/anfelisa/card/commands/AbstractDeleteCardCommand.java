@@ -17,23 +17,23 @@ import com.anfelisa.card.data.ICardDeleteData;
 
 public abstract class AbstractDeleteCardCommand extends Command<ICardDeleteData> {
 
-	public AbstractDeleteCardCommand(ICardDeleteData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.card.commands.DeleteCardCommand", commandParam, daoProvider, viewProvider, appConfiguration);
+	public AbstractDeleteCardCommand(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.card.commands.DeleteCardCommand", daoProvider, viewProvider, appConfiguration);
 	}
 
-	protected void addOkOutcome() {
-		this.commandData.addOutcome("ok");
+	protected void addOkOutcome(ICardDeleteData data) {
+		data.addOutcome("ok");
 	}
 
 	@Override
-	public void publishEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
-		if (this.commandData.hasOutcome("ok")){
-			new com.anfelisa.card.events.DeleteCardOkEvent(this.commandData, daoProvider, viewProvider, appConfiguration).publish(handle, timelineHandle);
+	public void publishEvents(ICardDeleteData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+		if (data.hasOutcome("ok")){
+			new com.anfelisa.card.events.DeleteCardOkEvent(daoProvider, viewProvider, appConfiguration).publish(data, handle, timelineHandle);
 		}
 	}
 	
 	@Override
-	public void publishAfterCommitEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	public void publishAfterCommitEvents(ICardDeleteData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
 	}
 	
 }

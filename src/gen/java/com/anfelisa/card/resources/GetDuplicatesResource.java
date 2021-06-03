@@ -93,20 +93,19 @@ public class GetDuplicatesResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.card.data.ICardSearchData actionData = new CardSearchData(uuid);
-			actionData.setGiven(given);
-			actionData.setWanted(wanted);
-			actionData.setNaturalInputOrder("null".equals(naturalInputOrder) ? null : Boolean.parseBoolean(naturalInputOrder));
+			com.anfelisa.card.data.ICardSearchData data = new CardSearchData(uuid);
+			data.setGiven(given);
+			data.setWanted(wanted);
+			data.setNaturalInputOrder("null".equals(naturalInputOrder) ? null : Boolean.parseBoolean(naturalInputOrder));
 			if (StringUtils.isBlank(categoryId) || "null".equals(categoryId)) {
 				return badRequest("categoryId is mandatory");
 			}
-			actionData.setCategoryId(categoryId);
-			actionData.setUserId(authUser.getUserId());
+			data.setCategoryId(categoryId);
+			data.setUserId(authUser.getUserId());
 			
 			com.anfelisa.card.actions.GetDuplicatesAction action = new com.anfelisa.card.actions.GetDuplicatesAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
-			action.setActionData(actionData);
-			action.apply();
-			return Response.ok(new com.anfelisa.card.data.GetDuplicatesResponse(action.getActionData())).build();
+			data = action.apply(data);
+			return Response.ok(new com.anfelisa.card.data.GetDuplicatesResponse(data)).build();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());
 			return badRequest(x.getMessage());

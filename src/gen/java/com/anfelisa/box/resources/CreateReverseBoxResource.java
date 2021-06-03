@@ -93,17 +93,16 @@ public class CreateReverseBoxResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.box.data.IBoxCreationData actionData = new BoxCreationData(uuid);
+			com.anfelisa.box.data.IBoxCreationData data = new BoxCreationData(uuid);
 			if (StringUtils.isBlank(payload.getRootCategoryId()) || "null".equals(payload.getRootCategoryId())) {
 				return badRequest("rootCategoryId is mandatory");
 			}
-			actionData.setRootCategoryId(payload.getRootCategoryId());
-			actionData.setUsername(authUser.getUsername());
-			actionData.setUserId(authUser.getUserId());
+			data.setRootCategoryId(payload.getRootCategoryId());
+			data.setUsername(authUser.getUsername());
+			data.setUserId(authUser.getUserId());
 			
 			com.anfelisa.box.actions.CreateReverseBoxAction action = new com.anfelisa.box.actions.CreateReverseBoxAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
-			action.setActionData(actionData);
-			action.apply();
+			data = action.apply(data);
 			return ok();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());

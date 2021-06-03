@@ -7,19 +7,15 @@
 
 package de.acegen;
 
-public interface ICommand {
+public interface ICommand<T extends IDataContainer> {
 
 	String getCommandName();
 
-	IDataContainer getCommandData();
-	
-	void setCommandData(IDataContainer data);
+	T execute(T data, PersistenceHandle readonlyHandle, PersistenceHandle timelineHandle);
 
-	void execute(PersistenceHandle readonlyHandle, PersistenceHandle timelineHandle);
+	void publishEvents(T data, PersistenceHandle handle, PersistenceHandle timelineHandle);
 
-	void publishEvents(PersistenceHandle handle, PersistenceHandle timelineHandle);
-
-	void publishAfterCommitEvents(PersistenceHandle handle, PersistenceHandle timelineHandle);
+	void publishAfterCommitEvents(T data, PersistenceHandle handle, PersistenceHandle timelineHandle);
 
 }
 

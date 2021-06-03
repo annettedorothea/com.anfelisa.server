@@ -41,16 +41,21 @@ public abstract class AbstractChangeOrderAction extends WriteAction<IChangeCardO
 	}
 
 	@Override
-	public ICommand getCommand() {
-		return new ChangeOrderCommand(this.actionData, daoProvider, viewProvider, this.appConfiguration);
+	public ICommand<IChangeCardOrderListData> getCommand() {
+		return new ChangeOrderCommand(daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	@Override
-	protected void initActionDataFromNonDeterministicDataProvider() {
-		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(this.actionData.getUuid());
+	protected IChangeCardOrderListData initActionDataFromNonDeterministicDataProvider(IChangeCardOrderListData data) {
+		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
-			this.actionData.setSystemTime(systemTime);
+			data.setSystemTime(systemTime);
 		}
+		return data;
+	}
+
+	public IChangeCardOrderListData initActionData(IChangeCardOrderListData data) {
+		return data;
 	}
 
 }

@@ -41,16 +41,21 @@ public abstract class AbstractConfirmEmailAction extends WriteAction<IConfirmEma
 	}
 
 	@Override
-	public ICommand getCommand() {
-		return new ConfirmEmailCommand(this.actionData, daoProvider, viewProvider, this.appConfiguration);
+	public ICommand<IConfirmEmailData> getCommand() {
+		return new ConfirmEmailCommand(daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	@Override
-	protected void initActionDataFromNonDeterministicDataProvider() {
-		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(this.actionData.getUuid());
+	protected IConfirmEmailData initActionDataFromNonDeterministicDataProvider(IConfirmEmailData data) {
+		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
-			this.actionData.setSystemTime(systemTime);
+			data.setSystemTime(systemTime);
 		}
+		return data;
+	}
+
+	public IConfirmEmailData initActionData(IConfirmEmailData data) {
+		return data;
 	}
 
 }

@@ -16,8 +16,8 @@ import com.anfelisa.card.data.ICardCreationData;
 
 public class CreateCardOkEvent extends Event<ICardCreationData> {
 
-	public CreateCardOkEvent(ICardCreationData eventData, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.card.events.CreateCardOkEvent", eventData, daoProvider, viewProvider, appConfiguration);
+	public CreateCardOkEvent(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.card.events.CreateCardOkEvent", daoProvider, viewProvider, appConfiguration);
 	}
 
 }

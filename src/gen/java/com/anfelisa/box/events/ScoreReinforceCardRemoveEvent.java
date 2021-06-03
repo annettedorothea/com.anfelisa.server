@@ -16,8 +16,8 @@ import com.anfelisa.box.data.IScoreReinforceCardData;
 
 public class ScoreReinforceCardRemoveEvent extends Event<IScoreReinforceCardData> {
 
-	public ScoreReinforceCardRemoveEvent(IScoreReinforceCardData eventData, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.box.events.ScoreReinforceCardRemoveEvent", eventData, daoProvider, viewProvider, appConfiguration);
+	public ScoreReinforceCardRemoveEvent(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.box.events.ScoreReinforceCardRemoveEvent", daoProvider, viewProvider, appConfiguration);
 	}
 
 }

@@ -90,23 +90,22 @@ public class GetBoxesResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.box.data.IBoxListData actionData = new BoxListData(uuid);
+			com.anfelisa.box.data.IBoxListData data = new BoxListData(uuid);
 			if (StringUtils.isBlank(todayAtMidnightInUTC) || "null".equals(todayAtMidnightInUTC)) {
 				return badRequest("todayAtMidnightInUTC is mandatory");
 			}
 			if (StringUtils.isNotBlank(todayAtMidnightInUTC)) {
 				try {
-					actionData.setTodayAtMidnightInUTC(LocalDateTime.parse(todayAtMidnightInUTC, DateTimeFormatter.ISO_DATE_TIME));
+					data.setTodayAtMidnightInUTC(LocalDateTime.parse(todayAtMidnightInUTC, DateTimeFormatter.ISO_DATE_TIME));
 				} catch (Exception x) {
 					LOG.warn("failed to parse dateTime todayAtMidnightInUTC - {}", todayAtMidnightInUTC);
 				}
 			}
-			actionData.setUserId(authUser.getUserId());
+			data.setUserId(authUser.getUserId());
 			
 			com.anfelisa.box.actions.GetBoxesAction action = new com.anfelisa.box.actions.GetBoxesAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
-			action.setActionData(actionData);
-			action.apply();
-			return Response.ok(new com.anfelisa.box.data.GetBoxesResponse(action.getActionData())).build();
+			data = action.apply(data);
+			return Response.ok(new com.anfelisa.box.data.GetBoxesResponse(data)).build();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());
 			return badRequest(x.getMessage());

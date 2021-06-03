@@ -90,16 +90,15 @@ public class DeleteCategoryResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.category.data.ICategoryDeleteData actionData = new CategoryDeleteData(uuid);
+			com.anfelisa.category.data.ICategoryDeleteData data = new CategoryDeleteData(uuid);
 			if (StringUtils.isBlank(categoryId) || "null".equals(categoryId)) {
 				return badRequest("categoryId is mandatory");
 			}
-			actionData.setCategoryId(categoryId);
-			actionData.setUserId(authUser.getUserId());
+			data.setCategoryId(categoryId);
+			data.setUserId(authUser.getUserId());
 			
 			com.anfelisa.category.actions.DeleteCategoryAction action = new com.anfelisa.category.actions.DeleteCategoryAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
-			action.setActionData(actionData);
-			action.apply();
+			data = action.apply(data);
 			return ok();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());

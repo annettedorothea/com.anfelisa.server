@@ -16,8 +16,8 @@ import com.anfelisa.box.data.IScoreCardData;
 
 public class ScoreCardScoreEvent extends Event<IScoreCardData> {
 
-	public ScoreCardScoreEvent(IScoreCardData eventData, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.box.events.ScoreCardScoreEvent", eventData, daoProvider, viewProvider, appConfiguration);
+	public ScoreCardScoreEvent(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.box.events.ScoreCardScoreEvent", daoProvider, viewProvider, appConfiguration);
 	}
 
 }

@@ -93,20 +93,19 @@ public class ScoreCardResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.box.data.IScoreCardData actionData = new ScoreCardData(uuid);
+			com.anfelisa.box.data.IScoreCardData data = new ScoreCardData(uuid);
 			if (StringUtils.isBlank(payload.getScheduledCardId()) || "null".equals(payload.getScheduledCardId())) {
 				return badRequest("scheduledCardId is mandatory");
 			}
-			actionData.setScheduledCardId(payload.getScheduledCardId());
+			data.setScheduledCardId(payload.getScheduledCardId());
 			if (payload.getScoredCardQuality() == null) {
 				return badRequest("scoredCardQuality is mandatory");
 			}
-			actionData.setScoredCardQuality(payload.getScoredCardQuality());
-			actionData.setUserId(authUser.getUserId());
+			data.setScoredCardQuality(payload.getScoredCardQuality());
+			data.setUserId(authUser.getUserId());
 			
 			com.anfelisa.box.actions.ScoreCardAction action = new com.anfelisa.box.actions.ScoreCardAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
-			action.setActionData(actionData);
-			action.apply();
+			data = action.apply(data);
 			return ok();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());

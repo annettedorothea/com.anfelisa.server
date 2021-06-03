@@ -37,14 +37,19 @@ public abstract class AbstractSearchUsernameForInvitationAction extends ReadActi
 		super("com.anfelisa.category.actions.SearchUsernameForInvitationAction", persistenceConnection, appConfiguration, daoProvider, viewProvider);
 	}
 
-	protected abstract void loadDataForGetRequest(PersistenceHandle readonlyHandle);
+	protected abstract IUsernameSearchData loadDataForGetRequest(IUsernameSearchData data, PersistenceHandle readonlyHandle);
 
 	@Override
-	protected void initActionDataFromNonDeterministicDataProvider() {
-		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(this.actionData.getUuid());
+	protected IUsernameSearchData initActionDataFromNonDeterministicDataProvider(IUsernameSearchData data) {
+		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
-			this.actionData.setSystemTime(systemTime);
+			data.setSystemTime(systemTime);
 		}
+		return data;
+	}
+
+	public IUsernameSearchData initActionData(IUsernameSearchData data) {
+		return data;
 	}
 
 }

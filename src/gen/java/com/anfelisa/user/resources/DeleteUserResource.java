@@ -90,18 +90,17 @@ public class DeleteUserResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.user.data.IDeleteUserData actionData = new DeleteUserData(uuid);
+			com.anfelisa.user.data.IDeleteUserData data = new DeleteUserData(uuid);
 			if (StringUtils.isBlank(usernameToBeDeleted) || "null".equals(usernameToBeDeleted)) {
 				return badRequest("usernameToBeDeleted is mandatory");
 			}
-			actionData.setUsernameToBeDeleted(usernameToBeDeleted);
-			actionData.setUsername(authUser.getUsername());
-			actionData.setUserId(authUser.getUserId());
-			actionData.setRole(authUser.getRole());
+			data.setUsernameToBeDeleted(usernameToBeDeleted);
+			data.setUsername(authUser.getUsername());
+			data.setUserId(authUser.getUserId());
+			data.setRole(authUser.getRole());
 			
 			com.anfelisa.user.actions.DeleteUserAction action = new com.anfelisa.user.actions.DeleteUserAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
-			action.setActionData(actionData);
-			action.apply();
+			data = action.apply(data);
 			return ok();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());

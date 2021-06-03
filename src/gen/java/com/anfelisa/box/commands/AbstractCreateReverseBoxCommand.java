@@ -17,23 +17,23 @@ import com.anfelisa.box.data.IBoxCreationData;
 
 public abstract class AbstractCreateReverseBoxCommand extends Command<IBoxCreationData> {
 
-	public AbstractCreateReverseBoxCommand(IBoxCreationData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.box.commands.CreateReverseBoxCommand", commandParam, daoProvider, viewProvider, appConfiguration);
+	public AbstractCreateReverseBoxCommand(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.box.commands.CreateReverseBoxCommand", daoProvider, viewProvider, appConfiguration);
 	}
 
-	protected void addOkOutcome() {
-		this.commandData.addOutcome("ok");
+	protected void addOkOutcome(IBoxCreationData data) {
+		data.addOutcome("ok");
 	}
 
 	@Override
-	public void publishEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
-		if (this.commandData.hasOutcome("ok")){
-			new com.anfelisa.box.events.CreateReverseBoxOkEvent(this.commandData, daoProvider, viewProvider, appConfiguration).publish(handle, timelineHandle);
+	public void publishEvents(IBoxCreationData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+		if (data.hasOutcome("ok")){
+			new com.anfelisa.box.events.CreateReverseBoxOkEvent(daoProvider, viewProvider, appConfiguration).publish(data, handle, timelineHandle);
 		}
 	}
 	
 	@Override
-	public void publishAfterCommitEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	public void publishAfterCommitEvents(IBoxCreationData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
 	}
 	
 }

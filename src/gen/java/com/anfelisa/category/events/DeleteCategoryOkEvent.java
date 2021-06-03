@@ -16,8 +16,8 @@ import com.anfelisa.category.data.ICategoryDeleteData;
 
 public class DeleteCategoryOkEvent extends Event<ICategoryDeleteData> {
 
-	public DeleteCategoryOkEvent(ICategoryDeleteData eventData, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.category.events.DeleteCategoryOkEvent", eventData, daoProvider, viewProvider, appConfiguration);
+	public DeleteCategoryOkEvent(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.category.events.DeleteCategoryOkEvent", daoProvider, viewProvider, appConfiguration);
 	}
 
 }

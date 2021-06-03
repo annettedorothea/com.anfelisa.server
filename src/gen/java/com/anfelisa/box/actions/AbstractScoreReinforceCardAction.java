@@ -41,16 +41,21 @@ public abstract class AbstractScoreReinforceCardAction extends WriteAction<IScor
 	}
 
 	@Override
-	public ICommand getCommand() {
-		return new ScoreReinforceCardCommand(this.actionData, daoProvider, viewProvider, this.appConfiguration);
+	public ICommand<IScoreReinforceCardData> getCommand() {
+		return new ScoreReinforceCardCommand(daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	@Override
-	protected void initActionDataFromNonDeterministicDataProvider() {
-		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(this.actionData.getUuid());
+	protected IScoreReinforceCardData initActionDataFromNonDeterministicDataProvider(IScoreReinforceCardData data) {
+		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
-			this.actionData.setSystemTime(systemTime);
+			data.setSystemTime(systemTime);
 		}
+		return data;
+	}
+
+	public IScoreReinforceCardData initActionData(IScoreReinforceCardData data) {
+		return data;
 	}
 
 }

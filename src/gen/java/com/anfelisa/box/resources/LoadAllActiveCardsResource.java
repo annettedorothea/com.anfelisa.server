@@ -90,17 +90,16 @@ public class LoadAllActiveCardsResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.box.data.IActiveCardListData actionData = new ActiveCardListData(uuid);
+			com.anfelisa.box.data.IActiveCardListData data = new ActiveCardListData(uuid);
 			if (StringUtils.isBlank(boxId) || "null".equals(boxId)) {
 				return badRequest("boxId is mandatory");
 			}
-			actionData.setBoxId(boxId);
-			actionData.setUserId(authUser.getUserId());
+			data.setBoxId(boxId);
+			data.setUserId(authUser.getUserId());
 			
 			com.anfelisa.box.actions.LoadAllActiveCardsAction action = new com.anfelisa.box.actions.LoadAllActiveCardsAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
-			action.setActionData(actionData);
-			action.apply();
-			return Response.ok(new com.anfelisa.box.data.LoadAllActiveCardsResponse(action.getActionData())).build();
+			data = action.apply(data);
+			return Response.ok(new com.anfelisa.box.data.LoadAllActiveCardsResponse(data)).build();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());
 			return badRequest(x.getMessage());

@@ -16,8 +16,8 @@ import com.anfelisa.user.data.IConfirmEmailData;
 
 public class ConfirmEmailAlreadyConfirmedEvent extends Event<IConfirmEmailData> {
 
-	public ConfirmEmailAlreadyConfirmedEvent(IConfirmEmailData eventData, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.user.events.ConfirmEmailAlreadyConfirmedEvent", eventData, daoProvider, viewProvider, appConfiguration);
+	public ConfirmEmailAlreadyConfirmedEvent(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.user.events.ConfirmEmailAlreadyConfirmedEvent", daoProvider, viewProvider, appConfiguration);
 	}
 
 }

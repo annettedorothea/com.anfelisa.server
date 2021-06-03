@@ -11,13 +11,9 @@ public interface IAction<T> {
 
 	String getActionName();
 	
-	void setActionData(T actionData);
-	
-	IDataContainer getActionData();
-	
-    void apply();
+    T apply(T data);
     
-    void initActionData();
+    T initActionData(T data);
     
 }
 

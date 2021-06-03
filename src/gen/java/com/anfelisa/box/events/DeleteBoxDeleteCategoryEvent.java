@@ -16,8 +16,8 @@ import com.anfelisa.box.data.IDeleteBoxData;
 
 public class DeleteBoxDeleteCategoryEvent extends Event<IDeleteBoxData> {
 
-	public DeleteBoxDeleteCategoryEvent(IDeleteBoxData eventData, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.box.events.DeleteBoxDeleteCategoryEvent", eventData, daoProvider, viewProvider, appConfiguration);
+	public DeleteBoxDeleteCategoryEvent(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.box.events.DeleteBoxDeleteCategoryEvent", daoProvider, viewProvider, appConfiguration);
 	}
 
 }

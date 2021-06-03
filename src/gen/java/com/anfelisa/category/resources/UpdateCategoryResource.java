@@ -93,20 +93,19 @@ public class UpdateCategoryResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.category.data.ICategoryUpdateData actionData = new CategoryUpdateData(uuid);
+			com.anfelisa.category.data.ICategoryUpdateData data = new CategoryUpdateData(uuid);
 			if (StringUtils.isBlank(payload.getCategoryId()) || "null".equals(payload.getCategoryId())) {
 				return badRequest("categoryId is mandatory");
 			}
-			actionData.setCategoryId(payload.getCategoryId());
+			data.setCategoryId(payload.getCategoryId());
 			if (StringUtils.isBlank(payload.getCategoryName()) || "null".equals(payload.getCategoryName())) {
 				return badRequest("categoryName is mandatory");
 			}
-			actionData.setCategoryName(payload.getCategoryName());
-			actionData.setUserId(authUser.getUserId());
+			data.setCategoryName(payload.getCategoryName());
+			data.setUserId(authUser.getUserId());
 			
 			com.anfelisa.category.actions.UpdateCategoryAction action = new com.anfelisa.category.actions.UpdateCategoryAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
-			action.setActionData(actionData);
-			action.apply();
+			data = action.apply(data);
 			return ok();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());

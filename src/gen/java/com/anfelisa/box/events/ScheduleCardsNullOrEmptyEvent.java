@@ -16,8 +16,8 @@ import com.anfelisa.box.data.IScheduledCardsData;
 
 public class ScheduleCardsNullOrEmptyEvent extends Event<IScheduledCardsData> {
 
-	public ScheduleCardsNullOrEmptyEvent(IScheduledCardsData eventData, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.box.events.ScheduleCardsNullOrEmptyEvent", eventData, daoProvider, viewProvider, appConfiguration);
+	public ScheduleCardsNullOrEmptyEvent(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.box.events.ScheduleCardsNullOrEmptyEvent", daoProvider, viewProvider, appConfiguration);
 	}
 
 }

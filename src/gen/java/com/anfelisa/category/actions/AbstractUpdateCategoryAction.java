@@ -41,16 +41,21 @@ public abstract class AbstractUpdateCategoryAction extends WriteAction<ICategory
 	}
 
 	@Override
-	public ICommand getCommand() {
-		return new UpdateCategoryCommand(this.actionData, daoProvider, viewProvider, this.appConfiguration);
+	public ICommand<ICategoryUpdateData> getCommand() {
+		return new UpdateCategoryCommand(daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	@Override
-	protected void initActionDataFromNonDeterministicDataProvider() {
-		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(this.actionData.getUuid());
+	protected ICategoryUpdateData initActionDataFromNonDeterministicDataProvider(ICategoryUpdateData data) {
+		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
-			this.actionData.setSystemTime(systemTime);
+			data.setSystemTime(systemTime);
 		}
+		return data;
+	}
+
+	public ICategoryUpdateData initActionData(ICategoryUpdateData data) {
+		return data;
 	}
 
 }

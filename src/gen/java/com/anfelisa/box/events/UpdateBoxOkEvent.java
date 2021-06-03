@@ -16,8 +16,8 @@ import com.anfelisa.box.data.IBoxUpdateData;
 
 public class UpdateBoxOkEvent extends Event<IBoxUpdateData> {
 
-	public UpdateBoxOkEvent(IBoxUpdateData eventData, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.box.events.UpdateBoxOkEvent", eventData, daoProvider, viewProvider, appConfiguration);
+	public UpdateBoxOkEvent(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.box.events.UpdateBoxOkEvent", daoProvider, viewProvider, appConfiguration);
 	}
 
 }

@@ -93,20 +93,19 @@ public class ScheduleCardsResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.box.data.IScheduledCardsData actionData = new ScheduledCardsData(uuid);
+			com.anfelisa.box.data.IScheduledCardsData data = new ScheduledCardsData(uuid);
 			if (payload.getCardIds() == null) {
 				return badRequest("cardIds is mandatory");
 			}
-			actionData.setCardIds(payload.getCardIds());
+			data.setCardIds(payload.getCardIds());
 			if (StringUtils.isBlank(payload.getBoxId()) || "null".equals(payload.getBoxId())) {
 				return badRequest("boxId is mandatory");
 			}
-			actionData.setBoxId(payload.getBoxId());
-			actionData.setUserId(authUser.getUserId());
+			data.setBoxId(payload.getBoxId());
+			data.setUserId(authUser.getUserId());
 			
 			com.anfelisa.box.actions.ScheduleCardsAction action = new com.anfelisa.box.actions.ScheduleCardsAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
-			action.setActionData(actionData);
-			action.apply();
+			data = action.apply(data);
 			return ok();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());

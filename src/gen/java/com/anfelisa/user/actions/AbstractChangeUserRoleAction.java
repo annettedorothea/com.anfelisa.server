@@ -41,16 +41,21 @@ public abstract class AbstractChangeUserRoleAction extends WriteAction<IChangeUs
 	}
 
 	@Override
-	public ICommand getCommand() {
-		return new ChangeUserRoleCommand(this.actionData, daoProvider, viewProvider, this.appConfiguration);
+	public ICommand<IChangeUserRoleData> getCommand() {
+		return new ChangeUserRoleCommand(daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	@Override
-	protected void initActionDataFromNonDeterministicDataProvider() {
-		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(this.actionData.getUuid());
+	protected IChangeUserRoleData initActionDataFromNonDeterministicDataProvider(IChangeUserRoleData data) {
+		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
-			this.actionData.setSystemTime(systemTime);
+			data.setSystemTime(systemTime);
 		}
+		return data;
+	}
+
+	public IChangeUserRoleData initActionData(IChangeUserRoleData data) {
+		return data;
 	}
 
 }

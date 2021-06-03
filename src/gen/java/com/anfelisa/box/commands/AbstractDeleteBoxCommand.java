@@ -17,30 +17,30 @@ import com.anfelisa.box.data.IDeleteBoxData;
 
 public abstract class AbstractDeleteBoxCommand extends Command<IDeleteBoxData> {
 
-	public AbstractDeleteBoxCommand(IDeleteBoxData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.box.commands.DeleteBoxCommand", commandParam, daoProvider, viewProvider, appConfiguration);
+	public AbstractDeleteBoxCommand(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.box.commands.DeleteBoxCommand", daoProvider, viewProvider, appConfiguration);
 	}
 
-	protected void addDeleteBoxOutcome() {
-		this.commandData.addOutcome("deleteBox");
+	protected void addDeleteBoxOutcome(IDeleteBoxData data) {
+		data.addOutcome("deleteBox");
 	}
 
-	protected void addDeleteCategoryOutcome() {
-		this.commandData.addOutcome("deleteCategory");
+	protected void addDeleteCategoryOutcome(IDeleteBoxData data) {
+		data.addOutcome("deleteCategory");
 	}
 
 	@Override
-	public void publishEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
-		if (this.commandData.hasOutcome("deleteBox")){
-			new com.anfelisa.box.events.DeleteBoxDeleteBoxEvent(this.commandData, daoProvider, viewProvider, appConfiguration).publish(handle, timelineHandle);
+	public void publishEvents(IDeleteBoxData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+		if (data.hasOutcome("deleteBox")){
+			new com.anfelisa.box.events.DeleteBoxDeleteBoxEvent(daoProvider, viewProvider, appConfiguration).publish(data, handle, timelineHandle);
 		}
-		if (this.commandData.hasOutcome("deleteCategory")){
-			new com.anfelisa.box.events.DeleteBoxDeleteCategoryEvent(this.commandData, daoProvider, viewProvider, appConfiguration).publish(handle, timelineHandle);
+		if (data.hasOutcome("deleteCategory")){
+			new com.anfelisa.box.events.DeleteBoxDeleteCategoryEvent(daoProvider, viewProvider, appConfiguration).publish(data, handle, timelineHandle);
 		}
 	}
 	
 	@Override
-	public void publishAfterCommitEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	public void publishAfterCommitEvents(IDeleteBoxData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
 	}
 	
 }

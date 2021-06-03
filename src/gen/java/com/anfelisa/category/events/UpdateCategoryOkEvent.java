@@ -16,8 +16,8 @@ import com.anfelisa.category.data.ICategoryUpdateData;
 
 public class UpdateCategoryOkEvent extends Event<ICategoryUpdateData> {
 
-	public UpdateCategoryOkEvent(ICategoryUpdateData eventData, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.category.events.UpdateCategoryOkEvent", eventData, daoProvider, viewProvider, appConfiguration);
+	public UpdateCategoryOkEvent(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.category.events.UpdateCategoryOkEvent", daoProvider, viewProvider, appConfiguration);
 	}
 
 }

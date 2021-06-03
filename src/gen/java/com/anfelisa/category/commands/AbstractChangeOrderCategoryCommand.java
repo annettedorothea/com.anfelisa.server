@@ -17,27 +17,27 @@ import com.anfelisa.category.data.ICategoryChangeOrderData;
 
 public abstract class AbstractChangeOrderCategoryCommand extends Command<ICategoryChangeOrderData> {
 
-	public AbstractChangeOrderCategoryCommand(ICategoryChangeOrderData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.category.commands.ChangeOrderCategoryCommand", commandParam, daoProvider, viewProvider, appConfiguration);
+	public AbstractChangeOrderCategoryCommand(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.category.commands.ChangeOrderCategoryCommand", daoProvider, viewProvider, appConfiguration);
 	}
 
-	protected void addOkOutcome() {
-		this.commandData.addOutcome("ok");
+	protected void addOkOutcome(ICategoryChangeOrderData data) {
+		data.addOutcome("ok");
 	}
 
-	protected void addNoMoveOutcome() {
-		this.commandData.addOutcome("noMove");
+	protected void addNoMoveOutcome(ICategoryChangeOrderData data) {
+		data.addOutcome("noMove");
 	}
 
 	@Override
-	public void publishEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
-		if (this.commandData.hasOutcome("ok")){
-			new com.anfelisa.category.events.ChangeOrderCategoryOkEvent(this.commandData, daoProvider, viewProvider, appConfiguration).publish(handle, timelineHandle);
+	public void publishEvents(ICategoryChangeOrderData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+		if (data.hasOutcome("ok")){
+			new com.anfelisa.category.events.ChangeOrderCategoryOkEvent(daoProvider, viewProvider, appConfiguration).publish(data, handle, timelineHandle);
 		}
 	}
 	
 	@Override
-	public void publishAfterCommitEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	public void publishAfterCommitEvents(ICategoryChangeOrderData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
 	}
 	
 }

@@ -17,23 +17,23 @@ import com.anfelisa.card.data.ICardUpdatePriorityData;
 
 public abstract class AbstractUpdateCardPriorityCommand extends Command<ICardUpdatePriorityData> {
 
-	public AbstractUpdateCardPriorityCommand(ICardUpdatePriorityData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.card.commands.UpdateCardPriorityCommand", commandParam, daoProvider, viewProvider, appConfiguration);
+	public AbstractUpdateCardPriorityCommand(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.card.commands.UpdateCardPriorityCommand", daoProvider, viewProvider, appConfiguration);
 	}
 
-	protected void addOkOutcome() {
-		this.commandData.addOutcome("ok");
+	protected void addOkOutcome(ICardUpdatePriorityData data) {
+		data.addOutcome("ok");
 	}
 
 	@Override
-	public void publishEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
-		if (this.commandData.hasOutcome("ok")){
-			new com.anfelisa.card.events.UpdateCardPriorityOkEvent(this.commandData, daoProvider, viewProvider, appConfiguration).publish(handle, timelineHandle);
+	public void publishEvents(ICardUpdatePriorityData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+		if (data.hasOutcome("ok")){
+			new com.anfelisa.card.events.UpdateCardPriorityOkEvent(daoProvider, viewProvider, appConfiguration).publish(data, handle, timelineHandle);
 		}
 	}
 	
 	@Override
-	public void publishAfterCommitEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	public void publishAfterCommitEvents(ICardUpdatePriorityData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
 	}
 	
 }

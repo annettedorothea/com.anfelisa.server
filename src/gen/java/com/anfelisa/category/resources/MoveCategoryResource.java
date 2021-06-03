@@ -93,20 +93,19 @@ public class MoveCategoryResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.category.data.ICategoryMoveData actionData = new CategoryMoveData(uuid);
+			com.anfelisa.category.data.ICategoryMoveData data = new CategoryMoveData(uuid);
 			if (StringUtils.isBlank(payload.getMovedCategoryId()) || "null".equals(payload.getMovedCategoryId())) {
 				return badRequest("movedCategoryId is mandatory");
 			}
-			actionData.setMovedCategoryId(payload.getMovedCategoryId());
+			data.setMovedCategoryId(payload.getMovedCategoryId());
 			if (StringUtils.isBlank(payload.getTargetCategoryId()) || "null".equals(payload.getTargetCategoryId())) {
 				return badRequest("targetCategoryId is mandatory");
 			}
-			actionData.setTargetCategoryId(payload.getTargetCategoryId());
-			actionData.setUserId(authUser.getUserId());
+			data.setTargetCategoryId(payload.getTargetCategoryId());
+			data.setUserId(authUser.getUserId());
 			
 			com.anfelisa.category.actions.MoveCategoryAction action = new com.anfelisa.category.actions.MoveCategoryAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
-			action.setActionData(actionData);
-			action.apply();
+			data = action.apply(data);
 			return ok();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());

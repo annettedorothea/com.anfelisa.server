@@ -90,19 +90,18 @@ public class ConfirmEmailResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.user.data.IConfirmEmailData actionData = new ConfirmEmailData(uuid);
+			com.anfelisa.user.data.IConfirmEmailData data = new ConfirmEmailData(uuid);
 			if (StringUtils.isBlank(payload.getToken()) || "null".equals(payload.getToken())) {
 				return badRequest("token is mandatory");
 			}
-			actionData.setToken(payload.getToken());
+			data.setToken(payload.getToken());
 			if (StringUtils.isBlank(payload.getUsername()) || "null".equals(payload.getUsername())) {
 				return badRequest("username is mandatory");
 			}
-			actionData.setUsername(payload.getUsername());
+			data.setUsername(payload.getUsername());
 			
 			com.anfelisa.user.actions.ConfirmEmailAction action = new com.anfelisa.user.actions.ConfirmEmailAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
-			action.setActionData(actionData);
-			action.apply();
+			data = action.apply(data);
 			return ok();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());

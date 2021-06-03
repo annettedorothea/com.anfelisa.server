@@ -16,8 +16,8 @@ import com.anfelisa.box.data.IBoxCreationData;
 
 public class CreateBoxOkEvent extends Event<IBoxCreationData> {
 
-	public CreateBoxOkEvent(IBoxCreationData eventData, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.box.events.CreateBoxOkEvent", eventData, daoProvider, viewProvider, appConfiguration);
+	public CreateBoxOkEvent(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.box.events.CreateBoxOkEvent", daoProvider, viewProvider, appConfiguration);
 	}
 
 }

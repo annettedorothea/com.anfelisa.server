@@ -17,23 +17,23 @@ import com.anfelisa.user.data.IChangeUserRoleData;
 
 public abstract class AbstractChangeUserRoleCommand extends Command<IChangeUserRoleData> {
 
-	public AbstractChangeUserRoleCommand(IChangeUserRoleData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.user.commands.ChangeUserRoleCommand", commandParam, daoProvider, viewProvider, appConfiguration);
+	public AbstractChangeUserRoleCommand(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.user.commands.ChangeUserRoleCommand", daoProvider, viewProvider, appConfiguration);
 	}
 
-	protected void addOkOutcome() {
-		this.commandData.addOutcome("ok");
+	protected void addOkOutcome(IChangeUserRoleData data) {
+		data.addOutcome("ok");
 	}
 
 	@Override
-	public void publishEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
-		if (this.commandData.hasOutcome("ok")){
-			new com.anfelisa.user.events.ChangeUserRoleOkEvent(this.commandData, daoProvider, viewProvider, appConfiguration).publish(handle, timelineHandle);
+	public void publishEvents(IChangeUserRoleData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+		if (data.hasOutcome("ok")){
+			new com.anfelisa.user.events.ChangeUserRoleOkEvent(daoProvider, viewProvider, appConfiguration).publish(data, handle, timelineHandle);
 		}
 	}
 	
 	@Override
-	public void publishAfterCommitEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	public void publishAfterCommitEvents(IChangeUserRoleData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
 	}
 	
 }

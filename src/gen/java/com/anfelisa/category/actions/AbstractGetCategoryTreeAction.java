@@ -37,14 +37,19 @@ public abstract class AbstractGetCategoryTreeAction extends ReadAction<ICategory
 		super("com.anfelisa.category.actions.GetCategoryTreeAction", persistenceConnection, appConfiguration, daoProvider, viewProvider);
 	}
 
-	protected abstract void loadDataForGetRequest(PersistenceHandle readonlyHandle);
+	protected abstract ICategoryTreeData loadDataForGetRequest(ICategoryTreeData data, PersistenceHandle readonlyHandle);
 
 	@Override
-	protected void initActionDataFromNonDeterministicDataProvider() {
-		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(this.actionData.getUuid());
+	protected ICategoryTreeData initActionDataFromNonDeterministicDataProvider(ICategoryTreeData data) {
+		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
-			this.actionData.setSystemTime(systemTime);
+			data.setSystemTime(systemTime);
 		}
+		return data;
+	}
+
+	public ICategoryTreeData initActionData(ICategoryTreeData data) {
+		return data;
 	}
 
 }

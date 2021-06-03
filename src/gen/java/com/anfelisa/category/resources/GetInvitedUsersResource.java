@@ -90,17 +90,16 @@ public class GetInvitedUsersResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.category.data.IAlreadyInvitedUsernamesData actionData = new AlreadyInvitedUsernamesData(uuid);
+			com.anfelisa.category.data.IAlreadyInvitedUsernamesData data = new AlreadyInvitedUsernamesData(uuid);
 			if (StringUtils.isBlank(categoryId) || "null".equals(categoryId)) {
 				return badRequest("categoryId is mandatory");
 			}
-			actionData.setCategoryId(categoryId);
-			actionData.setUserId(authUser.getUserId());
+			data.setCategoryId(categoryId);
+			data.setUserId(authUser.getUserId());
 			
 			com.anfelisa.category.actions.GetInvitedUsersAction action = new com.anfelisa.category.actions.GetInvitedUsersAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
-			action.setActionData(actionData);
-			action.apply();
-			return Response.ok(new com.anfelisa.category.data.GetInvitedUsersResponse(action.getActionData())).build();
+			data = action.apply(data);
+			return Response.ok(new com.anfelisa.category.data.GetInvitedUsersResponse(data)).build();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());
 			return badRequest(x.getMessage());

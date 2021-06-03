@@ -16,8 +16,8 @@ import com.anfelisa.box.data.ISortCardsOutData;
 
 public class SortCardsOutOkEvent extends Event<ISortCardsOutData> {
 
-	public SortCardsOutOkEvent(ISortCardsOutData eventData, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.box.events.SortCardsOutOkEvent", eventData, daoProvider, viewProvider, appConfiguration);
+	public SortCardsOutOkEvent(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.box.events.SortCardsOutOkEvent", daoProvider, viewProvider, appConfiguration);
 	}
 
 }

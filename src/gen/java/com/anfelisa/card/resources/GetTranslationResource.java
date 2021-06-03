@@ -92,24 +92,23 @@ public class GetTranslationResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.card.data.ICardTranslationData actionData = new CardTranslationData(uuid);
+			com.anfelisa.card.data.ICardTranslationData data = new CardTranslationData(uuid);
 			if (StringUtils.isBlank(sourceValue) || "null".equals(sourceValue)) {
 				return badRequest("sourceValue is mandatory");
 			}
-			actionData.setSourceValue(sourceValue);
+			data.setSourceValue(sourceValue);
 			if (StringUtils.isBlank(sourceLanguage) || "null".equals(sourceLanguage)) {
 				return badRequest("sourceLanguage is mandatory");
 			}
-			actionData.setSourceLanguage(sourceLanguage);
+			data.setSourceLanguage(sourceLanguage);
 			if (StringUtils.isBlank(targetLanguage) || "null".equals(targetLanguage)) {
 				return badRequest("targetLanguage is mandatory");
 			}
-			actionData.setTargetLanguage(targetLanguage);
+			data.setTargetLanguage(targetLanguage);
 			
 			com.anfelisa.card.actions.GetTranslationAction action = new com.anfelisa.card.actions.GetTranslationAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
-			action.setActionData(actionData);
-			action.apply();
-			return Response.ok(new com.anfelisa.card.data.GetTranslationResponse(action.getActionData())).build();
+			data = action.apply(data);
+			return Response.ok(new com.anfelisa.card.data.GetTranslationResponse(data)).build();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());
 			return badRequest(x.getMessage());

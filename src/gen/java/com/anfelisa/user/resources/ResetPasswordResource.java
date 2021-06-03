@@ -90,19 +90,18 @@ public class ResetPasswordResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.user.data.IResetPasswordWithNewPasswordData actionData = new ResetPasswordWithNewPasswordData(uuid);
+			com.anfelisa.user.data.IResetPasswordWithNewPasswordData data = new ResetPasswordWithNewPasswordData(uuid);
 			if (StringUtils.isBlank(payload.getPassword()) || "null".equals(payload.getPassword())) {
 				return badRequest("password is mandatory");
 			}
-			actionData.setPassword(payload.getPassword());
+			data.setPassword(payload.getPassword());
 			if (StringUtils.isBlank(payload.getToken()) || "null".equals(payload.getToken())) {
 				return badRequest("token is mandatory");
 			}
-			actionData.setToken(payload.getToken());
+			data.setToken(payload.getToken());
 			
 			com.anfelisa.user.actions.ResetPasswordAction action = new com.anfelisa.user.actions.ResetPasswordAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
-			action.setActionData(actionData);
-			action.apply();
+			data = action.apply(data);
 			return ok();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());

@@ -89,14 +89,13 @@ public class GetRoleResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.user.data.IRoleData actionData = new RoleData(uuid);
-			actionData.setUsername(authUser.getUsername());
-			actionData.setRole(authUser.getRole());
+			com.anfelisa.user.data.IRoleData data = new RoleData(uuid);
+			data.setUsername(authUser.getUsername());
+			data.setRole(authUser.getRole());
 			
 			com.anfelisa.user.actions.GetRoleAction action = new com.anfelisa.user.actions.GetRoleAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
-			action.setActionData(actionData);
-			action.apply();
-			return Response.ok(new com.anfelisa.user.data.GetRoleResponse(action.getActionData())).build();
+			data = action.apply(data);
+			return Response.ok(new com.anfelisa.user.data.GetRoleResponse(data)).build();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());
 			return badRequest(x.getMessage());

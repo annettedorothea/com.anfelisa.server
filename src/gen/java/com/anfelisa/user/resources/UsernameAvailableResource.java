@@ -87,16 +87,15 @@ public class UsernameAvailableResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.user.data.IUsernameAvailableData actionData = new UsernameAvailableData(uuid);
+			com.anfelisa.user.data.IUsernameAvailableData data = new UsernameAvailableData(uuid);
 			if (StringUtils.isBlank(username) || "null".equals(username)) {
 				return badRequest("username is mandatory");
 			}
-			actionData.setUsername(username);
+			data.setUsername(username);
 			
 			com.anfelisa.user.actions.UsernameAvailableAction action = new com.anfelisa.user.actions.UsernameAvailableAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
-			action.setActionData(actionData);
-			action.apply();
-			return Response.ok(new com.anfelisa.user.data.UsernameAvailableResponse(action.getActionData())).build();
+			data = action.apply(data);
+			return Response.ok(new com.anfelisa.user.data.UsernameAvailableResponse(data)).build();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());
 			return badRequest(x.getMessage());

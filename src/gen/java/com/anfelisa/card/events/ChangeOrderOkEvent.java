@@ -16,8 +16,8 @@ import com.anfelisa.card.data.IChangeCardOrderListData;
 
 public class ChangeOrderOkEvent extends Event<IChangeCardOrderListData> {
 
-	public ChangeOrderOkEvent(IChangeCardOrderListData eventData, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.card.events.ChangeOrderOkEvent", eventData, daoProvider, viewProvider, appConfiguration);
+	public ChangeOrderOkEvent(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.card.events.ChangeOrderOkEvent", daoProvider, viewProvider, appConfiguration);
 	}
 
 }

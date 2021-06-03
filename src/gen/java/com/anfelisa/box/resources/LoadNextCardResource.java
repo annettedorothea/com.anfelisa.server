@@ -91,27 +91,26 @@ public class LoadNextCardResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.box.data.INextCardData actionData = new NextCardData(uuid);
+			com.anfelisa.box.data.INextCardData data = new NextCardData(uuid);
 			if (StringUtils.isBlank(boxId) || "null".equals(boxId)) {
 				return badRequest("boxId is mandatory");
 			}
-			actionData.setBoxId(boxId);
+			data.setBoxId(boxId);
 			if (StringUtils.isBlank(todayAtMidnightInUTC) || "null".equals(todayAtMidnightInUTC)) {
 				return badRequest("todayAtMidnightInUTC is mandatory");
 			}
 			if (StringUtils.isNotBlank(todayAtMidnightInUTC)) {
 				try {
-					actionData.setTodayAtMidnightInUTC(LocalDateTime.parse(todayAtMidnightInUTC, DateTimeFormatter.ISO_DATE_TIME));
+					data.setTodayAtMidnightInUTC(LocalDateTime.parse(todayAtMidnightInUTC, DateTimeFormatter.ISO_DATE_TIME));
 				} catch (Exception x) {
 					LOG.warn("failed to parse dateTime todayAtMidnightInUTC - {}", todayAtMidnightInUTC);
 				}
 			}
-			actionData.setUserId(authUser.getUserId());
+			data.setUserId(authUser.getUserId());
 			
 			com.anfelisa.box.actions.LoadNextCardAction action = new com.anfelisa.box.actions.LoadNextCardAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
-			action.setActionData(actionData);
-			action.apply();
-			return Response.ok(new com.anfelisa.box.data.LoadNextCardResponse(action.getActionData())).build();
+			data = action.apply(data);
+			return Response.ok(new com.anfelisa.box.data.LoadNextCardResponse(data)).build();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());
 			return badRequest(x.getMessage());

@@ -93,20 +93,19 @@ public class SortCardsOutResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.box.data.ISortCardsOutData actionData = new SortCardsOutData(uuid);
+			com.anfelisa.box.data.ISortCardsOutData data = new SortCardsOutData(uuid);
 			if (payload.getCardIds() == null) {
 				return badRequest("cardIds is mandatory");
 			}
-			actionData.setCardIds(payload.getCardIds());
+			data.setCardIds(payload.getCardIds());
 			if (StringUtils.isBlank(payload.getBoxId()) || "null".equals(payload.getBoxId())) {
 				return badRequest("boxId is mandatory");
 			}
-			actionData.setBoxId(payload.getBoxId());
-			actionData.setUserId(authUser.getUserId());
+			data.setBoxId(payload.getBoxId());
+			data.setUserId(authUser.getUserId());
 			
 			com.anfelisa.box.actions.SortCardsOutAction action = new com.anfelisa.box.actions.SortCardsOutAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
-			action.setActionData(actionData);
-			action.apply();
+			data = action.apply(data);
 			return ok();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());

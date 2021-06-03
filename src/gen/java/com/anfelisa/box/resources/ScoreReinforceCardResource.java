@@ -93,20 +93,19 @@ public class ScoreReinforceCardResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.box.data.IScoreReinforceCardData actionData = new ScoreReinforceCardData(uuid);
+			com.anfelisa.box.data.IScoreReinforceCardData data = new ScoreReinforceCardData(uuid);
 			if (StringUtils.isBlank(payload.getReinforceCardId()) || "null".equals(payload.getReinforceCardId())) {
 				return badRequest("reinforceCardId is mandatory");
 			}
-			actionData.setReinforceCardId(payload.getReinforceCardId());
+			data.setReinforceCardId(payload.getReinforceCardId());
 			if (payload.getKeep() == null) {
 				return badRequest("keep is mandatory");
 			}
-			actionData.setKeep(payload.getKeep());
-			actionData.setUserId(authUser.getUserId());
+			data.setKeep(payload.getKeep());
+			data.setUserId(authUser.getUserId());
 			
 			com.anfelisa.box.actions.ScoreReinforceCardAction action = new com.anfelisa.box.actions.ScoreReinforceCardAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
-			action.setActionData(actionData);
-			action.apply();
+			data = action.apply(data);
 			return ok();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());

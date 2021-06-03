@@ -16,8 +16,8 @@ import com.anfelisa.category.data.ICategoryChangeOrderData;
 
 public class ChangeOrderCategoryOkEvent extends Event<ICategoryChangeOrderData> {
 
-	public ChangeOrderCategoryOkEvent(ICategoryChangeOrderData eventData, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.category.events.ChangeOrderCategoryOkEvent", eventData, daoProvider, viewProvider, appConfiguration);
+	public ChangeOrderCategoryOkEvent(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.category.events.ChangeOrderCategoryOkEvent", daoProvider, viewProvider, appConfiguration);
 	}
 
 }

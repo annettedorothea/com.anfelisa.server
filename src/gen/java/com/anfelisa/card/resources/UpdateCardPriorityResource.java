@@ -93,17 +93,16 @@ public class UpdateCardPriorityResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.card.data.ICardUpdatePriorityData actionData = new CardUpdatePriorityData(uuid);
+			com.anfelisa.card.data.ICardUpdatePriorityData data = new CardUpdatePriorityData(uuid);
 			if (StringUtils.isBlank(payload.getCardId()) || "null".equals(payload.getCardId())) {
 				return badRequest("cardId is mandatory");
 			}
-			actionData.setCardId(payload.getCardId());
-			actionData.setPriority(payload.getPriority());
-			actionData.setUserId(authUser.getUserId());
+			data.setCardId(payload.getCardId());
+			data.setPriority(payload.getPriority());
+			data.setUserId(authUser.getUserId());
 			
 			com.anfelisa.card.actions.UpdateCardPriorityAction action = new com.anfelisa.card.actions.UpdateCardPriorityAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
-			action.setActionData(actionData);
-			action.apply();
+			data = action.apply(data);
 			return ok();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());

@@ -17,23 +17,23 @@ import com.anfelisa.card.data.IMoveCardsData;
 
 public abstract class AbstractMoveCardsCommand extends Command<IMoveCardsData> {
 
-	public AbstractMoveCardsCommand(IMoveCardsData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.card.commands.MoveCardsCommand", commandParam, daoProvider, viewProvider, appConfiguration);
+	public AbstractMoveCardsCommand(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.card.commands.MoveCardsCommand", daoProvider, viewProvider, appConfiguration);
 	}
 
-	protected void addOkOutcome() {
-		this.commandData.addOutcome("ok");
+	protected void addOkOutcome(IMoveCardsData data) {
+		data.addOutcome("ok");
 	}
 
 	@Override
-	public void publishEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
-		if (this.commandData.hasOutcome("ok")){
-			new com.anfelisa.card.events.MoveCardsOkEvent(this.commandData, daoProvider, viewProvider, appConfiguration).publish(handle, timelineHandle);
+	public void publishEvents(IMoveCardsData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+		if (data.hasOutcome("ok")){
+			new com.anfelisa.card.events.MoveCardsOkEvent(daoProvider, viewProvider, appConfiguration).publish(data, handle, timelineHandle);
 		}
 	}
 	
 	@Override
-	public void publishAfterCommitEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	public void publishAfterCommitEvents(IMoveCardsData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
 	}
 	
 }

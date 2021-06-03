@@ -16,8 +16,8 @@ import com.anfelisa.user.data.IUserRegistrationData;
 
 public class RegisterUserOkEvent extends Event<IUserRegistrationData> {
 
-	public RegisterUserOkEvent(IUserRegistrationData eventData, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.user.events.RegisterUserOkEvent", eventData, daoProvider, viewProvider, appConfiguration);
+	public RegisterUserOkEvent(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.user.events.RegisterUserOkEvent", daoProvider, viewProvider, appConfiguration);
 	}
 
 }

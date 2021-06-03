@@ -93,25 +93,24 @@ public class CreateBoxResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.box.data.IBoxCreationData actionData = new BoxCreationData(uuid);
+			com.anfelisa.box.data.IBoxCreationData data = new BoxCreationData(uuid);
 			if (StringUtils.isBlank(payload.getCategoryName()) || "null".equals(payload.getCategoryName())) {
 				return badRequest("categoryName is mandatory");
 			}
-			actionData.setCategoryName(payload.getCategoryName());
-			actionData.setDictionaryLookup(payload.getDictionaryLookup());
-			actionData.setGivenLanguage(payload.getGivenLanguage());
-			actionData.setWantedLanguage(payload.getWantedLanguage());
+			data.setCategoryName(payload.getCategoryName());
+			data.setDictionaryLookup(payload.getDictionaryLookup());
+			data.setGivenLanguage(payload.getGivenLanguage());
+			data.setWantedLanguage(payload.getWantedLanguage());
 			if (payload.getMaxCardsPerDay() == null) {
 				return badRequest("maxCardsPerDay is mandatory");
 			}
-			actionData.setMaxCardsPerDay(payload.getMaxCardsPerDay());
-			actionData.setMaxInterval(payload.getMaxInterval());
-			actionData.setUsername(authUser.getUsername());
-			actionData.setUserId(authUser.getUserId());
+			data.setMaxCardsPerDay(payload.getMaxCardsPerDay());
+			data.setMaxInterval(payload.getMaxInterval());
+			data.setUsername(authUser.getUsername());
+			data.setUserId(authUser.getUserId());
 			
 			com.anfelisa.box.actions.CreateBoxAction action = new com.anfelisa.box.actions.CreateBoxAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
-			action.setActionData(actionData);
-			action.apply();
+			data = action.apply(data);
 			return ok();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());

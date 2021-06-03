@@ -16,8 +16,8 @@ import com.anfelisa.box.data.ISortCardsOutData;
 
 public class SortCardsOutNullOrEmptyEvent extends Event<ISortCardsOutData> {
 
-	public SortCardsOutNullOrEmptyEvent(ISortCardsOutData eventData, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.box.events.SortCardsOutNullOrEmptyEvent", eventData, daoProvider, viewProvider, appConfiguration);
+	public SortCardsOutNullOrEmptyEvent(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.box.events.SortCardsOutNullOrEmptyEvent", daoProvider, viewProvider, appConfiguration);
 	}
 
 }

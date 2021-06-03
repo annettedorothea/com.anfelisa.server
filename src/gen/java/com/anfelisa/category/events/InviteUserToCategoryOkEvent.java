@@ -16,8 +16,8 @@ import com.anfelisa.category.data.IUserToCategoryInvitationData;
 
 public class InviteUserToCategoryOkEvent extends Event<IUserToCategoryInvitationData> {
 
-	public InviteUserToCategoryOkEvent(IUserToCategoryInvitationData eventData, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.category.events.InviteUserToCategoryOkEvent", eventData, daoProvider, viewProvider, appConfiguration);
+	public InviteUserToCategoryOkEvent(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.category.events.InviteUserToCategoryOkEvent", daoProvider, viewProvider, appConfiguration);
 	}
 
 }

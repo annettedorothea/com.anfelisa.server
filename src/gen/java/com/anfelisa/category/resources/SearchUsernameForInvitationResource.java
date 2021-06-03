@@ -91,21 +91,20 @@ public class SearchUsernameForInvitationResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.category.data.IUsernameSearchData actionData = new UsernameSearchData(uuid);
+			com.anfelisa.category.data.IUsernameSearchData data = new UsernameSearchData(uuid);
 			if (StringUtils.isBlank(usernameSearchString) || "null".equals(usernameSearchString)) {
 				return badRequest("usernameSearchString is mandatory");
 			}
-			actionData.setUsernameSearchString(usernameSearchString);
+			data.setUsernameSearchString(usernameSearchString);
 			if (StringUtils.isBlank(categoryId) || "null".equals(categoryId)) {
 				return badRequest("categoryId is mandatory");
 			}
-			actionData.setCategoryId(categoryId);
-			actionData.setUserId(authUser.getUserId());
+			data.setCategoryId(categoryId);
+			data.setUserId(authUser.getUserId());
 			
 			com.anfelisa.category.actions.SearchUsernameForInvitationAction action = new com.anfelisa.category.actions.SearchUsernameForInvitationAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
-			action.setActionData(actionData);
-			action.apply();
-			return Response.ok(new com.anfelisa.category.data.SearchUsernameForInvitationResponse(action.getActionData())).build();
+			data = action.apply(data);
+			return Response.ok(new com.anfelisa.category.data.SearchUsernameForInvitationResponse(data)).build();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());
 			return badRequest(x.getMessage());

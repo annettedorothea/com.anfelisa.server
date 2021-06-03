@@ -90,17 +90,16 @@ public class GetBoxSettingsResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.box.data.IBoxSettingsWrapperData actionData = new BoxSettingsWrapperData(uuid);
+			com.anfelisa.box.data.IBoxSettingsWrapperData data = new BoxSettingsWrapperData(uuid);
 			if (StringUtils.isBlank(boxId) || "null".equals(boxId)) {
 				return badRequest("boxId is mandatory");
 			}
-			actionData.setBoxId(boxId);
-			actionData.setUserId(authUser.getUserId());
+			data.setBoxId(boxId);
+			data.setUserId(authUser.getUserId());
 			
 			com.anfelisa.box.actions.GetBoxSettingsAction action = new com.anfelisa.box.actions.GetBoxSettingsAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
-			action.setActionData(actionData);
-			action.apply();
-			return Response.ok(new com.anfelisa.box.data.GetBoxSettingsResponse(action.getActionData())).build();
+			data = action.apply(data);
+			return Response.ok(new com.anfelisa.box.data.GetBoxSettingsResponse(data)).build();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());
 			return badRequest(x.getMessage());

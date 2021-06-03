@@ -37,14 +37,19 @@ public abstract class AbstractGetRoleAction extends ReadAction<IRoleData> {
 		super("com.anfelisa.user.actions.GetRoleAction", persistenceConnection, appConfiguration, daoProvider, viewProvider);
 	}
 
-	protected abstract void loadDataForGetRequest(PersistenceHandle readonlyHandle);
+	protected abstract IRoleData loadDataForGetRequest(IRoleData data, PersistenceHandle readonlyHandle);
 
 	@Override
-	protected void initActionDataFromNonDeterministicDataProvider() {
-		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(this.actionData.getUuid());
+	protected IRoleData initActionDataFromNonDeterministicDataProvider(IRoleData data) {
+		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
-			this.actionData.setSystemTime(systemTime);
+			data.setSystemTime(systemTime);
 		}
+		return data;
+	}
+
+	public IRoleData initActionData(IRoleData data) {
+		return data;
 	}
 
 }

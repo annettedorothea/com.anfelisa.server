@@ -10,7 +10,7 @@ scenarios
 			com.anfelisa.user.registeruser.RegisterUser
 		WHEN com.anfelisa.user.UsernameAvailable
 				{
-					username : "lala"
+					username : "username-available-${testId}"
 				}
 		THEN 200
 		response shouldBe {

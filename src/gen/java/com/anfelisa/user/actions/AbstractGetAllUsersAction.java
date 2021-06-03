@@ -37,14 +37,19 @@ public abstract class AbstractGetAllUsersAction extends ReadAction<IUserListData
 		super("com.anfelisa.user.actions.GetAllUsersAction", persistenceConnection, appConfiguration, daoProvider, viewProvider);
 	}
 
-	protected abstract void loadDataForGetRequest(PersistenceHandle readonlyHandle);
+	protected abstract IUserListData loadDataForGetRequest(IUserListData data, PersistenceHandle readonlyHandle);
 
 	@Override
-	protected void initActionDataFromNonDeterministicDataProvider() {
-		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(this.actionData.getUuid());
+	protected IUserListData initActionDataFromNonDeterministicDataProvider(IUserListData data) {
+		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
-			this.actionData.setSystemTime(systemTime);
+			data.setSystemTime(systemTime);
 		}
+		return data;
+	}
+
+	public IUserListData initActionData(IUserListData data) {
+		return data;
 	}
 
 }

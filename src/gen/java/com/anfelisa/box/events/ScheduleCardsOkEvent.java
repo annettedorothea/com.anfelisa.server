@@ -16,8 +16,8 @@ import com.anfelisa.box.data.IScheduledCardsData;
 
 public class ScheduleCardsOkEvent extends Event<IScheduledCardsData> {
 
-	public ScheduleCardsOkEvent(IScheduledCardsData eventData, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.box.events.ScheduleCardsOkEvent", eventData, daoProvider, viewProvider, appConfiguration);
+	public ScheduleCardsOkEvent(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.box.events.ScheduleCardsOkEvent", daoProvider, viewProvider, appConfiguration);
 	}
 
 }

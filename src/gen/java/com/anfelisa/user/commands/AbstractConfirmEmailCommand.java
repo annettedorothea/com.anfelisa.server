@@ -17,29 +17,29 @@ import com.anfelisa.user.data.IConfirmEmailData;
 
 public abstract class AbstractConfirmEmailCommand extends Command<IConfirmEmailData> {
 
-	public AbstractConfirmEmailCommand(IConfirmEmailData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.user.commands.ConfirmEmailCommand", commandParam, daoProvider, viewProvider, appConfiguration);
+	public AbstractConfirmEmailCommand(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.user.commands.ConfirmEmailCommand", daoProvider, viewProvider, appConfiguration);
 	}
 
-	protected void addOkOutcome() {
-		this.commandData.addOutcome("ok");
+	protected void addOkOutcome(IConfirmEmailData data) {
+		data.addOutcome("ok");
 	}
 
-	protected void addAlreadyConfirmedOutcome() {
-		this.commandData.addOutcome("alreadyConfirmed");
+	protected void addAlreadyConfirmedOutcome(IConfirmEmailData data) {
+		data.addOutcome("alreadyConfirmed");
 	}
 
 	@Override
-	public void publishEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
-		if (this.commandData.hasOutcome("ok")){
-			new com.anfelisa.user.events.ConfirmEmailOkEvent(this.commandData, daoProvider, viewProvider, appConfiguration).publish(handle, timelineHandle);
+	public void publishEvents(IConfirmEmailData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+		if (data.hasOutcome("ok")){
+			new com.anfelisa.user.events.ConfirmEmailOkEvent(daoProvider, viewProvider, appConfiguration).publish(data, handle, timelineHandle);
 		}
 	}
 	
 	@Override
-	public void publishAfterCommitEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
-		if (this.commandData.hasOutcome("ok")){
-			new com.anfelisa.user.events.ConfirmEmailOkEvent(this.commandData, daoProvider, viewProvider, appConfiguration).publishAfterCommit(handle, timelineHandle);
+	public void publishAfterCommitEvents(IConfirmEmailData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+		if (data.hasOutcome("ok")){
+			new com.anfelisa.user.events.ConfirmEmailOkEvent(daoProvider, viewProvider, appConfiguration).publishAfterCommit(data, handle, timelineHandle);
 		}
 	}
 	

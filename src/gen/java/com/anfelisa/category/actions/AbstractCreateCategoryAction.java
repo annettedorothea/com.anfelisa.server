@@ -41,16 +41,21 @@ public abstract class AbstractCreateCategoryAction extends WriteAction<ICategory
 	}
 
 	@Override
-	public ICommand getCommand() {
-		return new CreateCategoryCommand(this.actionData, daoProvider, viewProvider, this.appConfiguration);
+	public ICommand<ICategoryCreationData> getCommand() {
+		return new CreateCategoryCommand(daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	@Override
-	protected void initActionDataFromNonDeterministicDataProvider() {
-		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(this.actionData.getUuid());
+	protected ICategoryCreationData initActionDataFromNonDeterministicDataProvider(ICategoryCreationData data) {
+		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
-			this.actionData.setSystemTime(systemTime);
+			data.setSystemTime(systemTime);
 		}
+		return data;
+	}
+
+	public ICategoryCreationData initActionData(ICategoryCreationData data) {
+		return data;
 	}
 
 }

@@ -89,16 +89,15 @@ public class GetUserProfileResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.user.data.IUserData actionData = new UserData(uuid);
-			actionData.setUserId(authUser.getUserId());
-			actionData.setUsername(authUser.getUsername());
-			actionData.setPassword(authUser.getPassword());
-			actionData.setRole(authUser.getRole());
+			com.anfelisa.user.data.IUserData data = new UserData(uuid);
+			data.setUserId(authUser.getUserId());
+			data.setUsername(authUser.getUsername());
+			data.setPassword(authUser.getPassword());
+			data.setRole(authUser.getRole());
 			
 			com.anfelisa.user.actions.GetUserProfileAction action = new com.anfelisa.user.actions.GetUserProfileAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
-			action.setActionData(actionData);
-			action.apply();
-			return Response.ok(new com.anfelisa.user.data.GetUserProfileResponse(action.getActionData())).build();
+			data = action.apply(data);
+			return Response.ok(new com.anfelisa.user.data.GetUserProfileResponse(data)).build();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());
 			return badRequest(x.getMessage());

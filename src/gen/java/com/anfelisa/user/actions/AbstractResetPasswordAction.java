@@ -41,16 +41,21 @@ public abstract class AbstractResetPasswordAction extends WriteAction<IResetPass
 	}
 
 	@Override
-	public ICommand getCommand() {
-		return new ResetPasswordCommand(this.actionData, daoProvider, viewProvider, this.appConfiguration);
+	public ICommand<IResetPasswordWithNewPasswordData> getCommand() {
+		return new ResetPasswordCommand(daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	@Override
-	protected void initActionDataFromNonDeterministicDataProvider() {
-		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(this.actionData.getUuid());
+	protected IResetPasswordWithNewPasswordData initActionDataFromNonDeterministicDataProvider(IResetPasswordWithNewPasswordData data) {
+		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
-			this.actionData.setSystemTime(systemTime);
+			data.setSystemTime(systemTime);
 		}
+		return data;
+	}
+
+	public IResetPasswordWithNewPasswordData initActionData(IResetPasswordWithNewPasswordData data) {
+		return data;
 	}
 
 }

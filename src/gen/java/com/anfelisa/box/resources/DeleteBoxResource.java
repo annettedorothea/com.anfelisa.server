@@ -90,16 +90,15 @@ public class DeleteBoxResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.box.data.IDeleteBoxData actionData = new DeleteBoxData(uuid);
+			com.anfelisa.box.data.IDeleteBoxData data = new DeleteBoxData(uuid);
 			if (StringUtils.isBlank(boxId) || "null".equals(boxId)) {
 				return badRequest("boxId is mandatory");
 			}
-			actionData.setBoxId(boxId);
-			actionData.setUserId(authUser.getUserId());
+			data.setBoxId(boxId);
+			data.setUserId(authUser.getUserId());
 			
 			com.anfelisa.box.actions.DeleteBoxAction action = new com.anfelisa.box.actions.DeleteBoxAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
-			action.setActionData(actionData);
-			action.apply();
+			data = action.apply(data);
 			return ok();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());

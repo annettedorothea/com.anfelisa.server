@@ -37,14 +37,19 @@ public abstract class AbstractGetDuplicatesAction extends ReadAction<ICardSearch
 		super("com.anfelisa.card.actions.GetDuplicatesAction", persistenceConnection, appConfiguration, daoProvider, viewProvider);
 	}
 
-	protected abstract void loadDataForGetRequest(PersistenceHandle readonlyHandle);
+	protected abstract ICardSearchData loadDataForGetRequest(ICardSearchData data, PersistenceHandle readonlyHandle);
 
 	@Override
-	protected void initActionDataFromNonDeterministicDataProvider() {
-		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(this.actionData.getUuid());
+	protected ICardSearchData initActionDataFromNonDeterministicDataProvider(ICardSearchData data) {
+		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
-			this.actionData.setSystemTime(systemTime);
+			data.setSystemTime(systemTime);
 		}
+		return data;
+	}
+
+	public ICardSearchData initActionData(ICardSearchData data) {
+		return data;
 	}
 
 }

@@ -16,8 +16,8 @@ import com.anfelisa.box.data.IBoxCreationData;
 
 public class CreateReverseBoxOkEvent extends Event<IBoxCreationData> {
 
-	public CreateReverseBoxOkEvent(IBoxCreationData eventData, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.box.events.CreateReverseBoxOkEvent", eventData, daoProvider, viewProvider, appConfiguration);
+	public CreateReverseBoxOkEvent(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.box.events.CreateReverseBoxOkEvent", daoProvider, viewProvider, appConfiguration);
 	}
 
 }

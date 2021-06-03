@@ -41,16 +41,21 @@ public abstract class AbstractDeleteCardAction extends WriteAction<ICardDeleteDa
 	}
 
 	@Override
-	public ICommand getCommand() {
-		return new DeleteCardCommand(this.actionData, daoProvider, viewProvider, this.appConfiguration);
+	public ICommand<ICardDeleteData> getCommand() {
+		return new DeleteCardCommand(daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	@Override
-	protected void initActionDataFromNonDeterministicDataProvider() {
-		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(this.actionData.getUuid());
+	protected ICardDeleteData initActionDataFromNonDeterministicDataProvider(ICardDeleteData data) {
+		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
-			this.actionData.setSystemTime(systemTime);
+			data.setSystemTime(systemTime);
 		}
+		return data;
+	}
+
+	public ICardDeleteData initActionData(ICardDeleteData data) {
+		return data;
 	}
 
 }

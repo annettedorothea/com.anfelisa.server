@@ -93,16 +93,15 @@ public class InitMyBoxesForDayResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.box.data.IInitMyBoxesDataData actionData = new InitMyBoxesDataData(uuid);
+			com.anfelisa.box.data.IInitMyBoxesDataData data = new InitMyBoxesDataData(uuid);
 			if (payload.getTodayAtMidnightInUTC() == null) {
 				return badRequest("todayAtMidnightInUTC is mandatory");
 			}
-			actionData.setTodayAtMidnightInUTC(payload.getTodayAtMidnightInUTC());
-			actionData.setUserId(authUser.getUserId());
+			data.setTodayAtMidnightInUTC(payload.getTodayAtMidnightInUTC());
+			data.setUserId(authUser.getUserId());
 			
 			com.anfelisa.box.actions.InitMyBoxesForDayAction action = new com.anfelisa.box.actions.InitMyBoxesForDayAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
-			action.setActionData(actionData);
-			action.apply();
+			data = action.apply(data);
 			return ok();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());

@@ -93,20 +93,19 @@ public class ChangeOrderCategoryResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.category.data.ICategoryChangeOrderData actionData = new CategoryChangeOrderData(uuid);
+			com.anfelisa.category.data.ICategoryChangeOrderData data = new CategoryChangeOrderData(uuid);
 			if (StringUtils.isBlank(payload.getMovedCategoryId()) || "null".equals(payload.getMovedCategoryId())) {
 				return badRequest("movedCategoryId is mandatory");
 			}
-			actionData.setMovedCategoryId(payload.getMovedCategoryId());
+			data.setMovedCategoryId(payload.getMovedCategoryId());
 			if (StringUtils.isBlank(payload.getTargetCategoryId()) || "null".equals(payload.getTargetCategoryId())) {
 				return badRequest("targetCategoryId is mandatory");
 			}
-			actionData.setTargetCategoryId(payload.getTargetCategoryId());
-			actionData.setUserId(authUser.getUserId());
+			data.setTargetCategoryId(payload.getTargetCategoryId());
+			data.setUserId(authUser.getUserId());
 			
 			com.anfelisa.category.actions.ChangeOrderCategoryAction action = new com.anfelisa.category.actions.ChangeOrderCategoryAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
-			action.setActionData(actionData);
-			action.apply();
+			data = action.apply(data);
 			return ok();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());

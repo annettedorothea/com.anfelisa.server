@@ -16,8 +16,8 @@ import com.anfelisa.user.data.IForgotPasswordData;
 
 public class ForgotPasswordOkEvent extends Event<IForgotPasswordData> {
 
-	public ForgotPasswordOkEvent(IForgotPasswordData eventData, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.user.events.ForgotPasswordOkEvent", eventData, daoProvider, viewProvider, appConfiguration);
+	public ForgotPasswordOkEvent(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.user.events.ForgotPasswordOkEvent", daoProvider, viewProvider, appConfiguration);
 	}
 
 }

@@ -90,16 +90,15 @@ public class DeleteCardResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.card.data.ICardDeleteData actionData = new CardDeleteData(uuid);
+			com.anfelisa.card.data.ICardDeleteData data = new CardDeleteData(uuid);
 			if (StringUtils.isBlank(cardId) || "null".equals(cardId)) {
 				return badRequest("cardId is mandatory");
 			}
-			actionData.setCardId(cardId);
-			actionData.setUserId(authUser.getUserId());
+			data.setCardId(cardId);
+			data.setUserId(authUser.getUserId());
 			
 			com.anfelisa.card.actions.DeleteCardAction action = new com.anfelisa.card.actions.DeleteCardAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
-			action.setActionData(actionData);
-			action.apply();
+			data = action.apply(data);
 			return ok();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());

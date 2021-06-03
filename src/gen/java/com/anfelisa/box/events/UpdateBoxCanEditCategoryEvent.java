@@ -16,8 +16,8 @@ import com.anfelisa.box.data.IBoxUpdateData;
 
 public class UpdateBoxCanEditCategoryEvent extends Event<IBoxUpdateData> {
 
-	public UpdateBoxCanEditCategoryEvent(IBoxUpdateData eventData, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.box.events.UpdateBoxCanEditCategoryEvent", eventData, daoProvider, viewProvider, appConfiguration);
+	public UpdateBoxCanEditCategoryEvent(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.box.events.UpdateBoxCanEditCategoryEvent", daoProvider, viewProvider, appConfiguration);
 	}
 
 }

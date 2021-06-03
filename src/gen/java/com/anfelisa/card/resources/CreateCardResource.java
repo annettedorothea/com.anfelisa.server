@@ -93,25 +93,24 @@ public class CreateCardResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.card.data.ICardCreationData actionData = new CardCreationData(uuid);
+			com.anfelisa.card.data.ICardCreationData data = new CardCreationData(uuid);
 			if (StringUtils.isBlank(payload.getWanted()) || "null".equals(payload.getWanted())) {
 				return badRequest("wanted is mandatory");
 			}
-			actionData.setWanted(payload.getWanted());
+			data.setWanted(payload.getWanted());
 			if (StringUtils.isBlank(payload.getGiven()) || "null".equals(payload.getGiven())) {
 				return badRequest("given is mandatory");
 			}
-			actionData.setGiven(payload.getGiven());
+			data.setGiven(payload.getGiven());
 			if (StringUtils.isBlank(payload.getCategoryId()) || "null".equals(payload.getCategoryId())) {
 				return badRequest("categoryId is mandatory");
 			}
-			actionData.setCategoryId(payload.getCategoryId());
-			actionData.setUserId(authUser.getUserId());
-			actionData.setUsername(authUser.getUsername());
+			data.setCategoryId(payload.getCategoryId());
+			data.setUserId(authUser.getUserId());
+			data.setUsername(authUser.getUsername());
 			
 			com.anfelisa.card.actions.CreateCardAction action = new com.anfelisa.card.actions.CreateCardAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
-			action.setActionData(actionData);
-			action.apply();
+			data = action.apply(data);
 			return ok();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());

@@ -37,14 +37,19 @@ public abstract class AbstractGetTranslationAction extends ReadAction<ICardTrans
 		super("com.anfelisa.card.actions.GetTranslationAction", persistenceConnection, appConfiguration, daoProvider, viewProvider);
 	}
 
-	protected abstract void loadDataForGetRequest(PersistenceHandle readonlyHandle);
+	protected abstract ICardTranslationData loadDataForGetRequest(ICardTranslationData data, PersistenceHandle readonlyHandle);
 
 	@Override
-	protected void initActionDataFromNonDeterministicDataProvider() {
-		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(this.actionData.getUuid());
+	protected ICardTranslationData initActionDataFromNonDeterministicDataProvider(ICardTranslationData data) {
+		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
-			this.actionData.setSystemTime(systemTime);
+			data.setSystemTime(systemTime);
 		}
+		return data;
+	}
+
+	public ICardTranslationData initActionData(ICardTranslationData data) {
+		return data;
 	}
 
 }

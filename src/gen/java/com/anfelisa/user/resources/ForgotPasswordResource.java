@@ -90,19 +90,18 @@ public class ForgotPasswordResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.user.data.IForgotPasswordData actionData = new ForgotPasswordData(uuid);
+			com.anfelisa.user.data.IForgotPasswordData data = new ForgotPasswordData(uuid);
 			if (StringUtils.isBlank(payload.getUsername()) || "null".equals(payload.getUsername())) {
 				return badRequest("username is mandatory");
 			}
-			actionData.setUsername(payload.getUsername());
+			data.setUsername(payload.getUsername());
 			if (StringUtils.isBlank(payload.getLanguage()) || "null".equals(payload.getLanguage())) {
 				return badRequest("language is mandatory");
 			}
-			actionData.setLanguage(payload.getLanguage());
+			data.setLanguage(payload.getLanguage());
 			
 			com.anfelisa.user.actions.ForgotPasswordAction action = new com.anfelisa.user.actions.ForgotPasswordAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
-			action.setActionData(actionData);
-			action.apply();
+			data = action.apply(data);
 			return ok();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());

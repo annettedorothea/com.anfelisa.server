@@ -93,21 +93,20 @@ public class CreateCategoryResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.category.data.ICategoryCreationData actionData = new CategoryCreationData(uuid);
+			com.anfelisa.category.data.ICategoryCreationData data = new CategoryCreationData(uuid);
 			if (StringUtils.isBlank(payload.getCategoryName()) || "null".equals(payload.getCategoryName())) {
 				return badRequest("categoryName is mandatory");
 			}
-			actionData.setCategoryName(payload.getCategoryName());
+			data.setCategoryName(payload.getCategoryName());
 			if (StringUtils.isBlank(payload.getParentCategoryId()) || "null".equals(payload.getParentCategoryId())) {
 				return badRequest("parentCategoryId is mandatory");
 			}
-			actionData.setParentCategoryId(payload.getParentCategoryId());
-			actionData.setUsername(authUser.getUsername());
-			actionData.setUserId(authUser.getUserId());
+			data.setParentCategoryId(payload.getParentCategoryId());
+			data.setUsername(authUser.getUsername());
+			data.setUserId(authUser.getUserId());
 			
 			com.anfelisa.category.actions.CreateCategoryAction action = new com.anfelisa.category.actions.CreateCategoryAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
-			action.setActionData(actionData);
-			action.apply();
+			data = action.apply(data);
 			return ok();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());

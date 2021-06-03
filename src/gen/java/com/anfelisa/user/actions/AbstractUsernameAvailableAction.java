@@ -37,14 +37,19 @@ public abstract class AbstractUsernameAvailableAction extends ReadAction<IUserna
 		super("com.anfelisa.user.actions.UsernameAvailableAction", persistenceConnection, appConfiguration, daoProvider, viewProvider);
 	}
 
-	protected abstract void loadDataForGetRequest(PersistenceHandle readonlyHandle);
+	protected abstract IUsernameAvailableData loadDataForGetRequest(IUsernameAvailableData data, PersistenceHandle readonlyHandle);
 
 	@Override
-	protected void initActionDataFromNonDeterministicDataProvider() {
-		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(this.actionData.getUuid());
+	protected IUsernameAvailableData initActionDataFromNonDeterministicDataProvider(IUsernameAvailableData data) {
+		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
-			this.actionData.setSystemTime(systemTime);
+			data.setSystemTime(systemTime);
 		}
+		return data;
+	}
+
+	public IUsernameAvailableData initActionData(IUsernameAvailableData data) {
+		return data;
 	}
 
 }

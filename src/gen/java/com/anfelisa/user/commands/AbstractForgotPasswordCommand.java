@@ -17,27 +17,27 @@ import com.anfelisa.user.data.IForgotPasswordData;
 
 public abstract class AbstractForgotPasswordCommand extends Command<IForgotPasswordData> {
 
-	public AbstractForgotPasswordCommand(IForgotPasswordData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.user.commands.ForgotPasswordCommand", commandParam, daoProvider, viewProvider, appConfiguration);
+	public AbstractForgotPasswordCommand(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.user.commands.ForgotPasswordCommand", daoProvider, viewProvider, appConfiguration);
 	}
 
-	protected void addOkOutcome() {
-		this.commandData.addOutcome("ok");
+	protected void addOkOutcome(IForgotPasswordData data) {
+		data.addOutcome("ok");
 	}
 
-	protected void addDoesNotExistOutcome() {
-		this.commandData.addOutcome("doesNotExist");
+	protected void addDoesNotExistOutcome(IForgotPasswordData data) {
+		data.addOutcome("doesNotExist");
 	}
 
 	@Override
-	public void publishEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
-		if (this.commandData.hasOutcome("ok")){
-			new com.anfelisa.user.events.ForgotPasswordOkEvent(this.commandData, daoProvider, viewProvider, appConfiguration).publish(handle, timelineHandle);
+	public void publishEvents(IForgotPasswordData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+		if (data.hasOutcome("ok")){
+			new com.anfelisa.user.events.ForgotPasswordOkEvent(daoProvider, viewProvider, appConfiguration).publish(data, handle, timelineHandle);
 		}
 	}
 	
 	@Override
-	public void publishAfterCommitEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	public void publishAfterCommitEvents(IForgotPasswordData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
 	}
 	
 }

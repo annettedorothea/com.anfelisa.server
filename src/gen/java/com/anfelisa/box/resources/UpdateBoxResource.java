@@ -93,32 +93,31 @@ public class UpdateBoxResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.box.data.IBoxUpdateData actionData = new BoxUpdateData(uuid);
-			actionData.setMaxInterval(payload.getMaxInterval());
+			com.anfelisa.box.data.IBoxUpdateData data = new BoxUpdateData(uuid);
+			data.setMaxInterval(payload.getMaxInterval());
 			if (payload.getMaxCardsPerDay() == null) {
 				return badRequest("maxCardsPerDay is mandatory");
 			}
-			actionData.setMaxCardsPerDay(payload.getMaxCardsPerDay());
+			data.setMaxCardsPerDay(payload.getMaxCardsPerDay());
 			if (StringUtils.isBlank(payload.getBoxId()) || "null".equals(payload.getBoxId())) {
 				return badRequest("boxId is mandatory");
 			}
-			actionData.setBoxId(payload.getBoxId());
+			data.setBoxId(payload.getBoxId());
 			if (StringUtils.isBlank(payload.getCategoryId()) || "null".equals(payload.getCategoryId())) {
 				return badRequest("categoryId is mandatory");
 			}
-			actionData.setCategoryId(payload.getCategoryId());
+			data.setCategoryId(payload.getCategoryId());
 			if (StringUtils.isBlank(payload.getCategoryName()) || "null".equals(payload.getCategoryName())) {
 				return badRequest("categoryName is mandatory");
 			}
-			actionData.setCategoryName(payload.getCategoryName());
-			actionData.setDictionaryLookup(payload.getDictionaryLookup());
-			actionData.setGivenLanguage(payload.getGivenLanguage());
-			actionData.setWantedLanguage(payload.getWantedLanguage());
-			actionData.setUserId(authUser.getUserId());
+			data.setCategoryName(payload.getCategoryName());
+			data.setDictionaryLookup(payload.getDictionaryLookup());
+			data.setGivenLanguage(payload.getGivenLanguage());
+			data.setWantedLanguage(payload.getWantedLanguage());
+			data.setUserId(authUser.getUserId());
 			
 			com.anfelisa.box.actions.UpdateBoxAction action = new com.anfelisa.box.actions.UpdateBoxAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
-			action.setActionData(actionData);
-			action.apply();
+			data = action.apply(data);
 			return ok();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());

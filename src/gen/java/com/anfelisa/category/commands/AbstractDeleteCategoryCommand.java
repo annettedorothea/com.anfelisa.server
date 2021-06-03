@@ -17,23 +17,23 @@ import com.anfelisa.category.data.ICategoryDeleteData;
 
 public abstract class AbstractDeleteCategoryCommand extends Command<ICategoryDeleteData> {
 
-	public AbstractDeleteCategoryCommand(ICategoryDeleteData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.category.commands.DeleteCategoryCommand", commandParam, daoProvider, viewProvider, appConfiguration);
+	public AbstractDeleteCategoryCommand(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.category.commands.DeleteCategoryCommand", daoProvider, viewProvider, appConfiguration);
 	}
 
-	protected void addOkOutcome() {
-		this.commandData.addOutcome("ok");
+	protected void addOkOutcome(ICategoryDeleteData data) {
+		data.addOutcome("ok");
 	}
 
 	@Override
-	public void publishEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
-		if (this.commandData.hasOutcome("ok")){
-			new com.anfelisa.category.events.DeleteCategoryOkEvent(this.commandData, daoProvider, viewProvider, appConfiguration).publish(handle, timelineHandle);
+	public void publishEvents(ICategoryDeleteData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+		if (data.hasOutcome("ok")){
+			new com.anfelisa.category.events.DeleteCategoryOkEvent(daoProvider, viewProvider, appConfiguration).publish(data, handle, timelineHandle);
 		}
 	}
 	
 	@Override
-	public void publishAfterCommitEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	public void publishAfterCommitEvents(ICategoryDeleteData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
 	}
 	
 }

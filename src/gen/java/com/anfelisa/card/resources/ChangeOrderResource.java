@@ -93,20 +93,19 @@ public class ChangeOrderResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.card.data.IChangeCardOrderListData actionData = new ChangeCardOrderListData(uuid);
+			com.anfelisa.card.data.IChangeCardOrderListData data = new ChangeCardOrderListData(uuid);
 			if (payload.getCardIdList() == null) {
 				return badRequest("cardIdList is mandatory");
 			}
-			actionData.setCardIdList(payload.getCardIdList());
+			data.setCardIdList(payload.getCardIdList());
 			if (StringUtils.isBlank(payload.getCardId()) || "null".equals(payload.getCardId())) {
 				return badRequest("cardId is mandatory");
 			}
-			actionData.setCardId(payload.getCardId());
-			actionData.setUserId(authUser.getUserId());
+			data.setCardId(payload.getCardId());
+			data.setUserId(authUser.getUserId());
 			
 			com.anfelisa.card.actions.ChangeOrderAction action = new com.anfelisa.card.actions.ChangeOrderAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
-			action.setActionData(actionData);
-			action.apply();
+			data = action.apply(data);
 			return ok();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());

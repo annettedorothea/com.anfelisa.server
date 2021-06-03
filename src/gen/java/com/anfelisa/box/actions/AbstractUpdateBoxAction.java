@@ -41,16 +41,21 @@ public abstract class AbstractUpdateBoxAction extends WriteAction<IBoxUpdateData
 	}
 
 	@Override
-	public ICommand getCommand() {
-		return new UpdateBoxCommand(this.actionData, daoProvider, viewProvider, this.appConfiguration);
+	public ICommand<IBoxUpdateData> getCommand() {
+		return new UpdateBoxCommand(daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	@Override
-	protected void initActionDataFromNonDeterministicDataProvider() {
-		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(this.actionData.getUuid());
+	protected IBoxUpdateData initActionDataFromNonDeterministicDataProvider(IBoxUpdateData data) {
+		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
-			this.actionData.setSystemTime(systemTime);
+			data.setSystemTime(systemTime);
 		}
+		return data;
+	}
+
+	public IBoxUpdateData initActionData(IBoxUpdateData data) {
+		return data;
 	}
 
 }

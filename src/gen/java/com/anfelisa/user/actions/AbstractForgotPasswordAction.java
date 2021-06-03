@@ -41,27 +41,32 @@ public abstract class AbstractForgotPasswordAction extends WriteAction<IForgotPa
 	}
 
 	@Override
-	public ICommand getCommand() {
-		return new ForgotPasswordCommand(this.actionData, daoProvider, viewProvider, this.appConfiguration);
+	public ICommand<IForgotPasswordData> getCommand() {
+		return new ForgotPasswordCommand(daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	@Override
-	protected void initActionDataFromNonDeterministicDataProvider() {
-		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(this.actionData.getUuid());
+	protected IForgotPasswordData initActionDataFromNonDeterministicDataProvider(IForgotPasswordData data) {
+		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
-			this.actionData.setSystemTime(systemTime);
+			data.setSystemTime(systemTime);
 		}
-		String tokenObject = NonDeterministicDataProvider.consumeValue(this.actionData.getUuid(), "token");
+		String tokenObject = NonDeterministicDataProvider.consumeValue(data.getUuid(), "token");
 		if (tokenObject != null) {
 			try {
 				String token = (String)tokenObject;
-				this.actionData.setToken(token);
+				data.setToken(token);
 			} catch (Exception x) {
 				LOG.warn("token is declared as non-deterministnic and failed to parse {} from NonDeterministicDataProvider.", tokenObject);
 			}
 		} else {
 			LOG.warn("token is declared as non-deterministnic but no value was found in NonDeterministicDataProvider.");
 		}
+		return data;
+	}
+
+	public IForgotPasswordData initActionData(IForgotPasswordData data) {
+		return data;
 	}
 
 }

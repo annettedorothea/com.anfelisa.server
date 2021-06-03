@@ -37,14 +37,19 @@ public abstract class AbstractGetBoxSettingsAction extends ReadAction<IBoxSettin
 		super("com.anfelisa.box.actions.GetBoxSettingsAction", persistenceConnection, appConfiguration, daoProvider, viewProvider);
 	}
 
-	protected abstract void loadDataForGetRequest(PersistenceHandle readonlyHandle);
+	protected abstract IBoxSettingsWrapperData loadDataForGetRequest(IBoxSettingsWrapperData data, PersistenceHandle readonlyHandle);
 
 	@Override
-	protected void initActionDataFromNonDeterministicDataProvider() {
-		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(this.actionData.getUuid());
+	protected IBoxSettingsWrapperData initActionDataFromNonDeterministicDataProvider(IBoxSettingsWrapperData data) {
+		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
-			this.actionData.setSystemTime(systemTime);
+			data.setSystemTime(systemTime);
 		}
+		return data;
+	}
+
+	public IBoxSettingsWrapperData initActionData(IBoxSettingsWrapperData data) {
+		return data;
 	}
 
 }

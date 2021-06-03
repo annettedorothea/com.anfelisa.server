@@ -16,8 +16,8 @@ import com.anfelisa.user.data.IConfirmEmailData;
 
 public class ConfirmEmailOkEvent extends Event<IConfirmEmailData> {
 
-	public ConfirmEmailOkEvent(IConfirmEmailData eventData, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.user.events.ConfirmEmailOkEvent", eventData, daoProvider, viewProvider, appConfiguration);
+	public ConfirmEmailOkEvent(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.user.events.ConfirmEmailOkEvent", daoProvider, viewProvider, appConfiguration);
 	}
 
 }

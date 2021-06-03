@@ -17,23 +17,23 @@ import com.anfelisa.user.data.IResetPasswordWithNewPasswordData;
 
 public abstract class AbstractResetPasswordCommand extends Command<IResetPasswordWithNewPasswordData> {
 
-	public AbstractResetPasswordCommand(IResetPasswordWithNewPasswordData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.user.commands.ResetPasswordCommand", commandParam, daoProvider, viewProvider, appConfiguration);
+	public AbstractResetPasswordCommand(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.user.commands.ResetPasswordCommand", daoProvider, viewProvider, appConfiguration);
 	}
 
-	protected void addOkOutcome() {
-		this.commandData.addOutcome("ok");
+	protected void addOkOutcome(IResetPasswordWithNewPasswordData data) {
+		data.addOutcome("ok");
 	}
 
 	@Override
-	public void publishEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
-		if (this.commandData.hasOutcome("ok")){
-			new com.anfelisa.user.events.ResetPasswordOkEvent(this.commandData, daoProvider, viewProvider, appConfiguration).publish(handle, timelineHandle);
+	public void publishEvents(IResetPasswordWithNewPasswordData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+		if (data.hasOutcome("ok")){
+			new com.anfelisa.user.events.ResetPasswordOkEvent(daoProvider, viewProvider, appConfiguration).publish(data, handle, timelineHandle);
 		}
 	}
 	
 	@Override
-	public void publishAfterCommitEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	public void publishAfterCommitEvents(IResetPasswordWithNewPasswordData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
 	}
 	
 }

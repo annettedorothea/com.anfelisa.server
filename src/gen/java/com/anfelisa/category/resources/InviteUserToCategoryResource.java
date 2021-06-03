@@ -93,20 +93,19 @@ public class InviteUserToCategoryResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.category.data.IUserToCategoryInvitationData actionData = new UserToCategoryInvitationData(uuid);
+			com.anfelisa.category.data.IUserToCategoryInvitationData data = new UserToCategoryInvitationData(uuid);
 			if (StringUtils.isBlank(payload.getCategoryId()) || "null".equals(payload.getCategoryId())) {
 				return badRequest("categoryId is mandatory");
 			}
-			actionData.setCategoryId(payload.getCategoryId());
+			data.setCategoryId(payload.getCategoryId());
 			if (StringUtils.isBlank(payload.getInvitedUsername()) || "null".equals(payload.getInvitedUsername())) {
 				return badRequest("invitedUsername is mandatory");
 			}
-			actionData.setInvitedUsername(payload.getInvitedUsername());
-			actionData.setUserId(authUser.getUserId());
+			data.setInvitedUsername(payload.getInvitedUsername());
+			data.setUserId(authUser.getUserId());
 			
 			com.anfelisa.category.actions.InviteUserToCategoryAction action = new com.anfelisa.category.actions.InviteUserToCategoryAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
-			action.setActionData(actionData);
-			action.apply();
+			data = action.apply(data);
 			return ok();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());

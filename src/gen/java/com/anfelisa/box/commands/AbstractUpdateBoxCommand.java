@@ -17,30 +17,30 @@ import com.anfelisa.box.data.IBoxUpdateData;
 
 public abstract class AbstractUpdateBoxCommand extends Command<IBoxUpdateData> {
 
-	public AbstractUpdateBoxCommand(IBoxUpdateData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.box.commands.UpdateBoxCommand", commandParam, daoProvider, viewProvider, appConfiguration);
+	public AbstractUpdateBoxCommand(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.box.commands.UpdateBoxCommand", daoProvider, viewProvider, appConfiguration);
 	}
 
-	protected void addCanEditCategoryOutcome() {
-		this.commandData.addOutcome("canEditCategory");
+	protected void addCanEditCategoryOutcome(IBoxUpdateData data) {
+		data.addOutcome("canEditCategory");
 	}
 
-	protected void addOkOutcome() {
-		this.commandData.addOutcome("ok");
+	protected void addOkOutcome(IBoxUpdateData data) {
+		data.addOutcome("ok");
 	}
 
 	@Override
-	public void publishEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
-		if (this.commandData.hasOutcome("canEditCategory")){
-			new com.anfelisa.box.events.UpdateBoxCanEditCategoryEvent(this.commandData, daoProvider, viewProvider, appConfiguration).publish(handle, timelineHandle);
+	public void publishEvents(IBoxUpdateData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+		if (data.hasOutcome("canEditCategory")){
+			new com.anfelisa.box.events.UpdateBoxCanEditCategoryEvent(daoProvider, viewProvider, appConfiguration).publish(data, handle, timelineHandle);
 		}
-		if (this.commandData.hasOutcome("ok")){
-			new com.anfelisa.box.events.UpdateBoxOkEvent(this.commandData, daoProvider, viewProvider, appConfiguration).publish(handle, timelineHandle);
+		if (data.hasOutcome("ok")){
+			new com.anfelisa.box.events.UpdateBoxOkEvent(daoProvider, viewProvider, appConfiguration).publish(data, handle, timelineHandle);
 		}
 	}
 	
 	@Override
-	public void publishAfterCommitEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	public void publishAfterCommitEvents(IBoxUpdateData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
 	}
 	
 }

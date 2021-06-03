@@ -16,8 +16,8 @@ import com.anfelisa.card.data.ICardDeleteData;
 
 public class DeleteCardOkEvent extends Event<ICardDeleteData> {
 
-	public DeleteCardOkEvent(ICardDeleteData eventData, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.card.events.DeleteCardOkEvent", eventData, daoProvider, viewProvider, appConfiguration);
+	public DeleteCardOkEvent(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.card.events.DeleteCardOkEvent", daoProvider, viewProvider, appConfiguration);
 	}
 
 }

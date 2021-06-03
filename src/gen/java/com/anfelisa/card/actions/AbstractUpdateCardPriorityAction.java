@@ -41,16 +41,21 @@ public abstract class AbstractUpdateCardPriorityAction extends WriteAction<ICard
 	}
 
 	@Override
-	public ICommand getCommand() {
-		return new UpdateCardPriorityCommand(this.actionData, daoProvider, viewProvider, this.appConfiguration);
+	public ICommand<ICardUpdatePriorityData> getCommand() {
+		return new UpdateCardPriorityCommand(daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	@Override
-	protected void initActionDataFromNonDeterministicDataProvider() {
-		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(this.actionData.getUuid());
+	protected ICardUpdatePriorityData initActionDataFromNonDeterministicDataProvider(ICardUpdatePriorityData data) {
+		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
-			this.actionData.setSystemTime(systemTime);
+			data.setSystemTime(systemTime);
 		}
+		return data;
+	}
+
+	public ICardUpdatePriorityData initActionData(ICardUpdatePriorityData data) {
+		return data;
 	}
 
 }

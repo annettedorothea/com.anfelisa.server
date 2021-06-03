@@ -16,8 +16,8 @@ import com.anfelisa.box.data.IInitMyBoxesDataData;
 
 public class InitMyBoxesForDayOkEvent extends Event<IInitMyBoxesDataData> {
 
-	public InitMyBoxesForDayOkEvent(IInitMyBoxesDataData eventData, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.box.events.InitMyBoxesForDayOkEvent", eventData, daoProvider, viewProvider, appConfiguration);
+	public InitMyBoxesForDayOkEvent(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.box.events.InitMyBoxesForDayOkEvent", daoProvider, viewProvider, appConfiguration);
 	}
 
 }

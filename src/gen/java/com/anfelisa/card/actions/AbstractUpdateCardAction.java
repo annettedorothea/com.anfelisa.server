@@ -41,16 +41,21 @@ public abstract class AbstractUpdateCardAction extends WriteAction<ICardUpdateDa
 	}
 
 	@Override
-	public ICommand getCommand() {
-		return new UpdateCardCommand(this.actionData, daoProvider, viewProvider, this.appConfiguration);
+	public ICommand<ICardUpdateData> getCommand() {
+		return new UpdateCardCommand(daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	@Override
-	protected void initActionDataFromNonDeterministicDataProvider() {
-		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(this.actionData.getUuid());
+	protected ICardUpdateData initActionDataFromNonDeterministicDataProvider(ICardUpdateData data) {
+		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
-			this.actionData.setSystemTime(systemTime);
+			data.setSystemTime(systemTime);
 		}
+		return data;
+	}
+
+	public ICardUpdateData initActionData(ICardUpdateData data) {
+		return data;
 	}
 
 }

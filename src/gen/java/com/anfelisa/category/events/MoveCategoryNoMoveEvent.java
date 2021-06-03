@@ -16,8 +16,8 @@ import com.anfelisa.category.data.ICategoryMoveData;
 
 public class MoveCategoryNoMoveEvent extends Event<ICategoryMoveData> {
 
-	public MoveCategoryNoMoveEvent(ICategoryMoveData eventData, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.category.events.MoveCategoryNoMoveEvent", eventData, daoProvider, viewProvider, appConfiguration);
+	public MoveCategoryNoMoveEvent(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.category.events.MoveCategoryNoMoveEvent", daoProvider, viewProvider, appConfiguration);
 	}
 
 }

@@ -16,8 +16,8 @@ import com.anfelisa.card.data.ICardUpdatePriorityData;
 
 public class UpdateCardPriorityOkEvent extends Event<ICardUpdatePriorityData> {
 
-	public UpdateCardPriorityOkEvent(ICardUpdatePriorityData eventData, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.card.events.UpdateCardPriorityOkEvent", eventData, daoProvider, viewProvider, appConfiguration);
+	public UpdateCardPriorityOkEvent(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.card.events.UpdateCardPriorityOkEvent", daoProvider, viewProvider, appConfiguration);
 	}
 
 }

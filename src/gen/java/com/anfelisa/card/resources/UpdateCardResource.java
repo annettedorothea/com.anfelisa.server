@@ -93,24 +93,23 @@ public class UpdateCardResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.card.data.ICardUpdateData actionData = new CardUpdateData(uuid);
+			com.anfelisa.card.data.ICardUpdateData data = new CardUpdateData(uuid);
 			if (StringUtils.isBlank(payload.getCardId()) || "null".equals(payload.getCardId())) {
 				return badRequest("cardId is mandatory");
 			}
-			actionData.setCardId(payload.getCardId());
+			data.setCardId(payload.getCardId());
 			if (StringUtils.isBlank(payload.getGiven()) || "null".equals(payload.getGiven())) {
 				return badRequest("given is mandatory");
 			}
-			actionData.setGiven(payload.getGiven());
+			data.setGiven(payload.getGiven());
 			if (StringUtils.isBlank(payload.getWanted()) || "null".equals(payload.getWanted())) {
 				return badRequest("wanted is mandatory");
 			}
-			actionData.setWanted(payload.getWanted());
-			actionData.setUserId(authUser.getUserId());
+			data.setWanted(payload.getWanted());
+			data.setUserId(authUser.getUserId());
 			
 			com.anfelisa.card.actions.UpdateCardAction action = new com.anfelisa.card.actions.UpdateCardAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
-			action.setActionData(actionData);
-			action.apply();
+			data = action.apply(data);
 			return ok();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());

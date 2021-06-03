@@ -17,30 +17,30 @@ import com.anfelisa.box.data.IScoreReinforceCardData;
 
 public abstract class AbstractScoreReinforceCardCommand extends Command<IScoreReinforceCardData> {
 
-	public AbstractScoreReinforceCardCommand(IScoreReinforceCardData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.box.commands.ScoreReinforceCardCommand", commandParam, daoProvider, viewProvider, appConfiguration);
+	public AbstractScoreReinforceCardCommand(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.box.commands.ScoreReinforceCardCommand", daoProvider, viewProvider, appConfiguration);
 	}
 
-	protected void addKeepOutcome() {
-		this.commandData.addOutcome("keep");
+	protected void addKeepOutcome(IScoreReinforceCardData data) {
+		data.addOutcome("keep");
 	}
 
-	protected void addRemoveOutcome() {
-		this.commandData.addOutcome("remove");
+	protected void addRemoveOutcome(IScoreReinforceCardData data) {
+		data.addOutcome("remove");
 	}
 
 	@Override
-	public void publishEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
-		if (this.commandData.hasOutcome("keep")){
-			new com.anfelisa.box.events.ScoreReinforceCardKeepEvent(this.commandData, daoProvider, viewProvider, appConfiguration).publish(handle, timelineHandle);
+	public void publishEvents(IScoreReinforceCardData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+		if (data.hasOutcome("keep")){
+			new com.anfelisa.box.events.ScoreReinforceCardKeepEvent(daoProvider, viewProvider, appConfiguration).publish(data, handle, timelineHandle);
 		}
-		if (this.commandData.hasOutcome("remove")){
-			new com.anfelisa.box.events.ScoreReinforceCardRemoveEvent(this.commandData, daoProvider, viewProvider, appConfiguration).publish(handle, timelineHandle);
+		if (data.hasOutcome("remove")){
+			new com.anfelisa.box.events.ScoreReinforceCardRemoveEvent(daoProvider, viewProvider, appConfiguration).publish(data, handle, timelineHandle);
 		}
 	}
 	
 	@Override
-	public void publishAfterCommitEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	public void publishAfterCommitEvents(IScoreReinforceCardData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
 	}
 	
 }
