@@ -230,6 +230,7 @@ public abstract class AbstractBoxSettingsData extends AbstractData implements IB
 		copy.setAllCards(this.getAllCards());
 		copy.setAllActiveCards(this.getAllActiveCards());
 		copy.setShared(this.getShared());
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

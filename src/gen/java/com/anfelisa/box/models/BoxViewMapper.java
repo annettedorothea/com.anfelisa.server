@@ -10,20 +10,21 @@ package com.anfelisa.box.models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
 
-public class BoxViewMapper implements RowMapper<IBoxViewModel> {
+import de.acegen.AbstractMapper;
+
+public class BoxViewMapper extends AbstractMapper<IBoxViewModel> {
 	
 	public IBoxViewModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new BoxViewModel(
-			r.getObject("openTodaysCards") != null ? r.getInt("openTodaysCards") : null,
-			r.getString("categoryName"),
-			r.getString("categoryAuthor"),
-			r.getString("categoryId"),
-			r.getString("boxId"),
-			r.getBoolean("reverse"),
-			r.getBoolean("editable")
+			this.mapToInteger(r, "openTodaysCards"),
+			this.mapToString(r, "categoryName"),
+			this.mapToString(r, "categoryAuthor"),
+			this.mapToString(r, "categoryId"),
+			this.mapToString(r, "boxId"),
+			this.mapToBoolean(r, "reverse"),
+			this.mapToBoolean(r, "editable")
 		);
 	}
 }

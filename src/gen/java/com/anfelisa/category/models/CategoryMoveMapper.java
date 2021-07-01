@@ -10,19 +10,20 @@ package com.anfelisa.category.models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
 
-public class CategoryMoveMapper implements RowMapper<ICategoryMoveModel> {
+import de.acegen.AbstractMapper;
+
+public class CategoryMoveMapper extends AbstractMapper<ICategoryMoveModel> {
 	
 	public ICategoryMoveModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new CategoryMoveModel(
-			r.getString("movedCategoryId"),
-			r.getString("targetCategoryId"),
+			this.mapToString(r, "movedCategoryId"),
+			this.mapToString(r, "targetCategoryId"),
 			null,
-			r.getObject("categoryIndexWhereRemoved") != null ? r.getInt("categoryIndexWhereRemoved") : null,
-			r.getString("parentCategoryIdWhereRemoved"),
-			r.getString("userId")
+			this.mapToInteger(r, "categoryIndexWhereRemoved"),
+			this.mapToString(r, "parentCategoryIdWhereRemoved"),
+			this.mapToString(r, "userId")
 		);
 	}
 }

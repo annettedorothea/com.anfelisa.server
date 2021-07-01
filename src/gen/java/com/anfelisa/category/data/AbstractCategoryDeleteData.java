@@ -111,6 +111,7 @@ public abstract class AbstractCategoryDeleteData extends AbstractData implements
 		copy.setCategoryIndex(this.getCategoryIndex());
 		copy.setParentCategoryId(this.getParentCategoryId());
 		copy.setUserId(this.getUserId());
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

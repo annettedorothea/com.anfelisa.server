@@ -94,6 +94,7 @@ public abstract class AbstractSimpleCardData extends AbstractData implements ISi
 		copy.setGiven(this.getGiven());
 		copy.setWanted(this.getWanted());
 		copy.setId(this.getId());
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

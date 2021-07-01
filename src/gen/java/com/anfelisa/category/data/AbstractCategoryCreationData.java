@@ -242,6 +242,7 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 		copy.setDictionaryLookup(this.getDictionaryLookup());
 		copy.setGivenLanguage(this.getGivenLanguage());
 		copy.setWantedLanguage(this.getWantedLanguage());
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

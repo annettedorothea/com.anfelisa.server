@@ -115,6 +115,7 @@ public abstract class AbstractActiveCardListData extends AbstractData implements
 		}
 		copy.setCardList(cardListCopy);
 		copy.setEditable(this.getEditable());
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

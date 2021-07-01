@@ -10,17 +10,18 @@ package com.anfelisa.box.models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
 
-public class ActiveCardListMapper implements RowMapper<IActiveCardListModel> {
+import de.acegen.AbstractMapper;
+
+public class ActiveCardListMapper extends AbstractMapper<IActiveCardListModel> {
 	
 	public IActiveCardListModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new ActiveCardListModel(
-			r.getString("userId"),
-			r.getString("boxId"),
+			this.mapToString(r, "userId"),
+			this.mapToString(r, "boxId"),
 			null,
-			r.getBoolean("editable")
+			this.mapToBoolean(r, "editable")
 		);
 	}
 }

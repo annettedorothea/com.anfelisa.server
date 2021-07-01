@@ -94,6 +94,7 @@ public abstract class AbstractUserAccessToCategoryData extends AbstractData impl
 		copy.setCategoryId(this.getCategoryId());
 		copy.setUserId(this.getUserId());
 		copy.setEditable(this.getEditable());
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

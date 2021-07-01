@@ -193,6 +193,7 @@ public abstract class AbstractUserRegistrationData extends AbstractData implemen
 		copy.setRole(this.getRole());
 		copy.setEmailConfirmed(this.getEmailConfirmed());
 		copy.setToken(this.getToken());
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

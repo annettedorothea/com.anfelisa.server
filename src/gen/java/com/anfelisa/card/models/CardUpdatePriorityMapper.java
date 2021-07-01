@@ -10,16 +10,17 @@ package com.anfelisa.card.models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
 
-public class CardUpdatePriorityMapper implements RowMapper<ICardUpdatePriorityModel> {
+import de.acegen.AbstractMapper;
+
+public class CardUpdatePriorityMapper extends AbstractMapper<ICardUpdatePriorityModel> {
 	
 	public ICardUpdatePriorityModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new CardUpdatePriorityModel(
-			r.getString("cardId"),
-			r.getObject("priority") != null ? r.getInt("priority") : null,
-			r.getString("userId")
+			this.mapToString(r, "cardId"),
+			this.mapToInteger(r, "priority"),
+			this.mapToString(r, "userId")
 		);
 	}
 }

@@ -113,6 +113,7 @@ public abstract class AbstractReinforceCardData extends AbstractData implements 
 		copy.setScheduledCardId(this.getScheduledCardId());
 		copy.setBoxId(this.getBoxId());
 		copy.setChangeDate(this.getChangeDate());
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

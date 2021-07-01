@@ -94,6 +94,7 @@ public abstract class AbstractUserWithAccessData extends AbstractData implements
 		copy.setUserId(this.getUserId());
 		copy.setUsername(this.getUsername());
 		copy.setEditable(this.getEditable());
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

@@ -10,22 +10,23 @@ package com.anfelisa.category.models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
 
-public class CategoryTreeMapper implements RowMapper<ICategoryTreeModel> {
+import de.acegen.AbstractMapper;
+
+public class CategoryTreeMapper extends AbstractMapper<ICategoryTreeModel> {
 	
 	public ICategoryTreeModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new CategoryTreeModel(
 			null,
-			r.getString("userId"),
-			r.getString("rootCategoryId"),
-			r.getBoolean("filterNonScheduled"),
-			r.getObject("priority") != null ? r.getInt("priority") : null,
-			r.getBoolean("editable"),
-			r.getBoolean("reverse"),
-			r.getBoolean("reverseBoxExists"),
-			r.getString("boxId")
+			this.mapToString(r, "userId"),
+			this.mapToString(r, "rootCategoryId"),
+			this.mapToBoolean(r, "filterNonScheduled"),
+			this.mapToInteger(r, "priority"),
+			this.mapToBoolean(r, "editable"),
+			this.mapToBoolean(r, "reverse"),
+			this.mapToBoolean(r, "reverseBoxExists"),
+			this.mapToString(r, "boxId")
 		);
 	}
 }

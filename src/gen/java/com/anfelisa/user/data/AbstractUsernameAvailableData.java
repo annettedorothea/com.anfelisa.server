@@ -77,6 +77,7 @@ public abstract class AbstractUsernameAvailableData extends AbstractData impleme
 		IUsernameAvailableData copy = new UsernameAvailableData(this.getUuid());
 		copy.setUsername(this.getUsername());
 		copy.setAvailable(this.getAvailable());
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

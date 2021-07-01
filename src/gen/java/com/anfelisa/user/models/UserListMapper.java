@@ -10,15 +10,16 @@ package com.anfelisa.user.models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
 
-public class UserListMapper implements RowMapper<IUserListModel> {
+import de.acegen.AbstractMapper;
+
+public class UserListMapper extends AbstractMapper<IUserListModel> {
 	
 	public IUserListModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new UserListModel(
 			null,
-			r.getString("role")
+			this.mapToString(r, "role")
 		);
 	}
 }

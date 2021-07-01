@@ -10,17 +10,18 @@ package com.anfelisa.card.models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
 
-public class CardTranslationMapper implements RowMapper<ICardTranslationModel> {
+import de.acegen.AbstractMapper;
+
+public class CardTranslationMapper extends AbstractMapper<ICardTranslationModel> {
 	
 	public ICardTranslationModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new CardTranslationModel(
-			r.getString("sourceValue"),
-			r.getString("targetValue"),
-			r.getString("sourceLanguage"),
-			r.getString("targetLanguage")
+			this.mapToString(r, "sourceValue"),
+			this.mapToString(r, "targetValue"),
+			this.mapToString(r, "sourceLanguage"),
+			this.mapToString(r, "targetLanguage")
 		);
 	}
 }

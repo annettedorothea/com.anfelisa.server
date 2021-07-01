@@ -144,7 +144,7 @@ models
 	}
 
 	persistent EmailConfirmation {
-		Unique PrimaryKey NotNull String token nonDeterministic
+		Unique PrimaryKey NotNull String token squishy
 		NotNull String userId references User.userId
 	}
 
@@ -185,7 +185,7 @@ models
 		String language
 		String email
 		String username
-		String token nonDeterministic
+		String token squishy
 		String userId
 	}
 

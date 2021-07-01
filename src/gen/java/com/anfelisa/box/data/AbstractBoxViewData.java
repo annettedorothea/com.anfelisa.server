@@ -162,6 +162,7 @@ public abstract class AbstractBoxViewData extends AbstractData implements IBoxVi
 		copy.setBoxId(this.getBoxId());
 		copy.setReverse(this.getReverse());
 		copy.setEditable(this.getEditable());
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

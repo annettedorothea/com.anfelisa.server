@@ -94,6 +94,7 @@ public abstract class AbstractCategoryUpdateData extends AbstractData implements
 		copy.setCategoryId(this.getCategoryId());
 		copy.setCategoryName(this.getCategoryName());
 		copy.setUserId(this.getUserId());
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

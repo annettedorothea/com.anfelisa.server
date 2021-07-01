@@ -145,6 +145,7 @@ public abstract class AbstractCategoryMoveData extends AbstractData implements I
 		copy.setCategoryIndexWhereRemoved(this.getCategoryIndexWhereRemoved());
 		copy.setParentCategoryIdWhereRemoved(this.getParentCategoryIdWhereRemoved());
 		copy.setUserId(this.getUserId());
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

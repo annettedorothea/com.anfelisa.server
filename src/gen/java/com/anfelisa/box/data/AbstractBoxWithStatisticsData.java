@@ -324,6 +324,7 @@ public abstract class AbstractBoxWithStatisticsData extends AbstractData impleme
 		}
 		copy.setCountsPerDayNextWeek(countsPerDayNextWeekCopy);
 		copy.setMaxCardsPerDay(this.getMaxCardsPerDay());
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

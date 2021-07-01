@@ -196,6 +196,7 @@ public abstract class AbstractBoxUpdateData extends AbstractData implements IBox
 		copy.setGivenLanguage(this.getGivenLanguage());
 		copy.setWantedLanguage(this.getWantedLanguage());
 		copy.setCategoryId(this.getCategoryId());
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

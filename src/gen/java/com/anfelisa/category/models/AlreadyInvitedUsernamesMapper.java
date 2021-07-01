@@ -10,15 +10,16 @@ package com.anfelisa.category.models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
 
-public class AlreadyInvitedUsernamesMapper implements RowMapper<IAlreadyInvitedUsernamesModel> {
+import de.acegen.AbstractMapper;
+
+public class AlreadyInvitedUsernamesMapper extends AbstractMapper<IAlreadyInvitedUsernamesModel> {
 	
 	public IAlreadyInvitedUsernamesModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new AlreadyInvitedUsernamesModel(
-			r.getString("categoryId"),
-			r.getString("userId"),
+			this.mapToString(r, "categoryId"),
+			this.mapToString(r, "userId"),
 			null
 		);
 	}

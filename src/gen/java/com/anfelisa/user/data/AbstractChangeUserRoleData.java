@@ -111,6 +111,7 @@ public abstract class AbstractChangeUserRoleData extends AbstractData implements
 		copy.setNewRole(this.getNewRole());
 		copy.setUserId(this.getUserId());
 		copy.setRole(this.getRole());
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

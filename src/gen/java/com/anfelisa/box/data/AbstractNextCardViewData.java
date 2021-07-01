@@ -251,6 +251,7 @@ public abstract class AbstractNextCardViewData extends AbstractData implements I
 		copy.setRootCategoryId(this.getRootCategoryId());
 		copy.setCount(this.getCount());
 		copy.setScoredDate(this.getScoredDate());
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

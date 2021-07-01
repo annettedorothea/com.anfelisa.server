@@ -111,6 +111,7 @@ public abstract class AbstractCardTranslationData extends AbstractData implement
 		copy.setTargetValue(this.getTargetValue());
 		copy.setSourceLanguage(this.getSourceLanguage());
 		copy.setTargetLanguage(this.getTargetLanguage());
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

@@ -128,6 +128,7 @@ public abstract class AbstractUserToCategoryInvitationData extends AbstractData 
 		copy.setInvitedUsername(this.getInvitedUsername());
 		copy.setInvitedUserId(this.getInvitedUserId());
 		copy.setBoxForInvitedUser(this.getBoxForInvitedUser().deepCopy());
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

@@ -77,6 +77,7 @@ public abstract class AbstractTodaysCardsStatusData extends AbstractData impleme
 		ITodaysCardsStatusData copy = new TodaysCardsStatusData(this.getUuid());
 		copy.setOpenTodaysCards(this.getOpenTodaysCards());
 		copy.setAllTodaysCards(this.getAllTodaysCards());
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

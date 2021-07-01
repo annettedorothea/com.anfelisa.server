@@ -79,6 +79,7 @@ public abstract class AbstractInitBoxesData extends AbstractData implements IIni
 		IInitBoxesData copy = new InitBoxesData(this.getUuid());
 		copy.setMinScheduledDate(this.getMinScheduledDate());
 		copy.setBoxId(this.getBoxId());
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

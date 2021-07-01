@@ -77,6 +77,7 @@ public abstract class AbstractReverseBoxCreationData extends AbstractData implem
 		IReverseBoxCreationData copy = new ReverseBoxCreationData(this.getUuid());
 		copy.setBoxId(this.getBoxId());
 		copy.setUsername(this.getUsername());
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

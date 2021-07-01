@@ -10,24 +10,25 @@ package com.anfelisa.category.models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
 
-public class CategoryCreationMapper implements RowMapper<ICategoryCreationModel> {
+import de.acegen.AbstractMapper;
+
+public class CategoryCreationMapper extends AbstractMapper<ICategoryCreationModel> {
 	
 	public ICategoryCreationModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new CategoryCreationModel(
-			r.getString("username"),
-			r.getString("userId"),
-			r.getString("categoryId"),
-			r.getString("categoryName"),
-			r.getString("categoryAuthor"),
-			r.getObject("categoryIndex") != null ? r.getInt("categoryIndex") : null,
-			r.getString("parentCategoryId"),
-			r.getString("rootCategoryId"),
-			r.getBoolean("dictionaryLookup"),
-			r.getString("givenLanguage"),
-			r.getString("wantedLanguage")
+			this.mapToString(r, "username"),
+			this.mapToString(r, "userId"),
+			this.mapToString(r, "categoryId"),
+			this.mapToString(r, "categoryName"),
+			this.mapToString(r, "categoryAuthor"),
+			this.mapToInteger(r, "categoryIndex"),
+			this.mapToString(r, "parentCategoryId"),
+			this.mapToString(r, "rootCategoryId"),
+			this.mapToBoolean(r, "dictionaryLookup"),
+			this.mapToString(r, "givenLanguage"),
+			this.mapToString(r, "wantedLanguage")
 		);
 	}
 }

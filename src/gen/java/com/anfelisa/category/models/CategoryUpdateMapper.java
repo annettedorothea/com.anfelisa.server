@@ -10,16 +10,17 @@ package com.anfelisa.category.models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
 
-public class CategoryUpdateMapper implements RowMapper<ICategoryUpdateModel> {
+import de.acegen.AbstractMapper;
+
+public class CategoryUpdateMapper extends AbstractMapper<ICategoryUpdateModel> {
 	
 	public ICategoryUpdateModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new CategoryUpdateModel(
-			r.getString("categoryId"),
-			r.getString("categoryName"),
-			r.getString("userId")
+			this.mapToString(r, "categoryId"),
+			this.mapToString(r, "categoryName"),
+			this.mapToString(r, "userId")
 		);
 	}
 }

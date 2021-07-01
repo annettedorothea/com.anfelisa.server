@@ -179,6 +179,7 @@ public abstract class AbstractCardData extends AbstractData implements ICardData
 		copy.setCategoryId(this.getCategoryId());
 		copy.setRootCategoryId(this.getRootCategoryId());
 		copy.setPriority(this.getPriority());
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

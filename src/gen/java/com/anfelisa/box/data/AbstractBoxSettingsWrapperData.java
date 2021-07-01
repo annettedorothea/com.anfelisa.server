@@ -261,6 +261,7 @@ public abstract class AbstractBoxSettingsWrapperData extends AbstractData implem
 		copy.setAllCards(this.getAllCards());
 		copy.setAllActiveCards(this.getAllActiveCards());
 		copy.setShared(this.getShared());
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

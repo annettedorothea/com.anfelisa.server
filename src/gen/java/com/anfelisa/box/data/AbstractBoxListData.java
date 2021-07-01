@@ -100,6 +100,7 @@ public abstract class AbstractBoxListData extends AbstractData implements IBoxLi
 		copy.setBoxList(boxListCopy);
 		copy.setUserId(this.getUserId());
 		copy.setTodayAtMidnightInUTC(this.getTodayAtMidnightInUTC());
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

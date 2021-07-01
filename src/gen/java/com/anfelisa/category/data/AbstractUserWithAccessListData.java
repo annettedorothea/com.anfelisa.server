@@ -81,6 +81,7 @@ public abstract class AbstractUserWithAccessListData extends AbstractData implem
 			userListCopy.add(item.deepCopy());
 		}
 		copy.setUserList(userListCopy);
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

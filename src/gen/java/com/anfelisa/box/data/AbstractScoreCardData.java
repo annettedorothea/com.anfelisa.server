@@ -323,6 +323,7 @@ public abstract class AbstractScoreCardData extends AbstractData implements ISco
 		copy.setReinforceCardCreatedDate(this.getReinforceCardCreatedDate());
 		copy.setUserId(this.getUserId());
 		copy.setBoxId(this.getBoxId());
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

@@ -253,6 +253,7 @@ public abstract class AbstractScheduledCardData extends AbstractData implements 
 		copy.setLastQuality(this.getLastQuality());
 		copy.setQuality(this.getQuality());
 		copy.setScoredDate(this.getScoredDate());
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

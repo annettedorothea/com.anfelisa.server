@@ -115,6 +115,7 @@ public abstract class AbstractUsernameSearchData extends AbstractData implements
 			usernamesCopy.add(item);
 		}
 		copy.setUsernames(usernamesCopy);
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

@@ -115,6 +115,7 @@ public abstract class AbstractCategoryChangeOrderData extends AbstractData imple
 			updatedIndicesCopy.add(item.deepCopy());
 		}
 		copy.setUpdatedIndices(updatedIndicesCopy);
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

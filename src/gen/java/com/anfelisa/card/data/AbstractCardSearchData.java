@@ -149,6 +149,7 @@ public abstract class AbstractCardSearchData extends AbstractData implements ICa
 		}
 		copy.setCardList(cardListCopy);
 		copy.setNaturalInputOrder(this.getNaturalInputOrder());
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

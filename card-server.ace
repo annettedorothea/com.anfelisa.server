@@ -76,16 +76,6 @@ ACE
 			NotNull cardId
 		on ok (Card.changeCardOrder)
 
-	GetTranslation<CardTranslation>
-		GET "/card/translation" 
-		authorize 
-		queryParams 
-			NotNull sourceValue 
-			NotNull sourceLanguage 
-			NotNull targetLanguage
-		response
-			targetValue
-			
 
 views 
 	Card {

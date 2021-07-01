@@ -10,19 +10,20 @@ package com.anfelisa.box.models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
 
-public class SortCardsOutMapper implements RowMapper<ISortCardsOutModel> {
+import de.acegen.AbstractMapper;
+
+public class SortCardsOutMapper extends AbstractMapper<ISortCardsOutModel> {
 	
 	public ISortCardsOutModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new SortCardsOutModel(
 			null,
 			null,
 			null,
-			r.getString("userId"),
-			r.getString("boxId"),
-			r.getBoolean("reverse")
+			this.mapToString(r, "userId"),
+			this.mapToString(r, "boxId"),
+			this.mapToBoolean(r, "reverse")
 		);
 	}
 }

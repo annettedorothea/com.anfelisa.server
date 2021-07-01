@@ -153,6 +153,7 @@ public abstract class AbstractDeleteUserData extends AbstractData implements IDe
 			rootCategoryIdsCopy.add(item);
 		}
 		copy.setRootCategoryIds(rootCategoryIdsCopy);
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

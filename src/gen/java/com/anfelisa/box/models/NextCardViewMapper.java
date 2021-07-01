@@ -10,25 +10,26 @@ package com.anfelisa.box.models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
 
-public class NextCardViewMapper implements RowMapper<INextCardViewModel> {
+import de.acegen.AbstractMapper;
+
+public class NextCardViewMapper extends AbstractMapper<INextCardViewModel> {
 	
 	public INextCardViewModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new NextCardViewModel(
-			r.getString("scheduledCardId"),
-			r.getString("reinforceCardId"),
-			r.getString("cardId"),
-			r.getTimestamp("scheduledDate") != null ? r.getTimestamp("scheduledDate").toLocalDateTime() : null,
-			r.getObject("lastQuality") != null ? r.getInt("lastQuality") : null,
-			r.getString("given"),
-			r.getString("wanted"),
-			r.getString("categoryId"),
-			r.getString("categoryName"),
-			r.getString("rootCategoryId"),
-			r.getObject("count") != null ? r.getInt("count") : null,
-			r.getTimestamp("scoredDate") != null ? r.getTimestamp("scoredDate").toLocalDateTime() : null
+			this.mapToString(r, "scheduledCardId"),
+			this.mapToString(r, "reinforceCardId"),
+			this.mapToString(r, "cardId"),
+			this.mapToDateTime(r, "scheduledDate"),
+			this.mapToInteger(r, "lastQuality"),
+			this.mapToString(r, "given"),
+			this.mapToString(r, "wanted"),
+			this.mapToString(r, "categoryId"),
+			this.mapToString(r, "categoryName"),
+			this.mapToString(r, "rootCategoryId"),
+			this.mapToInteger(r, "count"),
+			this.mapToDateTime(r, "scoredDate")
 		);
 	}
 }

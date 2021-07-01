@@ -28,7 +28,6 @@ public class AppRegistration {
 		environment.jersey().register(new GetDuplicatesResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new MoveCardsResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new ChangeOrderResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
-		environment.jersey().register(new GetTranslationResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
 	}
 	
 	public static void registerConsumers(ViewProvider viewProvider) {

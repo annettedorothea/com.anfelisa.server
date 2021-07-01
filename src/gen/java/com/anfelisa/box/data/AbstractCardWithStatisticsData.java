@@ -278,6 +278,7 @@ public abstract class AbstractCardWithStatisticsData extends AbstractData implem
 		copy.setCategoryId(this.getCategoryId());
 		copy.setRootCategoryId(this.getRootCategoryId());
 		copy.setPriority(this.getPriority());
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

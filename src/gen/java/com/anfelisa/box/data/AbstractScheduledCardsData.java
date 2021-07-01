@@ -176,6 +176,7 @@ public abstract class AbstractScheduledCardsData extends AbstractData implements
 		copy.setUserId(this.getUserId());
 		copy.setBoxId(this.getBoxId());
 		copy.setReverse(this.getReverse());
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

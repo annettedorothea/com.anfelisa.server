@@ -81,6 +81,7 @@ public abstract class AbstractUserListData extends AbstractData implements IUser
 		}
 		copy.setUserList(userListCopy);
 		copy.setRole(this.getRole());
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

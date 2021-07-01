@@ -157,6 +157,7 @@ public abstract class AbstractSortCardsOutData extends AbstractData implements I
 		copy.setUserId(this.getUserId());
 		copy.setBoxId(this.getBoxId());
 		copy.setReverse(this.getReverse());
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

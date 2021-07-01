@@ -140,6 +140,7 @@ public abstract class AbstractMoveCardsData extends AbstractData implements IMov
 			updatedIndicesCopy.add(item.deepCopy());
 		}
 		copy.setUpdatedIndices(updatedIndicesCopy);
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

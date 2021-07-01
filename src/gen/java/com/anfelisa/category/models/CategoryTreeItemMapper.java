@@ -10,25 +10,26 @@ package com.anfelisa.category.models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
 
-public class CategoryTreeItemMapper implements RowMapper<ICategoryTreeItemModel> {
+import de.acegen.AbstractMapper;
+
+public class CategoryTreeItemMapper extends AbstractMapper<ICategoryTreeItemModel> {
 	
 	public ICategoryTreeItemModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new CategoryTreeItemModel(
-			r.getString("categoryId"),
-			r.getString("categoryName"),
-			r.getObject("categoryIndex") != null ? r.getInt("categoryIndex") : null,
-			r.getBoolean("empty"),
-			r.getString("parentCategoryId"),
-			r.getBoolean("dictionaryLookup"),
-			r.getString("givenLanguage"),
-			r.getString("wantedLanguage"),
-			r.getString("rootCategoryId"),
+			this.mapToString(r, "categoryId"),
+			this.mapToString(r, "categoryName"),
+			this.mapToInteger(r, "categoryIndex"),
+			this.mapToBoolean(r, "empty"),
+			this.mapToString(r, "parentCategoryId"),
+			this.mapToBoolean(r, "dictionaryLookup"),
+			this.mapToString(r, "givenLanguage"),
+			this.mapToString(r, "wantedLanguage"),
+			this.mapToString(r, "rootCategoryId"),
 			null,
-			r.getObject("nonScheduledCount") != null ? r.getInt("nonScheduledCount") : null,
-			r.getBoolean("editable")
+			this.mapToInteger(r, "nonScheduledCount"),
+			this.mapToBoolean(r, "editable")
 		);
 	}
 }

@@ -98,6 +98,7 @@ public abstract class AbstractAlreadyInvitedUsernamesData extends AbstractData i
 			invitedUsernamesCopy.add(item);
 		}
 		copy.setInvitedUsernames(invitedUsernamesCopy);
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

@@ -99,6 +99,7 @@ public abstract class AbstractConfirmEmailData extends AbstractData implements I
 		copy.setUsername(this.getUsername());
 		copy.setToken(this.getToken());
 		copy.setUserId(this.getUserId());
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

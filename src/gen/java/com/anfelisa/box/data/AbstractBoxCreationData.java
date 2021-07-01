@@ -342,6 +342,7 @@ public abstract class AbstractBoxCreationData extends AbstractData implements IB
 		copy.setMaxInterval(this.getMaxInterval());
 		copy.setMaxCardsPerDay(this.getMaxCardsPerDay());
 		copy.setReverse(this.getReverse());
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

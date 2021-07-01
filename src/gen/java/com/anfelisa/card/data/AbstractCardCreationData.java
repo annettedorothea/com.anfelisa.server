@@ -224,6 +224,7 @@ public abstract class AbstractCardCreationData extends AbstractData implements I
 		copy.setCategoryId(this.getCategoryId());
 		copy.setRootCategoryId(this.getRootCategoryId());
 		copy.setPriority(this.getPriority());
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

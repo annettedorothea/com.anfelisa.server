@@ -145,6 +145,7 @@ public abstract class AbstractBoxData extends AbstractData implements IBoxData {
 		copy.setMaxInterval(this.getMaxInterval());
 		copy.setMaxCardsPerDay(this.getMaxCardsPerDay());
 		copy.setReverse(this.getReverse());
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

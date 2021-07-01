@@ -10,29 +10,30 @@ package com.anfelisa.box.models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
 
-public class ScoreCardMapper implements RowMapper<IScoreCardModel> {
+import de.acegen.AbstractMapper;
+
+public class ScoreCardMapper extends AbstractMapper<IScoreCardModel> {
 	
 	public IScoreCardModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new ScoreCardModel(
-			r.getString("cardId"),
-			r.getString("nextScheduledCardScheduledCardId"),
-			r.getTimestamp("nextScheduledCardCreatedDate") != null ? r.getTimestamp("nextScheduledCardCreatedDate").toLocalDateTime() : null,
-			r.getFloat("nextScheduledCardEf"),
-			r.getObject("nextScheduledCardInterval") != null ? r.getInt("nextScheduledCardInterval") : null,
-			r.getObject("nextScheduledCardN") != null ? r.getInt("nextScheduledCardN") : null,
-			r.getObject("nextScheduledCardCount") != null ? r.getInt("nextScheduledCardCount") : null,
-			r.getTimestamp("nextScheduledCardScheduledDate") != null ? r.getTimestamp("nextScheduledCardScheduledDate").toLocalDateTime() : null,
-			r.getObject("nextScheduledCardLastQuality") != null ? r.getInt("nextScheduledCardLastQuality") : null,
-			r.getString("scheduledCardId"),
-			r.getObject("scoredCardQuality") != null ? r.getInt("scoredCardQuality") : null,
-			r.getTimestamp("scoredCardScoredDate") != null ? r.getTimestamp("scoredCardScoredDate").toLocalDateTime() : null,
-			r.getString("reinforceCardId"),
-			r.getTimestamp("reinforceCardCreatedDate") != null ? r.getTimestamp("reinforceCardCreatedDate").toLocalDateTime() : null,
-			r.getString("userId"),
-			r.getString("boxId")
+			this.mapToString(r, "cardId"),
+			this.mapToString(r, "nextScheduledCardScheduledCardId"),
+			this.mapToDateTime(r, "nextScheduledCardCreatedDate"),
+			this.mapToFloat(r, "nextScheduledCardEf"),
+			this.mapToInteger(r, "nextScheduledCardInterval"),
+			this.mapToInteger(r, "nextScheduledCardN"),
+			this.mapToInteger(r, "nextScheduledCardCount"),
+			this.mapToDateTime(r, "nextScheduledCardScheduledDate"),
+			this.mapToInteger(r, "nextScheduledCardLastQuality"),
+			this.mapToString(r, "scheduledCardId"),
+			this.mapToInteger(r, "scoredCardQuality"),
+			this.mapToDateTime(r, "scoredCardScoredDate"),
+			this.mapToString(r, "reinforceCardId"),
+			this.mapToDateTime(r, "reinforceCardCreatedDate"),
+			this.mapToString(r, "userId"),
+			this.mapToString(r, "boxId")
 		);
 	}
 }

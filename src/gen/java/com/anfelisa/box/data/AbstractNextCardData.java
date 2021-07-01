@@ -375,6 +375,7 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 		copy.setRootCategoryId(this.getRootCategoryId());
 		copy.setCount(this.getCount());
 		copy.setScoredDate(this.getScoredDate());
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

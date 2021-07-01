@@ -119,6 +119,7 @@ public abstract class AbstractCsvUploadData extends AbstractData implements ICsv
 			cardsCopy.add(item.deepCopy());
 		}
 		copy.setCards(cardsCopy);
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

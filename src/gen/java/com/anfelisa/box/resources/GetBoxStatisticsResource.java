@@ -34,6 +34,7 @@ import de.acegen.PersistenceHandle;
 import de.acegen.ReadAction;
 import de.acegen.ITimelineItem;
 import de.acegen.NonDeterministicDataProvider;
+import de.acegen.Config;
 
 import de.acegen.auth.AuthUser;
 import io.dropwizard.auth.Auth;
@@ -108,12 +109,21 @@ public class GetBoxStatisticsResource extends Resource {
 			return Response.ok(new com.anfelisa.box.data.GetBoxStatisticsResponse(data)).build();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());
+			if (Config.DEV.equals(appConfiguration.getConfig().getMode())) {
+				x.printStackTrace();
+			}
 			return badRequest(x.getMessage());
 		} catch (SecurityException x) {
 			LOG.error("unauthorized due to {} ", x.getMessage());
+			if (Config.DEV.equals(appConfiguration.getConfig().getMode())) {
+				x.printStackTrace();
+			}
 			return unauthorized("authorization needed for /boxes/statistics/");
 		} catch (Exception x) {
 			LOG.error("internal server error due to {} ", x.getMessage());
+			if (Config.DEV.equals(appConfiguration.getConfig().getMode())) {
+				x.printStackTrace();
+			}
 			return internalServerError(x);
 		}
 	}

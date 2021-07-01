@@ -196,6 +196,7 @@ public abstract class AbstractCategoryTreeData extends AbstractData implements I
 		copy.setReverse(this.getReverse());
 		copy.setReverseBoxExists(this.getReverseBoxExists());
 		copy.setBoxId(this.getBoxId());
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

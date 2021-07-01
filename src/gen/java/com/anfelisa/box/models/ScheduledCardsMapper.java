@@ -10,20 +10,21 @@ package com.anfelisa.box.models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
 
-public class ScheduledCardsMapper implements RowMapper<IScheduledCardsModel> {
+import de.acegen.AbstractMapper;
+
+public class ScheduledCardsMapper extends AbstractMapper<IScheduledCardsModel> {
 	
 	public IScheduledCardsModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new ScheduledCardsModel(
 			null,
 			null,
 			null,
-			r.getTimestamp("scheduledDate") != null ? r.getTimestamp("scheduledDate").toLocalDateTime() : null,
-			r.getString("userId"),
-			r.getString("boxId"),
-			r.getBoolean("reverse")
+			this.mapToDateTime(r, "scheduledDate"),
+			this.mapToString(r, "userId"),
+			this.mapToString(r, "boxId"),
+			this.mapToBoolean(r, "reverse")
 		);
 	}
 }

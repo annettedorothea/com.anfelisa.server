@@ -113,6 +113,7 @@ public abstract class AbstractScoreReinforceCardData extends AbstractData implem
 		copy.setKeep(this.getKeep());
 		copy.setChangeDate(this.getChangeDate());
 		copy.setUserId(this.getUserId());
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

@@ -10,26 +10,27 @@ package com.anfelisa.box.models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
 
-public class CardWithStatisticsMapper implements RowMapper<ICardWithStatisticsModel> {
+import de.acegen.AbstractMapper;
+
+public class CardWithStatisticsMapper extends AbstractMapper<ICardWithStatisticsModel> {
 	
 	public ICardWithStatisticsModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new CardWithStatisticsModel(
-			r.getFloat("ef"),
-			r.getObject("interval") != null ? r.getInt("interval") : null,
-			r.getObject("count") != null ? r.getInt("count") : null,
-			r.getObject("lastQuality") != null ? r.getInt("lastQuality") : null,
-			r.getTimestamp("next") != null ? r.getTimestamp("next").toLocalDateTime() : null,
-			r.getString("cardId"),
-			r.getString("given"),
-			r.getString("wanted"),
-			r.getString("cardAuthor"),
-			r.getObject("cardIndex") != null ? r.getInt("cardIndex") : null,
-			r.getString("categoryId"),
-			r.getString("rootCategoryId"),
-			r.getObject("priority") != null ? r.getInt("priority") : null
+			this.mapToFloat(r, "ef"),
+			this.mapToInteger(r, "interval"),
+			this.mapToInteger(r, "count"),
+			this.mapToInteger(r, "lastQuality"),
+			this.mapToDateTime(r, "next"),
+			this.mapToString(r, "cardId"),
+			this.mapToString(r, "given"),
+			this.mapToString(r, "wanted"),
+			this.mapToString(r, "cardAuthor"),
+			this.mapToInteger(r, "cardIndex"),
+			this.mapToString(r, "categoryId"),
+			this.mapToString(r, "rootCategoryId"),
+			this.mapToInteger(r, "priority")
 		);
 	}
 }

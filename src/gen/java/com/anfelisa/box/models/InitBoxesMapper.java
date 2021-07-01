@@ -10,15 +10,16 @@ package com.anfelisa.box.models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
 
-public class InitBoxesMapper implements RowMapper<IInitBoxesModel> {
+import de.acegen.AbstractMapper;
+
+public class InitBoxesMapper extends AbstractMapper<IInitBoxesModel> {
 	
 	public IInitBoxesModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new InitBoxesModel(
-			r.getTimestamp("minScheduledDate") != null ? r.getTimestamp("minScheduledDate").toLocalDateTime() : null,
-			r.getString("boxId")
+			this.mapToDateTime(r, "minScheduledDate"),
+			this.mapToString(r, "boxId")
 		);
 	}
 }

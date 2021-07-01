@@ -10,19 +10,20 @@ package com.anfelisa.box.models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
 
-public class BoxMapper implements RowMapper<IBoxModel> {
+import de.acegen.AbstractMapper;
+
+public class BoxMapper extends AbstractMapper<IBoxModel> {
 	
 	public IBoxModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new BoxModel(
-			r.getString("boxId"),
-			r.getString("userId"),
-			r.getString("categoryId"),
-			r.getObject("maxInterval") != null ? r.getInt("maxInterval") : null,
-			r.getObject("maxCardsPerDay") != null ? r.getInt("maxCardsPerDay") : null,
-			r.getBoolean("reverse")
+			this.mapToString(r, "boxId"),
+			this.mapToString(r, "userId"),
+			this.mapToString(r, "categoryId"),
+			this.mapToInteger(r, "maxInterval"),
+			this.mapToInteger(r, "maxCardsPerDay"),
+			this.mapToBoolean(r, "reverse")
 		);
 	}
 }

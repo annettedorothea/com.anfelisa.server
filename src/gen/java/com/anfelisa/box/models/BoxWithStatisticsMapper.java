@@ -10,28 +10,29 @@ package com.anfelisa.box.models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
 
-public class BoxWithStatisticsMapper implements RowMapper<IBoxWithStatisticsModel> {
+import de.acegen.AbstractMapper;
+
+public class BoxWithStatisticsMapper extends AbstractMapper<IBoxWithStatisticsModel> {
 	
 	public IBoxWithStatisticsModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new BoxWithStatisticsModel(
-			r.getObject("openTodaysCards") != null ? r.getInt("openTodaysCards") : null,
-			r.getString("categoryName"),
-			r.getString("categoryAuthor"),
-			r.getString("categoryId"),
-			r.getString("boxId"),
-			r.getBoolean("reverse"),
-			r.getBoolean("editable"),
-			r.getObject("quality0Count") != null ? r.getInt("quality0Count") : null,
-			r.getObject("quality1Count") != null ? r.getInt("quality1Count") : null,
-			r.getObject("quality2Count") != null ? r.getInt("quality2Count") : null,
-			r.getObject("quality3Count") != null ? r.getInt("quality3Count") : null,
-			r.getObject("quality4Count") != null ? r.getInt("quality4Count") : null,
-			r.getObject("quality5Count") != null ? r.getInt("quality5Count") : null,
+			this.mapToInteger(r, "openTodaysCards"),
+			this.mapToString(r, "categoryName"),
+			this.mapToString(r, "categoryAuthor"),
+			this.mapToString(r, "categoryId"),
+			this.mapToString(r, "boxId"),
+			this.mapToBoolean(r, "reverse"),
+			this.mapToBoolean(r, "editable"),
+			this.mapToInteger(r, "quality0Count"),
+			this.mapToInteger(r, "quality1Count"),
+			this.mapToInteger(r, "quality2Count"),
+			this.mapToInteger(r, "quality3Count"),
+			this.mapToInteger(r, "quality4Count"),
+			this.mapToInteger(r, "quality5Count"),
 			null,
-			r.getObject("maxCardsPerDay") != null ? r.getInt("maxCardsPerDay") : null
+			this.mapToInteger(r, "maxCardsPerDay")
 		);
 	}
 }

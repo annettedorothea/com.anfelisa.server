@@ -251,6 +251,7 @@ public abstract class AbstractCategoryTreeItemData extends AbstractData implemen
 		copy.setChildCategories(childCategoriesCopy);
 		copy.setNonScheduledCount(this.getNonScheduledCount());
 		copy.setEditable(this.getEditable());
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

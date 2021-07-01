@@ -10,15 +10,16 @@ package com.anfelisa.card.models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
 
-public class CsvUploadMapper implements RowMapper<ICsvUploadModel> {
+import de.acegen.AbstractMapper;
+
+public class CsvUploadMapper extends AbstractMapper<ICsvUploadModel> {
 	
 	public ICsvUploadModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new CsvUploadModel(
-			r.getString("userId"),
-			r.getString("categoryId"),
+			this.mapToString(r, "userId"),
+			this.mapToString(r, "categoryId"),
 			null,
 			null
 		);

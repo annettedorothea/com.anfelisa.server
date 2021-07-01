@@ -94,6 +94,7 @@ public abstract class AbstractResetPasswordWithNewPasswordData extends AbstractD
 		copy.setPassword(this.getPassword());
 		copy.setToken(this.getToken());
 		copy.setUserId(this.getUserId());
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

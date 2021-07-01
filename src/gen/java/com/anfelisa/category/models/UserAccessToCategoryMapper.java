@@ -10,16 +10,17 @@ package com.anfelisa.category.models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
 
-public class UserAccessToCategoryMapper implements RowMapper<IUserAccessToCategoryModel> {
+import de.acegen.AbstractMapper;
+
+public class UserAccessToCategoryMapper extends AbstractMapper<IUserAccessToCategoryModel> {
 	
 	public IUserAccessToCategoryModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new UserAccessToCategoryModel(
-			r.getString("categoryId"),
-			r.getString("userId"),
-			r.getBoolean("editable")
+			this.mapToString(r, "categoryId"),
+			this.mapToString(r, "userId"),
+			this.mapToBoolean(r, "editable")
 		);
 	}
 }

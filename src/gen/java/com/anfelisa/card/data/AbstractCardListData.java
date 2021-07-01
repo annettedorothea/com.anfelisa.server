@@ -149,6 +149,7 @@ public abstract class AbstractCardListData extends AbstractData implements ICard
 		copy.setFilterNonScheduled(this.getFilterNonScheduled());
 		copy.setPriority(this.getPriority());
 		copy.setReverse(this.getReverse());
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

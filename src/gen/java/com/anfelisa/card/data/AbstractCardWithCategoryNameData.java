@@ -207,6 +207,7 @@ public abstract class AbstractCardWithCategoryNameData extends AbstractData impl
 		copy.setCategoryId(this.getCategoryId());
 		copy.setRootCategoryId(this.getRootCategoryId());
 		copy.setPriority(this.getPriority());
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

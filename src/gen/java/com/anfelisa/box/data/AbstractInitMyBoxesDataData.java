@@ -121,6 +121,7 @@ public abstract class AbstractInitMyBoxesDataData extends AbstractData implement
 			outdatedReinforceCardsIdsCopy.add(item);
 		}
 		copy.setOutdatedReinforceCardsIds(outdatedReinforceCardsIdsCopy);
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

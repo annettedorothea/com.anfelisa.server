@@ -111,6 +111,7 @@ public abstract class AbstractCardDeleteData extends AbstractData implements ICa
 		copy.setCardIndex(this.getCardIndex());
 		copy.setCategoryId(this.getCategoryId());
 		copy.setUserId(this.getUserId());
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

@@ -10,19 +10,20 @@ package com.anfelisa.card.models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
 
-public class CardListMapper implements RowMapper<ICardListModel> {
+import de.acegen.AbstractMapper;
+
+public class CardListMapper extends AbstractMapper<ICardListModel> {
 	
 	public ICardListModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new CardListModel(
-			r.getString("userId"),
+			this.mapToString(r, "userId"),
 			null,
-			r.getString("categoryId"),
-			r.getBoolean("filterNonScheduled"),
-			r.getObject("priority") != null ? r.getInt("priority") : null,
-			r.getBoolean("reverse")
+			this.mapToString(r, "categoryId"),
+			this.mapToBoolean(r, "filterNonScheduled"),
+			this.mapToInteger(r, "priority"),
+			this.mapToBoolean(r, "reverse")
 		);
 	}
 }

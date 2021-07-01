@@ -100,6 +100,7 @@ public abstract class AbstractBoxStatisticsListData extends AbstractData impleme
 		copy.setBoxStatisticsList(boxStatisticsListCopy);
 		copy.setUserId(this.getUserId());
 		copy.setTodayAtMidnightInUTC(this.getTodayAtMidnightInUTC());
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

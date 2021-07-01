@@ -10,16 +10,17 @@ package com.anfelisa.user.models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
 
-public class ConfirmEmailMapper implements RowMapper<IConfirmEmailModel> {
+import de.acegen.AbstractMapper;
+
+public class ConfirmEmailMapper extends AbstractMapper<IConfirmEmailModel> {
 	
 	public IConfirmEmailModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new ConfirmEmailModel(
-			r.getString("username"),
-			r.getString("token"),
-			r.getString("userId")
+			this.mapToString(r, "username"),
+			this.mapToString(r, "token"),
+			this.mapToString(r, "userId")
 		);
 	}
 }

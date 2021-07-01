@@ -145,6 +145,7 @@ public abstract class AbstractUserData extends AbstractData implements IUserData
 		copy.setEmail(this.getEmail());
 		copy.setRole(this.getRole());
 		copy.setEmailConfirmed(this.getEmailConfirmed());
+		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}
 

@@ -10,25 +10,26 @@ package com.anfelisa.box.models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
 
-public class BoxSettingsWrapperMapper implements RowMapper<IBoxSettingsWrapperModel> {
+import de.acegen.AbstractMapper;
+
+public class BoxSettingsWrapperMapper extends AbstractMapper<IBoxSettingsWrapperModel> {
 	
 	public IBoxSettingsWrapperModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new BoxSettingsWrapperModel(
-			r.getString("userId"),
-			r.getString("boxId"),
-			r.getObject("maxInterval") != null ? r.getInt("maxInterval") : null,
-			r.getObject("maxCardsPerDay") != null ? r.getInt("maxCardsPerDay") : null,
-			r.getString("categoryName"),
-			r.getBoolean("dictionaryLookup"),
-			r.getString("givenLanguage"),
-			r.getString("wantedLanguage"),
-			r.getString("categoryId"),
-			r.getObject("allCards") != null ? r.getInt("allCards") : null,
-			r.getObject("allActiveCards") != null ? r.getInt("allActiveCards") : null,
-			r.getBoolean("shared")
+			this.mapToString(r, "userId"),
+			this.mapToString(r, "boxId"),
+			this.mapToInteger(r, "maxInterval"),
+			this.mapToInteger(r, "maxCardsPerDay"),
+			this.mapToString(r, "categoryName"),
+			this.mapToBoolean(r, "dictionaryLookup"),
+			this.mapToString(r, "givenLanguage"),
+			this.mapToString(r, "wantedLanguage"),
+			this.mapToString(r, "categoryId"),
+			this.mapToInteger(r, "allCards"),
+			this.mapToInteger(r, "allActiveCards"),
+			this.mapToBoolean(r, "shared")
 		);
 	}
 }

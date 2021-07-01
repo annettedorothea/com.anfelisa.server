@@ -10,17 +10,18 @@ package com.anfelisa.card.models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
 
-public class CardUpdateMapper implements RowMapper<ICardUpdateModel> {
+import de.acegen.AbstractMapper;
+
+public class CardUpdateMapper extends AbstractMapper<ICardUpdateModel> {
 	
 	public ICardUpdateModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new CardUpdateModel(
-			r.getString("cardId"),
-			r.getString("given"),
-			r.getString("wanted"),
-			r.getString("userId")
+			this.mapToString(r, "cardId"),
+			this.mapToString(r, "given"),
+			this.mapToString(r, "wanted"),
+			this.mapToString(r, "userId")
 		);
 	}
 }
