@@ -45,11 +45,6 @@ ACE
 			username
 			userId
 	
-	GetAllUsers<UserList>
-		GET "/users/all" 
-		authorize
-		response userList
-
 	ForgotPassword<ForgotPassword>
 		POST "/users/forgot-password" 
 		payload  
@@ -164,10 +159,6 @@ models
 		String role
 		List String boxIds
 		List String rootCategoryIds
-	}
-	UserList {
-		List User userList
-		String role
 	}
 	ChangeUserRole {
 		String editedUserId

@@ -66,8 +66,6 @@ import com.anfelisa.card.models.ICardWithCategoryNameModel;
 import com.anfelisa.card.models.ICardWithInfoModel;
 import com.anfelisa.category.data.GetCategoryTreeResponse;
 import com.anfelisa.category.models.ICategoryTreeItemModel;
-import com.anfelisa.user.data.GetAllUsersResponse;
-import com.anfelisa.user.models.IUserModel;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -300,8 +298,6 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 	protected void assertThat(Object actual, Object expected) {
 		if (actual == null) {
 			expectedShouldBeNull(expected);
-		} else if (actual instanceof GetAllUsersResponse) {
-			assertThat((GetAllUsersResponse) actual, (GetAllUsersResponse) expected);
 		} else if (actual instanceof GetCategoryTreeResponse) {
 			assertThat((GetCategoryTreeResponse) actual, (GetCategoryTreeResponse) expected);
 		} else if (actual instanceof GetCardsResponse) {
@@ -333,17 +329,6 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 			ICardWithStatisticsModel actualCard = actualCardList.get(i);
 			ICardWithStatisticsModel expectedCard = expectedCardList.get(i);
 			org.hamcrest.MatcherAssert.assertThat(actualCard, is(samePropertyValuesAs(expectedCard)));
-		}
-	}
-
-	private void assertThat(GetAllUsersResponse actual, GetAllUsersResponse expected) {
-		List<IUserModel> actualUserList = actual.getUserList();
-		List<IUserModel> expectedUserList = expected.getUserList();
-		assertThat(actualUserList.size(), expectedUserList.size());
-		for (int i = 0; i < actualUserList.size(); i++) {
-			IUserModel actualUser = actualUserList.get(i);
-			IUserModel expectedUser = expectedUserList.get(i);
-			org.hamcrest.MatcherAssert.assertThat(actualUser, is(samePropertyValuesAs(expectedUser)));
 		}
 	}
 
@@ -531,14 +516,14 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 	}
 
 	@Override
-	protected HttpResponse<Object> callNonDeterministicDataProviderPutValue(String uuid, String key, String value) {
-		return this.httpPut("/test/non-deterministic/value?uuid=" + uuid + "&key=" + key + "&value=" + value, null, null, null,
+	protected HttpResponse<Object> callSquishyDataProviderPutValue(String uuid, String key, String value) {
+		return this.httpPut("/test/squishy/value?uuid=" + uuid + "&key=" + key + "&value=" + value, null, null, null,
 				Object.class);
 	}
 
 	@Override
-	protected HttpResponse<Object> callNonDeterministicDataProviderPutSystemTime(String uuid, LocalDateTime dateTime) {
-		return this.httpPut("/test/non-deterministic/system-time?uuid=" + uuid + "&system-time=" + dateTime, null, null,
+	protected HttpResponse<Object> callSquishyDataProviderPutSystemTime(String uuid, LocalDateTime dateTime) {
+		return this.httpPut("/test/squishy/system-time?uuid=" + uuid + "&system-time=" + dateTime, null, null,
 				null, Object.class);
 	}
 

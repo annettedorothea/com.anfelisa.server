@@ -10,7 +10,7 @@ import com.codahale.metrics.servlets.AdminServlet;
 
 import de.acegen.auth.AuthUser;
 import de.acegen.resources.GetServerInfoResource;
-import de.acegen.resources.NonDeterministicDataProviderResource;
+import de.acegen.resources.SquishyDataProviderResource;
 import io.dropwizard.Application;
 import io.dropwizard.auth.AuthDynamicFeature;
 import io.dropwizard.auth.AuthValueFactoryProvider;
@@ -69,7 +69,7 @@ public class App extends Application<CustomAppConfiguration> {
 		mode = configuration.getConfig().getMode();
 		LOG.info("running in {} mode", mode);
 		if (Config.DEV.equals(mode)) {
-			environment.jersey().register(new NonDeterministicDataProviderResource());
+			environment.jersey().register(new SquishyDataProviderResource());
 			LOG.warn("You are running in DEV mode. This is a security risc.");
 		}
 
