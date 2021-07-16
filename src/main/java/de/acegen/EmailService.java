@@ -18,7 +18,7 @@ public class EmailService {
 
 	public void sendEmail(String to, String subject, String message) {
 		if (Config.DEV.equals(configuration.getConfig().getMode())) {
-			//return;
+			return;
 		}
 		try {
 			Email email = new SimpleEmail();
