@@ -57,10 +57,10 @@ public abstract class AbstractRegisterUserAction extends WriteAction<IUserRegist
 				String token = (String)tokenObject;
 				data.setToken(token);
 			} catch (Exception x) {
-				LOG.warn("token is declared as non-deterministnic and failed to parse {} from SquishyDataProvider.", tokenObject);
+				LOG.warn("token is declared as squishy and failed to parse {} from SquishyDataProvider.", tokenObject);
 			}
 		} else {
-			LOG.warn("token is declared as non-deterministnic but no value was found in SquishyDataProvider.");
+			LOG.warn("token is declared as squishy but no value was found in SquishyDataProvider.");
 		}
 		return data;
 	}
