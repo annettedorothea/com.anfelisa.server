@@ -20,22 +20,11 @@ public class NextCardMapper extends AbstractMapper<INextCardModel> {
 		return new NextCardModel(
 			this.mapToString(r, "userId"),
 			this.mapToString(r, "boxId"),
-			this.mapToBoolean(r, "reverse"),
 			this.mapToDateTime(r, "todayAtMidnightInUTC"),
+			null,
+			this.mapToBoolean(r, "reverse"),
 			this.mapToInteger(r, "openTodaysCards"),
-			this.mapToInteger(r, "allTodaysCards"),
-			this.mapToString(r, "scheduledCardId"),
-			this.mapToString(r, "reinforceCardId"),
-			this.mapToString(r, "cardId"),
-			this.mapToDateTime(r, "scheduledDate"),
-			this.mapToInteger(r, "lastQuality"),
-			this.mapToString(r, "given"),
-			this.mapToString(r, "wanted"),
-			this.mapToString(r, "categoryId"),
-			this.mapToString(r, "categoryName"),
-			this.mapToString(r, "rootCategoryId"),
-			this.mapToInteger(r, "count"),
-			this.mapToDateTime(r, "scoredDate")
+			this.mapToInteger(r, "allTodaysCards")
 		);
 	}
 }

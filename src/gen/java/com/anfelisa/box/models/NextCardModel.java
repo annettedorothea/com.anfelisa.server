@@ -24,37 +24,15 @@ public class NextCardModel implements INextCardModel {
 
 	private String boxId;
 
-	private Boolean reverse = false;
-
 	private java.time.LocalDateTime todayAtMidnightInUTC;
+
+	private com.anfelisa.box.models.INextCardViewModel nextCard;
+
+	private Boolean reverse = false;
 
 	private Integer openTodaysCards;
 
 	private Integer allTodaysCards;
-
-	private String scheduledCardId;
-
-	private String reinforceCardId;
-
-	private String cardId;
-
-	private java.time.LocalDateTime scheduledDate;
-
-	private Integer lastQuality;
-
-	private String given;
-
-	private String wanted;
-
-	private String categoryId;
-
-	private String categoryName;
-
-	private String rootCategoryId;
-
-	private Integer count;
-
-	private java.time.LocalDateTime scoredDate;
 
 
 	public NextCardModel() {
@@ -63,41 +41,19 @@ public class NextCardModel implements INextCardModel {
 	public NextCardModel(
 		@JsonProperty("userId") String userId,
 		@JsonProperty("boxId") String boxId,
-		@JsonProperty("reverse") Boolean reverse,
 		@JsonProperty("todayAtMidnightInUTC") java.time.LocalDateTime todayAtMidnightInUTC,
+		@JsonProperty("nextCard") com.anfelisa.box.models.INextCardViewModel nextCard,
+		@JsonProperty("reverse") Boolean reverse,
 		@JsonProperty("openTodaysCards") Integer openTodaysCards,
-		@JsonProperty("allTodaysCards") Integer allTodaysCards,
-		@JsonProperty("scheduledCardId") String scheduledCardId,
-		@JsonProperty("reinforceCardId") String reinforceCardId,
-		@JsonProperty("cardId") String cardId,
-		@JsonProperty("scheduledDate") java.time.LocalDateTime scheduledDate,
-		@JsonProperty("lastQuality") Integer lastQuality,
-		@JsonProperty("given") String given,
-		@JsonProperty("wanted") String wanted,
-		@JsonProperty("categoryId") String categoryId,
-		@JsonProperty("categoryName") String categoryName,
-		@JsonProperty("rootCategoryId") String rootCategoryId,
-		@JsonProperty("count") Integer count,
-		@JsonProperty("scoredDate") java.time.LocalDateTime scoredDate
+		@JsonProperty("allTodaysCards") Integer allTodaysCards
 	) {
 		this.userId = userId;
 		this.boxId = boxId;
-		this.reverse = reverse;
 		this.todayAtMidnightInUTC = todayAtMidnightInUTC;
+		this.nextCard = nextCard;
+		this.reverse = reverse;
 		this.openTodaysCards = openTodaysCards;
 		this.allTodaysCards = allTodaysCards;
-		this.scheduledCardId = scheduledCardId;
-		this.reinforceCardId = reinforceCardId;
-		this.cardId = cardId;
-		this.scheduledDate = scheduledDate;
-		this.lastQuality = lastQuality;
-		this.given = given;
-		this.wanted = wanted;
-		this.categoryId = categoryId;
-		this.categoryName = categoryName;
-		this.rootCategoryId = rootCategoryId;
-		this.count = count;
-		this.scoredDate = scoredDate;
 	}
 
 	@JsonProperty
@@ -117,14 +73,6 @@ public class NextCardModel implements INextCardModel {
 	}
 	
 	@JsonProperty
-	public Boolean getReverse() {
-		return this.reverse;
-	}
-	public void setReverse(Boolean reverse) {
-		this.reverse = reverse;
-	}
-	
-	@JsonProperty
 	@JsonSerialize(converter = DateTimeToStringConverter.class)
 	@JsonDeserialize(converter = StringToDateTimeConverter.class)
 	public java.time.LocalDateTime getTodayAtMidnightInUTC() {
@@ -132,6 +80,22 @@ public class NextCardModel implements INextCardModel {
 	}
 	public void setTodayAtMidnightInUTC(java.time.LocalDateTime todayAtMidnightInUTC) {
 		this.todayAtMidnightInUTC = todayAtMidnightInUTC;
+	}
+	
+	@JsonProperty
+	public com.anfelisa.box.models.INextCardViewModel getNextCard() {
+		return this.nextCard;
+	}
+	public void setNextCard(com.anfelisa.box.models.INextCardViewModel nextCard) {
+		this.nextCard = nextCard;
+	}
+	
+	@JsonProperty
+	public Boolean getReverse() {
+		return this.reverse;
+	}
+	public void setReverse(Boolean reverse) {
+		this.reverse = reverse;
 	}
 	
 	@JsonProperty
@@ -150,127 +114,16 @@ public class NextCardModel implements INextCardModel {
 		this.allTodaysCards = allTodaysCards;
 	}
 	
-	@JsonProperty
-	public String getScheduledCardId() {
-		return this.scheduledCardId;
-	}
-	public void setScheduledCardId(String scheduledCardId) {
-		this.scheduledCardId = scheduledCardId;
-	}
-	
-	@JsonProperty
-	public String getReinforceCardId() {
-		return this.reinforceCardId;
-	}
-	public void setReinforceCardId(String reinforceCardId) {
-		this.reinforceCardId = reinforceCardId;
-	}
-	
-	@JsonProperty
-	public String getCardId() {
-		return this.cardId;
-	}
-	public void setCardId(String cardId) {
-		this.cardId = cardId;
-	}
-	
-	@JsonProperty
-	@JsonSerialize(converter = DateTimeToStringConverter.class)
-	@JsonDeserialize(converter = StringToDateTimeConverter.class)
-	public java.time.LocalDateTime getScheduledDate() {
-		return this.scheduledDate;
-	}
-	public void setScheduledDate(java.time.LocalDateTime scheduledDate) {
-		this.scheduledDate = scheduledDate;
-	}
-	
-	@JsonProperty
-	public Integer getLastQuality() {
-		return this.lastQuality;
-	}
-	public void setLastQuality(Integer lastQuality) {
-		this.lastQuality = lastQuality;
-	}
-	
-	@JsonProperty
-	public String getGiven() {
-		return this.given;
-	}
-	public void setGiven(String given) {
-		this.given = given;
-	}
-	
-	@JsonProperty
-	public String getWanted() {
-		return this.wanted;
-	}
-	public void setWanted(String wanted) {
-		this.wanted = wanted;
-	}
-	
-	@JsonProperty
-	public String getCategoryId() {
-		return this.categoryId;
-	}
-	public void setCategoryId(String categoryId) {
-		this.categoryId = categoryId;
-	}
-	
-	@JsonProperty
-	public String getCategoryName() {
-		return this.categoryName;
-	}
-	public void setCategoryName(String categoryName) {
-		this.categoryName = categoryName;
-	}
-	
-	@JsonProperty
-	public String getRootCategoryId() {
-		return this.rootCategoryId;
-	}
-	public void setRootCategoryId(String rootCategoryId) {
-		this.rootCategoryId = rootCategoryId;
-	}
-	
-	@JsonProperty
-	public Integer getCount() {
-		return this.count;
-	}
-	public void setCount(Integer count) {
-		this.count = count;
-	}
-	
-	@JsonProperty
-	@JsonSerialize(converter = DateTimeToStringConverter.class)
-	@JsonDeserialize(converter = StringToDateTimeConverter.class)
-	public java.time.LocalDateTime getScoredDate() {
-		return this.scoredDate;
-	}
-	public void setScoredDate(java.time.LocalDateTime scoredDate) {
-		this.scoredDate = scoredDate;
-	}
-	
 
 	public INextCardModel deepCopy() {
 		INextCardModel copy = new NextCardModel();
 		copy.setUserId(this.getUserId());
 		copy.setBoxId(this.getBoxId());
-		copy.setReverse(this.getReverse());
 		copy.setTodayAtMidnightInUTC(this.getTodayAtMidnightInUTC());
+		copy.setNextCard(this.getNextCard().deepCopy());
+		copy.setReverse(this.getReverse());
 		copy.setOpenTodaysCards(this.getOpenTodaysCards());
 		copy.setAllTodaysCards(this.getAllTodaysCards());
-		copy.setScheduledCardId(this.getScheduledCardId());
-		copy.setReinforceCardId(this.getReinforceCardId());
-		copy.setCardId(this.getCardId());
-		copy.setScheduledDate(this.getScheduledDate());
-		copy.setLastQuality(this.getLastQuality());
-		copy.setGiven(this.getGiven());
-		copy.setWanted(this.getWanted());
-		copy.setCategoryId(this.getCategoryId());
-		copy.setCategoryName(this.getCategoryName());
-		copy.setRootCategoryId(this.getRootCategoryId());
-		copy.setCount(this.getCount());
-		copy.setScoredDate(this.getScoredDate());
 		return copy;
 	}
 

@@ -20,16 +20,7 @@ public class BoxSettingsWrapperMapper extends AbstractMapper<IBoxSettingsWrapper
 		return new BoxSettingsWrapperModel(
 			this.mapToString(r, "userId"),
 			this.mapToString(r, "boxId"),
-			this.mapToInteger(r, "maxInterval"),
-			this.mapToInteger(r, "maxCardsPerDay"),
-			this.mapToString(r, "categoryName"),
-			this.mapToBoolean(r, "dictionaryLookup"),
-			this.mapToString(r, "givenLanguage"),
-			this.mapToString(r, "wantedLanguage"),
-			this.mapToString(r, "categoryId"),
-			this.mapToInteger(r, "allCards"),
-			this.mapToInteger(r, "allActiveCards"),
-			this.mapToBoolean(r, "shared")
+			null
 		);
 	}
 }

@@ -12,7 +12,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @SuppressWarnings("unused")
 @JsonDeserialize(as=NextCardModel.class)
-public interface INextCardModel extends com.anfelisa.box.models.INextCardViewModel,com.anfelisa.box.models.ITodaysCardsStatusModel{
+public interface INextCardModel extends com.anfelisa.box.models.ITodaysCardsStatusModel{
 
 	String getUserId();
 	void setUserId(String userId);
@@ -20,17 +20,14 @@ public interface INextCardModel extends com.anfelisa.box.models.INextCardViewMod
 	String getBoxId();
 	void setBoxId(String boxId);
 	
-	Boolean getReverse();
-	void setReverse(Boolean reverse);
-	
 	java.time.LocalDateTime getTodayAtMidnightInUTC();
 	void setTodayAtMidnightInUTC(java.time.LocalDateTime todayAtMidnightInUTC);
 	
-	Integer getOpenTodaysCards();
-	void setOpenTodaysCards(Integer openTodaysCards);
+	com.anfelisa.box.models.INextCardViewModel getNextCard();
+	void setNextCard(com.anfelisa.box.models.INextCardViewModel nextCard);
 	
-	Integer getAllTodaysCards();
-	void setAllTodaysCards(Integer allTodaysCards);
+	Boolean getReverse();
+	void setReverse(Boolean reverse);
 	
 	
 	INextCardModel deepCopy();

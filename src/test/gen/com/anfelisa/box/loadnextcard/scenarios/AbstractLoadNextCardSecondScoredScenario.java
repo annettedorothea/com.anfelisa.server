@@ -459,17 +459,17 @@ public abstract class AbstractLoadNextCardSecondScoredScenario extends BaseScena
 					com.anfelisa.box.data.NextCardData expectedData = objectMapper.readValue("{" +
 						"\"uuid\" : \"\"," + 
 						"\"allTodaysCards\" : 3," + 
-						"\"cardId\" : \"c4-" + this.getTestId() + "\"," + 
+						"\"openTodaysCards\" : 3," + 
+						"\"reverse\" : false," + 
+						"\"nextCard\" : { \"cardId\" : \"c4-" + this.getTestId() + "\"," + 
 						"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 						"\"count\" : 0," + 
 						"\"given\" : \"4given4\"," + 
-						"\"openTodaysCards\" : 3," + 
 						"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 						"\"scheduledCardId\" : \"c4-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"," + 
 						"\"scheduledDate\" : \"2020-04-18T10:30\"," + 
 						"\"wanted\" : \"4wanted4\"," + 
-						"\"reverse\" : false," + 
-						"\"categoryName\" : \"level 1 #1\"} ",
+						"\"categoryName\" : \"level 1 #1\"}} ",
 					com.anfelisa.box.data.NextCardData.class);
 					
 					com.anfelisa.box.data.LoadNextCardResponse expected = new com.anfelisa.box.data.LoadNextCardResponse(expectedData);

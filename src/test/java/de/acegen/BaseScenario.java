@@ -54,12 +54,16 @@ import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.box.data.GetBoxSettingsResponse;
 import com.anfelisa.box.data.GetBoxStatisticsResponse;
 import com.anfelisa.box.data.GetBoxesResponse;
 import com.anfelisa.box.data.LoadAllActiveCardsResponse;
+import com.anfelisa.box.data.LoadNextCardResponse;
+import com.anfelisa.box.models.IBoxSettingsModel;
 import com.anfelisa.box.models.IBoxStatisticsModel;
 import com.anfelisa.box.models.IBoxViewModel;
 import com.anfelisa.box.models.ICardWithStatisticsModel;
+import com.anfelisa.box.models.INextCardViewModel;
 import com.anfelisa.card.data.GetCardsResponse;
 import com.anfelisa.card.data.GetDuplicatesResponse;
 import com.anfelisa.card.models.ICardWithCategoryNameModel;
@@ -310,6 +314,10 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 			assertThat((GetBoxStatisticsResponse) actual, (GetBoxStatisticsResponse) expected);
 		} else if (actual instanceof LoadAllActiveCardsResponse) {
 			assertThat((LoadAllActiveCardsResponse) actual, (LoadAllActiveCardsResponse) expected);
+		} else if (actual instanceof LoadNextCardResponse) {
+			assertThat((LoadNextCardResponse) actual, (LoadNextCardResponse) expected);
+		} else if (actual instanceof GetBoxSettingsResponse) {
+			assertThat((GetBoxSettingsResponse) actual, (GetBoxSettingsResponse) expected);
 		} else {
 			if (actual instanceof String || actual instanceof Integer || actual instanceof Boolean
 					|| actual instanceof LocalDateTime) {
@@ -321,6 +329,29 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 		}
 	}
 
+	private void assertThat(GetBoxSettingsResponse actual, GetBoxSettingsResponse expected) {
+		IBoxSettingsModel boxSettings = actual.getBoxSettings();
+		IBoxSettingsModel expectedBoxSettings = expected.getBoxSettings();
+		if (expectedBoxSettings == null) {
+			assertIsNull(boxSettings);
+		} else {
+			org.hamcrest.MatcherAssert.assertThat(boxSettings, is(samePropertyValuesAs(expectedBoxSettings)));
+		}
+	}
+
+	private void assertThat(LoadNextCardResponse actual, LoadNextCardResponse expected) {
+		assertThat(actual.getAllTodaysCards(), expected.getAllTodaysCards());
+		assertThat(actual.getOpenTodaysCards(), expected.getOpenTodaysCards());
+		assertThat(actual.getReverse(), expected.getReverse());
+		INextCardViewModel nextCard = actual.getNextCard();
+		INextCardViewModel expectedNextCard = expected.getNextCard();
+		if (expectedNextCard == null) {
+			assertIsNull(nextCard);
+		} else {
+			org.hamcrest.MatcherAssert.assertThat(nextCard, is(samePropertyValuesAs(expectedNextCard)));
+		}
+	}
+	
 	private void assertThat(LoadAllActiveCardsResponse actual, LoadAllActiveCardsResponse expected) {
 		List<ICardWithStatisticsModel> actualCardList = actual.getCardList();
 		List<ICardWithStatisticsModel> expectedCardList = expected.getCardList();

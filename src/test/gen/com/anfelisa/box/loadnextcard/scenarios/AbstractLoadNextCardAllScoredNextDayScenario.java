@@ -522,19 +522,19 @@ public abstract class AbstractLoadNextCardAllScoredNextDayScenario extends BaseS
 					com.anfelisa.box.data.NextCardData expectedData = objectMapper.readValue("{" +
 						"\"uuid\" : \"\"," + 
 						"\"allTodaysCards\" : 2," + 
-						"\"cardId\" : \"c1-" + this.getTestId() + "\"," + 
+						"\"openTodaysCards\" : 2," + 
+						"\"reverse\" : false," + 
+						"\"nextCard\" : { \"cardId\" : \"c1-" + this.getTestId() + "\"," + 
 						"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 						"\"count\" : 1," + 
 						"\"given\" : \"given\"," + 
-						"\"openTodaysCards\" : 2," + 
 						"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 						"\"scheduledCardId\" : \"score0-" + this.getTestId() + "\"," + 
 						"\"scheduledDate\" : \"2020-04-19T16:30\"," + 
 						"\"scoredDate\" : \"2020-04-18T16:30\"," + 
 						"\"wanted\" : \"wanted\"," + 
-						"\"reverse\" : false," + 
 						"\"categoryName\" : \"level 1 #1\"," + 
-						"\"lastQuality\" : 0} ",
+						"\"lastQuality\" : 0}} ",
 					com.anfelisa.box.data.NextCardData.class);
 					
 					com.anfelisa.box.data.LoadNextCardResponse expected = new com.anfelisa.box.data.LoadNextCardResponse(expectedData);

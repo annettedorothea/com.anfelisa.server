@@ -8,25 +8,7 @@
 package com.anfelisa.box.data;
 
 public interface IGetBoxSettingsResponse {
-	Integer getMaxCardsPerDay();
-	
-	Integer getMaxInterval();
-	
-	String getCategoryName();
-	
-	Boolean getDictionaryLookup();
-	
-	String getGivenLanguage();
-	
-	String getWantedLanguage();
-	
-	String getCategoryId();
-	
-	Integer getAllCards();
-	
-	Integer getAllActiveCards();
-	
-	Boolean getShared();
+	com.anfelisa.box.models.IBoxSettingsModel getBoxSettings();
 	
 
 }

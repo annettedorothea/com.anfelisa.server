@@ -424,13 +424,14 @@ public abstract class AbstractGetBoxSettingsWithCardsScenario extends BaseScenar
 
 					com.anfelisa.box.data.BoxSettingsWrapperData expectedData = objectMapper.readValue("{" +
 						"\"uuid\" : \"\"," + 
-						"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+						"\"boxSettings\" : { \"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+						"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 						"\"categoryName\" : \"cat\"," + 
 						"\"dictionaryLookup\" : false," + 
 						"\"maxCardsPerDay\" : 10," + 
 						"\"allActiveCards\" : 3," + 
 						"\"allCards\" : 5," + 
-						"\"shared\" : false} ",
+						"\"shared\" : false}} ",
 					com.anfelisa.box.data.BoxSettingsWrapperData.class);
 					
 					com.anfelisa.box.data.GetBoxSettingsResponse expected = new com.anfelisa.box.data.GetBoxSettingsResponse(expectedData);

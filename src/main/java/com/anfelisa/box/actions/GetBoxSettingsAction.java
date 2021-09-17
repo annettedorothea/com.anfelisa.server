@@ -36,16 +36,7 @@ public class GetBoxSettingsAction extends AbstractGetBoxSettingsAction {
 		}
 		IBoxSettingsModel settings = this.daoProvider.getBoxDao().selectSettingsByBoxId(readonlyHandle,
 				data.getBoxId());
-		data.setMaxCardsPerDay(settings.getMaxCardsPerDay());
-		data.setMaxInterval(settings.getMaxInterval());
-		data.setCategoryId(settings.getCategoryId());
-		data.setCategoryName(settings.getCategoryName());
-		data.setDictionaryLookup(settings.getDictionaryLookup());
-		data.setGivenLanguage(settings.getGivenLanguage());
-		data.setWantedLanguage(settings.getWantedLanguage());
-		data.setAllActiveCards(settings.getAllActiveCards());
-		data.setAllCards(settings.getAllCards());
-		data.setShared(settings.getShared());
+		data.setBoxSettings(settings);
 		return data;
 	}
 

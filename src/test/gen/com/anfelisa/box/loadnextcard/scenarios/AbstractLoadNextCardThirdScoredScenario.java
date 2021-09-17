@@ -491,20 +491,20 @@ public abstract class AbstractLoadNextCardThirdScoredScenario extends BaseScenar
 
 					com.anfelisa.box.data.NextCardData expectedData = objectMapper.readValue("{" +
 						"\"uuid\" : \"\"," + 
-						"\"allTodaysCards\" : 3," + 
-						"\"cardId\" : \"c1-" + this.getTestId() + "\"," + 
+						"\"nextCard\" : { \"cardId\" : \"c1-" + this.getTestId() + "\"," + 
 						"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 						"\"count\" : 0," + 
 						"\"given\" : \"given\"," + 
 						"\"lastQuality\" : 0," + 
-						"\"openTodaysCards\" : 2," + 
 						"\"reinforceCardId\" : \"score0-" + this.getTestId() + "\"," + 
 						"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 						"\"scheduledDate\" : \"2020-04-18T10:30\"," + 
 						"\"scoredDate\" : \"2020-04-18T16:30\"," + 
 						"\"wanted\" : \"wanted\"," + 
-						"\"reverse\" : false," + 
-						"\"categoryName\" : \"level 1 #1\"} ",
+						"\"categoryName\" : \"level 1 #1\"}," + 
+						"\"allTodaysCards\" : 3," + 
+						"\"openTodaysCards\" : 2," + 
+						"\"reverse\" : false} ",
 					com.anfelisa.box.data.NextCardData.class);
 					
 					com.anfelisa.box.data.LoadNextCardResponse expected = new com.anfelisa.box.data.LoadNextCardResponse(expectedData);

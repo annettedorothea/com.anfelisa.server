@@ -22,119 +22,27 @@ import de.acegen.StringToDateTimeConverter;
 @SuppressWarnings("all")
 public class LoadNextCardResponse implements ILoadNextCardResponse {
 	
-	private String cardId;
-	
-	private String categoryId;
-	
-	private Integer count;
-	
-	private String given;
-	
-	private Integer lastQuality;
-	
-	private String rootCategoryId;
-	
-	private String scheduledCardId;
-	
-	private String reinforceCardId;
-	
-	private java.time.LocalDateTime scheduledDate;
-	
-	private java.time.LocalDateTime scoredDate;
-	
-	private String wanted;
-	
-	private Integer openTodaysCards;
+	private com.anfelisa.box.models.INextCardViewModel nextCard;
 	
 	private Integer allTodaysCards;
 	
-	private Boolean reverse = false;
+	private Integer openTodaysCards;
 	
-	private String categoryName;
+	private Boolean reverse = false;
 	
 	public LoadNextCardResponse() {
 	}
 	
 	public LoadNextCardResponse(com.anfelisa.box.models.INextCardModel data) {
-		cardId = data.getCardId();
-		categoryId = data.getCategoryId();
-		count = data.getCount();
-		given = data.getGiven();
-		lastQuality = data.getLastQuality();
-		rootCategoryId = data.getRootCategoryId();
-		scheduledCardId = data.getScheduledCardId();
-		reinforceCardId = data.getReinforceCardId();
-		scheduledDate = data.getScheduledDate();
-		scoredDate = data.getScoredDate();
-		wanted = data.getWanted();
-		openTodaysCards = data.getOpenTodaysCards();
+		nextCard = data.getNextCard();
 		allTodaysCards = data.getAllTodaysCards();
+		openTodaysCards = data.getOpenTodaysCards();
 		reverse = data.getReverse();
-		categoryName = data.getCategoryName();
 	}
 	
 	@JsonProperty
-	public String getCardId() {
-		return this.cardId;
-	}
-	
-	@JsonProperty
-	public String getCategoryId() {
-		return this.categoryId;
-	}
-	
-	@JsonProperty
-	public Integer getCount() {
-		return this.count;
-	}
-	
-	@JsonProperty
-	public String getGiven() {
-		return this.given;
-	}
-	
-	@JsonProperty
-	public Integer getLastQuality() {
-		return this.lastQuality;
-	}
-	
-	@JsonProperty
-	public String getRootCategoryId() {
-		return this.rootCategoryId;
-	}
-	
-	@JsonProperty
-	public String getScheduledCardId() {
-		return this.scheduledCardId;
-	}
-	
-	@JsonProperty
-	public String getReinforceCardId() {
-		return this.reinforceCardId;
-	}
-	
-	@JsonProperty
-	@JsonSerialize(converter = DateTimeToStringConverter.class)
-	@JsonDeserialize(converter = StringToDateTimeConverter.class)
-	public java.time.LocalDateTime getScheduledDate() {
-		return this.scheduledDate;
-	}
-	
-	@JsonProperty
-	@JsonSerialize(converter = DateTimeToStringConverter.class)
-	@JsonDeserialize(converter = StringToDateTimeConverter.class)
-	public java.time.LocalDateTime getScoredDate() {
-		return this.scoredDate;
-	}
-	
-	@JsonProperty
-	public String getWanted() {
-		return this.wanted;
-	}
-	
-	@JsonProperty
-	public Integer getOpenTodaysCards() {
-		return this.openTodaysCards;
+	public com.anfelisa.box.models.INextCardViewModel getNextCard() {
+		return this.nextCard;
 	}
 	
 	@JsonProperty
@@ -143,13 +51,13 @@ public class LoadNextCardResponse implements ILoadNextCardResponse {
 	}
 	
 	@JsonProperty
-	public Boolean getReverse() {
-		return this.reverse;
+	public Integer getOpenTodaysCards() {
+		return this.openTodaysCards;
 	}
 	
 	@JsonProperty
-	public String getCategoryName() {
-		return this.categoryName;
+	public Boolean getReverse() {
+		return this.reverse;
 	}
 	
 }

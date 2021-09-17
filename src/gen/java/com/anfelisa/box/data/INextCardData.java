@@ -15,44 +15,21 @@ import com.anfelisa.box.models.INextCardModel;
 
 @JsonDeserialize(as=NextCardData.class)
 public interface INextCardData extends INextCardModel, IDataContainer {
-	void mapFrom(com.anfelisa.box.models.INextCardViewModel model);
 	void mapFrom(com.anfelisa.box.models.ITodaysCardsStatusModel model);
 	
 	INextCardData withUserId(String userId);
 	
 	INextCardData withBoxId(String boxId);
 	
-	INextCardData withReverse(Boolean reverse);
-	
 	INextCardData withTodayAtMidnightInUTC(java.time.LocalDateTime todayAtMidnightInUTC);
+	
+	INextCardData withNextCard(com.anfelisa.box.models.INextCardViewModel nextCard);
+	
+	INextCardData withReverse(Boolean reverse);
 	
 	INextCardData withOpenTodaysCards(Integer openTodaysCards);
 	
 	INextCardData withAllTodaysCards(Integer allTodaysCards);
-	
-	INextCardData withScheduledCardId(String scheduledCardId);
-	
-	INextCardData withReinforceCardId(String reinforceCardId);
-	
-	INextCardData withCardId(String cardId);
-	
-	INextCardData withScheduledDate(java.time.LocalDateTime scheduledDate);
-	
-	INextCardData withLastQuality(Integer lastQuality);
-	
-	INextCardData withGiven(String given);
-	
-	INextCardData withWanted(String wanted);
-	
-	INextCardData withCategoryId(String categoryId);
-	
-	INextCardData withCategoryName(String categoryName);
-	
-	INextCardData withRootCategoryId(String rootCategoryId);
-	
-	INextCardData withCount(Integer count);
-	
-	INextCardData withScoredDate(java.time.LocalDateTime scoredDate);
 	
 	
 	INextCardData deepCopy();

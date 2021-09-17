@@ -8,35 +8,13 @@
 package com.anfelisa.box.data;
 
 public interface ILoadNextCardResponse {
-	String getCardId();
-	
-	String getCategoryId();
-	
-	Integer getCount();
-	
-	String getGiven();
-	
-	Integer getLastQuality();
-	
-	String getRootCategoryId();
-	
-	String getScheduledCardId();
-	
-	String getReinforceCardId();
-	
-	java.time.LocalDateTime getScheduledDate();
-	
-	java.time.LocalDateTime getScoredDate();
-	
-	String getWanted();
-	
-	Integer getOpenTodaysCards();
+	com.anfelisa.box.models.INextCardViewModel getNextCard();
 	
 	Integer getAllTodaysCards();
 	
-	Boolean getReverse();
+	Integer getOpenTodaysCards();
 	
-	String getCategoryName();
+	Boolean getReverse();
 	
 
 }

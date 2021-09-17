@@ -12,10 +12,16 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @SuppressWarnings("unused")
 @JsonDeserialize(as=BoxSettingsWrapperModel.class)
-public interface IBoxSettingsWrapperModel extends com.anfelisa.box.models.IBoxSettingsModel{
+public interface IBoxSettingsWrapperModel {
 
 	String getUserId();
 	void setUserId(String userId);
+	
+	String getBoxId();
+	void setBoxId(String boxId);
+	
+	com.anfelisa.box.models.IBoxSettingsModel getBoxSettings();
+	void setBoxSettings(com.anfelisa.box.models.IBoxSettingsModel boxSettings);
 	
 	
 	IBoxSettingsWrapperModel deepCopy();

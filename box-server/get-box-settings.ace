@@ -14,13 +14,16 @@ scenarios
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response shouldBe {
-				categoryId: "boxId-${testId}",
-				categoryName: "cat",
-				dictionaryLookup: false,
-				maxCardsPerDay: 10,
-				allActiveCards: 0,
-				allCards: 0,
-				shared: false
+				boxSettings: {
+					categoryId: "boxId-${testId}",
+					boxId: "boxId-${testId}",
+					categoryName: "cat",
+					dictionaryLookup: false,
+					maxCardsPerDay: 10,
+					allActiveCards: 0,
+					allCards: 0,
+					shared: false
+				}
 			}		
 
 	GetBoxSettingsWithCards
@@ -34,13 +37,16 @@ scenarios
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response shouldBe {
-				categoryId: "boxId-${testId}",
-				categoryName: "cat",
-				dictionaryLookup: false,
-				maxCardsPerDay: 10,
-				allActiveCards: 3,
-				allCards: 5,
-				shared: false
+				boxSettings: {
+					categoryId: "boxId-${testId}",
+					boxId: "boxId-${testId}",
+					categoryName: "cat",
+					dictionaryLookup: false,
+					maxCardsPerDay: 10,
+					allActiveCards: 3,
+					allCards: 5,
+					shared: false
+				}
 			}		
 
 	GetBoxSettingsWithSortedOutCards
@@ -54,13 +60,16 @@ scenarios
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response shouldBe {
-				categoryId: "boxId-${testId}",
-				categoryName: "cat",
-				dictionaryLookup: false,
-				maxCardsPerDay: 10,
-				allActiveCards: 1,
-				allCards: 5,
-				shared: false
+				boxSettings: {
+					categoryId: "boxId-${testId}",
+					boxId: "boxId-${testId}",
+					categoryName: "cat",
+					dictionaryLookup: false,
+					maxCardsPerDay: 10,
+					allActiveCards: 1,
+					allCards: 5,
+					shared: false
+				}
 			}		
 
 	GetBoxSettingsWithDictionaryLookup
@@ -74,15 +83,18 @@ scenarios
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response shouldBe {
-				categoryId: "boxId-${testId}",
-				categoryName: "cat",
-				dictionaryLookup: true,
-				givenLanguage: "de",
-				wantedLanguage: "en",
-				maxCardsPerDay: 10,
-				allActiveCards: 0,
-				allCards: 0,
-				shared: false
+				boxSettings: {
+					categoryId: "boxId-${testId}",
+					boxId: "boxId-${testId}",
+					categoryName: "cat",
+					dictionaryLookup: true,
+					givenLanguage: "de",
+					wantedLanguage: "en",
+					maxCardsPerDay: 10,
+					allActiveCards: 0,
+					allCards: 0,
+					shared: false
+				}
 			}		
 
 	GetSharedBoxSettings
@@ -96,13 +108,16 @@ scenarios
 				authorization "Anne-${testId}" : "pw"
 		THEN 200
 			response shouldBe {
-				categoryId: "boxId-${testId}",
-				categoryName: "cat",
-				dictionaryLookup: false,
-				maxCardsPerDay: 10,
-				allActiveCards: 0,
-				allCards: 0,
-				shared: true
+				boxSettings: {
+					categoryId: "boxId-${testId}",
+					boxId: "boxIdOfInvitedUser-${testId}",
+					categoryName: "cat",
+					dictionaryLookup: false,
+					maxCardsPerDay: 10,
+					allActiveCards: 0,
+					allCards: 0,
+					shared: true
+				}
 			}		
 
 	GetBoxSettingsNoBoxId

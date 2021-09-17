@@ -17,7 +17,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import com.anfelisa.box.models.INextCardModel;
-import com.anfelisa.box.models.INextCardViewModel;
 import com.anfelisa.box.models.ITodaysCardsStatusModel;
 
 import de.acegen.AbstractData;
@@ -34,79 +33,35 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 	
 	private String boxId;
 	
-	private Boolean reverse = false;
-	
 	private java.time.LocalDateTime todayAtMidnightInUTC;
+	
+	private com.anfelisa.box.models.INextCardViewModel nextCard;
+	
+	private Boolean reverse = false;
 	
 	private Integer openTodaysCards;
 	
 	private Integer allTodaysCards;
 	
-	private String scheduledCardId;
-	
-	private String reinforceCardId;
-	
-	private String cardId;
-	
-	private java.time.LocalDateTime scheduledDate;
-	
-	private Integer lastQuality;
-	
-	private String given;
-	
-	private String wanted;
-	
-	private String categoryId;
-	
-	private String categoryName;
-	
-	private String rootCategoryId;
-	
-	private Integer count;
-	
-	private java.time.LocalDateTime scoredDate;
-	
 
 	public AbstractNextCardData(
 		@JsonProperty("userId") String userId,
 		@JsonProperty("boxId") String boxId,
-		@JsonProperty("reverse") Boolean reverse,
 		@JsonProperty("todayAtMidnightInUTC") java.time.LocalDateTime todayAtMidnightInUTC,
+		@JsonProperty("nextCard") com.anfelisa.box.models.INextCardViewModel nextCard,
+		@JsonProperty("reverse") Boolean reverse,
 		@JsonProperty("openTodaysCards") Integer openTodaysCards,
-		@JsonProperty("allTodaysCards") Integer allTodaysCards,
-		@JsonProperty("scheduledCardId") String scheduledCardId,
-		@JsonProperty("reinforceCardId") String reinforceCardId,
-		@JsonProperty("cardId") String cardId,
-		@JsonProperty("scheduledDate") java.time.LocalDateTime scheduledDate,
-		@JsonProperty("lastQuality") Integer lastQuality,
-		@JsonProperty("given") String given,
-		@JsonProperty("wanted") String wanted,
-		@JsonProperty("categoryId") String categoryId,
-		@JsonProperty("categoryName") String categoryName,
-		@JsonProperty("rootCategoryId") String rootCategoryId,
-		@JsonProperty("count") Integer count,
-		@JsonProperty("scoredDate") java.time.LocalDateTime scoredDate
+		@JsonProperty("allTodaysCards") Integer allTodaysCards
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
 		this.userId = userId;
 		this.boxId = boxId;
-		this.reverse = reverse;
 		this.todayAtMidnightInUTC = todayAtMidnightInUTC;
+		this.nextCard = nextCard;
+		this.reverse = reverse;
 		this.openTodaysCards = openTodaysCards;
 		this.allTodaysCards = allTodaysCards;
-		this.scheduledCardId = scheduledCardId;
-		this.reinforceCardId = reinforceCardId;
-		this.cardId = cardId;
-		this.scheduledDate = scheduledDate;
-		this.lastQuality = lastQuality;
-		this.given = given;
-		this.wanted = wanted;
-		this.categoryId = categoryId;
-		this.categoryName = categoryName;
-		this.rootCategoryId = rootCategoryId;
-		this.count = count;
-		this.scoredDate = scoredDate;
 	}
 
 	public AbstractNextCardData( String uuid ) {
@@ -138,18 +93,6 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 	}
 	
 	@JsonProperty
-	public Boolean getReverse() {
-		return this.reverse;
-	}
-	public void setReverse(Boolean reverse) {
-		this.reverse = reverse;
-	}
-	public INextCardData withReverse(Boolean reverse) {
-		this.reverse = reverse;
-		return this;
-	}
-	
-	@JsonProperty
 	@JsonSerialize(converter = DateTimeToStringConverter.class)
 	@JsonDeserialize(converter = StringToDateTimeConverter.class)
 	public java.time.LocalDateTime getTodayAtMidnightInUTC() {
@@ -160,6 +103,30 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 	}
 	public INextCardData withTodayAtMidnightInUTC(java.time.LocalDateTime todayAtMidnightInUTC) {
 		this.todayAtMidnightInUTC = todayAtMidnightInUTC;
+		return this;
+	}
+	
+	@JsonProperty
+	public com.anfelisa.box.models.INextCardViewModel getNextCard() {
+		return this.nextCard;
+	}
+	public void setNextCard(com.anfelisa.box.models.INextCardViewModel nextCard) {
+		this.nextCard = nextCard;
+	}
+	public INextCardData withNextCard(com.anfelisa.box.models.INextCardViewModel nextCard) {
+		this.nextCard = nextCard;
+		return this;
+	}
+	
+	@JsonProperty
+	public Boolean getReverse() {
+		return this.reverse;
+	}
+	public void setReverse(Boolean reverse) {
+		this.reverse = reverse;
+	}
+	public INextCardData withReverse(Boolean reverse) {
+		this.reverse = reverse;
 		return this;
 	}
 	
@@ -187,169 +154,7 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 		return this;
 	}
 	
-	@JsonProperty
-	public String getScheduledCardId() {
-		return this.scheduledCardId;
-	}
-	public void setScheduledCardId(String scheduledCardId) {
-		this.scheduledCardId = scheduledCardId;
-	}
-	public INextCardData withScheduledCardId(String scheduledCardId) {
-		this.scheduledCardId = scheduledCardId;
-		return this;
-	}
 	
-	@JsonProperty
-	public String getReinforceCardId() {
-		return this.reinforceCardId;
-	}
-	public void setReinforceCardId(String reinforceCardId) {
-		this.reinforceCardId = reinforceCardId;
-	}
-	public INextCardData withReinforceCardId(String reinforceCardId) {
-		this.reinforceCardId = reinforceCardId;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getCardId() {
-		return this.cardId;
-	}
-	public void setCardId(String cardId) {
-		this.cardId = cardId;
-	}
-	public INextCardData withCardId(String cardId) {
-		this.cardId = cardId;
-		return this;
-	}
-	
-	@JsonProperty
-	@JsonSerialize(converter = DateTimeToStringConverter.class)
-	@JsonDeserialize(converter = StringToDateTimeConverter.class)
-	public java.time.LocalDateTime getScheduledDate() {
-		return this.scheduledDate;
-	}
-	public void setScheduledDate(java.time.LocalDateTime scheduledDate) {
-		this.scheduledDate = scheduledDate;
-	}
-	public INextCardData withScheduledDate(java.time.LocalDateTime scheduledDate) {
-		this.scheduledDate = scheduledDate;
-		return this;
-	}
-	
-	@JsonProperty
-	public Integer getLastQuality() {
-		return this.lastQuality;
-	}
-	public void setLastQuality(Integer lastQuality) {
-		this.lastQuality = lastQuality;
-	}
-	public INextCardData withLastQuality(Integer lastQuality) {
-		this.lastQuality = lastQuality;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getGiven() {
-		return this.given;
-	}
-	public void setGiven(String given) {
-		this.given = given;
-	}
-	public INextCardData withGiven(String given) {
-		this.given = given;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getWanted() {
-		return this.wanted;
-	}
-	public void setWanted(String wanted) {
-		this.wanted = wanted;
-	}
-	public INextCardData withWanted(String wanted) {
-		this.wanted = wanted;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getCategoryId() {
-		return this.categoryId;
-	}
-	public void setCategoryId(String categoryId) {
-		this.categoryId = categoryId;
-	}
-	public INextCardData withCategoryId(String categoryId) {
-		this.categoryId = categoryId;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getCategoryName() {
-		return this.categoryName;
-	}
-	public void setCategoryName(String categoryName) {
-		this.categoryName = categoryName;
-	}
-	public INextCardData withCategoryName(String categoryName) {
-		this.categoryName = categoryName;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getRootCategoryId() {
-		return this.rootCategoryId;
-	}
-	public void setRootCategoryId(String rootCategoryId) {
-		this.rootCategoryId = rootCategoryId;
-	}
-	public INextCardData withRootCategoryId(String rootCategoryId) {
-		this.rootCategoryId = rootCategoryId;
-		return this;
-	}
-	
-	@JsonProperty
-	public Integer getCount() {
-		return this.count;
-	}
-	public void setCount(Integer count) {
-		this.count = count;
-	}
-	public INextCardData withCount(Integer count) {
-		this.count = count;
-		return this;
-	}
-	
-	@JsonProperty
-	@JsonSerialize(converter = DateTimeToStringConverter.class)
-	@JsonDeserialize(converter = StringToDateTimeConverter.class)
-	public java.time.LocalDateTime getScoredDate() {
-		return this.scoredDate;
-	}
-	public void setScoredDate(java.time.LocalDateTime scoredDate) {
-		this.scoredDate = scoredDate;
-	}
-	public INextCardData withScoredDate(java.time.LocalDateTime scoredDate) {
-		this.scoredDate = scoredDate;
-		return this;
-	}
-	
-	
-	public void mapFrom(com.anfelisa.box.models.INextCardViewModel model) {
-		this.scheduledCardId = model.getScheduledCardId();
-		this.reinforceCardId = model.getReinforceCardId();
-		this.cardId = model.getCardId();
-		this.scheduledDate = model.getScheduledDate();
-		this.lastQuality = model.getLastQuality();
-		this.given = model.getGiven();
-		this.wanted = model.getWanted();
-		this.categoryId = model.getCategoryId();
-		this.categoryName = model.getCategoryName();
-		this.rootCategoryId = model.getRootCategoryId();
-		this.count = model.getCount();
-		this.scoredDate = model.getScoredDate();
-	}
 	public void mapFrom(com.anfelisa.box.models.ITodaysCardsStatusModel model) {
 		this.openTodaysCards = model.getOpenTodaysCards();
 		this.allTodaysCards = model.getAllTodaysCards();
@@ -359,22 +164,11 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 		INextCardData copy = new NextCardData(this.getUuid());
 		copy.setUserId(this.getUserId());
 		copy.setBoxId(this.getBoxId());
-		copy.setReverse(this.getReverse());
 		copy.setTodayAtMidnightInUTC(this.getTodayAtMidnightInUTC());
+		copy.setNextCard(this.getNextCard().deepCopy());
+		copy.setReverse(this.getReverse());
 		copy.setOpenTodaysCards(this.getOpenTodaysCards());
 		copy.setAllTodaysCards(this.getAllTodaysCards());
-		copy.setScheduledCardId(this.getScheduledCardId());
-		copy.setReinforceCardId(this.getReinforceCardId());
-		copy.setCardId(this.getCardId());
-		copy.setScheduledDate(this.getScheduledDate());
-		copy.setLastQuality(this.getLastQuality());
-		copy.setGiven(this.getGiven());
-		copy.setWanted(this.getWanted());
-		copy.setCategoryId(this.getCategoryId());
-		copy.setCategoryName(this.getCategoryName());
-		copy.setRootCategoryId(this.getRootCategoryId());
-		copy.setCount(this.getCount());
-		copy.setScoredDate(this.getScoredDate());
 		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}

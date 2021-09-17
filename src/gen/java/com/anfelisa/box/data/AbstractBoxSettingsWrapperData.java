@@ -17,7 +17,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import com.anfelisa.box.models.IBoxSettingsWrapperModel;
-import com.anfelisa.box.models.IBoxSettingsModel;
 
 import de.acegen.AbstractData;
 import de.acegen.IDataContainer;
@@ -33,55 +32,19 @@ public abstract class AbstractBoxSettingsWrapperData extends AbstractData implem
 	
 	private String boxId;
 	
-	private Integer maxInterval;
-	
-	private Integer maxCardsPerDay;
-	
-	private String categoryName;
-	
-	private Boolean dictionaryLookup = false;
-	
-	private String givenLanguage;
-	
-	private String wantedLanguage;
-	
-	private String categoryId;
-	
-	private Integer allCards;
-	
-	private Integer allActiveCards;
-	
-	private Boolean shared = false;
+	private com.anfelisa.box.models.IBoxSettingsModel boxSettings;
 	
 
 	public AbstractBoxSettingsWrapperData(
 		@JsonProperty("userId") String userId,
 		@JsonProperty("boxId") String boxId,
-		@JsonProperty("maxInterval") Integer maxInterval,
-		@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay,
-		@JsonProperty("categoryName") String categoryName,
-		@JsonProperty("dictionaryLookup") Boolean dictionaryLookup,
-		@JsonProperty("givenLanguage") String givenLanguage,
-		@JsonProperty("wantedLanguage") String wantedLanguage,
-		@JsonProperty("categoryId") String categoryId,
-		@JsonProperty("allCards") Integer allCards,
-		@JsonProperty("allActiveCards") Integer allActiveCards,
-		@JsonProperty("shared") Boolean shared
+		@JsonProperty("boxSettings") com.anfelisa.box.models.IBoxSettingsModel boxSettings
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
 		this.userId = userId;
 		this.boxId = boxId;
-		this.maxInterval = maxInterval;
-		this.maxCardsPerDay = maxCardsPerDay;
-		this.categoryName = categoryName;
-		this.dictionaryLookup = dictionaryLookup;
-		this.givenLanguage = givenLanguage;
-		this.wantedLanguage = wantedLanguage;
-		this.categoryId = categoryId;
-		this.allCards = allCards;
-		this.allActiveCards = allActiveCards;
-		this.shared = shared;
+		this.boxSettings = boxSettings;
 	}
 
 	public AbstractBoxSettingsWrapperData( String uuid ) {
@@ -113,154 +76,24 @@ public abstract class AbstractBoxSettingsWrapperData extends AbstractData implem
 	}
 	
 	@JsonProperty
-	public Integer getMaxInterval() {
-		return this.maxInterval;
+	public com.anfelisa.box.models.IBoxSettingsModel getBoxSettings() {
+		return this.boxSettings;
 	}
-	public void setMaxInterval(Integer maxInterval) {
-		this.maxInterval = maxInterval;
+	public void setBoxSettings(com.anfelisa.box.models.IBoxSettingsModel boxSettings) {
+		this.boxSettings = boxSettings;
 	}
-	public IBoxSettingsWrapperData withMaxInterval(Integer maxInterval) {
-		this.maxInterval = maxInterval;
-		return this;
-	}
-	
-	@JsonProperty
-	public Integer getMaxCardsPerDay() {
-		return this.maxCardsPerDay;
-	}
-	public void setMaxCardsPerDay(Integer maxCardsPerDay) {
-		this.maxCardsPerDay = maxCardsPerDay;
-	}
-	public IBoxSettingsWrapperData withMaxCardsPerDay(Integer maxCardsPerDay) {
-		this.maxCardsPerDay = maxCardsPerDay;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getCategoryName() {
-		return this.categoryName;
-	}
-	public void setCategoryName(String categoryName) {
-		this.categoryName = categoryName;
-	}
-	public IBoxSettingsWrapperData withCategoryName(String categoryName) {
-		this.categoryName = categoryName;
-		return this;
-	}
-	
-	@JsonProperty
-	public Boolean getDictionaryLookup() {
-		return this.dictionaryLookup;
-	}
-	public void setDictionaryLookup(Boolean dictionaryLookup) {
-		this.dictionaryLookup = dictionaryLookup;
-	}
-	public IBoxSettingsWrapperData withDictionaryLookup(Boolean dictionaryLookup) {
-		this.dictionaryLookup = dictionaryLookup;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getGivenLanguage() {
-		return this.givenLanguage;
-	}
-	public void setGivenLanguage(String givenLanguage) {
-		this.givenLanguage = givenLanguage;
-	}
-	public IBoxSettingsWrapperData withGivenLanguage(String givenLanguage) {
-		this.givenLanguage = givenLanguage;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getWantedLanguage() {
-		return this.wantedLanguage;
-	}
-	public void setWantedLanguage(String wantedLanguage) {
-		this.wantedLanguage = wantedLanguage;
-	}
-	public IBoxSettingsWrapperData withWantedLanguage(String wantedLanguage) {
-		this.wantedLanguage = wantedLanguage;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getCategoryId() {
-		return this.categoryId;
-	}
-	public void setCategoryId(String categoryId) {
-		this.categoryId = categoryId;
-	}
-	public IBoxSettingsWrapperData withCategoryId(String categoryId) {
-		this.categoryId = categoryId;
-		return this;
-	}
-	
-	@JsonProperty
-	public Integer getAllCards() {
-		return this.allCards;
-	}
-	public void setAllCards(Integer allCards) {
-		this.allCards = allCards;
-	}
-	public IBoxSettingsWrapperData withAllCards(Integer allCards) {
-		this.allCards = allCards;
-		return this;
-	}
-	
-	@JsonProperty
-	public Integer getAllActiveCards() {
-		return this.allActiveCards;
-	}
-	public void setAllActiveCards(Integer allActiveCards) {
-		this.allActiveCards = allActiveCards;
-	}
-	public IBoxSettingsWrapperData withAllActiveCards(Integer allActiveCards) {
-		this.allActiveCards = allActiveCards;
-		return this;
-	}
-	
-	@JsonProperty
-	public Boolean getShared() {
-		return this.shared;
-	}
-	public void setShared(Boolean shared) {
-		this.shared = shared;
-	}
-	public IBoxSettingsWrapperData withShared(Boolean shared) {
-		this.shared = shared;
+	public IBoxSettingsWrapperData withBoxSettings(com.anfelisa.box.models.IBoxSettingsModel boxSettings) {
+		this.boxSettings = boxSettings;
 		return this;
 	}
 	
 	
-	public void mapFrom(com.anfelisa.box.models.IBoxSettingsModel model) {
-		this.boxId = model.getBoxId();
-		this.maxInterval = model.getMaxInterval();
-		this.maxCardsPerDay = model.getMaxCardsPerDay();
-		this.categoryName = model.getCategoryName();
-		this.dictionaryLookup = model.getDictionaryLookup();
-		this.givenLanguage = model.getGivenLanguage();
-		this.wantedLanguage = model.getWantedLanguage();
-		this.categoryId = model.getCategoryId();
-		this.allCards = model.getAllCards();
-		this.allActiveCards = model.getAllActiveCards();
-		this.shared = model.getShared();
-	}
 	
 	public IBoxSettingsWrapperData deepCopy() {
 		IBoxSettingsWrapperData copy = new BoxSettingsWrapperData(this.getUuid());
 		copy.setUserId(this.getUserId());
 		copy.setBoxId(this.getBoxId());
-		copy.setMaxInterval(this.getMaxInterval());
-		copy.setMaxCardsPerDay(this.getMaxCardsPerDay());
-		copy.setCategoryName(this.getCategoryName());
-		copy.setDictionaryLookup(this.getDictionaryLookup());
-		copy.setGivenLanguage(this.getGivenLanguage());
-		copy.setWantedLanguage(this.getWantedLanguage());
-		copy.setCategoryId(this.getCategoryId());
-		copy.setAllCards(this.getAllCards());
-		copy.setAllActiveCards(this.getAllActiveCards());
-		copy.setShared(this.getShared());
+		copy.setBoxSettings(this.getBoxSettings().deepCopy());
 		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}

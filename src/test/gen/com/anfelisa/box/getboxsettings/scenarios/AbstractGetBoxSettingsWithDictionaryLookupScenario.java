@@ -156,7 +156,8 @@ public abstract class AbstractGetBoxSettingsWithDictionaryLookupScenario extends
 
 					com.anfelisa.box.data.BoxSettingsWrapperData expectedData = objectMapper.readValue("{" +
 						"\"uuid\" : \"\"," + 
-						"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+						"\"boxSettings\" : { \"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+						"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 						"\"categoryName\" : \"cat\"," + 
 						"\"dictionaryLookup\" : true," + 
 						"\"givenLanguage\" : \"de\"," + 
@@ -164,7 +165,7 @@ public abstract class AbstractGetBoxSettingsWithDictionaryLookupScenario extends
 						"\"maxCardsPerDay\" : 10," + 
 						"\"allActiveCards\" : 0," + 
 						"\"allCards\" : 0," + 
-						"\"shared\" : false} ",
+						"\"shared\" : false}} ",
 					com.anfelisa.box.data.BoxSettingsWrapperData.class);
 					
 					com.anfelisa.box.data.GetBoxSettingsResponse expected = new com.anfelisa.box.data.GetBoxSettingsResponse(expectedData);

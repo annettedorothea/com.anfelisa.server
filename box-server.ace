@@ -45,16 +45,7 @@ ACE
 		pathParams 
 			NotNull boxId
 		response 
-			maxCardsPerDay
-			maxInterval
-			categoryName
-			dictionaryLookup
-			givenLanguage
-			wantedLanguage
-			categoryId
-			allCards
-			allActiveCards
-			shared
+			boxSettings
 
 	ScheduleCards<ScheduledCards>
 		POST "/cards/schedule" 
@@ -122,21 +113,10 @@ ACE
 			NotNull boxId 
 			NotNull todayAtMidnightInUTC
 		response
-			cardId
-			categoryId
-			count
-			given
-			lastQuality
-			rootCategoryId
-			scheduledCardId
-			reinforceCardId
-			scheduledDate
-			scoredDate
-			wanted
-			openTodaysCards
+			nextCard
 			allTodaysCards
+			openTodaysCards
 			reverse
-			categoryName
 
 	DeleteBox<DeleteBox>
 		DELETE "/box/delete"  
@@ -306,10 +286,12 @@ models
 		Boolean shared
 	}
 
-	BoxSettingsWrapper extends BoxSettings {
+	BoxSettingsWrapper {
 		String userId
+		String boxId
+		BoxSettings boxSettings
 	}
-
+	
 	NextCardView {
 		String scheduledCardId
 		String reinforceCardId
@@ -324,21 +306,20 @@ models
 		Integer count
 		DateTime scoredDate
 	}
-	
-	NextCard extends NextCardView, TodaysCardsStatus {
-		String userId
-		String boxId
-		Boolean reverse
-		DateTime todayAtMidnightInUTC
-		Integer openTodaysCards
-		Integer allTodaysCards
-	}
-	
+
 	TodaysCardsStatus {
 		Integer openTodaysCards
 		Integer allTodaysCards
 	}
 
+	NextCard extends TodaysCardsStatus {
+		String userId
+		String boxId
+		DateTime todayAtMidnightInUTC
+		NextCardView nextCard
+		Boolean reverse
+	}
+	
 	ScoreCard {
 		String cardId
 		
