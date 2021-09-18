@@ -125,7 +125,8 @@ scenarios
 				maxCardsPerDay: 10,
 				maxInterval: null,
 				userId: "uuid-${testId}",
-				reverse: false
+				reverse: false,
+				archived: false
 			}
 			rootCategoryWasNotDeleted Category selectBy ( categoryId: "boxId-${testId}") shouldBe
 			{

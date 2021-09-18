@@ -430,7 +430,8 @@ public abstract class AbstractGetBoxesWithOneScoredCard4NoReinforceSameDayScenar
 						"\"openTodaysCards\" : 2," + 
 						"\"categoryAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
 						"\"editable\" : true," + 
-						"\"reverse\" : false}]} ",
+						"\"reverse\" : false," + 
+						"\"archived\" : false}]} ",
 					com.anfelisa.box.data.BoxListData.class);
 					
 					com.anfelisa.box.data.GetBoxesResponse expected = new com.anfelisa.box.data.GetBoxesResponse(expectedData);

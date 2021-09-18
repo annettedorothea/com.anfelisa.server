@@ -34,6 +34,8 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 
 	private Boolean editable = false;
 
+	private Boolean archived = false;
+
 	private Integer quality0Count;
 
 	private Integer quality1Count;
@@ -62,6 +64,7 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 		@JsonProperty("boxId") String boxId,
 		@JsonProperty("reverse") Boolean reverse,
 		@JsonProperty("editable") Boolean editable,
+		@JsonProperty("archived") Boolean archived,
 		@JsonProperty("quality0Count") Integer quality0Count,
 		@JsonProperty("quality1Count") Integer quality1Count,
 		@JsonProperty("quality2Count") Integer quality2Count,
@@ -78,6 +81,7 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 		this.boxId = boxId;
 		this.reverse = reverse;
 		this.editable = editable;
+		this.archived = archived;
 		this.quality0Count = quality0Count;
 		this.quality1Count = quality1Count;
 		this.quality2Count = quality2Count;
@@ -142,6 +146,14 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 	}
 	public void setEditable(Boolean editable) {
 		this.editable = editable;
+	}
+	
+	@JsonProperty
+	public Boolean getArchived() {
+		return this.archived;
+	}
+	public void setArchived(Boolean archived) {
+		this.archived = archived;
 	}
 	
 	@JsonProperty
@@ -218,6 +230,7 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 		copy.setBoxId(this.getBoxId());
 		copy.setReverse(this.getReverse());
 		copy.setEditable(this.getEditable());
+		copy.setArchived(this.getArchived());
 		copy.setQuality0Count(this.getQuality0Count());
 		copy.setQuality1Count(this.getQuality1Count());
 		copy.setQuality2Count(this.getQuality2Count());

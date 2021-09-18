@@ -28,6 +28,8 @@ public interface IBoxData extends IBoxModel, IDataContainer {
 	
 	IBoxData withReverse(Boolean reverse);
 	
+	IBoxData withArchived(Boolean archived);
+	
 	
 	IBoxData deepCopy();
 }

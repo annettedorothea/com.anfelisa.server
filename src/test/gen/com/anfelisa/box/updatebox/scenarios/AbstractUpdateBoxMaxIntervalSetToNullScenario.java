@@ -239,7 +239,8 @@ public abstract class AbstractUpdateBoxMaxIntervalSetToNullScenario extends Base
 			"\"maxCardsPerDay\" : 11," + 
 			"\"userId\" : \"uuid-" + this.getTestId() + "\"," + 
 			"\"maxInterval\" : null," + 
-			"\"reverse\" : false} ",
+			"\"reverse\" : false," + 
+			"\"archived\" : false} ",
 		com.anfelisa.box.models.BoxModel.class);
 		assertThat(actual, expected);
 	

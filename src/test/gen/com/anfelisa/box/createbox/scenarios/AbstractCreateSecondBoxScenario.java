@@ -205,7 +205,8 @@ public abstract class AbstractCreateSecondBoxScenario extends BaseScenario {
 			"\"categoryId\" : \"boxId2-" + this.getTestId() + "\"," + 
 			"\"maxCardsPerDay\" : 8," + 
 			"\"userId\" : \"uuid-" + this.getTestId() + "\"," + 
-			"\"reverse\" : false} ",
+			"\"reverse\" : false," + 
+			"\"archived\" : false} ",
 		com.anfelisa.box.models.BoxModel.class);
 		assertThat(actual, expected);
 	

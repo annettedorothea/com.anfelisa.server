@@ -52,6 +52,8 @@ public class BoxCreationModel implements IBoxCreationModel {
 
 	private Boolean reverse = false;
 
+	private Boolean archived = false;
+
 
 	public BoxCreationModel() {
 	}
@@ -72,7 +74,8 @@ public class BoxCreationModel implements IBoxCreationModel {
 		@JsonProperty("boxId") String boxId,
 		@JsonProperty("maxInterval") Integer maxInterval,
 		@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay,
-		@JsonProperty("reverse") Boolean reverse
+		@JsonProperty("reverse") Boolean reverse,
+		@JsonProperty("archived") Boolean archived
 	) {
 		this.username = username;
 		this.categoryId = categoryId;
@@ -90,6 +93,7 @@ public class BoxCreationModel implements IBoxCreationModel {
 		this.maxInterval = maxInterval;
 		this.maxCardsPerDay = maxCardsPerDay;
 		this.reverse = reverse;
+		this.archived = archived;
 	}
 
 	@JsonProperty
@@ -220,6 +224,14 @@ public class BoxCreationModel implements IBoxCreationModel {
 		this.reverse = reverse;
 	}
 	
+	@JsonProperty
+	public Boolean getArchived() {
+		return this.archived;
+	}
+	public void setArchived(Boolean archived) {
+		this.archived = archived;
+	}
+	
 
 	public IBoxCreationModel deepCopy() {
 		IBoxCreationModel copy = new BoxCreationModel();
@@ -239,6 +251,7 @@ public class BoxCreationModel implements IBoxCreationModel {
 		copy.setMaxInterval(this.getMaxInterval());
 		copy.setMaxCardsPerDay(this.getMaxCardsPerDay());
 		copy.setReverse(this.getReverse());
+		copy.setArchived(this.getArchived());
 		return copy;
 	}
 

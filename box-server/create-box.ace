@@ -40,7 +40,8 @@ scenarios
 				categoryId: "boxId-${testId}",
 				maxCardsPerDay: 10,
 				userId: "uuid-${testId}",
-				reverse: false
+				reverse: false,
+				archived: false
 			}
 			
 
@@ -80,7 +81,8 @@ scenarios
 				categoryId: "boxId2-${testId}",
 				maxCardsPerDay: 8,
 				userId: "uuid-${testId}",
-				reverse: false
+				reverse: false,
+				archived: false
 			}
 
 	CreateBoxDictionaryLookupNull
@@ -118,7 +120,8 @@ scenarios
 				categoryId: "boxId-${testId}",
 				maxCardsPerDay: 10,
 				userId: "uuid-${testId}",
-				reverse: false
+				reverse: false,
+				archived: false
 			}
 
 	CreateBoxDictionaryLookup
@@ -161,7 +164,8 @@ scenarios
 				categoryId: "boxId-${testId}",
 				maxCardsPerDay: 10,
 				userId: "uuid-${testId}",
-				reverse: false
+				reverse: false,
+				archived: false
 			}
 		
 	CreateBoxGivenLanguageInvalid
@@ -327,7 +331,8 @@ scenarios
 				categoryId: "adminBox-${testId}",
 				maxCardsPerDay: 10,
 				userId: "uuid-admin",
-				reverse: false
+				reverse: false,
+				archived: false
 			}
 
 

@@ -32,6 +32,8 @@ public interface IBoxWithStatisticsData extends IBoxWithStatisticsModel, IDataCo
 	
 	IBoxWithStatisticsData withEditable(Boolean editable);
 	
+	IBoxWithStatisticsData withArchived(Boolean archived);
+	
 	IBoxWithStatisticsData withQuality0Count(Integer quality0Count);
 	
 	IBoxWithStatisticsData withQuality1Count(Integer quality1Count);

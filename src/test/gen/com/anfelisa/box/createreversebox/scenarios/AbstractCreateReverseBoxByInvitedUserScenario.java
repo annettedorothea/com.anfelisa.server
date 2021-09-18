@@ -240,7 +240,8 @@ public abstract class AbstractCreateReverseBoxByInvitedUserScenario extends Base
 			"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 			"\"maxCardsPerDay\" : 10," + 
 			"\"userId\" : \"uuid2-" + this.getTestId() + "\"," + 
-			"\"reverse\" : true} ",
+			"\"reverse\" : true," + 
+			"\"archived\" : false} ",
 		com.anfelisa.box.models.BoxModel.class);
 		assertThat(actual, expected);
 	

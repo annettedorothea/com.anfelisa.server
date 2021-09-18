@@ -269,7 +269,8 @@ public abstract class AbstractInvitedUserCannotChangeNameAndDistionaryLookupScen
 			"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 			"\"maxCardsPerDay\" : 11," + 
 			"\"userId\" : \"uuid2-" + this.getTestId() + "\"," + 
-			"\"reverse\" : false} ",
+			"\"reverse\" : false," + 
+			"\"archived\" : false} ",
 		com.anfelisa.box.models.BoxModel.class);
 		assertThat(actual, expected);
 	

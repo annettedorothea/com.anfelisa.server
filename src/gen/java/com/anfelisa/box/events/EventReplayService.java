@@ -48,6 +48,13 @@ public class EventReplayService {
 				event.notifyListeners(data, handle);
 				event.notifyAfterCommitListeners(data, handle);
 			}
+			if (eventClass.equals("com.anfelisa.box.events.ArchiveBoxOkEvent")) {
+				BoxArchiveData data = mapper.readValue(json, BoxArchiveData.class);
+				data.migrateLegacyData(json);
+				ArchiveBoxOkEvent event = new ArchiveBoxOkEvent(daoProvider, viewProvider, appConfiguration);
+				event.notifyListeners(data, handle);
+				event.notifyAfterCommitListeners(data, handle);
+			}
 			if (eventClass.equals("com.anfelisa.box.events.UpdateBoxCanEditCategoryEvent")) {
 				BoxUpdateData data = mapper.readValue(json, BoxUpdateData.class);
 				data.migrateLegacyData(json);

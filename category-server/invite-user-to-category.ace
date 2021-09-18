@@ -31,7 +31,8 @@ scenarios
 				boxId: "boxIdOfInvitedUser-${testId}",
 				maxCardsPerDay: 10,
 				maxInterval: null,
-				reverse: false
+				reverse: false,
+				archived: false
 			}
 			
 	InviteUserToCategoryThatDoesNotExist

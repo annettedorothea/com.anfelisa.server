@@ -199,7 +199,8 @@ public abstract class AbstractUpdateBoxMaxIntervalScenario extends BaseScenario 
 			"\"maxCardsPerDay\" : 11," + 
 			"\"userId\" : \"uuid-" + this.getTestId() + "\"," + 
 			"\"maxInterval\" : 90," + 
-			"\"reverse\" : false} ",
+			"\"reverse\" : false," + 
+			"\"archived\" : false} ",
 		com.anfelisa.box.models.BoxModel.class);
 		assertThat(actual, expected);
 	

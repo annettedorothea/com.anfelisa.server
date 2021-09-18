@@ -1,0 +1,73 @@
+HttpServer Java 
+
+com.anfelisa.box.archivebox
+
+scenarios 
+	ArchiveBox
+		GIVEN
+			com.anfelisa.box.createbox.CreateBoxMinimal
+		WHEN
+			com.anfelisa.box.ArchiveBox
+				{
+					boxId: "boxId-${testId}",
+					archived: true
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+		persistence
+			boxWasArchived Box selectBy ( boxId: "boxId-${testId}") shouldBe
+			{
+				boxId: "boxId-${testId}",
+				categoryId: "boxId-${testId}",
+				maxCardsPerDay: 10,
+				userId: "uuid-${testId}",
+				reverse: false,
+				archived: true
+			}
+			
+	UnarchiveBox
+		GIVEN
+			com.anfelisa.box.createbox.CreateBoxMinimal
+		WHEN
+			com.anfelisa.box.ArchiveBox
+				{
+					boxId: "boxId-${testId}",
+					archived: false
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+		persistence
+			boxWasArchived Box selectBy ( boxId: "boxId-${testId}") shouldBe
+			{
+				boxId: "boxId-${testId}",
+				categoryId: "boxId-${testId}",
+				maxCardsPerDay: 10,
+				userId: "uuid-${testId}",
+				reverse: false,
+				archived: false
+			}
+			
+	ArchiveBoxNoAccess
+		GIVEN
+			com.anfelisa.box.createbox.CreateBoxMinimal
+			com.anfelisa.user.registeruser.RegisterUserAdmin
+		WHEN
+			com.anfelisa.box.ArchiveBox
+				{
+					boxId: "boxId-${testId}",
+					archived: true
+				}
+				authorization "Admin" : "admin-password"
+		THEN 401
+		persistence
+			boxWasNotArchived Box selectBy ( boxId: "boxId-${testId}") shouldBe
+			{
+				boxId: "boxId-${testId}",
+				categoryId: "boxId-${testId}",
+				maxCardsPerDay: 10,
+				userId: "uuid-${testId}",
+				reverse: false,
+				archived: false
+			}
+
+			

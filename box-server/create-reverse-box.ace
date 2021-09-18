@@ -22,7 +22,8 @@ scenarios
 				categoryId: "boxId-${testId}",
 				maxCardsPerDay: 10,
 				userId: "uuid-${testId}",
-				reverse: true
+				reverse: true,
+				archived: false
 			}
 			
 	CreateReverseBoxBoxDoesNotExist
@@ -85,7 +86,8 @@ scenarios
 				categoryId: "boxId-${testId}",
 				maxCardsPerDay: 10,
 				userId: "uuid2-${testId}",
-				reverse: true
+				reverse: true,
+				archived: false
 			}
 			
 			

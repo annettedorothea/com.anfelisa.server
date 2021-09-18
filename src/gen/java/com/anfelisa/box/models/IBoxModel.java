@@ -32,6 +32,9 @@ public interface IBoxModel {
 	Boolean getReverse();
 	void setReverse(Boolean reverse);
 	
+	Boolean getArchived();
+	void setArchived(Boolean archived);
+	
 	
 	IBoxModel deepCopy();
 }

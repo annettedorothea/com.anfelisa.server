@@ -227,7 +227,8 @@ public abstract class AbstractGetBoxesSharedScenario extends BaseScenario {
 						"\"openTodaysCards\" : 0," + 
 						"\"categoryAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
 						"\"editable\" : false," + 
-						"\"reverse\" : false}]} ",
+						"\"reverse\" : false," + 
+						"\"archived\" : false}]} ",
 					com.anfelisa.box.data.BoxListData.class);
 					
 					com.anfelisa.box.data.GetBoxesResponse expected = new com.anfelisa.box.data.GetBoxesResponse(expectedData);

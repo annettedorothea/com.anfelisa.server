@@ -22,10 +22,12 @@ public class BoxDao extends AbstractBoxDao {
 				+ "AND scheduledDate < :endofday) + "
 				+ "(select count(reinforcecardid) from public.reinforcecard "
 				+ "where boxid = b.boxid ) as openTodaysCards, "
-				+ "b.boxid, b.categoryid, c.categoryname, c.categoryauthor, c.categoryindex, b.reverse, "
+				+ "b.boxid, b.categoryid, c.categoryname, c.categoryauthor, c.categoryindex, b.reverse, b.archived, "
 				+ "(select count(uac.userid) from useraccesstocategory uac where b.categoryid = uac.categoryid and uac.userid != :userid) > 0 as shared,"
 				+ "(select editable from useraccesstocategory where userid = :userid and categoryid = b.categoryid) as editable "
-				+ "FROM public.box b inner join public.category c on c.categoryid = b.categoryid where userid = :userid order by c.categoryname, b.reverse")
+				+ "FROM public.box b inner join public.category c on c.categoryid = b.categoryid "
+				+ "where userid = :userid "
+				+ "order by b.archived, c.categoryname, b.reverse")
 				.bind("userid", userId)
 				.bind("today", today)
 				.bind("endofday", endOfDay)
@@ -56,7 +58,8 @@ public class BoxDao extends AbstractBoxDao {
 				+ "(select count(*) from (SELECT DISTINCT ON (cardid) quality FROM scheduledcard where quality is not null and boxid = b.boxid ORDER BY cardid, scoreddate DESC) as qualities where quality = 3) as quality3Count, "
 				+ "(select count(*) from (SELECT DISTINCT ON (cardid) quality FROM scheduledcard where quality is not null and boxid = b.boxid ORDER BY cardid, scoreddate DESC) as qualities where quality = 4) as quality4Count, "
 				+ "(select count(*) from (SELECT DISTINCT ON (cardid) quality FROM scheduledcard where quality is not null and boxid = b.boxid ORDER BY cardid, scoreddate DESC) as qualities where quality = 5) as quality5Count "
- 				+ "FROM public.box b where userid = :userid")
+ 				+ "FROM public.box b "
+ 				+ "where userid = :userid and b.archived = false")
  				.bind("userid", userId)
 				.map(new BoxStatisticsMapper()).list();
 	}
@@ -85,7 +88,7 @@ public class BoxDao extends AbstractBoxDao {
 		return handle.getHandle().createQuery("SELECT "
 				+ "(select min(scheduleddate) from scheduledcard where boxid = b.boxid and quality is null) as minscheduleddate, "
 				+ "b.boxid "
-				+ "FROM public.box b where userid = :userid")
+				+ "FROM public.box b where userid = :userid and archived = false")
 				.bind("userid", userId)
 				.bind("today", today)
 				.map(new InitBoxesMapper()).list();
@@ -93,7 +96,7 @@ public class BoxDao extends AbstractBoxDao {
 
 	public IBoxModel selectByCategoryIdAndUserId(PersistenceHandle handle, String categoryId, String userId, Boolean reverse) {
 		Optional<IBoxModel> optional = handle.getHandle().createQuery(
-				"SELECT boxid, userid, categoryid, maxinterval, maxcardsperday, reverse FROM public.box "
+				"SELECT boxid, userid, categoryid, maxinterval, maxcardsperday, reverse, archived FROM public.box "
 				+ "WHERE categoryid = :categoryid and userid = :userid and reverse = :reverse")
 				.bind("categoryid", categoryId)
 				.bind("userid", userId)
@@ -135,11 +138,19 @@ public class BoxDao extends AbstractBoxDao {
 	}
 
 	public List<IBoxModel> selectAllOfUser(PersistenceHandle handle, String userId) {
-		return handle.getHandle().createQuery("SELECT boxid, userid, categoryid, maxinterval, maxcardsperday, reverse FROM box "
+		return handle.getHandle().createQuery("SELECT boxid, userid, categoryid, maxinterval, maxcardsperday, reverse, archived FROM box "
 				+ "WHERE userid = :userid")
 				.bind("userid", userId)
 				.map(new BoxMapper())
 				.list();
+	}
+
+	public void archive(PersistenceHandle handle, String boxId, Boolean archived) {
+		Update statement = handle.getHandle().createUpdate(
+				"UPDATE public.box SET archived = :archived WHERE boxId = :boxId");
+		statement.bind("boxId", boxId);
+		statement.bind("archived", archived);
+		statement.execute();
 	}
 	
 }

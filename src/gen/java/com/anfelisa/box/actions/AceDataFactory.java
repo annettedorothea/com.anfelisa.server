@@ -44,6 +44,14 @@ public class AceDataFactory {
 				data.migrateLegacyData(json);
 				return data;
 			}
+			if (className.equals("com.anfelisa.box.actions.ArchiveBoxAction") ||
+					className.equals("com.anfelisa.box.commands.ArchiveBoxCommand") ||
+					className.equals("com.anfelisa.box.events.ArchiveBoxOkEvent")
+			) {
+				BoxArchiveData data = mapper.readValue(json, BoxArchiveData.class);
+				data.migrateLegacyData(json);
+				return data;
+			}
 			if (className.equals("com.anfelisa.box.actions.UpdateBoxAction") ||
 					className.equals("com.anfelisa.box.commands.UpdateBoxCommand") ||
 					className.equals("com.anfelisa.box.events.UpdateBoxCanEditCategoryEvent")||

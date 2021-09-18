@@ -63,6 +63,8 @@ public abstract class AbstractBoxCreationData extends AbstractData implements IB
 	
 	private Boolean reverse = false;
 	
+	private Boolean archived = false;
+	
 
 	public AbstractBoxCreationData(
 		@JsonProperty("username") String username,
@@ -80,7 +82,8 @@ public abstract class AbstractBoxCreationData extends AbstractData implements IB
 		@JsonProperty("boxId") String boxId,
 		@JsonProperty("maxInterval") Integer maxInterval,
 		@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay,
-		@JsonProperty("reverse") Boolean reverse
+		@JsonProperty("reverse") Boolean reverse,
+		@JsonProperty("archived") Boolean archived
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
@@ -100,6 +103,7 @@ public abstract class AbstractBoxCreationData extends AbstractData implements IB
 		this.maxInterval = maxInterval;
 		this.maxCardsPerDay = maxCardsPerDay;
 		this.reverse = reverse;
+		this.archived = archived;
 	}
 
 	public AbstractBoxCreationData( String uuid ) {
@@ -298,6 +302,18 @@ public abstract class AbstractBoxCreationData extends AbstractData implements IB
 		return this;
 	}
 	
+	@JsonProperty
+	public Boolean getArchived() {
+		return this.archived;
+	}
+	public void setArchived(Boolean archived) {
+		this.archived = archived;
+	}
+	public IBoxCreationData withArchived(Boolean archived) {
+		this.archived = archived;
+		return this;
+	}
+	
 	
 	public void mapFrom(com.anfelisa.category.models.ICategoryModel model) {
 		this.categoryId = model.getCategoryId();
@@ -322,6 +338,7 @@ public abstract class AbstractBoxCreationData extends AbstractData implements IB
 		this.maxInterval = model.getMaxInterval();
 		this.maxCardsPerDay = model.getMaxCardsPerDay();
 		this.reverse = model.getReverse();
+		this.archived = model.getArchived();
 	}
 	
 	public IBoxCreationData deepCopy() {
@@ -342,6 +359,7 @@ public abstract class AbstractBoxCreationData extends AbstractData implements IB
 		copy.setMaxInterval(this.getMaxInterval());
 		copy.setMaxCardsPerDay(this.getMaxCardsPerDay());
 		copy.setReverse(this.getReverse());
+		copy.setArchived(this.getArchived());
 		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}

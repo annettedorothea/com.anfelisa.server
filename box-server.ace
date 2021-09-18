@@ -24,6 +24,14 @@ ACE
 			NotNull rootCategoryId
 		on ok (Box.createBox)
 
+	ArchiveBox<BoxArchive>
+		PUT "/box/archive"  
+		authorize
+		payload 
+			NotNull boxId
+			NotNull archived
+		on ok (Box.archiveBox)
+
 	UpdateBox<BoxUpdate> 
 		PUT "/box/update"  
 		authorize
@@ -147,6 +155,7 @@ views
 		createBox (BoxCreation)
 		updateBox (BoxUpdate)
 		deleteBox (DeleteBox)
+		archiveBox (BoxArchive)
 		scheduleCards(ScheduledCards)
 		sortCardsOut(SortCardsOut)
 	}
@@ -186,6 +195,7 @@ models
 		Integer maxInterval 
 		NotNull Integer maxCardsPerDay
 		NotNull Boolean reverse
+		NotNull Boolean archived
 	}
 	
 	persistent ScheduledCard {
@@ -218,6 +228,7 @@ models
 		String boxId
 		Boolean reverse
 		Boolean editable
+		Boolean archived
 	}
 
 	BoxStatistics {
@@ -373,6 +384,12 @@ models
 		String userId
 		String boxId
 		String rootCategoryId
+	}
+
+	BoxArchive {
+		String userId
+		String boxId
+		Boolean archived
 	}
 
 	BoxCreation extends com.anfelisa.category.Category, com.anfelisa.category.UserAccessToCategory, Box {

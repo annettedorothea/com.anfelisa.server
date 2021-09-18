@@ -30,6 +30,8 @@ public interface IBoxViewData extends IBoxViewModel, IDataContainer {
 	
 	IBoxViewData withEditable(Boolean editable);
 	
+	IBoxViewData withArchived(Boolean archived);
+	
 	
 	IBoxViewData deepCopy();
 }

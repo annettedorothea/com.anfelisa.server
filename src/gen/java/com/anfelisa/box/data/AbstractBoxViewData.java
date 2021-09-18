@@ -42,6 +42,8 @@ public abstract class AbstractBoxViewData extends AbstractData implements IBoxVi
 	
 	private Boolean editable = false;
 	
+	private Boolean archived = false;
+	
 
 	public AbstractBoxViewData(
 		@JsonProperty("openTodaysCards") Integer openTodaysCards,
@@ -50,7 +52,8 @@ public abstract class AbstractBoxViewData extends AbstractData implements IBoxVi
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("boxId") String boxId,
 		@JsonProperty("reverse") Boolean reverse,
-		@JsonProperty("editable") Boolean editable
+		@JsonProperty("editable") Boolean editable,
+		@JsonProperty("archived") Boolean archived
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
@@ -61,6 +64,7 @@ public abstract class AbstractBoxViewData extends AbstractData implements IBoxVi
 		this.boxId = boxId;
 		this.reverse = reverse;
 		this.editable = editable;
+		this.archived = archived;
 	}
 
 	public AbstractBoxViewData( String uuid ) {
@@ -151,6 +155,18 @@ public abstract class AbstractBoxViewData extends AbstractData implements IBoxVi
 		return this;
 	}
 	
+	@JsonProperty
+	public Boolean getArchived() {
+		return this.archived;
+	}
+	public void setArchived(Boolean archived) {
+		this.archived = archived;
+	}
+	public IBoxViewData withArchived(Boolean archived) {
+		this.archived = archived;
+		return this;
+	}
+	
 	
 	
 	public IBoxViewData deepCopy() {
@@ -162,6 +178,7 @@ public abstract class AbstractBoxViewData extends AbstractData implements IBoxVi
 		copy.setBoxId(this.getBoxId());
 		copy.setReverse(this.getReverse());
 		copy.setEditable(this.getEditable());
+		copy.setArchived(this.getArchived());
 		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}

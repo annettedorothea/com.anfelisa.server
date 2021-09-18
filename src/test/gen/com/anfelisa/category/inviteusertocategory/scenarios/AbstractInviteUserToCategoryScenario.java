@@ -224,7 +224,8 @@ public abstract class AbstractInviteUserToCategoryScenario extends BaseScenario 
 			"\"boxId\" : \"boxIdOfInvitedUser-" + this.getTestId() + "\"," + 
 			"\"maxCardsPerDay\" : 10," + 
 			"\"maxInterval\" : null," + 
-			"\"reverse\" : false} ",
+			"\"reverse\" : false," + 
+			"\"archived\" : false} ",
 		com.anfelisa.box.models.BoxModel.class);
 		assertThat(actual, expected);
 	

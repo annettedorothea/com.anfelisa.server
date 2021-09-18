@@ -33,7 +33,8 @@ public class BoxCreationMapper extends AbstractMapper<IBoxCreationModel> {
 			this.mapToString(r, "boxId"),
 			this.mapToInteger(r, "maxInterval"),
 			this.mapToInteger(r, "maxCardsPerDay"),
-			this.mapToBoolean(r, "reverse")
+			this.mapToBoolean(r, "reverse"),
+			this.mapToBoolean(r, "archived")
 		);
 	}
 }

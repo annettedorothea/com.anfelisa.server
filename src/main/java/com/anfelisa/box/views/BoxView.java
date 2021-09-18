@@ -2,6 +2,7 @@ package com.anfelisa.box.views;
 
 import java.util.List;
 
+import com.anfelisa.box.data.IBoxArchiveData;
 import com.anfelisa.box.data.IBoxCreationData;
 import com.anfelisa.box.data.IBoxUpdateData;
 import com.anfelisa.box.data.IDeleteBoxData;
@@ -48,6 +49,11 @@ public class BoxView implements IBoxView {
 		for (String scheduledCardId : data.getSortedOutScheduledCardIds()) {
 			daoProvider.getScheduledCardDao().sortOutCard(handle, scheduledCardId);
 		}
+	}
+
+	@Override
+	public void archiveBox(IBoxArchiveData data, PersistenceHandle handle) {
+		daoProvider.getBoxDao().archive(handle, data.getBoxId(), data.getArchived());
 	}
 
 }

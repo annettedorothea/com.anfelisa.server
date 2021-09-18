@@ -235,7 +235,8 @@ public abstract class AbstractDeleteRootCategoryScenario extends BaseScenario {
 			"\"maxCardsPerDay\" : 10," + 
 			"\"maxInterval\" : null," + 
 			"\"userId\" : \"uuid-" + this.getTestId() + "\"," + 
-			"\"reverse\" : false} ",
+			"\"reverse\" : false," + 
+			"\"archived\" : false} ",
 		com.anfelisa.box.models.BoxModel.class);
 		assertThat(actual, expected);
 	

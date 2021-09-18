@@ -40,6 +40,8 @@ public abstract class AbstractBoxData extends AbstractData implements IBoxData {
 	
 	private Boolean reverse = false;
 	
+	private Boolean archived = false;
+	
 
 	public AbstractBoxData(
 		@JsonProperty("boxId") String boxId,
@@ -47,7 +49,8 @@ public abstract class AbstractBoxData extends AbstractData implements IBoxData {
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("maxInterval") Integer maxInterval,
 		@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay,
-		@JsonProperty("reverse") Boolean reverse
+		@JsonProperty("reverse") Boolean reverse,
+		@JsonProperty("archived") Boolean archived
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
@@ -57,6 +60,7 @@ public abstract class AbstractBoxData extends AbstractData implements IBoxData {
 		this.maxInterval = maxInterval;
 		this.maxCardsPerDay = maxCardsPerDay;
 		this.reverse = reverse;
+		this.archived = archived;
 	}
 
 	public AbstractBoxData( String uuid ) {
@@ -135,6 +139,18 @@ public abstract class AbstractBoxData extends AbstractData implements IBoxData {
 		return this;
 	}
 	
+	@JsonProperty
+	public Boolean getArchived() {
+		return this.archived;
+	}
+	public void setArchived(Boolean archived) {
+		this.archived = archived;
+	}
+	public IBoxData withArchived(Boolean archived) {
+		this.archived = archived;
+		return this;
+	}
+	
 	
 	
 	public IBoxData deepCopy() {
@@ -145,6 +161,7 @@ public abstract class AbstractBoxData extends AbstractData implements IBoxData {
 		copy.setMaxInterval(this.getMaxInterval());
 		copy.setMaxCardsPerDay(this.getMaxCardsPerDay());
 		copy.setReverse(this.getReverse());
+		copy.setArchived(this.getArchived());
 		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}

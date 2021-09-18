@@ -169,7 +169,8 @@ public abstract class AbstractCreateBoxDictionaryLookupNullScenario extends Base
 			"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 			"\"maxCardsPerDay\" : 10," + 
 			"\"userId\" : \"uuid-" + this.getTestId() + "\"," + 
-			"\"reverse\" : false} ",
+			"\"reverse\" : false," + 
+			"\"archived\" : false} ",
 		com.anfelisa.box.models.BoxModel.class);
 		assertThat(actual, expected);
 	

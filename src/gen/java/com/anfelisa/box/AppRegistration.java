@@ -22,6 +22,7 @@ public class AppRegistration {
 			IDaoProvider daoProvider, ViewProvider viewProvider) {
 		environment.jersey().register(new CreateBoxResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new CreateReverseBoxResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
+		environment.jersey().register(new ArchiveBoxResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new UpdateBoxResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new GetBoxSettingsResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new ScheduleCardsResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
@@ -51,6 +52,10 @@ public class AppRegistration {
 		
 		viewProvider.addConsumer("com.anfelisa.box.events.CreateReverseBoxOkEvent", (dataContainer, handle) -> {
 			viewProvider.boxView.createBox((com.anfelisa.box.data.BoxCreationData) dataContainer, handle);
+		});
+		
+		viewProvider.addConsumer("com.anfelisa.box.events.ArchiveBoxOkEvent", (dataContainer, handle) -> {
+			viewProvider.boxView.archiveBox((com.anfelisa.box.data.BoxArchiveData) dataContainer, handle);
 		});
 		
 		viewProvider.addConsumer("com.anfelisa.box.events.UpdateBoxCanEditCategoryEvent", (dataContainer, handle) -> {

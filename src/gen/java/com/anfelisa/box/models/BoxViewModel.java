@@ -34,6 +34,8 @@ public class BoxViewModel implements IBoxViewModel {
 
 	private Boolean editable = false;
 
+	private Boolean archived = false;
+
 
 	public BoxViewModel() {
 	}
@@ -45,7 +47,8 @@ public class BoxViewModel implements IBoxViewModel {
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("boxId") String boxId,
 		@JsonProperty("reverse") Boolean reverse,
-		@JsonProperty("editable") Boolean editable
+		@JsonProperty("editable") Boolean editable,
+		@JsonProperty("archived") Boolean archived
 	) {
 		this.openTodaysCards = openTodaysCards;
 		this.categoryName = categoryName;
@@ -54,6 +57,7 @@ public class BoxViewModel implements IBoxViewModel {
 		this.boxId = boxId;
 		this.reverse = reverse;
 		this.editable = editable;
+		this.archived = archived;
 	}
 
 	@JsonProperty
@@ -112,6 +116,14 @@ public class BoxViewModel implements IBoxViewModel {
 		this.editable = editable;
 	}
 	
+	@JsonProperty
+	public Boolean getArchived() {
+		return this.archived;
+	}
+	public void setArchived(Boolean archived) {
+		this.archived = archived;
+	}
+	
 
 	public IBoxViewModel deepCopy() {
 		IBoxViewModel copy = new BoxViewModel();
@@ -122,6 +134,7 @@ public class BoxViewModel implements IBoxViewModel {
 		copy.setBoxId(this.getBoxId());
 		copy.setReverse(this.getReverse());
 		copy.setEditable(this.getEditable());
+		copy.setArchived(this.getArchived());
 		return copy;
 	}
 

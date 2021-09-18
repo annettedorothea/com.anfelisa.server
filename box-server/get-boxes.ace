@@ -22,7 +22,8 @@ scenarios
 						openTodaysCards: 3,
 						categoryAuthor: "Annette-${testId}",
 						editable: true,
-						reverse: false
+						reverse: false,
+						archived: false
 					}
 				]
 			}		
@@ -48,7 +49,8 @@ scenarios
 						openTodaysCards: 2,
 						categoryAuthor: "Annette-${testId}",
 						editable: true,
-						reverse: false
+						reverse: false,
+						archived: false
 					}
 				]
 			}	
@@ -72,7 +74,8 @@ scenarios
 						openTodaysCards: 3,
 						categoryAuthor: "Annette-${testId}",
 						editable: true,
-						reverse: false
+						reverse: false,
+						archived: false
 					}
 				]
 			}		
@@ -96,7 +99,8 @@ scenarios
 						openTodaysCards: 3,
 						categoryAuthor: "Annette-${testId}",
 						editable: true,
-						reverse: false
+						reverse: false,
+						archived: false
 					}
 				]
 			}		
@@ -120,7 +124,8 @@ scenarios
 						openTodaysCards: 3,
 						categoryAuthor: "Annette-${testId}",
 						editable: true,
-						reverse: false
+						reverse: false,
+						archived: false
 					}
 				]
 			}		
@@ -144,7 +149,8 @@ scenarios
 						openTodaysCards: 3,
 						categoryAuthor: "Annette-${testId}",
 						editable: true,
-						reverse: false
+						reverse: false,
+						archived: false
 					}
 				]
 			}		
@@ -168,7 +174,8 @@ scenarios
 						openTodaysCards: 2,
 						categoryAuthor: "Annette-${testId}",
 						editable: true,
-						reverse: false
+						reverse: false,
+						archived: false
 					}
 				]
 			}		
@@ -192,7 +199,8 @@ scenarios
 						openTodaysCards: 2,
 						categoryAuthor: "Annette-${testId}",
 						editable: true,
-						reverse: false
+						reverse: false,
+						archived: false
 					}
 				]
 			}		
@@ -217,7 +225,8 @@ scenarios
 						openTodaysCards: 2,
 						categoryAuthor: "Annette-${testId}",
 						editable: true,
-						reverse: false
+						reverse: false,
+						archived: false
 					}
 				]
 			}		
@@ -241,7 +250,8 @@ scenarios
 						openTodaysCards: 2,
 						categoryAuthor: "Annette-${testId}",
 						editable: true,
-						reverse: false
+						reverse: false,
+						archived: false
 					}
 				]
 			}		
@@ -266,7 +276,8 @@ scenarios
 						openTodaysCards: 0,
 						categoryAuthor: "Annette-${testId}",
 						editable: true,
-						reverse: false
+						reverse: false,
+						archived: false
 					},
 					{
 						boxId: "reverseBoxId-${testId}",
@@ -275,7 +286,8 @@ scenarios
 						openTodaysCards: 0,
 						categoryAuthor: "Annette-${testId}",
 						editable: true,
-						reverse: true
+						reverse: true,
+						archived: false
 					}
 				]
 			}		
@@ -300,7 +312,8 @@ scenarios
 						openTodaysCards: 0,
 						categoryAuthor: "Annette-${testId}",
 						editable: false,
-						reverse: false
+						reverse: false,
+						archived: false
 					}
 				]
 			}		
@@ -326,4 +339,42 @@ scenarios
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
 		THEN 401
+		
+	GetBoxesOneArchived
+		GIVEN
+			com.anfelisa.box.createreversebox.CreateReverseBox
+			com.anfelisa.box.archivebox.ArchiveBox
+		WHEN
+			com.anfelisa.box.GetBoxes
+				{
+					todayAtMidnightInUTC: "20200420 02:00" "yyyyMMdd HH:mm"
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+			response shouldBe {
+				boxList: [
+					{
+						boxId: "reverseBoxId-${testId}",
+						categoryId: "boxId-${testId}",
+						categoryName: "cat",
+						openTodaysCards: 0,
+						categoryAuthor: "Annette-${testId}",
+						editable: true,
+						reverse: true,
+						archived: false
+					},
+					{
+						boxId: "boxId-${testId}",
+						categoryId: "boxId-${testId}",
+						categoryName: "cat",
+						openTodaysCards: 0,
+						categoryAuthor: "Annette-${testId}",
+						editable: true,
+						reverse: false,
+						archived: true
+					}
+				]
+			}		
+
+
 

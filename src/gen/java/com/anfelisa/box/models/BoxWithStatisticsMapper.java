@@ -25,6 +25,7 @@ public class BoxWithStatisticsMapper extends AbstractMapper<IBoxWithStatisticsMo
 			this.mapToString(r, "boxId"),
 			this.mapToBoolean(r, "reverse"),
 			this.mapToBoolean(r, "editable"),
+			this.mapToBoolean(r, "archived"),
 			this.mapToInteger(r, "quality0Count"),
 			this.mapToInteger(r, "quality1Count"),
 			this.mapToInteger(r, "quality2Count"),

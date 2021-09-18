@@ -35,6 +35,9 @@ public interface IBoxViewModel {
 	Boolean getEditable();
 	void setEditable(Boolean editable);
 	
+	Boolean getArchived();
+	void setArchived(Boolean archived);
+	
 	
 	IBoxViewModel deepCopy();
 }

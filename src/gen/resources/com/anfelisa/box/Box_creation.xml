@@ -17,4 +17,7 @@
 	<column name="reverse" type="boolean">
 		<constraints  nullable="false"  />
 	</column>
+	<column name="archived" type="boolean">
+		<constraints  nullable="false"  />
+	</column>
 </createTable>

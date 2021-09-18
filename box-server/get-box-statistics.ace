@@ -32,6 +32,22 @@ scenarios
 				]
 			}		
 
+	GetBoxesArchived
+		GIVEN
+			com.anfelisa.box.schedulecards.ScheduleCards
+			com.anfelisa.box.archivebox.ArchiveBox
+		WHEN
+			com.anfelisa.box.GetBoxStatistics
+				{
+					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+			response shouldBe {
+				boxStatisticsList: [
+				]
+			}		
+
 	GetBoxesWithAllScoredCardsSameDay
 		GIVEN
 			com.anfelisa.box.scorecard.ScoreCard0

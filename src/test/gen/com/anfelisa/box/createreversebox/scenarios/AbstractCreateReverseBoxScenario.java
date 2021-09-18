@@ -171,7 +171,8 @@ public abstract class AbstractCreateReverseBoxScenario extends BaseScenario {
 			"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 			"\"maxCardsPerDay\" : 10," + 
 			"\"userId\" : \"uuid-" + this.getTestId() + "\"," + 
-			"\"reverse\" : true} ",
+			"\"reverse\" : true," + 
+			"\"archived\" : false} ",
 		com.anfelisa.box.models.BoxModel.class);
 		assertThat(actual, expected);
 	

@@ -401,6 +401,16 @@
 
 	</changeSet>
 
+	<changeSet id="020" author="annette">
+
+		<addColumn tableName="box">
+			<column name="archived" type="boolean" defaultValueBoolean="false">
+				<constraints nullable="false" />
+			</column>
+		</addColumn>
+
+	</changeSet>
+
 
 
 
