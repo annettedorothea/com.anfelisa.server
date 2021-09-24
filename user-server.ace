@@ -23,8 +23,14 @@ ACE
 		payload 
 			username
 			password
-		response token 
-		on ok 
+		response 
+			token 
+		
+	GetUserInfo<UserInfo>
+		GET "/user/info"
+		authorize
+		response 
+			username 
 		
 	UsernameAvailable<UsernameAvailable>
 		GET "/users/username" 
@@ -154,6 +160,9 @@ models
 		String username
 		String password
 		String token
+	} 
+	UserInfo {
+		String username
 	} 
 	DeleteUser {
 		String usernameToBeDeleted

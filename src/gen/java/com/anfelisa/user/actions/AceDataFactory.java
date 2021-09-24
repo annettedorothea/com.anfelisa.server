@@ -37,10 +37,14 @@ public class AceDataFactory {
 				return data;
 			}
 			if (className.equals("com.anfelisa.user.actions.GetTokenAction") ||
-					className.equals("com.anfelisa.user.commands.GetTokenCommand") ||
-					className.equals("com.anfelisa.user.events.GetTokenOkEvent")
+					className.equals("com.anfelisa.user.commands.GetTokenCommand") 
 			) {
 				TokenData data = mapper.readValue(json, TokenData.class);
+				data.migrateLegacyData(json);
+				return data;
+			}
+			if (className.equals("com.anfelisa.user.actions.GetUserInfoAction")) {
+				UserInfoData data = mapper.readValue(json, UserInfoData.class);
 				data.migrateLegacyData(json);
 				return data;
 			}

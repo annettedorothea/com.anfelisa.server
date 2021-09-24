@@ -1,0 +1,18 @@
+HttpServer Java 
+
+com.anfelisa.user.getuserinfo
+
+
+scenarios 
+
+	GetUserInfo
+		GIVEN 
+			com.anfelisa.user.registeruser.RegisterUser
+		WHEN com.anfelisa.user.GetUserInfo
+			authorization "Annette-${testId}" : "password"
+		THEN 200
+		response shouldBe {
+			username : "Annette-${testId}"
+		}				
+
+	
