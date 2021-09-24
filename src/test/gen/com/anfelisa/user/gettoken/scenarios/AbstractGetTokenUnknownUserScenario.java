@@ -5,7 +5,7 @@
 
 
 
-package com.anfelisa.user.getrole.scenarios;
+package com.anfelisa.user.gettoken.scenarios;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,9 +25,9 @@ import de.acegen.SquishyDataProvider;
 import de.acegen.HttpResponse;
 
 @SuppressWarnings("unused")
-public abstract class AbstractGetRoleWrongPasswordScenario extends BaseScenario {
+public abstract class AbstractGetTokenUnknownUserScenario extends BaseScenario {
 
-	static final Logger LOG = LoggerFactory.getLogger(AbstractGetRoleWrongPasswordScenario.class);
+	static final Logger LOG = LoggerFactory.getLogger(AbstractGetTokenUnknownUserScenario.class);
 	
 	private void given() throws Exception {
 		String uuid;
@@ -71,27 +71,34 @@ public abstract class AbstractGetRoleWrongPasswordScenario extends BaseScenario 
 
 	}
 	
-	private HttpResponse<com.anfelisa.user.data.GetRoleResponse> when() throws Exception {
-		String uuid = this.randomUUID();
-		com.anfelisa.user.data.RoleData data_0 = objectMapper.readValue("{" +
-		"\"uuid\" : \"" + uuid + "\" }",
-		com.anfelisa.user.data.RoleData.class);
-		HttpResponse<com.anfelisa.user.data.GetRoleResponse> response = 
-		this.httpGet(
-			"/user/role", 
-			authorization("Annette-${testId}", "wrong"),
+	private HttpResponse<com.anfelisa.user.data.GetTokenResponse> when() throws Exception {
+		String uuid = "" + this.getTestId() + "";
+		com.anfelisa.user.data.GetTokenPayload payload_0 = objectMapper.readValue("{" +
+			"\"username\" : \"lala\"," + 
+			"\"password\" : \"password\"} ",
+				com.anfelisa.user.data.GetTokenPayload.class);
+		com.anfelisa.user.data.TokenData data_0 = objectMapper.readValue("{" +
+		"\"uuid\" : \"" + uuid + "\"," + 
+		"\"username\" : \"lala\"," + 
+		"\"password\" : \"password\"} ",
+				com.anfelisa.user.data.TokenData.class);
+		HttpResponse<com.anfelisa.user.data.GetTokenResponse> response = 
+		this.httpPut(
+			"/user/token", 
+		 	payload_0,
+			null,
 			uuid,
-			com.anfelisa.user.data.GetRoleResponse.class
+			com.anfelisa.user.data.GetTokenResponse.class
 		);
 		
-		LOG.info("WHEN: GetRole finished in {} ms", response.getDuration());
+		LOG.info("WHEN: GetToken finished in {} ms", response.getDuration());
 		if (response.getStatusCode() >= 200 && response.getStatusCode() < 300) {
-			addToMetrics("GetRole", response.getDuration());
+			addToMetrics("GetToken", response.getDuration());
 		}
 		return response;
 	}
 	
-	private com.anfelisa.user.data.GetRoleResponse then(HttpResponse<com.anfelisa.user.data.GetRoleResponse> response) throws Exception {
+	private com.anfelisa.user.data.GetTokenResponse then(HttpResponse<com.anfelisa.user.data.GetTokenResponse> response) throws Exception {
 		if (response.getStatusCode() == 500) {
 			String statusMessage = response.getStatusMessage() != null ? response.getStatusMessage() : "";
 			LOG.error("THEN: status " + response.getStatusCode() + " failed: " + statusMessage);
@@ -105,7 +112,7 @@ public abstract class AbstractGetRoleWrongPasswordScenario extends BaseScenario 
 			LOG.info("THEN: status 401 passed");
 		}
 		
-				com.anfelisa.user.data.GetRoleResponse actual = null;
+				com.anfelisa.user.data.GetTokenResponse actual = null;
 				if (response.getStatusCode() < 400) {
 					try {
 						actual = response.getEntity();
@@ -124,14 +131,14 @@ public abstract class AbstractGetRoleWrongPasswordScenario extends BaseScenario 
 	public void runTest() throws Exception {
 		given();
 			
-		if (prerequisite("GetRoleWrongPassword")) {
-			HttpResponse<com.anfelisa.user.data.GetRoleResponse> response = when();
+		if (prerequisite("GetTokenUnknownUser")) {
+			HttpResponse<com.anfelisa.user.data.GetTokenResponse> response = when();
 
-			com.anfelisa.user.data.GetRoleResponse actualResponse = then(response);
+			com.anfelisa.user.data.GetTokenResponse actualResponse = then(response);
 			
 	
 		} else {
-			LOG.info("WHEN: prerequisite for GetRoleWrongPassword not met");
+			LOG.info("WHEN: prerequisite for GetTokenUnknownUser not met");
 		}
 	}
 	
@@ -139,7 +146,7 @@ public abstract class AbstractGetRoleWrongPasswordScenario extends BaseScenario 
 		
 	@Override
 	protected String scenarioName() {
-		return "GetRoleWrongPassword";
+		return "GetTokenUnknownUser";
 	}
 	
 }

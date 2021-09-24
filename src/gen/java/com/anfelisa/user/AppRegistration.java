@@ -21,7 +21,7 @@ public class AppRegistration {
 	public static void registerResources(Environment environment, PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider) {
 		environment.jersey().register(new RegisterUserResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
-		environment.jersey().register(new GetRoleResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
+		environment.jersey().register(new GetTokenResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new UsernameAvailableResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new ConfirmEmailResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new GetUserProfileResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));

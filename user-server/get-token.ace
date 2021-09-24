@@ -1,0 +1,61 @@
+HttpServer Java 
+
+com.anfelisa.user.gettoken
+
+scenarios 
+
+	GetTokenStudent
+		GIVEN
+			com.anfelisa.user.registeruser.RegisterUserAdmin 
+			com.anfelisa.user.registeruser.RegisterUser
+		WHEN com.anfelisa.user.GetToken	
+			uuid "${testId}" {
+				username: "Annette-${testId}",
+				password: "password"
+			}
+		THEN 200
+		verifications validToken
+
+	GetTokenWrongPassword
+		GIVEN com.anfelisa.user.registeruser.RegisterUser
+		WHEN com.anfelisa.user.GetToken	
+			uuid "${testId}" {
+				username: "Annette-${testId}",
+				password: "wrong"
+			}
+		THEN 401
+
+	GetTokenUnknownUser
+		GIVEN com.anfelisa.user.registeruser.RegisterUser
+		WHEN com.anfelisa.user.GetToken	
+			uuid "${testId}" {
+				username: "lala",
+				password: "password"
+			}
+		THEN 401
+		
+	GetTokenAdmin
+		GIVEN 
+			com.anfelisa.user.registeruser.RegisterUser
+			com.anfelisa.user.registeruser.RegisterUserAdmin
+		WHEN com.anfelisa.user.GetToken	
+			uuid "${testId}" {
+				username: "Admin",
+				password: "admin-password"
+			}
+		THEN  200 
+		verifications validToken
+		
+	GetTokenNoAuthorization
+		GIVEN 
+			com.anfelisa.user.registeruser.RegisterUser
+			com.anfelisa.user.registeruser.RegisterUserAdmin
+		WHEN com.anfelisa.user.GetToken
+			uuid "${testId}" {
+				username: null,
+				password: null
+			}
+		
+		THEN  401
+		
+

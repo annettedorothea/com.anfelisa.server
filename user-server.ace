@@ -5,7 +5,6 @@ com.anfelisa.user
 Authorization AuthUser {
 	String userId
 	String username
-	String password
 	String role
 }
 
@@ -19,10 +18,13 @@ ACE
 			NotNull language
 		on ok (User.registerUser EmailConfirmation.insert Email.sendRegistrationEmail)
 		
-	GetRole <Role>
-		GET "/user/role"
-		authorize 
-		response role 
+	GetToken<Token>
+		PUT "/user/token"
+		payload 
+			username
+			password
+		response token 
+		on ok 
 		
 	UsernameAvailable<UsernameAvailable>
 		GET "/users/username" 
@@ -148,9 +150,10 @@ models
 		NotNull String userId references User.userId
 	}
 	
-	Role {
+	Token {
 		String username
-		String role
+		String password
+		String token
 	} 
 	DeleteUser {
 		String usernameToBeDeleted

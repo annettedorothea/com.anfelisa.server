@@ -15,5 +15,12 @@ public class CustomAppConfiguration extends AppConfiguration {
 	public EmailConfiguration getEmail() {
 		return email;
 	}
+	
+	private String secretString;
+	
+	@JsonProperty("secretString")
+	public String getSecretString() {
+		return secretString;
+	}
 
 }

@@ -5,13 +5,17 @@
 
 
 
-package com.anfelisa.user.data;
+package com.anfelisa.user.gettoken.scenarios;
 
-public interface IGetRoleResponse {
-	String getRole();
+import com.anfelisa.user.data.GetTokenResponse;
+
+@SuppressWarnings("unused")
+public class GetTokenNoAuthorizationScenario extends AbstractGetTokenNoAuthorizationScenario {
+
 	
 
 }
+
 
 
 

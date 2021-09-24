@@ -20,20 +20,20 @@ import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class GetRoleResponse implements IGetRoleResponse {
+public class GetTokenResponse implements IGetTokenResponse {
 	
-	private String role;
+	private String token;
 	
-	public GetRoleResponse() {
+	public GetTokenResponse() {
 	}
 	
-	public GetRoleResponse(com.anfelisa.user.models.IRoleModel data) {
-		role = data.getRole();
+	public GetTokenResponse(com.anfelisa.user.models.ITokenModel data) {
+		token = data.getToken();
 	}
 	
 	@JsonProperty
-	public String getRole() {
-		return this.role;
+	public String getToken() {
+		return this.token;
 	}
 	
 }

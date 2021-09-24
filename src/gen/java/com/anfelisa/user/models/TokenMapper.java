@@ -14,12 +14,13 @@ import org.jdbi.v3.core.statement.StatementContext;
 
 import de.acegen.AbstractMapper;
 
-public class RoleMapper extends AbstractMapper<IRoleModel> {
+public class TokenMapper extends AbstractMapper<ITokenModel> {
 	
-	public IRoleModel map(ResultSet r, StatementContext ctx) throws SQLException {
-		return new RoleModel(
+	public ITokenModel map(ResultSet r, StatementContext ctx) throws SQLException {
+		return new TokenModel(
 			this.mapToString(r, "username"),
-			this.mapToString(r, "role")
+			this.mapToString(r, "password"),
+			this.mapToString(r, "token")
 		);
 	}
 }

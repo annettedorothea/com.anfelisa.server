@@ -14,7 +14,7 @@ import de.acegen.resources.SquishyDataProviderResource;
 import io.dropwizard.Application;
 import io.dropwizard.auth.AuthDynamicFeature;
 import io.dropwizard.auth.AuthValueFactoryProvider;
-import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
+import io.dropwizard.auth.oauth.OAuthCredentialAuthFilter;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.jdbi3.JdbiFactory;
 import io.dropwizard.jdbi3.bundles.JdbiExceptionsBundle;
@@ -78,14 +78,13 @@ public class App extends Application<CustomAppConfiguration> {
 		JdbiExceptionsBundle dbiExceptionsBundle = new JdbiExceptionsBundle();
 		environment.jersey().register(dbiExceptionsBundle);
 
-		environment.jersey()
-				.register(new AuthDynamicFeature(
-						new BasicCredentialAuthFilter.Builder<AuthUser>()
-								.setAuthenticator(new AceAuthenticator(new PersistenceConnection(jdbi)))
-								.setPrefix("anfelisaBasic").setRealm("anfelisaBasic private realm").buildAuthFilter()));
-		environment.jersey().register(new AuthValueFactoryProvider.Binder<>(AuthUser.class));
-
+		environment.jersey().register(new AuthDynamicFeature(
+				new OAuthCredentialAuthFilter.Builder<AuthUser>()
+						.setAuthenticator(new AceAuthenticator(configuration))
+						.setPrefix("Bearer")
+						.buildAuthFilter()));
 		environment.jersey().register(RolesAllowedDynamicFeature.class);
+		environment.jersey().register(new AuthValueFactoryProvider.Binder<>(AuthUser.class));
 
 		environment.jersey().register(new AdminServlet());
 

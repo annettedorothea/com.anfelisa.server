@@ -21,10 +21,10 @@ import static org.hamcrest.beans.SamePropertyValuesAs.samePropertyValuesAs;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.Key;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,6 +70,8 @@ import com.anfelisa.card.models.ICardWithCategoryNameModel;
 import com.anfelisa.card.models.ICardWithInfoModel;
 import com.anfelisa.category.data.GetCategoryTreeResponse;
 import com.anfelisa.category.models.ICategoryTreeItemModel;
+import com.anfelisa.user.data.GetTokenPayload;
+import com.anfelisa.user.models.TokenModel;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -77,6 +79,11 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 
 @RunWith(JUnitPlatform.class)
 public abstract class BaseScenario extends AbstractBaseScenario {
@@ -97,6 +104,8 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 
 	protected static Map<String, DescriptiveStatistics> metrics;
 
+	protected static YamlConfiguration config;
+
 	@BeforeAll
 	public static void beforeClass() throws Exception {
 		Logger rootLogger = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
@@ -104,7 +113,7 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 
 		ObjectMapper mapper = new ObjectMapper(new YAMLFactory())
 				.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		YamlConfiguration config = mapper.readValue(new File("dev.yml"), YamlConfiguration.class);
+		config = mapper.readValue(new File("dev.yml"), YamlConfiguration.class);
 		port = Integer.parseInt(config.getServer().getApplicationConnectors()[0].getPort());
 		protocol = config.getServer().getApplicationConnectors()[0].getType();
 		rootPath = config.getServer().getRootPath();
@@ -283,9 +292,16 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 
 	@Override
 	protected String authorization(String username, String password) {
-		String string = username.replace("${testId}", testId) + ":" + password;
-		String hash = Base64.getEncoder().encodeToString(string.getBytes());
-		return "anfelisaBasic " + hash;
+		String uuid = randomUUID();
+		username = username.replace("${testId}", testId);
+		GetTokenPayload payload = new GetTokenPayload(new TokenModel(username, password, null));
+		HttpResponse<com.anfelisa.user.data.GetTokenResponse> response = this.httpPut(
+				"/user/token",
+				payload,
+				null,
+				uuid,
+				com.anfelisa.user.data.GetTokenResponse.class);
+		return "Bearer " + response.getEntity().getToken();
 	}
 
 	@Override
@@ -351,7 +367,7 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 			org.hamcrest.MatcherAssert.assertThat(nextCard, is(samePropertyValuesAs(expectedNextCard)));
 		}
 	}
-	
+
 	private void assertThat(LoadAllActiveCardsResponse actual, LoadAllActiveCardsResponse expected) {
 		List<ICardWithStatisticsModel> actualCardList = actual.getCardList();
 		List<ICardWithStatisticsModel> expectedCardList = expected.getCardList();
@@ -573,6 +589,23 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 			metrics.put("all", values);
 		}
 		values.addValue(duration);
+	}
+
+	protected void validateToken(String actualToken, String expectedUserId, String expectedUsername, String expectedRole) {
+		Key key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(config.getSecretString()));
+		Jws<Claims> claims = Jwts.parserBuilder()
+				.requireIssuer("anfelisa")
+				.setSigningKey(key)
+				.build()
+				.parseClaimsJws(actualToken);
+		String userId = claims.getBody().getSubject();
+		String username = claims.getBody().get("username").toString();
+		String role = claims.getBody().get("role").toString();
+		String issuer = claims.getBody().getIssuer();
+		assertThat(userId, expectedUserId);
+		assertThat(username, expectedUsername);
+		assertThat(role, expectedRole);
+		assertThat(issuer, "anfelisa");
 	}
 
 }

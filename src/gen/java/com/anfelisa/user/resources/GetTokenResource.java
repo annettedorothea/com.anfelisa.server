@@ -36,8 +36,6 @@ import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.Config;
 
-import de.acegen.auth.AuthUser;
-import io.dropwizard.auth.Auth;
 
 import com.codahale.metrics.annotation.Timed;
 import com.codahale.metrics.annotation.Metered;
@@ -51,23 +49,23 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.DELETE;
 
-import com.anfelisa.user.data.IRoleData;
-import com.anfelisa.user.data.RoleData;
+import com.anfelisa.user.data.ITokenData;
+import com.anfelisa.user.data.TokenData;
 
 import de.acegen.Resource;
 
-@Path("/user/role")
+@Path("/user/token")
 @SuppressWarnings("unused")
-public class GetRoleResource extends Resource {
+public class GetTokenResource extends Resource {
 
-	static final Logger LOG = LoggerFactory.getLogger(GetRoleResource.class);
+	static final Logger LOG = LoggerFactory.getLogger(GetTokenResource.class);
 	
 	private PersistenceConnection persistenceConnection;
 	private CustomAppConfiguration appConfiguration;
 	private IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
 
-	public GetRoleResource(PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, 
+	public GetTokenResource(PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, 
 				IDaoProvider daoProvider, ViewProvider viewProvider) {
 			this.persistenceConnection = persistenceConnection;
 			this.appConfiguration = appConfiguration;
@@ -75,28 +73,31 @@ public class GetRoleResource extends Resource {
 			this.viewProvider = viewProvider;
 		}
 	
-	@GET
-	@Timed(name = "GetRoleActionTimed")
-	@Metered(name = "GetRoleActionMetered")
+	@PUT
+	@Timed(name = "GetTokenActionTimed")
+	@Metered(name = "GetTokenActionMetered")
 	@ExceptionMetered
 	@ResponseMetered
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response getRoleResource(
-			@Auth AuthUser authUser, 
-			@QueryParam("uuid") String uuid) 
+	public Response getTokenResource(
+			@QueryParam("uuid") String uuid, 
+			ITokenData payload) 
 			throws JsonProcessingException {
+		if (payload == null) {
+			return badRequest("payload must not be null");
+		}
 		if (StringUtils.isBlank(uuid)) {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.user.data.IRoleData data = new RoleData(uuid);
-			data.setUsername(authUser.getUsername());
-			data.setRole(authUser.getRole());
+			com.anfelisa.user.data.ITokenData data = new TokenData(uuid);
+			data.setUsername(payload.getUsername());
+			data.setPassword(payload.getPassword());
 			
-			com.anfelisa.user.actions.GetRoleAction action = new com.anfelisa.user.actions.GetRoleAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
+			com.anfelisa.user.actions.GetTokenAction action = new com.anfelisa.user.actions.GetTokenAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
 			data = action.apply(data);
-			return Response.ok(new com.anfelisa.user.data.GetRoleResponse(data)).build();
+			return Response.ok(new com.anfelisa.user.data.GetTokenResponse(data)).build();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());
 			if (Config.DEV.equals(appConfiguration.getConfig().getMode())) {
@@ -108,7 +109,7 @@ public class GetRoleResource extends Resource {
 			if (Config.DEV.equals(appConfiguration.getConfig().getMode())) {
 				x.printStackTrace();
 			}
-			return unauthorized("authorization needed for /user/role");
+			return unauthorized("authorization needed for /user/token");
 		} catch (Exception x) {
 			LOG.error("internal server error due to {} ", x.getMessage());
 			if (Config.DEV.equals(appConfiguration.getConfig().getMode())) {

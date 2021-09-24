@@ -5,7 +5,7 @@
 
 
 
-package com.anfelisa.user.getrole.scenarios;
+package com.anfelisa.user.gettoken.scenarios;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,9 +25,9 @@ import de.acegen.SquishyDataProvider;
 import de.acegen.HttpResponse;
 
 @SuppressWarnings("unused")
-public abstract class AbstractGetRoleNoAuthorizationScenario extends BaseScenario {
+public abstract class AbstractGetTokenAdminScenario extends BaseScenario {
 
-	static final Logger LOG = LoggerFactory.getLogger(AbstractGetRoleNoAuthorizationScenario.class);
+	static final Logger LOG = LoggerFactory.getLogger(AbstractGetTokenAdminScenario.class);
 	
 	private void given() throws Exception {
 		String uuid;
@@ -108,41 +108,48 @@ public abstract class AbstractGetRoleNoAuthorizationScenario extends BaseScenari
 
 	}
 	
-	private HttpResponse<com.anfelisa.user.data.GetRoleResponse> when() throws Exception {
-		String uuid = this.randomUUID();
-		com.anfelisa.user.data.RoleData data_0 = objectMapper.readValue("{" +
-		"\"uuid\" : \"" + uuid + "\" }",
-		com.anfelisa.user.data.RoleData.class);
-		HttpResponse<com.anfelisa.user.data.GetRoleResponse> response = 
-		this.httpGet(
-			"/user/role", 
+	private HttpResponse<com.anfelisa.user.data.GetTokenResponse> when() throws Exception {
+		String uuid = "" + this.getTestId() + "";
+		com.anfelisa.user.data.GetTokenPayload payload_0 = objectMapper.readValue("{" +
+			"\"username\" : \"Admin\"," + 
+			"\"password\" : \"admin-password\"} ",
+				com.anfelisa.user.data.GetTokenPayload.class);
+		com.anfelisa.user.data.TokenData data_0 = objectMapper.readValue("{" +
+		"\"uuid\" : \"" + uuid + "\"," + 
+		"\"username\" : \"Admin\"," + 
+		"\"password\" : \"admin-password\"} ",
+				com.anfelisa.user.data.TokenData.class);
+		HttpResponse<com.anfelisa.user.data.GetTokenResponse> response = 
+		this.httpPut(
+			"/user/token", 
+		 	payload_0,
 			null,
 			uuid,
-			com.anfelisa.user.data.GetRoleResponse.class
+			com.anfelisa.user.data.GetTokenResponse.class
 		);
 		
-		LOG.info("WHEN: GetRole finished in {} ms", response.getDuration());
+		LOG.info("WHEN: GetToken finished in {} ms", response.getDuration());
 		if (response.getStatusCode() >= 200 && response.getStatusCode() < 300) {
-			addToMetrics("GetRole", response.getDuration());
+			addToMetrics("GetToken", response.getDuration());
 		}
 		return response;
 	}
 	
-	private com.anfelisa.user.data.GetRoleResponse then(HttpResponse<com.anfelisa.user.data.GetRoleResponse> response) throws Exception {
+	private com.anfelisa.user.data.GetTokenResponse then(HttpResponse<com.anfelisa.user.data.GetTokenResponse> response) throws Exception {
 		if (response.getStatusCode() == 500) {
 			String statusMessage = response.getStatusMessage() != null ? response.getStatusMessage() : "";
 			LOG.error("THEN: status " + response.getStatusCode() + " failed: " + statusMessage);
 			assertFail(statusMessage);
 		}
-		if (response.getStatusCode() != 401) {
+		if (response.getStatusCode() != 200) {
 			String statusMessage = response.getStatusMessage() != null ? response.getStatusMessage() : "";
-			LOG.error("THEN: status " + response.getStatusCode() + " failed, expected 401: " + statusMessage);
+			LOG.error("THEN: status " + response.getStatusCode() + " failed, expected 200: " + statusMessage);
 			assertFail(statusMessage);
 		} else {
-			LOG.info("THEN: status 401 passed");
+			LOG.info("THEN: status 200 passed");
 		}
 		
-				com.anfelisa.user.data.GetRoleResponse actual = null;
+				com.anfelisa.user.data.GetTokenResponse actual = null;
 				if (response.getStatusCode() < 400) {
 					try {
 						actual = response.getEntity();
@@ -161,22 +168,24 @@ public abstract class AbstractGetRoleNoAuthorizationScenario extends BaseScenari
 	public void runTest() throws Exception {
 		given();
 			
-		if (prerequisite("GetRoleNoAuthorization")) {
-			HttpResponse<com.anfelisa.user.data.GetRoleResponse> response = when();
+		if (prerequisite("GetTokenAdmin")) {
+			HttpResponse<com.anfelisa.user.data.GetTokenResponse> response = when();
 
-			com.anfelisa.user.data.GetRoleResponse actualResponse = then(response);
+			com.anfelisa.user.data.GetTokenResponse actualResponse = then(response);
 			
 	
+			validToken(actualResponse);
 		} else {
-			LOG.info("WHEN: prerequisite for GetRoleNoAuthorization not met");
+			LOG.info("WHEN: prerequisite for GetTokenAdmin not met");
 		}
 	}
 	
+	protected abstract void validToken(com.anfelisa.user.data.GetTokenResponse response);
 	
 		
 	@Override
 	protected String scenarioName() {
-		return "GetRoleNoAuthorization";
+		return "GetTokenAdmin";
 	}
 	
 }

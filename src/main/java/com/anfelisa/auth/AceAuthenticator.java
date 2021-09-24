@@ -1,42 +1,43 @@
 package com.anfelisa.auth;
 
+import java.security.Key;
 import java.util.Optional;
 
-import com.anfelisa.user.models.IUserModel;
-import com.anfelisa.user.models.UserDao;
-
-import de.acegen.PersistenceConnection;
-import de.acegen.PersistenceHandle;
+import de.acegen.CustomAppConfiguration;
 import de.acegen.auth.AuthUser;
 import io.dropwizard.auth.AuthenticationException;
 import io.dropwizard.auth.Authenticator;
-import io.dropwizard.auth.basic.BasicCredentials;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.InvalidClaimException;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 
-public class AceAuthenticator implements Authenticator<BasicCredentials, AuthUser> {
+public class AceAuthenticator implements Authenticator<String, AuthUser> {
 
-	private PersistenceConnection persistenceConnection;
+	private CustomAppConfiguration configuration;
 
-	private UserDao userDao = new UserDao();
-
-	public AceAuthenticator(PersistenceConnection persistenceConnection) {
+	public AceAuthenticator(CustomAppConfiguration configuration) {
 		super();
-		this.persistenceConnection = persistenceConnection;
+		this.configuration = configuration;
 	}
 
-	public Optional<AuthUser> authenticate(BasicCredentials credentials) throws AuthenticationException {
-		String username = credentials.getUsername();
-		PersistenceHandle handle = new PersistenceHandle(persistenceConnection.getJdbi().open());
+	@Override
+	public Optional<AuthUser> authenticate(String token) throws AuthenticationException {
 		try {
-			IUserModel user = userDao.selectByUsername(handle, username);
-			if (user != null && user.getPassword().equals(credentials.getPassword()) /*&& user.getEmailConfirmed()*/) {
-				return Optional.of(new AuthUser(user.getUserId(), credentials.getUsername(), credentials.getPassword(), user.getRole()));
-			} else {
-				return Optional.empty();
-			}
-		} catch (Exception e) {
-			throw e;
-		} finally {
-			handle.getHandle().close();
+			Key key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(configuration.getSecretString()));
+			Jws<Claims> claims = Jwts.parserBuilder()
+				.requireIssuer("anfelisa")
+				.setSigningKey(key)
+				.build()
+				.parseClaimsJws(token);
+			String userId = claims.getBody().getSubject();
+			String role = claims.getBody().get("role").toString();
+			String username = claims.getBody().get("username").toString();
+			return Optional.of(new AuthUser(userId, username, role));
+		} catch (InvalidClaimException ice) {
+			return Optional.empty();
 		}
 	}
 }

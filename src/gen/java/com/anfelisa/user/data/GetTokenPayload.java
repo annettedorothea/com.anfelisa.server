@@ -5,61 +5,45 @@
 
 
 
-package com.anfelisa.user.models;
+package com.anfelisa.user.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.ArrayList;
 
+import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class RoleModel implements IRoleModel {
-
+public class GetTokenPayload implements IGetTokenPayload {
+	
 	private String username;
-
-	private String role;
-
-
-	public RoleModel() {
+	
+	private String password;
+	
+	public GetTokenPayload() {
 	}
-
-	public RoleModel(
-		@JsonProperty("username") String username,
-		@JsonProperty("role") String role
-	) {
-		this.username = username;
-		this.role = role;
+	
+	public GetTokenPayload(com.anfelisa.user.models.ITokenModel data) {
+		username = data.getUsername();
+		password = data.getPassword();
 	}
-
+	
 	@JsonProperty
 	public String getUsername() {
 		return this.username;
 	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
 	
 	@JsonProperty
-	public String getRole() {
-		return this.role;
-	}
-	public void setRole(String role) {
-		this.role = role;
+	public String getPassword() {
+		return this.password;
 	}
 	
-
-	public IRoleModel deepCopy() {
-		IRoleModel copy = new RoleModel();
-		copy.setUsername(this.getUsername());
-		copy.setRole(this.getRole());
-		return copy;
-	}
-
 }
 
 

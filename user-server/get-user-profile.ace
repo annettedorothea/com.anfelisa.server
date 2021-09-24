@@ -30,19 +30,3 @@ scenarios
 			userId: "uuid-admin"
 		}
 
-	GetUserProfileWrongPassword
-		GIVEN
-			com.anfelisa.user.registeruser.RegisterUserAdmin 
-			com.anfelisa.user.registeruser.RegisterUser
-		WHEN com.anfelisa.user.GetUserProfile
-			authorization "Admin" : "wrong"
-		THEN 401
-
-	GetUserProfileUserDoesNotExist
-		GIVEN
-			com.anfelisa.user.registeruser.RegisterUserAdmin 
-			com.anfelisa.user.registeruser.RegisterUser
-		WHEN com.anfelisa.user.GetUserProfile
-			authorization "lala" : "wrong"
-		THEN 401
-

@@ -16,7 +16,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
-import com.anfelisa.user.models.IRoleModel;
+import com.anfelisa.user.models.ITokenModel;
 
 import de.acegen.AbstractData;
 import de.acegen.IDataContainer;
@@ -24,26 +24,30 @@ import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("unused")
-public abstract class AbstractRoleData extends AbstractData implements IRoleData {
+public abstract class AbstractTokenData extends AbstractData implements ITokenData {
 	
-	static final Logger LOG = LoggerFactory.getLogger(AbstractRoleData.class);
+	static final Logger LOG = LoggerFactory.getLogger(AbstractTokenData.class);
 	
 	private String username;
 	
-	private String role;
+	private String password;
+	
+	private String token;
 	
 
-	public AbstractRoleData(
+	public AbstractTokenData(
 		@JsonProperty("username") String username,
-		@JsonProperty("role") String role
+		@JsonProperty("password") String password,
+		@JsonProperty("token") String token
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
 		this.username = username;
-		this.role = role;
+		this.password = password;
+		this.token = token;
 	}
 
-	public AbstractRoleData( String uuid ) {
+	public AbstractTokenData( String uuid ) {
 		super(uuid);
 	}
 
@@ -54,29 +58,42 @@ public abstract class AbstractRoleData extends AbstractData implements IRoleData
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public IRoleData withUsername(String username) {
+	public ITokenData withUsername(String username) {
 		this.username = username;
 		return this;
 	}
 	
 	@JsonProperty
-	public String getRole() {
-		return this.role;
+	public String getPassword() {
+		return this.password;
 	}
-	public void setRole(String role) {
-		this.role = role;
+	public void setPassword(String password) {
+		this.password = password;
 	}
-	public IRoleData withRole(String role) {
-		this.role = role;
+	public ITokenData withPassword(String password) {
+		this.password = password;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getToken() {
+		return this.token;
+	}
+	public void setToken(String token) {
+		this.token = token;
+	}
+	public ITokenData withToken(String token) {
+		this.token = token;
 		return this;
 	}
 	
 	
 	
-	public IRoleData deepCopy() {
-		IRoleData copy = new RoleData(this.getUuid());
+	public ITokenData deepCopy() {
+		ITokenData copy = new TokenData(this.getUuid());
 		copy.setUsername(this.getUsername());
-		copy.setRole(this.getRole());
+		copy.setPassword(this.getPassword());
+		copy.setToken(this.getToken());
 		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}

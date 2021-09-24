@@ -15,20 +15,16 @@ public class AuthUser implements Principal {
 	
 	private String username;
 	
-	private String password;
-	
 	private String role;
 	
 
 	public AuthUser (
 		String userId,
 		String username,
-		String password,
 		String role
 	) {
 		this.userId = userId;
 		this.username = username;
-		this.password = password;
 		this.role = role;
 	}
 
@@ -38,10 +34,6 @@ public class AuthUser implements Principal {
 	
 	public String getUsername() {
 		return this.username;
-	}
-	
-	public String getPassword() {
-		return this.password;
 	}
 	
 	public String getRole() {

@@ -5,6 +5,8 @@ public class YamlConfiguration {
 	private Database database;
 	
 	private Server server;
+	
+	private String secretString;
 
 	public Database getDatabase() {
 		return database;
@@ -20,6 +22,10 @@ public class YamlConfiguration {
 
 	public void setServer(Server server) {
 		this.server = server;
+	}
+
+	public String getSecretString() {
+		return secretString;
 	}
 	
 	

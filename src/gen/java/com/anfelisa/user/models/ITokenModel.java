@@ -11,17 +11,20 @@ import java.util.List;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @SuppressWarnings("unused")
-@JsonDeserialize(as=RoleModel.class)
-public interface IRoleModel {
+@JsonDeserialize(as=TokenModel.class)
+public interface ITokenModel {
 
 	String getUsername();
 	void setUsername(String username);
 	
-	String getRole();
-	void setRole(String role);
+	String getPassword();
+	void setPassword(String password);
+	
+	String getToken();
+	void setToken(String token);
 	
 	
-	IRoleModel deepCopy();
+	ITokenModel deepCopy();
 }
 
 

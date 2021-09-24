@@ -36,8 +36,11 @@ public class AceDataFactory {
 				data.migrateLegacyData(json);
 				return data;
 			}
-			if (className.equals("com.anfelisa.user.actions.GetRoleAction")) {
-				RoleData data = mapper.readValue(json, RoleData.class);
+			if (className.equals("com.anfelisa.user.actions.GetTokenAction") ||
+					className.equals("com.anfelisa.user.commands.GetTokenCommand") ||
+					className.equals("com.anfelisa.user.events.GetTokenOkEvent")
+			) {
+				TokenData data = mapper.readValue(json, TokenData.class);
 				data.migrateLegacyData(json);
 				return data;
 			}

@@ -11,17 +11,19 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import de.acegen.IDataContainer;
 
-import com.anfelisa.user.models.IRoleModel;
+import com.anfelisa.user.models.ITokenModel;
 
-@JsonDeserialize(as=RoleData.class)
-public interface IRoleData extends IRoleModel, IDataContainer {
+@JsonDeserialize(as=TokenData.class)
+public interface ITokenData extends ITokenModel, IDataContainer {
 	
-	IRoleData withUsername(String username);
+	ITokenData withUsername(String username);
 	
-	IRoleData withRole(String role);
+	ITokenData withPassword(String password);
+	
+	ITokenData withToken(String token);
 	
 	
-	IRoleData deepCopy();
+	ITokenData deepCopy();
 }
 
 
