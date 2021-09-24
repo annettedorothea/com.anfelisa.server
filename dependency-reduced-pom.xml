@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.anfelisa</groupId>
   <artifactId>anfelisa-server</artifactId>
-  <version>1.4.0</version>
+  <version>1.5.0</version>
   <build>
     <plugins>
       <plugin>
@@ -168,6 +168,7 @@
     <maven.compiler.target>11</maven.compiler.target>
     <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
     <org.apache.commons.commons-math3.version>3.6.1</org.apache.commons.commons-math3.version>
+    <io.jsonwebtoken.version>0.11.2</io.jsonwebtoken.version>
     <postgresql.version>42.2.23</postgresql.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
