@@ -38,6 +38,8 @@ public abstract class AbstractBoxViewData extends AbstractData implements IBoxVi
 	
 	private String boxId;
 	
+	private Boolean shared = false;
+	
 	private Boolean reverse = false;
 	
 	private Boolean editable = false;
@@ -51,6 +53,7 @@ public abstract class AbstractBoxViewData extends AbstractData implements IBoxVi
 		@JsonProperty("categoryAuthor") String categoryAuthor,
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("boxId") String boxId,
+		@JsonProperty("shared") Boolean shared,
 		@JsonProperty("reverse") Boolean reverse,
 		@JsonProperty("editable") Boolean editable,
 		@JsonProperty("archived") Boolean archived
@@ -62,6 +65,7 @@ public abstract class AbstractBoxViewData extends AbstractData implements IBoxVi
 		this.categoryAuthor = categoryAuthor;
 		this.categoryId = categoryId;
 		this.boxId = boxId;
+		this.shared = shared;
 		this.reverse = reverse;
 		this.editable = editable;
 		this.archived = archived;
@@ -132,6 +136,18 @@ public abstract class AbstractBoxViewData extends AbstractData implements IBoxVi
 	}
 	
 	@JsonProperty
+	public Boolean getShared() {
+		return this.shared;
+	}
+	public void setShared(Boolean shared) {
+		this.shared = shared;
+	}
+	public IBoxViewData withShared(Boolean shared) {
+		this.shared = shared;
+		return this;
+	}
+	
+	@JsonProperty
 	public Boolean getReverse() {
 		return this.reverse;
 	}
@@ -176,6 +192,7 @@ public abstract class AbstractBoxViewData extends AbstractData implements IBoxVi
 		copy.setCategoryAuthor(this.getCategoryAuthor());
 		copy.setCategoryId(this.getCategoryId());
 		copy.setBoxId(this.getBoxId());
+		copy.setShared(this.getShared());
 		copy.setReverse(this.getReverse());
 		copy.setEditable(this.getEditable());
 		copy.setArchived(this.getArchived());

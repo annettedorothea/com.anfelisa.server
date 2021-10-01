@@ -23,6 +23,7 @@ public class BoxViewMapper extends AbstractMapper<IBoxViewModel> {
 			this.mapToString(r, "categoryAuthor"),
 			this.mapToString(r, "categoryId"),
 			this.mapToString(r, "boxId"),
+			this.mapToBoolean(r, "shared"),
 			this.mapToBoolean(r, "reverse"),
 			this.mapToBoolean(r, "editable"),
 			this.mapToBoolean(r, "archived")

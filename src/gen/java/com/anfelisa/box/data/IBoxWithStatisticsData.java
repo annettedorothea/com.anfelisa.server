@@ -28,6 +28,8 @@ public interface IBoxWithStatisticsData extends IBoxWithStatisticsModel, IDataCo
 	
 	IBoxWithStatisticsData withBoxId(String boxId);
 	
+	IBoxWithStatisticsData withShared(Boolean shared);
+	
 	IBoxWithStatisticsData withReverse(Boolean reverse);
 	
 	IBoxWithStatisticsData withEditable(Boolean editable);

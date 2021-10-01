@@ -29,6 +29,9 @@ public interface IBoxViewModel {
 	String getBoxId();
 	void setBoxId(String boxId);
 	
+	Boolean getShared();
+	void setShared(Boolean shared);
+	
 	Boolean getReverse();
 	void setReverse(Boolean reverse);
 	

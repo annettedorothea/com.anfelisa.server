@@ -226,6 +226,7 @@ models
 		String categoryAuthor
 		String categoryId
 		String boxId
+		Boolean shared
 		Boolean reverse
 		Boolean editable
 		Boolean archived

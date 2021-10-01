@@ -40,6 +40,8 @@ public abstract class AbstractBoxWithStatisticsData extends AbstractData impleme
 	
 	private String boxId;
 	
+	private Boolean shared = false;
+	
 	private Boolean reverse = false;
 	
 	private Boolean editable = false;
@@ -69,6 +71,7 @@ public abstract class AbstractBoxWithStatisticsData extends AbstractData impleme
 		@JsonProperty("categoryAuthor") String categoryAuthor,
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("boxId") String boxId,
+		@JsonProperty("shared") Boolean shared,
 		@JsonProperty("reverse") Boolean reverse,
 		@JsonProperty("editable") Boolean editable,
 		@JsonProperty("archived") Boolean archived,
@@ -88,6 +91,7 @@ public abstract class AbstractBoxWithStatisticsData extends AbstractData impleme
 		this.categoryAuthor = categoryAuthor;
 		this.categoryId = categoryId;
 		this.boxId = boxId;
+		this.shared = shared;
 		this.reverse = reverse;
 		this.editable = editable;
 		this.archived = archived;
@@ -162,6 +166,18 @@ public abstract class AbstractBoxWithStatisticsData extends AbstractData impleme
 	}
 	public IBoxWithStatisticsData withBoxId(String boxId) {
 		this.boxId = boxId;
+		return this;
+	}
+	
+	@JsonProperty
+	public Boolean getShared() {
+		return this.shared;
+	}
+	public void setShared(Boolean shared) {
+		this.shared = shared;
+	}
+	public IBoxWithStatisticsData withShared(Boolean shared) {
+		this.shared = shared;
 		return this;
 	}
 	
@@ -304,6 +320,7 @@ public abstract class AbstractBoxWithStatisticsData extends AbstractData impleme
 		this.categoryAuthor = model.getCategoryAuthor();
 		this.categoryId = model.getCategoryId();
 		this.boxId = model.getBoxId();
+		this.shared = model.getShared();
 		this.reverse = model.getReverse();
 		this.editable = model.getEditable();
 		this.archived = model.getArchived();
@@ -327,6 +344,7 @@ public abstract class AbstractBoxWithStatisticsData extends AbstractData impleme
 		copy.setCategoryAuthor(this.getCategoryAuthor());
 		copy.setCategoryId(this.getCategoryId());
 		copy.setBoxId(this.getBoxId());
+		copy.setShared(this.getShared());
 		copy.setReverse(this.getReverse());
 		copy.setEditable(this.getEditable());
 		copy.setArchived(this.getArchived());

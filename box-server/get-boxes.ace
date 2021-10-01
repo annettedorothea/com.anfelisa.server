@@ -23,7 +23,8 @@ scenarios
 						categoryAuthor: "Annette-${testId}",
 						editable: true,
 						reverse: false,
-						archived: false
+						archived: false,
+						shared: false
 					}
 				]
 			}		
@@ -50,7 +51,8 @@ scenarios
 						categoryAuthor: "Annette-${testId}",
 						editable: true,
 						reverse: false,
-						archived: false
+						archived: false,
+						shared: false
 					}
 				]
 			}	
@@ -75,7 +77,8 @@ scenarios
 						categoryAuthor: "Annette-${testId}",
 						editable: true,
 						reverse: false,
-						archived: false
+						archived: false,
+						shared: false
 					}
 				]
 			}		
@@ -100,7 +103,8 @@ scenarios
 						categoryAuthor: "Annette-${testId}",
 						editable: true,
 						reverse: false,
-						archived: false
+						archived: false,
+						shared: false
 					}
 				]
 			}		
@@ -125,7 +129,8 @@ scenarios
 						categoryAuthor: "Annette-${testId}",
 						editable: true,
 						reverse: false,
-						archived: false
+						archived: false,
+						shared: false
 					}
 				]
 			}		
@@ -150,7 +155,8 @@ scenarios
 						categoryAuthor: "Annette-${testId}",
 						editable: true,
 						reverse: false,
-						archived: false
+						archived: false,
+						shared: false
 					}
 				]
 			}		
@@ -175,7 +181,8 @@ scenarios
 						categoryAuthor: "Annette-${testId}",
 						editable: true,
 						reverse: false,
-						archived: false
+						archived: false,
+						shared: false
 					}
 				]
 			}		
@@ -200,7 +207,8 @@ scenarios
 						categoryAuthor: "Annette-${testId}",
 						editable: true,
 						reverse: false,
-						archived: false
+						archived: false,
+						shared: false
 					}
 				]
 			}		
@@ -226,7 +234,8 @@ scenarios
 						categoryAuthor: "Annette-${testId}",
 						editable: true,
 						reverse: false,
-						archived: false
+						archived: false,
+						shared: false
 					}
 				]
 			}		
@@ -251,7 +260,8 @@ scenarios
 						categoryAuthor: "Annette-${testId}",
 						editable: true,
 						reverse: false,
-						archived: false
+						archived: false,
+						shared: false
 					}
 				]
 			}		
@@ -277,7 +287,8 @@ scenarios
 						categoryAuthor: "Annette-${testId}",
 						editable: true,
 						reverse: false,
-						archived: false
+						archived: false,
+						shared: false
 					},
 					{
 						boxId: "reverseBoxId-${testId}",
@@ -287,7 +298,8 @@ scenarios
 						categoryAuthor: "Annette-${testId}",
 						editable: true,
 						reverse: true,
-						archived: false
+						archived: false,
+						shared: false
 					}
 				]
 			}		
@@ -313,7 +325,8 @@ scenarios
 						categoryAuthor: "Annette-${testId}",
 						editable: false,
 						reverse: false,
-						archived: false
+						archived: false,
+						shared: true
 					}
 				]
 			}		
@@ -361,7 +374,8 @@ scenarios
 						categoryAuthor: "Annette-${testId}",
 						editable: true,
 						reverse: true,
-						archived: false
+						archived: false,
+						shared: false
 					},
 					{
 						boxId: "boxId-${testId}",
@@ -371,7 +385,8 @@ scenarios
 						categoryAuthor: "Annette-${testId}",
 						editable: true,
 						reverse: false,
-						archived: true
+						archived: true,
+						shared: false
 					}
 				]
 			}		

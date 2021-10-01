@@ -30,6 +30,8 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 
 	private String boxId;
 
+	private Boolean shared = false;
+
 	private Boolean reverse = false;
 
 	private Boolean editable = false;
@@ -62,6 +64,7 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 		@JsonProperty("categoryAuthor") String categoryAuthor,
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("boxId") String boxId,
+		@JsonProperty("shared") Boolean shared,
 		@JsonProperty("reverse") Boolean reverse,
 		@JsonProperty("editable") Boolean editable,
 		@JsonProperty("archived") Boolean archived,
@@ -79,6 +82,7 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 		this.categoryAuthor = categoryAuthor;
 		this.categoryId = categoryId;
 		this.boxId = boxId;
+		this.shared = shared;
 		this.reverse = reverse;
 		this.editable = editable;
 		this.archived = archived;
@@ -130,6 +134,14 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 	}
 	public void setBoxId(String boxId) {
 		this.boxId = boxId;
+	}
+	
+	@JsonProperty
+	public Boolean getShared() {
+		return this.shared;
+	}
+	public void setShared(Boolean shared) {
+		this.shared = shared;
 	}
 	
 	@JsonProperty
@@ -228,6 +240,7 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 		copy.setCategoryAuthor(this.getCategoryAuthor());
 		copy.setCategoryId(this.getCategoryId());
 		copy.setBoxId(this.getBoxId());
+		copy.setShared(this.getShared());
 		copy.setReverse(this.getReverse());
 		copy.setEditable(this.getEditable());
 		copy.setArchived(this.getArchived());
