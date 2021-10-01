@@ -33,6 +33,3 @@ email:
 config:
   mode: DEV | LIVE
   writeTimeline: NEVER | ALWAYS | ON_ERROR
-  
-translationApiKey: <DeepL api key>
-
