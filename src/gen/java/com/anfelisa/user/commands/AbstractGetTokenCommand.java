@@ -23,10 +23,6 @@ public abstract class AbstractGetTokenCommand extends Command<ITokenData> {
 		super("com.anfelisa.user.commands.GetTokenCommand", daoProvider, viewProvider, appConfiguration);
 	}
 
-	protected void addOkOutcome(ITokenData data) {
-		data.addOutcome("ok");
-	}
-
 	@Override
 	public void publishEvents(ITokenData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
 	}
