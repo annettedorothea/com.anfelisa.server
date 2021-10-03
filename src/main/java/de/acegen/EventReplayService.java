@@ -8,18 +8,18 @@
 package de.acegen;
 
 public class EventReplayService {
-	public static void replayEvent(String eventClass, String json, PersistenceHandle handle, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+	public static void replayEvent(String eventClass, String json, PersistenceHandle handle, ViewProvider viewProvider) {
 		if (eventClass.startsWith("com.anfelisa.box.events")) {
-			com.anfelisa.box.events.EventReplayService.replayEvent(eventClass, json, handle, daoProvider, viewProvider, appConfiguration);
+			com.anfelisa.box.events.EventReplayService.replayEvent(eventClass, json, handle, viewProvider);
 		}
 		if (eventClass.startsWith("com.anfelisa.card.events")) {
-			com.anfelisa.card.events.EventReplayService.replayEvent(eventClass, json, handle, daoProvider, viewProvider, appConfiguration);
+			com.anfelisa.card.events.EventReplayService.replayEvent(eventClass, json, handle, viewProvider);
 		}
 		if (eventClass.startsWith("com.anfelisa.category.events")) {
-			com.anfelisa.category.events.EventReplayService.replayEvent(eventClass, json, handle, daoProvider, viewProvider, appConfiguration);
+			com.anfelisa.category.events.EventReplayService.replayEvent(eventClass, json, handle, viewProvider);
 		}
 		if (eventClass.startsWith("com.anfelisa.user.events")) {
-			com.anfelisa.user.events.EventReplayService.replayEvent(eventClass, json, handle, daoProvider, viewProvider, appConfiguration);
+			com.anfelisa.user.events.EventReplayService.replayEvent(eventClass, json, handle, viewProvider);
 		}
 	}
 }
