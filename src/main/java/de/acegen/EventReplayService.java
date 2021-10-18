@@ -5,12 +5,7 @@
 package de.acegen;
 
 public class EventReplayService {
-<<<<<<< HEAD
 	public static void replayEvent(String eventClass, String json, PersistenceHandle handle, ViewProvider viewProvider) {
-=======
-	public static void replayEvent(String eventClass, String json, PersistenceHandle handle,
-			ViewProvider viewProvider) {
->>>>>>> master
 		if (eventClass.startsWith("com.anfelisa.box.events")) {
 			com.anfelisa.box.events.EventReplayService.replayEvent(eventClass, json, handle, viewProvider);
 		}

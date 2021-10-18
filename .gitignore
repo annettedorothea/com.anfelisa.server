@@ -13,3 +13,5 @@ event-replay.yml
 logs
 .idea
 live-db.yml
+src/gen
+src/test/gen
