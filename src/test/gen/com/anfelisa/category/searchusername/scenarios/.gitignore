@@ -1,0 +1,8 @@
+/AbstractSearchUsernameExactScenario.java
+/AbstractSearchUsernameExcludesInvitedUserScenario.java
+/AbstractSearchUsernameExcludesMeScenario.java
+/AbstractSearchUsernameNarrowScenario.java
+/AbstractSearchUsernameNoAccessToCategoryScenario.java
+/AbstractSearchUsernameNoEditingAccessToCategoryScenario.java
+/AbstractSearchUsernameScenario.java
+/AbstractSearchUsernameUnauthorizedScenario.java

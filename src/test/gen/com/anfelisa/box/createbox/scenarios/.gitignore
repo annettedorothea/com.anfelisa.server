@@ -1,0 +1,12 @@
+/AbstractCreateBoxCategoryNameBlankScenario.java
+/AbstractCreateBoxCategoryNameEmptyScenario.java
+/AbstractCreateBoxCategoryNameNullScenario.java
+/AbstractCreateBoxDictionaryLookupNullScenario.java
+/AbstractCreateBoxDictionaryLookupScenario.java
+/AbstractCreateBoxGivenLanguageInvalidScenario.java
+/AbstractCreateBoxMaxCardsPerDayNullScenario.java
+/AbstractCreateBoxMinimalAsAdminScenario.java
+/AbstractCreateBoxMinimalScenario.java
+/AbstractCreateBoxUnauthorizedScenario.java
+/AbstractCreateBoxWantedLanguageInvalidScenario.java
+/AbstractCreateSecondBoxScenario.java

@@ -1,0 +1,15 @@
+/ArchiveBoxResource.java
+/CreateBoxResource.java
+/CreateReverseBoxResource.java
+/DeleteBoxResource.java
+/GetBoxSettingsResource.java
+/GetBoxStatisticsResource.java
+/GetBoxesResource.java
+/InitMyBoxesForDayResource.java
+/LoadAllActiveCardsResource.java
+/LoadNextCardResource.java
+/ScheduleCardsResource.java
+/ScoreCardResource.java
+/ScoreReinforceCardResource.java
+/SortCardsOutResource.java
+/UpdateBoxResource.java

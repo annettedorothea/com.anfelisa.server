@@ -1,0 +1,12 @@
+/AbstractUpdateCardCardDoesNotExistScenario.java
+/AbstractUpdateCardGivenEmptyScenario.java
+/AbstractUpdateCardGivenNullScenario.java
+/AbstractUpdateCardImageEmptyScenario.java
+/AbstractUpdateCardImageNullScenario.java
+/AbstractUpdateCardMissingCardIdScenario.java
+/AbstractUpdateCardNoAccessToCardScenario.java
+/AbstractUpdateCardNoEditingAccessToCardScenario.java
+/AbstractUpdateCardScenario.java
+/AbstractUpdateCardUnauthorizedScenario.java
+/AbstractUpdateCardWantedEmptyScenario.java
+/AbstractUpdateCardWantedNullScenario.java

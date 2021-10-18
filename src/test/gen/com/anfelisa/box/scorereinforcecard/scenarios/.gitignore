@@ -1,0 +1,6 @@
+/AbstractScoreOtherReinforceCardScenario.java
+/AbstractScoreReinforceCardDoesNotExistScenario.java
+/AbstractScoreReinforceCardKeepScenario.java
+/AbstractScoreReinforceCardNotMyCardScenario.java
+/AbstractScoreReinforceCardRemoveScenario.java
+/AbstractScoreReinforceCardUnauthorizedScenario.java

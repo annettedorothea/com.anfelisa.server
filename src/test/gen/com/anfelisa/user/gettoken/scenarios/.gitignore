@@ -1,0 +1,5 @@
+/AbstractGetTokenAdminScenario.java
+/AbstractGetTokenNoAuthorizationScenario.java
+/AbstractGetTokenStudentScenario.java
+/AbstractGetTokenUnknownUserScenario.java
+/AbstractGetTokenWrongPasswordScenario.java

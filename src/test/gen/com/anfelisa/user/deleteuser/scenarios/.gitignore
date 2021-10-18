@@ -1,0 +1,8 @@
+/AbstractDeleteAdminScenario.java
+/AbstractDeleteCascadesScenario.java
+/AbstractDeleteUserAsAdminScenario.java
+/AbstractDeleteUserAsStudentScenario.java
+/AbstractDeleteUserDoesNotExistScenario.java
+/AbstractDeleteUserLastAdminScenario.java
+/AbstractDeleteUserUnauthorizedNotAdminScenario.java
+/AbstractDeleteUserUnauthorizedScenario.java

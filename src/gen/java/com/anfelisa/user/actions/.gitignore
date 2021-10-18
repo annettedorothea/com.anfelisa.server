@@ -1,0 +1,11 @@
+/AbstractChangeUserRoleAction.java
+/AbstractConfirmEmailAction.java
+/AbstractDeleteUserAction.java
+/AbstractForgotPasswordAction.java
+/AbstractGetTokenAction.java
+/AbstractGetUserInfoAction.java
+/AbstractGetUserProfileAction.java
+/AbstractRegisterUserAction.java
+/AbstractResetPasswordAction.java
+/AbstractUsernameAvailableAction.java
+/AceDataFactory.java

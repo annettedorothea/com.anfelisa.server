@@ -1,0 +1,7 @@
+/AbstractRegisterTwoUsersScenario.java
+/AbstractRegisterUserAdminScenario.java
+/AbstractRegisterUserBlankUsernameScenario.java
+/AbstractRegisterUserEmptyUsernameScenario.java
+/AbstractRegisterUserNoUsernameScenario.java
+/AbstractRegisterUserScenario.java
+/AbstractRegisterUserUsernameAlreadyTakenScenario.java

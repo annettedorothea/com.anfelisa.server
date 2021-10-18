@@ -1,0 +1,11 @@
+/AbstractScheduleCardsAsAdminScenario.java
+/AbstractScheduleCardsEmptyCardIdsScenario.java
+/AbstractScheduleCardsNotMyBoxScenario.java
+/AbstractScheduleCardsNullCardIdsScenario.java
+/AbstractScheduleCardsScenario.java
+/AbstractScheduleCardsUnauthorizedScenario.java
+/AbstractScheduleCardsWithExistingScenario.java
+/AbstractScheduleScheduledCardAgainScenario.java
+/AbstractScheduleScoredCardAgainScenario.java
+/AbstractScheduleSortedOutCardScenario.java
+/AbstractScheduleSortedOutCardsWithMultipleScoresScenario.java

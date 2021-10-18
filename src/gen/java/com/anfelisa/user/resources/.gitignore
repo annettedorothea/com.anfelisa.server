@@ -1,0 +1,10 @@
+/ChangeUserRoleResource.java
+/ConfirmEmailResource.java
+/DeleteUserResource.java
+/ForgotPasswordResource.java
+/GetTokenResource.java
+/GetUserInfoResource.java
+/GetUserProfileResource.java
+/RegisterUserResource.java
+/ResetPasswordResource.java
+/UsernameAvailableResource.java
