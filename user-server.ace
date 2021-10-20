@@ -9,6 +9,7 @@ Authorization AuthUser {
 }
 
 ACE 
+	
 	 RegisterUser<UserRegistration>
 		POST "/users/register"
 		payload 
@@ -16,7 +17,11 @@ ACE
 			NotNull username
 			NotNull email
 			NotNull language
-		on ok (User.registerUser EmailConfirmation.insert Email.sendRegistrationEmail)
+		on ok (
+			User.insertUser 
+			EmailConfirmation.insert 
+			Email.sendRegistrationEmail
+		)
 		
 	GetToken<Token>
 		PUT "/user/token"
@@ -25,7 +30,7 @@ ACE
 			password
 		response 
 			token 
-		
+			
 	GetUserInfo<UserInfo>
 		GET "/user/info"
 		authorize
@@ -92,7 +97,7 @@ ACE
 	
 views 
 	User {
-		registerUser(UserRegistration)
+		insertUser(UserRegistration)
 		confirmEmail(ConfirmEmail)
 		changeUserRole(ChangeUserRole)
 		deleteUser(DeleteUser)

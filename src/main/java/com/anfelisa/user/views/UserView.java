@@ -18,7 +18,7 @@ public class UserView implements IUserView {
 		this.daoProvider = daoProvider;
 	}
 
-	public void registerUser(IUserRegistrationData data, PersistenceHandle handle) {
+	public void insertUser(IUserRegistrationData data, PersistenceHandle handle) {
 		daoProvider.getUserDao().insert(handle, data);
 	}
 

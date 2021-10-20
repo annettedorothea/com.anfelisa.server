@@ -64,7 +64,7 @@ public class App extends Application<CustomAppConfiguration> {
 
 		final JdbiFactory factory = new JdbiFactory();
 
-		Jdbi jdbi = factory.build(environment, configuration.getDataSourceFactory(), "data-source-name");
+		Jdbi jdbi = factory.build(environment, configuration.getDataSourceFactory(), "anfelisa database");
 
 		mode = configuration.getConfig().getMode();
 		LOG.info("running in {} mode", mode);

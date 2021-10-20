@@ -289,19 +289,26 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 	protected String randomUUID() {
 		return UUID.randomUUID().toString();
 	}
+	
+	private HashMap<String, String> tokenUserMap = new HashMap<>();
 
 	@Override
 	protected String authorization(String username, String password) {
-		String uuid = randomUUID();
-		username = username.replace("${testId}", testId);
-		GetTokenPayload payload = new GetTokenPayload(new TokenModel(username, password, null));
-		HttpResponse<com.anfelisa.user.data.GetTokenResponse> response = this.httpPut(
-				"/user/token",
-				payload,
-				null,
-				uuid,
-				com.anfelisa.user.data.GetTokenResponse.class);
-		return "Bearer " + response.getEntity().getToken();
+		String userToken = tokenUserMap.get(username);
+		if (userToken == null) {
+			String uuid = randomUUID();
+			username = username.replace("${testId}", testId);
+			GetTokenPayload payload = new GetTokenPayload(new TokenModel(username, password, null));
+			HttpResponse<com.anfelisa.user.data.GetTokenResponse> response = this.httpPut(
+					"/user/token",
+					payload,
+					null,
+					uuid,
+					com.anfelisa.user.data.GetTokenResponse.class);
+			userToken = "Bearer " + response.getEntity().getToken();
+			tokenUserMap.put(username, userToken);
+		}
+		return userToken;
 	}
 
 	@Override
