@@ -217,7 +217,7 @@ scenarios
 	LoadAllActiveCardsWithPriority
 		GIVEN
 			com.anfelisa.box.schedulecards.ScheduleCards
-			com.anfelisa.card.updatecardpriority.UpdateCardPriority1 excludeGIVEN
+			com.anfelisa.card.updatecardpriority.UpdateCardPriority1 exclude GIVEN
 		WHEN
 			com.anfelisa.box.LoadAllActiveCards
 				{

@@ -290,8 +290,8 @@ scenarios
 	InitMyBoxesForDayWithScoredAndReinforceCardsSameDayDoesNothing
 		GIVEN
 			com.anfelisa.box.scorecard.ScoreCard0
-			com.anfelisa.box.scorecard.ScoreCard1 excludeGIVEN
-			com.anfelisa.box.scorecard.ScoreCard5 excludeGIVEN
+			com.anfelisa.box.scorecard.ScoreCard1 exclude GIVEN
+			com.anfelisa.box.scorecard.ScoreCard5 exclude GIVEN
 		WHEN
 			com.anfelisa.box.InitMyBoxesForDay
 				{
@@ -363,8 +363,8 @@ scenarios
 	InitMyBoxesForDayWithScoredAndReinforceCardsOneDayLaterDeletesOutdatedReinforceCards
 		GIVEN
 			com.anfelisa.box.scorecard.ScoreCard0
-			com.anfelisa.box.scorecard.ScoreCard1 excludeGIVEN
-			com.anfelisa.box.scorecard.ScoreCard5 excludeGIVEN
+			com.anfelisa.box.scorecard.ScoreCard1 exclude GIVEN
+			com.anfelisa.box.scorecard.ScoreCard5 exclude GIVEN
 		WHEN
 			com.anfelisa.box.InitMyBoxesForDay
 				{
@@ -424,8 +424,8 @@ scenarios
 	InitMyBoxesForDayWithScoredAndReinforceCardsTwoDaysLaterPostponesCards
 		GIVEN
 			com.anfelisa.box.scorecard.ScoreCard0
-			com.anfelisa.box.scorecard.ScoreCard1 excludeGIVEN
-			com.anfelisa.box.scorecard.ScoreCard5 excludeGIVEN
+			com.anfelisa.box.scorecard.ScoreCard1 exclude GIVEN
+			com.anfelisa.box.scorecard.ScoreCard5 exclude GIVEN
 		WHEN
 			com.anfelisa.box.InitMyBoxesForDay
 				{
@@ -541,8 +541,8 @@ scenarios
 	InitMyBoxesForDayOneDayBug
 		GIVEN
 			com.anfelisa.box.scorecard.ScoreCard0
-			com.anfelisa.box.scorecard.ScoreCard1 excludeGIVEN
-			com.anfelisa.box.scorecard.ScoreCard5 excludeGIVEN
+			com.anfelisa.box.scorecard.ScoreCard1 exclude GIVEN
+			com.anfelisa.box.scorecard.ScoreCard5 exclude GIVEN
 		WHEN
 			com.anfelisa.box.InitMyBoxesForDay
 				{

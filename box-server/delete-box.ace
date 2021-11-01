@@ -43,8 +43,8 @@ scenarios
 	DeleteBoxNotMyCategory
 		GIVEN
 			com.anfelisa.box.scorecard.ScoreCard0
-			com.anfelisa.user.registeruser.RegisterTwoUsers excludeGIVEN
-			com.anfelisa.category.inviteusertocategory.InviteUserToCategory excludeGIVEN
+			com.anfelisa.user.registeruser.RegisterTwoUsers exclude GIVEN
+			com.anfelisa.category.inviteusertocategory.InviteUserToCategory exclude GIVEN
 		WHEN
 			com.anfelisa.box.DeleteBox
 				{

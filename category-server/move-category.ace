@@ -180,8 +180,8 @@ scenarios
 	MoveCategoryNoEditingAccessToMovedCategory
 		GIVEN
 			com.anfelisa.category.createcategory.CreateCategorySecondLevel
-			com.anfelisa.user.registeruser.RegisterTwoUsers excludeGIVEN
-			com.anfelisa.category.inviteusertocategory.InviteUserToCategory excludeGIVEN
+			com.anfelisa.user.registeruser.RegisterTwoUsers exclude GIVEN
+			com.anfelisa.category.inviteusertocategory.InviteUserToCategory exclude GIVEN
 		WHEN
 			com.anfelisa.category.MoveCategory
 				{
@@ -269,8 +269,8 @@ scenarios
 	MoveCategoryNoEditingAccessToTargetCategory
 		GIVEN
 			com.anfelisa.category.createcategory.CreateCategorySecondLevel
-			com.anfelisa.user.registeruser.RegisterTwoUsers excludeGIVEN
-			com.anfelisa.category.inviteusertocategory.InviteUserToCategory excludeGIVEN
+			com.anfelisa.user.registeruser.RegisterTwoUsers exclude GIVEN
+			com.anfelisa.category.inviteusertocategory.InviteUserToCategory exclude GIVEN
 		WHEN
 			com.anfelisa.category.MoveCategory
 				{
@@ -400,7 +400,7 @@ scenarios
 	MoveCategoryNotInSameBox
 		GIVEN
 			com.anfelisa.category.createcategory.CreateCategorySecondLevel
-			com.anfelisa.box.createbox.CreateSecondBox excludeGIVEN
+			com.anfelisa.box.createbox.CreateSecondBox exclude GIVEN
 		WHEN
 			com.anfelisa.category.MoveCategory
 				{

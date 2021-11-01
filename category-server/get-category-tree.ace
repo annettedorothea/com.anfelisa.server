@@ -68,9 +68,9 @@ scenarios
 	GetFilteredCategoryTree
 		GIVEN
 			com.anfelisa.box.schedulecards.ScheduleCards
-			com.anfelisa.category.createcategory.CreateSecondCategory excludeGIVEN
-			com.anfelisa.category.createcategory.CreateCategorySecondLevel excludeGIVEN
-			com.anfelisa.card.createcard.CreateCardInOtherCategory excludeGIVEN
+			com.anfelisa.category.createcategory.CreateSecondCategory exclude GIVEN
+			com.anfelisa.category.createcategory.CreateCategorySecondLevel exclude GIVEN
+			com.anfelisa.card.createcard.CreateCardInOtherCategory exclude GIVEN
 		WHEN
 			com.anfelisa.category.GetCategoryTree
 				{
@@ -138,8 +138,8 @@ scenarios
 	GetFilteredCategoryPriority1Tree
 		GIVEN
 			com.anfelisa.card.createcard.CreateFifthCard
-			com.anfelisa.category.createcategory.CreateSecondCategory excludeGIVEN
-			com.anfelisa.card.updatecardpriority.UpdateCardPriority1 excludeGIVEN
+			com.anfelisa.category.createcategory.CreateSecondCategory exclude GIVEN
+			com.anfelisa.card.updatecardpriority.UpdateCardPriority1 exclude GIVEN
 		WHEN
 			com.anfelisa.category.GetCategoryTree
 				{
@@ -194,8 +194,8 @@ scenarios
 	GetFilteredCategoryPriority2Tree
 		GIVEN
 			com.anfelisa.card.createcard.CreateFifthCard
-			com.anfelisa.category.createcategory.CreateSecondCategory excludeGIVEN
-			com.anfelisa.card.updatecardpriority.UpdateCardPriority2 excludeGIVEN
+			com.anfelisa.category.createcategory.CreateSecondCategory exclude GIVEN
+			com.anfelisa.card.updatecardpriority.UpdateCardPriority2 exclude GIVEN
 		WHEN
 			com.anfelisa.category.GetCategoryTree
 				{
@@ -250,8 +250,8 @@ scenarios
 	GetFilteredCategoryPriority3Tree
 		GIVEN
 			com.anfelisa.card.createcard.CreateFifthCard
-			com.anfelisa.category.createcategory.CreateSecondCategory excludeGIVEN
-			com.anfelisa.card.updatecardpriority.UpdateCardPriority3 excludeGIVEN
+			com.anfelisa.category.createcategory.CreateSecondCategory exclude GIVEN
+			com.anfelisa.card.updatecardpriority.UpdateCardPriority3 exclude GIVEN
 		WHEN
 			com.anfelisa.category.GetCategoryTree
 				{
@@ -387,8 +387,8 @@ scenarios
 	GetCategoryTreeInvitedUser
 		GIVEN
 			com.anfelisa.category.createcategory.CreateCategorySecondLevel
-			com.anfelisa.user.registeruser.RegisterTwoUsers excludeGIVEN
-			com.anfelisa.category.inviteusertocategory.InviteUserToCategory excludeGIVEN
+			com.anfelisa.user.registeruser.RegisterTwoUsers exclude GIVEN
+			com.anfelisa.category.inviteusertocategory.InviteUserToCategory exclude GIVEN
 		WHEN
 			com.anfelisa.category.GetCategoryTree
 				{
@@ -451,8 +451,8 @@ scenarios
 	GetFilteredCategoryTreeOfInvitedUser
 		GIVEN
 			com.anfelisa.category.createcategory.CreateCategorySecondLevel
-			com.anfelisa.user.registeruser.RegisterTwoUsers excludeGIVEN
-			com.anfelisa.category.inviteusertocategory.InviteUserToCategory excludeGIVEN
+			com.anfelisa.user.registeruser.RegisterTwoUsers exclude GIVEN
+			com.anfelisa.category.inviteusertocategory.InviteUserToCategory exclude GIVEN
 		WHEN
 			com.anfelisa.category.GetCategoryTree
 				{
@@ -519,7 +519,7 @@ scenarios
 	GetReverseCategoryTree
 		GIVEN
 			com.anfelisa.category.createcategory.CreateCategorySecondLevel
-			com.anfelisa.box.createreversebox.CreateReverseBox excludeGIVEN
+			com.anfelisa.box.createreversebox.CreateReverseBox exclude GIVEN
 		WHEN
 			com.anfelisa.category.GetCategoryTree
 				{

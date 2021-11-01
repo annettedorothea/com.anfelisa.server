@@ -273,7 +273,7 @@ scenarios
 	CreateCardInOtherCategory
 		GIVEN
 			com.anfelisa.category.createcategory.CreateCategory
-			com.anfelisa.category.createcategory.CreateSecondCategory excludeGIVEN
+			com.anfelisa.category.createcategory.CreateSecondCategory exclude GIVEN
 		WHEN
 			com.anfelisa.card.CreateCard
 				uuid "c6-${testId}"
@@ -484,8 +484,8 @@ scenarios
 	CreateCardNoEditingAccessToCategory
 		GIVEN
 			com.anfelisa.category.createcategory.CreateCategory
-			com.anfelisa.user.registeruser.RegisterTwoUsers excludeGIVEN
-			com.anfelisa.category.inviteusertocategory.InviteUserToCategory excludeGIVEN
+			com.anfelisa.user.registeruser.RegisterTwoUsers exclude GIVEN
+			com.anfelisa.category.inviteusertocategory.InviteUserToCategory exclude GIVEN
 		WHEN
 			com.anfelisa.card.CreateCard
 				uuid "c1-${testId}"

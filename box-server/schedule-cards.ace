@@ -437,7 +437,7 @@ scenarios
 	ScheduleSortedOutCardsWithMultipleScores
 		GIVEN
 			com.anfelisa.box.scorecard.ScoreCard39
-			com.anfelisa.box.sortcardsout.SortCardsOut excludeGIVEN
+			com.anfelisa.box.sortcardsout.SortCardsOut exclude GIVEN
 		WHEN
 			com.anfelisa.box.ScheduleCards
 				uuid "reschedule-${testId}"

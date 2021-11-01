@@ -63,7 +63,7 @@ scenarios
 	LoadNextCardSecondScored
 		GIVEN
 			com.anfelisa.box.scorecard.ScoreCard0
-			com.anfelisa.box.scorecard.ScoreCard1 excludeGIVEN
+			com.anfelisa.box.scorecard.ScoreCard1 exclude GIVEN
 		WHEN
 			com.anfelisa.box.LoadNextCard
 				{
@@ -92,8 +92,8 @@ scenarios
 	LoadNextCardThirdScored
 		GIVEN
 			com.anfelisa.box.scorecard.ScoreCard0
-			com.anfelisa.box.scorecard.ScoreCard1 excludeGIVEN
-			com.anfelisa.box.scorecard.ScoreCard5 excludeGIVEN
+			com.anfelisa.box.scorecard.ScoreCard1 exclude GIVEN
+			com.anfelisa.box.scorecard.ScoreCard5 exclude GIVEN
 		WHEN
 			com.anfelisa.box.LoadNextCard
 				{
@@ -155,9 +155,9 @@ scenarios
 	LoadNextCardFirstReinforceScored
 		GIVEN
 			com.anfelisa.box.scorecard.ScoreCard0
-			com.anfelisa.box.scorecard.ScoreCard1 excludeGIVEN
-			com.anfelisa.box.scorecard.ScoreCard5 excludeGIVEN
-			com.anfelisa.box.scorereinforcecard.ScoreReinforceCardKeep excludeGIVEN
+			com.anfelisa.box.scorecard.ScoreCard1 exclude GIVEN
+			com.anfelisa.box.scorecard.ScoreCard5 exclude GIVEN
+			com.anfelisa.box.scorereinforcecard.ScoreReinforceCardKeep exclude GIVEN
 		WHEN
 			com.anfelisa.box.LoadNextCard
 				{
@@ -188,8 +188,8 @@ scenarios
 	LoadNextCardScored2
 		GIVEN
 			com.anfelisa.box.scorecard.ScoreCard2
-			com.anfelisa.box.scorecard.ScoreCard1 excludeGIVEN
-			com.anfelisa.box.scorecard.ScoreCard5 excludeGIVEN
+			com.anfelisa.box.scorecard.ScoreCard1 exclude GIVEN
+			com.anfelisa.box.scorecard.ScoreCard5 exclude GIVEN
 		WHEN
 			com.anfelisa.box.LoadNextCard
 				{
@@ -220,8 +220,8 @@ scenarios
 	LoadNextCardScored3
 		GIVEN
 			com.anfelisa.box.scorecard.ScoreCard3
-			com.anfelisa.box.scorecard.ScoreCard1 excludeGIVEN
-			com.anfelisa.box.scorecard.ScoreCard5 excludeGIVEN
+			com.anfelisa.box.scorecard.ScoreCard1 exclude GIVEN
+			com.anfelisa.box.scorecard.ScoreCard5 exclude GIVEN
 		WHEN
 			com.anfelisa.box.LoadNextCard
 				{
@@ -252,8 +252,8 @@ scenarios
 	LoadNextCardScored4
 		GIVEN
 			com.anfelisa.box.scorecard.ScoreCard4
-			com.anfelisa.box.scorecard.ScoreCard1 excludeGIVEN
-			com.anfelisa.box.scorecard.ScoreCard5 excludeGIVEN
+			com.anfelisa.box.scorecard.ScoreCard1 exclude GIVEN
+			com.anfelisa.box.scorecard.ScoreCard5 exclude GIVEN
 		WHEN
 			com.anfelisa.box.LoadNextCard
 				{
@@ -284,10 +284,10 @@ scenarios
 	LoadNextCardSecondReinforceScored
 		GIVEN
 			com.anfelisa.box.scorecard.ScoreCard0
-			com.anfelisa.box.scorecard.ScoreCard1 excludeGIVEN
-			com.anfelisa.box.scorecard.ScoreCard5 excludeGIVEN
-			com.anfelisa.box.scorereinforcecard.ScoreReinforceCardKeep excludeGIVEN
-			com.anfelisa.box.scorereinforcecard.ScoreOtherReinforceCard excludeGIVEN
+			com.anfelisa.box.scorecard.ScoreCard1 exclude GIVEN
+			com.anfelisa.box.scorecard.ScoreCard5 exclude GIVEN
+			com.anfelisa.box.scorereinforcecard.ScoreReinforceCardKeep exclude GIVEN
+			com.anfelisa.box.scorereinforcecard.ScoreOtherReinforceCard exclude GIVEN
 		WHEN
 			com.anfelisa.box.LoadNextCard
 				{
@@ -318,11 +318,11 @@ scenarios
 	LoadNextCardFinished4
 		GIVEN
 			com.anfelisa.box.scorecard.ScoreCard0
-			com.anfelisa.box.scorecard.ScoreCard1 excludeGIVEN
-			com.anfelisa.box.scorecard.ScoreCard5 excludeGIVEN
-			com.anfelisa.box.scorereinforcecard.ScoreReinforceCardKeep excludeGIVEN
-			com.anfelisa.box.scorereinforcecard.ScoreOtherReinforceCard excludeGIVEN
-			com.anfelisa.box.scorereinforcecard.ScoreReinforceCardRemove excludeGIVEN
+			com.anfelisa.box.scorecard.ScoreCard1 exclude GIVEN
+			com.anfelisa.box.scorecard.ScoreCard5 exclude GIVEN
+			com.anfelisa.box.scorereinforcecard.ScoreReinforceCardKeep exclude GIVEN
+			com.anfelisa.box.scorereinforcecard.ScoreOtherReinforceCard exclude GIVEN
+			com.anfelisa.box.scorereinforcecard.ScoreReinforceCardRemove exclude GIVEN
 		WHEN
 			com.anfelisa.box.LoadNextCard
 				{
@@ -341,11 +341,11 @@ scenarios
 	LoadNextCardFinished5
 		GIVEN
 			com.anfelisa.box.scorecard.ScoreCard0
-			com.anfelisa.box.scorecard.ScoreCard1 excludeGIVEN
-			com.anfelisa.box.scorecard.ScoreCard5 excludeGIVEN
-			com.anfelisa.box.scorereinforcecard.ScoreReinforceCardKeep excludeGIVEN
-			com.anfelisa.box.scorereinforcecard.ScoreOtherReinforceCard excludeGIVEN
-			com.anfelisa.box.scorereinforcecard.ScoreReinforceCardRemove excludeGIVEN
+			com.anfelisa.box.scorecard.ScoreCard1 exclude GIVEN
+			com.anfelisa.box.scorecard.ScoreCard5 exclude GIVEN
+			com.anfelisa.box.scorereinforcecard.ScoreReinforceCardKeep exclude GIVEN
+			com.anfelisa.box.scorereinforcecard.ScoreOtherReinforceCard exclude GIVEN
+			com.anfelisa.box.scorereinforcecard.ScoreReinforceCardRemove exclude GIVEN
 		WHEN
 			com.anfelisa.box.LoadNextCard
 				{

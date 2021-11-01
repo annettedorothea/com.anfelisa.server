@@ -358,7 +358,7 @@ scenarios
 	ScoreCard31
 		GIVEN
 			ScoreCard3
-			com.anfelisa.box.updatebox.UpdateBoxMaxInterval excludeGIVEN
+			com.anfelisa.box.updatebox.UpdateBoxMaxInterval exclude GIVEN
 		WHEN
 			com.anfelisa.box.ScoreCard
 				uuid "score31-${testId}"
@@ -767,9 +767,9 @@ scenarios
 	ScoreCardSecond0
 		GIVEN
 			com.anfelisa.card.createcard.CreateFifthCard
-			com.anfelisa.box.updatebox.UpdateBoxSetMaxCardsTo1 excludeGIVEN
-			com.anfelisa.box.schedulecards.ScheduleCards excludeGIVEN
-			ScoreCard0 excludeGIVEN
+			com.anfelisa.box.updatebox.UpdateBoxSetMaxCardsTo1 exclude GIVEN
+			com.anfelisa.box.schedulecards.ScheduleCards exclude GIVEN
+			ScoreCard0 exclude GIVEN
 		WHEN
 			com.anfelisa.box.ScoreCard
 				uuid "score0-2-${testId}"
@@ -800,10 +800,10 @@ scenarios
 	ScoreCardMaxCardsPerDay
 		GIVEN
 			com.anfelisa.card.createcard.CreateFifthCard
-			com.anfelisa.box.updatebox.UpdateBoxSetMaxCardsTo1 excludeGIVEN
-			com.anfelisa.box.schedulecards.ScheduleCards excludeGIVEN
-			ScoreCard0 excludeGIVEN
-			ScoreCardSecond0 excludeGIVEN
+			com.anfelisa.box.updatebox.UpdateBoxSetMaxCardsTo1 exclude GIVEN
+			com.anfelisa.box.schedulecards.ScheduleCards exclude GIVEN
+			ScoreCard0 exclude GIVEN
+			ScoreCardSecond0 exclude GIVEN
 		WHEN
 			com.anfelisa.box.ScoreCard
 				uuid "score0-3-${testId}"

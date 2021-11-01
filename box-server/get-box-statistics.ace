@@ -51,8 +51,8 @@ scenarios
 	GetBoxesWithAllScoredCardsSameDay
 		GIVEN
 			com.anfelisa.box.scorecard.ScoreCard0
-			com.anfelisa.box.scorecard.ScoreCard1 excludeGIVEN
-			com.anfelisa.box.scorecard.ScoreCard5 excludeGIVEN
+			com.anfelisa.box.scorecard.ScoreCard1 exclude GIVEN
+			com.anfelisa.box.scorecard.ScoreCard5 exclude GIVEN
 		WHEN
 			com.anfelisa.box.GetBoxStatistics
 				{

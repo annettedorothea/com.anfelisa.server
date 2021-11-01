@@ -51,8 +51,8 @@ scenarios
 	DeleteCategoryNoEditingAccess
 		GIVEN
 			com.anfelisa.category.createcategory.CreateSecondCategory
-			com.anfelisa.user.registeruser.RegisterTwoUsers excludeGIVEN
-			com.anfelisa.category.inviteusertocategory.InviteUserToCategory excludeGIVEN
+			com.anfelisa.user.registeruser.RegisterTwoUsers exclude GIVEN
+			com.anfelisa.category.inviteusertocategory.InviteUserToCategory exclude GIVEN
 		WHEN
 			com.anfelisa.category.DeleteCategory
 				{

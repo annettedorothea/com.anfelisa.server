@@ -247,7 +247,7 @@ scenarios
 	SortCardsOutWithScoredAndReinforce
 		GIVEN
 			com.anfelisa.box.scorecard.ScoreCard0
-			com.anfelisa.box.scorecard.ScoreCard1 excludeGIVEN
+			com.anfelisa.box.scorecard.ScoreCard1 exclude GIVEN
 		WHEN
 			com.anfelisa.box.SortCardsOut
 				{

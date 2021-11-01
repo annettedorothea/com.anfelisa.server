@@ -48,7 +48,7 @@ scenarios
 	ConfirmEmailAlreadyConfirmed
 		GIVEN
 			com.anfelisa.user.registeruser.RegisterUser
-			ConfirmEmailOK excludeGIVEN
+			ConfirmEmailOK exclude GIVEN
 		WHEN com.anfelisa.user.ConfirmEmail {
 			token: "TOKEN-${testId}",
 			username: "Annette-${testId}"
