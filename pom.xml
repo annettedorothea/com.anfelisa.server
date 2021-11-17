@@ -9,6 +9,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<apache.commons.email.version>1.5</apache.commons.email.version>
 		<dropwizard.version>2.0.23</dropwizard.version>
+		<dropwizard.assets.bundle.version>1.0.5</dropwizard.assets.bundle.version>
 		<junit.jupiter.version>5.8.0-M1</junit.jupiter.version>
 		<junit.platform.version>1.8.0-M1</junit.platform.version>
 		<hamcrest.version>1.3</hamcrest.version>
@@ -121,6 +122,11 @@
 			<groupId>io.dropwizard</groupId>
 			<artifactId>dropwizard-forms</artifactId>
 			<version>${dropwizard.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.dropwizard-bundles</groupId>
+			<artifactId>dropwizard-configurable-assets-bundle</artifactId>
+			<version>${dropwizard.assets.bundle.version}</version>
 		</dependency>
 
 		<dependency>

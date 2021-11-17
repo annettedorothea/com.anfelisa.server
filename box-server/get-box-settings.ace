@@ -126,9 +126,10 @@ scenarios
 		WHEN
 			com.anfelisa.box.GetBoxSettings
 				{
+					boxId: null
 				}
 				authorization "Annette-${testId}" : "password"
-		THEN 400
+		THEN 404
 
 	GetBoxSettingsNoAccess
 	GIVEN
