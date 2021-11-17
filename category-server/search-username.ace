@@ -106,7 +106,6 @@ scenarios
 	SearchUsernameNoEditingAccessToCategory
 		GIVEN 
 			com.anfelisa.category.inviteusertocategory.InviteUserToCategory
-			com.anfelisa.user.registeruser.RegisterTwoUsers exclude GIVEN
 		WHEN com.anfelisa.category.SearchUsernameForInvitation
 				{
 					usernameSearchString : "Annette",

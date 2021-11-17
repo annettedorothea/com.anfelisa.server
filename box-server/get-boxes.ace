@@ -356,7 +356,7 @@ scenarios
 	GetBoxesOneArchived
 		GIVEN
 			com.anfelisa.box.createreversebox.CreateReverseBox
-			com.anfelisa.box.archivebox.ArchiveBox
+			com.anfelisa.box.archivebox.ArchiveBox exclude GIVEN
 		WHEN
 			com.anfelisa.box.GetBoxes
 				{

@@ -112,7 +112,6 @@ scenarios
 	InviteUserToCategoryNoEditingAccessToCategory
 		GIVEN
 			InviteUserToCategory
-			com.anfelisa.user.registeruser.RegisterTwoUsers exclude GIVEN
 			com.anfelisa.user.registeruser.RegisterUserAdmin
 		WHEN
 			com.anfelisa.category.InviteUserToCategory {

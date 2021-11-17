@@ -600,7 +600,7 @@ scenarios
 	InitMyBoxesForDayArchived
 		GIVEN
 			com.anfelisa.box.schedulecards.ScheduleCards
-			com.anfelisa.box.archivebox.ArchiveBox
+			com.anfelisa.box.archivebox.ArchiveBox exclude GIVEN
 		WHEN
 			com.anfelisa.box.InitMyBoxesForDay
 				{
