@@ -33,9 +33,9 @@ ACE
 		authorize 
 		queryParams 
 			NotNull rootCategoryId
-			NotNull filterNonScheduled
+			filterNonScheduled
 			priority
-			NotNull reverse
+			reverse
 		response
 			rootCategory
 			reverseBoxExists
