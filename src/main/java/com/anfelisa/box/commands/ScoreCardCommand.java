@@ -48,49 +48,46 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 		Integer interval = scheduledCard.getInterval();
 		Integer count = scheduledCard.getCount() + 1;
 		Integer n = scheduledCard.getN() + 1;
-		Float newFactor = ef;
 		Integer quality = data.getScoredCardQuality();
 
-		if (quality < 3) {
-			n = 1;
-		} else {
-			Float qFactor = (float) (5 - quality);
-			newFactor = (ef + (0.1F - qFactor * (0.08F + qFactor * 0.02F)));
-			if (newFactor < 1.3) {
-				newFactor = 1.3F;
+		if (quality >= 3) {
+			if (n == 0) {
+				interval = 1;
+			} else if (n == 1) {
+				interval = 6;
+			} else {
+				interval = Math.round(interval * ef);
 			}
+			n++;
+		} else {
+			n = 0;
+			interval = 1;
+		}
+		
+		Float qFactor = (float) (5 - quality);
+		ef = (ef + (0.1F - qFactor * (0.08F + qFactor * 0.02F)));
+		if (ef < 1.3) {
+			ef = 1.3F;
 		}
 
-		IReinforceCardModel reinforceCard = daoProvider.getReinforceCardDao().selectByScheduledCardId(readonlyHandle,
-				scheduledCard.getScheduledCardId());
-		this.addScoreOutcome(data);
-		if (quality <= 3 && reinforceCard == null) {
-			this.addReinforceOutcome(data);
+		if (box.getMaxInterval() != null && interval > box.getMaxInterval()) {
+			interval = box.getMaxInterval();
 		}
-		Integer newInterval = 1;
-		if (n == 2) {
-			newInterval = 6;
-		} else if (n > 2) {
-			newInterval = Math.round(interval * newFactor);
-		}
-		if (box.getMaxInterval() != null && newInterval > box.getMaxInterval()) {
-			newInterval = box.getMaxInterval();
-		}
-		LocalDateTime newTime = data.getSystemTime().plusDays(newInterval);
+		LocalDateTime newTime = data.getSystemTime().plusDays(interval);
 		if (box.getMaxCardsPerDay() != null) {
-			newTime = data.getSystemTime().plusDays(newInterval);
+			newTime = data.getSystemTime().plusDays(interval);
 			Integer cardCount = daoProvider.getScheduledCardDao().selectCardCountOfDay(readonlyHandle, box.getBoxId(),
 					newTime.withHour(0).withMinute(0).withSecond(0).withNano(0), newTime.plusDays(1).withHour(0).withMinute(0).withSecond(0).withNano(0));
 			while (cardCount >= box.getMaxCardsPerDay()) {
-				newInterval += 1;
-				newTime = data.getSystemTime().plusDays(newInterval);
+				interval += 1;
+				newTime = data.getSystemTime().plusDays(interval);
 				cardCount = daoProvider.getScheduledCardDao().selectCardCountOfDay(readonlyHandle, box.getBoxId(),
 						newTime.withHour(0).withMinute(0).withSecond(0).withNano(0), newTime.plusDays(1).withHour(0).withMinute(0).withSecond(0).withNano(0));
 			}
 		}
 		data.setNextScheduledCardScheduledCardId(data.getUuid());
-		data.setNextScheduledCardEf(newFactor);
-		data.setNextScheduledCardInterval(newInterval);
+		data.setNextScheduledCardEf(ef);
+		data.setNextScheduledCardInterval(interval);
 		data.setNextScheduledCardCount(count);
 		data.setNextScheduledCardN(n);
 		data.setNextScheduledCardScheduledDate(newTime);
@@ -104,6 +101,14 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 
 		data.setReinforceCardId(data.getUuid());
 		data.setReinforceCardCreatedDate(data.getSystemTime());
+
+		IReinforceCardModel reinforceCard = daoProvider.getReinforceCardDao().selectByScheduledCardId(readonlyHandle,
+				scheduledCard.getScheduledCardId());
+		this.addScoreOutcome(data);
+		if (quality <= 3 && reinforceCard == null) {
+			this.addReinforceOutcome(data);
+		}
+		
 		return data;
 	}
 
