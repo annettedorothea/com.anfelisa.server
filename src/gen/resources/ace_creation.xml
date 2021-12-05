@@ -1,0 +1,18 @@
+<createTable tableName="timeline">
+	<column name="type" type="character varying">
+		<constraints nullable="false" />
+	</column>
+	<column name="name" type="character varying">
+		<constraints nullable="false" />
+	</column>
+	<column name="time" type="timestamp">
+		<constraints nullable="false" />
+	</column>
+	<column name="data" type="text">
+		<constraints nullable="false" />
+	</column>
+	<column name="uuid" type="character varying">
+		<constraints nullable="false" />
+	</column>
+</createTable>
+

@@ -1,0 +1,23 @@
+<createTable tableName="box">
+	<column name="boxid" type="character varying">
+		<constraints primaryKey="true" nullable="false"  />
+	</column>
+	<column name="userid" type="character varying">
+		<constraints  nullable="false"  references="user(userid)" deleteCascade="true" foreignKeyName="fk_box_userid" />
+	</column>
+	<column name="categoryid" type="character varying">
+		<constraints  nullable="false"  references="category(categoryid)" deleteCascade="true" foreignKeyName="fk_box_categoryid" />
+	</column>
+	<column name="maxinterval" type="integer">
+		<constraints    />
+	</column>
+	<column name="maxcardsperday" type="integer">
+		<constraints  nullable="false"  />
+	</column>
+	<column name="reverse" type="boolean">
+		<constraints  nullable="false"  />
+	</column>
+	<column name="archived" type="boolean">
+		<constraints  nullable="false"  />
+	</column>
+</createTable>
