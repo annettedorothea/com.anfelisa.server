@@ -110,11 +110,11 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 
 	protected static YamlConfiguration config;
 
+	@SuppressWarnings("unused")
 	private static DropwizardAppExtension<CustomAppConfiguration> EXT = new DropwizardAppExtension<>(
 			App.class,
-            "dev.yml"
-        );
-	
+			"dev.yml");
+		
 	@BeforeAll
 	public static void beforeClass() throws Exception {
 		Logger rootLogger = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);

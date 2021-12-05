@@ -79,7 +79,7 @@ scenarios
 					reverse: false
 				}
 				authorization "Annette-${testId}" : "password"
-		THEN 400
+		THEN 200
 
 	GetFilteredCards
 		GIVEN

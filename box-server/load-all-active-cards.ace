@@ -177,9 +177,9 @@ scenarios
 						cardId: "c4-${testId}",
 						count: 1,
 						ef: "2.6F",
-						interval: 6,
+						interval: 3,
 						lastQuality: 5,
-						next: "20200424 16:30" "yyyyMMdd HH:mm"
+						next: "20200421 16:30" "yyyyMMdd HH:mm"
 					}
 				]
 			}		
