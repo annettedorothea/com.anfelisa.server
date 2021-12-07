@@ -47,7 +47,7 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 		Float ef = scheduledCard.getEf();
 		Integer interval = scheduledCard.getInterval();
 		Integer count = scheduledCard.getCount() + 1;
-		Integer n = scheduledCard.getN() + 1;
+		Integer n = scheduledCard.getN();
 		Integer quality = data.getScoredCardQuality();
 
 		if (quality >= 3) {
