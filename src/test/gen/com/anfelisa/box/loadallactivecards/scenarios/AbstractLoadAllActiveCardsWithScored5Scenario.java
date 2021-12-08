@@ -346,7 +346,7 @@ public abstract class AbstractLoadAllActiveCardsWithScored5Scenario extends Base
 
 		if (prerequisite("ScoreCard5")) {
 			uuid = "score5-" + this.getTestId() + "";
-			this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
+			this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 16:55", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 			com.anfelisa.box.data.ScoreCardPayload payload_9 = objectMapper.readValue("{" +
 				"\"scoredCardQuality\" : 5," + 
 				"\"scheduledCardId\" : \"c4-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",

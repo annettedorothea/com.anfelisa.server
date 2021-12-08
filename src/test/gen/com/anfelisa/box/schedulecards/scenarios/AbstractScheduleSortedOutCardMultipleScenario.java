@@ -5,7 +5,7 @@
 
 
 
-package com.anfelisa.box.scorecard.scenarios;
+package com.anfelisa.box.schedulecards.scenarios;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,9 +27,9 @@ import de.acegen.SquishyDataProvider;
 import de.acegen.HttpResponse;
 
 @SuppressWarnings("unused")
-public abstract class AbstractScoreCard36Scenario extends BaseScenario {
+public abstract class AbstractScheduleSortedOutCardMultipleScenario extends BaseScenario {
 
-	static final Logger LOG = LoggerFactory.getLogger(AbstractScoreCard36Scenario.class);
+	static final Logger LOG = LoggerFactory.getLogger(AbstractScheduleSortedOutCardMultipleScenario.class);
 	
 	private void given() throws Exception {
 		String uuid;
@@ -344,16 +344,16 @@ public abstract class AbstractScoreCard36Scenario extends BaseScenario {
 			LOG.info("GIVEN: prerequisite for ScheduleCards not met");
 		}
 
-		if (prerequisite("ScoreCard3")) {
-			uuid = "score3-" + this.getTestId() + "";
+		if (prerequisite("ScoreCard0")) {
+			uuid = "score0-" + this.getTestId() + "";
 			this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 			com.anfelisa.box.data.ScoreCardPayload payload_9 = objectMapper.readValue("{" +
-				"\"scoredCardQuality\" : 3," + 
+				"\"scoredCardQuality\" : 0," + 
 				"\"scheduledCardId\" : \"c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.ScoreCardPayload.class);
 			com.anfelisa.box.data.ScoreCardData data_9 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"scoredCardQuality\" : 3," + 
+			"\"scoredCardQuality\" : 0," + 
 			"\"scheduledCardId\" : \"c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.ScoreCardData.class);
 			HttpResponse<Object> response_9 = 
@@ -367,38 +367,31 @@ public abstract class AbstractScoreCard36Scenario extends BaseScenario {
 			
 			if (response_9.getStatusCode() >= 400) {
 				String statusMessage = response_9.getStatusMessage() != null ? response_9.getStatusMessage() : "";
-				String message = "GIVEN ScoreCard3 fails\n" + statusMessage;
-				LOG.error("GIVEN: ScoreCard3 fails due to {} in {} ms", message, response_9.getDuration());
+				String message = "GIVEN ScoreCard0 fails\n" + statusMessage;
+				LOG.error("GIVEN: ScoreCard0 fails due to {} in {} ms", message, response_9.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: ScoreCard3 success in {} ms", response_9.getDuration());
+			LOG.info("GIVEN: ScoreCard0 success in {} ms", response_9.getDuration());
 			addToMetrics("ScoreCard", response_9.getDuration());
 		} else {
-			LOG.info("GIVEN: prerequisite for ScoreCard3 not met");
+			LOG.info("GIVEN: prerequisite for ScoreCard0 not met");
 		}
 
-		if (prerequisite("UpdateBoxMaxInterval")) {
-			uuid = this.randomUUID();
-			com.anfelisa.box.data.UpdateBoxPayload payload_10 = objectMapper.readValue("{" +
-				"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
-				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
-				"\"categoryName\" : \"changed\"," + 
-				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 11," + 
-				"\"maxInterval\" : 90} ",
-					com.anfelisa.box.data.UpdateBoxPayload.class);
-			com.anfelisa.box.data.BoxUpdateData data_10 = objectMapper.readValue("{" +
+		if (prerequisite("ScoreCard1")) {
+			uuid = "score1-" + this.getTestId() + "";
+			this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 16:35", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
+			com.anfelisa.box.data.ScoreCardPayload payload_10 = objectMapper.readValue("{" +
+				"\"scoredCardQuality\" : 1," + 
+				"\"scheduledCardId\" : \"c3-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
+					com.anfelisa.box.data.ScoreCardPayload.class);
+			com.anfelisa.box.data.ScoreCardData data_10 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
-			"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
-			"\"categoryName\" : \"changed\"," + 
-			"\"dictionaryLookup\" : false," + 
-			"\"maxCardsPerDay\" : 11," + 
-			"\"maxInterval\" : 90} ",
-					com.anfelisa.box.data.BoxUpdateData.class);
+			"\"scoredCardQuality\" : 1," + 
+			"\"scheduledCardId\" : \"c3-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
+					com.anfelisa.box.data.ScoreCardData.class);
 			HttpResponse<Object> response_10 = 
-			this.httpPut(
-				"/box/update", 
+			this.httpPost(
+				"/card/score", 
 			 	payload_10,
 				authorization("Annette-${testId}", "password"),
 				uuid,
@@ -407,27 +400,27 @@ public abstract class AbstractScoreCard36Scenario extends BaseScenario {
 			
 			if (response_10.getStatusCode() >= 400) {
 				String statusMessage = response_10.getStatusMessage() != null ? response_10.getStatusMessage() : "";
-				String message = "GIVEN UpdateBoxMaxInterval fails\n" + statusMessage;
-				LOG.error("GIVEN: UpdateBoxMaxInterval fails due to {} in {} ms", message, response_10.getDuration());
+				String message = "GIVEN ScoreCard1 fails\n" + statusMessage;
+				LOG.error("GIVEN: ScoreCard1 fails due to {} in {} ms", message, response_10.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: UpdateBoxMaxInterval success in {} ms", response_10.getDuration());
-			addToMetrics("UpdateBox", response_10.getDuration());
+			LOG.info("GIVEN: ScoreCard1 success in {} ms", response_10.getDuration());
+			addToMetrics("ScoreCard", response_10.getDuration());
 		} else {
-			LOG.info("GIVEN: prerequisite for UpdateBoxMaxInterval not met");
+			LOG.info("GIVEN: prerequisite for ScoreCard1 not met");
 		}
 
-		if (prerequisite("ScoreCard31")) {
-			uuid = "score31-" + this.getTestId() + "";
-			this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200425 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
+		if (prerequisite("ScoreCard2")) {
+			uuid = "score2-" + this.getTestId() + "";
+			this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 16:40", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 			com.anfelisa.box.data.ScoreCardPayload payload_11 = objectMapper.readValue("{" +
-				"\"scoredCardQuality\" : 3," + 
-				"\"scheduledCardId\" : \"score3-" + this.getTestId() + "\"} ",
+				"\"scoredCardQuality\" : 2," + 
+				"\"scheduledCardId\" : \"c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.ScoreCardPayload.class);
 			com.anfelisa.box.data.ScoreCardData data_11 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"scoredCardQuality\" : 3," + 
-			"\"scheduledCardId\" : \"score3-" + this.getTestId() + "\"} ",
+			"\"scoredCardQuality\" : 2," + 
+			"\"scheduledCardId\" : \"c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.ScoreCardData.class);
 			HttpResponse<Object> response_11 = 
 			this.httpPost(
@@ -440,27 +433,27 @@ public abstract class AbstractScoreCard36Scenario extends BaseScenario {
 			
 			if (response_11.getStatusCode() >= 400) {
 				String statusMessage = response_11.getStatusMessage() != null ? response_11.getStatusMessage() : "";
-				String message = "GIVEN ScoreCard31 fails\n" + statusMessage;
-				LOG.error("GIVEN: ScoreCard31 fails due to {} in {} ms", message, response_11.getDuration());
+				String message = "GIVEN ScoreCard2 fails\n" + statusMessage;
+				LOG.error("GIVEN: ScoreCard2 fails due to {} in {} ms", message, response_11.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: ScoreCard31 success in {} ms", response_11.getDuration());
+			LOG.info("GIVEN: ScoreCard2 success in {} ms", response_11.getDuration());
 			addToMetrics("ScoreCard", response_11.getDuration());
 		} else {
-			LOG.info("GIVEN: prerequisite for ScoreCard31 not met");
+			LOG.info("GIVEN: prerequisite for ScoreCard2 not met");
 		}
 
-		if (prerequisite("ScoreCard32")) {
-			uuid = "score32-" + this.getTestId() + "";
-			this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200515 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
+		if (prerequisite("ScoreCard3")) {
+			uuid = "score3-" + this.getTestId() + "";
+			this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 16:45", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 			com.anfelisa.box.data.ScoreCardPayload payload_12 = objectMapper.readValue("{" +
 				"\"scoredCardQuality\" : 3," + 
-				"\"scheduledCardId\" : \"score31-" + this.getTestId() + "\"} ",
+				"\"scheduledCardId\" : \"c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.ScoreCardPayload.class);
 			com.anfelisa.box.data.ScoreCardData data_12 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 			"\"scoredCardQuality\" : 3," + 
-			"\"scheduledCardId\" : \"score31-" + this.getTestId() + "\"} ",
+			"\"scheduledCardId\" : \"c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.ScoreCardData.class);
 			HttpResponse<Object> response_12 = 
 			this.httpPost(
@@ -473,27 +466,27 @@ public abstract class AbstractScoreCard36Scenario extends BaseScenario {
 			
 			if (response_12.getStatusCode() >= 400) {
 				String statusMessage = response_12.getStatusMessage() != null ? response_12.getStatusMessage() : "";
-				String message = "GIVEN ScoreCard32 fails\n" + statusMessage;
-				LOG.error("GIVEN: ScoreCard32 fails due to {} in {} ms", message, response_12.getDuration());
+				String message = "GIVEN ScoreCard3 fails\n" + statusMessage;
+				LOG.error("GIVEN: ScoreCard3 fails due to {} in {} ms", message, response_12.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: ScoreCard32 success in {} ms", response_12.getDuration());
+			LOG.info("GIVEN: ScoreCard3 success in {} ms", response_12.getDuration());
 			addToMetrics("ScoreCard", response_12.getDuration());
 		} else {
-			LOG.info("GIVEN: prerequisite for ScoreCard32 not met");
+			LOG.info("GIVEN: prerequisite for ScoreCard3 not met");
 		}
 
-		if (prerequisite("ScoreCard33")) {
-			uuid = "score33-" + this.getTestId() + "";
-			this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200615 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
+		if (prerequisite("ScoreCard4")) {
+			uuid = "score4-" + this.getTestId() + "";
+			this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 16:50", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 			com.anfelisa.box.data.ScoreCardPayload payload_13 = objectMapper.readValue("{" +
 				"\"scoredCardQuality\" : 4," + 
-				"\"scheduledCardId\" : \"score32-" + this.getTestId() + "\"} ",
+				"\"scheduledCardId\" : \"c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.ScoreCardPayload.class);
 			com.anfelisa.box.data.ScoreCardData data_13 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 			"\"scoredCardQuality\" : 4," + 
-			"\"scheduledCardId\" : \"score32-" + this.getTestId() + "\"} ",
+			"\"scheduledCardId\" : \"c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.ScoreCardData.class);
 			HttpResponse<Object> response_13 = 
 			this.httpPost(
@@ -506,27 +499,27 @@ public abstract class AbstractScoreCard36Scenario extends BaseScenario {
 			
 			if (response_13.getStatusCode() >= 400) {
 				String statusMessage = response_13.getStatusMessage() != null ? response_13.getStatusMessage() : "";
-				String message = "GIVEN ScoreCard33 fails\n" + statusMessage;
-				LOG.error("GIVEN: ScoreCard33 fails due to {} in {} ms", message, response_13.getDuration());
+				String message = "GIVEN ScoreCard4 fails\n" + statusMessage;
+				LOG.error("GIVEN: ScoreCard4 fails due to {} in {} ms", message, response_13.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: ScoreCard33 success in {} ms", response_13.getDuration());
+			LOG.info("GIVEN: ScoreCard4 success in {} ms", response_13.getDuration());
 			addToMetrics("ScoreCard", response_13.getDuration());
 		} else {
-			LOG.info("GIVEN: prerequisite for ScoreCard33 not met");
+			LOG.info("GIVEN: prerequisite for ScoreCard4 not met");
 		}
 
-		if (prerequisite("ScoreCard34")) {
-			uuid = "score34-" + this.getTestId() + "";
-			this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200819 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
+		if (prerequisite("ScoreCard5")) {
+			uuid = "score5-" + this.getTestId() + "";
+			this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 16:55", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 			com.anfelisa.box.data.ScoreCardPayload payload_14 = objectMapper.readValue("{" +
 				"\"scoredCardQuality\" : 5," + 
-				"\"scheduledCardId\" : \"score33-" + this.getTestId() + "\"} ",
+				"\"scheduledCardId\" : \"c4-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.ScoreCardPayload.class);
 			com.anfelisa.box.data.ScoreCardData data_14 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 			"\"scoredCardQuality\" : 5," + 
-			"\"scheduledCardId\" : \"score33-" + this.getTestId() + "\"} ",
+			"\"scheduledCardId\" : \"c4-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.ScoreCardData.class);
 			HttpResponse<Object> response_14 = 
 			this.httpPost(
@@ -539,31 +532,32 @@ public abstract class AbstractScoreCard36Scenario extends BaseScenario {
 			
 			if (response_14.getStatusCode() >= 400) {
 				String statusMessage = response_14.getStatusMessage() != null ? response_14.getStatusMessage() : "";
-				String message = "GIVEN ScoreCard34 fails\n" + statusMessage;
-				LOG.error("GIVEN: ScoreCard34 fails due to {} in {} ms", message, response_14.getDuration());
+				String message = "GIVEN ScoreCard5 fails\n" + statusMessage;
+				LOG.error("GIVEN: ScoreCard5 fails due to {} in {} ms", message, response_14.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: ScoreCard34 success in {} ms", response_14.getDuration());
+			LOG.info("GIVEN: ScoreCard5 success in {} ms", response_14.getDuration());
 			addToMetrics("ScoreCard", response_14.getDuration());
 		} else {
-			LOG.info("GIVEN: prerequisite for ScoreCard34 not met");
+			LOG.info("GIVEN: prerequisite for ScoreCard5 not met");
 		}
 
-		if (prerequisite("ScoreCard35")) {
-			uuid = "score35-" + this.getTestId() + "";
-			this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20201120 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
-			com.anfelisa.box.data.ScoreCardPayload payload_15 = objectMapper.readValue("{" +
-				"\"scoredCardQuality\" : 3," + 
-				"\"scheduledCardId\" : \"score34-" + this.getTestId() + "\"} ",
-					com.anfelisa.box.data.ScoreCardPayload.class);
-			com.anfelisa.box.data.ScoreCardData data_15 = objectMapper.readValue("{" +
+		if (prerequisite("SortCardsOut")) {
+			uuid = this.randomUUID();
+			com.anfelisa.box.data.SortCardsOutPayload payload_15 = objectMapper.readValue("{" +
+				"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"," + 
+				"\"c4-" + this.getTestId() + "\"]," + 
+				"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
+					com.anfelisa.box.data.SortCardsOutPayload.class);
+			com.anfelisa.box.data.SortCardsOutData data_15 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"scoredCardQuality\" : 3," + 
-			"\"scheduledCardId\" : \"score34-" + this.getTestId() + "\"} ",
-					com.anfelisa.box.data.ScoreCardData.class);
+			"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"," + 
+			"\"c4-" + this.getTestId() + "\"]," + 
+			"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
+					com.anfelisa.box.data.SortCardsOutData.class);
 			HttpResponse<Object> response_15 = 
 			this.httpPost(
-				"/card/score", 
+				"/cards/sort-out", 
 			 	payload_15,
 				authorization("Annette-${testId}", "password"),
 				uuid,
@@ -572,42 +566,42 @@ public abstract class AbstractScoreCard36Scenario extends BaseScenario {
 			
 			if (response_15.getStatusCode() >= 400) {
 				String statusMessage = response_15.getStatusMessage() != null ? response_15.getStatusMessage() : "";
-				String message = "GIVEN ScoreCard35 fails\n" + statusMessage;
-				LOG.error("GIVEN: ScoreCard35 fails due to {} in {} ms", message, response_15.getDuration());
+				String message = "GIVEN SortCardsOut fails\n" + statusMessage;
+				LOG.error("GIVEN: SortCardsOut fails due to {} in {} ms", message, response_15.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: ScoreCard35 success in {} ms", response_15.getDuration());
-			addToMetrics("ScoreCard", response_15.getDuration());
+			LOG.info("GIVEN: SortCardsOut success in {} ms", response_15.getDuration());
+			addToMetrics("SortCardsOut", response_15.getDuration());
 		} else {
-			LOG.info("GIVEN: prerequisite for ScoreCard35 not met");
+			LOG.info("GIVEN: prerequisite for SortCardsOut not met");
 		}
 
 	}
 	
 	private HttpResponse<Object> when_0() throws Exception {
-		String uuid = "score36-" + this.getTestId() + "";
-		this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20210301 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
-		com.anfelisa.box.data.ScoreCardPayload payload_0 = objectMapper.readValue("{" +
-			"\"scoredCardQuality\" : 3," + 
-			"\"scheduledCardId\" : \"score35-" + this.getTestId() + "\"} ",
-				com.anfelisa.box.data.ScoreCardPayload.class);
-		com.anfelisa.box.data.ScoreCardData data_0 = objectMapper.readValue("{" +
+		String uuid = "again-" + this.getTestId() + "";
+		this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200420 09:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
+		com.anfelisa.box.data.ScheduleCardsPayload payload_0 = objectMapper.readValue("{" +
+			"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"]," + 
+			"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
+				com.anfelisa.box.data.ScheduleCardsPayload.class);
+		com.anfelisa.box.data.ScheduledCardsData data_0 = objectMapper.readValue("{" +
 		"\"uuid\" : \"" + uuid + "\"," + 
-		"\"scoredCardQuality\" : 3," + 
-		"\"scheduledCardId\" : \"score35-" + this.getTestId() + "\"} ",
-				com.anfelisa.box.data.ScoreCardData.class);
+		"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"]," + 
+		"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
+				com.anfelisa.box.data.ScheduledCardsData.class);
 		HttpResponse<Object> response = 
 		this.httpPost(
-			"/card/score", 
+			"/cards/schedule", 
 		 	payload_0,
 			authorization("Annette-${testId}", "password"),
 			uuid,
 			null
 		);
 		
-		LOG.info("WHEN: ScoreCard finished in {} ms", response.getDuration());
+		LOG.info("WHEN: ScheduleCards finished in {} ms", response.getDuration());
 		if (response.getStatusCode() >= 200 && response.getStatusCode() < 300) {
-			addToMetrics("ScoreCard", response.getDuration());
+			addToMetrics("ScheduleCards", response.getDuration());
 		}
 		return response;
 	}
@@ -634,46 +628,46 @@ public abstract class AbstractScoreCard36Scenario extends BaseScenario {
 	public void runTest() throws Exception {
 		given();
 		
-		if (prerequisite("ScoreCard36")) {
+		if (prerequisite("ScheduleSortedOutCardMultiple")) {
 			
 				HttpResponse<Object> response_0 = when_0();
 				then_0(response_0);
-				this.newScheduledCardWasCreated();
+				this.cardWasScheduled();
 				
 		
 		} else {
-			LOG.info("WHEN: prerequisite for ScoreCard36 not met");
+			LOG.info("WHEN: prerequisite for ScheduleSortedOutCardMultiple not met");
 		}
 		
 			
 	}
 	
 	
-	private void newScheduledCardWasCreated() throws Exception {
-		com.anfelisa.box.models.IScheduledCardModel actual = daoProvider.getScheduledCardDao().selectByScheduledCardId(handle, "score36-" + this.getTestId() + "");
+	private void cardWasScheduled() throws Exception {
+		com.anfelisa.box.models.IScheduledCardModel actual = daoProvider.getScheduledCardDao().selectByScheduledCardId(handle, "score0-" + this.getTestId() + "");
 		
 		com.anfelisa.box.models.IScheduledCardModel expected = objectMapper.readValue("{" +
 			"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 			"\"cardId\" : \"c1-" + this.getTestId() + "\"," + 
-			"\"count\" : 7," + 
-			"\"createdDate\" : \"2021-03-01T16:30\"," + 
-			"\"ef\" : \"1.9F\"," + 
-			"\"interval\" : 90," + 
-			"\"lastQuality\" : 3," + 
-			"\"n\" : 8," + 
+			"\"count\" : 1," + 
+			"\"createdDate\" : \"2020-04-18T16:30\"," + 
+			"\"ef\" : \"1.7F\"," + 
+			"\"interval\" : 1," + 
+			"\"lastQuality\" : 0," + 
+			"\"n\" : 0," + 
 			"\"quality\" : null," + 
-			"\"scheduledCardId\" : \"score36-" + this.getTestId() + "\"," + 
-			"\"scheduledDate\" : \"2021-05-30T16:30\"," + 
+			"\"scheduledCardId\" : \"score0-" + this.getTestId() + "\"," + 
+			"\"scheduledDate\" : \"2020-04-20T09:30\"," + 
 			"\"scoredDate\" : null} ",
 		com.anfelisa.box.models.ScheduledCardModel.class);
 		assertThat(actual, expected);
 	
-		LOG.info("THEN: newScheduledCardWasCreated passed");
+		LOG.info("THEN: cardWasScheduled passed");
 	}
 		
 	@Override
 	protected String scenarioName() {
-		return "ScoreCard36";
+		return "ScheduleSortedOutCardMultiple";
 	}
 	
 }

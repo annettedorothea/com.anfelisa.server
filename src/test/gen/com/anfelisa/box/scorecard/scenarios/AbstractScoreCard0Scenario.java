@@ -442,10 +442,10 @@ public abstract class AbstractScoreCard0Scenario extends BaseScenario {
 			"\"cardId\" : \"c1-" + this.getTestId() + "\"," + 
 			"\"count\" : 1," + 
 			"\"createdDate\" : \"2020-04-18T16:30\"," + 
-			"\"ef\" : \"2.5F\"," + 
+			"\"ef\" : \"1.7F\"," + 
 			"\"interval\" : 1," + 
 			"\"lastQuality\" : 0," + 
-			"\"n\" : 1," + 
+			"\"n\" : 0," + 
 			"\"quality\" : null," + 
 			"\"scheduledCardId\" : \"score0-" + this.getTestId() + "\"," + 
 			"\"scheduledDate\" : \"2020-04-19T16:30\"," + 

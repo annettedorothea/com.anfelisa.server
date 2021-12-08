@@ -348,7 +348,7 @@ public abstract class AbstractScoreCard3Scenario extends BaseScenario {
 	
 	private HttpResponse<Object> when_0() throws Exception {
 		String uuid = "score3-" + this.getTestId() + "";
-		this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
+		this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 16:45", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 		com.anfelisa.box.data.ScoreCardPayload payload_0 = objectMapper.readValue("{" +
 			"\"scoredCardQuality\" : 3," + 
 			"\"scheduledCardId\" : \"c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
@@ -428,7 +428,7 @@ public abstract class AbstractScoreCard3Scenario extends BaseScenario {
 			"\"quality\" : 3," + 
 			"\"scheduledCardId\" : \"c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"," + 
 			"\"scheduledDate\" : \"2020-04-18T10:30\"," + 
-			"\"scoredDate\" : \"2020-04-18T16:30\"} ",
+			"\"scoredDate\" : \"2020-04-18T16:45\"} ",
 		com.anfelisa.box.models.ScheduledCardModel.class);
 		assertThat(actual, expected);
 	
@@ -441,14 +441,14 @@ public abstract class AbstractScoreCard3Scenario extends BaseScenario {
 			"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 			"\"cardId\" : \"c1-" + this.getTestId() + "\"," + 
 			"\"count\" : 1," + 
-			"\"createdDate\" : \"2020-04-18T16:30\"," + 
+			"\"createdDate\" : \"2020-04-18T16:45\"," + 
 			"\"ef\" : \"2.36F\"," + 
 			"\"interval\" : 6," + 
 			"\"lastQuality\" : 3," + 
 			"\"n\" : 2," + 
 			"\"quality\" : null," + 
 			"\"scheduledCardId\" : \"score3-" + this.getTestId() + "\"," + 
-			"\"scheduledDate\" : \"2020-04-24T16:30\"," + 
+			"\"scheduledDate\" : \"2020-04-24T16:45\"," + 
 			"\"scoredDate\" : null} ",
 		com.anfelisa.box.models.ScheduledCardModel.class);
 		assertThat(actual, expected);
@@ -460,7 +460,7 @@ public abstract class AbstractScoreCard3Scenario extends BaseScenario {
 		
 		com.anfelisa.box.models.IReinforceCardModel expected = objectMapper.readValue("{" +
 			"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
-			"\"changeDate\" : \"2020-04-18T16:30\"," + 
+			"\"changeDate\" : \"2020-04-18T16:45\"," + 
 			"\"reinforceCardId\" : \"score3-" + this.getTestId() + "\"," + 
 			"\"scheduledCardId\" : \"c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
 		com.anfelisa.box.models.ReinforceCardModel.class);

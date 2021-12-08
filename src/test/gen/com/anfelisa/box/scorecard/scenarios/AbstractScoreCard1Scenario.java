@@ -348,7 +348,7 @@ public abstract class AbstractScoreCard1Scenario extends BaseScenario {
 	
 	private HttpResponse<Object> when_0() throws Exception {
 		String uuid = "score1-" + this.getTestId() + "";
-		this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
+		this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 16:35", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 		com.anfelisa.box.data.ScoreCardPayload payload_0 = objectMapper.readValue("{" +
 			"\"scoredCardQuality\" : 1," + 
 			"\"scheduledCardId\" : \"c3-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
@@ -428,7 +428,7 @@ public abstract class AbstractScoreCard1Scenario extends BaseScenario {
 			"\"quality\" : 1," + 
 			"\"scheduledCardId\" : \"c3-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"," + 
 			"\"scheduledDate\" : \"2020-04-18T10:30\"," + 
-			"\"scoredDate\" : \"2020-04-18T16:30\"} ",
+			"\"scoredDate\" : \"2020-04-18T16:35\"} ",
 		com.anfelisa.box.models.ScheduledCardModel.class);
 		assertThat(actual, expected);
 	
@@ -441,14 +441,14 @@ public abstract class AbstractScoreCard1Scenario extends BaseScenario {
 			"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 			"\"cardId\" : \"c3-" + this.getTestId() + "\"," + 
 			"\"count\" : 1," + 
-			"\"createdDate\" : \"2020-04-18T16:30\"," + 
-			"\"ef\" : \"2.5F\"," + 
+			"\"createdDate\" : \"2020-04-18T16:35\"," + 
+			"\"ef\" : \"1.96F\"," + 
 			"\"interval\" : 1," + 
 			"\"lastQuality\" : 1," + 
-			"\"n\" : 1," + 
+			"\"n\" : 0," + 
 			"\"quality\" : null," + 
 			"\"scheduledCardId\" : \"score1-" + this.getTestId() + "\"," + 
-			"\"scheduledDate\" : \"2020-04-19T16:30\"," + 
+			"\"scheduledDate\" : \"2020-04-19T16:35\"," + 
 			"\"scoredDate\" : null} ",
 		com.anfelisa.box.models.ScheduledCardModel.class);
 		assertThat(actual, expected);
@@ -460,7 +460,7 @@ public abstract class AbstractScoreCard1Scenario extends BaseScenario {
 		
 		com.anfelisa.box.models.IReinforceCardModel expected = objectMapper.readValue("{" +
 			"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
-			"\"changeDate\" : \"2020-04-18T16:30\"," + 
+			"\"changeDate\" : \"2020-04-18T16:35\"," + 
 			"\"reinforceCardId\" : \"score1-" + this.getTestId() + "\"," + 
 			"\"scheduledCardId\" : \"c3-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
 		com.anfelisa.box.models.ReinforceCardModel.class);

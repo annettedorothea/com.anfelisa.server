@@ -379,7 +379,7 @@ public abstract class AbstractScheduleSortedOutCardScenario extends BaseScenario
 
 		if (prerequisite("ScoreCard1")) {
 			uuid = "score1-" + this.getTestId() + "";
-			this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
+			this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 16:35", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 			com.anfelisa.box.data.ScoreCardPayload payload_10 = objectMapper.readValue("{" +
 				"\"scoredCardQuality\" : 1," + 
 				"\"scheduledCardId\" : \"c3-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
@@ -519,10 +519,10 @@ public abstract class AbstractScheduleSortedOutCardScenario extends BaseScenario
 			"\"cardId\" : \"c1-" + this.getTestId() + "\"," + 
 			"\"count\" : 1," + 
 			"\"createdDate\" : \"2020-04-18T16:30\"," + 
-			"\"ef\" : \"2.5F\"," + 
+			"\"ef\" : \"1.7F\"," + 
 			"\"interval\" : 1," + 
 			"\"lastQuality\" : 0," + 
-			"\"n\" : 1," + 
+			"\"n\" : 0," + 
 			"\"quality\" : null," + 
 			"\"scheduledCardId\" : \"score0-" + this.getTestId() + "\"," + 
 			"\"scheduledDate\" : \"2020-04-20T09:30\"," + 

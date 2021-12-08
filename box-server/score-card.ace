@@ -38,10 +38,10 @@ scenarios
 				cardId: "c1-${testId}",
 				count: 1,
 				createdDate: "20200418 16:30" "yyyyMMdd HH:mm",
-				ef: "2.5F",
+				ef: "1.7F",
 				interval: 1,
 				lastQuality: 0,
-				n: 1,
+				n: 0,
 				quality: null,
 				scheduledCardId: "score0-${testId}",
 				scheduledDate: "20200419 16:30" "yyyyMMdd HH:mm",
@@ -61,7 +61,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.ScoreCard
 				uuid "score1-${testId}"
-				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
+				systemTime "20200418 16:35" "yyyyMMdd HH:mm"
 				{
 					scoredCardQuality: 1,
 					scheduledCardId: "c3-${testId}-sc1-${testId}"
@@ -82,27 +82,27 @@ scenarios
 				quality: 1,
 				scheduledCardId: "c3-${testId}-sc1-${testId}",
 				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
-				scoredDate: "20200418 16:30" "yyyyMMdd HH:mm"
+				scoredDate: "20200418 16:35" "yyyyMMdd HH:mm"
 			}
 			newScheduledCardWasCreated ScheduledCard selectBy ( scheduledCardId: "score1-${testId}" ) shouldBe 
 			{
 				boxId: "boxId-${testId}",
 				cardId: "c3-${testId}",
 				count: 1,
-				createdDate: "20200418 16:30" "yyyyMMdd HH:mm",
-				ef: "2.5F",
+				createdDate: "20200418 16:35" "yyyyMMdd HH:mm",
+				ef: "1.96F",
 				interval: 1,
 				lastQuality: 1,
-				n: 1,
+				n: 0,
 				quality: null,
 				scheduledCardId: "score1-${testId}",
-				scheduledDate: "20200419 16:30" "yyyyMMdd HH:mm",
+				scheduledDate: "20200419 16:35" "yyyyMMdd HH:mm",
 				scoredDate: null
 			}
 			reinforceCardWasCreated ReinforceCard selectBy ( reinforceCardId: "score1-${testId}" ) shouldBe 
 			{
 				boxId: "boxId-${testId}",
-				changeDate: "20200418 16:30" "yyyyMMdd HH:mm",
+				changeDate: "20200418 16:35" "yyyyMMdd HH:mm",
 				reinforceCardId: "score1-${testId}",
 				scheduledCardId: "c3-${testId}-sc1-${testId}"
 			}
@@ -113,7 +113,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.ScoreCard
 				uuid "score2-${testId}"
-				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
+				systemTime "20200418 16:40" "yyyyMMdd HH:mm"
 				{
 					scoredCardQuality: 2,
 					scheduledCardId: "c1-${testId}-sc1-${testId}"
@@ -134,27 +134,27 @@ scenarios
 				quality: 2,
 				scheduledCardId: "c1-${testId}-sc1-${testId}",
 				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
-				scoredDate: "20200418 16:30" "yyyyMMdd HH:mm"
+				scoredDate: "20200418 16:40" "yyyyMMdd HH:mm"
 			}
 			newScheduledCardWasCreated ScheduledCard selectBy ( scheduledCardId: "score2-${testId}" ) shouldBe 
 			{
 				boxId: "boxId-${testId}",
 				cardId: "c1-${testId}",
 				count: 1,
-				createdDate: "20200418 16:30" "yyyyMMdd HH:mm",
-				ef: "2.5F",
+				createdDate: "20200418 16:40" "yyyyMMdd HH:mm",
+				ef: "2.18F",
 				interval: 1,
 				lastQuality: 2,
-				n: 1,
+				n: 0,
 				quality: null,
 				scheduledCardId: "score2-${testId}",
-				scheduledDate: "20200419 16:30" "yyyyMMdd HH:mm",
+				scheduledDate: "20200419 16:40" "yyyyMMdd HH:mm",
 				scoredDate: null
 			}
 			reinforceCardWasCreated ReinforceCard selectBy ( reinforceCardId: "score2-${testId}" ) shouldBe 
 			{
 				boxId: "boxId-${testId}",
-				changeDate: "20200418 16:30" "yyyyMMdd HH:mm",
+				changeDate: "20200418 16:40" "yyyyMMdd HH:mm",
 				reinforceCardId: "score2-${testId}",
 				scheduledCardId: "c1-${testId}-sc1-${testId}"
 			}
@@ -165,7 +165,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.ScoreCard
 				uuid "score3-${testId}"
-				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
+				systemTime "20200418 16:45" "yyyyMMdd HH:mm"
 				{
 					scoredCardQuality: 3,
 					scheduledCardId: "c1-${testId}-sc1-${testId}"
@@ -186,27 +186,27 @@ scenarios
 				quality: 3,
 				scheduledCardId: "c1-${testId}-sc1-${testId}",
 				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
-				scoredDate: "20200418 16:30" "yyyyMMdd HH:mm"
+				scoredDate: "20200418 16:45" "yyyyMMdd HH:mm"
 			}
 			newScheduledCardWasCreated ScheduledCard selectBy ( scheduledCardId: "score3-${testId}" ) shouldBe 
 			{
 				boxId: "boxId-${testId}",
 				cardId: "c1-${testId}",
 				count: 1,
-				createdDate: "20200418 16:30" "yyyyMMdd HH:mm",
+				createdDate: "20200418 16:45" "yyyyMMdd HH:mm",
 				ef: "2.36F",
 				interval: 6,
 				lastQuality: 3,
 				n: 2,
 				quality: null,
 				scheduledCardId: "score3-${testId}",
-				scheduledDate: "20200424 16:30" "yyyyMMdd HH:mm",
+				scheduledDate: "20200424 16:45" "yyyyMMdd HH:mm",
 				scoredDate: null
 			}
 			reinforceCardWasCreated ReinforceCard selectBy ( reinforceCardId: "score3-${testId}" ) shouldBe 
 			{
 				boxId: "boxId-${testId}",
-				changeDate: "20200418 16:30" "yyyyMMdd HH:mm",
+				changeDate: "20200418 16:45" "yyyyMMdd HH:mm",
 				reinforceCardId: "score3-${testId}",
 				scheduledCardId: "c1-${testId}-sc1-${testId}"
 			}
@@ -217,7 +217,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.ScoreCard
 				uuid "score4-${testId}"
-				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
+				systemTime "20200418 16:50" "yyyyMMdd HH:mm"
 				{
 					scoredCardQuality: 4,
 					scheduledCardId: "c1-${testId}-sc1-${testId}"
@@ -238,21 +238,21 @@ scenarios
 				quality: 4,
 				scheduledCardId: "c1-${testId}-sc1-${testId}",
 				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
-				scoredDate: "20200418 16:30" "yyyyMMdd HH:mm"
+				scoredDate: "20200418 16:50" "yyyyMMdd HH:mm"
 			}
 			newScheduledCardWasCreated ScheduledCard selectBy ( scheduledCardId: "score4-${testId}" ) shouldBe 
 			{
 				boxId: "boxId-${testId}",
 				cardId: "c1-${testId}",
 				count: 1,
-				createdDate: "20200418 16:30" "yyyyMMdd HH:mm",
+				createdDate: "20200418 16:50" "yyyyMMdd HH:mm",
 				ef: "2.5F",
 				interval: 6,
 				lastQuality: 4,
 				n: 2,
 				quality: null,
 				scheduledCardId: "score4-${testId}",
-				scheduledDate: "20200424 16:30" "yyyyMMdd HH:mm",
+				scheduledDate: "20200424 16:50" "yyyyMMdd HH:mm",
 				scoredDate: null
 			}
 			reinforceCardWasNotCreated ReinforceCard selectBy ( reinforceCardId: "score4-${testId}" ) shouldBe null
@@ -263,7 +263,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.ScoreCard
 				uuid "score5-${testId}"
-				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
+				systemTime "20200418 16:55" "yyyyMMdd HH:mm"
 				{
 					scoredCardQuality: 5,
 					scheduledCardId: "c4-${testId}-sc1-${testId}"
@@ -284,21 +284,21 @@ scenarios
 				quality: 5,
 				scheduledCardId: "c4-${testId}-sc1-${testId}",
 				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
-				scoredDate: "20200418 16:30" "yyyyMMdd HH:mm"
+				scoredDate: "20200418 16:55" "yyyyMMdd HH:mm"
 			}
 			newScheduledCardWasCreated ScheduledCard selectBy ( scheduledCardId: "score5-${testId}" ) shouldBe 
 			{
 				boxId: "boxId-${testId}",
 				cardId: "c4-${testId}",
 				count: 1,
-				createdDate: "20200418 16:30" "yyyyMMdd HH:mm",
+				createdDate: "20200418 16:55" "yyyyMMdd HH:mm",
 				ef: "2.6F",
 				interval: 6,
 				lastQuality: 5,
 				n: 2,
 				quality: null,
 				scheduledCardId: "score5-${testId}",
-				scheduledDate: "20200424 16:30" "yyyyMMdd HH:mm",
+				scheduledDate: "20200424 16:55" "yyyyMMdd HH:mm",
 				scoredDate: null
 			}
 			reinforceCardWasNotCreated ReinforceCard selectBy ( reinforceCardId: "score5-${testId}" ) shouldBe null
@@ -316,375 +316,6 @@ scenarios
 				}
 				authorization "Admin" : "admin-password"
 		THEN 200
-		persistence
-			cardWasScored ScheduledCard selectBy (scheduledCardId: "c6-${testId}-sc6-${testId}") shouldBe 
-			{
-				boxId: "adminBox-${testId}",
-				cardId: "c6-${testId}",
-				count: 0,
-				createdDate: "20200418 10:30" "yyyyMMdd HH:mm",
-				ef: "2.5F",
-				interval: 1,
-				lastQuality: null,
-				n: 1,
-				quality: 1,
-				scheduledCardId: "c6-${testId}-sc6-${testId}",
-				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
-				scoredDate: "20200418 16:30" "yyyyMMdd HH:mm"
-			}
-			newScheduledCardWasCreated ScheduledCard selectBy ( scheduledCardId: "admin-score-${testId}" ) shouldBe 
-			{
-				boxId: "adminBox-${testId}",
-				cardId: "c6-${testId}",
-				count: 1,
-				createdDate: "20200418 16:30" "yyyyMMdd HH:mm",
-				ef: "2.5F",
-				interval: 1,
-				lastQuality: 1,
-				n: 1,
-				quality: null,
-				scheduledCardId: "admin-score-${testId}",
-				scheduledDate: "20200419 16:30" "yyyyMMdd HH:mm",
-				scoredDate: null
-			}
-			reinforceCardWasCreated ReinforceCard selectBy ( reinforceCardId: "admin-score-${testId}" ) shouldBe 
-			{
-				boxId: "adminBox-${testId}",
-				changeDate: "20200418 16:30" "yyyyMMdd HH:mm",
-				reinforceCardId: "admin-score-${testId}",
-				scheduledCardId: "c6-${testId}-sc6-${testId}"
-			}
-
-	ScoreCard31
-		GIVEN
-			ScoreCard3
-			com.anfelisa.box.updatebox.UpdateBoxMaxInterval exclude GIVEN
-		WHEN
-			com.anfelisa.box.ScoreCard
-				uuid "score31-${testId}"
-				systemTime "20200425 16:30" "yyyyMMdd HH:mm"
-				{
-					scoredCardQuality: 3,
-					scheduledCardId: "score3-${testId}"
-				}
-				authorization "Annette-${testId}" : "password"
-		THEN 200
-		persistence
-			newScheduledCardWasCreated ScheduledCard selectBy ( scheduledCardId: "score31-${testId}" ) shouldBe 
-			{
-				boxId: "boxId-${testId}",
-				cardId: "c1-${testId}",
-				count: 2,
-				createdDate: "20200425 16:30" "yyyyMMdd HH:mm",
-				ef: "2.22F",
-				interval: 13,
-				lastQuality: 3,
-				n: 3,
-				quality: null,
-				scheduledCardId: "score31-${testId}",
-				scheduledDate: "20200508 16:30" "yyyyMMdd HH:mm",
-				scoredDate: null
-			}
-
-	ScoreCard32
-		GIVEN
-			ScoreCard31
-		WHEN
-			com.anfelisa.box.ScoreCard
-				uuid "score32-${testId}"
-				systemTime "20200515 16:30" "yyyyMMdd HH:mm"
-				{
-					scoredCardQuality: 3,
-					scheduledCardId: "score31-${testId}"
-				}
-				authorization "Annette-${testId}" : "password"
-		THEN 200
-		persistence
-			newScheduledCardWasCreated ScheduledCard selectBy ( scheduledCardId: "score32-${testId}" ) shouldBe 
-			{
-				boxId: "boxId-${testId}",
-				cardId: "c1-${testId}",
-				count: 3,
-				createdDate: "20200515 16:30" "yyyyMMdd HH:mm",
-				ef: "2.08F",
-				interval: 27,
-				lastQuality: 3,
-				n: 4,
-				quality: null,
-				scheduledCardId: "score32-${testId}",
-				scheduledDate: "20200611 16:30" "yyyyMMdd HH:mm",
-				scoredDate: null
-			}
-
-	ScoreCard33
-		GIVEN
-			ScoreCard32
-		WHEN
-			com.anfelisa.box.ScoreCard
-				uuid "score33-${testId}"
-				systemTime "20200615 16:30" "yyyyMMdd HH:mm"
-				{
-					scoredCardQuality: 4,
-					scheduledCardId: "score32-${testId}"
-				}
-				authorization "Annette-${testId}" : "password"
-		THEN 200
-		persistence
-			newScheduledCardWasCreated ScheduledCard selectBy ( scheduledCardId: "score33-${testId}" ) shouldBe 
-			{
-				boxId: "boxId-${testId}",
-				cardId: "c1-${testId}",
-				count: 4,
-				createdDate: "20200615 16:30" "yyyyMMdd HH:mm",
-				ef: "2.08F",
-				interval: 56,
-				lastQuality: 4,
-				n: 5,
-				quality: null,
-				scheduledCardId: "score33-${testId}",
-				scheduledDate: "20200810 16:30" "yyyyMMdd HH:mm",
-				scoredDate: null
-			}
-
-	ScoreCard34
-		GIVEN
-			ScoreCard33
-		WHEN
-			com.anfelisa.box.ScoreCard
-				uuid "score34-${testId}"
-				systemTime "20200819 16:30" "yyyyMMdd HH:mm"
-				{
-					scoredCardQuality: 5,
-					scheduledCardId: "score33-${testId}"
-				}
-				authorization "Annette-${testId}" : "password"
-		THEN 200
-		persistence
-			newScheduledCardWasCreated ScheduledCard selectBy ( scheduledCardId: "score34-${testId}" ) shouldBe 
-			{
-				boxId: "boxId-${testId}",
-				cardId: "c1-${testId}",
-				count: 5,
-				createdDate: "20200819 16:30" "yyyyMMdd HH:mm",
-				ef: "2.18F",
-				interval: 90,
-				lastQuality: 5,
-				n: 6,
-				quality: null,
-				scheduledCardId: "score34-${testId}",
-				scheduledDate: "20201117 16:30" "yyyyMMdd HH:mm",
-				scoredDate: null
-			}
-
-	ScoreCard35
-		GIVEN
-			ScoreCard34
-		WHEN
-			com.anfelisa.box.ScoreCard
-				uuid "score35-${testId}"
-				systemTime "20201120 16:30" "yyyyMMdd HH:mm"
-				{
-					scoredCardQuality: 3,
-					scheduledCardId: "score34-${testId}"
-				}
-				authorization "Annette-${testId}" : "password"
-		THEN 200
-		persistence
-			newScheduledCardWasCreated ScheduledCard selectBy ( scheduledCardId: "score35-${testId}" ) shouldBe 
-			{
-				boxId: "boxId-${testId}",
-				cardId: "c1-${testId}",
-				count: 6,
-				createdDate: "20201120 16:30" "yyyyMMdd HH:mm",
-				ef: "2.04F",
-				interval: 90,
-				lastQuality: 3,
-				n: 7,
-				quality: null,
-				scheduledCardId: "score35-${testId}",
-				scheduledDate: "20210218 16:30" "yyyyMMdd HH:mm",
-				scoredDate: null
-			}
-
-	ScoreCard36
-		GIVEN
-			ScoreCard35
-		WHEN
-			com.anfelisa.box.ScoreCard
-				uuid "score36-${testId}"
-				systemTime "20210301 16:30" "yyyyMMdd HH:mm"
-				{
-					scoredCardQuality: 3,
-					scheduledCardId: "score35-${testId}"
-				}
-				authorization "Annette-${testId}" : "password"
-		THEN 200
-		persistence
-			newScheduledCardWasCreated ScheduledCard selectBy ( scheduledCardId: "score36-${testId}" ) shouldBe 
-			{
-				boxId: "boxId-${testId}",
-				cardId: "c1-${testId}",
-				count: 7,
-				createdDate: "20210301 16:30" "yyyyMMdd HH:mm",
-				ef: "1.9F",
-				interval: 90,
-				lastQuality: 3,
-				n: 8,
-				quality: null,
-				scheduledCardId: "score36-${testId}",
-				scheduledDate: "20210530 16:30" "yyyyMMdd HH:mm",
-				scoredDate: null
-			}
-
-	ScoreCard37
-		GIVEN
-			ScoreCard36
-		WHEN
-			com.anfelisa.box.ScoreCard
-				uuid "score37-${testId}"
-				systemTime "20210701 16:30" "yyyyMMdd HH:mm"
-				{
-					scoredCardQuality: 3,
-					scheduledCardId: "score36-${testId}"
-				}
-				authorization "Annette-${testId}" : "password"
-		THEN 200
-		persistence
-			newScheduledCardWasCreated ScheduledCard selectBy ( scheduledCardId: "score37-${testId}" ) shouldBe 
-			{
-				boxId: "boxId-${testId}",
-				cardId: "c1-${testId}",
-				count: 8,
-				createdDate: "20210701 16:30" "yyyyMMdd HH:mm",
-				ef: "1.76F",
-				interval: 90,
-				lastQuality: 3,
-				n: 9,
-				quality: null,
-				scheduledCardId: "score37-${testId}",
-				scheduledDate: "20210929 16:30" "yyyyMMdd HH:mm",
-				scoredDate: null
-			}
-
-	ScoreCard38
-		GIVEN
-			ScoreCard37
-		WHEN
-			com.anfelisa.box.ScoreCard
-				uuid "score38-${testId}"
-				systemTime "20211001 16:30" "yyyyMMdd HH:mm"
-				{
-					scoredCardQuality: 3,
-					scheduledCardId: "score37-${testId}"
-				}
-				authorization "Annette-${testId}" : "password"
-		THEN 200
-		persistence
-			newScheduledCardWasCreated ScheduledCard selectBy ( scheduledCardId: "score38-${testId}" ) shouldBe 
-			{
-				boxId: "boxId-${testId}",
-				cardId: "c1-${testId}",
-				count: 9,
-				createdDate: "20211001 16:30" "yyyyMMdd HH:mm",
-				ef: "1.62F",
-				interval: 90,
-				lastQuality: 3,
-				n: 10,
-				quality: null,
-				scheduledCardId: "score38-${testId}",
-				scheduledDate: "20211230 16:30" "yyyyMMdd HH:mm",
-				scoredDate: null
-			}
-
-	ScoreCard39
-		GIVEN
-			ScoreCard38
-		WHEN
-			com.anfelisa.box.ScoreCard
-				uuid "score39-${testId}"
-				systemTime "20220201 16:30" "yyyyMMdd HH:mm"
-				{
-					scoredCardQuality: 3,
-					scheduledCardId: "score38-${testId}"
-				}
-				authorization "Annette-${testId}" : "password"
-		THEN 200
-		persistence
-			newScheduledCardWasCreated ScheduledCard selectBy ( scheduledCardId: "score39-${testId}" ) shouldBe 
-			{
-				boxId: "boxId-${testId}",
-				cardId: "c1-${testId}",
-				count: 10,
-				createdDate: "20220201 16:30" "yyyyMMdd HH:mm",
-				ef: "1.48F",
-				interval: 90,
-				lastQuality: 3,
-				n: 11,
-				quality: null,
-				scheduledCardId: "score39-${testId}",
-				scheduledDate: "20220502 16:30" "yyyyMMdd HH:mm",
-				scoredDate: null
-			}
-
-	ScoreCard310
-		GIVEN
-			ScoreCard39
-		WHEN
-			com.anfelisa.box.ScoreCard
-				uuid "score310-${testId}"
-				systemTime "20220601 16:30" "yyyyMMdd HH:mm"
-				{
-					scoredCardQuality: 3,
-					scheduledCardId: "score39-${testId}"
-				}
-				authorization "Annette-${testId}" : "password"
-		THEN 200
-		persistence
-			newScheduledCardWasCreated ScheduledCard selectBy ( scheduledCardId: "score310-${testId}" ) shouldBe 
-			{
-				boxId: "boxId-${testId}",
-				cardId: "c1-${testId}",
-				count: 11,
-				createdDate: "20220601 16:30" "yyyyMMdd HH:mm",
-				ef: "1.34F",
-				interval: 90,
-				lastQuality: 3,
-				n: 12,
-				quality: null,
-				scheduledCardId: "score310-${testId}",
-				scheduledDate: "20220830 16:30" "yyyyMMdd HH:mm",
-				scoredDate: null
-			}
-
-	ScoreCardMinimumQFactor
-		GIVEN
-			ScoreCard310
-		WHEN
-			com.anfelisa.box.ScoreCard
-				uuid "q-${testId}"
-				systemTime "20221001 16:30" "yyyyMMdd HH:mm"
-				{
-					scoredCardQuality: 3,
-					scheduledCardId: "score310-${testId}"
-				}
-				authorization "Annette-${testId}" : "password"
-		THEN 200
-		persistence
-			minimumQFactor ScheduledCard selectBy ( scheduledCardId: "q-${testId}" ) shouldBe 
-			{
-				boxId: "boxId-${testId}",
-				cardId: "c1-${testId}",
-				count: 12,
-				createdDate: "20221001 16:30" "yyyyMMdd HH:mm",
-				ef: "1.3F",
-				interval: 90,
-				lastQuality: 3,
-				n: 13,
-				quality: null,
-				scheduledCardId: "q-${testId}",
-				scheduledDate: "20221230 16:30" "yyyyMMdd HH:mm",
-				scoredDate: null
-			}
 
 	ScoreCardCardDoesNotExist
 		GIVEN
@@ -764,73 +395,3 @@ scenarios
 			newScheduledCardWasNotCreated ScheduledCard selectBy ( scheduledCardId: "score1-${testId}" ) shouldBe null
 			reinforceCardWasNotCreated ReinforceCard selectBy ( reinforceCardId: "score0-${testId}" ) shouldBe null
 
-	ScoreCardSecond0
-		GIVEN
-			com.anfelisa.card.createcard.CreateFifthCard
-			com.anfelisa.box.updatebox.UpdateBoxSetMaxCardsTo1 exclude GIVEN
-			com.anfelisa.box.schedulecards.ScheduleCards exclude GIVEN
-			ScoreCard0 exclude GIVEN
-		WHEN
-			com.anfelisa.box.ScoreCard
-				uuid "score0-2-${testId}"
-				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
-				{
-					scoredCardQuality: 0,
-					scheduledCardId: "c3-${testId}-sc1-${testId}"
-				}
-				authorization "Annette-${testId}" : "password"
-		THEN 200
-		persistence
-			scheduledOneDayLater ScheduledCard selectBy ( scheduledCardId: "score0-2-${testId}" ) shouldBe 
-			{
-				boxId: "boxId-${testId}",
-				cardId: "c3-${testId}",
-				count: 1,
-				createdDate: "20200418 16:30" "yyyyMMdd HH:mm",
-				ef: "2.5F",
-				interval: 2,
-				lastQuality: 0,
-				n: 1,
-				quality: null,
-				scheduledCardId: "score0-2-${testId}",
-				scheduledDate: "20200420 16:30" "yyyyMMdd HH:mm",
-				scoredDate: null
-			}
-
-	ScoreCardMaxCardsPerDay
-		GIVEN
-			com.anfelisa.card.createcard.CreateFifthCard
-			com.anfelisa.box.updatebox.UpdateBoxSetMaxCardsTo1 exclude GIVEN
-			com.anfelisa.box.schedulecards.ScheduleCards exclude GIVEN
-			ScoreCard0 exclude GIVEN
-			ScoreCardSecond0 exclude GIVEN
-		WHEN
-			com.anfelisa.box.ScoreCard
-				uuid "score0-3-${testId}"
-				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
-				{
-					scoredCardQuality: 0,
-					scheduledCardId: "c4-${testId}-sc1-${testId}"
-				}
-				authorization "Annette-${testId}" : "password"
-		THEN 200
-		persistence
-			scheduledTwoDaysLater ScheduledCard selectBy ( scheduledCardId: "score0-3-${testId}" ) shouldBe 
-			{
-				boxId: "boxId-${testId}",
-				cardId: "c4-${testId}",
-				count: 1,
-				createdDate: "20200418 16:30" "yyyyMMdd HH:mm",
-				ef: "2.5F",
-				interval: 3,
-				lastQuality: 0,
-				n: 1,
-				quality: null,
-				scheduledCardId: "score0-3-${testId}",
-				scheduledDate: "20200421 16:30" "yyyyMMdd HH:mm",
-				scoredDate: null
-			}
-
-
-
-		

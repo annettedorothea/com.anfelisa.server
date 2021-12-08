@@ -379,7 +379,7 @@ public abstract class AbstractInitMyBoxesForDayWithScoredAndReinforceCardsTwoDay
 
 		if (prerequisite("ScoreCard1")) {
 			uuid = "score1-" + this.getTestId() + "";
-			this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
+			this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 16:35", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 			com.anfelisa.box.data.ScoreCardPayload payload_10 = objectMapper.readValue("{" +
 				"\"scoredCardQuality\" : 1," + 
 				"\"scheduledCardId\" : \"c3-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
@@ -412,7 +412,7 @@ public abstract class AbstractInitMyBoxesForDayWithScoredAndReinforceCardsTwoDay
 
 		if (prerequisite("ScoreCard5")) {
 			uuid = "score5-" + this.getTestId() + "";
-			this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
+			this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 16:55", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 			com.anfelisa.box.data.ScoreCardPayload payload_11 = objectMapper.readValue("{" +
 				"\"scoredCardQuality\" : 5," + 
 				"\"scheduledCardId\" : \"c4-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",

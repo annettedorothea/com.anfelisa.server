@@ -2,10 +2,16 @@ package com.anfelisa.box.scorecard.tests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.same;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -23,6 +29,7 @@ import com.anfelisa.box.models.BoxModel;
 import com.anfelisa.box.models.IBoxModel;
 import com.anfelisa.box.models.IScheduledCardModel;
 import com.anfelisa.box.models.ReinforceCardDao;
+import com.anfelisa.box.models.ReinforceCardModel;
 import com.anfelisa.box.models.ScheduledCardDao;
 import com.anfelisa.box.models.ScheduledCardModel;
 
@@ -72,74 +79,231 @@ public class ScoreCardCommandTests {
 		data.setSystemTime(NOW);
 		data.setScheduledCardId(SCHEDULED_CARD_ID);
 		data.setUserId(USER_ID);
-		
+
 		scheduledCard = new ScheduledCardModel();
 		scheduledCard.setScheduledCardId(SCHEDULED_CARD_ID);
 		scheduledCard.setBoxId(BOX_ID);
 		scheduledCard.setCardId(CARD_ID);
 		box = new BoxModel();
 		box.setUserId(USER_ID);
+		box.setBoxId(BOX_ID);
 
 		when(daoProviderMock.getScheduledCardDao()).thenReturn(scheduledCardDaoMock);
-		when(scheduledCardDaoMock.selectByScheduledCardId(readonlyHandleMock, SCHEDULED_CARD_ID)).thenReturn(scheduledCard);
-		
+		when(scheduledCardDaoMock.selectByScheduledCardId(readonlyHandleMock, SCHEDULED_CARD_ID))
+				.thenReturn(scheduledCard);
+
 		when(daoProviderMock.getBoxDao()).thenReturn(boxDaoMock);
 		when(boxDaoMock.selectByBoxId(readonlyHandleMock, BOX_ID)).thenReturn(box);
-		
+
 		when(daoProviderMock.getReinforceCardDao()).thenReturn(reinforceCardDaoMock);
 		when(reinforceCardDaoMock.selectByScheduledCardId(readonlyHandleMock, SCHEDULED_CARD_ID)).thenReturn(null);
-		
+
 		Config config = new Config();
 		config.setWriteTimeline(Config.NEVER);
 		when(appConfigurationMock.getConfig()).thenReturn(config);
-		
+
 	}
 
 	@ParameterizedTest
 	@MethodSource
-	public void noMaxCardsPerDay_noMaxInterval(Integer quality, Float actualEf, Float expectedEf, Integer expectedInterval, Integer expectedN) {
-		
-		Integer actualInterval = 5; // parameter
-		Integer actualCount = 90;
-		Integer actualN = 3; // parameter
+	public void basicData(Integer quality, Boolean hasReinforceOutcome) {
 
-		scheduledCard.setEf(actualEf );
-		scheduledCard.setInterval(actualInterval );
-		scheduledCard.setCount(actualCount );
-		scheduledCard.setN(actualN );
+		scheduledCard.setEf(2.9F);
+		scheduledCard.setInterval(3);
+		scheduledCard.setCount(3);
+		scheduledCard.setN(3);
 		data.setScoredCardQuality(quality);
 
-		scoreCardCommand.execute(data, readonlyHandleMock, timelineHandleMock);
-		
-		assertEquals(expectedEf, data.getNextScheduledCardEf()); 
-		assertEquals(actualCount+1, data.getNextScheduledCardCount()); 
-		assertEquals(NOW, data.getNextScheduledCardCreatedDate()); 
-		assertEquals(expectedInterval, data.getNextScheduledCardInterval()); 
-		assertEquals(quality, data.getNextScheduledCardLastQuality()); 
-		assertEquals(expectedN, data.getNextScheduledCardN()); 
-		assertEquals(UUID, data.getNextScheduledCardScheduledCardId()); 
-		assertEquals(NOW.plusDays(expectedInterval), data.getNextScheduledCardScheduledDate());
+		IScoreCardData actualData = scoreCardCommand.execute(data, readonlyHandleMock, timelineHandleMock);
 
-		assertEquals(CARD_ID, data.getCardId());
-		assertEquals(BOX_ID, data.getBoxId());
+		assertEquals(UUID, actualData.getNextScheduledCardScheduledCardId());
+		assertEquals(NOW, actualData.getNextScheduledCardCreatedDate());
+		assertEquals(NOW, actualData.getScoredCardScoredDate());
 
-		assertTrue(data.hasOutcome("score"));
-		if (quality < 4) {
-			assertTrue(data.hasOutcome("reinforce"));
+		assertEquals(CARD_ID, actualData.getCardId());
+		assertEquals(BOX_ID, actualData.getBoxId());
+
+		if (hasReinforceOutcome) {
+			assertEquals(NOW, actualData.getReinforceCardCreatedDate());
+			assertEquals(UUID, actualData.getReinforceCardId());
 		} else {
-			assertFalse(data.hasOutcome("reinforce"));
+			assertNull(actualData.getReinforceCardCreatedDate());
+			assertNull(actualData.getReinforceCardId());
+		}
+
+	}
+
+	private static Stream<Arguments> basicData() {
+		return Stream.of(
+				Arguments.of(0, true),
+				Arguments.of(1, true),
+				Arguments.of(2, true),
+				Arguments.of(3, true),
+				Arguments.of(4, false),
+				Arguments.of(5, false));
+	}
+
+	@ParameterizedTest
+	@MethodSource
+	public void noMaxCardsPerDay_noMaxInterval(
+			Integer quality,
+			Float actualEf, Float expectedEf,
+			Integer actualInterval, Integer expectedInterval,
+			Integer actualN, Integer expectedN) {
+
+		Integer actualCount = 90;
+
+		scheduledCard.setEf(actualEf);
+		scheduledCard.setInterval(actualInterval);
+		scheduledCard.setCount(actualCount);
+		scheduledCard.setN(actualN);
+		data.setScoredCardQuality(quality);
+
+		IScoreCardData actualData = scoreCardCommand.execute(data, readonlyHandleMock, timelineHandleMock);
+
+		assertEquals(expectedEf, actualData.getNextScheduledCardEf());
+		assertEquals(actualCount + 1, actualData.getNextScheduledCardCount());
+		assertEquals(expectedInterval, actualData.getNextScheduledCardInterval());
+		assertEquals(quality, actualData.getNextScheduledCardLastQuality());
+		assertEquals(expectedN, actualData.getNextScheduledCardN());
+		assertEquals(NOW.plusDays(expectedInterval), actualData.getNextScheduledCardScheduledDate());
+	}
+
+	private static Stream<Arguments> noMaxCardsPerDay_noMaxInterval() {
+		return Stream.of(
+				Arguments.of(0, 2.5F, 1.7F, 5, 1, 0, 0),
+				Arguments.of(0, 2.5F, 1.7F, 5, 1, 1, 0),
+				Arguments.of(0, 2.5F, 1.7F, 5, 1, 2, 0),
+				Arguments.of(0, 1.4F, 1.3F, 5, 1, 2, 0),
+				Arguments.of(0, 1.3F, 1.3F, 5, 1, 2, 0),
+
+				Arguments.of(1, 2.5F, 1.96F, 5, 1, 0, 0),
+				Arguments.of(1, 2.5F, 1.96F, 5, 1, 1, 0),
+				Arguments.of(1, 2.5F, 1.96F, 5, 1, 2, 0),
+
+				Arguments.of(2, 2.5F, 2.18F, 5, 1, 0, 0),
+				Arguments.of(2, 2.5F, 2.18F, 5, 1, 1, 0),
+				Arguments.of(2, 2.5F, 2.18F, 5, 1, 2, 0),
+
+				Arguments.of(3, 2.5F, 2.3600001F, 5, 1, 0, 1),
+				Arguments.of(3, 2.5F, 2.3600001F, 5, 6, 1, 2),
+				Arguments.of(3, 2.5F, 2.3600001F, 5, 13, 2, 3),
+
+				Arguments.of(4, 2.5F, 2.5F, 5, 1, 0, 1),
+				Arguments.of(4, 2.5F, 2.5F, 5, 6, 1, 2),
+				Arguments.of(4, 2.5F, 2.5F, 5, 13, 2, 3),
+
+				Arguments.of(5, 2.5F, 2.6F, 5, 1, 0, 1),
+				Arguments.of(5, 2.5F, 2.6F, 5, 6, 1, 2),
+				Arguments.of(5, 2.5F, 2.6F, 5, 13, 2, 3));
+	}
+
+	@ParameterizedTest
+	@MethodSource
+	public void whenNoReinforceCard_expectOutcome(Integer quality, Boolean hasReinforceOutcome) {
+
+		when(reinforceCardDaoMock.selectByScheduledCardId(readonlyHandleMock, SCHEDULED_CARD_ID)).thenReturn(null);
+
+		scheduledCard.setEf(2.5F);
+		scheduledCard.setInterval(3);
+		scheduledCard.setCount(6);
+		scheduledCard.setN(2);
+		data.setScoredCardQuality(quality);
+
+		IScoreCardData actualData = scoreCardCommand.execute(data, readonlyHandleMock, timelineHandleMock);
+
+		assertTrue(actualData.hasOutcome("score"));
+		if (hasReinforceOutcome) {
+			assertTrue(actualData.hasOutcome("reinforce"));
+		} else {
+			assertFalse(actualData.hasOutcome("reinforce"));
 		}
 	}
-	
-	private static Stream<Arguments> noMaxCardsPerDay_noMaxInterval() {
-	    return Stream.of(
-	      Arguments.of(0, 2.5F, 1.7F, 1, 0),
-	      Arguments.of(1, 2.5F, 1.96F, 1, 0),
-	      Arguments.of(2, 2.5F, 2.18F, 1, 0),
-	      Arguments.of(3, 2.5F, 2.3600001F, 13, 4),
-	      Arguments.of(4, 2.5F, 2.5F, 13, 4),
-	      Arguments.of(5, 2.5F, 2.6F, 13, 4)
-	    );
+
+	private static Stream<Arguments> whenNoReinforceCard_expectOutcome() {
+		return Stream.of(
+				Arguments.of(0, true),
+				Arguments.of(1, true),
+				Arguments.of(2, true),
+				Arguments.of(3, true),
+				Arguments.of(4, false),
+				Arguments.of(5, false));
 	}
-	
+
+	@ParameterizedTest
+	@MethodSource
+	public void whenReinforceCard_expectOutcome(Integer quality) {
+
+		when(reinforceCardDaoMock.selectByScheduledCardId(readonlyHandleMock, SCHEDULED_CARD_ID))
+				.thenReturn(new ReinforceCardModel());
+
+		scheduledCard.setEf(2.5F);
+		scheduledCard.setInterval(3);
+		scheduledCard.setCount(6);
+		scheduledCard.setN(2);
+		data.setScoredCardQuality(quality);
+
+		IScoreCardData actualData = scoreCardCommand.execute(data, readonlyHandleMock, timelineHandleMock);
+
+		assertTrue(actualData.hasOutcome("score"));
+		assertFalse(actualData.hasOutcome("reinforce"));
+	}
+
+	private static Stream<Arguments> whenReinforceCard_expectOutcome() {
+		return Stream.of(
+				Arguments.of(0),
+				Arguments.of(1),
+				Arguments.of(2),
+				Arguments.of(3),
+				Arguments.of(4),
+				Arguments.of(5));
+	}
+
+	@ParameterizedTest
+	@MethodSource
+	public void maxCardsPerDay_maxInterval(
+			Integer maxInterval, Integer expectedIntervalOffset, Integer calculatedInverval,
+			Integer maxCardCount,
+			List<Integer> nextMaxCardCounts) {
+
+		scheduledCard.setEf(2.5F);
+		scheduledCard.setInterval(7);
+		scheduledCard.setCount(10);
+		scheduledCard.setN(3);
+		data.setScoredCardQuality(5);
+
+		box.setMaxInterval(maxInterval);
+		box.setMaxCardsPerDay(maxCardCount);
+
+		if (nextMaxCardCounts != null) {
+			LocalDateTime newTime = createFrom(NOW.plusDays(calculatedInverval));
+			for (Integer nextMaxCardCount : nextMaxCardCounts) {
+				LocalDateTime nextDay = createFrom(newTime.plusDays(1));
+				when(scheduledCardDaoMock.selectCardCountOfDay(any(), same(BOX_ID),
+						eq(newTime),
+						eq(nextDay)))
+								.thenReturn(nextMaxCardCount);
+				newTime = nextDay;
+			}
+		}
+
+		IScoreCardData actualData = scoreCardCommand.execute(data, readonlyHandleMock, timelineHandleMock);
+
+		int expectedInterval = calculatedInverval + expectedIntervalOffset;
+		assertEquals(expectedInterval, actualData.getNextScheduledCardInterval());
+		assertEquals(NOW.plusDays(expectedInterval), actualData.getNextScheduledCardScheduledDate());
+	}
+
+	private LocalDateTime createFrom(LocalDateTime localDateTime) {
+		return localDateTime.withHour(0).withMinute(0).withSecond(0).withNano(0);
+	}
+
+	private static Stream<Arguments> maxCardsPerDay_maxInterval() {
+		return Stream.of(
+				Arguments.of(null, 0, 18, null, Arrays.asList()),
+				Arguments.of(10, -8, 18, null, Arrays.asList()),
+				Arguments.of(null, 2, 18, 5, Arrays.asList(5, 7, 3, 5)),
+				Arguments.of(10, 2, 10, 5, Arrays.asList(5, 7, 3, 5)));
+	}
+
 }

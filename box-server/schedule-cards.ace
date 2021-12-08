@@ -85,10 +85,10 @@ scenarios
 				cardId: "c1-${testId}",
 				count: 1,
 				createdDate: "20200418 16:30" "yyyyMMdd HH:mm",
-				ef: "2.5F",
+				ef: "1.7F",
 				interval: 1,
 				lastQuality: 0,
-				n: 1,
+				n: 0,
 				quality: null,
 				scheduledCardId: "score0-${testId}",
 				scheduledDate: "20200418 17:30" "yyyyMMdd HH:mm",
@@ -153,10 +153,47 @@ scenarios
 				cardId: "c1-${testId}",
 				count: 1,
 				createdDate: "20200418 16:30" "yyyyMMdd HH:mm",
-				ef: "2.5F",
+				ef: "1.7F",
 				interval: 1,
 				lastQuality: 0,
-				n: 1,
+				n: 0,
+				quality: null,
+				scheduledCardId: "score0-${testId}",
+				scheduledDate: "20200420 09:30" "yyyyMMdd HH:mm",
+				scoredDate: null
+			}
+
+	ScheduleSortedOutCardMultiple
+		GIVEN
+			com.anfelisa.box.schedulecards.ScheduleCards
+			com.anfelisa.box.scorecard.ScoreCard0 exclude GIVEN
+			com.anfelisa.box.scorecard.ScoreCard1 exclude GIVEN
+			com.anfelisa.box.scorecard.ScoreCard2 exclude GIVEN
+			com.anfelisa.box.scorecard.ScoreCard3 exclude GIVEN
+			com.anfelisa.box.scorecard.ScoreCard4 exclude GIVEN
+			com.anfelisa.box.scorecard.ScoreCard5 exclude GIVEN
+			com.anfelisa.box.sortcardsout.SortCardsOut exclude GIVEN
+		WHEN
+			com.anfelisa.box.ScheduleCards
+				uuid "again-${testId}"
+				systemTime "20200420 09:30" "yyyyMMdd HH:mm"
+				{
+					cardIds: ["c1-${testId}"],
+					boxId: "boxId-${testId}"
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+		persistence
+			cardWasScheduled ScheduledCard selectBy (scheduledCardId: "score0-${testId}") shouldBe 
+			{
+				boxId: "boxId-${testId}",
+				cardId: "c1-${testId}",
+				count: 1,
+				createdDate: "20200418 16:30" "yyyyMMdd HH:mm",
+				ef: "1.7F",
+				interval: 1,
+				lastQuality: 0,
+				n: 0,
 				quality: null,
 				scheduledCardId: "score0-${testId}",
 				scheduledDate: "20200420 09:30" "yyyyMMdd HH:mm",
@@ -434,37 +471,5 @@ scenarios
 			card2WasNotScheduled ScheduledCard selectBy (scheduledCardId: "c2-${testId}-sc1-${testId}") shouldBe null 
 			card5WasNotScheduled ScheduledCard selectBy (scheduledCardId: "c5-${testId}-sc1-${testId}") shouldBe null 
 
-	ScheduleSortedOutCardsWithMultipleScores
-		GIVEN
-			com.anfelisa.box.scorecard.ScoreCard39
-			com.anfelisa.box.sortcardsout.SortCardsOut exclude GIVEN
-		WHEN
-			com.anfelisa.box.ScheduleCards
-				uuid "reschedule-${testId}"
-				systemTime "20220318 10:30" "yyyyMMdd HH:mm"
-				{
-					cardIds: ["c1-${testId}" ],
-					boxId: "boxId-${testId}"
-				}
-				authorization "Annette-${testId}" : "password"
-		THEN 200
-		persistence
-			cardWasScheduled ScheduledCard selectBy (scheduledCardId: "score39-${testId}") shouldBe 
-			{
-				boxId: "boxId-${testId}",
-				cardId: "c1-${testId}",
-				count: 10,
-				createdDate: "20220201 16:30" "yyyyMMdd HH:mm",
-				ef: "1.48F",
-				interval: 90,
-				lastQuality: 3,
-				n: 11,
-				quality: null,
-				scheduledCardId: "score39-${testId}",
-				scheduledDate: "20220318 10:30" "yyyyMMdd HH:mm",
-				scoredDate: null
-			}
-			
-	
 
 

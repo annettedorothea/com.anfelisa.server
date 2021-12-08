@@ -346,7 +346,7 @@ public abstract class AbstractGetBoxesWithOneScoredCard3AndReinforceSameDayScena
 
 		if (prerequisite("ScoreCard3")) {
 			uuid = "score3-" + this.getTestId() + "";
-			this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
+			this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 16:45", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 			com.anfelisa.box.data.ScoreCardPayload payload_9 = objectMapper.readValue("{" +
 				"\"scoredCardQuality\" : 3," + 
 				"\"scheduledCardId\" : \"c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",

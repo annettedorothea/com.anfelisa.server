@@ -348,7 +348,7 @@ public abstract class AbstractScoreCard5Scenario extends BaseScenario {
 	
 	private HttpResponse<Object> when_0() throws Exception {
 		String uuid = "score5-" + this.getTestId() + "";
-		this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
+		this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 16:55", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 		com.anfelisa.box.data.ScoreCardPayload payload_0 = objectMapper.readValue("{" +
 			"\"scoredCardQuality\" : 5," + 
 			"\"scheduledCardId\" : \"c4-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
@@ -428,7 +428,7 @@ public abstract class AbstractScoreCard5Scenario extends BaseScenario {
 			"\"quality\" : 5," + 
 			"\"scheduledCardId\" : \"c4-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"," + 
 			"\"scheduledDate\" : \"2020-04-18T10:30\"," + 
-			"\"scoredDate\" : \"2020-04-18T16:30\"} ",
+			"\"scoredDate\" : \"2020-04-18T16:55\"} ",
 		com.anfelisa.box.models.ScheduledCardModel.class);
 		assertThat(actual, expected);
 	
@@ -441,14 +441,14 @@ public abstract class AbstractScoreCard5Scenario extends BaseScenario {
 			"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 			"\"cardId\" : \"c4-" + this.getTestId() + "\"," + 
 			"\"count\" : 1," + 
-			"\"createdDate\" : \"2020-04-18T16:30\"," + 
+			"\"createdDate\" : \"2020-04-18T16:55\"," + 
 			"\"ef\" : \"2.6F\"," + 
 			"\"interval\" : 6," + 
 			"\"lastQuality\" : 5," + 
 			"\"n\" : 2," + 
 			"\"quality\" : null," + 
 			"\"scheduledCardId\" : \"score5-" + this.getTestId() + "\"," + 
-			"\"scheduledDate\" : \"2020-04-24T16:30\"," + 
+			"\"scheduledDate\" : \"2020-04-24T16:55\"," + 
 			"\"scoredDate\" : null} ",
 		com.anfelisa.box.models.ScheduledCardModel.class);
 		assertThat(actual, expected);
