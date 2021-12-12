@@ -537,14 +537,14 @@ public abstract class AbstractInitMyBoxesForDayOneDayBugScenario extends BaseSce
 			"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 			"\"cardId\" : \"c3-" + this.getTestId() + "\"," + 
 			"\"count\" : 1," + 
-			"\"createdDate\" : \"2020-04-18T16:30\"," + 
+			"\"createdDate\" : \"2020-04-18T16:35\"," + 
 			"\"ef\" : \"1.96F\"," + 
 			"\"interval\" : 1," + 
 			"\"lastQuality\" : 1," + 
 			"\"n\" : 0," + 
 			"\"quality\" : null," + 
 			"\"scheduledCardId\" : \"score1-" + this.getTestId() + "\"," + 
-			"\"scheduledDate\" : \"2020-04-20T16:30\"," + 
+			"\"scheduledDate\" : \"2020-04-20T16:35\"," + 
 			"\"scoredDate\" : null} ",
 		com.anfelisa.box.models.ScheduledCardModel.class);
 		assertThat(actual, expected);
@@ -558,14 +558,14 @@ public abstract class AbstractInitMyBoxesForDayOneDayBugScenario extends BaseSce
 			"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 			"\"cardId\" : \"c4-" + this.getTestId() + "\"," + 
 			"\"count\" : 1," + 
-			"\"createdDate\" : \"2020-04-18T16:30\"," + 
+			"\"createdDate\" : \"2020-04-18T16:55\"," + 
 			"\"ef\" : \"2.6F\"," + 
-			"\"interval\" : 3," + 
+			"\"interval\" : 6," + 
 			"\"lastQuality\" : 5," + 
-			"\"n\" : 3," + 
+			"\"n\" : 2," + 
 			"\"quality\" : null," + 
 			"\"scheduledCardId\" : \"score5-" + this.getTestId() + "\"," + 
-			"\"scheduledDate\" : \"2020-04-22T16:30\"," + 
+			"\"scheduledDate\" : \"2020-04-25T16:55\"," + 
 			"\"scoredDate\" : null} ",
 		com.anfelisa.box.models.ScheduledCardModel.class);
 		assertThat(actual, expected);

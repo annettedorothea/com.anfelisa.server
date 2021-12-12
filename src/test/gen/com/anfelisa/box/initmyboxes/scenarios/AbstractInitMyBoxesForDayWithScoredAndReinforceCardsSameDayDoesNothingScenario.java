@@ -552,14 +552,14 @@ public abstract class AbstractInitMyBoxesForDayWithScoredAndReinforceCardsSameDa
 			"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 			"\"cardId\" : \"c3-" + this.getTestId() + "\"," + 
 			"\"count\" : 1," + 
-			"\"createdDate\" : \"2020-04-18T16:30\"," + 
+			"\"createdDate\" : \"2020-04-18T16:35\"," + 
 			"\"ef\" : \"1.96F\"," + 
 			"\"interval\" : 1," + 
 			"\"lastQuality\" : 1," + 
 			"\"n\" : 0," + 
 			"\"quality\" : null," + 
 			"\"scheduledCardId\" : \"score1-" + this.getTestId() + "\"," + 
-			"\"scheduledDate\" : \"2020-04-19T16:30\"," + 
+			"\"scheduledDate\" : \"2020-04-19T16:35\"," + 
 			"\"scoredDate\" : null} ",
 		com.anfelisa.box.models.ScheduledCardModel.class);
 		assertThat(actual, expected);
@@ -571,7 +571,7 @@ public abstract class AbstractInitMyBoxesForDayWithScoredAndReinforceCardsSameDa
 		
 		com.anfelisa.box.models.IReinforceCardModel expected = objectMapper.readValue("{" +
 			"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
-			"\"changeDate\" : \"2020-04-18T16:30\"," + 
+			"\"changeDate\" : \"2020-04-18T16:35\"," + 
 			"\"reinforceCardId\" : \"score1-" + this.getTestId() + "\"," + 
 			"\"scheduledCardId\" : \"c3-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
 		com.anfelisa.box.models.ReinforceCardModel.class);
@@ -586,14 +586,14 @@ public abstract class AbstractInitMyBoxesForDayWithScoredAndReinforceCardsSameDa
 			"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 			"\"cardId\" : \"c4-" + this.getTestId() + "\"," + 
 			"\"count\" : 1," + 
-			"\"createdDate\" : \"2020-04-18T16:30\"," + 
+			"\"createdDate\" : \"2020-04-18T16:55\"," + 
 			"\"ef\" : \"2.6F\"," + 
-			"\"interval\" : 3," + 
+			"\"interval\" : 6," + 
 			"\"lastQuality\" : 5," + 
-			"\"n\" : 3," + 
+			"\"n\" : 2," + 
 			"\"quality\" : null," + 
 			"\"scheduledCardId\" : \"score5-" + this.getTestId() + "\"," + 
-			"\"scheduledDate\" : \"2020-04-21T16:30\"," + 
+			"\"scheduledDate\" : \"2020-04-24T16:55\"," + 
 			"\"scoredDate\" : null} ",
 		com.anfelisa.box.models.ScheduledCardModel.class);
 		assertThat(actual, expected);

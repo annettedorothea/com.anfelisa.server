@@ -464,9 +464,9 @@ public abstract class AbstractLoadAllActiveCardsWithScored5Scenario extends Base
 				"\"cardId\" : \"c4-" + this.getTestId() + "\"," + 
 				"\"count\" : 1," + 
 				"\"ef\" : \"2.6F\"," + 
-				"\"interval\" : 3," + 
+				"\"interval\" : 6," + 
 				"\"lastQuality\" : 5," + 
-				"\"next\" : \"2020-04-21T16:30\"}]} ",
+				"\"next\" : \"2020-04-24T16:55\"}]} ",
 			com.anfelisa.box.data.ActiveCardListData.class);
 			
 			com.anfelisa.box.data.LoadAllActiveCardsResponse expected = new com.anfelisa.box.data.LoadAllActiveCardsResponse(expectedData);

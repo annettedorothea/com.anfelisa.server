@@ -463,7 +463,7 @@ public abstract class AbstractLoadAllActiveCardsWithScored0Scenario extends Base
 				"\"wanted\" : \"wanted\"," + 
 				"\"cardId\" : \"c1-" + this.getTestId() + "\"," + 
 				"\"count\" : 1," + 
-				"\"ef\" : \"2.5F\"," + 
+				"\"ef\" : \"1.7F\"," + 
 				"\"interval\" : 1," + 
 				"\"lastQuality\" : 0," + 
 				"\"next\" : \"2020-04-19T16:30\"}]} ",

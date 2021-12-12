@@ -116,7 +116,7 @@ scenarios
 						wanted: "wanted",
 						cardId: "c1-${testId}",
 						count: 1,
-						ef: "2.5F",
+						ef: "1.7F",
 						interval: 1,
 						lastQuality: 0,
 						next: "20200419 16:30" "yyyyMMdd HH:mm"
@@ -177,9 +177,9 @@ scenarios
 						cardId: "c4-${testId}",
 						count: 1,
 						ef: "2.6F",
-						interval: 3,
+						interval: 6,
 						lastQuality: 5,
-						next: "20200421 16:30" "yyyyMMdd HH:mm"
+						next: "20200424 16:55" "yyyyMMdd HH:mm"
 					}
 				]
 			}		
