@@ -246,6 +246,216 @@ scenarios
 				]
 			}		
 
+	GetBoxesSortedOutIsNotShown
+		GIVEN
+			com.anfelisa.box.schedulecards.ScheduleCards
+		WHEN 
+			com.anfelisa.box.ScoreCard
+			uuid "score1-1-${testId}"
+				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
+				{
+					scoredCardQuality: 0,
+					scheduledCardId: "c1-${testId}-sc1-${testId}"
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+		AND WHEN 
+			com.anfelisa.box.ScoreCard
+			uuid "score3-${testId}"
+				systemTime "20200418 16:32" "yyyyMMdd HH:mm"
+				{
+					scoredCardQuality: 5,
+					scheduledCardId: "c3-${testId}-sc1-${testId}"
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+		AND WHEN
+			com.anfelisa.box.ScoreCard
+			uuid "score1-2-${testId}"
+				systemTime "20200419 16:35" "yyyyMMdd HH:mm"
+				{
+					scoredCardQuality: 0,
+					scheduledCardId: "score1-1-${testId}"
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+		AND WHEN
+			com.anfelisa.box.SortCardsOut
+				{
+					cardIds: ["c1-${testId}" ],
+					boxId: "boxId-${testId}"
+				}
+				authorization "Annette-${testId}" : "password"		
+		THEN 200
+		AND WHEN
+			com.anfelisa.box.GetBoxStatistics
+				{
+					todayAtMidnightInUTC: "20200423 02:00" "yyyyMMdd HH:mm"
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+			response shouldBe {
+				boxStatisticsList: [
+					{
+						boxId: "boxId-${testId}",
+						maxCardsPerDay: 10,
+						quality0Count: 0,
+						quality1Count: 0,
+						quality2Count: 0,
+						quality3Count: 0,
+						quality4Count: 0,
+						quality5Count: 1,
+						countsPerDayNextWeek: [
+							1,0,0,0,0,0,0
+						]
+					}
+				]
+			}		
+		AND WHEN
+			com.anfelisa.box.GetBoxStatistics
+				{
+					todayAtMidnightInUTC: "20200422 02:00" "yyyyMMdd HH:mm"
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+			response shouldBe {
+				boxStatisticsList: [
+					{
+						boxId: "boxId-${testId}",
+						maxCardsPerDay: 10,
+						quality0Count: 0,
+						quality1Count: 0,
+						quality2Count: 0,
+						quality3Count: 0,
+						quality4Count: 0,
+						quality5Count: 1,
+						countsPerDayNextWeek: [
+							0,1,0,0,0,0,0
+						]
+					}
+				]
+			}		
+		AND WHEN
+			com.anfelisa.box.GetBoxStatistics
+				{
+					todayAtMidnightInUTC: "20200421 02:00" "yyyyMMdd HH:mm"
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+			response shouldBe {
+				boxStatisticsList: [
+					{
+						boxId: "boxId-${testId}",
+						maxCardsPerDay: 10,
+						quality0Count: 0,
+						quality1Count: 0,
+						quality2Count: 0,
+						quality3Count: 0,
+						quality4Count: 0,
+						quality5Count: 1,
+						countsPerDayNextWeek: [
+							0,0,1,0,0,0,0
+						]
+					}
+				]
+			}		
+		AND WHEN
+			com.anfelisa.box.GetBoxStatistics
+				{
+					todayAtMidnightInUTC: "20200420 02:00" "yyyyMMdd HH:mm"
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+			response shouldBe {
+				boxStatisticsList: [
+					{
+						boxId: "boxId-${testId}",
+						maxCardsPerDay: 10,
+						quality0Count: 0,
+						quality1Count: 0,
+						quality2Count: 0,
+						quality3Count: 0,
+						quality4Count: 0,
+						quality5Count: 1,
+						countsPerDayNextWeek: [
+							0,0,0,1,0,0,0
+						]
+					}
+				]
+			}		
+		AND WHEN
+			com.anfelisa.box.GetBoxStatistics
+				{
+					todayAtMidnightInUTC: "20200419 02:00" "yyyyMMdd HH:mm"
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+			response shouldBe {
+				boxStatisticsList: [
+					{
+						boxId: "boxId-${testId}",
+						maxCardsPerDay: 10,
+						quality0Count: 0,
+						quality1Count: 0,
+						quality2Count: 0,
+						quality3Count: 0,
+						quality4Count: 0,
+						quality5Count: 1,
+						countsPerDayNextWeek: [
+							0,0,0,0,1,0,0
+						]
+					}
+				]
+			}		
+		AND WHEN
+			com.anfelisa.box.GetBoxStatistics
+				{
+					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+			response shouldBe {
+				boxStatisticsList: [
+					{
+						boxId: "boxId-${testId}",
+						maxCardsPerDay: 10,
+						quality0Count: 0,
+						quality1Count: 0,
+						quality2Count: 0,
+						quality3Count: 0,
+						quality4Count: 0,
+						quality5Count: 1,
+						countsPerDayNextWeek: [
+							0,0,0,0,0,1,0
+						]
+					}
+				]
+			}		
+		AND WHEN
+			com.anfelisa.box.GetBoxStatistics
+				{
+					todayAtMidnightInUTC: "20200417 02:00" "yyyyMMdd HH:mm"
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+			response shouldBe {
+				boxStatisticsList: [
+					{
+						boxId: "boxId-${testId}",
+						maxCardsPerDay: 10,
+						quality0Count: 0,
+						quality1Count: 0,
+						quality2Count: 0,
+						quality3Count: 0,
+						quality4Count: 0,
+						quality5Count: 1,
+						countsPerDayNextWeek: [
+							1,0,0,0,0,0,1
+						]
+					}
+				]
+			}		
+
 	GetBoxesTodayAtMidnightInUTCNull
 		GIVEN
 			com.anfelisa.box.schedulecards.ScheduleCards

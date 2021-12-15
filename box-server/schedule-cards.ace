@@ -163,43 +163,6 @@ scenarios
 				scoredDate: null
 			}
 
-	ScheduleSortedOutCardMultiple
-		GIVEN
-			com.anfelisa.box.schedulecards.ScheduleCards
-			com.anfelisa.box.scorecard.ScoreCard0 exclude GIVEN
-			com.anfelisa.box.scorecard.ScoreCard1 exclude GIVEN
-			com.anfelisa.box.scorecard.ScoreCard2 exclude GIVEN
-			com.anfelisa.box.scorecard.ScoreCard3 exclude GIVEN
-			com.anfelisa.box.scorecard.ScoreCard4 exclude GIVEN
-			com.anfelisa.box.scorecard.ScoreCard5 exclude GIVEN
-			com.anfelisa.box.sortcardsout.SortCardsOut exclude GIVEN
-		WHEN
-			com.anfelisa.box.ScheduleCards
-				uuid "again-${testId}"
-				systemTime "20200420 09:30" "yyyyMMdd HH:mm"
-				{
-					cardIds: ["c1-${testId}"],
-					boxId: "boxId-${testId}"
-				}
-				authorization "Annette-${testId}" : "password"
-		THEN 200
-		persistence
-			cardWasScheduled ScheduledCard selectBy (scheduledCardId: "score0-${testId}") shouldBe 
-			{
-				boxId: "boxId-${testId}",
-				cardId: "c1-${testId}",
-				count: 1,
-				createdDate: "20200418 16:30" "yyyyMMdd HH:mm",
-				ef: "1.7F",
-				interval: 1,
-				lastQuality: 0,
-				n: 0,
-				quality: null,
-				scheduledCardId: "score0-${testId}",
-				scheduledDate: "20200420 09:30" "yyyyMMdd HH:mm",
-				scoredDate: null
-			}
-
 	ScheduleCardsAsAdmin
 		GIVEN
 			com.anfelisa.card.createcard.CreateCardAsAdmin

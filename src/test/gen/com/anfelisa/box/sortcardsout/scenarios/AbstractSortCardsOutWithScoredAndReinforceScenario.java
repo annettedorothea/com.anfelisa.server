@@ -513,10 +513,10 @@ public abstract class AbstractSortCardsOutWithScoredAndReinforceScenario extends
 			"\"cardId\" : \"c1-" + this.getTestId() + "\"," + 
 			"\"count\" : 1," + 
 			"\"createdDate\" : \"2020-04-18T16:30\"," + 
-			"\"ef\" : \"2.5F\"," + 
+			"\"ef\" : \"1.7F\"," + 
 			"\"interval\" : 1," + 
 			"\"lastQuality\" : 0," + 
-			"\"n\" : 1," + 
+			"\"n\" : 0," + 
 			"\"quality\" : null," + 
 			"\"scheduledCardId\" : \"score0-" + this.getTestId() + "\"," + 
 			"\"scheduledDate\" : null," + 
@@ -548,7 +548,7 @@ public abstract class AbstractSortCardsOutWithScoredAndReinforceScenario extends
 			"\"quality\" : 1," + 
 			"\"scheduledCardId\" : \"c3-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"," + 
 			"\"scheduledDate\" : \"2020-04-18T10:30\"," + 
-			"\"scoredDate\" : \"2020-04-18T16:30\"} ",
+			"\"scoredDate\" : \"2020-04-18T16:35\"} ",
 		com.anfelisa.box.models.ScheduledCardModel.class);
 		assertThat(actual, expected);
 	
@@ -561,14 +561,14 @@ public abstract class AbstractSortCardsOutWithScoredAndReinforceScenario extends
 			"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 			"\"cardId\" : \"c3-" + this.getTestId() + "\"," + 
 			"\"count\" : 1," + 
-			"\"createdDate\" : \"2020-04-18T16:30\"," + 
-			"\"ef\" : \"2.5F\"," + 
+			"\"createdDate\" : \"2020-04-18T16:35\"," + 
+			"\"ef\" : \"1.96F\"," + 
 			"\"interval\" : 1," + 
 			"\"lastQuality\" : 1," + 
-			"\"n\" : 1," + 
+			"\"n\" : 0," + 
 			"\"quality\" : null," + 
 			"\"scheduledCardId\" : \"score1-" + this.getTestId() + "\"," + 
-			"\"scheduledDate\" : \"2020-04-19T16:30\"," + 
+			"\"scheduledDate\" : \"2020-04-19T16:35\"," + 
 			"\"scoredDate\" : null} ",
 		com.anfelisa.box.models.ScheduledCardModel.class);
 		assertThat(actual, expected);
@@ -580,7 +580,7 @@ public abstract class AbstractSortCardsOutWithScoredAndReinforceScenario extends
 		
 		com.anfelisa.box.models.IReinforceCardModel expected = objectMapper.readValue("{" +
 			"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
-			"\"changeDate\" : \"2020-04-18T16:30\"," + 
+			"\"changeDate\" : \"2020-04-18T16:35\"," + 
 			"\"reinforceCardId\" : \"score1-" + this.getTestId() + "\"," + 
 			"\"scheduledCardId\" : \"c3-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
 		com.anfelisa.box.models.ReinforceCardModel.class);

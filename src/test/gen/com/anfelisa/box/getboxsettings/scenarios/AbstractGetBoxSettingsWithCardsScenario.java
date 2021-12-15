@@ -346,7 +346,7 @@ public abstract class AbstractGetBoxSettingsWithCardsScenario extends BaseScenar
 
 		if (prerequisite("ScoreCard2")) {
 			uuid = "score2-" + this.getTestId() + "";
-			this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
+			this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 16:40", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 			com.anfelisa.box.data.ScoreCardPayload payload_9 = objectMapper.readValue("{" +
 				"\"scoredCardQuality\" : 2," + 
 				"\"scheduledCardId\" : \"c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",

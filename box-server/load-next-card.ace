@@ -179,7 +179,7 @@ scenarios
 					reinforceCardId: "score1-${testId}",
 					rootCategoryId: "boxId-${testId}",
 					scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
-					scoredDate: "20200418 16:30" "yyyyMMdd HH:mm",
+					scoredDate: "20200418 16:35" "yyyyMMdd HH:mm",
 					wanted: "3wanted",
 					categoryName: "level 1 #1"
 				}
@@ -203,16 +203,16 @@ scenarios
 				openTodaysCards: 2,
 				reverse: false,
 				nextCard: {
-					cardId: "c1-${testId}",
+					cardId: "c3-${testId}",
 					categoryId: "cat1-${testId}",
 					count: 0,
-					given: "given",
-					lastQuality: 2,
-					reinforceCardId: "score2-${testId}",
+					given: "3given",
+					lastQuality: 1,
+					reinforceCardId: "score1-${testId}",
 					rootCategoryId: "boxId-${testId}",
 					scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
-					scoredDate: "20200418 16:30" "yyyyMMdd HH:mm",
-					wanted: "wanted",
+					scoredDate: "20200418 16:35" "yyyyMMdd HH:mm",
+					wanted: "3wanted",
 					categoryName: "level 1 #1"
 				}
 			}		
@@ -235,16 +235,16 @@ scenarios
 				openTodaysCards: 2,
 				reverse: false,
 				nextCard: {
-					cardId: "c1-${testId}",
+					cardId: "c3-${testId}",
 					categoryId: "cat1-${testId}",
 					count: 0,
-					given: "given",
-					lastQuality: 3,
-					reinforceCardId: "score3-${testId}",
+					given: "3given",
+					lastQuality: 1,
+					reinforceCardId: "score1-${testId}",
 					rootCategoryId: "boxId-${testId}",
 					scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
-					scoredDate: "20200418 16:30" "yyyyMMdd HH:mm",
-					wanted: "wanted",
+					scoredDate: "20200418 16:35" "yyyyMMdd HH:mm",
+					wanted: "3wanted",
 					categoryName: "level 1 #1"
 				}
 			}		
@@ -275,7 +275,7 @@ scenarios
 					reinforceCardId: "score1-${testId}",
 					rootCategoryId: "boxId-${testId}",
 					scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
-					scoredDate: "20200418 16:30" "yyyyMMdd HH:mm",
+					scoredDate: "20200418 16:35" "yyyyMMdd HH:mm",
 					wanted: "3wanted",
 					categoryName: "level 1 #1"
 				}
@@ -385,7 +385,7 @@ scenarios
 					reinforceCardId: "score1-${testId}",
 					rootCategoryId: "boxId-${testId}",
 					scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
-					scoredDate: "20200418 16:30" "yyyyMMdd HH:mm",
+					scoredDate: "20200418 16:35" "yyyyMMdd HH:mm",
 					wanted: "3wanted",
 					categoryName: "level 1 #1"
 				}

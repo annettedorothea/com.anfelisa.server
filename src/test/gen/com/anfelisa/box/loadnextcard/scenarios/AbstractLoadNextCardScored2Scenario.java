@@ -498,16 +498,16 @@ public abstract class AbstractLoadNextCardScored2Scenario extends BaseScenario {
 				"\"allTodaysCards\" : 3," + 
 				"\"openTodaysCards\" : 2," + 
 				"\"reverse\" : false," + 
-				"\"nextCard\" : { \"cardId\" : \"c1-" + this.getTestId() + "\"," + 
+				"\"nextCard\" : { \"cardId\" : \"c3-" + this.getTestId() + "\"," + 
 				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 				"\"count\" : 0," + 
-				"\"given\" : \"given\"," + 
-				"\"lastQuality\" : 2," + 
-				"\"reinforceCardId\" : \"score2-" + this.getTestId() + "\"," + 
+				"\"given\" : \"3given\"," + 
+				"\"lastQuality\" : 1," + 
+				"\"reinforceCardId\" : \"score1-" + this.getTestId() + "\"," + 
 				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"scheduledDate\" : \"2020-04-18T10:30\"," + 
-				"\"scoredDate\" : \"2020-04-18T16:30\"," + 
-				"\"wanted\" : \"wanted\"," + 
+				"\"scoredDate\" : \"2020-04-18T16:35\"," + 
+				"\"wanted\" : \"3wanted\"," + 
 				"\"categoryName\" : \"level 1 #1\"}} ",
 			com.anfelisa.box.data.NextCardData.class);
 			

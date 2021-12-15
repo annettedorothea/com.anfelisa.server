@@ -278,10 +278,10 @@ scenarios
 				cardId: "c1-${testId}",
 				count: 1,
 				createdDate: "20200418 16:30" "yyyyMMdd HH:mm",
-				ef: "2.5F",
+				ef: "1.7F",
 				interval: 1,
 				lastQuality: 0,
-				n: 1,
+				n: 0,
 				quality: null,
 				scheduledCardId: "score0-${testId}",
 				scheduledDate: null,
@@ -301,27 +301,27 @@ scenarios
 				quality: 1,
 				scheduledCardId: "c3-${testId}-sc1-${testId}",
 				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
-				scoredDate: "20200418 16:30" "yyyyMMdd HH:mm"
+				scoredDate: "20200418 16:35" "yyyyMMdd HH:mm"
 			}
 			newScheuledCard3Remains ScheduledCard selectBy ( scheduledCardId: "score1-${testId}" ) shouldBe 
 			{
 				boxId: "boxId-${testId}",
 				cardId: "c3-${testId}",
 				count: 1,
-				createdDate: "20200418 16:30" "yyyyMMdd HH:mm",
-				ef: "2.5F",
+				createdDate: "20200418 16:35" "yyyyMMdd HH:mm",
+				ef: "1.96F",
 				interval: 1,
 				lastQuality: 1,
-				n: 1,
+				n: 0,
 				quality: null,
 				scheduledCardId: "score1-${testId}",
-				scheduledDate: "20200419 16:30" "yyyyMMdd HH:mm",
+				scheduledDate: "20200419 16:35" "yyyyMMdd HH:mm",
 				scoredDate: null
 			}
 			reinforceCard3Remains ReinforceCard selectBy ( reinforceCardId: "score1-${testId}" ) shouldBe 
 			{
 				boxId: "boxId-${testId}",
-				changeDate: "20200418 16:30" "yyyyMMdd HH:mm",
+				changeDate: "20200418 16:35" "yyyyMMdd HH:mm",
 				reinforceCardId: "score1-${testId}",
 				scheduledCardId: "c3-${testId}-sc1-${testId}"
 			}

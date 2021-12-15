@@ -5,12 +5,12 @@
 
 
 
-package com.anfelisa.box.schedulecards.scenarios;
+package com.anfelisa.box.getboxstatistics.scenarios;
 
-import com.anfelisa.box.data.ScheduleCardsResponse;
+import com.anfelisa.box.data.GetBoxStatisticsResponse;
 
 @SuppressWarnings("unused")
-public class ScheduleSortedOutCardMultipleScenario extends AbstractScheduleSortedOutCardMultipleScenario {
+public class GetBoxesSortedOutIsNotShownScenario extends AbstractGetBoxesSortedOutIsNotShownScenario {
 
 	
 

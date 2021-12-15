@@ -7,8 +7,6 @@
 
 package com.anfelisa.box.actions;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -38,13 +36,8 @@ public class GetBoxStatisticsAction extends AbstractGetBoxStatisticsAction {
 		List<IBoxStatisticsModel> boxList = this.daoProvider.getBoxDao().selectStatisticsByUserId(readonlyHandle,
 				data.getUserId());
 		for (IBoxStatisticsModel box : boxList) {
-			LocalDateTime day = data.getTodayAtMidnightInUTC();
-			box.setCountsPerDayNextWeek(new ArrayList<>());
-			for (int i = 0; i < 7; i++) {
-				day = day.plusDays(1);
-				Integer countOfDay = this.daoProvider.getBoxDao().selectCountOfDay(readonlyHandle, box.getBoxId(), day);
-				box.getCountsPerDayNextWeek().add(countOfDay);
-			}
+			List<Integer> countOfDay = this.daoProvider.getBoxDao().selectCountOfDay(readonlyHandle, box.getBoxId(), data.getTodayAtMidnightInUTC());
+			box.setCountsPerDayNextWeek(countOfDay);
 		}
 		data.setBoxStatisticsList(boxList);
 		return data;

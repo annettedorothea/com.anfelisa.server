@@ -34,30 +34,45 @@ public class BoxDao extends AbstractBoxDao {
 				.map(new BoxViewMapper()).list();
 	}
 
-	public Integer selectCountOfDay(PersistenceHandle handle, String boxId, LocalDateTime day) {
-		LocalDateTime endOfDay = day.plusDays(1);
-		Optional<Integer> optional =  handle.getHandle().createQuery("SELECT count(scheduledcardid) "
-				+ "FROM public.scheduledcard "
-				+ "WHERE boxid = :boxid "
-				+ "AND quality is null "
-				+ "AND scheduledDate >= :day "
-				+ "AND scheduledDate < :endofday")
+	public List<Integer> selectCountOfDay(PersistenceHandle handle, String boxId, LocalDateTime day) {
+		LocalDateTime day1 = day.plusDays(1);
+		LocalDateTime day2 = day1.plusDays(1);
+		LocalDateTime day3 = day1.plusDays(2);
+		LocalDateTime day4 = day1.plusDays(3);
+		LocalDateTime day5 = day1.plusDays(4);
+		LocalDateTime day6 = day1.plusDays(5);
+		LocalDateTime day7 = day1.plusDays(6);
+		LocalDateTime day8 = day1.plusDays(7);
+		return handle.getHandle().createQuery("select count from ("
+				+ "SELECT count(scheduledcardid) as count, 1 as day FROM public.scheduledcard WHERE boxid = :boxid AND quality is null AND scheduledDate >= :day1 AND scheduledDate < :day2 UNION "
+				+ "SELECT count(scheduledcardid) as count, 2 as day FROM public.scheduledcard WHERE boxid = :boxid AND quality is null AND scheduledDate >= :day2 AND scheduledDate < :day3 UNION "
+				+ "SELECT count(scheduledcardid) as count, 3 as day FROM public.scheduledcard WHERE boxid = :boxid AND quality is null AND scheduledDate >= :day3 AND scheduledDate < :day4 UNION "
+				+ "SELECT count(scheduledcardid) as count, 4 as day FROM public.scheduledcard WHERE boxid = :boxid AND quality is null AND scheduledDate >= :day4 AND scheduledDate < :day5 UNION "
+				+ "SELECT count(scheduledcardid) as count, 5 as day FROM public.scheduledcard WHERE boxid = :boxid AND quality is null AND scheduledDate >= :day5 AND scheduledDate < :day6 UNION "
+				+ "SELECT count(scheduledcardid) as count, 6 as day FROM public.scheduledcard WHERE boxid = :boxid AND quality is null AND scheduledDate >= :day6 AND scheduledDate < :day7 UNION "
+				+ "SELECT count(scheduledcardid) as count, 7 as day FROM public.scheduledcard WHERE boxid = :boxid AND quality is null AND scheduledDate >= :day7 AND scheduledDate < :day8) as countOfDays order by day"
+				)
 				.bind("boxid", boxId)
-				.bind("day", day)
-				.bind("endofday", endOfDay)
-				.mapTo(Integer.class).findFirst();
-		return optional.isPresent() ? optional.get() : null;
+				.bind("day1", day1)
+				.bind("day2", day2)
+				.bind("day3", day3)
+				.bind("day4", day4)
+				.bind("day5", day5)
+				.bind("day6", day6)
+				.bind("day7", day7)
+				.bind("day8", day8)
+				.mapTo(Integer.class).list();
 	}
 	
 	public List<IBoxStatisticsModel> selectStatisticsByUserId(PersistenceHandle handle, String userId) {
  		return handle.getHandle().createQuery("SELECT "
 				+ "b.boxid, b.maxcardsperday, "
-				+ "(select count(*) from (SELECT DISTINCT ON (cardid) quality FROM scheduledcard where quality is not null and boxid = b.boxid ORDER BY cardid, scoreddate DESC) as qualities where quality = 0) as quality0Count, "
-				+ "(select count(*) from (SELECT DISTINCT ON (cardid) quality FROM scheduledcard where quality is not null and boxid = b.boxid ORDER BY cardid, scoreddate DESC) as qualities where quality = 1) as quality1Count, "
-				+ "(select count(*) from (SELECT DISTINCT ON (cardid) quality FROM scheduledcard where quality is not null and boxid = b.boxid ORDER BY cardid, scoreddate DESC) as qualities where quality = 2) as quality2Count, "
-				+ "(select count(*) from (SELECT DISTINCT ON (cardid) quality FROM scheduledcard where quality is not null and boxid = b.boxid ORDER BY cardid, scoreddate DESC) as qualities where quality = 3) as quality3Count, "
-				+ "(select count(*) from (SELECT DISTINCT ON (cardid) quality FROM scheduledcard where quality is not null and boxid = b.boxid ORDER BY cardid, scoreddate DESC) as qualities where quality = 4) as quality4Count, "
-				+ "(select count(*) from (SELECT DISTINCT ON (cardid) quality FROM scheduledcard where quality is not null and boxid = b.boxid ORDER BY cardid, scoreddate DESC) as qualities where quality = 5) as quality5Count "
+				+ "(select count(*) from (SELECT lastquality FROM scheduledcard where boxid = b.boxid and quality is null and scheduleddate is not null) as qualities where lastquality = 0) as quality0Count, "
+				+ "(select count(*) from (SELECT lastquality FROM scheduledcard where boxid = b.boxid and quality is null and scheduleddate is not null) as qualities where lastquality = 1) as quality1Count, "
+				+ "(select count(*) from (SELECT lastquality FROM scheduledcard where boxid = b.boxid and quality is null and scheduleddate is not null) as qualities where lastquality = 2) as quality2Count, "
+				+ "(select count(*) from (SELECT lastquality FROM scheduledcard where boxid = b.boxid and quality is null and scheduleddate is not null) as qualities where lastquality = 3) as quality3Count, "
+				+ "(select count(*) from (SELECT lastquality FROM scheduledcard where boxid = b.boxid and quality is null and scheduleddate is not null) as qualities where lastquality = 4) as quality4Count, "
+				+ "(select count(*) from (SELECT lastquality FROM scheduledcard where boxid = b.boxid and quality is null and scheduleddate is not null) as qualities where lastquality = 5) as quality5Count "
  				+ "FROM public.box b "
  				+ "where userid = :userid and b.archived = false")
  				.bind("userid", userId)
