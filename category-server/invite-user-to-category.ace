@@ -7,7 +7,7 @@ scenarios
 	InviteUserToCategory
 		GIVEN
 			com.anfelisa.box.createbox.CreateBoxMinimal
-			com.anfelisa.user.registeruser.RegisterTwoUsers excludeGIVEN
+			com.anfelisa.user.registeruser.RegisterTwoUsers exclude GIVEN
 		WHEN
 			com.anfelisa.category.InviteUserToCategory 
 			uuid "boxIdOfInvitedUser-${testId}"
@@ -38,7 +38,7 @@ scenarios
 	InviteUserToCategoryThatDoesNotExist
 		GIVEN
 			com.anfelisa.box.createbox.CreateBoxMinimal
-			com.anfelisa.user.registeruser.RegisterTwoUsers excludeGIVEN
+			com.anfelisa.user.registeruser.RegisterTwoUsers exclude GIVEN
 		WHEN
 			com.anfelisa.category.InviteUserToCategory {
 				categoryId: "boxId123-${testId}",
@@ -99,7 +99,7 @@ scenarios
 	InviteUserToCategoryNoAccessToCategory
 		GIVEN
 			com.anfelisa.box.createbox.CreateBoxMinimal
-			com.anfelisa.user.registeruser.RegisterTwoUsers excludeGIVEN
+			com.anfelisa.user.registeruser.RegisterTwoUsers exclude GIVEN
 		WHEN
 			com.anfelisa.category.InviteUserToCategory {
 				categoryId: "boxId-${testId}",
@@ -112,7 +112,6 @@ scenarios
 	InviteUserToCategoryNoEditingAccessToCategory
 		GIVEN
 			InviteUserToCategory
-			com.anfelisa.user.registeruser.RegisterTwoUsers excludeGIVEN
 			com.anfelisa.user.registeruser.RegisterUserAdmin
 		WHEN
 			com.anfelisa.category.InviteUserToCategory {

@@ -63,7 +63,7 @@ scenarios
 	LoadNextCardSecondScored
 		GIVEN
 			com.anfelisa.box.scorecard.ScoreCard0
-			com.anfelisa.box.scorecard.ScoreCard1 excludeGIVEN
+			com.anfelisa.box.scorecard.ScoreCard1 exclude GIVEN
 		WHEN
 			com.anfelisa.box.LoadNextCard
 				{
@@ -92,8 +92,8 @@ scenarios
 	LoadNextCardThirdScored
 		GIVEN
 			com.anfelisa.box.scorecard.ScoreCard0
-			com.anfelisa.box.scorecard.ScoreCard1 excludeGIVEN
-			com.anfelisa.box.scorecard.ScoreCard5 excludeGIVEN
+			com.anfelisa.box.scorecard.ScoreCard1 exclude GIVEN
+			com.anfelisa.box.scorecard.ScoreCard5 exclude GIVEN
 		WHEN
 			com.anfelisa.box.LoadNextCard
 				{
@@ -155,9 +155,9 @@ scenarios
 	LoadNextCardFirstReinforceScored
 		GIVEN
 			com.anfelisa.box.scorecard.ScoreCard0
-			com.anfelisa.box.scorecard.ScoreCard1 excludeGIVEN
-			com.anfelisa.box.scorecard.ScoreCard5 excludeGIVEN
-			com.anfelisa.box.scorereinforcecard.ScoreReinforceCardKeep excludeGIVEN
+			com.anfelisa.box.scorecard.ScoreCard1 exclude GIVEN
+			com.anfelisa.box.scorecard.ScoreCard5 exclude GIVEN
+			com.anfelisa.box.scorereinforcecard.ScoreReinforceCardKeep exclude GIVEN
 		WHEN
 			com.anfelisa.box.LoadNextCard
 				{
@@ -179,7 +179,7 @@ scenarios
 					reinforceCardId: "score1-${testId}",
 					rootCategoryId: "boxId-${testId}",
 					scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
-					scoredDate: "20200418 16:30" "yyyyMMdd HH:mm",
+					scoredDate: "20200418 16:35" "yyyyMMdd HH:mm",
 					wanted: "3wanted",
 					categoryName: "level 1 #1"
 				}
@@ -188,8 +188,8 @@ scenarios
 	LoadNextCardScored2
 		GIVEN
 			com.anfelisa.box.scorecard.ScoreCard2
-			com.anfelisa.box.scorecard.ScoreCard1 excludeGIVEN
-			com.anfelisa.box.scorecard.ScoreCard5 excludeGIVEN
+			com.anfelisa.box.scorecard.ScoreCard1 exclude GIVEN
+			com.anfelisa.box.scorecard.ScoreCard5 exclude GIVEN
 		WHEN
 			com.anfelisa.box.LoadNextCard
 				{
@@ -203,16 +203,16 @@ scenarios
 				openTodaysCards: 2,
 				reverse: false,
 				nextCard: {
-					cardId: "c1-${testId}",
+					cardId: "c3-${testId}",
 					categoryId: "cat1-${testId}",
 					count: 0,
-					given: "given",
-					lastQuality: 2,
-					reinforceCardId: "score2-${testId}",
+					given: "3given",
+					lastQuality: 1,
+					reinforceCardId: "score1-${testId}",
 					rootCategoryId: "boxId-${testId}",
 					scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
-					scoredDate: "20200418 16:30" "yyyyMMdd HH:mm",
-					wanted: "wanted",
+					scoredDate: "20200418 16:35" "yyyyMMdd HH:mm",
+					wanted: "3wanted",
 					categoryName: "level 1 #1"
 				}
 			}		
@@ -220,8 +220,8 @@ scenarios
 	LoadNextCardScored3
 		GIVEN
 			com.anfelisa.box.scorecard.ScoreCard3
-			com.anfelisa.box.scorecard.ScoreCard1 excludeGIVEN
-			com.anfelisa.box.scorecard.ScoreCard5 excludeGIVEN
+			com.anfelisa.box.scorecard.ScoreCard1 exclude GIVEN
+			com.anfelisa.box.scorecard.ScoreCard5 exclude GIVEN
 		WHEN
 			com.anfelisa.box.LoadNextCard
 				{
@@ -235,16 +235,16 @@ scenarios
 				openTodaysCards: 2,
 				reverse: false,
 				nextCard: {
-					cardId: "c1-${testId}",
+					cardId: "c3-${testId}",
 					categoryId: "cat1-${testId}",
 					count: 0,
-					given: "given",
-					lastQuality: 3,
-					reinforceCardId: "score3-${testId}",
+					given: "3given",
+					lastQuality: 1,
+					reinforceCardId: "score1-${testId}",
 					rootCategoryId: "boxId-${testId}",
 					scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
-					scoredDate: "20200418 16:30" "yyyyMMdd HH:mm",
-					wanted: "wanted",
+					scoredDate: "20200418 16:35" "yyyyMMdd HH:mm",
+					wanted: "3wanted",
 					categoryName: "level 1 #1"
 				}
 			}		
@@ -252,8 +252,8 @@ scenarios
 	LoadNextCardScored4
 		GIVEN
 			com.anfelisa.box.scorecard.ScoreCard4
-			com.anfelisa.box.scorecard.ScoreCard1 excludeGIVEN
-			com.anfelisa.box.scorecard.ScoreCard5 excludeGIVEN
+			com.anfelisa.box.scorecard.ScoreCard1 exclude GIVEN
+			com.anfelisa.box.scorecard.ScoreCard5 exclude GIVEN
 		WHEN
 			com.anfelisa.box.LoadNextCard
 				{
@@ -275,7 +275,7 @@ scenarios
 					reinforceCardId: "score1-${testId}",
 					rootCategoryId: "boxId-${testId}",
 					scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
-					scoredDate: "20200418 16:30" "yyyyMMdd HH:mm",
+					scoredDate: "20200418 16:35" "yyyyMMdd HH:mm",
 					wanted: "3wanted",
 					categoryName: "level 1 #1"
 				}
@@ -284,10 +284,10 @@ scenarios
 	LoadNextCardSecondReinforceScored
 		GIVEN
 			com.anfelisa.box.scorecard.ScoreCard0
-			com.anfelisa.box.scorecard.ScoreCard1 excludeGIVEN
-			com.anfelisa.box.scorecard.ScoreCard5 excludeGIVEN
-			com.anfelisa.box.scorereinforcecard.ScoreReinforceCardKeep excludeGIVEN
-			com.anfelisa.box.scorereinforcecard.ScoreOtherReinforceCard excludeGIVEN
+			com.anfelisa.box.scorecard.ScoreCard1 exclude GIVEN
+			com.anfelisa.box.scorecard.ScoreCard5 exclude GIVEN
+			com.anfelisa.box.scorereinforcecard.ScoreReinforceCardKeep exclude GIVEN
+			com.anfelisa.box.scorereinforcecard.ScoreOtherReinforceCard exclude GIVEN
 		WHEN
 			com.anfelisa.box.LoadNextCard
 				{
@@ -318,11 +318,11 @@ scenarios
 	LoadNextCardFinished4
 		GIVEN
 			com.anfelisa.box.scorecard.ScoreCard0
-			com.anfelisa.box.scorecard.ScoreCard1 excludeGIVEN
-			com.anfelisa.box.scorecard.ScoreCard5 excludeGIVEN
-			com.anfelisa.box.scorereinforcecard.ScoreReinforceCardKeep excludeGIVEN
-			com.anfelisa.box.scorereinforcecard.ScoreOtherReinforceCard excludeGIVEN
-			com.anfelisa.box.scorereinforcecard.ScoreReinforceCardRemove excludeGIVEN
+			com.anfelisa.box.scorecard.ScoreCard1 exclude GIVEN
+			com.anfelisa.box.scorecard.ScoreCard5 exclude GIVEN
+			com.anfelisa.box.scorereinforcecard.ScoreReinforceCardKeep exclude GIVEN
+			com.anfelisa.box.scorereinforcecard.ScoreOtherReinforceCard exclude GIVEN
+			com.anfelisa.box.scorereinforcecard.ScoreReinforceCardRemove exclude GIVEN
 		WHEN
 			com.anfelisa.box.LoadNextCard
 				{
@@ -341,11 +341,11 @@ scenarios
 	LoadNextCardFinished5
 		GIVEN
 			com.anfelisa.box.scorecard.ScoreCard0
-			com.anfelisa.box.scorecard.ScoreCard1 excludeGIVEN
-			com.anfelisa.box.scorecard.ScoreCard5 excludeGIVEN
-			com.anfelisa.box.scorereinforcecard.ScoreReinforceCardKeep excludeGIVEN
-			com.anfelisa.box.scorereinforcecard.ScoreOtherReinforceCard excludeGIVEN
-			com.anfelisa.box.scorereinforcecard.ScoreReinforceCardRemove excludeGIVEN
+			com.anfelisa.box.scorecard.ScoreCard1 exclude GIVEN
+			com.anfelisa.box.scorecard.ScoreCard5 exclude GIVEN
+			com.anfelisa.box.scorereinforcecard.ScoreReinforceCardKeep exclude GIVEN
+			com.anfelisa.box.scorereinforcecard.ScoreOtherReinforceCard exclude GIVEN
+			com.anfelisa.box.scorereinforcecard.ScoreReinforceCardRemove exclude GIVEN
 		WHEN
 			com.anfelisa.box.LoadNextCard
 				{
@@ -385,7 +385,7 @@ scenarios
 					reinforceCardId: "score1-${testId}",
 					rootCategoryId: "boxId-${testId}",
 					scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
-					scoredDate: "20200418 16:30" "yyyyMMdd HH:mm",
+					scoredDate: "20200418 16:35" "yyyyMMdd HH:mm",
 					wanted: "3wanted",
 					categoryName: "level 1 #1"
 				}

@@ -43,9 +43,9 @@ ACE
 		authorize 
 		queryParams 
 			NotNull categoryId 
-			NotNull filterNonScheduled
+			filterNonScheduled
 			priority
-			NotNull reverse
+			reverse
 		response
 			cardList
 			
@@ -75,7 +75,16 @@ ACE
 			NotNull cardIdList
 			NotNull cardId
 		on ok (Card.changeCardOrder)
-
+		
+	GetTranslation<CardTranslation>
+		GET "/card/translation" 
+		authorize 
+		queryParams 
+			NotNull sourceValue 
+			NotNull sourceLanguage 
+			NotNull targetLanguage
+		response
+			targetValue
 
 views 
 	Card {

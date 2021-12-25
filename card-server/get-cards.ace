@@ -6,8 +6,8 @@ scenarios
 	GetCards
 		GIVEN
 			com.anfelisa.card.createcard.CreateFifthCard
-			com.anfelisa.category.createcategory.CreateSecondCategory excludeGIVEN
-			com.anfelisa.card.createcard.CreateCardInOtherCategory excludeGIVEN
+			com.anfelisa.category.createcategory.CreateSecondCategory exclude GIVEN
+			com.anfelisa.card.createcard.CreateCardInOtherCategory exclude GIVEN
 		WHEN
 			com.anfelisa.card.GetCards
 				{
@@ -70,8 +70,8 @@ scenarios
 	GetCardsFilterIsNull
 		GIVEN
 			com.anfelisa.card.createcard.CreateFifthCard
-			com.anfelisa.category.createcategory.CreateSecondCategory excludeGIVEN
-			com.anfelisa.card.createcard.CreateCardInOtherCategory excludeGIVEN
+			com.anfelisa.category.createcategory.CreateSecondCategory exclude GIVEN
+			com.anfelisa.card.createcard.CreateCardInOtherCategory exclude GIVEN
 		WHEN
 			com.anfelisa.card.GetCards
 				{
@@ -79,7 +79,7 @@ scenarios
 					reverse: false
 				}
 				authorization "Annette-${testId}" : "password"
-		THEN 400
+		THEN 200
 
 	GetFilteredCards
 		GIVEN
@@ -119,7 +119,7 @@ scenarios
 	GetFilteredCardsPriority1
 		GIVEN
 			com.anfelisa.card.createcard.CreateFifthCard
-			com.anfelisa.card.updatecardpriority.UpdateCardPriority1 excludeGIVEN
+			com.anfelisa.card.updatecardpriority.UpdateCardPriority1 exclude GIVEN
 		WHEN
 			com.anfelisa.card.GetCards
 				{

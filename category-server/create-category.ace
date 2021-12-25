@@ -222,8 +222,8 @@ scenarios
 	CreateCategoryUnauthorizedNoEditingAccess
 		GIVEN
 			com.anfelisa.box.createbox.CreateBoxMinimal
-			com.anfelisa.user.registeruser.RegisterTwoUsers excludeGIVEN
-			com.anfelisa.category.inviteusertocategory.InviteUserToCategory excludeGIVEN
+			com.anfelisa.user.registeruser.RegisterTwoUsers exclude GIVEN
+			com.anfelisa.category.inviteusertocategory.InviteUserToCategory exclude GIVEN
 		WHEN
 			com.anfelisa.category.CreateCategory
 				uuid "lala-${testId}"
@@ -260,10 +260,11 @@ scenarios
 				rootCategoryId: "adminBox-${testId}"
 			}
 
-	CreateThirdCategory
+
+	CreateFourthCategory
 		GIVEN
 			com.anfelisa.category.createcategory.CreateCategory
-			com.anfelisa.category.createcategory.CreateSecondCategory excludeGIVEN
+			com.anfelisa.category.createcategory.CreateSecondCategory exclude GIVEN
 		WHEN
 			com.anfelisa.category.CreateCategory
 				uuid "cat3-${testId}"
@@ -274,7 +275,7 @@ scenarios
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 		persistence
-			categoryWasCreated Category selectBy ( categoryId: "cat3-${testId}") shouldBe
+			thirdCategoryWasCreated Category selectBy ( categoryId: "cat3-${testId}") shouldBe
 			{
 				categoryAuthor: "Annette-${testId}",
 				categoryId: "cat3-${testId}",
@@ -284,10 +285,7 @@ scenarios
 				parentCategoryId: "boxId-${testId}",
 				rootCategoryId: "boxId-${testId}"				
 			}
-
-	CreateFourthCategory
-		GIVEN
-			CreateThirdCategory
+		AND
 		WHEN
 			com.anfelisa.category.CreateCategory
 				uuid "cat4-${testId}"
@@ -298,7 +296,7 @@ scenarios
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 		persistence
-			categoryWasCreated Category selectBy ( categoryId: "cat4-${testId}") shouldBe
+			fourthCategoryWasCreated Category selectBy ( categoryId: "cat4-${testId}") shouldBe
 			{
 				categoryAuthor: "Annette-${testId}",
 				categoryId: "cat4-${testId}",

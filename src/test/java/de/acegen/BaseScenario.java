@@ -50,6 +50,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 import org.slf4j.LoggerFactory;
@@ -79,12 +80,15 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
+import io.dropwizard.testing.junit5.DropwizardAppExtension;
+import io.dropwizard.testing.junit5.DropwizardExtensionsSupport;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 
+@ExtendWith(DropwizardExtensionsSupport.class)
 @RunWith(JUnitPlatform.class)
 public abstract class BaseScenario extends AbstractBaseScenario {
 
@@ -106,11 +110,16 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 
 	protected static YamlConfiguration config;
 
+	@SuppressWarnings("unused")
+	private static DropwizardAppExtension<CustomAppConfiguration> EXT = new DropwizardAppExtension<>(
+			App.class,
+			"dev.yml");
+		
 	@BeforeAll
 	public static void beforeClass() throws Exception {
 		Logger rootLogger = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
 		rootLogger.setLevel(Level.INFO);
-
+		
 		ObjectMapper mapper = new ObjectMapper(new YAMLFactory())
 				.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		config = mapper.readValue(new File("dev.yml"), YamlConfiguration.class);
@@ -289,19 +298,26 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 	protected String randomUUID() {
 		return UUID.randomUUID().toString();
 	}
+	
+	private HashMap<String, String> tokenUserMap = new HashMap<>();
 
 	@Override
 	protected String authorization(String username, String password) {
-		String uuid = randomUUID();
-		username = username.replace("${testId}", testId);
-		GetTokenPayload payload = new GetTokenPayload(new TokenModel(username, password, null));
-		HttpResponse<com.anfelisa.user.data.GetTokenResponse> response = this.httpPut(
-				"/user/token",
-				payload,
-				null,
-				uuid,
-				com.anfelisa.user.data.GetTokenResponse.class);
-		return "Bearer " + response.getEntity().getToken();
+		String userToken = tokenUserMap.get(username);
+		if (userToken == null) {
+			String uuid = randomUUID();
+			username = username.replace("${testId}", testId);
+			GetTokenPayload payload = new GetTokenPayload(new TokenModel(username, password, null));
+			HttpResponse<com.anfelisa.user.data.GetTokenResponse> response = this.httpPut(
+					"/user/token",
+					payload,
+					null,
+					uuid,
+					com.anfelisa.user.data.GetTokenResponse.class);
+			userToken = "Bearer " + response.getEntity().getToken();
+			tokenUserMap.put(username, userToken);
+		}
+		return userToken;
 	}
 
 	@Override

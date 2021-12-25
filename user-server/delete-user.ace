@@ -72,7 +72,7 @@ scenarios
 		GIVEN
 			com.anfelisa.user.registeruser.RegisterUserAdmin
 			com.anfelisa.user.registeruser.RegisterUser
-			com.anfelisa.user.changeuserrole.ChangeUserRoleToAdmin excludeGIVEN
+			com.anfelisa.user.changeuserrole.ChangeUserRoleToAdmin exclude GIVEN
 		WHEN com.anfelisa.user.DeleteUser {
 			usernameToBeDeleted: "Annette-${testId}"
 		}

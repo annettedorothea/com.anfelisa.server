@@ -81,6 +81,15 @@ public class DaoProvider extends AbstractDaoProvider implements IDaoProvider {
 
 	@Override
 	public void truncateAllViews(PersistenceHandle handle) {
+		reinforceCardDao.truncate(handle);
+		scheduledCardDao.truncate(handle);
+		cardDao.truncate(handle);
+		emailConfirmationDao.truncate(handle);
+		resetPasswordDao.truncate(handle);
+		boxDao.truncate(handle);
+		categoryDao.truncate(handle);
+		userDao.truncate(handle);
+		userAccessToCategoryDao.truncate(handle);
 	}
 
 }

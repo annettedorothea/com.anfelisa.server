@@ -23,4 +23,14 @@ public class CustomAppConfiguration extends AppConfiguration {
 		return secretString;
 	}
 
+	@Valid
+	@NotNull
+	@JsonProperty
+	private String translationApiKey;
+
+	public String getTranslationApiKey() {
+		return translationApiKey;
+	}
+
+
 }

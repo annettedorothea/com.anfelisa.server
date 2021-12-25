@@ -1,7 +1,0 @@
-/AbstractChangeUserRoleCommand.java
-/AbstractConfirmEmailCommand.java
-/AbstractDeleteUserCommand.java
-/AbstractForgotPasswordCommand.java
-/AbstractGetTokenCommand.java
-/AbstractRegisterUserCommand.java
-/AbstractResetPasswordCommand.java

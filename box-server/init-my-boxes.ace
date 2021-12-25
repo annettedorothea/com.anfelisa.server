@@ -290,8 +290,8 @@ scenarios
 	InitMyBoxesForDayWithScoredAndReinforceCardsSameDayDoesNothing
 		GIVEN
 			com.anfelisa.box.scorecard.ScoreCard0
-			com.anfelisa.box.scorecard.ScoreCard1 excludeGIVEN
-			com.anfelisa.box.scorecard.ScoreCard5 excludeGIVEN
+			com.anfelisa.box.scorecard.ScoreCard1 exclude GIVEN
+			com.anfelisa.box.scorecard.ScoreCard5 exclude GIVEN
 		WHEN
 			com.anfelisa.box.InitMyBoxesForDay
 				{
@@ -306,10 +306,10 @@ scenarios
 				cardId: "c1-${testId}",
 				count: 1,
 				createdDate: "20200418 16:30" "yyyyMMdd HH:mm",
-				ef: "2.5F",
+				ef: "1.7F",
 				interval: 1,
 				lastQuality: 0,
-				n: 1,
+				n: 0,
 				quality: null,
 				scheduledCardId: "score0-${testId}",
 				scheduledDate: "20200419 16:30" "yyyyMMdd HH:mm",
@@ -327,20 +327,20 @@ scenarios
 				boxId: "boxId-${testId}",
 				cardId: "c3-${testId}",
 				count: 1,
-				createdDate: "20200418 16:30" "yyyyMMdd HH:mm",
-				ef: "2.5F",
+				createdDate: "20200418 16:35" "yyyyMMdd HH:mm",
+				ef: "1.96F",
 				interval: 1,
 				lastQuality: 1,
-				n: 1,
+				n: 0,
 				quality: null,
 				scheduledCardId: "score1-${testId}",
-				scheduledDate: "20200419 16:30" "yyyyMMdd HH:mm",
+				scheduledDate: "20200419 16:35" "yyyyMMdd HH:mm",
 				scoredDate: null
 			}
 			noChangeForReinforceCard3 ReinforceCard selectBy ( reinforceCardId: "score1-${testId}" ) shouldBe 
 			{
 				boxId: "boxId-${testId}",
-				changeDate: "20200418 16:30" "yyyyMMdd HH:mm",
+				changeDate: "20200418 16:35" "yyyyMMdd HH:mm",
 				reinforceCardId: "score1-${testId}",
 				scheduledCardId: "c3-${testId}-sc1-${testId}"
 			}
@@ -349,22 +349,22 @@ scenarios
 				boxId: "boxId-${testId}",
 				cardId: "c4-${testId}",
 				count: 1,
-				createdDate: "20200418 16:30" "yyyyMMdd HH:mm",
+				createdDate: "20200418 16:55" "yyyyMMdd HH:mm",
 				ef: "2.6F",
 				interval: 6,
 				lastQuality: 5,
 				n: 2,
 				quality: null,
 				scheduledCardId: "score5-${testId}",
-				scheduledDate: "20200424 16:30" "yyyyMMdd HH:mm",
+				scheduledDate: "20200424 16:55" "yyyyMMdd HH:mm",
 				scoredDate: null
 			}
 
 	InitMyBoxesForDayWithScoredAndReinforceCardsOneDayLaterDeletesOutdatedReinforceCards
 		GIVEN
 			com.anfelisa.box.scorecard.ScoreCard0
-			com.anfelisa.box.scorecard.ScoreCard1 excludeGIVEN
-			com.anfelisa.box.scorecard.ScoreCard5 excludeGIVEN
+			com.anfelisa.box.scorecard.ScoreCard1 exclude GIVEN
+			com.anfelisa.box.scorecard.ScoreCard5 exclude GIVEN
 		WHEN
 			com.anfelisa.box.InitMyBoxesForDay
 				{
@@ -379,10 +379,10 @@ scenarios
 				cardId: "c1-${testId}",
 				count: 1,
 				createdDate: "20200418 16:30" "yyyyMMdd HH:mm",
-				ef: "2.5F",
+				ef: "1.7F",
 				interval: 1,
 				lastQuality: 0,
-				n: 1,
+				n: 0,
 				quality: null,
 				scheduledCardId: "score0-${testId}",
 				scheduledDate: "20200419 16:30" "yyyyMMdd HH:mm",
@@ -394,14 +394,14 @@ scenarios
 				boxId: "boxId-${testId}",
 				cardId: "c3-${testId}",
 				count: 1,
-				createdDate: "20200418 16:30" "yyyyMMdd HH:mm",
-				ef: "2.5F",
+				createdDate: "20200418 16:35" "yyyyMMdd HH:mm",
+				ef: "1.96F",
 				interval: 1,
 				lastQuality: 1,
-				n: 1,
+				n: 0,
 				quality: null,
 				scheduledCardId: "score1-${testId}",
-				scheduledDate: "20200419 16:30" "yyyyMMdd HH:mm",
+				scheduledDate: "20200419 16:35" "yyyyMMdd HH:mm",
 				scoredDate: null
 			}
 			reinforceCard3WasDeleted ReinforceCard selectBy ( reinforceCardId: "score1-${testId}" ) shouldBe null
@@ -410,22 +410,22 @@ scenarios
 				boxId: "boxId-${testId}",
 				cardId: "c4-${testId}",
 				count: 1,
-				createdDate: "20200418 16:30" "yyyyMMdd HH:mm",
+				createdDate: "20200418 16:55" "yyyyMMdd HH:mm",
 				ef: "2.6F",
 				interval: 6,
 				lastQuality: 5,
 				n: 2,
 				quality: null,
 				scheduledCardId: "score5-${testId}",
-				scheduledDate: "20200424 16:30" "yyyyMMdd HH:mm",
+				scheduledDate: "20200424 16:55" "yyyyMMdd HH:mm",
 				scoredDate: null
 			}
 
 	InitMyBoxesForDayWithScoredAndReinforceCardsTwoDaysLaterPostponesCards
 		GIVEN
 			com.anfelisa.box.scorecard.ScoreCard0
-			com.anfelisa.box.scorecard.ScoreCard1 excludeGIVEN
-			com.anfelisa.box.scorecard.ScoreCard5 excludeGIVEN
+			com.anfelisa.box.scorecard.ScoreCard1 exclude GIVEN
+			com.anfelisa.box.scorecard.ScoreCard5 exclude GIVEN
 		WHEN
 			com.anfelisa.box.InitMyBoxesForDay
 				{
@@ -440,10 +440,10 @@ scenarios
 				cardId: "c1-${testId}",
 				count: 1,
 				createdDate: "20200418 16:30" "yyyyMMdd HH:mm",
-				ef: "2.5F",
+				ef: "1.7F",
 				interval: 1,
 				lastQuality: 0,
-				n: 1,
+				n: 0,
 				quality: null,
 				scheduledCardId: "score0-${testId}",
 				scheduledDate: "20200420 16:30" "yyyyMMdd HH:mm",
@@ -455,14 +455,14 @@ scenarios
 				boxId: "boxId-${testId}",
 				cardId: "c3-${testId}",
 				count: 1,
-				createdDate: "20200418 16:30" "yyyyMMdd HH:mm",
-				ef: "2.5F",
+				createdDate: "20200418 16:35" "yyyyMMdd HH:mm",
+				ef: "1.96F",
 				interval: 1,
 				lastQuality: 1,
-				n: 1,
+				n: 0,
 				quality: null,
 				scheduledCardId: "score1-${testId}",
-				scheduledDate: "20200420 16:30" "yyyyMMdd HH:mm",
+				scheduledDate: "20200420 16:35" "yyyyMMdd HH:mm",
 				scoredDate: null
 			}
 			reinforceCard3WasDeleted ReinforceCard selectBy ( reinforceCardId: "score1-${testId}" ) shouldBe null
@@ -471,14 +471,14 @@ scenarios
 				boxId: "boxId-${testId}",
 				cardId: "c4-${testId}",
 				count: 1,
-				createdDate: "20200418 16:30" "yyyyMMdd HH:mm",
+				createdDate: "20200418 16:55" "yyyyMMdd HH:mm",
 				ef: "2.6F",
 				interval: 6,
 				lastQuality: 5,
 				n: 2,
 				quality: null,
 				scheduledCardId: "score5-${testId}",
-				scheduledDate: "20200425 16:30" "yyyyMMdd HH:mm",
+				scheduledDate: "20200425 16:55" "yyyyMMdd HH:mm",
 				scoredDate: null
 			}
 
@@ -541,8 +541,8 @@ scenarios
 	InitMyBoxesForDayOneDayBug
 		GIVEN
 			com.anfelisa.box.scorecard.ScoreCard0
-			com.anfelisa.box.scorecard.ScoreCard1 excludeGIVEN
-			com.anfelisa.box.scorecard.ScoreCard5 excludeGIVEN
+			com.anfelisa.box.scorecard.ScoreCard1 exclude GIVEN
+			com.anfelisa.box.scorecard.ScoreCard5 exclude GIVEN
 		WHEN
 			com.anfelisa.box.InitMyBoxesForDay
 				{
@@ -557,10 +557,10 @@ scenarios
 				cardId: "c1-${testId}",
 				count: 1,
 				createdDate: "20200418 16:30" "yyyyMMdd HH:mm",
-				ef: "2.5F",
+				ef: "1.7F",
 				interval: 1,
 				lastQuality: 0,
-				n: 1,
+				n: 0,
 				quality: null,
 				scheduledCardId: "score0-${testId}",
 				scheduledDate: "20200420 16:30" "yyyyMMdd HH:mm",
@@ -571,14 +571,14 @@ scenarios
 				boxId: "boxId-${testId}",
 				cardId: "c3-${testId}",
 				count: 1,
-				createdDate: "20200418 16:30" "yyyyMMdd HH:mm",
-				ef: "2.5F",
+				createdDate: "20200418 16:35" "yyyyMMdd HH:mm",
+				ef: "1.96F",
 				interval: 1,
 				lastQuality: 1,
-				n: 1,
+				n: 0,
 				quality: null,
 				scheduledCardId: "score1-${testId}",
-				scheduledDate: "20200420 16:30" "yyyyMMdd HH:mm",
+				scheduledDate: "20200420 16:35" "yyyyMMdd HH:mm",
 				scoredDate: null
 			}
 			card4WasPostponed ScheduledCard selectBy ( scheduledCardId: "score5-${testId}" ) shouldBe 
@@ -586,21 +586,21 @@ scenarios
 				boxId: "boxId-${testId}",
 				cardId: "c4-${testId}",
 				count: 1,
-				createdDate: "20200418 16:30" "yyyyMMdd HH:mm",
+				createdDate: "20200418 16:55" "yyyyMMdd HH:mm",
 				ef: "2.6F",
 				interval: 6,
 				lastQuality: 5,
 				n: 2,
 				quality: null,
 				scheduledCardId: "score5-${testId}",
-				scheduledDate: "20200425 16:30" "yyyyMMdd HH:mm",
+				scheduledDate: "20200425 16:55" "yyyyMMdd HH:mm",
 				scoredDate: null
 			}
 
 	InitMyBoxesForDayArchived
 		GIVEN
 			com.anfelisa.box.schedulecards.ScheduleCards
-			com.anfelisa.box.archivebox.ArchiveBox
+			com.anfelisa.box.archivebox.ArchiveBox exclude GIVEN
 		WHEN
 			com.anfelisa.box.InitMyBoxesForDay
 				{

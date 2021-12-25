@@ -6,7 +6,7 @@ scenarios
 	MoveCards
 		GIVEN
 			com.anfelisa.card.createcard.CreateFifthCard
-			com.anfelisa.category.createcategory.CreateSecondCategory excludeGIVEN
+			com.anfelisa.category.createcategory.CreateSecondCategory exclude GIVEN
 		WHEN
 			com.anfelisa.card.MoveCards
 				{
@@ -72,8 +72,8 @@ scenarios
 	MoveCardsTargetNotEmpty
 		GIVEN
 			com.anfelisa.card.createcard.CreateFifthCard
-			com.anfelisa.category.createcategory.CreateSecondCategory excludeGIVEN
-			com.anfelisa.card.createcard.CreateCardInOtherCategory excludeGIVEN
+			com.anfelisa.category.createcategory.CreateSecondCategory exclude GIVEN
+			com.anfelisa.card.createcard.CreateCardInOtherCategory exclude GIVEN
 		WHEN
 			com.anfelisa.card.MoveCards
 				{
@@ -139,7 +139,7 @@ scenarios
 	MoveCardsCardDoesNotExist
 		GIVEN
 			com.anfelisa.card.createcard.CreateFifthCard
-			com.anfelisa.category.createcategory.CreateSecondCategory excludeGIVEN
+			com.anfelisa.category.createcategory.CreateSecondCategory exclude GIVEN
 		WHEN
 			com.anfelisa.card.MoveCards
 				{
@@ -257,9 +257,9 @@ scenarios
 	MoveCardsNoEditingAccessToCard
 		GIVEN
 			com.anfelisa.card.createcard.CreateCard
-			com.anfelisa.category.createcategory.CreateSecondCategory excludeGIVEN
-			com.anfelisa.user.registeruser.RegisterTwoUsers excludeGIVEN
-			com.anfelisa.category.inviteusertocategory.InviteUserToCategory excludeGIVEN
+			com.anfelisa.category.createcategory.CreateSecondCategory exclude GIVEN
+			com.anfelisa.user.registeruser.RegisterTwoUsers exclude GIVEN
+			com.anfelisa.category.inviteusertocategory.InviteUserToCategory exclude GIVEN
 		WHEN
 			com.anfelisa.card.MoveCards
 				{
@@ -283,9 +283,9 @@ scenarios
 	MoveCardsNoEditingAccessToCategory
 		GIVEN
 			com.anfelisa.card.createcard.CreateCard
-			com.anfelisa.category.createcategory.CreateSecondCategory excludeGIVEN
-			com.anfelisa.user.registeruser.RegisterTwoUsers excludeGIVEN
-			com.anfelisa.category.inviteusertocategory.InviteUserToCategory excludeGIVEN
+			com.anfelisa.category.createcategory.CreateSecondCategory exclude GIVEN
+			com.anfelisa.user.registeruser.RegisterTwoUsers exclude GIVEN
+			com.anfelisa.category.inviteusertocategory.InviteUserToCategory exclude GIVEN
 		WHEN
 			com.anfelisa.card.MoveCards
 				{
@@ -309,7 +309,7 @@ scenarios
 	MoveCardsUnauthorized
 		GIVEN
 			com.anfelisa.card.createcard.CreateFifthCard
-			com.anfelisa.category.createcategory.CreateSecondCategory excludeGIVEN
+			com.anfelisa.category.createcategory.CreateSecondCategory exclude GIVEN
 		WHEN
 			com.anfelisa.card.MoveCards
 				{

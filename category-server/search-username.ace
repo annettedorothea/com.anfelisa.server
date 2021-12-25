@@ -8,7 +8,7 @@ scenarios
 	SearchUsername
 		GIVEN 
 			com.anfelisa.box.createbox.CreateBoxMinimal
-			com.anfelisa.user.registeruser.RegisterTwoUsers excludeGIVEN
+			com.anfelisa.user.registeruser.RegisterTwoUsers exclude GIVEN
 		WHEN com.anfelisa.category.SearchUsernameForInvitation
 				{
 					usernameSearchString : "Anne",
@@ -23,7 +23,7 @@ scenarios
 	SearchUsernameNarrow
 		GIVEN 
 			com.anfelisa.box.createbox.CreateBoxMinimal
-			com.anfelisa.user.registeruser.RegisterTwoUsers excludeGIVEN
+			com.anfelisa.user.registeruser.RegisterTwoUsers exclude GIVEN
 		WHEN com.anfelisa.category.SearchUsernameForInvitation
 				{
 					usernameSearchString : "Annette",
@@ -38,7 +38,7 @@ scenarios
 	SearchUsernameExact
 		GIVEN 
 			com.anfelisa.box.createbox.CreateBoxMinimal
-			com.anfelisa.user.registeruser.RegisterTwoUsers excludeGIVEN
+			com.anfelisa.user.registeruser.RegisterTwoUsers exclude GIVEN
 		WHEN com.anfelisa.category.SearchUsernameForInvitation
 				{
 					usernameSearchString : "Anne-${testId}",
@@ -53,7 +53,7 @@ scenarios
 	SearchUsernameExcludesMe
 		GIVEN 
 			com.anfelisa.box.createbox.CreateBoxMinimal
-			com.anfelisa.user.registeruser.RegisterTwoUsers excludeGIVEN
+			com.anfelisa.user.registeruser.RegisterTwoUsers exclude GIVEN
 		WHEN com.anfelisa.category.SearchUsernameForInvitation
 				{
 					usernameSearchString : "Annette-${testId}",
@@ -82,7 +82,7 @@ scenarios
 	SearchUsernameUnauthorized
 		GIVEN 
 			com.anfelisa.box.createbox.CreateBoxMinimal
-			com.anfelisa.user.registeruser.RegisterTwoUsers excludeGIVEN
+			com.anfelisa.user.registeruser.RegisterTwoUsers exclude GIVEN
 		WHEN com.anfelisa.category.SearchUsernameForInvitation
 				{
 					usernameSearchString : "Annette",
@@ -106,7 +106,6 @@ scenarios
 	SearchUsernameNoEditingAccessToCategory
 		GIVEN 
 			com.anfelisa.category.inviteusertocategory.InviteUserToCategory
-			com.anfelisa.user.registeruser.RegisterTwoUsers excludeGIVEN
 		WHEN com.anfelisa.category.SearchUsernameForInvitation
 				{
 					usernameSearchString : "Annette",

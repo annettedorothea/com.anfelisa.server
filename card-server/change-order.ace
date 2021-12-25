@@ -451,8 +451,8 @@ scenarios
 	ChangeOrderNoEditingAccessToTargetCard
 		GIVEN
 			com.anfelisa.card.createcard.CreateFifthCard
-			com.anfelisa.user.registeruser.RegisterTwoUsers excludeGIVEN
-			com.anfelisa.category.inviteusertocategory.InviteUserToCategory excludeGIVEN
+			com.anfelisa.user.registeruser.RegisterTwoUsers exclude GIVEN
+			com.anfelisa.category.inviteusertocategory.InviteUserToCategory exclude GIVEN
 		WHEN
 			com.anfelisa.card.ChangeOrder
 				{
@@ -516,8 +516,8 @@ scenarios
 	ChangeOrderNoEditingAccessToMovedCard
 		GIVEN
 			com.anfelisa.card.createcard.CreateFifthCard
-			com.anfelisa.user.registeruser.RegisterTwoUsers excludeGIVEN
-			com.anfelisa.category.inviteusertocategory.InviteUserToCategory excludeGIVEN
+			com.anfelisa.user.registeruser.RegisterTwoUsers exclude GIVEN
+			com.anfelisa.category.inviteusertocategory.InviteUserToCategory exclude GIVEN
 		WHEN
 			com.anfelisa.card.ChangeOrder
 				{
