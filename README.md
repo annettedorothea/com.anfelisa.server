@@ -21,7 +21,6 @@ See [com.anfelisa.client](https://github.com/annettedorothea/com.anfelisa.client
 
 ## Integration tests
 
-- In order to run the integration tests the server must be running in DEV mode which is configured in the yml file.
 - To run the tests execute maven install or maven test or execute them from the IDE. They are located in src/test/java.
 
 ## Replay events
