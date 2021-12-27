@@ -28,4 +28,8 @@ jobs:
         DW_DATABASE_URL: ${{secrets.DW_DATABASE_URL}}
         DW_DATABASE_USER: ${{secrets.DW_DATABASE_USER}}
         DW_SECRET_STRING: ${{secrets.DW_SECRET_STRING}}
+        DW_EMAIL_HOST: ${{secrets.DW_EMAIL_HOST}}
+        DW_EMAIL_PASSWORD: ${{secrets.DW_EMAIL_PASSWORD}}
+        DW_EMAIL_USER: ${{secrets.DW_EMAIL_USER}}
+        DW_TRANSLATION_API_KEY: ${{secrets.DW_TRANSLATION_API_KEY}}
       run: mvn -B package --file pom.xml
