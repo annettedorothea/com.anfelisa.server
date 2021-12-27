@@ -1,4 +1,6 @@
 target
+.settings
+.classpath
 src/main/resources/.idea
 /bin/
 dev.yml
@@ -7,7 +9,6 @@ live.yml
 replay.yml
 live-replay.yml
 dev-replay.yml
-test.yml
 event-replay.yml
 logs
 .idea

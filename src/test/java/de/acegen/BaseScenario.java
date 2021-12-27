@@ -19,9 +19,9 @@ package de.acegen;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.beans.SamePropertyValuesAs.samePropertyValuesAs;
 
-import java.io.File;
 import java.io.IOException;
 import java.security.Key;
+import java.sql.Connection;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -74,12 +74,11 @@ import com.anfelisa.category.models.ICategoryTreeItemModel;
 import com.anfelisa.user.data.GetTokenPayload;
 import com.anfelisa.user.models.TokenModel;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
+import io.dropwizard.db.ManagedDataSource;
+import io.dropwizard.jdbi3.JdbiFactory;
 import io.dropwizard.testing.junit5.DropwizardAppExtension;
 import io.dropwizard.testing.junit5.DropwizardExtensionsSupport;
 import io.jsonwebtoken.Claims;
@@ -87,6 +86,9 @@ import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import liquibase.Liquibase;
+import liquibase.database.jvm.JdbcConnection;
+import liquibase.resource.ClassLoaderResourceAccessor;
 
 @ExtendWith(DropwizardExtensionsSupport.class)
 @RunWith(JUnitPlatform.class)
@@ -108,29 +110,35 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 
 	protected static Map<String, DescriptiveStatistics> metrics;
 
-	protected static YamlConfiguration config;
-
 	@SuppressWarnings("unused")
 	private static DropwizardAppExtension<CustomAppConfiguration> EXT = new DropwizardAppExtension<>(
 			App.class,
-			"dev.yml");
-		
+			"test.yml");
+
 	@BeforeAll
 	public static void beforeClass() throws Exception {
+		ManagedDataSource ds = EXT.getConfiguration().getDataSourceFactory().build(
+				EXT.getEnvironment().metrics(), "migrations");
+		try (Connection connection = ds.getConnection()) {
+			Liquibase migrator = new Liquibase("migrations.xml", new ClassLoaderResourceAccessor(),
+					new JdbcConnection(connection));
+			migrator.update("");
+			migrator.close();
+		}
+
 		Logger rootLogger = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
 		rootLogger.setLevel(Level.INFO);
-		
-		ObjectMapper mapper = new ObjectMapper(new YAMLFactory())
-				.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		config = mapper.readValue(new File("dev.yml"), YamlConfiguration.class);
-		port = Integer.parseInt(config.getServer().getApplicationConnectors()[0].getPort());
-		protocol = config.getServer().getApplicationConnectors()[0].getType();
-		rootPath = config.getServer().getRootPath();
-		jdbi = Jdbi.create(config.getDatabase().getUrl(), config.getDatabase().getUser(),
-				config.getDatabase().getPassword() == null ? "" : config.getDatabase().getPassword());
+
+		port = EXT.getLocalPort();
+		protocol = "http";
+		rootPath = "/api";
+		final JdbiFactory factory = new JdbiFactory();
+		jdbi = factory.build(EXT.getEnvironment(), EXT.getConfiguration().getDataSourceFactory(), "anfelisa test database");
+
 		if (metrics == null) {
 			metrics = new HashMap<>();
 		}
+
 	}
 
 	@AfterAll
@@ -298,7 +306,7 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 	protected String randomUUID() {
 		return UUID.randomUUID().toString();
 	}
-	
+
 	private HashMap<String, String> tokenUserMap = new HashMap<>();
 
 	@Override
@@ -608,8 +616,9 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 		values.addValue(duration);
 	}
 
-	protected void validateToken(String actualToken, String expectedUserId, String expectedUsername, String expectedRole) {
-		Key key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(config.getSecretString()));
+	protected void validateToken(String actualToken, String expectedUserId, String expectedUsername,
+			String expectedRole) {
+		Key key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(EXT.getConfiguration().getSecretString()));
 		Jws<Claims> claims = Jwts.parserBuilder()
 				.requireIssuer("anfelisa")
 				.setSigningKey(key)
