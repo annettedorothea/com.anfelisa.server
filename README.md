@@ -1,8 +1,8 @@
 # com.anfelisa.server
 
-This is the server for the anfelisa vocabulary trainer.
+This is the server for the [Anfelisa](https://anfelisa.de/#) SuperMemo app.
 
-See [Anfelisa](https://anfelisa.de/#).
+It is a prof of concept for the [Action - Command - Event Pattern](https://github.com/annettedorothea/ace).
 
 It is written with Java, is based on the [de.acegen](https://github.com/annettedorothea/de.acegen) 
 DSL and code generator and uses Dropwizard as http server framework.
@@ -13,7 +13,7 @@ See [com.anfelisa.client](https://github.com/annettedorothea/com.anfelisa.client
 
 - Get latest Ecplise.
 - Install the [de.acegen](https://github.com/annettedorothea/de.acegen) Ecplise plugin from [http://acegen.de](http://acegen.de).
-- Maven install the project dependencies. (In order not to run the integration tests that need a running server in DEV mode comment the maven-surefire-plugin section from the [pom.xml](pom.xml))
+- Maven install the project dependencies.
 - Create a postgres database.
 - Create a yml file like [sample.yml](sample.yml).
 - Run the migrations with `db migrate <your-yml-file>.yml` as argument. The main class is de.acegen.App.
