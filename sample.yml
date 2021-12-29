@@ -35,3 +35,5 @@ config:
   writeTimeline: NEVER | ALWAYS | ON_ERROR
 
 secretString: <secret string size >= 256 bits>
+
+translationApiKey: <DeepL API key>
