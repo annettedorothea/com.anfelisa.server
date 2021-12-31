@@ -2,7 +2,7 @@
 
 This is the server for the [Anfelisa](https://anfelisa.de/#) SuperMemo app.
 
-It is a prof of concept for the [Action - Command - Event Pattern](https://github.com/annettedorothea/ace).
+It is a prof of concept for the [Action - Command - Event Pattern](https://github.com/annettedorothea/de.acegen).
 
 It is written with Java, is based on the [de.acegen](https://github.com/annettedorothea/de.acegen) 
 DSL and code generator and uses Dropwizard as http server framework.
