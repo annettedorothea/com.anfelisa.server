@@ -2,7 +2,7 @@
 
 This is the server for the [Anfelisa](https://anfelisa.de/#) SuperMemo app.
 
-It is a prof of concept for the [Action - Command - Event Pattern](https://github.com/annettedorothea/de.acegen).
+It is a proof of concept for the [Action - Command - Event Pattern](https://github.com/annettedorothea/de.acegen).
 
 It is written with Java, is based on the [de.acegen](https://github.com/annettedorothea/de.acegen) 
 DSL and code generator and uses Dropwizard as http server framework.
@@ -11,7 +11,7 @@ See [com.anfelisa.client](https://github.com/annettedorothea/com.anfelisa.client
 
 ## Installation
 
-- Get latest Ecplise.
+- Get the latest Ecplise.
 - Install the [de.acegen](https://github.com/annettedorothea/de.acegen) Ecplise plugin from [http://acegen.de](http://acegen.de).
 - Maven install the project dependencies.
 - Create a postgres database.
@@ -25,7 +25,7 @@ See [com.anfelisa.client](https://github.com/annettedorothea/com.anfelisa.client
 
 ## Replay events
 
-- In order to replay events you have to set writeTimeline in the yml file to ALWAYS to record a valid timeline.
+- In order to replay the events you have to set writeTimeline in the yml file to ALWAYS in order to record a valid timeline.
 - To replay the events execute the according dropwizard command with the arguments `replay <your-yml-file>.yml` for de.acegen.App. 
 
 ## License
