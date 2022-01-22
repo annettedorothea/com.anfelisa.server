@@ -36,6 +36,8 @@ public abstract class AbstractUserToCategoryInvitationData extends AbstractData 
 	
 	private String invitedUserId;
 	
+	private Boolean editable = false;
+	
 	private com.anfelisa.box.models.IBoxModel boxForInvitedUser;
 	
 
@@ -44,6 +46,7 @@ public abstract class AbstractUserToCategoryInvitationData extends AbstractData 
 		@JsonProperty("userId") String userId,
 		@JsonProperty("invitedUsername") String invitedUsername,
 		@JsonProperty("invitedUserId") String invitedUserId,
+		@JsonProperty("editable") Boolean editable,
 		@JsonProperty("boxForInvitedUser") com.anfelisa.box.models.IBoxModel boxForInvitedUser
 ,		@JsonProperty("uuid") String uuid
 	) {
@@ -52,6 +55,7 @@ public abstract class AbstractUserToCategoryInvitationData extends AbstractData 
 		this.userId = userId;
 		this.invitedUsername = invitedUsername;
 		this.invitedUserId = invitedUserId;
+		this.editable = editable;
 		this.boxForInvitedUser = boxForInvitedUser;
 	}
 
@@ -108,6 +112,18 @@ public abstract class AbstractUserToCategoryInvitationData extends AbstractData 
 	}
 	
 	@JsonProperty
+	public Boolean getEditable() {
+		return this.editable;
+	}
+	public void setEditable(Boolean editable) {
+		this.editable = editable;
+	}
+	public IUserToCategoryInvitationData withEditable(Boolean editable) {
+		this.editable = editable;
+		return this;
+	}
+	
+	@JsonProperty
 	public com.anfelisa.box.models.IBoxModel getBoxForInvitedUser() {
 		return this.boxForInvitedUser;
 	}
@@ -127,6 +143,7 @@ public abstract class AbstractUserToCategoryInvitationData extends AbstractData 
 		copy.setUserId(this.getUserId());
 		copy.setInvitedUsername(this.getInvitedUsername());
 		copy.setInvitedUserId(this.getInvitedUserId());
+		copy.setEditable(this.getEditable());
 		if (this.getBoxForInvitedUser() != null) {
 			copy.setBoxForInvitedUser(this.getBoxForInvitedUser().deepCopy());
 		}

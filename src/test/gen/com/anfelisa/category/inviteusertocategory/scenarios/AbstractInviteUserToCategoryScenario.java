@@ -148,12 +148,14 @@ public abstract class AbstractInviteUserToCategoryScenario extends BaseScenario 
 		String uuid = "boxIdOfInvitedUser-" + this.getTestId() + "";
 		com.anfelisa.category.data.InviteUserToCategoryPayload payload_0 = objectMapper.readValue("{" +
 			"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
-			"\"invitedUsername\" : \"Anne-" + this.getTestId() + "\"} ",
+			"\"invitedUsername\" : \"Anne-" + this.getTestId() + "\"," + 
+			"\"editable\" : false} ",
 				com.anfelisa.category.data.InviteUserToCategoryPayload.class);
 		com.anfelisa.category.data.UserToCategoryInvitationData data_0 = objectMapper.readValue("{" +
 		"\"uuid\" : \"" + uuid + "\"," + 
 		"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
-		"\"invitedUsername\" : \"Anne-" + this.getTestId() + "\"} ",
+		"\"invitedUsername\" : \"Anne-" + this.getTestId() + "\"," + 
+		"\"editable\" : false} ",
 				com.anfelisa.category.data.UserToCategoryInvitationData.class);
 		HttpResponse<Object> response = 
 		this.httpPut(

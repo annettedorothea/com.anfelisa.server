@@ -68,10 +68,17 @@ public class EventReplayService {
 				event.notifyListeners(data, handle);
 				event.notifyAfterCommitListeners(data, handle);
 			}
-			if (eventClass.equals("com.anfelisa.category.events.InviteUserToCategoryOkEvent")) {
+			if (eventClass.equals("com.anfelisa.category.events.InviteUserToCategoryInsertEvent")) {
 				UserToCategoryInvitationData data = mapper.readValue(json, UserToCategoryInvitationData.class);
 				data.migrateLegacyData(json);
-				Event event = new Event<UserToCategoryInvitationData>("com.anfelisa.category.events.InviteUserToCategoryOkEvent", viewProvider);
+				Event event = new Event<UserToCategoryInvitationData>("com.anfelisa.category.events.InviteUserToCategoryInsertEvent", viewProvider);
+				event.notifyListeners(data, handle);
+				event.notifyAfterCommitListeners(data, handle);
+			}
+			if (eventClass.equals("com.anfelisa.category.events.InviteUserToCategoryUpdateEvent")) {
+				UserToCategoryInvitationData data = mapper.readValue(json, UserToCategoryInvitationData.class);
+				data.migrateLegacyData(json);
+				Event event = new Event<UserToCategoryInvitationData>("com.anfelisa.category.events.InviteUserToCategoryUpdateEvent", viewProvider);
 				event.notifyListeners(data, handle);
 				event.notifyAfterCommitListeners(data, handle);
 			}

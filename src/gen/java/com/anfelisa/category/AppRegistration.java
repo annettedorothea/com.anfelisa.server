@@ -52,12 +52,16 @@ public class AppRegistration {
 			viewProvider.categoryView.changeOrder((com.anfelisa.category.data.CategoryChangeOrderData) dataContainer, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.category.events.InviteUserToCategoryOkEvent", (dataContainer, handle) -> {
+		viewProvider.addConsumer("com.anfelisa.category.events.InviteUserToCategoryInsertEvent", (dataContainer, handle) -> {
 			viewProvider.userAccessToCategoryInvitationView.invite((com.anfelisa.category.data.UserToCategoryInvitationData) dataContainer, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.category.events.InviteUserToCategoryOkEvent", (dataContainer, handle) -> {
+		viewProvider.addConsumer("com.anfelisa.category.events.InviteUserToCategoryInsertEvent", (dataContainer, handle) -> {
 			viewProvider.boxInvitationView.createBox((com.anfelisa.category.data.UserToCategoryInvitationData) dataContainer, handle);
+		});
+		
+		viewProvider.addConsumer("com.anfelisa.category.events.InviteUserToCategoryUpdateEvent", (dataContainer, handle) -> {
+			viewProvider.userAccessToCategoryInvitationView.changeEditable((com.anfelisa.category.data.UserToCategoryInvitationData) dataContainer, handle);
 		});
 		
 	}

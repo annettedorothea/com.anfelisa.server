@@ -22,10 +22,18 @@ import de.acegen.StringToDateTimeConverter;
 @SuppressWarnings("all")
 public class ScoreCardResponse implements IScoreCardResponse {
 	
+	private Integer intervalDifference;
+	
 	public ScoreCardResponse() {
 	}
 	
 	public ScoreCardResponse(com.anfelisa.box.models.IScoreCardModel data) {
+		intervalDifference = data.getIntervalDifference();
+	}
+	
+	@JsonProperty
+	public Integer getIntervalDifference() {
+		return this.intervalDifference;
 	}
 	
 }

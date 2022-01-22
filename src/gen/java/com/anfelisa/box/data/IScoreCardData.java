@@ -48,6 +48,8 @@ public interface IScoreCardData extends IScoreCardModel, IDataContainer {
 	
 	IScoreCardData withBoxId(String boxId);
 	
+	IScoreCardData withIntervalDifference(Integer intervalDifference);
+	
 	
 	IScoreCardData deepCopy();
 }

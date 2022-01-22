@@ -27,9 +27,9 @@ import de.acegen.SquishyDataProvider;
 import de.acegen.HttpResponse;
 
 @SuppressWarnings("unused")
-public abstract class AbstractInviteUserSecondTimeScenario extends BaseScenario {
+public abstract class AbstractInviteUserChangeEditableTrueScenario extends BaseScenario {
 
-	static final Logger LOG = LoggerFactory.getLogger(AbstractInviteUserSecondTimeScenario.class);
+	static final Logger LOG = LoggerFactory.getLogger(AbstractInviteUserChangeEditableTrueScenario.class);
 	
 	private void given() throws Exception {
 		String uuid;
@@ -146,12 +146,14 @@ public abstract class AbstractInviteUserSecondTimeScenario extends BaseScenario 
 			uuid = "boxIdOfInvitedUser-" + this.getTestId() + "";
 			com.anfelisa.category.data.InviteUserToCategoryPayload payload_3 = objectMapper.readValue("{" +
 				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
-				"\"invitedUsername\" : \"Anne-" + this.getTestId() + "\"} ",
+				"\"invitedUsername\" : \"Anne-" + this.getTestId() + "\"," + 
+				"\"editable\" : false} ",
 					com.anfelisa.category.data.InviteUserToCategoryPayload.class);
 			com.anfelisa.category.data.UserToCategoryInvitationData data_3 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 			"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
-			"\"invitedUsername\" : \"Anne-" + this.getTestId() + "\"} ",
+			"\"invitedUsername\" : \"Anne-" + this.getTestId() + "\"," + 
+			"\"editable\" : false} ",
 					com.anfelisa.category.data.UserToCategoryInvitationData.class);
 			HttpResponse<Object> response_3 = 
 			this.httpPut(
@@ -180,12 +182,14 @@ public abstract class AbstractInviteUserSecondTimeScenario extends BaseScenario 
 		String uuid = this.randomUUID();
 		com.anfelisa.category.data.InviteUserToCategoryPayload payload_0 = objectMapper.readValue("{" +
 			"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
-			"\"invitedUsername\" : \"Anne-" + this.getTestId() + "\"} ",
+			"\"invitedUsername\" : \"Anne-" + this.getTestId() + "\"," + 
+			"\"editable\" : true} ",
 				com.anfelisa.category.data.InviteUserToCategoryPayload.class);
 		com.anfelisa.category.data.UserToCategoryInvitationData data_0 = objectMapper.readValue("{" +
 		"\"uuid\" : \"" + uuid + "\"," + 
 		"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
-		"\"invitedUsername\" : \"Anne-" + this.getTestId() + "\"} ",
+		"\"invitedUsername\" : \"Anne-" + this.getTestId() + "\"," + 
+		"\"editable\" : true} ",
 				com.anfelisa.category.data.UserToCategoryInvitationData.class);
 		HttpResponse<Object> response = 
 		this.httpPut(
@@ -210,13 +214,13 @@ public abstract class AbstractInviteUserSecondTimeScenario extends BaseScenario 
 			LOG.error("THEN: " + errorMessage);
 			assertFail(errorMessage);
 		}
-		if (response.getStatusCode() != 400) {
+		if (response.getStatusCode() != 200) {
 			String statusMessage = response.getStatusMessage() != null ? response.getStatusMessage() : "";
-			String errorMessage = "status " + response.getStatusCode() + " failed, expected 400: " + statusMessage;
+			String errorMessage = "status " + response.getStatusCode() + " failed, expected 200: " + statusMessage;
 			LOG.error("THEN: " + errorMessage);
 			assertFail(errorMessage);
 		} else {
-			LOG.info("THEN: status 400 passed");
+			LOG.info("THEN: status 200 passed");
 		}
 		
 	}
@@ -225,7 +229,7 @@ public abstract class AbstractInviteUserSecondTimeScenario extends BaseScenario 
 	public void runTest() throws Exception {
 		given();
 		
-		if (prerequisite("InviteUserSecondTime")) {
+		if (prerequisite("InviteUserChangeEditableTrue")) {
 			
 				HttpResponse<Object> response_0 = when_0();
 				then_0(response_0);
@@ -233,7 +237,7 @@ public abstract class AbstractInviteUserSecondTimeScenario extends BaseScenario 
 				
 		
 		} else {
-			LOG.info("WHEN: prerequisite for InviteUserSecondTime not met");
+			LOG.info("WHEN: prerequisite for InviteUserChangeEditableTrue not met");
 		}
 		
 			
@@ -245,7 +249,7 @@ public abstract class AbstractInviteUserSecondTimeScenario extends BaseScenario 
 		
 		com.anfelisa.category.models.IUserAccessToCategoryModel expected = objectMapper.readValue("{" +
 			"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
-			"\"editable\" : false," + 
+			"\"editable\" : true," + 
 			"\"userId\" : \"uuid2-" + this.getTestId() + "\"} ",
 		com.anfelisa.category.models.UserAccessToCategoryModel.class);
 		assertThat(actual, expected);
@@ -255,7 +259,7 @@ public abstract class AbstractInviteUserSecondTimeScenario extends BaseScenario 
 		
 	@Override
 	protected String scenarioName() {
-		return "InviteUserSecondTime";
+		return "InviteUserChangeEditableTrue";
 	}
 	
 }

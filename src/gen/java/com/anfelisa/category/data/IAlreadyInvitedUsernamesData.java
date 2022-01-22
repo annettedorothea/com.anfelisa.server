@@ -20,7 +20,7 @@ public interface IAlreadyInvitedUsernamesData extends IAlreadyInvitedUsernamesMo
 	
 	IAlreadyInvitedUsernamesData withUserId(String userId);
 	
-	IAlreadyInvitedUsernamesData withInvitedUsernames(java.util.List<String> invitedUsernames);
+	IAlreadyInvitedUsernamesData withInvitedUsers(java.util.List<com.anfelisa.category.models.IUsernameEditableModel> invitedUsers);
 	
 	
 	IAlreadyInvitedUsernamesData deepCopy();

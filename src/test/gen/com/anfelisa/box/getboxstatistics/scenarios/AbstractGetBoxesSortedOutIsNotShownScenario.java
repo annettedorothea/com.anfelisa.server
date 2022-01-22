@@ -346,7 +346,7 @@ public abstract class AbstractGetBoxesSortedOutIsNotShownScenario extends BaseSc
 
 	}
 	
-	private HttpResponse<Object> when_0() throws Exception {
+	private HttpResponse<com.anfelisa.box.data.ScoreCardResponse> when_0() throws Exception {
 		String uuid = "score1-1-" + this.getTestId() + "";
 		this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 		com.anfelisa.box.data.ScoreCardPayload payload_0 = objectMapper.readValue("{" +
@@ -358,13 +358,13 @@ public abstract class AbstractGetBoxesSortedOutIsNotShownScenario extends BaseSc
 		"\"scoredCardQuality\" : 0," + 
 		"\"scheduledCardId\" : \"c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
 				com.anfelisa.box.data.ScoreCardData.class);
-		HttpResponse<Object> response = 
+		HttpResponse<com.anfelisa.box.data.ScoreCardResponse> response = 
 		this.httpPost(
 			"/card/score", 
 		 	payload_0,
 			authorization("Annette-${testId}", "password"),
 			uuid,
-			null
+			com.anfelisa.box.data.ScoreCardResponse.class
 		);
 		
 		LOG.info("WHEN: ScoreCard finished in {} ms", response.getDuration());
@@ -374,7 +374,7 @@ public abstract class AbstractGetBoxesSortedOutIsNotShownScenario extends BaseSc
 		return response;
 	}
 	
-	private void then_0(HttpResponse<Object> response) throws Exception {
+	private com.anfelisa.box.data.ScoreCardResponse then_0(HttpResponse<com.anfelisa.box.data.ScoreCardResponse> response) throws Exception {
 		if (response.getStatusCode() == 500) {
 			String statusMessage = response.getStatusMessage() != null ? response.getStatusMessage() : "";
 			String errorMessage = "status " + response.getStatusCode() + " failed: " + statusMessage;
@@ -390,8 +390,21 @@ public abstract class AbstractGetBoxesSortedOutIsNotShownScenario extends BaseSc
 			LOG.info("THEN: status 200 passed");
 		}
 		
+		com.anfelisa.box.data.ScoreCardResponse actual = null;
+		if (response.getStatusCode() < 400) {
+			try {
+				actual = response.getEntity();
+				
+			} catch (Exception x) {
+				LOG.error("THEN: failed to read response", x);
+				assertFail(x.getMessage());
+			}
+	
+		}
+	
+		return actual;
 	}
-	private HttpResponse<Object> when_1() throws Exception {
+	private HttpResponse<com.anfelisa.box.data.ScoreCardResponse> when_1() throws Exception {
 		String uuid = "score3-" + this.getTestId() + "";
 		this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 16:32", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 		com.anfelisa.box.data.ScoreCardPayload payload_0 = objectMapper.readValue("{" +
@@ -403,13 +416,13 @@ public abstract class AbstractGetBoxesSortedOutIsNotShownScenario extends BaseSc
 		"\"scoredCardQuality\" : 5," + 
 		"\"scheduledCardId\" : \"c3-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
 				com.anfelisa.box.data.ScoreCardData.class);
-		HttpResponse<Object> response = 
+		HttpResponse<com.anfelisa.box.data.ScoreCardResponse> response = 
 		this.httpPost(
 			"/card/score", 
 		 	payload_0,
 			authorization("Annette-${testId}", "password"),
 			uuid,
-			null
+			com.anfelisa.box.data.ScoreCardResponse.class
 		);
 		
 		LOG.info("WHEN: ScoreCard finished in {} ms", response.getDuration());
@@ -419,7 +432,7 @@ public abstract class AbstractGetBoxesSortedOutIsNotShownScenario extends BaseSc
 		return response;
 	}
 	
-	private void then_1(HttpResponse<Object> response) throws Exception {
+	private com.anfelisa.box.data.ScoreCardResponse then_1(HttpResponse<com.anfelisa.box.data.ScoreCardResponse> response) throws Exception {
 		if (response.getStatusCode() == 500) {
 			String statusMessage = response.getStatusMessage() != null ? response.getStatusMessage() : "";
 			String errorMessage = "status " + response.getStatusCode() + " failed: " + statusMessage;
@@ -435,8 +448,21 @@ public abstract class AbstractGetBoxesSortedOutIsNotShownScenario extends BaseSc
 			LOG.info("THEN: status 200 passed");
 		}
 		
+		com.anfelisa.box.data.ScoreCardResponse actual = null;
+		if (response.getStatusCode() < 400) {
+			try {
+				actual = response.getEntity();
+				
+			} catch (Exception x) {
+				LOG.error("THEN: failed to read response", x);
+				assertFail(x.getMessage());
+			}
+	
+		}
+	
+		return actual;
 	}
-	private HttpResponse<Object> when_2() throws Exception {
+	private HttpResponse<com.anfelisa.box.data.ScoreCardResponse> when_2() throws Exception {
 		String uuid = "score1-2-" + this.getTestId() + "";
 		this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200419 16:35", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 		com.anfelisa.box.data.ScoreCardPayload payload_0 = objectMapper.readValue("{" +
@@ -448,13 +474,13 @@ public abstract class AbstractGetBoxesSortedOutIsNotShownScenario extends BaseSc
 		"\"scoredCardQuality\" : 0," + 
 		"\"scheduledCardId\" : \"score1-1-" + this.getTestId() + "\"} ",
 				com.anfelisa.box.data.ScoreCardData.class);
-		HttpResponse<Object> response = 
+		HttpResponse<com.anfelisa.box.data.ScoreCardResponse> response = 
 		this.httpPost(
 			"/card/score", 
 		 	payload_0,
 			authorization("Annette-${testId}", "password"),
 			uuid,
-			null
+			com.anfelisa.box.data.ScoreCardResponse.class
 		);
 		
 		LOG.info("WHEN: ScoreCard finished in {} ms", response.getDuration());
@@ -464,7 +490,7 @@ public abstract class AbstractGetBoxesSortedOutIsNotShownScenario extends BaseSc
 		return response;
 	}
 	
-	private void then_2(HttpResponse<Object> response) throws Exception {
+	private com.anfelisa.box.data.ScoreCardResponse then_2(HttpResponse<com.anfelisa.box.data.ScoreCardResponse> response) throws Exception {
 		if (response.getStatusCode() == 500) {
 			String statusMessage = response.getStatusMessage() != null ? response.getStatusMessage() : "";
 			String errorMessage = "status " + response.getStatusCode() + " failed: " + statusMessage;
@@ -480,6 +506,19 @@ public abstract class AbstractGetBoxesSortedOutIsNotShownScenario extends BaseSc
 			LOG.info("THEN: status 200 passed");
 		}
 		
+		com.anfelisa.box.data.ScoreCardResponse actual = null;
+		if (response.getStatusCode() < 400) {
+			try {
+				actual = response.getEntity();
+				
+			} catch (Exception x) {
+				LOG.error("THEN: failed to read response", x);
+				assertFail(x.getMessage());
+			}
+	
+		}
+	
+		return actual;
 	}
 	private HttpResponse<Object> when_3() throws Exception {
 		String uuid = this.randomUUID();
@@ -1057,16 +1096,16 @@ public abstract class AbstractGetBoxesSortedOutIsNotShownScenario extends BaseSc
 		
 		if (prerequisite("GetBoxesSortedOutIsNotShown")) {
 			
-				HttpResponse<Object> response_0 = when_0();
-				then_0(response_0);
+				HttpResponse<com.anfelisa.box.data.ScoreCardResponse> response_0 = when_0();
+				com.anfelisa.box.data.ScoreCardResponse actualResponse_0 = then_0(response_0);
 				
 			
-				HttpResponse<Object> response_1 = when_1();
-				then_1(response_1);
+				HttpResponse<com.anfelisa.box.data.ScoreCardResponse> response_1 = when_1();
+				com.anfelisa.box.data.ScoreCardResponse actualResponse_1 = then_1(response_1);
 				
 			
-				HttpResponse<Object> response_2 = when_2();
-				then_2(response_2);
+				HttpResponse<com.anfelisa.box.data.ScoreCardResponse> response_2 = when_2();
+				com.anfelisa.box.data.ScoreCardResponse actualResponse_2 = then_2(response_2);
 				
 			
 				HttpResponse<Object> response_3 = when_3();

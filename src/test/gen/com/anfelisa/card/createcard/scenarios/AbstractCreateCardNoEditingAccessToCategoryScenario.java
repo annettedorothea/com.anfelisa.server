@@ -178,12 +178,14 @@ public abstract class AbstractCreateCardNoEditingAccessToCategoryScenario extend
 			uuid = "boxIdOfInvitedUser-" + this.getTestId() + "";
 			com.anfelisa.category.data.InviteUserToCategoryPayload payload_4 = objectMapper.readValue("{" +
 				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
-				"\"invitedUsername\" : \"Anne-" + this.getTestId() + "\"} ",
+				"\"invitedUsername\" : \"Anne-" + this.getTestId() + "\"," + 
+				"\"editable\" : false} ",
 					com.anfelisa.category.data.InviteUserToCategoryPayload.class);
 			com.anfelisa.category.data.UserToCategoryInvitationData data_4 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 			"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
-			"\"invitedUsername\" : \"Anne-" + this.getTestId() + "\"} ",
+			"\"invitedUsername\" : \"Anne-" + this.getTestId() + "\"," + 
+			"\"editable\" : false} ",
 					com.anfelisa.category.data.UserToCategoryInvitationData.class);
 			HttpResponse<Object> response_4 = 
 			this.httpPut(

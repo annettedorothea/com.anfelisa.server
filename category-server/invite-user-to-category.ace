@@ -13,7 +13,8 @@ scenarios
 			uuid "boxIdOfInvitedUser-${testId}"
 			{
 				categoryId: "boxId-${testId}",
-				invitedUsername: "Anne-${testId}"
+				invitedUsername: "Anne-${testId}",
+				editable: false
 			}
 			authorization "Annette-${testId}" : "password"
 		THEN
@@ -33,6 +34,76 @@ scenarios
 				maxInterval: null,
 				reverse: false,
 				archived: false
+			}
+			
+	InviteUserToCategoryEditable
+		GIVEN
+			com.anfelisa.box.createbox.CreateBoxMinimal
+			com.anfelisa.user.registeruser.RegisterTwoUsers exclude GIVEN
+		WHEN
+			com.anfelisa.category.InviteUserToCategory 
+			uuid "boxIdOfInvitedUser-${testId}"
+			{
+				categoryId: "boxId-${testId}",
+				invitedUsername: "Anne-${testId}",
+				editable: true
+			}
+			authorization "Annette-${testId}" : "password"
+		THEN
+			200
+			persistence accessToCategoryWasGranted UserAccessToCategory selectByPrimaryKey ( categoryId: "boxId-${testId}", userId: "uuid2-${testId}") shouldBe
+			{
+				categoryId: "boxId-${testId}",
+				editable: true,
+				userId: "uuid2-${testId}"
+			}
+			boxWasCreated Box selectByPrimaryKey ( boxId: "boxIdOfInvitedUser-${testId}" ) shouldBe
+			{
+				categoryId: "boxId-${testId}",
+				userId: "uuid2-${testId}",
+				boxId: "boxIdOfInvitedUser-${testId}",
+				maxCardsPerDay: 10,
+				maxInterval: null,
+				reverse: false,
+				archived: false
+			}
+			
+	InviteUserChangeEditableTrue
+		GIVEN
+			InviteUserToCategory
+		WHEN
+			com.anfelisa.category.InviteUserToCategory {
+				categoryId: "boxId-${testId}",
+				invitedUsername: "Anne-${testId}",
+				editable: true
+			}
+			authorization "Annette-${testId}" : "password"
+		THEN
+			200
+			persistence accessToCategoryWasNotChanged UserAccessToCategory selectByPrimaryKey ( categoryId: "boxId-${testId}", userId: "uuid2-${testId}") shouldBe
+			{
+				categoryId: "boxId-${testId}",
+				editable: true,
+				userId: "uuid2-${testId}"
+			}
+			
+	InviteUserChangeEditableFalse
+		GIVEN
+			InviteUserToCategoryEditable
+		WHEN
+			com.anfelisa.category.InviteUserToCategory {
+				categoryId: "boxId-${testId}",
+				invitedUsername: "Anne-${testId}",
+				editable: false
+			}
+			authorization "Annette-${testId}" : "password"
+		THEN
+			200
+			persistence accessToCategoryWasNotChanged UserAccessToCategory selectByPrimaryKey ( categoryId: "boxId-${testId}", userId: "uuid2-${testId}") shouldBe
+			{
+				categoryId: "boxId-${testId}",
+				editable: false,
+				userId: "uuid2-${testId}"
 			}
 			
 	InviteUserToCategoryThatDoesNotExist
@@ -64,24 +135,6 @@ scenarios
 				categoryId: "boxId-${testId}",
 				editable: true,
 				userId: "uuid-${testId}"
-			}
-			
-	InviteUserSecondTime
-		GIVEN
-			InviteUserToCategory
-		WHEN
-			com.anfelisa.category.InviteUserToCategory {
-				categoryId: "boxId-${testId}",
-				invitedUsername: "Anne-${testId}"
-			}
-			authorization "Annette-${testId}" : "password"
-		THEN
-			400
-			persistence accessToCategoryWasNotChanged UserAccessToCategory selectByPrimaryKey ( categoryId: "boxId-${testId}", userId: "uuid2-${testId}") shouldBe
-			{
-				categoryId: "boxId-${testId}",
-				editable: false,
-				userId: "uuid2-${testId}"
 			}
 			
 	InviteUserToCategoryInvitedUserDoesNotExist

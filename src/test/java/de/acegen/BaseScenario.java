@@ -70,7 +70,9 @@ import com.anfelisa.card.data.GetDuplicatesResponse;
 import com.anfelisa.card.models.ICardWithCategoryNameModel;
 import com.anfelisa.card.models.ICardWithInfoModel;
 import com.anfelisa.category.data.GetCategoryTreeResponse;
+import com.anfelisa.category.data.GetInvitedUsersResponse;
 import com.anfelisa.category.models.ICategoryTreeItemModel;
+import com.anfelisa.category.models.IUsernameEditableModel;
 import com.anfelisa.user.data.GetTokenPayload;
 import com.anfelisa.user.models.TokenModel;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -358,6 +360,8 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 			assertThat((LoadNextCardResponse) actual, (LoadNextCardResponse) expected);
 		} else if (actual instanceof GetBoxSettingsResponse) {
 			assertThat((GetBoxSettingsResponse) actual, (GetBoxSettingsResponse) expected);
+		} else if (actual instanceof GetInvitedUsersResponse) {
+			assertThat((GetInvitedUsersResponse) actual, (GetInvitedUsersResponse) expected);
 		} else {
 			if (actual instanceof String || actual instanceof Integer || actual instanceof Boolean
 					|| actual instanceof LocalDateTime) {
@@ -366,6 +370,17 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 				org.hamcrest.MatcherAssert.assertThat("testId: " + this.getTestId(), actual,
 						is(samePropertyValuesAs(expected)));
 			}
+		}
+	}
+
+	private void assertThat(GetInvitedUsersResponse actual, GetInvitedUsersResponse expected) {
+		List<IUsernameEditableModel> actualInvitedUsers = actual.getInvitedUsers();
+		List<IUsernameEditableModel> expectedInvitedUsers = expected.getInvitedUsers();
+		assertThat(actualInvitedUsers.size(), expectedInvitedUsers.size());
+		for (int i = 0; i < actualInvitedUsers.size(); i++) {
+			IUsernameEditableModel actualUser = actualInvitedUsers.get(i);
+			IUsernameEditableModel expectedUser = expectedInvitedUsers.get(i);
+			org.hamcrest.MatcherAssert.assertThat(actualUser, is(samePropertyValuesAs(expectedUser)));
 		}
 	}
 
@@ -378,7 +393,7 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 			org.hamcrest.MatcherAssert.assertThat(boxSettings, is(samePropertyValuesAs(expectedBoxSettings)));
 		}
 	}
-
+	
 	private void assertThat(LoadNextCardResponse actual, LoadNextCardResponse expected) {
 		assertThat(actual.getAllTodaysCards(), expected.getAllTodaysCards());
 		assertThat(actual.getOpenTodaysCards(), expected.getOpenTodaysCards());

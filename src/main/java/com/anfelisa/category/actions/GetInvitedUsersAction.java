@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import com.anfelisa.category.data.IAlreadyInvitedUsernamesData;
 import com.anfelisa.category.models.ICategoryModel;
 import com.anfelisa.category.models.IUserAccessToCategoryModel;
+import com.anfelisa.category.models.IUsernameEditableModel;
 
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
@@ -44,8 +45,8 @@ public class GetInvitedUsersAction extends AbstractGetInvitedUsersAction {
 			throwSecurityException();
 		}
 		
-		List<String> invitedUsernames = daoProvider.getUserAccessToCategoryDao().selectAllInvitedUsernames(readonlyHandle, data.getCategoryId());
-		data.setInvitedUsernames(invitedUsernames);
+		List<IUsernameEditableModel> invitedUsers = daoProvider.getUserAccessToCategoryDao().selectAllInvitedUsers(readonlyHandle, data.getCategoryId(), data.getUserId());
+		data.setInvitedUsers(invitedUsers);
 		return data;
 	}
 	

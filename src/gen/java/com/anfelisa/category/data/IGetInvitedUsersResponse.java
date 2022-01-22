@@ -8,7 +8,7 @@
 package com.anfelisa.category.data;
 
 public interface IGetInvitedUsersResponse {
-	java.util.List<String> getInvitedUsernames();
+	java.util.List<com.anfelisa.category.models.IUsernameEditableModel> getInvitedUsers();
 	
 
 }

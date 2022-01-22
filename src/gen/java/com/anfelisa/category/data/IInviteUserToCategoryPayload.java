@@ -12,6 +12,8 @@ public interface IInviteUserToCategoryPayload {
 	
 	String getInvitedUsername();
 	
+	Boolean getEditable();
+	
 
 }
 

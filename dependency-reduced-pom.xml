@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.anfelisa</groupId>
   <artifactId>anfelisa-server</artifactId>
-  <version>1.6.0</version>
+  <version>1.8.0</version>
   <build>
     <plugins>
       <plugin>
@@ -45,10 +45,6 @@
         <configuration>
           <source>${maven.compiler.source}</source>
           <target>${maven.compiler.target}</target>
-          <compilerArgs>
-            <arg>-verbose</arg>
-            <arg>-Xlint:all,-options,-path</arg>
-          </compilerArgs>
         </configuration>
       </plugin>
       <plugin>
@@ -261,7 +257,6 @@
     <io.jsonwebtoken.version>0.11.2</io.jsonwebtoken.version>
     <postgresql.version>42.2.23</postgresql.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <dropwizard.assets.bundle.version>1.0.5</dropwizard.assets.bundle.version>
   </properties>
 </project>
 

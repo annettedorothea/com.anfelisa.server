@@ -20,8 +20,8 @@ public interface IAlreadyInvitedUsernamesModel {
 	String getUserId();
 	void setUserId(String userId);
 	
-	java.util.List<String> getInvitedUsernames();
-	void setInvitedUsernames(java.util.List<String> invitedUsernames);
+	java.util.List<com.anfelisa.category.models.IUsernameEditableModel> getInvitedUsers();
+	void setInvitedUsers(java.util.List<com.anfelisa.category.models.IUsernameEditableModel> invitedUsers);
 	
 	
 	IAlreadyInvitedUsernamesModel deepCopy();

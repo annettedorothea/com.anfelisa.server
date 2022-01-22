@@ -167,6 +167,7 @@ public class ScoreCardCommandTests {
 		assertEquals(quality, actualData.getNextScheduledCardLastQuality());
 		assertEquals(expectedN, actualData.getNextScheduledCardN());
 		assertEquals(NOW.plusDays(expectedInterval), actualData.getNextScheduledCardScheduledDate());
+		assertEquals(0, actualData.getIntervalDifference());
 	}
 
 	private static Stream<Arguments> noMaxCardsPerDay_noMaxInterval() {
@@ -262,7 +263,7 @@ public class ScoreCardCommandTests {
 	@ParameterizedTest
 	@MethodSource
 	public void maxCardsPerDay_maxInterval(
-			Integer maxInterval, Integer expectedIntervalOffset, Integer calculatedInverval,
+			Integer maxInterval, Integer expectedIntervalOffset, Integer calculatedInverval, Integer expectedIntervalDifference,
 			Integer maxCardCount,
 			List<Integer> nextMaxCardCounts) {
 
@@ -290,8 +291,10 @@ public class ScoreCardCommandTests {
 		IScoreCardData actualData = scoreCardCommand.execute(data, readonlyHandleMock, timelineHandleMock);
 
 		int expectedInterval = calculatedInverval + expectedIntervalOffset;
-		assertEquals(expectedInterval, actualData.getNextScheduledCardInterval());
+		assertEquals(expectedInterval, actualData.
+				getNextScheduledCardInterval());
 		assertEquals(NOW.plusDays(expectedInterval), actualData.getNextScheduledCardScheduledDate());
+		assertEquals(expectedIntervalDifference, actualData.getIntervalDifference());
 	}
 
 	private LocalDateTime createFrom(LocalDateTime localDateTime) {
@@ -300,10 +303,10 @@ public class ScoreCardCommandTests {
 
 	private static Stream<Arguments> maxCardsPerDay_maxInterval() {
 		return Stream.of(
-				Arguments.of(null, 0, 18, null, Arrays.asList()),
-				Arguments.of(10, -8, 18, null, Arrays.asList()),
-				Arguments.of(null, 2, 18, 5, Arrays.asList(5, 7, 3, 5)),
-				Arguments.of(10, 2, 10, 5, Arrays.asList(5, 7, 3, 5)));
+				Arguments.of(null, 0, 18, 0, null, Arrays.asList()),
+				Arguments.of(10, -8, 18, -8, null, Arrays.asList()),
+				Arguments.of(null, 2, 18, 2, 5, Arrays.asList(5, 7, 3, 5)),
+				Arguments.of(10, 2, 10, -6, 5, Arrays.asList(5, 7, 3, 5)));
 	}
 
 }

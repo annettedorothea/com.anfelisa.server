@@ -216,13 +216,13 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 			"\"scoredCardQuality\" : 1," + 
 			"\"scheduledCardId\" : \"c6-" + this.getTestId() + "-sc6-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.ScoreCardData.class);
-			HttpResponse<Object> response_5 = 
+			HttpResponse<com.anfelisa.box.data.ScoreCardResponse> response_5 = 
 			this.httpPost(
 				"/card/score", 
 			 	payload_5,
 				authorization("Admin", "admin-password"),
 				uuid,
-				null
+				com.anfelisa.box.data.ScoreCardResponse.class
 			);
 			
 			if (response_5.getStatusCode() >= 400) {
@@ -559,13 +559,13 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 			"\"scoredCardQuality\" : 0," + 
 			"\"scheduledCardId\" : \"c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.ScoreCardData.class);
-			HttpResponse<Object> response_15 = 
+			HttpResponse<com.anfelisa.box.data.ScoreCardResponse> response_15 = 
 			this.httpPost(
 				"/card/score", 
 			 	payload_15,
 				authorization("Annette-${testId}", "password"),
 				uuid,
-				null
+				com.anfelisa.box.data.ScoreCardResponse.class
 			);
 			
 			if (response_15.getStatusCode() >= 400) {

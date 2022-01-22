@@ -22,18 +22,18 @@ import de.acegen.StringToDateTimeConverter;
 @SuppressWarnings("all")
 public class GetInvitedUsersResponse implements IGetInvitedUsersResponse {
 	
-	private java.util.List<String> invitedUsernames;
+	private java.util.List<com.anfelisa.category.models.IUsernameEditableModel> invitedUsers;
 	
 	public GetInvitedUsersResponse() {
 	}
 	
 	public GetInvitedUsersResponse(com.anfelisa.category.models.IAlreadyInvitedUsernamesModel data) {
-		invitedUsernames = data.getInvitedUsernames();
+		invitedUsers = data.getInvitedUsers();
 	}
 	
 	@JsonProperty
-	public java.util.List<String> getInvitedUsernames() {
-		return this.invitedUsernames;
+	public java.util.List<com.anfelisa.category.models.IUsernameEditableModel> getInvitedUsers() {
+		return this.invitedUsers;
 	}
 	
 }

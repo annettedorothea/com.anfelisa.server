@@ -77,7 +77,8 @@ public class AceDataFactory {
 			}
 			if (className.equals("com.anfelisa.category.actions.InviteUserToCategoryAction") ||
 					className.equals("com.anfelisa.category.commands.InviteUserToCategoryCommand") ||
-					className.equals("com.anfelisa.category.events.InviteUserToCategoryOkEvent")
+					className.equals("com.anfelisa.category.events.InviteUserToCategoryInsertEvent")||
+					className.equals("com.anfelisa.category.events.InviteUserToCategoryUpdateEvent")
 			) {
 				UserToCategoryInvitationData data = mapper.readValue(json, UserToCategoryInvitationData.class);
 				data.migrateLegacyData(json);

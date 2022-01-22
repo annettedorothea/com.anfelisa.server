@@ -24,7 +24,7 @@ public class AlreadyInvitedUsernamesModel implements IAlreadyInvitedUsernamesMod
 
 	private String userId;
 
-	private java.util.List<String> invitedUsernames;
+	private java.util.List<com.anfelisa.category.models.IUsernameEditableModel> invitedUsers;
 
 
 	public AlreadyInvitedUsernamesModel() {
@@ -33,11 +33,11 @@ public class AlreadyInvitedUsernamesModel implements IAlreadyInvitedUsernamesMod
 	public AlreadyInvitedUsernamesModel(
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("userId") String userId,
-		@JsonProperty("invitedUsernames") java.util.List<String> invitedUsernames
+		@JsonProperty("invitedUsers") java.util.List<com.anfelisa.category.models.IUsernameEditableModel> invitedUsers
 	) {
 		this.categoryId = categoryId;
 		this.userId = userId;
-		this.invitedUsernames = invitedUsernames;
+		this.invitedUsers = invitedUsers;
 	}
 
 	@JsonProperty
@@ -57,11 +57,11 @@ public class AlreadyInvitedUsernamesModel implements IAlreadyInvitedUsernamesMod
 	}
 	
 	@JsonProperty
-	public java.util.List<String> getInvitedUsernames() {
-		return this.invitedUsernames;
+	public java.util.List<com.anfelisa.category.models.IUsernameEditableModel> getInvitedUsers() {
+		return this.invitedUsers;
 	}
-	public void setInvitedUsernames(java.util.List<String> invitedUsernames) {
-		this.invitedUsernames = invitedUsernames;
+	public void setInvitedUsers(java.util.List<com.anfelisa.category.models.IUsernameEditableModel> invitedUsers) {
+		this.invitedUsers = invitedUsers;
 	}
 	
 
@@ -69,13 +69,13 @@ public class AlreadyInvitedUsernamesModel implements IAlreadyInvitedUsernamesMod
 		IAlreadyInvitedUsernamesModel copy = new AlreadyInvitedUsernamesModel();
 		copy.setCategoryId(this.getCategoryId());
 		copy.setUserId(this.getUserId());
-		List<String> invitedUsernamesCopy = new ArrayList<String>();
-		if (this.getInvitedUsernames() != null) {
-			for(String item: this.getInvitedUsernames()) {
-				invitedUsernamesCopy.add(item);
+		List<com.anfelisa.category.models.IUsernameEditableModel> invitedUsersCopy = new ArrayList<com.anfelisa.category.models.IUsernameEditableModel>();
+		if (this.getInvitedUsers() != null) {
+			for(com.anfelisa.category.models.IUsernameEditableModel item: this.getInvitedUsers()) {
+				invitedUsersCopy.add(item.deepCopy());
 			}
 		}
-		copy.setInvitedUsernames(invitedUsernamesCopy);
+		copy.setInvitedUsers(invitedUsersCopy);
 		return copy;
 	}
 

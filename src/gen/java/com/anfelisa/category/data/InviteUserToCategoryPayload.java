@@ -26,12 +26,15 @@ public class InviteUserToCategoryPayload implements IInviteUserToCategoryPayload
 	
 	private String invitedUsername;
 	
+	private Boolean editable = false;
+	
 	public InviteUserToCategoryPayload() {
 	}
 	
 	public InviteUserToCategoryPayload(com.anfelisa.category.models.IUserToCategoryInvitationModel data) {
 		categoryId = data.getCategoryId();
 		invitedUsername = data.getInvitedUsername();
+		editable = data.getEditable();
 	}
 	
 	@JsonProperty
@@ -42,6 +45,11 @@ public class InviteUserToCategoryPayload implements IInviteUserToCategoryPayload
 	@JsonProperty
 	public String getInvitedUsername() {
 		return this.invitedUsername;
+	}
+	
+	@JsonProperty
+	public Boolean getEditable() {
+		return this.editable;
 	}
 	
 }

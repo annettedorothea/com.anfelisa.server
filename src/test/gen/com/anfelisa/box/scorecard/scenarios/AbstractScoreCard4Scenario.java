@@ -346,7 +346,7 @@ public abstract class AbstractScoreCard4Scenario extends BaseScenario {
 
 	}
 	
-	private HttpResponse<Object> when_0() throws Exception {
+	private HttpResponse<com.anfelisa.box.data.ScoreCardResponse> when_0() throws Exception {
 		String uuid = "score4-" + this.getTestId() + "";
 		this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 16:50", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 		com.anfelisa.box.data.ScoreCardPayload payload_0 = objectMapper.readValue("{" +
@@ -358,13 +358,13 @@ public abstract class AbstractScoreCard4Scenario extends BaseScenario {
 		"\"scoredCardQuality\" : 4," + 
 		"\"scheduledCardId\" : \"c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
 				com.anfelisa.box.data.ScoreCardData.class);
-		HttpResponse<Object> response = 
+		HttpResponse<com.anfelisa.box.data.ScoreCardResponse> response = 
 		this.httpPost(
 			"/card/score", 
 		 	payload_0,
 			authorization("Annette-${testId}", "password"),
 			uuid,
-			null
+			com.anfelisa.box.data.ScoreCardResponse.class
 		);
 		
 		LOG.info("WHEN: ScoreCard finished in {} ms", response.getDuration());
@@ -374,7 +374,7 @@ public abstract class AbstractScoreCard4Scenario extends BaseScenario {
 		return response;
 	}
 	
-	private void then_0(HttpResponse<Object> response) throws Exception {
+	private com.anfelisa.box.data.ScoreCardResponse then_0(HttpResponse<com.anfelisa.box.data.ScoreCardResponse> response) throws Exception {
 		if (response.getStatusCode() == 500) {
 			String statusMessage = response.getStatusMessage() != null ? response.getStatusMessage() : "";
 			String errorMessage = "status " + response.getStatusCode() + " failed: " + statusMessage;
@@ -390,6 +390,19 @@ public abstract class AbstractScoreCard4Scenario extends BaseScenario {
 			LOG.info("THEN: status 200 passed");
 		}
 		
+		com.anfelisa.box.data.ScoreCardResponse actual = null;
+		if (response.getStatusCode() < 400) {
+			try {
+				actual = response.getEntity();
+				
+			} catch (Exception x) {
+				LOG.error("THEN: failed to read response", x);
+				assertFail(x.getMessage());
+			}
+	
+		}
+	
+		return actual;
 	}
 			
 	@Override
@@ -398,8 +411,8 @@ public abstract class AbstractScoreCard4Scenario extends BaseScenario {
 		
 		if (prerequisite("ScoreCard4")) {
 			
-				HttpResponse<Object> response_0 = when_0();
-				then_0(response_0);
+				HttpResponse<com.anfelisa.box.data.ScoreCardResponse> response_0 = when_0();
+				com.anfelisa.box.data.ScoreCardResponse actualResponse_0 = then_0(response_0);
 				this.cardWasScored();
 				this.newScheduledCardWasCreated();
 				this.reinforceCardWasNotCreated();

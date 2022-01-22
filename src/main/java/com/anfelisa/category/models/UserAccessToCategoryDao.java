@@ -69,16 +69,29 @@ public class UserAccessToCategoryDao extends AbstractUserAccessToCategoryDao {
 	}
 
 	public void invite(PersistenceHandle handle, IUserToCategoryInvitationData userAccessToCategoryModel) {
-		Update statement = handle.getHandle().createUpdate("INSERT INTO \"useraccesstocategory\" (categoryid, userid, editable) VALUES (:categoryid, :userid, false)");
+		Update statement = handle.getHandle().createUpdate("INSERT INTO \"useraccesstocategory\" (categoryid, userid, editable) VALUES (:categoryid, :userid, :editable)");
 		statement.bind("categoryid",  userAccessToCategoryModel.getCategoryId() );
 		statement.bind("userid",  userAccessToCategoryModel.getInvitedUserId() );
+		statement.bind("editable",  userAccessToCategoryModel.getEditable() );
 		statement.execute();
 	}
 
-	public List<String> selectAllInvitedUsernames(PersistenceHandle handle, String categoryId) {
-		return handle.getHandle().createQuery("SELECT username FROM public.user u, useraccesstocategory uac where categoryid = :categoryid and uac.userid = u.userid and uac.editable = false")
-				.bind("categoryid", categoryId).mapTo(String.class).list();
+	public List<IUsernameEditableModel> selectAllInvitedUsers(PersistenceHandle handle, String categoryId, String userId) {
+		return handle.getHandle().createQuery("SELECT username as invitedusername, editable "
+				+ "FROM public.user u, useraccesstocategory uac where categoryid = :categoryid and uac.userid = u.userid and uac.userid != :userid "
+				+ "order by username")
+				.bind("userid", userId)
+				.bind("categoryid", categoryId)
+				.map(new UsernameEditableMapper()).list();
 		
+	}
+
+	public void changeEditable(PersistenceHandle handle, IUserToCategoryInvitationData userAccessToCategoryModel) {
+		Update statement = handle.getHandle().createUpdate("Update \"useraccesstocategory\" set editable = :editable where categoryid = :categoryid and userid = :userid");
+		statement.bind("categoryid",  userAccessToCategoryModel.getCategoryId() );
+		statement.bind("userid",  userAccessToCategoryModel.getInvitedUserId() );
+		statement.bind("editable",  userAccessToCategoryModel.getEditable() );
+		statement.execute();
 	}
 	
 

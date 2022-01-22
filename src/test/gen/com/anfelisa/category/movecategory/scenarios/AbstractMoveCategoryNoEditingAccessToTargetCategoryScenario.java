@@ -242,12 +242,14 @@ public abstract class AbstractMoveCategoryNoEditingAccessToTargetCategoryScenari
 			uuid = "boxIdOfInvitedUser-" + this.getTestId() + "";
 			com.anfelisa.category.data.InviteUserToCategoryPayload payload_6 = objectMapper.readValue("{" +
 				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
-				"\"invitedUsername\" : \"Anne-" + this.getTestId() + "\"} ",
+				"\"invitedUsername\" : \"Anne-" + this.getTestId() + "\"," + 
+				"\"editable\" : false} ",
 					com.anfelisa.category.data.InviteUserToCategoryPayload.class);
 			com.anfelisa.category.data.UserToCategoryInvitationData data_6 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 			"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
-			"\"invitedUsername\" : \"Anne-" + this.getTestId() + "\"} ",
+			"\"invitedUsername\" : \"Anne-" + this.getTestId() + "\"," + 
+			"\"editable\" : false} ",
 					com.anfelisa.category.data.UserToCategoryInvitationData.class);
 			HttpResponse<Object> response_6 = 
 			this.httpPut(

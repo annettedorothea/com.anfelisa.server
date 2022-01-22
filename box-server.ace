@@ -79,8 +79,10 @@ ACE
 		payload 
 			NotNull scheduledCardId 
 			NotNull scoredCardQuality
+		response intervalDifference
 		on score (ScheduledCard.score ScheduledCard.scheduleNext)
 		on reinforce (ReinforceCard.add)
+		
 
 	ScoreReinforceCard<ScoreReinforceCard>
 		POST "/card/score-reinforce"  
@@ -353,6 +355,8 @@ models
 
 		String userId
 		String boxId
+		
+		Integer intervalDifference
 	}
 
 	ScoreReinforceCard {

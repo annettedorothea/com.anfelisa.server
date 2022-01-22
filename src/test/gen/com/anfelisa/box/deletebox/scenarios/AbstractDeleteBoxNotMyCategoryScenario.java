@@ -356,13 +356,13 @@ public abstract class AbstractDeleteBoxNotMyCategoryScenario extends BaseScenari
 			"\"scoredCardQuality\" : 0," + 
 			"\"scheduledCardId\" : \"c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.ScoreCardData.class);
-			HttpResponse<Object> response_9 = 
+			HttpResponse<com.anfelisa.box.data.ScoreCardResponse> response_9 = 
 			this.httpPost(
 				"/card/score", 
 			 	payload_9,
 				authorization("Annette-${testId}", "password"),
 				uuid,
-				null
+				com.anfelisa.box.data.ScoreCardResponse.class
 			);
 			
 			if (response_9.getStatusCode() >= 400) {
@@ -418,12 +418,14 @@ public abstract class AbstractDeleteBoxNotMyCategoryScenario extends BaseScenari
 			uuid = "boxIdOfInvitedUser-" + this.getTestId() + "";
 			com.anfelisa.category.data.InviteUserToCategoryPayload payload_11 = objectMapper.readValue("{" +
 				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
-				"\"invitedUsername\" : \"Anne-" + this.getTestId() + "\"} ",
+				"\"invitedUsername\" : \"Anne-" + this.getTestId() + "\"," + 
+				"\"editable\" : false} ",
 					com.anfelisa.category.data.InviteUserToCategoryPayload.class);
 			com.anfelisa.category.data.UserToCategoryInvitationData data_11 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 			"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
-			"\"invitedUsername\" : \"Anne-" + this.getTestId() + "\"} ",
+			"\"invitedUsername\" : \"Anne-" + this.getTestId() + "\"," + 
+			"\"editable\" : false} ",
 					com.anfelisa.category.data.UserToCategoryInvitationData.class);
 			HttpResponse<Object> response_11 = 
 			this.httpPut(

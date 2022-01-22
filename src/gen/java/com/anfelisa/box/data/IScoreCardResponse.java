@@ -8,6 +8,8 @@
 package com.anfelisa.box.data;
 
 public interface IScoreCardResponse {
+	Integer getIntervalDifference();
+	
 
 }
 

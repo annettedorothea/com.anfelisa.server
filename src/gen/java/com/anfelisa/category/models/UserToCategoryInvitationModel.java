@@ -28,6 +28,8 @@ public class UserToCategoryInvitationModel implements IUserToCategoryInvitationM
 
 	private String invitedUserId;
 
+	private Boolean editable = false;
+
 	private com.anfelisa.box.models.IBoxModel boxForInvitedUser;
 
 
@@ -39,12 +41,14 @@ public class UserToCategoryInvitationModel implements IUserToCategoryInvitationM
 		@JsonProperty("userId") String userId,
 		@JsonProperty("invitedUsername") String invitedUsername,
 		@JsonProperty("invitedUserId") String invitedUserId,
+		@JsonProperty("editable") Boolean editable,
 		@JsonProperty("boxForInvitedUser") com.anfelisa.box.models.IBoxModel boxForInvitedUser
 	) {
 		this.categoryId = categoryId;
 		this.userId = userId;
 		this.invitedUsername = invitedUsername;
 		this.invitedUserId = invitedUserId;
+		this.editable = editable;
 		this.boxForInvitedUser = boxForInvitedUser;
 	}
 
@@ -81,6 +85,14 @@ public class UserToCategoryInvitationModel implements IUserToCategoryInvitationM
 	}
 	
 	@JsonProperty
+	public Boolean getEditable() {
+		return this.editable;
+	}
+	public void setEditable(Boolean editable) {
+		this.editable = editable;
+	}
+	
+	@JsonProperty
 	public com.anfelisa.box.models.IBoxModel getBoxForInvitedUser() {
 		return this.boxForInvitedUser;
 	}
@@ -95,6 +107,7 @@ public class UserToCategoryInvitationModel implements IUserToCategoryInvitationM
 		copy.setUserId(this.getUserId());
 		copy.setInvitedUsername(this.getInvitedUsername());
 		copy.setInvitedUserId(this.getInvitedUserId());
+		copy.setEditable(this.getEditable());
 		if (this.getBoxForInvitedUser() != null) {
 			copy.setBoxForInvitedUser(this.getBoxForInvitedUser().deepCopy());
 		}

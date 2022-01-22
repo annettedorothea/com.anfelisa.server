@@ -25,6 +25,11 @@ public class UserAccessToCategoryInvitationView implements IUserAccessToCategory
 		daoProvider.getUserAccessToCategoryDao().invite(handle, data);
 	}
 
+	@Override
+	public void changeEditable(IUserToCategoryInvitationData data, PersistenceHandle handle) {
+		daoProvider.getUserAccessToCategoryDao().changeEditable(handle, data);
+	}
+
 }
 
 

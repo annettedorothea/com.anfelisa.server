@@ -356,13 +356,13 @@ public abstract class AbstractLoadNextCardScored4Scenario extends BaseScenario {
 			"\"scoredCardQuality\" : 4," + 
 			"\"scheduledCardId\" : \"c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.ScoreCardData.class);
-			HttpResponse<Object> response_9 = 
+			HttpResponse<com.anfelisa.box.data.ScoreCardResponse> response_9 = 
 			this.httpPost(
 				"/card/score", 
 			 	payload_9,
 				authorization("Annette-${testId}", "password"),
 				uuid,
-				null
+				com.anfelisa.box.data.ScoreCardResponse.class
 			);
 			
 			if (response_9.getStatusCode() >= 400) {
@@ -389,13 +389,13 @@ public abstract class AbstractLoadNextCardScored4Scenario extends BaseScenario {
 			"\"scoredCardQuality\" : 1," + 
 			"\"scheduledCardId\" : \"c3-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.ScoreCardData.class);
-			HttpResponse<Object> response_10 = 
+			HttpResponse<com.anfelisa.box.data.ScoreCardResponse> response_10 = 
 			this.httpPost(
 				"/card/score", 
 			 	payload_10,
 				authorization("Annette-${testId}", "password"),
 				uuid,
-				null
+				com.anfelisa.box.data.ScoreCardResponse.class
 			);
 			
 			if (response_10.getStatusCode() >= 400) {
@@ -422,13 +422,13 @@ public abstract class AbstractLoadNextCardScored4Scenario extends BaseScenario {
 			"\"scoredCardQuality\" : 5," + 
 			"\"scheduledCardId\" : \"c4-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.ScoreCardData.class);
-			HttpResponse<Object> response_11 = 
+			HttpResponse<com.anfelisa.box.data.ScoreCardResponse> response_11 = 
 			this.httpPost(
 				"/card/score", 
 			 	payload_11,
 				authorization("Annette-${testId}", "password"),
 				uuid,
-				null
+				com.anfelisa.box.data.ScoreCardResponse.class
 			);
 			
 			if (response_11.getStatusCode() >= 400) {

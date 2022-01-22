@@ -22,6 +22,7 @@ public class UserToCategoryInvitationMapper extends AbstractMapper<IUserToCatego
 			this.mapToString(r, "userId"),
 			this.mapToString(r, "invitedUsername"),
 			this.mapToString(r, "invitedUserId"),
+			this.mapToBoolean(r, "editable"),
 			null
 		);
 	}

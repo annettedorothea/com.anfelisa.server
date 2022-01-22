@@ -60,6 +60,7 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 			n = 0;
 			interval = 1;
 		}
+		Integer calculatedInterval = interval;
 
 		Float qFactor = (float) (5 - quality);
 		ef = (ef + (0.1F - qFactor * (0.08F + qFactor * 0.02F)));
@@ -103,6 +104,8 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 			data.setReinforceCardId(data.getUuid());
 			data.setReinforceCardCreatedDate(data.getSystemTime());
 		}
+		
+		data.setIntervalDifference(interval - calculatedInterval); 
 
 		return data;
 	}

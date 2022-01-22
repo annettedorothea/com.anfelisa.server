@@ -356,13 +356,13 @@ public abstract class AbstractScoreReinforceCardRemoveScenario extends BaseScena
 			"\"scoredCardQuality\" : 0," + 
 			"\"scheduledCardId\" : \"c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.ScoreCardData.class);
-			HttpResponse<Object> response_9 = 
+			HttpResponse<com.anfelisa.box.data.ScoreCardResponse> response_9 = 
 			this.httpPost(
 				"/card/score", 
 			 	payload_9,
 				authorization("Annette-${testId}", "password"),
 				uuid,
-				null
+				com.anfelisa.box.data.ScoreCardResponse.class
 			);
 			
 			if (response_9.getStatusCode() >= 400) {

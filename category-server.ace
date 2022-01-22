@@ -65,9 +65,13 @@ ACE
 		payload
 			NotNull categoryId
 			NotNull invitedUsername
-		on ok (
+			NotNull editable
+		on insert (
 			UserAccessToCategoryInvitation.invite
 			BoxInvitation.createBox
+		)
+		on update (
+			UserAccessToCategoryInvitation.changeEditable
 		)
 		
 	GetInvitedUsers<AlreadyInvitedUsernames>
@@ -76,7 +80,7 @@ ACE
 		queryParams
 			NotNull categoryId
 		response
-			invitedUsernames
+			invitedUsers
 
 	SearchUsernameForInvitation <UsernameSearch>
 		GET "/users/search"  
@@ -99,6 +103,7 @@ views
 	
 	UserAccessToCategoryInvitation {
 		invite(UserToCategoryInvitation)
+		changeEditable(UserToCategoryInvitation)
 	}
 	BoxInvitation {
 		createBox (UserToCategoryInvitation)
@@ -200,13 +205,19 @@ models
 		String userId
 		String invitedUsername
 		String invitedUserId
+		Boolean editable
 		com.anfelisa.box.Box boxForInvitedUser
 	}
 
 	AlreadyInvitedUsernames {
 		String categoryId
 		String userId
-		List String invitedUsernames
+		List UsernameEditable invitedUsers
+	}
+	
+	UsernameEditable {
+		String invitedUsername
+		Boolean editable
 	}
 
 	UsernameSearch {

@@ -33,7 +33,8 @@ public class ScoreCardMapper extends AbstractMapper<IScoreCardModel> {
 			this.mapToString(r, "reinforceCardId"),
 			this.mapToDateTime(r, "reinforceCardCreatedDate"),
 			this.mapToString(r, "userId"),
-			this.mapToString(r, "boxId")
+			this.mapToString(r, "boxId"),
+			this.mapToInteger(r, "intervalDifference")
 		);
 	}
 }

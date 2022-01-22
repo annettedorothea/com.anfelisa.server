@@ -60,6 +60,8 @@ public abstract class AbstractScoreCardData extends AbstractData implements ISco
 	
 	private String boxId;
 	
+	private Integer intervalDifference;
+	
 
 	public AbstractScoreCardData(
 		@JsonProperty("cardId") String cardId,
@@ -77,7 +79,8 @@ public abstract class AbstractScoreCardData extends AbstractData implements ISco
 		@JsonProperty("reinforceCardId") String reinforceCardId,
 		@JsonProperty("reinforceCardCreatedDate") java.time.LocalDateTime reinforceCardCreatedDate,
 		@JsonProperty("userId") String userId,
-		@JsonProperty("boxId") String boxId
+		@JsonProperty("boxId") String boxId,
+		@JsonProperty("intervalDifference") Integer intervalDifference
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
@@ -97,6 +100,7 @@ public abstract class AbstractScoreCardData extends AbstractData implements ISco
 		this.reinforceCardCreatedDate = reinforceCardCreatedDate;
 		this.userId = userId;
 		this.boxId = boxId;
+		this.intervalDifference = intervalDifference;
 	}
 
 	public AbstractScoreCardData( String uuid ) {
@@ -303,6 +307,18 @@ public abstract class AbstractScoreCardData extends AbstractData implements ISco
 		return this;
 	}
 	
+	@JsonProperty
+	public Integer getIntervalDifference() {
+		return this.intervalDifference;
+	}
+	public void setIntervalDifference(Integer intervalDifference) {
+		this.intervalDifference = intervalDifference;
+	}
+	public IScoreCardData withIntervalDifference(Integer intervalDifference) {
+		this.intervalDifference = intervalDifference;
+		return this;
+	}
+	
 	
 	
 	public IScoreCardData deepCopy() {
@@ -323,6 +339,7 @@ public abstract class AbstractScoreCardData extends AbstractData implements ISco
 		copy.setReinforceCardCreatedDate(this.getReinforceCardCreatedDate());
 		copy.setUserId(this.getUserId());
 		copy.setBoxId(this.getBoxId());
+		copy.setIntervalDifference(this.getIntervalDifference());
 		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}

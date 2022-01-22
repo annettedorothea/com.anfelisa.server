@@ -52,6 +52,8 @@ public class ScoreCardModel implements IScoreCardModel {
 
 	private String boxId;
 
+	private Integer intervalDifference;
+
 
 	public ScoreCardModel() {
 	}
@@ -72,7 +74,8 @@ public class ScoreCardModel implements IScoreCardModel {
 		@JsonProperty("reinforceCardId") String reinforceCardId,
 		@JsonProperty("reinforceCardCreatedDate") java.time.LocalDateTime reinforceCardCreatedDate,
 		@JsonProperty("userId") String userId,
-		@JsonProperty("boxId") String boxId
+		@JsonProperty("boxId") String boxId,
+		@JsonProperty("intervalDifference") Integer intervalDifference
 	) {
 		this.cardId = cardId;
 		this.nextScheduledCardScheduledCardId = nextScheduledCardScheduledCardId;
@@ -90,6 +93,7 @@ public class ScoreCardModel implements IScoreCardModel {
 		this.reinforceCardCreatedDate = reinforceCardCreatedDate;
 		this.userId = userId;
 		this.boxId = boxId;
+		this.intervalDifference = intervalDifference;
 	}
 
 	@JsonProperty
@@ -228,6 +232,14 @@ public class ScoreCardModel implements IScoreCardModel {
 		this.boxId = boxId;
 	}
 	
+	@JsonProperty
+	public Integer getIntervalDifference() {
+		return this.intervalDifference;
+	}
+	public void setIntervalDifference(Integer intervalDifference) {
+		this.intervalDifference = intervalDifference;
+	}
+	
 
 	public IScoreCardModel deepCopy() {
 		IScoreCardModel copy = new ScoreCardModel();
@@ -247,6 +259,7 @@ public class ScoreCardModel implements IScoreCardModel {
 		copy.setReinforceCardCreatedDate(this.getReinforceCardCreatedDate());
 		copy.setUserId(this.getUserId());
 		copy.setBoxId(this.getBoxId());
+		copy.setIntervalDifference(this.getIntervalDifference());
 		return copy;
 	}
 

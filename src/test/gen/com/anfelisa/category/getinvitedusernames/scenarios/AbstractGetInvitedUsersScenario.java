@@ -146,12 +146,14 @@ public abstract class AbstractGetInvitedUsersScenario extends BaseScenario {
 			uuid = "boxIdOfInvitedUser-" + this.getTestId() + "";
 			com.anfelisa.category.data.InviteUserToCategoryPayload payload_3 = objectMapper.readValue("{" +
 				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
-				"\"invitedUsername\" : \"Anne-" + this.getTestId() + "\"} ",
+				"\"invitedUsername\" : \"Anne-" + this.getTestId() + "\"," + 
+				"\"editable\" : false} ",
 					com.anfelisa.category.data.InviteUserToCategoryPayload.class);
 			com.anfelisa.category.data.UserToCategoryInvitationData data_3 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 			"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
-			"\"invitedUsername\" : \"Anne-" + this.getTestId() + "\"} ",
+			"\"invitedUsername\" : \"Anne-" + this.getTestId() + "\"," + 
+			"\"editable\" : false} ",
 					com.anfelisa.category.data.UserToCategoryInvitationData.class);
 			HttpResponse<Object> response_3 = 
 			this.httpPut(
@@ -225,7 +227,8 @@ public abstract class AbstractGetInvitedUsersScenario extends BaseScenario {
 	
 			com.anfelisa.category.data.AlreadyInvitedUsernamesData expectedData = objectMapper.readValue("{" +
 				"\"uuid\" : \"\"," + 
-				"\"invitedUsernames\" : [ \"Anne-" + this.getTestId() + "\"]} ",
+				"\"invitedUsers\" : [ { \"invitedUsername\" : \"Anne-" + this.getTestId() + "\"," + 
+				"\"editable\" : false}]} ",
 			com.anfelisa.category.data.AlreadyInvitedUsernamesData.class);
 			
 			com.anfelisa.category.data.GetInvitedUsersResponse expected = new com.anfelisa.category.data.GetInvitedUsersResponse(expectedData);

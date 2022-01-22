@@ -104,6 +104,10 @@ public class InviteUserToCategoryResource extends Resource {
 				return badRequest("invitedUsername is mandatory");
 			}
 			data.setInvitedUsername(payload.getInvitedUsername());
+			if (payload.getEditable() == null) {
+				return badRequest("editable is mandatory");
+			}
+			data.setEditable(payload.getEditable());
 			data.setUserId(authUser.getUserId());
 			
 			com.anfelisa.category.actions.InviteUserToCategoryAction action = new com.anfelisa.category.actions.InviteUserToCategoryAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);

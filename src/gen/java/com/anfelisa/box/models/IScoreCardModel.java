@@ -62,6 +62,9 @@ public interface IScoreCardModel {
 	String getBoxId();
 	void setBoxId(String boxId);
 	
+	Integer getIntervalDifference();
+	void setIntervalDifference(Integer intervalDifference);
+	
 	
 	IScoreCardModel deepCopy();
 }

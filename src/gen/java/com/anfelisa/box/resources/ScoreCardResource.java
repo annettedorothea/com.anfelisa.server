@@ -108,7 +108,7 @@ public class ScoreCardResource extends Resource {
 			
 			com.anfelisa.box.actions.ScoreCardAction action = new com.anfelisa.box.actions.ScoreCardAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
 			data = action.apply(data);
-			return ok();
+			return Response.ok(new com.anfelisa.box.data.ScoreCardResponse(data)).build();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());
 			if (Config.DEV.equals(appConfiguration.getConfig().getMode())) {
