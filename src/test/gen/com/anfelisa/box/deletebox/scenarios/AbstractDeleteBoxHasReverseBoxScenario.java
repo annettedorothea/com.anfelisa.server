@@ -5,7 +5,7 @@
 
 
 
-package com.anfelisa.box.getboxes.scenarios;
+package com.anfelisa.box.deletebox.scenarios;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,9 +27,9 @@ import de.acegen.SquishyDataProvider;
 import de.acegen.HttpResponse;
 
 @SuppressWarnings("unused")
-public abstract class AbstractGetBoxesWithOneScoredCard3AndReinforceSameDayScenario extends BaseScenario {
+public abstract class AbstractDeleteBoxHasReverseBoxScenario extends BaseScenario {
 
-	static final Logger LOG = LoggerFactory.getLogger(AbstractGetBoxesWithOneScoredCard3AndReinforceSameDayScenario.class);
+	static final Logger LOG = LoggerFactory.getLogger(AbstractDeleteBoxHasReverseBoxScenario.class);
 	
 	private void given() throws Exception {
 		String uuid;
@@ -344,16 +344,16 @@ public abstract class AbstractGetBoxesWithOneScoredCard3AndReinforceSameDayScena
 			LOG.info("GIVEN: prerequisite for ScheduleCards not met");
 		}
 
-		if (prerequisite("ScoreCard3")) {
-			uuid = "score3-" + this.getTestId() + "";
-			this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 16:45", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
+		if (prerequisite("ScoreCard0")) {
+			uuid = "score0-" + this.getTestId() + "";
+			this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 			com.anfelisa.box.data.ScoreCardPayload payload_9 = objectMapper.readValue("{" +
-				"\"scoredCardQuality\" : 3," + 
+				"\"scoredCardQuality\" : 0," + 
 				"\"scheduledCardId\" : \"c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.ScoreCardPayload.class);
 			com.anfelisa.box.data.ScoreCardData data_9 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"scoredCardQuality\" : 3," + 
+			"\"scoredCardQuality\" : 0," + 
 			"\"scheduledCardId\" : \"c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.ScoreCardData.class);
 			HttpResponse<com.anfelisa.box.data.ScoreCardResponse> response_9 = 
@@ -367,40 +367,70 @@ public abstract class AbstractGetBoxesWithOneScoredCard3AndReinforceSameDayScena
 			
 			if (response_9.getStatusCode() >= 400) {
 				String statusMessage = response_9.getStatusMessage() != null ? response_9.getStatusMessage() : "";
-				String message = "GIVEN ScoreCard3 fails\n" + statusMessage;
-				LOG.error("GIVEN: ScoreCard3 fails due to {} in {} ms", message, response_9.getDuration());
+				String message = "GIVEN ScoreCard0 fails\n" + statusMessage;
+				LOG.error("GIVEN: ScoreCard0 fails due to {} in {} ms", message, response_9.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: ScoreCard3 success in {} ms", response_9.getDuration());
+			LOG.info("GIVEN: ScoreCard0 success in {} ms", response_9.getDuration());
 			addToMetrics("ScoreCard", response_9.getDuration());
 		} else {
-			LOG.info("GIVEN: prerequisite for ScoreCard3 not met");
+			LOG.info("GIVEN: prerequisite for ScoreCard0 not met");
+		}
+
+		if (prerequisite("CreateReverseBox")) {
+			uuid = "reverseBoxId-" + this.getTestId() + "";
+			com.anfelisa.box.data.CreateReverseBoxPayload payload_10 = objectMapper.readValue("{" +
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
+					com.anfelisa.box.data.CreateReverseBoxPayload.class);
+			com.anfelisa.box.data.BoxCreationData data_10 = objectMapper.readValue("{" +
+			"\"uuid\" : \"" + uuid + "\"," + 
+			"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
+					com.anfelisa.box.data.BoxCreationData.class);
+			HttpResponse<Object> response_10 = 
+			this.httpPost(
+				"/box/create-reverse", 
+			 	payload_10,
+				authorization("Annette-${testId}", "password"),
+				uuid,
+				null
+			);
+			
+			if (response_10.getStatusCode() >= 400) {
+				String statusMessage = response_10.getStatusMessage() != null ? response_10.getStatusMessage() : "";
+				String message = "GIVEN CreateReverseBox fails\n" + statusMessage;
+				LOG.error("GIVEN: CreateReverseBox fails due to {} in {} ms", message, response_10.getDuration());
+				assertFail(message);
+			}
+			LOG.info("GIVEN: CreateReverseBox success in {} ms", response_10.getDuration());
+			addToMetrics("CreateReverseBox", response_10.getDuration());
+		} else {
+			LOG.info("GIVEN: prerequisite for CreateReverseBox not met");
 		}
 
 	}
 	
-	private HttpResponse<com.anfelisa.box.data.GetBoxesResponse> when_0() throws Exception {
+	private HttpResponse<Object> when_0() throws Exception {
 		String uuid = this.randomUUID();
-		com.anfelisa.box.data.BoxListData data_0 = objectMapper.readValue("{" +
+		com.anfelisa.box.data.DeleteBoxData data_0 = objectMapper.readValue("{" +
 		"\"uuid\" : \"" + uuid + "\"," + 
-		"\"todayAtMidnightInUTC\" : \"2020-04-18T02:00\"} ",
-				com.anfelisa.box.data.BoxListData.class);
-		HttpResponse<com.anfelisa.box.data.GetBoxesResponse> response = 
-		this.httpGet(
-			"/boxes/my/?todayAtMidnightInUTC=" + data_0.getTodayAtMidnightInUTC() + "", 
+		"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
+				com.anfelisa.box.data.DeleteBoxData.class);
+		HttpResponse<Object> response = 
+		this.httpDelete(
+			"/box/delete?boxId=" + (data_0.getBoxId() != null ? URLEncoder.encode(data_0.getBoxId(), StandardCharsets.UTF_8.toString()) : "") + "", 
 			authorization("Annette-${testId}", "password"),
 			uuid,
-			com.anfelisa.box.data.GetBoxesResponse.class
+			null
 		);
 		
-		LOG.info("WHEN: GetBoxes finished in {} ms", response.getDuration());
+		LOG.info("WHEN: DeleteBox finished in {} ms", response.getDuration());
 		if (response.getStatusCode() >= 200 && response.getStatusCode() < 300) {
-			addToMetrics("GetBoxes", response.getDuration());
+			addToMetrics("DeleteBox", response.getDuration());
 		}
 		return response;
 	}
 	
-	private com.anfelisa.box.data.GetBoxesResponse then_0(HttpResponse<com.anfelisa.box.data.GetBoxesResponse> response) throws Exception {
+	private void then_0(HttpResponse<Object> response) throws Exception {
 		if (response.getStatusCode() == 500) {
 			String statusMessage = response.getStatusMessage() != null ? response.getStatusMessage() : "";
 			String errorMessage = "status " + response.getStatusCode() + " failed: " + statusMessage;
@@ -416,61 +446,94 @@ public abstract class AbstractGetBoxesWithOneScoredCard3AndReinforceSameDayScena
 			LOG.info("THEN: status 200 passed");
 		}
 		
-		com.anfelisa.box.data.GetBoxesResponse actual = null;
-		if (response.getStatusCode() < 400) {
-			try {
-				actual = response.getEntity();
-				
-			} catch (Exception x) {
-				LOG.error("THEN: failed to read response", x);
-				assertFail(x.getMessage());
-			}
-	
-			com.anfelisa.box.data.BoxListData expectedData = objectMapper.readValue("{" +
-				"\"uuid\" : \"\"," + 
-				"\"boxList\" : [ { \"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
-				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
-				"\"categoryName\" : \"cat\"," + 
-				"\"openTodaysCards\" : 3," + 
-				"\"categoryAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
-				"\"editable\" : true," + 
-				"\"reverse\" : false," + 
-				"\"archived\" : false," + 
-				"\"deletable\" : true}]} ",
-			com.anfelisa.box.data.BoxListData.class);
-			
-			com.anfelisa.box.data.GetBoxesResponse expected = new com.anfelisa.box.data.GetBoxesResponse(expectedData);
-			
-			assertThat(actual, expected);
-			
-			LOG.info("THEN: response passed");
-		}
-	
-		return actual;
 	}
 			
 	@Override
 	public void runTest() throws Exception {
 		given();
 		
-		if (prerequisite("GetBoxesWithOneScoredCard3AndReinforceSameDay")) {
+		if (prerequisite("DeleteBoxHasReverseBox")) {
 			
-				HttpResponse<com.anfelisa.box.data.GetBoxesResponse> response_0 = when_0();
-				com.anfelisa.box.data.GetBoxesResponse actualResponse_0 = then_0(response_0);
+				HttpResponse<Object> response_0 = when_0();
+				then_0(response_0);
+				this.boxWasDeleted();
+				this.reverseBoxWasDeleted();
+				this.accessToCategoryWasDeleted();
+				this.allCategoriesWereDeleted();
+				this.allCardsWereDeleted();
+				this.allScheduledCardsWereDeleted();
+				this.allReinforceCardsWereDeleted();
 				
 		
 		} else {
-			LOG.info("WHEN: prerequisite for GetBoxesWithOneScoredCard3AndReinforceSameDay not met");
+			LOG.info("WHEN: prerequisite for DeleteBoxHasReverseBox not met");
 		}
 		
 			
 	}
 	
 	
+	private void boxWasDeleted() throws Exception {
+		com.anfelisa.box.models.IBoxModel actual = daoProvider.getBoxDao().selectByBoxId(handle, "boxId-" + this.getTestId() + "");
+		
+		assertIsNull(actual);
+	
+		LOG.info("THEN: boxWasDeleted passed");
+	}
+	private void reverseBoxWasDeleted() throws Exception {
+		com.anfelisa.box.models.IBoxModel actual = daoProvider.getBoxDao().selectByBoxId(handle, "reverseBoxId-" + this.getTestId() + "");
+		
+		assertIsNull(actual);
+	
+		LOG.info("THEN: reverseBoxWasDeleted passed");
+	}
+	private void accessToCategoryWasDeleted() throws Exception {
+		com.anfelisa.category.models.IUserAccessToCategoryModel actual = daoProvider.getUserAccessToCategoryDao().selectByPrimaryKey(handle, "reverseBoxId-" + this.getTestId() + "", "uuid2-" + this.getTestId() + "");
+		
+		assertIsNull(actual);
+	
+		LOG.info("THEN: accessToCategoryWasDeleted passed");
+	}
+	private void allCategoriesWereDeleted() throws Exception {
+		Map<String, String> filterMap = new HashMap<String, String>();
+		filterMap.put("rootCategoryId", "boxId-" + this.getTestId() + "");
+		int actual = daoProvider.getCategoryDao().filterAndCountBy(handle, filterMap);
+		
+		assertThat(actual, 0);
+	
+		LOG.info("THEN: allCategoriesWereDeleted passed");
+	}
+	private void allCardsWereDeleted() throws Exception {
+		Map<String, String> filterMap = new HashMap<String, String>();
+		filterMap.put("rootCategoryId", "boxId-" + this.getTestId() + "");
+		int actual = daoProvider.getCardDao().filterAndCountBy(handle, filterMap);
+		
+		assertThat(actual, 0);
+	
+		LOG.info("THEN: allCardsWereDeleted passed");
+	}
+	private void allScheduledCardsWereDeleted() throws Exception {
+		Map<String, String> filterMap = new HashMap<String, String>();
+		filterMap.put("boxId", "boxId-" + this.getTestId() + "");
+		int actual = daoProvider.getScheduledCardDao().filterAndCountBy(handle, filterMap);
+		
+		assertThat(actual, 0);
+	
+		LOG.info("THEN: allScheduledCardsWereDeleted passed");
+	}
+	private void allReinforceCardsWereDeleted() throws Exception {
+		Map<String, String> filterMap = new HashMap<String, String>();
+		filterMap.put("boxId", "boxId-" + this.getTestId() + "");
+		int actual = daoProvider.getReinforceCardDao().filterAndCountBy(handle, filterMap);
+		
+		assertThat(actual, 0);
+	
+		LOG.info("THEN: allReinforceCardsWereDeleted passed");
+	}
 		
 	@Override
 	protected String scenarioName() {
-		return "GetBoxesWithOneScoredCard3AndReinforceSameDay";
+		return "DeleteBoxHasReverseBox";
 	}
 	
 }

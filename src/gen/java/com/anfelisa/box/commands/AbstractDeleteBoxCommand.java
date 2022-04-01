@@ -29,6 +29,9 @@ public abstract class AbstractDeleteBoxCommand extends Command<IDeleteBoxData> {
 	protected void addDeleteCategoryOutcome(IDeleteBoxData data) {
 		data.addOutcome("deleteCategory");
 	}
+	protected void addDeleteReverseBoxOutcome(IDeleteBoxData data) {
+		data.addOutcome("deleteReverseBox");
+	}
 	
 	@Override
 	public void addEventsToTimeline(IDeleteBoxData data, PersistenceHandle timelineHandle) {
@@ -38,6 +41,9 @@ public abstract class AbstractDeleteBoxCommand extends Command<IDeleteBoxData> {
 			}
 			if (data.hasOutcome("deleteCategory")){
 				daoProvider.getAceDao().addEventToTimeline("com.anfelisa.box.events.DeleteBoxDeleteCategoryEvent", data, timelineHandle);
+			}
+			if (data.hasOutcome("deleteReverseBox")){
+				daoProvider.getAceDao().addEventToTimeline("com.anfelisa.box.events.DeleteBoxDeleteReverseBoxEvent", data, timelineHandle);
 			}
 		}
 	}
@@ -49,6 +55,9 @@ public abstract class AbstractDeleteBoxCommand extends Command<IDeleteBoxData> {
 		}
 		if (data.hasOutcome("deleteCategory")){
 			new Event<IDeleteBoxData>("com.anfelisa.box.events.DeleteBoxDeleteCategoryEvent", viewProvider).publish(data.deepCopy(), handle, timelineHandle);
+		}
+		if (data.hasOutcome("deleteReverseBox")){
+			new Event<IDeleteBoxData>("com.anfelisa.box.events.DeleteBoxDeleteReverseBoxEvent", viewProvider).publish(data.deepCopy(), handle, timelineHandle);
 		}
 	}
 	

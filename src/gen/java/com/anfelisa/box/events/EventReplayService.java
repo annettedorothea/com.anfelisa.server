@@ -131,6 +131,13 @@ public class EventReplayService {
 				event.notifyListeners(data, handle);
 				event.notifyAfterCommitListeners(data, handle);
 			}
+			if (eventClass.equals("com.anfelisa.box.events.DeleteBoxDeleteReverseBoxEvent")) {
+				DeleteBoxData data = mapper.readValue(json, DeleteBoxData.class);
+				data.migrateLegacyData(json);
+				Event event = new Event<DeleteBoxData>("com.anfelisa.box.events.DeleteBoxDeleteReverseBoxEvent", viewProvider);
+				event.notifyListeners(data, handle);
+				event.notifyAfterCommitListeners(data, handle);
+			}
 		} catch (IOException e) {
 			LOG.error("failed to replay event {} with data {}", eventClass, json, e);
 		}

@@ -24,6 +24,8 @@ public class DeleteBoxModel implements IDeleteBoxModel {
 
 	private String boxId;
 
+	private String reverseBoxId;
+
 	private String rootCategoryId;
 
 
@@ -33,10 +35,12 @@ public class DeleteBoxModel implements IDeleteBoxModel {
 	public DeleteBoxModel(
 		@JsonProperty("userId") String userId,
 		@JsonProperty("boxId") String boxId,
+		@JsonProperty("reverseBoxId") String reverseBoxId,
 		@JsonProperty("rootCategoryId") String rootCategoryId
 	) {
 		this.userId = userId;
 		this.boxId = boxId;
+		this.reverseBoxId = reverseBoxId;
 		this.rootCategoryId = rootCategoryId;
 	}
 
@@ -57,6 +61,14 @@ public class DeleteBoxModel implements IDeleteBoxModel {
 	}
 	
 	@JsonProperty
+	public String getReverseBoxId() {
+		return this.reverseBoxId;
+	}
+	public void setReverseBoxId(String reverseBoxId) {
+		this.reverseBoxId = reverseBoxId;
+	}
+	
+	@JsonProperty
 	public String getRootCategoryId() {
 		return this.rootCategoryId;
 	}
@@ -69,6 +81,7 @@ public class DeleteBoxModel implements IDeleteBoxModel {
 		IDeleteBoxModel copy = new DeleteBoxModel();
 		copy.setUserId(this.getUserId());
 		copy.setBoxId(this.getBoxId());
+		copy.setReverseBoxId(this.getReverseBoxId());
 		copy.setRootCategoryId(this.getRootCategoryId());
 		return copy;
 	}

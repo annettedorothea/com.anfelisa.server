@@ -56,6 +56,11 @@ public class BoxView implements IBoxView {
 		daoProvider.getBoxDao().archive(handle, data.getBoxId(), data.getArchived());
 	}
 
+	@Override
+	public void deleteReverseBox(IDeleteBoxData data, PersistenceHandle handle) {
+		daoProvider.getBoxDao().deleteByBoxId(handle, data.getReverseBoxId());
+	}
+
 }
 
 /*                    S.D.G.                    */

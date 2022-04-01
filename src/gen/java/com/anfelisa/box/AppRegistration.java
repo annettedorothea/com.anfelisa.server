@@ -126,6 +126,10 @@ public class AppRegistration {
 			viewProvider.rootCategoryView.deleteAll((com.anfelisa.box.data.DeleteBoxData) dataContainer, handle);
 		});
 		
+		viewProvider.addConsumer("com.anfelisa.box.events.DeleteBoxDeleteReverseBoxEvent", (dataContainer, handle) -> {
+			viewProvider.boxView.deleteReverseBox((com.anfelisa.box.data.DeleteBoxData) dataContainer, handle);
+		});
+		
 	}
 }
 

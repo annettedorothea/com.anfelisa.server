@@ -28,13 +28,13 @@ public interface IBoxWithStatisticsData extends IBoxWithStatisticsModel, IDataCo
 	
 	IBoxWithStatisticsData withBoxId(String boxId);
 	
-	IBoxWithStatisticsData withShared(Boolean shared);
-	
 	IBoxWithStatisticsData withReverse(Boolean reverse);
 	
 	IBoxWithStatisticsData withEditable(Boolean editable);
 	
 	IBoxWithStatisticsData withArchived(Boolean archived);
+	
+	IBoxWithStatisticsData withDeletable(Boolean deletable);
 	
 	IBoxWithStatisticsData withQuality0Count(Integer quality0Count);
 	

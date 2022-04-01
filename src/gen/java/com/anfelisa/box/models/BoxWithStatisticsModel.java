@@ -30,13 +30,13 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 
 	private String boxId;
 
-	private Boolean shared = false;
-
 	private Boolean reverse = false;
 
 	private Boolean editable = false;
 
 	private Boolean archived = false;
+
+	private Boolean deletable = false;
 
 	private Integer quality0Count;
 
@@ -64,10 +64,10 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 		@JsonProperty("categoryAuthor") String categoryAuthor,
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("boxId") String boxId,
-		@JsonProperty("shared") Boolean shared,
 		@JsonProperty("reverse") Boolean reverse,
 		@JsonProperty("editable") Boolean editable,
 		@JsonProperty("archived") Boolean archived,
+		@JsonProperty("deletable") Boolean deletable,
 		@JsonProperty("quality0Count") Integer quality0Count,
 		@JsonProperty("quality1Count") Integer quality1Count,
 		@JsonProperty("quality2Count") Integer quality2Count,
@@ -82,10 +82,10 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 		this.categoryAuthor = categoryAuthor;
 		this.categoryId = categoryId;
 		this.boxId = boxId;
-		this.shared = shared;
 		this.reverse = reverse;
 		this.editable = editable;
 		this.archived = archived;
+		this.deletable = deletable;
 		this.quality0Count = quality0Count;
 		this.quality1Count = quality1Count;
 		this.quality2Count = quality2Count;
@@ -137,14 +137,6 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 	}
 	
 	@JsonProperty
-	public Boolean getShared() {
-		return this.shared;
-	}
-	public void setShared(Boolean shared) {
-		this.shared = shared;
-	}
-	
-	@JsonProperty
 	public Boolean getReverse() {
 		return this.reverse;
 	}
@@ -166,6 +158,14 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 	}
 	public void setArchived(Boolean archived) {
 		this.archived = archived;
+	}
+	
+	@JsonProperty
+	public Boolean getDeletable() {
+		return this.deletable;
+	}
+	public void setDeletable(Boolean deletable) {
+		this.deletable = deletable;
 	}
 	
 	@JsonProperty
@@ -240,10 +240,10 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 		copy.setCategoryAuthor(this.getCategoryAuthor());
 		copy.setCategoryId(this.getCategoryId());
 		copy.setBoxId(this.getBoxId());
-		copy.setShared(this.getShared());
 		copy.setReverse(this.getReverse());
 		copy.setEditable(this.getEditable());
 		copy.setArchived(this.getArchived());
+		copy.setDeletable(this.getDeletable());
 		copy.setQuality0Count(this.getQuality0Count());
 		copy.setQuality1Count(this.getQuality1Count());
 		copy.setQuality2Count(this.getQuality2Count());

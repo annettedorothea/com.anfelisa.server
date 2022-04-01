@@ -142,6 +142,9 @@ ACE
 		on deleteCategory (
 			RootCategory.deleteAll 
 		)
+		on deleteReverseBox (
+			Box.deleteReverseBox 
+		)
 		
 	LoadAllActiveCards<ActiveCardList>
 		GET "/box/active-cards/{boxId}" 
@@ -157,6 +160,7 @@ views
 		createBox (BoxCreation)
 		updateBox (BoxUpdate)
 		deleteBox (DeleteBox)
+		deleteReverseBox (DeleteBox)
 		archiveBox (BoxArchive)
 		scheduleCards(ScheduledCards)
 		sortCardsOut(SortCardsOut)
@@ -228,10 +232,10 @@ models
 		String categoryAuthor
 		String categoryId
 		String boxId
-		Boolean shared
 		Boolean reverse
 		Boolean editable
 		Boolean archived
+		Boolean deletable
 	}
 
 	BoxStatistics {
@@ -388,6 +392,7 @@ models
 	DeleteBox {
 		String userId
 		String boxId
+		String reverseBoxId
 		String rootCategoryId
 	}
 

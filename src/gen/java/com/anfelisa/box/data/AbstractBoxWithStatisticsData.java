@@ -40,13 +40,13 @@ public abstract class AbstractBoxWithStatisticsData extends AbstractData impleme
 	
 	private String boxId;
 	
-	private Boolean shared = false;
-	
 	private Boolean reverse = false;
 	
 	private Boolean editable = false;
 	
 	private Boolean archived = false;
+	
+	private Boolean deletable = false;
 	
 	private Integer quality0Count;
 	
@@ -71,10 +71,10 @@ public abstract class AbstractBoxWithStatisticsData extends AbstractData impleme
 		@JsonProperty("categoryAuthor") String categoryAuthor,
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("boxId") String boxId,
-		@JsonProperty("shared") Boolean shared,
 		@JsonProperty("reverse") Boolean reverse,
 		@JsonProperty("editable") Boolean editable,
 		@JsonProperty("archived") Boolean archived,
+		@JsonProperty("deletable") Boolean deletable,
 		@JsonProperty("quality0Count") Integer quality0Count,
 		@JsonProperty("quality1Count") Integer quality1Count,
 		@JsonProperty("quality2Count") Integer quality2Count,
@@ -91,10 +91,10 @@ public abstract class AbstractBoxWithStatisticsData extends AbstractData impleme
 		this.categoryAuthor = categoryAuthor;
 		this.categoryId = categoryId;
 		this.boxId = boxId;
-		this.shared = shared;
 		this.reverse = reverse;
 		this.editable = editable;
 		this.archived = archived;
+		this.deletable = deletable;
 		this.quality0Count = quality0Count;
 		this.quality1Count = quality1Count;
 		this.quality2Count = quality2Count;
@@ -170,18 +170,6 @@ public abstract class AbstractBoxWithStatisticsData extends AbstractData impleme
 	}
 	
 	@JsonProperty
-	public Boolean getShared() {
-		return this.shared;
-	}
-	public void setShared(Boolean shared) {
-		this.shared = shared;
-	}
-	public IBoxWithStatisticsData withShared(Boolean shared) {
-		this.shared = shared;
-		return this;
-	}
-	
-	@JsonProperty
 	public Boolean getReverse() {
 		return this.reverse;
 	}
@@ -214,6 +202,18 @@ public abstract class AbstractBoxWithStatisticsData extends AbstractData impleme
 	}
 	public IBoxWithStatisticsData withArchived(Boolean archived) {
 		this.archived = archived;
+		return this;
+	}
+	
+	@JsonProperty
+	public Boolean getDeletable() {
+		return this.deletable;
+	}
+	public void setDeletable(Boolean deletable) {
+		this.deletable = deletable;
+	}
+	public IBoxWithStatisticsData withDeletable(Boolean deletable) {
+		this.deletable = deletable;
 		return this;
 	}
 	
@@ -320,10 +320,10 @@ public abstract class AbstractBoxWithStatisticsData extends AbstractData impleme
 		this.categoryAuthor = model.getCategoryAuthor();
 		this.categoryId = model.getCategoryId();
 		this.boxId = model.getBoxId();
-		this.shared = model.getShared();
 		this.reverse = model.getReverse();
 		this.editable = model.getEditable();
 		this.archived = model.getArchived();
+		this.deletable = model.getDeletable();
 	}
 	public void mapFrom(com.anfelisa.box.models.IBoxStatisticsModel model) {
 		this.boxId = model.getBoxId();
@@ -344,10 +344,10 @@ public abstract class AbstractBoxWithStatisticsData extends AbstractData impleme
 		copy.setCategoryAuthor(this.getCategoryAuthor());
 		copy.setCategoryId(this.getCategoryId());
 		copy.setBoxId(this.getBoxId());
-		copy.setShared(this.getShared());
 		copy.setReverse(this.getReverse());
 		copy.setEditable(this.getEditable());
 		copy.setArchived(this.getArchived());
+		copy.setDeletable(this.getDeletable());
 		copy.setQuality0Count(this.getQuality0Count());
 		copy.setQuality1Count(this.getQuality1Count());
 		copy.setQuality2Count(this.getQuality2Count());

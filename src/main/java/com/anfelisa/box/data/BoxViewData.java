@@ -9,6 +9,11 @@ package com.anfelisa.box.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
+import de.acegen.AbstractData;
+
 public class BoxViewData extends AbstractBoxViewData implements IBoxViewData {
 	
 	public BoxViewData(
@@ -17,10 +22,10 @@ public class BoxViewData extends AbstractBoxViewData implements IBoxViewData {
 		@JsonProperty("categoryAuthor") String categoryAuthor, 
 		@JsonProperty("categoryId") String categoryId, 
 		@JsonProperty("boxId") String boxId, 
-		@JsonProperty("shared") Boolean shared, 
 		@JsonProperty("reverse") Boolean reverse, 
 		@JsonProperty("editable") Boolean editable, 
 		@JsonProperty("archived") Boolean archived, 
+		@JsonProperty("deletable") Boolean deletable, 
 		@JsonProperty("uuid") String uuid
 	) {
 		super(
@@ -29,10 +34,10 @@ public class BoxViewData extends AbstractBoxViewData implements IBoxViewData {
 			categoryAuthor,
 			categoryId,
 			boxId,
-			shared,
 			reverse,
 			editable,
 			archived,
+			deletable,
 			uuid
 		);
 	}
@@ -52,10 +57,10 @@ public class BoxViewData extends AbstractBoxViewData implements IBoxViewData {
 		testData.setCategoryAuthor(randomString(random));
 		testData.setCategoryId(randomString(random));
 		testData.setBoxId(randomString(random));
-		testData.setShared(random.nextBoolean());
 		testData.setReverse(random.nextBoolean());
 		testData.setEditable(random.nextBoolean());
 		testData.setArchived(random.nextBoolean());
+		testData.setDeletable(random.nextBoolean());
 		return testData;
 	}
 	

@@ -30,13 +30,13 @@ public class BoxViewModel implements IBoxViewModel {
 
 	private String boxId;
 
-	private Boolean shared = false;
-
 	private Boolean reverse = false;
 
 	private Boolean editable = false;
 
 	private Boolean archived = false;
+
+	private Boolean deletable = false;
 
 
 	public BoxViewModel() {
@@ -48,20 +48,20 @@ public class BoxViewModel implements IBoxViewModel {
 		@JsonProperty("categoryAuthor") String categoryAuthor,
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("boxId") String boxId,
-		@JsonProperty("shared") Boolean shared,
 		@JsonProperty("reverse") Boolean reverse,
 		@JsonProperty("editable") Boolean editable,
-		@JsonProperty("archived") Boolean archived
+		@JsonProperty("archived") Boolean archived,
+		@JsonProperty("deletable") Boolean deletable
 	) {
 		this.openTodaysCards = openTodaysCards;
 		this.categoryName = categoryName;
 		this.categoryAuthor = categoryAuthor;
 		this.categoryId = categoryId;
 		this.boxId = boxId;
-		this.shared = shared;
 		this.reverse = reverse;
 		this.editable = editable;
 		this.archived = archived;
+		this.deletable = deletable;
 	}
 
 	@JsonProperty
@@ -105,14 +105,6 @@ public class BoxViewModel implements IBoxViewModel {
 	}
 	
 	@JsonProperty
-	public Boolean getShared() {
-		return this.shared;
-	}
-	public void setShared(Boolean shared) {
-		this.shared = shared;
-	}
-	
-	@JsonProperty
 	public Boolean getReverse() {
 		return this.reverse;
 	}
@@ -136,6 +128,14 @@ public class BoxViewModel implements IBoxViewModel {
 		this.archived = archived;
 	}
 	
+	@JsonProperty
+	public Boolean getDeletable() {
+		return this.deletable;
+	}
+	public void setDeletable(Boolean deletable) {
+		this.deletable = deletable;
+	}
+	
 
 	public IBoxViewModel deepCopy() {
 		IBoxViewModel copy = new BoxViewModel();
@@ -144,10 +144,10 @@ public class BoxViewModel implements IBoxViewModel {
 		copy.setCategoryAuthor(this.getCategoryAuthor());
 		copy.setCategoryId(this.getCategoryId());
 		copy.setBoxId(this.getBoxId());
-		copy.setShared(this.getShared());
 		copy.setReverse(this.getReverse());
 		copy.setEditable(this.getEditable());
 		copy.setArchived(this.getArchived());
+		copy.setDeletable(this.getDeletable());
 		return copy;
 	}
 

@@ -13,6 +13,7 @@ import de.acegen.PersistenceHandle;
 import com.anfelisa.box.data.IBoxCreationData;
 import com.anfelisa.box.data.IBoxUpdateData;
 import com.anfelisa.box.data.IDeleteBoxData;
+import com.anfelisa.box.data.IDeleteBoxData;
 import com.anfelisa.box.data.IBoxArchiveData;
 import com.anfelisa.box.data.IScheduledCardsData;
 import com.anfelisa.box.data.ISortCardsOutData;
@@ -23,6 +24,7 @@ public interface IBoxView {
 	void createBox(IBoxCreationData data, PersistenceHandle handle);
 	void updateBox(IBoxUpdateData data, PersistenceHandle handle);
 	void deleteBox(IDeleteBoxData data, PersistenceHandle handle);
+	void deleteReverseBox(IDeleteBoxData data, PersistenceHandle handle);
 	void archiveBox(IBoxArchiveData data, PersistenceHandle handle);
 	void scheduleCards(IScheduledCardsData data, PersistenceHandle handle);
 	void sortCardsOut(ISortCardsOutData data, PersistenceHandle handle);

@@ -185,3 +185,37 @@ scenarios
 			}
 		THEN
 			401
+			
+	InviteTwoUsersToCategory
+		GIVEN
+			InviteUserToCategoryEditable
+			com.anfelisa.user.registeruser.RegisterUserAdmin exclude GIVEN
+		WHEN
+			com.anfelisa.category.InviteUserToCategory 
+			uuid "boxIdOfInvitedAdminUser-${testId}"
+			{
+				categoryId: "boxId-${testId}",
+				invitedUsername: "Admin",
+				editable: false
+			}
+			authorization "Annette-${testId}" : "password"
+		THEN
+			200
+			persistence accessToCategoryWasGranted UserAccessToCategory selectByPrimaryKey ( categoryId: "boxId-${testId}", userId: "uuid-admin") shouldBe
+			{
+				categoryId: "boxId-${testId}",
+				editable: false,
+				userId: "uuid-admin"
+			}
+			boxWasCreated Box selectByPrimaryKey ( boxId: "boxIdOfInvitedAdminUser-${testId}" ) shouldBe
+			{
+				categoryId: "boxId-${testId}",
+				userId: "uuid-admin",
+				boxId: "boxIdOfInvitedAdminUser-${testId}",
+				maxCardsPerDay: 10,
+				maxInterval: null,
+				reverse: false,
+				archived: false
+			}
+			
+

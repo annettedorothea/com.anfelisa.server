@@ -194,7 +194,7 @@ public abstract class AbstractGetBoxesReverseScenario extends BaseScenario {
 				"\"editable\" : true," + 
 				"\"reverse\" : false," + 
 				"\"archived\" : false," + 
-				"\"shared\" : false}," + 
+				"\"deletable\" : true}," + 
 				"{ \"boxId\" : \"reverseBoxId-" + this.getTestId() + "\"," + 
 				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"categoryName\" : \"cat\"," + 
@@ -203,7 +203,7 @@ public abstract class AbstractGetBoxesReverseScenario extends BaseScenario {
 				"\"editable\" : true," + 
 				"\"reverse\" : true," + 
 				"\"archived\" : false," + 
-				"\"shared\" : false}]} ",
+				"\"deletable\" : true}]} ",
 			com.anfelisa.box.data.BoxListData.class);
 			
 			com.anfelisa.box.data.GetBoxesResponse expected = new com.anfelisa.box.data.GetBoxesResponse(expectedData);

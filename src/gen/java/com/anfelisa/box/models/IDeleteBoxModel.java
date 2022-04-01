@@ -20,6 +20,9 @@ public interface IDeleteBoxModel {
 	String getBoxId();
 	void setBoxId(String boxId);
 	
+	String getReverseBoxId();
+	void setReverseBoxId(String reverseBoxId);
+	
 	String getRootCategoryId();
 	void setRootCategoryId(String rootCategoryId);
 	

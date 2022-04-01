@@ -456,7 +456,8 @@ public abstract class AbstractDeleteReverseBoxScenario extends BaseScenario {
 			
 				HttpResponse<Object> response_0 = when_0();
 				then_0(response_0);
-				this.boxWasDeleted();
+				this.reverseBoxWasDeleted();
+				this.boxWasNotDeleted();
 				this.accessToCategoryWasDeleted();
 				this.categoriesWereNotDeleted();
 				this.cardsWereNotDeleted();
@@ -472,12 +473,19 @@ public abstract class AbstractDeleteReverseBoxScenario extends BaseScenario {
 	}
 	
 	
-	private void boxWasDeleted() throws Exception {
+	private void reverseBoxWasDeleted() throws Exception {
 		com.anfelisa.box.models.IBoxModel actual = daoProvider.getBoxDao().selectByBoxId(handle, "reverseBoxId-" + this.getTestId() + "");
 		
 		assertIsNull(actual);
 	
-		LOG.info("THEN: boxWasDeleted passed");
+		LOG.info("THEN: reverseBoxWasDeleted passed");
+	}
+	private void boxWasNotDeleted() throws Exception {
+		com.anfelisa.box.models.IBoxModel actual = daoProvider.getBoxDao().selectByBoxId(handle, "boxId-" + this.getTestId() + "");
+		
+		assertIsNotNull(actual);
+	
+		LOG.info("THEN: boxWasNotDeleted passed");
 	}
 	private void accessToCategoryWasDeleted() throws Exception {
 		com.anfelisa.category.models.IUserAccessToCategoryModel actual = daoProvider.getUserAccessToCategoryDao().selectByPrimaryKey(handle, "reverseBoxId-" + this.getTestId() + "", "uuid2-" + this.getTestId() + "");

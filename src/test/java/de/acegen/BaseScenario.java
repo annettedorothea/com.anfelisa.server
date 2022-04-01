@@ -510,7 +510,7 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 			org.junit.jupiter.api.Assertions.assertEquals(expected.getCategoryAuthor(), actual.getCategoryAuthor());
 			org.junit.jupiter.api.Assertions.assertEquals(expected.getReverse(), actual.getReverse());
 			org.junit.jupiter.api.Assertions.assertEquals(expected.getArchived(), actual.getArchived());
-			org.junit.jupiter.api.Assertions.assertEquals(expected.getShared(), actual.getShared());
+			org.junit.jupiter.api.Assertions.assertEquals(expected.getDeletable(), actual.getDeletable());
 		}
 	}
 

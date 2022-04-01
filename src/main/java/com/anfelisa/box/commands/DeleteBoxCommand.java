@@ -41,19 +41,52 @@ public class DeleteBoxCommand extends AbstractDeleteBoxCommand {
 		if (access == null) {
 			throwSecurityException();
 		}
+		data.setRootCategoryId(box.getCategoryId());
+		if (!box.getReverse()) {
+			IBoxModel reverseBox = daoProvider.getBoxDao().selectByCategoryIdAndUserId(readonlyHandle, box.getCategoryId(), data.getUserId(), true);
+			if (reverseBox != null) {
+				data.setReverseBoxId(reverseBox.getBoxId());
+				this.addDeleteReverseBoxOutcome(data);
+			}
+		}
 		if (access.getEditable() && !box.getReverse()) {
-			data.setRootCategoryId(box.getCategoryId());
 			List<IUserAccessToCategoryModel> accesses = daoProvider.getUserAccessToCategoryDao()
 					.selectByCategoryIdAndNotMine(readonlyHandle, box.getCategoryId(), data.getUserId());
-			if (accesses.size() > 0) {
-				throwIllegalArgumentException("cannotDeleteSharedBox");
-			}
-			this.addDeleteCategoryOutcome(data);
+			if (!atLeastOneUserHasWriteAccess(accesses)) {
+				if (atLeastOneUserHasReadAccess(accesses)) {
+					throwIllegalArgumentException("cannotDeleteSharedBox");
+				}
+				this.addDeleteCategoryOutcome(data);
+			} 
 		}
 		this.addDeleteBoxOutcome(data);
 		return data;
 	}
+	
+	private boolean atLeastOneUserHasWriteAccess(List<IUserAccessToCategoryModel> accesses) {
+		if (accesses.size() == 0) {
+			return false;
+		}
+		for (IUserAccessToCategoryModel access : accesses) {
+			if (access.getEditable()) {
+				return true;
+			}
+		}
+		return false;
+	}
 
+	private boolean atLeastOneUserHasReadAccess(List<IUserAccessToCategoryModel> accesses) {
+		if (accesses.size() == 0) {
+			return false;
+		}
+		for (IUserAccessToCategoryModel access : accesses) {
+			if (!access.getEditable()) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 }
 
 /******* S.D.G. *******/

@@ -9,6 +9,11 @@ package com.anfelisa.box.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
+import de.acegen.AbstractData;
+
 public class BoxWithStatisticsData extends AbstractBoxWithStatisticsData implements IBoxWithStatisticsData {
 	
 	public BoxWithStatisticsData(
@@ -17,10 +22,10 @@ public class BoxWithStatisticsData extends AbstractBoxWithStatisticsData impleme
 		@JsonProperty("categoryAuthor") String categoryAuthor, 
 		@JsonProperty("categoryId") String categoryId, 
 		@JsonProperty("boxId") String boxId, 
-		@JsonProperty("shared") Boolean shared, 
 		@JsonProperty("reverse") Boolean reverse, 
 		@JsonProperty("editable") Boolean editable, 
 		@JsonProperty("archived") Boolean archived, 
+		@JsonProperty("deletable") Boolean deletable, 
 		@JsonProperty("quality0Count") Integer quality0Count, 
 		@JsonProperty("quality1Count") Integer quality1Count, 
 		@JsonProperty("quality2Count") Integer quality2Count, 
@@ -37,10 +42,10 @@ public class BoxWithStatisticsData extends AbstractBoxWithStatisticsData impleme
 			categoryAuthor,
 			categoryId,
 			boxId,
-			shared,
 			reverse,
 			editable,
 			archived,
+			deletable,
 			quality0Count,
 			quality1Count,
 			quality2Count,
@@ -69,10 +74,10 @@ public class BoxWithStatisticsData extends AbstractBoxWithStatisticsData impleme
 		testData.setCategoryAuthor(randomString(random));
 		testData.setCategoryId(randomString(random));
 		testData.setBoxId(randomString(random));
-		testData.setShared(random.nextBoolean());
 		testData.setReverse(random.nextBoolean());
 		testData.setEditable(random.nextBoolean());
 		testData.setArchived(random.nextBoolean());
+		testData.setDeletable(random.nextBoolean());
 		testData.setQuality0Count(random.nextInt(50));
 		testData.setQuality1Count(random.nextInt(50));
 		testData.setQuality2Count(random.nextInt(50));

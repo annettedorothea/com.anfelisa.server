@@ -24,7 +24,7 @@ scenarios
 						editable: true,
 						reverse: false,
 						archived: false,
-						shared: false
+						deletable: true
 					}
 				]
 			}		
@@ -52,7 +52,7 @@ scenarios
 						editable: true,
 						reverse: false,
 						archived: false,
-						shared: false
+						deletable: true
 					}
 				]
 			}	
@@ -78,7 +78,7 @@ scenarios
 						editable: true,
 						reverse: false,
 						archived: false,
-						shared: false
+						deletable: true
 					}
 				]
 			}		
@@ -104,7 +104,7 @@ scenarios
 						editable: true,
 						reverse: false,
 						archived: false,
-						shared: false
+						deletable: true
 					}
 				]
 			}		
@@ -130,7 +130,7 @@ scenarios
 						editable: true,
 						reverse: false,
 						archived: false,
-						shared: false
+						deletable: true
 					}
 				]
 			}		
@@ -156,7 +156,7 @@ scenarios
 						editable: true,
 						reverse: false,
 						archived: false,
-						shared: false
+						deletable: true
 					}
 				]
 			}		
@@ -182,7 +182,7 @@ scenarios
 						editable: true,
 						reverse: false,
 						archived: false,
-						shared: false
+						deletable: true
 					}
 				]
 			}		
@@ -208,7 +208,7 @@ scenarios
 						editable: true,
 						reverse: false,
 						archived: false,
-						shared: false
+						deletable: true
 					}
 				]
 			}		
@@ -235,7 +235,7 @@ scenarios
 						editable: true,
 						reverse: false,
 						archived: false,
-						shared: false
+						deletable: true
 					}
 				]
 			}		
@@ -261,7 +261,7 @@ scenarios
 						editable: true,
 						reverse: false,
 						archived: false,
-						shared: false
+						deletable: true
 					}
 				]
 			}		
@@ -288,7 +288,7 @@ scenarios
 						editable: true,
 						reverse: false,
 						archived: false,
-						shared: false
+						deletable: true
 					},
 					{
 						boxId: "reverseBoxId-${testId}",
@@ -299,13 +299,13 @@ scenarios
 						editable: true,
 						reverse: true,
 						archived: false,
-						shared: false
+						deletable: true
 					}
 				]
 			}		
 
 
-	GetBoxesShared
+	GetBoxesSharedBoxOfOtherUser
 		GIVEN
 			com.anfelisa.category.inviteusertocategory.InviteUserToCategory
 		WHEN
@@ -326,11 +326,88 @@ scenarios
 						editable: false,
 						reverse: false,
 						archived: false,
-						shared: true
+						deletable: true
 					}
 				]
 			}		
 
+	GetBoxesSharedEditableBoxOfOtherUser
+		GIVEN
+			com.anfelisa.category.inviteusertocategory.InviteUserToCategoryEditable
+		WHEN
+			com.anfelisa.box.GetBoxes
+				{
+					todayAtMidnightInUTC: "20200420 02:00" "yyyyMMdd HH:mm"
+				}
+				authorization "Anne-${testId}" : "pw"
+		THEN 200
+			response shouldBe {
+				boxList: [
+					{
+						boxId: "boxIdOfInvitedUser-${testId}",
+						categoryId: "boxId-${testId}",
+						categoryName: "cat",
+						openTodaysCards: 0,
+						categoryAuthor: "Annette-${testId}",
+						editable: true,
+						reverse: false,
+						archived: false,
+						deletable: true
+					}
+				]
+			}		
+
+	GetBoxesSharedBoxOfMyself
+		GIVEN
+			com.anfelisa.category.inviteusertocategory.InviteUserToCategory
+		WHEN
+			com.anfelisa.box.GetBoxes
+				{
+					todayAtMidnightInUTC: "20200420 02:00" "yyyyMMdd HH:mm"
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+			response shouldBe {
+				boxList: [
+					{
+						boxId: "boxId-${testId}",
+						categoryId: "boxId-${testId}",
+						categoryName: "cat",
+						openTodaysCards: 0,
+						categoryAuthor: "Annette-${testId}",
+						editable: true,
+						reverse: false,
+						archived: false,
+						deletable: false
+					}
+				]
+			}		
+
+	GetBoxesSharedEditableBoxOfMyself
+		GIVEN
+			com.anfelisa.category.inviteusertocategory.InviteUserToCategoryEditable
+		WHEN
+			com.anfelisa.box.GetBoxes
+				{
+					todayAtMidnightInUTC: "20200420 02:00" "yyyyMMdd HH:mm"
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+			response shouldBe {
+				boxList: [
+					{
+						boxId: "boxId-${testId}",
+						categoryId: "boxId-${testId}",
+						categoryName: "cat",
+						openTodaysCards: 0,
+						categoryAuthor: "Annette-${testId}",
+						editable: true,
+						reverse: false,
+						archived: false,
+						deletable: true
+					}
+				]
+			}		
 
 	GetBoxesTodayAtMidnightInUTCNull
 		GIVEN
@@ -375,7 +452,7 @@ scenarios
 						editable: true,
 						reverse: true,
 						archived: false,
-						shared: false
+						deletable: true
 					},
 					{
 						boxId: "boxId-${testId}",
@@ -386,7 +463,7 @@ scenarios
 						editable: true,
 						reverse: false,
 						archived: true,
-						shared: false
+						deletable: true
 					}
 				]
 			}		

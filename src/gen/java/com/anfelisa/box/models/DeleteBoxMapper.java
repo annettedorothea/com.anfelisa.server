@@ -20,6 +20,7 @@ public class DeleteBoxMapper extends AbstractMapper<IDeleteBoxModel> {
 		return new DeleteBoxModel(
 			this.mapToString(r, "userId"),
 			this.mapToString(r, "boxId"),
+			this.mapToString(r, "reverseBoxId"),
 			this.mapToString(r, "rootCategoryId")
 		);
 	}

@@ -5,7 +5,7 @@
 
 
 
-package com.anfelisa.box.getboxes.scenarios;
+package com.anfelisa.box.deletebox.scenarios;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,9 +27,9 @@ import de.acegen.SquishyDataProvider;
 import de.acegen.HttpResponse;
 
 @SuppressWarnings("unused")
-public abstract class AbstractGetBoxesSharedScenario extends BaseScenario {
+public abstract class AbstractDeleteBoxSharedBoxOfOtherUserScenario extends BaseScenario {
 
-	static final Logger LOG = LoggerFactory.getLogger(AbstractGetBoxesSharedScenario.class);
+	static final Logger LOG = LoggerFactory.getLogger(AbstractDeleteBoxSharedBoxOfOtherUserScenario.class);
 	
 	private void given() throws Exception {
 		String uuid;
@@ -178,28 +178,28 @@ public abstract class AbstractGetBoxesSharedScenario extends BaseScenario {
 
 	}
 	
-	private HttpResponse<com.anfelisa.box.data.GetBoxesResponse> when_0() throws Exception {
+	private HttpResponse<Object> when_0() throws Exception {
 		String uuid = this.randomUUID();
-		com.anfelisa.box.data.BoxListData data_0 = objectMapper.readValue("{" +
+		com.anfelisa.box.data.DeleteBoxData data_0 = objectMapper.readValue("{" +
 		"\"uuid\" : \"" + uuid + "\"," + 
-		"\"todayAtMidnightInUTC\" : \"2020-04-20T02:00\"} ",
-				com.anfelisa.box.data.BoxListData.class);
-		HttpResponse<com.anfelisa.box.data.GetBoxesResponse> response = 
-		this.httpGet(
-			"/boxes/my/?todayAtMidnightInUTC=" + data_0.getTodayAtMidnightInUTC() + "", 
+		"\"boxId\" : \"boxIdOfInvitedUser-" + this.getTestId() + "\"} ",
+				com.anfelisa.box.data.DeleteBoxData.class);
+		HttpResponse<Object> response = 
+		this.httpDelete(
+			"/box/delete?boxId=" + (data_0.getBoxId() != null ? URLEncoder.encode(data_0.getBoxId(), StandardCharsets.UTF_8.toString()) : "") + "", 
 			authorization("Anne-${testId}", "pw"),
 			uuid,
-			com.anfelisa.box.data.GetBoxesResponse.class
+			null
 		);
 		
-		LOG.info("WHEN: GetBoxes finished in {} ms", response.getDuration());
+		LOG.info("WHEN: DeleteBox finished in {} ms", response.getDuration());
 		if (response.getStatusCode() >= 200 && response.getStatusCode() < 300) {
-			addToMetrics("GetBoxes", response.getDuration());
+			addToMetrics("DeleteBox", response.getDuration());
 		}
 		return response;
 	}
 	
-	private com.anfelisa.box.data.GetBoxesResponse then_0(HttpResponse<com.anfelisa.box.data.GetBoxesResponse> response) throws Exception {
+	private void then_0(HttpResponse<Object> response) throws Exception {
 		if (response.getStatusCode() == 500) {
 			String statusMessage = response.getStatusMessage() != null ? response.getStatusMessage() : "";
 			String errorMessage = "status " + response.getStatusCode() + " failed: " + statusMessage;
@@ -215,61 +215,56 @@ public abstract class AbstractGetBoxesSharedScenario extends BaseScenario {
 			LOG.info("THEN: status 200 passed");
 		}
 		
-		com.anfelisa.box.data.GetBoxesResponse actual = null;
-		if (response.getStatusCode() < 400) {
-			try {
-				actual = response.getEntity();
-				
-			} catch (Exception x) {
-				LOG.error("THEN: failed to read response", x);
-				assertFail(x.getMessage());
-			}
-	
-			com.anfelisa.box.data.BoxListData expectedData = objectMapper.readValue("{" +
-				"\"uuid\" : \"\"," + 
-				"\"boxList\" : [ { \"boxId\" : \"boxIdOfInvitedUser-" + this.getTestId() + "\"," + 
-				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
-				"\"categoryName\" : \"cat\"," + 
-				"\"openTodaysCards\" : 0," + 
-				"\"categoryAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
-				"\"editable\" : false," + 
-				"\"reverse\" : false," + 
-				"\"archived\" : false," + 
-				"\"shared\" : true}]} ",
-			com.anfelisa.box.data.BoxListData.class);
-			
-			com.anfelisa.box.data.GetBoxesResponse expected = new com.anfelisa.box.data.GetBoxesResponse(expectedData);
-			
-			assertThat(actual, expected);
-			
-			LOG.info("THEN: response passed");
-		}
-	
-		return actual;
 	}
 			
 	@Override
 	public void runTest() throws Exception {
 		given();
 		
-		if (prerequisite("GetBoxesShared")) {
+		if (prerequisite("DeleteBoxSharedBoxOfOtherUser")) {
 			
-				HttpResponse<com.anfelisa.box.data.GetBoxesResponse> response_0 = when_0();
-				com.anfelisa.box.data.GetBoxesResponse actualResponse_0 = then_0(response_0);
+				HttpResponse<Object> response_0 = when_0();
+				then_0(response_0);
+				this.boxWasDeleted();
+				this.accessToCategoryWasDeleted();
+				this.categoriesWereNotDeleted();
 				
 		
 		} else {
-			LOG.info("WHEN: prerequisite for GetBoxesShared not met");
+			LOG.info("WHEN: prerequisite for DeleteBoxSharedBoxOfOtherUser not met");
 		}
 		
 			
 	}
 	
 	
+	private void boxWasDeleted() throws Exception {
+		com.anfelisa.box.models.IBoxModel actual = daoProvider.getBoxDao().selectByBoxId(handle, "boxIdOfInvitedUser-" + this.getTestId() + "");
+		
+		assertIsNull(actual);
+	
+		LOG.info("THEN: boxWasDeleted passed");
+	}
+	private void accessToCategoryWasDeleted() throws Exception {
+		com.anfelisa.category.models.IUserAccessToCategoryModel actual = daoProvider.getUserAccessToCategoryDao().selectByPrimaryKey(handle, "boxIdOfInvitedUser-" + this.getTestId() + "", "uuid2-" + this.getTestId() + "");
+		
+		assertIsNull(actual);
+	
+		LOG.info("THEN: accessToCategoryWasDeleted passed");
+	}
+	private void categoriesWereNotDeleted() throws Exception {
+		Map<String, String> filterMap = new HashMap<String, String>();
+		filterMap.put("rootCategoryId", "boxId-" + this.getTestId() + "");
+		int actual = daoProvider.getCategoryDao().filterAndCountBy(handle, filterMap);
+		
+		assertThat(actual, 1);
+	
+		LOG.info("THEN: categoriesWereNotDeleted passed");
+	}
 		
 	@Override
 	protected String scenarioName() {
-		return "GetBoxesShared";
+		return "DeleteBoxSharedBoxOfOtherUser";
 	}
 	
 }

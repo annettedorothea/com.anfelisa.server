@@ -26,13 +26,13 @@ public interface IBoxViewData extends IBoxViewModel, IDataContainer {
 	
 	IBoxViewData withBoxId(String boxId);
 	
-	IBoxViewData withShared(Boolean shared);
-	
 	IBoxViewData withReverse(Boolean reverse);
 	
 	IBoxViewData withEditable(Boolean editable);
 	
 	IBoxViewData withArchived(Boolean archived);
+	
+	IBoxViewData withDeletable(Boolean deletable);
 	
 	
 	IBoxViewData deepCopy();

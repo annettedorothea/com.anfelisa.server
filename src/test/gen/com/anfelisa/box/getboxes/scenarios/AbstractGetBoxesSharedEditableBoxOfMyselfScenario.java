@@ -27,9 +27,9 @@ import de.acegen.SquishyDataProvider;
 import de.acegen.HttpResponse;
 
 @SuppressWarnings("unused")
-public abstract class AbstractGetBoxesOneArchivedScenario extends BaseScenario {
+public abstract class AbstractGetBoxesSharedEditableBoxOfMyselfScenario extends BaseScenario {
 
-	static final Logger LOG = LoggerFactory.getLogger(AbstractGetBoxesOneArchivedScenario.class);
+	static final Logger LOG = LoggerFactory.getLogger(AbstractGetBoxesSharedEditableBoxOfMyselfScenario.class);
 	
 	private void given() throws Exception {
 		String uuid;
@@ -105,50 +105,59 @@ public abstract class AbstractGetBoxesOneArchivedScenario extends BaseScenario {
 			LOG.info("GIVEN: prerequisite for CreateBoxMinimal not met");
 		}
 
-		if (prerequisite("CreateReverseBox")) {
-			uuid = "reverseBoxId-" + this.getTestId() + "";
-			com.anfelisa.box.data.CreateReverseBoxPayload payload_2 = objectMapper.readValue("{" +
-				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
-					com.anfelisa.box.data.CreateReverseBoxPayload.class);
-			com.anfelisa.box.data.BoxCreationData data_2 = objectMapper.readValue("{" +
+		if (prerequisite("RegisterTwoUsers")) {
+			uuid = "uuid2-" + this.getTestId() + "";
+			this.callSquishyDataProviderPutValue(uuid, "token",	"TOKEN_2-" + this.getTestId() + "");
+			com.anfelisa.user.data.RegisterUserPayload payload_2 = objectMapper.readValue("{" +
+				"\"email\" : \"info@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"pw\"," + 
+				"\"username\" : \"Anne-" + this.getTestId() + "\"} ",
+					com.anfelisa.user.data.RegisterUserPayload.class);
+			com.anfelisa.user.data.UserRegistrationData data_2 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
-					com.anfelisa.box.data.BoxCreationData.class);
+			"\"email\" : \"info@anfelisa.de\"," + 
+			"\"language\" : \"de\"," + 
+			"\"password\" : \"pw\"," + 
+			"\"username\" : \"Anne-" + this.getTestId() + "\"} ",
+					com.anfelisa.user.data.UserRegistrationData.class);
 			HttpResponse<Object> response_2 = 
 			this.httpPost(
-				"/box/create-reverse", 
+				"/users/register", 
 			 	payload_2,
-				authorization("Annette-${testId}", "password"),
+				null,
 				uuid,
 				null
 			);
 			
 			if (response_2.getStatusCode() >= 400) {
 				String statusMessage = response_2.getStatusMessage() != null ? response_2.getStatusMessage() : "";
-				String message = "GIVEN CreateReverseBox fails\n" + statusMessage;
-				LOG.error("GIVEN: CreateReverseBox fails due to {} in {} ms", message, response_2.getDuration());
+				String message = "GIVEN RegisterTwoUsers fails\n" + statusMessage;
+				LOG.error("GIVEN: RegisterTwoUsers fails due to {} in {} ms", message, response_2.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateReverseBox success in {} ms", response_2.getDuration());
-			addToMetrics("CreateReverseBox", response_2.getDuration());
+			LOG.info("GIVEN: RegisterTwoUsers success in {} ms", response_2.getDuration());
+			addToMetrics("RegisterUser", response_2.getDuration());
 		} else {
-			LOG.info("GIVEN: prerequisite for CreateReverseBox not met");
+			LOG.info("GIVEN: prerequisite for RegisterTwoUsers not met");
 		}
 
-		if (prerequisite("ArchiveBox")) {
-			uuid = this.randomUUID();
-			com.anfelisa.box.data.ArchiveBoxPayload payload_3 = objectMapper.readValue("{" +
-				"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
-				"\"archived\" : true} ",
-					com.anfelisa.box.data.ArchiveBoxPayload.class);
-			com.anfelisa.box.data.BoxArchiveData data_3 = objectMapper.readValue("{" +
+		if (prerequisite("InviteUserToCategoryEditable")) {
+			uuid = "boxIdOfInvitedUser-" + this.getTestId() + "";
+			com.anfelisa.category.data.InviteUserToCategoryPayload payload_3 = objectMapper.readValue("{" +
+				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"invitedUsername\" : \"Anne-" + this.getTestId() + "\"," + 
+				"\"editable\" : true} ",
+					com.anfelisa.category.data.InviteUserToCategoryPayload.class);
+			com.anfelisa.category.data.UserToCategoryInvitationData data_3 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
-			"\"archived\" : true} ",
-					com.anfelisa.box.data.BoxArchiveData.class);
+			"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+			"\"invitedUsername\" : \"Anne-" + this.getTestId() + "\"," + 
+			"\"editable\" : true} ",
+					com.anfelisa.category.data.UserToCategoryInvitationData.class);
 			HttpResponse<Object> response_3 = 
 			this.httpPut(
-				"/box/archive", 
+				"/category/invite", 
 			 	payload_3,
 				authorization("Annette-${testId}", "password"),
 				uuid,
@@ -157,14 +166,14 @@ public abstract class AbstractGetBoxesOneArchivedScenario extends BaseScenario {
 			
 			if (response_3.getStatusCode() >= 400) {
 				String statusMessage = response_3.getStatusMessage() != null ? response_3.getStatusMessage() : "";
-				String message = "GIVEN ArchiveBox fails\n" + statusMessage;
-				LOG.error("GIVEN: ArchiveBox fails due to {} in {} ms", message, response_3.getDuration());
+				String message = "GIVEN InviteUserToCategoryEditable fails\n" + statusMessage;
+				LOG.error("GIVEN: InviteUserToCategoryEditable fails due to {} in {} ms", message, response_3.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: ArchiveBox success in {} ms", response_3.getDuration());
-			addToMetrics("ArchiveBox", response_3.getDuration());
+			LOG.info("GIVEN: InviteUserToCategoryEditable success in {} ms", response_3.getDuration());
+			addToMetrics("InviteUserToCategory", response_3.getDuration());
 		} else {
-			LOG.info("GIVEN: prerequisite for ArchiveBox not met");
+			LOG.info("GIVEN: prerequisite for InviteUserToCategoryEditable not met");
 		}
 
 	}
@@ -218,23 +227,14 @@ public abstract class AbstractGetBoxesOneArchivedScenario extends BaseScenario {
 	
 			com.anfelisa.box.data.BoxListData expectedData = objectMapper.readValue("{" +
 				"\"uuid\" : \"\"," + 
-				"\"boxList\" : [ { \"boxId\" : \"reverseBoxId-" + this.getTestId() + "\"," + 
-				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
-				"\"categoryName\" : \"cat\"," + 
-				"\"openTodaysCards\" : 0," + 
-				"\"categoryAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
-				"\"editable\" : true," + 
-				"\"reverse\" : true," + 
-				"\"archived\" : false," + 
-				"\"deletable\" : true}," + 
-				"{ \"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"boxList\" : [ { \"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"openTodaysCards\" : 0," + 
 				"\"categoryAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
 				"\"editable\" : true," + 
 				"\"reverse\" : false," + 
-				"\"archived\" : true," + 
+				"\"archived\" : false," + 
 				"\"deletable\" : true}]} ",
 			com.anfelisa.box.data.BoxListData.class);
 			
@@ -252,14 +252,14 @@ public abstract class AbstractGetBoxesOneArchivedScenario extends BaseScenario {
 	public void runTest() throws Exception {
 		given();
 		
-		if (prerequisite("GetBoxesOneArchived")) {
+		if (prerequisite("GetBoxesSharedEditableBoxOfMyself")) {
 			
 				HttpResponse<com.anfelisa.box.data.GetBoxesResponse> response_0 = when_0();
 				com.anfelisa.box.data.GetBoxesResponse actualResponse_0 = then_0(response_0);
 				
 		
 		} else {
-			LOG.info("WHEN: prerequisite for GetBoxesOneArchived not met");
+			LOG.info("WHEN: prerequisite for GetBoxesSharedEditableBoxOfMyself not met");
 		}
 		
 			
@@ -269,7 +269,7 @@ public abstract class AbstractGetBoxesOneArchivedScenario extends BaseScenario {
 		
 	@Override
 	protected String scenarioName() {
-		return "GetBoxesOneArchived";
+		return "GetBoxesSharedEditableBoxOfMyself";
 	}
 	
 }

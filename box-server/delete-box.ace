@@ -73,12 +73,34 @@ scenarios
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 		persistence
-			boxWasDeleted Box selectBy(boxId: "reverseBoxId-${testId}") shouldBe null
+			reverseBoxWasDeleted Box selectBy(boxId: "reverseBoxId-${testId}") shouldBe null
+			boxWasNotDeleted Box selectBy(boxId: "boxId-${testId}") shouldBe notNull
 			accessToCategoryWasDeleted UserAccessToCategory selectByPrimaryKey( categoryId: "reverseBoxId-${testId}", userId: "uuid2-${testId}") shouldBe null
 			categoriesWereNotDeleted Category filterAndCountBy (rootCategoryId: "boxId-${testId}") shouldBe 2
 			cardsWereNotDeleted Card filterAndCountBy (rootCategoryId:  "boxId-${testId}") shouldBe 5
 			allScheduledCardsOfOtherUserWereNotDeleted ScheduledCard filterAndCountBy (boxId: "boxId-${testId}") shouldBe 4
 			allReinforceCardsOfOtherUserWereNotDeleted ReinforceCard filterAndCountBy (boxId: "boxId-${testId}") shouldBe 1
+
+	DeleteBoxHasReverseBox
+		GIVEN
+			com.anfelisa.box.scorecard.ScoreCard0
+			com.anfelisa.box.createreversebox.CreateReverseBox exclude GIVEN
+			
+		WHEN
+			com.anfelisa.box.DeleteBox
+				{
+					boxId: "boxId-${testId}"
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+		persistence
+			boxWasDeleted Box selectBy(boxId: "boxId-${testId}") shouldBe null
+			reverseBoxWasDeleted Box selectBy(boxId: "reverseBoxId-${testId}") shouldBe null
+			accessToCategoryWasDeleted UserAccessToCategory selectByPrimaryKey( categoryId: "reverseBoxId-${testId}", userId: "uuid2-${testId}") shouldBe null
+			allCategoriesWereDeleted Category filterAndCountBy (rootCategoryId: "boxId-${testId}") shouldBe 0
+			allCardsWereDeleted Card filterAndCountBy (rootCategoryId:  "boxId-${testId}") shouldBe 0
+			allScheduledCardsWereDeleted ScheduledCard filterAndCountBy (boxId: "boxId-${testId}") shouldBe 0
+			allReinforceCardsWereDeleted ReinforceCard filterAndCountBy (boxId: "boxId-${testId}") shouldBe 0
 
 	DeleteBoxUnauthorized
 		GIVEN
@@ -107,3 +129,81 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
+		
+		
+	DeleteBoxSharedBoxOfOtherUser
+		GIVEN
+			com.anfelisa.category.inviteusertocategory.InviteUserToCategory
+		WHEN
+			com.anfelisa.box.DeleteBox
+				{
+					boxId: "boxIdOfInvitedUser-${testId}"
+				}
+				authorization "Anne-${testId}" : "pw"
+		THEN 200
+		persistence
+			boxWasDeleted Box selectBy(boxId: "boxIdOfInvitedUser-${testId}") shouldBe null
+			accessToCategoryWasDeleted UserAccessToCategory selectByPrimaryKey( categoryId: "boxIdOfInvitedUser-${testId}", userId: "uuid2-${testId}") shouldBe null
+			categoriesWereNotDeleted Category filterAndCountBy (rootCategoryId: "boxId-${testId}") shouldBe 1
+
+	DeleteBoxSharedEditableBoxOfOtherUser
+		GIVEN
+			com.anfelisa.category.inviteusertocategory.InviteUserToCategoryEditable
+		WHEN
+			com.anfelisa.box.DeleteBox
+				{
+					boxId: "boxIdOfInvitedUser-${testId}"
+				}
+				authorization "Anne-${testId}" : "pw"
+		THEN 200
+		persistence
+			boxWasDeleted Box selectBy(boxId: "boxIdOfInvitedUser-${testId}") shouldBe null
+			accessToCategoryWasDeleted UserAccessToCategory selectByPrimaryKey( categoryId: "boxIdOfInvitedUser-${testId}", userId: "uuid2-${testId}") shouldBe null
+			categoriesWereNotDeleted Category filterAndCountBy (rootCategoryId: "boxId-${testId}") shouldBe 1
+
+	DeleteBoxSharedBoxOfMyself
+		GIVEN
+			com.anfelisa.category.inviteusertocategory.InviteUserToCategory
+		WHEN
+			com.anfelisa.box.DeleteBox
+				{
+					boxId: "boxId-${testId}"
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 400
+		persistence
+			boxWasNotDeleted Box selectBy(boxId: "boxId-${testId}") shouldBe notNull
+			accessToCategoryWasNotDeleted UserAccessToCategory selectByPrimaryKey( categoryId: "boxId-${testId}", userId: "uuid-${testId}") shouldBe notNull
+			categoriesWereNotDeleted Category filterAndCountBy (rootCategoryId: "boxId-${testId}") shouldBe 1
+
+	DeleteBoxSharedEditableBoxOfMyself
+		GIVEN
+			com.anfelisa.category.inviteusertocategory.InviteUserToCategoryEditable
+		WHEN
+			com.anfelisa.box.DeleteBox
+				{
+					boxId: "boxId-${testId}"
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+		persistence
+			boxWasDeleted Box selectBy(boxId: "boxId-${testId}") shouldBe null
+			accessToCategoryWasDeleted UserAccessToCategory selectByPrimaryKey( categoryId: "boxId-${testId}", userId: "uuid-${testId}") shouldBe null
+			categoriesWereNotDeleted Category filterAndCountBy (rootCategoryId: "boxId-${testId}") shouldBe 1
+
+	DeleteBoxSharedTwoUsersSpecialCase
+		GIVEN
+			com.anfelisa.category.inviteusertocategory.InviteTwoUsersToCategory
+		WHEN
+			com.anfelisa.box.DeleteBox
+				{
+					boxId: "boxId-${testId}"
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+		persistence
+			boxWasDeleted Box selectBy(boxId: "boxId-${testId}") shouldBe null
+			accessToCategoryWasDeleted UserAccessToCategory selectByPrimaryKey( categoryId: "boxId-${testId}", userId: "uuid-${testId}") shouldBe null
+			categoriesWereNotDeleted Category filterAndCountBy (rootCategoryId: "boxId-${testId}") shouldBe 1
+
+		

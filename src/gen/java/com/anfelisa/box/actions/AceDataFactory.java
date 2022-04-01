@@ -128,7 +128,8 @@ public class AceDataFactory {
 			if (className.equals("com.anfelisa.box.actions.DeleteBoxAction") ||
 					className.equals("com.anfelisa.box.commands.DeleteBoxCommand") ||
 					className.equals("com.anfelisa.box.events.DeleteBoxDeleteBoxEvent")||
-					className.equals("com.anfelisa.box.events.DeleteBoxDeleteCategoryEvent")
+					className.equals("com.anfelisa.box.events.DeleteBoxDeleteCategoryEvent")||
+					className.equals("com.anfelisa.box.events.DeleteBoxDeleteReverseBoxEvent")
 			) {
 				DeleteBoxData data = mapper.readValue(json, DeleteBoxData.class);
 				data.migrateLegacyData(json);

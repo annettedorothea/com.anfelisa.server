@@ -20,6 +20,8 @@ public interface IDeleteBoxData extends IDeleteBoxModel, IDataContainer {
 	
 	IDeleteBoxData withBoxId(String boxId);
 	
+	IDeleteBoxData withReverseBoxId(String reverseBoxId);
+	
 	IDeleteBoxData withRootCategoryId(String rootCategoryId);
 	
 	

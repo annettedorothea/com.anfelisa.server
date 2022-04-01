@@ -436,7 +436,7 @@ public abstract class AbstractGetBoxesWithOneScoredCard2AndReinforceSameDayScena
 				"\"editable\" : true," + 
 				"\"reverse\" : false," + 
 				"\"archived\" : false," + 
-				"\"shared\" : false}]} ",
+				"\"deletable\" : true}]} ",
 			com.anfelisa.box.data.BoxListData.class);
 			
 			com.anfelisa.box.data.GetBoxesResponse expected = new com.anfelisa.box.data.GetBoxesResponse(expectedData);

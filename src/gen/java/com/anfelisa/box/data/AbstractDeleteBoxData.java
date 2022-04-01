@@ -32,18 +32,22 @@ public abstract class AbstractDeleteBoxData extends AbstractData implements IDel
 	
 	private String boxId;
 	
+	private String reverseBoxId;
+	
 	private String rootCategoryId;
 	
 
 	public AbstractDeleteBoxData(
 		@JsonProperty("userId") String userId,
 		@JsonProperty("boxId") String boxId,
+		@JsonProperty("reverseBoxId") String reverseBoxId,
 		@JsonProperty("rootCategoryId") String rootCategoryId
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
 		this.userId = userId;
 		this.boxId = boxId;
+		this.reverseBoxId = reverseBoxId;
 		this.rootCategoryId = rootCategoryId;
 	}
 
@@ -76,6 +80,18 @@ public abstract class AbstractDeleteBoxData extends AbstractData implements IDel
 	}
 	
 	@JsonProperty
+	public String getReverseBoxId() {
+		return this.reverseBoxId;
+	}
+	public void setReverseBoxId(String reverseBoxId) {
+		this.reverseBoxId = reverseBoxId;
+	}
+	public IDeleteBoxData withReverseBoxId(String reverseBoxId) {
+		this.reverseBoxId = reverseBoxId;
+		return this;
+	}
+	
+	@JsonProperty
 	public String getRootCategoryId() {
 		return this.rootCategoryId;
 	}
@@ -93,6 +109,7 @@ public abstract class AbstractDeleteBoxData extends AbstractData implements IDel
 		IDeleteBoxData copy = new DeleteBoxData(this.getUuid());
 		copy.setUserId(this.getUserId());
 		copy.setBoxId(this.getBoxId());
+		copy.setReverseBoxId(this.getReverseBoxId());
 		copy.setRootCategoryId(this.getRootCategoryId());
 		copy.setSystemTime(this.getSystemTime());
 		return copy;
