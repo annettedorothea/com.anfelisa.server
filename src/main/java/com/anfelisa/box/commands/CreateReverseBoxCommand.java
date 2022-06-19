@@ -39,14 +39,19 @@ public class CreateReverseBoxCommand extends AbstractCreateReverseBoxCommand {
 		if (box == null) {
 			throwIllegalArgumentException("boxNotFound");
 		}
+		IBoxModel reverseBox = daoProvider.getBoxDao().selectByCategoryIdAndUserId(readonlyHandle, data.getRootCategoryId(), data.getUserId(), true);
+		if (reverseBox == null) {
+			data.setCategoryId(box.getCategoryId());
+			data.setMaxInterval(box.getMaxInterval());
+			data.setMaxCardsPerDay(box.getMaxCardsPerDay());
+			data.setReverse(true);
+			data.setBoxId(data.getUuid());
 
-		data.setCategoryId(box.getCategoryId());
-		data.setMaxInterval(box.getMaxInterval());
-		data.setMaxCardsPerDay(box.getMaxCardsPerDay());
-		data.setReverse(true);
-		data.setBoxId(data.getUuid());
+			this.addOkOutcome(data);
+		} else {
+			this.addAlreadyExistsOutcome(data);
+		}
 
-		this.addOkOutcome(data);
 		
 		return data;
 	}

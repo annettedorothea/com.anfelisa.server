@@ -23,6 +23,7 @@ ACE
 		payload 
 			NotNull rootCategoryId
 		on ok (Box.createBox)
+		on alreadyExists
 
 	ArchiveBox<BoxArchive>
 		PUT "/box/archive"  
@@ -96,23 +97,17 @@ ACE
 	InitMyBoxesForDay<InitMyBoxesData>
 		PUT "/box/init"  
 		authorize
-		payload 
-			NotNull todayAtMidnightInUTC 
 		on ok ( ScheduledCard.postponeCards ReinforceCard.clear )
 	
 	GetBoxes<BoxList>
 		GET "/boxes/my/" 
 		authorize 
-		queryParams 
-			NotNull todayAtMidnightInUTC
 		response 
 			boxList
 		
 	GetBoxStatistics<BoxStatisticsList>
 		GET "/boxes/statistics/" 
 		authorize 
-		queryParams 
-			NotNull todayAtMidnightInUTC
 		response 
 			boxStatisticsList
 		
@@ -121,7 +116,6 @@ ACE
 		authorize  
 		queryParams 
 			NotNull boxId 
-			NotNull todayAtMidnightInUTC
 		response
 			nextCard
 			allTodaysCards
@@ -260,16 +254,13 @@ models
 	BoxList {
 		List BoxView boxList
 		String userId
-		DateTime todayAtMidnightInUTC
 	}
 	BoxStatisticsList {
 		List BoxStatistics boxStatisticsList
 		String userId
-		DateTime todayAtMidnightInUTC
 	}
 	InitMyBoxesData {
 		String userId
-		DateTime todayAtMidnightInUTC
 		List PostponeCards postponeCards
 		List String outdatedReinforceCardsIds
 	}
@@ -333,7 +324,6 @@ models
 	NextCard extends TodaysCardsStatus {
 		String userId
 		String boxId
-		DateTime todayAtMidnightInUTC
 		NextCardView nextCard
 		Boolean reverse
 	}
