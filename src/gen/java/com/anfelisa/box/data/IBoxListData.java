@@ -20,8 +20,6 @@ public interface IBoxListData extends IBoxListModel, IDataContainer {
 	
 	IBoxListData withUserId(String userId);
 	
-	IBoxListData withTodayAtMidnightInUTC(java.time.LocalDateTime todayAtMidnightInUTC);
-	
 	
 	IBoxListData deepCopy();
 }

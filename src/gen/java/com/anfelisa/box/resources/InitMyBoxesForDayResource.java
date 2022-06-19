@@ -85,21 +85,13 @@ public class InitMyBoxesForDayResource extends Resource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response initMyBoxesForDayResource(
 			@Auth AuthUser authUser, 
-			@QueryParam("uuid") String uuid, 
-			IInitMyBoxesDataData payload) 
+			@QueryParam("uuid") String uuid) 
 			throws JsonProcessingException {
-		if (payload == null) {
-			return badRequest("payload must not be null");
-		}
 		if (StringUtils.isBlank(uuid)) {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
 			com.anfelisa.box.data.IInitMyBoxesDataData data = new InitMyBoxesDataData(uuid);
-			if (payload.getTodayAtMidnightInUTC() == null) {
-				return badRequest("todayAtMidnightInUTC is mandatory");
-			}
-			data.setTodayAtMidnightInUTC(payload.getTodayAtMidnightInUTC());
 			data.setUserId(authUser.getUserId());
 			
 			com.anfelisa.box.actions.InitMyBoxesForDayAction action = new com.anfelisa.box.actions.InitMyBoxesForDayAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);

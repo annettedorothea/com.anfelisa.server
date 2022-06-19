@@ -445,17 +445,14 @@ public abstract class AbstractLoadNextCardAllScoredNextDayScenario extends BaseS
 
 		if (prerequisite("InitMyBoxesForDayWithScoredAndReinforceCardsOneDayLaterDeletesOutdatedReinforceCards")) {
 			uuid = this.randomUUID();
-			com.anfelisa.box.data.InitMyBoxesForDayPayload payload_12 = objectMapper.readValue("{" +
-				"\"todayAtMidnightInUTC\" : \"2020-04-19T02:00\"} ",
-					com.anfelisa.box.data.InitMyBoxesForDayPayload.class);
+			this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200420 02:00", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 			com.anfelisa.box.data.InitMyBoxesDataData data_12 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"todayAtMidnightInUTC\" : \"2020-04-19T02:00\"} ",
-					com.anfelisa.box.data.InitMyBoxesDataData.class);
+			"\"uuid\" : \"" + uuid + "\" }",
+			com.anfelisa.box.data.InitMyBoxesDataData.class);
 			HttpResponse<Object> response_12 = 
 			this.httpPut(
 				"/box/init", 
-			 	payload_12,
+			 	null,
 				authorization("Annette-${testId}", "password"),
 				uuid,
 				null
@@ -477,14 +474,14 @@ public abstract class AbstractLoadNextCardAllScoredNextDayScenario extends BaseS
 	
 	private HttpResponse<com.anfelisa.box.data.LoadNextCardResponse> when_0() throws Exception {
 		String uuid = this.randomUUID();
+		this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200420 04:00", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 		com.anfelisa.box.data.NextCardData data_0 = objectMapper.readValue("{" +
 		"\"uuid\" : \"" + uuid + "\"," + 
-		"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
-		"\"todayAtMidnightInUTC\" : \"2020-04-19T04:00\"} ",
+		"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
 				com.anfelisa.box.data.NextCardData.class);
 		HttpResponse<com.anfelisa.box.data.LoadNextCardResponse> response = 
 		this.httpGet(
-			"/box/next-card?boxId=" + (data_0.getBoxId() != null ? URLEncoder.encode(data_0.getBoxId(), StandardCharsets.UTF_8.toString()) : "") + "&todayAtMidnightInUTC=" + data_0.getTodayAtMidnightInUTC() + "", 
+			"/box/next-card?boxId=" + (data_0.getBoxId() != null ? URLEncoder.encode(data_0.getBoxId(), StandardCharsets.UTF_8.toString()) : "") + "", 
 			authorization("Annette-${testId}", "password"),
 			uuid,
 			com.anfelisa.box.data.LoadNextCardResponse.class

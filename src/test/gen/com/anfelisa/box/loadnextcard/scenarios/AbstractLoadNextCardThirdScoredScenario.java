@@ -447,14 +447,14 @@ public abstract class AbstractLoadNextCardThirdScoredScenario extends BaseScenar
 	
 	private HttpResponse<com.anfelisa.box.data.LoadNextCardResponse> when_0() throws Exception {
 		String uuid = this.randomUUID();
+		this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200419 02:00", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 		com.anfelisa.box.data.NextCardData data_0 = objectMapper.readValue("{" +
 		"\"uuid\" : \"" + uuid + "\"," + 
-		"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
-		"\"todayAtMidnightInUTC\" : \"2020-04-18T02:00\"} ",
+		"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
 				com.anfelisa.box.data.NextCardData.class);
 		HttpResponse<com.anfelisa.box.data.LoadNextCardResponse> response = 
 		this.httpGet(
-			"/box/next-card?boxId=" + (data_0.getBoxId() != null ? URLEncoder.encode(data_0.getBoxId(), StandardCharsets.UTF_8.toString()) : "") + "&todayAtMidnightInUTC=" + data_0.getTodayAtMidnightInUTC() + "", 
+			"/box/next-card?boxId=" + (data_0.getBoxId() != null ? URLEncoder.encode(data_0.getBoxId(), StandardCharsets.UTF_8.toString()) : "") + "", 
 			authorization("Annette-${testId}", "password"),
 			uuid,
 			com.anfelisa.box.data.LoadNextCardResponse.class

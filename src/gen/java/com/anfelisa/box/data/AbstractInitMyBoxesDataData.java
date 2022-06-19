@@ -30,8 +30,6 @@ public abstract class AbstractInitMyBoxesDataData extends AbstractData implement
 	
 	private String userId;
 	
-	private java.time.LocalDateTime todayAtMidnightInUTC;
-	
 	private java.util.List<com.anfelisa.box.models.IPostponeCardsModel> postponeCards;
 	
 	private java.util.List<String> outdatedReinforceCardsIds;
@@ -39,14 +37,12 @@ public abstract class AbstractInitMyBoxesDataData extends AbstractData implement
 
 	public AbstractInitMyBoxesDataData(
 		@JsonProperty("userId") String userId,
-		@JsonProperty("todayAtMidnightInUTC") java.time.LocalDateTime todayAtMidnightInUTC,
 		@JsonProperty("postponeCards") java.util.List<com.anfelisa.box.models.IPostponeCardsModel> postponeCards,
 		@JsonProperty("outdatedReinforceCardsIds") java.util.List<String> outdatedReinforceCardsIds
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
 		this.userId = userId;
-		this.todayAtMidnightInUTC = todayAtMidnightInUTC;
 		this.postponeCards = postponeCards;
 		this.outdatedReinforceCardsIds = outdatedReinforceCardsIds;
 	}
@@ -64,20 +60,6 @@ public abstract class AbstractInitMyBoxesDataData extends AbstractData implement
 	}
 	public IInitMyBoxesDataData withUserId(String userId) {
 		this.userId = userId;
-		return this;
-	}
-	
-	@JsonProperty
-	@JsonSerialize(converter = DateTimeToStringConverter.class)
-	@JsonDeserialize(converter = StringToDateTimeConverter.class)
-	public java.time.LocalDateTime getTodayAtMidnightInUTC() {
-		return this.todayAtMidnightInUTC;
-	}
-	public void setTodayAtMidnightInUTC(java.time.LocalDateTime todayAtMidnightInUTC) {
-		this.todayAtMidnightInUTC = todayAtMidnightInUTC;
-	}
-	public IInitMyBoxesDataData withTodayAtMidnightInUTC(java.time.LocalDateTime todayAtMidnightInUTC) {
-		this.todayAtMidnightInUTC = todayAtMidnightInUTC;
 		return this;
 	}
 	
@@ -110,7 +92,6 @@ public abstract class AbstractInitMyBoxesDataData extends AbstractData implement
 	public IInitMyBoxesDataData deepCopy() {
 		IInitMyBoxesDataData copy = new InitMyBoxesDataData(this.getUuid());
 		copy.setUserId(this.getUserId());
-		copy.setTodayAtMidnightInUTC(this.getTodayAtMidnightInUTC());
 		List<com.anfelisa.box.models.IPostponeCardsModel> postponeCardsCopy = new ArrayList<com.anfelisa.box.models.IPostponeCardsModel>();
 		if (this.getPostponeCards() != null) {
 			for(com.anfelisa.box.models.IPostponeCardsModel item: this.getPostponeCards()) {

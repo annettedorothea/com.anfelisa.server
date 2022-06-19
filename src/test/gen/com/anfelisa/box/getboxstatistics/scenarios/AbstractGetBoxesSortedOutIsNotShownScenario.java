@@ -566,13 +566,13 @@ public abstract class AbstractGetBoxesSortedOutIsNotShownScenario extends BaseSc
 	}
 	private HttpResponse<com.anfelisa.box.data.GetBoxStatisticsResponse> when_4() throws Exception {
 		String uuid = this.randomUUID();
+		this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200424 02:00", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 		com.anfelisa.box.data.BoxStatisticsListData data_0 = objectMapper.readValue("{" +
-		"\"uuid\" : \"" + uuid + "\"," + 
-		"\"todayAtMidnightInUTC\" : \"2020-04-23T02:00\"} ",
-				com.anfelisa.box.data.BoxStatisticsListData.class);
+		"\"uuid\" : \"" + uuid + "\" }",
+		com.anfelisa.box.data.BoxStatisticsListData.class);
 		HttpResponse<com.anfelisa.box.data.GetBoxStatisticsResponse> response = 
 		this.httpGet(
-			"/boxes/statistics/?todayAtMidnightInUTC=" + data_0.getTodayAtMidnightInUTC() + "", 
+			"/boxes/statistics/", 
 			authorization("Annette-${testId}", "password"),
 			uuid,
 			com.anfelisa.box.data.GetBoxStatisticsResponse.class
@@ -641,13 +641,13 @@ public abstract class AbstractGetBoxesSortedOutIsNotShownScenario extends BaseSc
 	}
 	private HttpResponse<com.anfelisa.box.data.GetBoxStatisticsResponse> when_5() throws Exception {
 		String uuid = this.randomUUID();
+		this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200423 02:00", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 		com.anfelisa.box.data.BoxStatisticsListData data_0 = objectMapper.readValue("{" +
-		"\"uuid\" : \"" + uuid + "\"," + 
-		"\"todayAtMidnightInUTC\" : \"2020-04-22T02:00\"} ",
-				com.anfelisa.box.data.BoxStatisticsListData.class);
+		"\"uuid\" : \"" + uuid + "\" }",
+		com.anfelisa.box.data.BoxStatisticsListData.class);
 		HttpResponse<com.anfelisa.box.data.GetBoxStatisticsResponse> response = 
 		this.httpGet(
-			"/boxes/statistics/?todayAtMidnightInUTC=" + data_0.getTodayAtMidnightInUTC() + "", 
+			"/boxes/statistics/", 
 			authorization("Annette-${testId}", "password"),
 			uuid,
 			com.anfelisa.box.data.GetBoxStatisticsResponse.class
@@ -716,13 +716,13 @@ public abstract class AbstractGetBoxesSortedOutIsNotShownScenario extends BaseSc
 	}
 	private HttpResponse<com.anfelisa.box.data.GetBoxStatisticsResponse> when_6() throws Exception {
 		String uuid = this.randomUUID();
+		this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200422 02:00", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 		com.anfelisa.box.data.BoxStatisticsListData data_0 = objectMapper.readValue("{" +
-		"\"uuid\" : \"" + uuid + "\"," + 
-		"\"todayAtMidnightInUTC\" : \"2020-04-21T02:00\"} ",
-				com.anfelisa.box.data.BoxStatisticsListData.class);
+		"\"uuid\" : \"" + uuid + "\" }",
+		com.anfelisa.box.data.BoxStatisticsListData.class);
 		HttpResponse<com.anfelisa.box.data.GetBoxStatisticsResponse> response = 
 		this.httpGet(
-			"/boxes/statistics/?todayAtMidnightInUTC=" + data_0.getTodayAtMidnightInUTC() + "", 
+			"/boxes/statistics/", 
 			authorization("Annette-${testId}", "password"),
 			uuid,
 			com.anfelisa.box.data.GetBoxStatisticsResponse.class
@@ -791,13 +791,13 @@ public abstract class AbstractGetBoxesSortedOutIsNotShownScenario extends BaseSc
 	}
 	private HttpResponse<com.anfelisa.box.data.GetBoxStatisticsResponse> when_7() throws Exception {
 		String uuid = this.randomUUID();
+		this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200421 02:00", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 		com.anfelisa.box.data.BoxStatisticsListData data_0 = objectMapper.readValue("{" +
-		"\"uuid\" : \"" + uuid + "\"," + 
-		"\"todayAtMidnightInUTC\" : \"2020-04-20T02:00\"} ",
-				com.anfelisa.box.data.BoxStatisticsListData.class);
+		"\"uuid\" : \"" + uuid + "\" }",
+		com.anfelisa.box.data.BoxStatisticsListData.class);
 		HttpResponse<com.anfelisa.box.data.GetBoxStatisticsResponse> response = 
 		this.httpGet(
-			"/boxes/statistics/?todayAtMidnightInUTC=" + data_0.getTodayAtMidnightInUTC() + "", 
+			"/boxes/statistics/", 
 			authorization("Annette-${testId}", "password"),
 			uuid,
 			com.anfelisa.box.data.GetBoxStatisticsResponse.class
@@ -866,13 +866,13 @@ public abstract class AbstractGetBoxesSortedOutIsNotShownScenario extends BaseSc
 	}
 	private HttpResponse<com.anfelisa.box.data.GetBoxStatisticsResponse> when_8() throws Exception {
 		String uuid = this.randomUUID();
+		this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200420 02:00", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 		com.anfelisa.box.data.BoxStatisticsListData data_0 = objectMapper.readValue("{" +
-		"\"uuid\" : \"" + uuid + "\"," + 
-		"\"todayAtMidnightInUTC\" : \"2020-04-19T02:00\"} ",
-				com.anfelisa.box.data.BoxStatisticsListData.class);
+		"\"uuid\" : \"" + uuid + "\" }",
+		com.anfelisa.box.data.BoxStatisticsListData.class);
 		HttpResponse<com.anfelisa.box.data.GetBoxStatisticsResponse> response = 
 		this.httpGet(
-			"/boxes/statistics/?todayAtMidnightInUTC=" + data_0.getTodayAtMidnightInUTC() + "", 
+			"/boxes/statistics/", 
 			authorization("Annette-${testId}", "password"),
 			uuid,
 			com.anfelisa.box.data.GetBoxStatisticsResponse.class
@@ -941,13 +941,13 @@ public abstract class AbstractGetBoxesSortedOutIsNotShownScenario extends BaseSc
 	}
 	private HttpResponse<com.anfelisa.box.data.GetBoxStatisticsResponse> when_9() throws Exception {
 		String uuid = this.randomUUID();
+		this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200419 02:00", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 		com.anfelisa.box.data.BoxStatisticsListData data_0 = objectMapper.readValue("{" +
-		"\"uuid\" : \"" + uuid + "\"," + 
-		"\"todayAtMidnightInUTC\" : \"2020-04-18T02:00\"} ",
-				com.anfelisa.box.data.BoxStatisticsListData.class);
+		"\"uuid\" : \"" + uuid + "\" }",
+		com.anfelisa.box.data.BoxStatisticsListData.class);
 		HttpResponse<com.anfelisa.box.data.GetBoxStatisticsResponse> response = 
 		this.httpGet(
-			"/boxes/statistics/?todayAtMidnightInUTC=" + data_0.getTodayAtMidnightInUTC() + "", 
+			"/boxes/statistics/", 
 			authorization("Annette-${testId}", "password"),
 			uuid,
 			com.anfelisa.box.data.GetBoxStatisticsResponse.class
@@ -1016,13 +1016,13 @@ public abstract class AbstractGetBoxesSortedOutIsNotShownScenario extends BaseSc
 	}
 	private HttpResponse<com.anfelisa.box.data.GetBoxStatisticsResponse> when_10() throws Exception {
 		String uuid = this.randomUUID();
+		this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 02:00", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 		com.anfelisa.box.data.BoxStatisticsListData data_0 = objectMapper.readValue("{" +
-		"\"uuid\" : \"" + uuid + "\"," + 
-		"\"todayAtMidnightInUTC\" : \"2020-04-17T02:00\"} ",
-				com.anfelisa.box.data.BoxStatisticsListData.class);
+		"\"uuid\" : \"" + uuid + "\" }",
+		com.anfelisa.box.data.BoxStatisticsListData.class);
 		HttpResponse<com.anfelisa.box.data.GetBoxStatisticsResponse> response = 
 		this.httpGet(
-			"/boxes/statistics/?todayAtMidnightInUTC=" + data_0.getTodayAtMidnightInUTC() + "", 
+			"/boxes/statistics/", 
 			authorization("Annette-${testId}", "password"),
 			uuid,
 			com.anfelisa.box.data.GetBoxStatisticsResponse.class

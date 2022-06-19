@@ -5,7 +5,7 @@
 
 
 
-package com.anfelisa.box.getboxes.scenarios;
+package com.anfelisa.box.createreversebox.scenarios;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,9 +27,9 @@ import de.acegen.SquishyDataProvider;
 import de.acegen.HttpResponse;
 
 @SuppressWarnings("unused")
-public abstract class AbstractGetBoxesOneArchivedScenario extends BaseScenario {
+public abstract class AbstractCreateReverseBoxSecondTimeScenario extends BaseScenario {
 
-	static final Logger LOG = LoggerFactory.getLogger(AbstractGetBoxesOneArchivedScenario.class);
+	static final Logger LOG = LoggerFactory.getLogger(AbstractCreateReverseBoxSecondTimeScenario.class);
 	
 	private void given() throws Exception {
 		String uuid;
@@ -135,62 +135,34 @@ public abstract class AbstractGetBoxesOneArchivedScenario extends BaseScenario {
 			LOG.info("GIVEN: prerequisite for CreateReverseBox not met");
 		}
 
-		if (prerequisite("ArchiveBox")) {
-			uuid = this.randomUUID();
-			com.anfelisa.box.data.ArchiveBoxPayload payload_3 = objectMapper.readValue("{" +
-				"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
-				"\"archived\" : true} ",
-					com.anfelisa.box.data.ArchiveBoxPayload.class);
-			com.anfelisa.box.data.BoxArchiveData data_3 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
-			"\"archived\" : true} ",
-					com.anfelisa.box.data.BoxArchiveData.class);
-			HttpResponse<Object> response_3 = 
-			this.httpPut(
-				"/box/archive", 
-			 	payload_3,
-				authorization("Annette-${testId}", "password"),
-				uuid,
-				null
-			);
-			
-			if (response_3.getStatusCode() >= 400) {
-				String statusMessage = response_3.getStatusMessage() != null ? response_3.getStatusMessage() : "";
-				String message = "GIVEN ArchiveBox fails\n" + statusMessage;
-				LOG.error("GIVEN: ArchiveBox fails due to {} in {} ms", message, response_3.getDuration());
-				assertFail(message);
-			}
-			LOG.info("GIVEN: ArchiveBox success in {} ms", response_3.getDuration());
-			addToMetrics("ArchiveBox", response_3.getDuration());
-		} else {
-			LOG.info("GIVEN: prerequisite for ArchiveBox not met");
-		}
-
 	}
 	
-	private HttpResponse<com.anfelisa.box.data.GetBoxesResponse> when_0() throws Exception {
-		String uuid = this.randomUUID();
-		this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200421 02:00", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
-		com.anfelisa.box.data.BoxListData data_0 = objectMapper.readValue("{" +
-		"\"uuid\" : \"" + uuid + "\" }",
-		com.anfelisa.box.data.BoxListData.class);
-		HttpResponse<com.anfelisa.box.data.GetBoxesResponse> response = 
-		this.httpGet(
-			"/boxes/my/", 
+	private HttpResponse<Object> when_0() throws Exception {
+		String uuid = "reverseBoxId2-" + this.getTestId() + "";
+		com.anfelisa.box.data.CreateReverseBoxPayload payload_0 = objectMapper.readValue("{" +
+			"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
+				com.anfelisa.box.data.CreateReverseBoxPayload.class);
+		com.anfelisa.box.data.BoxCreationData data_0 = objectMapper.readValue("{" +
+		"\"uuid\" : \"" + uuid + "\"," + 
+		"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
+				com.anfelisa.box.data.BoxCreationData.class);
+		HttpResponse<Object> response = 
+		this.httpPost(
+			"/box/create-reverse", 
+		 	payload_0,
 			authorization("Annette-${testId}", "password"),
 			uuid,
-			com.anfelisa.box.data.GetBoxesResponse.class
+			null
 		);
 		
-		LOG.info("WHEN: GetBoxes finished in {} ms", response.getDuration());
+		LOG.info("WHEN: CreateReverseBox finished in {} ms", response.getDuration());
 		if (response.getStatusCode() >= 200 && response.getStatusCode() < 300) {
-			addToMetrics("GetBoxes", response.getDuration());
+			addToMetrics("CreateReverseBox", response.getDuration());
 		}
 		return response;
 	}
 	
-	private com.anfelisa.box.data.GetBoxesResponse then_0(HttpResponse<com.anfelisa.box.data.GetBoxesResponse> response) throws Exception {
+	private void then_0(HttpResponse<Object> response) throws Exception {
 		if (response.getStatusCode() == 500) {
 			String statusMessage = response.getStatusMessage() != null ? response.getStatusMessage() : "";
 			String errorMessage = "status " + response.getStatusCode() + " failed: " + statusMessage;
@@ -206,70 +178,54 @@ public abstract class AbstractGetBoxesOneArchivedScenario extends BaseScenario {
 			LOG.info("THEN: status 200 passed");
 		}
 		
-		com.anfelisa.box.data.GetBoxesResponse actual = null;
-		if (response.getStatusCode() < 400) {
-			try {
-				actual = response.getEntity();
-				
-			} catch (Exception x) {
-				LOG.error("THEN: failed to read response", x);
-				assertFail(x.getMessage());
-			}
-	
-			com.anfelisa.box.data.BoxListData expectedData = objectMapper.readValue("{" +
-				"\"uuid\" : \"\"," + 
-				"\"boxList\" : [ { \"boxId\" : \"reverseBoxId-" + this.getTestId() + "\"," + 
-				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
-				"\"categoryName\" : \"cat\"," + 
-				"\"openTodaysCards\" : 0," + 
-				"\"categoryAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
-				"\"editable\" : true," + 
-				"\"reverse\" : true," + 
-				"\"archived\" : false," + 
-				"\"deletable\" : true}," + 
-				"{ \"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
-				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
-				"\"categoryName\" : \"cat\"," + 
-				"\"openTodaysCards\" : 0," + 
-				"\"categoryAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
-				"\"editable\" : true," + 
-				"\"reverse\" : false," + 
-				"\"archived\" : true," + 
-				"\"deletable\" : true}]} ",
-			com.anfelisa.box.data.BoxListData.class);
-			
-			com.anfelisa.box.data.GetBoxesResponse expected = new com.anfelisa.box.data.GetBoxesResponse(expectedData);
-			
-			assertThat(actual, expected);
-			
-			LOG.info("THEN: response passed");
-		}
-	
-		return actual;
 	}
 			
 	@Override
 	public void runTest() throws Exception {
 		given();
 		
-		if (prerequisite("GetBoxesOneArchived")) {
+		if (prerequisite("CreateReverseBoxSecondTime")) {
 			
-				HttpResponse<com.anfelisa.box.data.GetBoxesResponse> response_0 = when_0();
-				com.anfelisa.box.data.GetBoxesResponse actualResponse_0 = then_0(response_0);
+				HttpResponse<Object> response_0 = when_0();
+				then_0(response_0);
+				this.reverseBoxWasCreated();
+				this.secondReverseBoxWasNotCreated();
 				
 		
 		} else {
-			LOG.info("WHEN: prerequisite for GetBoxesOneArchived not met");
+			LOG.info("WHEN: prerequisite for CreateReverseBoxSecondTime not met");
 		}
 		
 			
 	}
 	
 	
+	private void reverseBoxWasCreated() throws Exception {
+		com.anfelisa.box.models.IBoxModel actual = daoProvider.getBoxDao().selectByBoxId(handle, "reverseBoxId-" + this.getTestId() + "");
+		
+		com.anfelisa.box.models.IBoxModel expected = objectMapper.readValue("{" +
+			"\"boxId\" : \"reverseBoxId-" + this.getTestId() + "\"," + 
+			"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+			"\"maxCardsPerDay\" : 10," + 
+			"\"userId\" : \"uuid-" + this.getTestId() + "\"," + 
+			"\"reverse\" : true," + 
+			"\"archived\" : false} ",
+		com.anfelisa.box.models.BoxModel.class);
+		assertThat(actual, expected);
+	
+		LOG.info("THEN: reverseBoxWasCreated passed");
+	}
+	private void secondReverseBoxWasNotCreated() throws Exception {
+		com.anfelisa.box.models.IBoxModel actual = daoProvider.getBoxDao().selectByBoxId(handle, "reverseBoxId2-" + this.getTestId() + "");
+		
+		assertIsNull(actual);
+	
+		LOG.info("THEN: secondReverseBoxWasNotCreated passed");
+	}
 		
 	@Override
 	protected String scenarioName() {
-		return "GetBoxesOneArchived";
+		return "CreateReverseBoxSecondTime";
 	}
 	
 }

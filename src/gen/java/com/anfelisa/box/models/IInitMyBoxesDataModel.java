@@ -17,9 +17,6 @@ public interface IInitMyBoxesDataModel {
 	String getUserId();
 	void setUserId(String userId);
 	
-	java.time.LocalDateTime getTodayAtMidnightInUTC();
-	void setTodayAtMidnightInUTC(java.time.LocalDateTime todayAtMidnightInUTC);
-	
 	java.util.List<com.anfelisa.box.models.IPostponeCardsModel> getPostponeCards();
 	void setPostponeCards(java.util.List<com.anfelisa.box.models.IPostponeCardsModel> postponeCards);
 	

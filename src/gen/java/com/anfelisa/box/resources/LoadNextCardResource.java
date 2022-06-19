@@ -86,7 +86,6 @@ public class LoadNextCardResource extends Resource {
 	public Response loadNextCardResource(
 			@Auth AuthUser authUser, 
 			@QueryParam("boxId") String boxId, 
-			@QueryParam("todayAtMidnightInUTC") String todayAtMidnightInUTC, 
 			@QueryParam("uuid") String uuid) 
 			throws JsonProcessingException {
 		if (StringUtils.isBlank(uuid)) {
@@ -99,16 +98,6 @@ public class LoadNextCardResource extends Resource {
 			}
 			if (boxId != null) {
 				data.setBoxId(boxId);
-			}
-			if (StringUtils.isBlank(todayAtMidnightInUTC) || "null".equals(todayAtMidnightInUTC)) {
-				return badRequest("todayAtMidnightInUTC is mandatory");
-			}
-			if (StringUtils.isNotBlank(todayAtMidnightInUTC)) {
-				try {
-					data.setTodayAtMidnightInUTC(LocalDateTime.parse(todayAtMidnightInUTC, DateTimeFormatter.ISO_DATE_TIME));
-				} catch (Exception x) {
-					LOG.warn("failed to parse dateTime todayAtMidnightInUTC - {}", todayAtMidnightInUTC);
-				}
 			}
 			data.setUserId(authUser.getUserId());
 			

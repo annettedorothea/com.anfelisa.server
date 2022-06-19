@@ -8,9 +8,7 @@ scenarios
 			com.anfelisa.box.schedulecards.ScheduleCards
 		WHEN
 			com.anfelisa.box.InitMyBoxesForDay
-				{
-					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
-				}
+				systemTime "20200419 02:00" "yyyyMMdd HH:mm"
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 		persistence
@@ -65,9 +63,7 @@ scenarios
 			com.anfelisa.box.schedulecards.ScheduleCards
 		WHEN
 			com.anfelisa.box.InitMyBoxesForDay
-				{
-					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
-				}
+			systemTime "20200419 02:00" "yyyyMMdd HH:mm"
 		THEN 401
 		persistence
 			dateWasNotChangedForFirstCard ScheduledCard selectBy (scheduledCardId: "c1-${testId}-sc1-${testId}") shouldBe 
@@ -121,9 +117,7 @@ scenarios
 			com.anfelisa.box.schedulecards.ScheduleCards
 		WHEN
 			com.anfelisa.box.InitMyBoxesForDay
-				{
-					todayAtMidnightInUTC: "20200419 02:00" "yyyyMMdd HH:mm"
-				}
+				systemTime "20200420 02:00" "yyyyMMdd HH:mm"
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 		persistence
@@ -178,9 +172,7 @@ scenarios
 			com.anfelisa.box.schedulecards.ScheduleCards
 		WHEN
 			com.anfelisa.box.InitMyBoxesForDay
-				{
-					todayAtMidnightInUTC: "20200719 02:00" "yyyyMMdd HH:mm"
-				}
+				systemTime "20200720 02:00" "yyyyMMdd HH:mm"
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 		persistence
@@ -235,9 +227,7 @@ scenarios
 			com.anfelisa.box.schedulecards.ScheduleCards
 		WHEN
 			com.anfelisa.box.InitMyBoxesForDay
-				{
-					todayAtMidnightInUTC: "20210120 02:00" "yyyyMMdd HH:mm"
-				}
+				systemTime "20210121 02:00" "yyyyMMdd HH:mm"
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 		persistence
@@ -294,9 +284,7 @@ scenarios
 			com.anfelisa.box.scorecard.ScoreCard5 exclude GIVEN
 		WHEN
 			com.anfelisa.box.InitMyBoxesForDay
-				{
-					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
-				}
+				systemTime "20200419 02:00" "yyyyMMdd HH:mm"
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 		persistence
@@ -367,9 +355,7 @@ scenarios
 			com.anfelisa.box.scorecard.ScoreCard5 exclude GIVEN
 		WHEN
 			com.anfelisa.box.InitMyBoxesForDay
-				{
-					todayAtMidnightInUTC: "20200419 02:00" "yyyyMMdd HH:mm"
-				}
+				systemTime "20200420 02:00" "yyyyMMdd HH:mm"
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 		persistence
@@ -428,9 +414,7 @@ scenarios
 			com.anfelisa.box.scorecard.ScoreCard5 exclude GIVEN
 		WHEN
 			com.anfelisa.box.InitMyBoxesForDay
-				{
-					todayAtMidnightInUTC: "20200420 02:00" "yyyyMMdd HH:mm"
-				}
+				systemTime "20200421 02:00" "yyyyMMdd HH:mm"
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 		persistence
@@ -482,62 +466,6 @@ scenarios
 				scoredDate: null
 			}
 
-	InitMyBoxesForDayTodayAtMidnightInUTCNull
-		GIVEN
-			com.anfelisa.box.schedulecards.ScheduleCards
-		WHEN
-			com.anfelisa.box.InitMyBoxesForDay
-				{
-				}
-				authorization "Annette-${testId}" : "password"
-		THEN 400
-		persistence
-			noChange1 ScheduledCard selectBy (scheduledCardId: "c1-${testId}-sc1-${testId}") shouldBe 
-			{
-				boxId: "boxId-${testId}",
-				cardId: "c1-${testId}",
-				count: 0,
-				createdDate: "20200418 10:30" "yyyyMMdd HH:mm",
-				ef: "2.5F",
-				interval: 1,
-				lastQuality: null,
-				n: 1,
-				quality: null,
-				scheduledCardId: "c1-${testId}-sc1-${testId}",
-				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
-				scoredDate: null
-			}
-			noChange3 ScheduledCard selectBy (scheduledCardId: "c3-${testId}-sc1-${testId}") shouldBe 
-			{
-				boxId: "boxId-${testId}",
-				cardId: "c3-${testId}",
-				count: 0,
-				createdDate: "20200418 10:30" "yyyyMMdd HH:mm",
-				ef: "2.5F",
-				interval: 1,
-				lastQuality: null,
-				n: 1,
-				quality: null,
-				scheduledCardId: "c3-${testId}-sc1-${testId}",
-				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
-				scoredDate: null
-			}
-			noChange4 ScheduledCard selectBy (scheduledCardId: "c4-${testId}-sc1-${testId}") shouldBe 
-			{
-				boxId: "boxId-${testId}",
-				cardId: "c4-${testId}",
-				count: 0,
-				createdDate: "20200418 10:30" "yyyyMMdd HH:mm",
-				ef: "2.5F",
-				interval: 1,
-				lastQuality: null,
-				n: 1,
-				quality: null,
-				scheduledCardId: "c4-${testId}-sc1-${testId}",
-				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
-				scoredDate: null
-			}
-
 	InitMyBoxesForDayOneDayBug
 		GIVEN
 			com.anfelisa.box.scorecard.ScoreCard0
@@ -545,9 +473,7 @@ scenarios
 			com.anfelisa.box.scorecard.ScoreCard5 exclude GIVEN
 		WHEN
 			com.anfelisa.box.InitMyBoxesForDay
-				{
-					todayAtMidnightInUTC: "20200419 17:00" "yyyyMMdd HH:mm"
-				}
+				systemTime "20200420 17:00" "yyyyMMdd HH:mm"
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 		persistence
@@ -603,9 +529,7 @@ scenarios
 			com.anfelisa.box.archivebox.ArchiveBox exclude GIVEN
 		WHEN
 			com.anfelisa.box.InitMyBoxesForDay
-				{
-					todayAtMidnightInUTC: "20210120 02:00" "yyyyMMdd HH:mm"
-				}
+				systemTime "20210120 02:00" "yyyyMMdd HH:mm"
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 		persistence

@@ -9,9 +9,9 @@ scenarios
 			com.anfelisa.box.schedulecards.ScheduleCards
 		WHEN
 			com.anfelisa.box.LoadNextCard
+				systemTime "20200419 02:00" "yyyyMMdd HH:mm"
 				{
-					boxId: "boxId-${testId}",
-					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
+					boxId: "boxId-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -37,9 +37,9 @@ scenarios
 			com.anfelisa.box.scorecard.ScoreCard0
 		WHEN
 			com.anfelisa.box.LoadNextCard
+				systemTime "20200419 02:00" "yyyyMMdd HH:mm"
 				{
-					boxId: "boxId-${testId}",
-					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
+					boxId: "boxId-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -66,9 +66,9 @@ scenarios
 			com.anfelisa.box.scorecard.ScoreCard1 exclude GIVEN
 		WHEN
 			com.anfelisa.box.LoadNextCard
+				systemTime "20200419 02:00" "yyyyMMdd HH:mm"
 				{
-					boxId: "boxId-${testId}",
-					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
+					boxId: "boxId-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -96,9 +96,9 @@ scenarios
 			com.anfelisa.box.scorecard.ScoreCard5 exclude GIVEN
 		WHEN
 			com.anfelisa.box.LoadNextCard
+				systemTime "20200419 02:00" "yyyyMMdd HH:mm"
 				{
-					boxId: "boxId-${testId}",
-					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
+					boxId: "boxId-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -127,9 +127,9 @@ scenarios
 			com.anfelisa.box.initmyboxes.InitMyBoxesForDayWithScoredAndReinforceCardsOneDayLaterDeletesOutdatedReinforceCards
 		WHEN
 			com.anfelisa.box.LoadNextCard
+				systemTime "20200420 04:00" "yyyyMMdd HH:mm"
 				{
-					boxId: "boxId-${testId}",
-					todayAtMidnightInUTC: "20200419 04:00" "yyyyMMdd HH:mm"
+					boxId: "boxId-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -160,9 +160,9 @@ scenarios
 			com.anfelisa.box.scorereinforcecard.ScoreReinforceCardKeep exclude GIVEN
 		WHEN
 			com.anfelisa.box.LoadNextCard
+				systemTime "20200419 02:00" "yyyyMMdd HH:mm"
 				{
-					boxId: "boxId-${testId}",
-					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
+					boxId: "boxId-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -192,9 +192,9 @@ scenarios
 			com.anfelisa.box.scorecard.ScoreCard5 exclude GIVEN
 		WHEN
 			com.anfelisa.box.LoadNextCard
+				systemTime "20200419 02:00" "yyyyMMdd HH:mm"
 				{
-					boxId: "boxId-${testId}",
-					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
+					boxId: "boxId-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -224,9 +224,9 @@ scenarios
 			com.anfelisa.box.scorecard.ScoreCard5 exclude GIVEN
 		WHEN
 			com.anfelisa.box.LoadNextCard
+				systemTime "20200419 02:00" "yyyyMMdd HH:mm"
 				{
-					boxId: "boxId-${testId}",
-					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
+					boxId: "boxId-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -256,9 +256,9 @@ scenarios
 			com.anfelisa.box.scorecard.ScoreCard5 exclude GIVEN
 		WHEN
 			com.anfelisa.box.LoadNextCard
+				systemTime "20200419 02:00" "yyyyMMdd HH:mm"
 				{
-					boxId: "boxId-${testId}",
-					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
+					boxId: "boxId-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -290,9 +290,9 @@ scenarios
 			com.anfelisa.box.scorereinforcecard.ScoreOtherReinforceCard exclude GIVEN
 		WHEN
 			com.anfelisa.box.LoadNextCard
+				systemTime "20200419 02:00" "yyyyMMdd HH:mm"
 				{
-					boxId: "boxId-${testId}",
-					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
+					boxId: "boxId-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -325,9 +325,9 @@ scenarios
 			com.anfelisa.box.scorereinforcecard.ScoreReinforceCardRemove exclude GIVEN
 		WHEN
 			com.anfelisa.box.LoadNextCard
+				systemTime "20200419 02:00" "yyyyMMdd HH:mm"
 				{
-					boxId: "boxId-${testId}",
-					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
+					boxId: "boxId-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -348,9 +348,9 @@ scenarios
 			com.anfelisa.box.scorereinforcecard.ScoreReinforceCardRemove exclude GIVEN
 		WHEN
 			com.anfelisa.box.LoadNextCard
+				systemTime "20200419 02:00" "yyyyMMdd HH:mm"
 				{
-					boxId: "boxId-${testId}",
-					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
+					boxId: "boxId-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -366,9 +366,9 @@ scenarios
 			com.anfelisa.box.sortcardsout.SortCardsOutWithScoredAndReinforce
 		WHEN
 			com.anfelisa.box.LoadNextCard
+				systemTime "20200419 02:00" "yyyyMMdd HH:mm"
 				{
-					boxId: "boxId-${testId}",
-					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
+					boxId: "boxId-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -396,9 +396,9 @@ scenarios
 			com.anfelisa.box.sortcardsout.SortCardsOut
 		WHEN
 			com.anfelisa.box.LoadNextCard
+				systemTime "20200419 02:00" "yyyyMMdd HH:mm"
 				{
-					boxId: "boxId-${testId}",
-					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
+					boxId: "boxId-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -427,9 +427,9 @@ scenarios
 			com.anfelisa.card.createcard.CreateFifthCard
 		WHEN
 			com.anfelisa.box.LoadNextCard
+				systemTime "20200419 02:00" "yyyyMMdd HH:mm"
 				{
-					boxId: "boxId-${testId}",
-					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
+					boxId: "boxId-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -440,25 +440,12 @@ scenarios
 				nextCard: null
 			}		
 
-	LoadNextCardTodayAtMidnightInUTCNull
-		GIVEN
-			com.anfelisa.box.schedulecards.ScheduleCards
-		WHEN
-			com.anfelisa.box.LoadNextCard
-				{
-					boxId: "boxId-${testId}"
-				}
-				authorization "Annette-${testId}" : "password"
-		THEN 400
-		
 	LoadNextCardBoxIdNull
 		GIVEN
 			com.anfelisa.box.schedulecards.ScheduleCards
 		WHEN
 			com.anfelisa.box.LoadNextCard
-				{
-					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
-				}
+				systemTime "20200419 02:00" "yyyyMMdd HH:mm"
 				authorization "Annette-${testId}" : "password"
 		THEN 400
 		
@@ -467,9 +454,9 @@ scenarios
 			com.anfelisa.box.schedulecards.ScheduleCards
 		WHEN
 			com.anfelisa.box.LoadNextCard
+				systemTime "20200419 02:00" "yyyyMMdd HH:mm"
 				{
-					boxId: "xxx",
-					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
+					boxId: "xxx"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
@@ -480,9 +467,9 @@ scenarios
 			com.anfelisa.user.registeruser.RegisterUserAdmin
 		WHEN
 			com.anfelisa.box.LoadNextCard
+				systemTime "20200419 02:00" "yyyyMMdd HH:mm"
 				{
-					boxId: "boxId-${testId}",
-					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
+					boxId: "boxId-${testId}"
 				}
 				authorization "Admin" : "admin-password"
 		THEN 401
@@ -492,8 +479,8 @@ scenarios
 			com.anfelisa.box.schedulecards.ScheduleCards
 		WHEN
 			com.anfelisa.box.LoadNextCard
+				systemTime "20200419 02:00" "yyyyMMdd HH:mm"
 				{
-					boxId: "boxId-${testId}",
-					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
+					boxId: "boxId-${testId}"
 				}
 		THEN 401

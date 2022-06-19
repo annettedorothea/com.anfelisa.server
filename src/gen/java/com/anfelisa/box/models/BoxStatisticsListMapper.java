@@ -19,8 +19,7 @@ public class BoxStatisticsListMapper extends AbstractMapper<IBoxStatisticsListMo
 	public IBoxStatisticsListModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new BoxStatisticsListModel(
 			null,
-			this.mapToString(r, "userId"),
-			this.mapToDateTime(r, "todayAtMidnightInUTC")
+			this.mapToString(r, "userId")
 		);
 	}
 }

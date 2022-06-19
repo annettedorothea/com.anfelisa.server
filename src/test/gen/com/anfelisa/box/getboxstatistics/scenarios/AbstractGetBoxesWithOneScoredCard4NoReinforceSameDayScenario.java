@@ -381,13 +381,13 @@ public abstract class AbstractGetBoxesWithOneScoredCard4NoReinforceSameDayScenar
 	
 	private HttpResponse<com.anfelisa.box.data.GetBoxStatisticsResponse> when_0() throws Exception {
 		String uuid = this.randomUUID();
+		this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200419 02:00", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 		com.anfelisa.box.data.BoxStatisticsListData data_0 = objectMapper.readValue("{" +
-		"\"uuid\" : \"" + uuid + "\"," + 
-		"\"todayAtMidnightInUTC\" : \"2020-04-18T02:00\"} ",
-				com.anfelisa.box.data.BoxStatisticsListData.class);
+		"\"uuid\" : \"" + uuid + "\" }",
+		com.anfelisa.box.data.BoxStatisticsListData.class);
 		HttpResponse<com.anfelisa.box.data.GetBoxStatisticsResponse> response = 
 		this.httpGet(
-			"/boxes/statistics/?todayAtMidnightInUTC=" + data_0.getTodayAtMidnightInUTC() + "", 
+			"/boxes/statistics/", 
 			authorization("Annette-${testId}", "password"),
 			uuid,
 			com.anfelisa.box.data.GetBoxStatisticsResponse.class

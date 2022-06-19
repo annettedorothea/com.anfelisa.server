@@ -85,7 +85,6 @@ public class GetBoxStatisticsResource extends Resource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response getBoxStatisticsResource(
 			@Auth AuthUser authUser, 
-			@QueryParam("todayAtMidnightInUTC") String todayAtMidnightInUTC, 
 			@QueryParam("uuid") String uuid) 
 			throws JsonProcessingException {
 		if (StringUtils.isBlank(uuid)) {
@@ -93,16 +92,6 @@ public class GetBoxStatisticsResource extends Resource {
 		}
 		try {
 			com.anfelisa.box.data.IBoxStatisticsListData data = new BoxStatisticsListData(uuid);
-			if (StringUtils.isBlank(todayAtMidnightInUTC) || "null".equals(todayAtMidnightInUTC)) {
-				return badRequest("todayAtMidnightInUTC is mandatory");
-			}
-			if (StringUtils.isNotBlank(todayAtMidnightInUTC)) {
-				try {
-					data.setTodayAtMidnightInUTC(LocalDateTime.parse(todayAtMidnightInUTC, DateTimeFormatter.ISO_DATE_TIME));
-				} catch (Exception x) {
-					LOG.warn("failed to parse dateTime todayAtMidnightInUTC - {}", todayAtMidnightInUTC);
-				}
-			}
 			data.setUserId(authUser.getUserId());
 			
 			com.anfelisa.box.actions.GetBoxStatisticsAction action = new com.anfelisa.box.actions.GetBoxStatisticsAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);

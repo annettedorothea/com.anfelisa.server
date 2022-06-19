@@ -32,19 +32,15 @@ public abstract class AbstractBoxStatisticsListData extends AbstractData impleme
 	
 	private String userId;
 	
-	private java.time.LocalDateTime todayAtMidnightInUTC;
-	
 
 	public AbstractBoxStatisticsListData(
 		@JsonProperty("boxStatisticsList") java.util.List<com.anfelisa.box.models.IBoxStatisticsModel> boxStatisticsList,
-		@JsonProperty("userId") String userId,
-		@JsonProperty("todayAtMidnightInUTC") java.time.LocalDateTime todayAtMidnightInUTC
+		@JsonProperty("userId") String userId
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
 		this.boxStatisticsList = boxStatisticsList;
 		this.userId = userId;
-		this.todayAtMidnightInUTC = todayAtMidnightInUTC;
 	}
 
 	public AbstractBoxStatisticsListData( String uuid ) {
@@ -75,20 +71,6 @@ public abstract class AbstractBoxStatisticsListData extends AbstractData impleme
 		return this;
 	}
 	
-	@JsonProperty
-	@JsonSerialize(converter = DateTimeToStringConverter.class)
-	@JsonDeserialize(converter = StringToDateTimeConverter.class)
-	public java.time.LocalDateTime getTodayAtMidnightInUTC() {
-		return this.todayAtMidnightInUTC;
-	}
-	public void setTodayAtMidnightInUTC(java.time.LocalDateTime todayAtMidnightInUTC) {
-		this.todayAtMidnightInUTC = todayAtMidnightInUTC;
-	}
-	public IBoxStatisticsListData withTodayAtMidnightInUTC(java.time.LocalDateTime todayAtMidnightInUTC) {
-		this.todayAtMidnightInUTC = todayAtMidnightInUTC;
-		return this;
-	}
-	
 	
 	
 	public IBoxStatisticsListData deepCopy() {
@@ -101,7 +83,6 @@ public abstract class AbstractBoxStatisticsListData extends AbstractData impleme
 		}
 		copy.setBoxStatisticsList(boxStatisticsListCopy);
 		copy.setUserId(this.getUserId());
-		copy.setTodayAtMidnightInUTC(this.getTodayAtMidnightInUTC());
 		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}

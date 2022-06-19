@@ -20,8 +20,6 @@ public interface IBoxStatisticsListData extends IBoxStatisticsListModel, IDataCo
 	
 	IBoxStatisticsListData withUserId(String userId);
 	
-	IBoxStatisticsListData withTodayAtMidnightInUTC(java.time.LocalDateTime todayAtMidnightInUTC);
-	
 	
 	IBoxStatisticsListData deepCopy();
 }

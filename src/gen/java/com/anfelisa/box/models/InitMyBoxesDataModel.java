@@ -22,8 +22,6 @@ public class InitMyBoxesDataModel implements IInitMyBoxesDataModel {
 
 	private String userId;
 
-	private java.time.LocalDateTime todayAtMidnightInUTC;
-
 	private java.util.List<com.anfelisa.box.models.IPostponeCardsModel> postponeCards;
 
 	private java.util.List<String> outdatedReinforceCardsIds;
@@ -34,12 +32,10 @@ public class InitMyBoxesDataModel implements IInitMyBoxesDataModel {
 
 	public InitMyBoxesDataModel(
 		@JsonProperty("userId") String userId,
-		@JsonProperty("todayAtMidnightInUTC") java.time.LocalDateTime todayAtMidnightInUTC,
 		@JsonProperty("postponeCards") java.util.List<com.anfelisa.box.models.IPostponeCardsModel> postponeCards,
 		@JsonProperty("outdatedReinforceCardsIds") java.util.List<String> outdatedReinforceCardsIds
 	) {
 		this.userId = userId;
-		this.todayAtMidnightInUTC = todayAtMidnightInUTC;
 		this.postponeCards = postponeCards;
 		this.outdatedReinforceCardsIds = outdatedReinforceCardsIds;
 	}
@@ -50,16 +46,6 @@ public class InitMyBoxesDataModel implements IInitMyBoxesDataModel {
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
-	}
-	
-	@JsonProperty
-	@JsonSerialize(converter = DateTimeToStringConverter.class)
-	@JsonDeserialize(converter = StringToDateTimeConverter.class)
-	public java.time.LocalDateTime getTodayAtMidnightInUTC() {
-		return this.todayAtMidnightInUTC;
-	}
-	public void setTodayAtMidnightInUTC(java.time.LocalDateTime todayAtMidnightInUTC) {
-		this.todayAtMidnightInUTC = todayAtMidnightInUTC;
 	}
 	
 	@JsonProperty
@@ -82,7 +68,6 @@ public class InitMyBoxesDataModel implements IInitMyBoxesDataModel {
 	public IInitMyBoxesDataModel deepCopy() {
 		IInitMyBoxesDataModel copy = new InitMyBoxesDataModel();
 		copy.setUserId(this.getUserId());
-		copy.setTodayAtMidnightInUTC(this.getTodayAtMidnightInUTC());
 		List<com.anfelisa.box.models.IPostponeCardsModel> postponeCardsCopy = new ArrayList<com.anfelisa.box.models.IPostponeCardsModel>();
 		if (this.getPostponeCards() != null) {
 			for(com.anfelisa.box.models.IPostponeCardsModel item: this.getPostponeCards()) {

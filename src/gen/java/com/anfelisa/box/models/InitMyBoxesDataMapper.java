@@ -19,7 +19,6 @@ public class InitMyBoxesDataMapper extends AbstractMapper<IInitMyBoxesDataModel>
 	public IInitMyBoxesDataModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new InitMyBoxesDataModel(
 			this.mapToString(r, "userId"),
-			this.mapToDateTime(r, "todayAtMidnightInUTC"),
 			null,
 			null
 		);

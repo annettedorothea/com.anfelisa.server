@@ -348,17 +348,14 @@ public abstract class AbstractInitMyBoxesForDayNothingScoredVeryMuchLaterScenari
 	
 	private HttpResponse<Object> when_0() throws Exception {
 		String uuid = this.randomUUID();
-		com.anfelisa.box.data.InitMyBoxesForDayPayload payload_0 = objectMapper.readValue("{" +
-			"\"todayAtMidnightInUTC\" : \"2021-01-20T02:00\"} ",
-				com.anfelisa.box.data.InitMyBoxesForDayPayload.class);
+		this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20210121 02:00", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 		com.anfelisa.box.data.InitMyBoxesDataData data_0 = objectMapper.readValue("{" +
-		"\"uuid\" : \"" + uuid + "\"," + 
-		"\"todayAtMidnightInUTC\" : \"2021-01-20T02:00\"} ",
-				com.anfelisa.box.data.InitMyBoxesDataData.class);
+		"\"uuid\" : \"" + uuid + "\" }",
+		com.anfelisa.box.data.InitMyBoxesDataData.class);
 		HttpResponse<Object> response = 
 		this.httpPut(
 			"/box/init", 
-		 	payload_0,
+		 	null,
 			authorization("Annette-${testId}", "password"),
 			uuid,
 			null

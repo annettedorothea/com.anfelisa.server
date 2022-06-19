@@ -18,8 +18,6 @@ public interface IInitMyBoxesDataData extends IInitMyBoxesDataModel, IDataContai
 	
 	IInitMyBoxesDataData withUserId(String userId);
 	
-	IInitMyBoxesDataData withTodayAtMidnightInUTC(java.time.LocalDateTime todayAtMidnightInUTC);
-	
 	IInitMyBoxesDataData withPostponeCards(java.util.List<com.anfelisa.box.models.IPostponeCardsModel> postponeCards);
 	
 	IInitMyBoxesDataData withOutdatedReinforceCardsIds(java.util.List<String> outdatedReinforceCardsIds);

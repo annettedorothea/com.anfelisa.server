@@ -19,8 +19,7 @@ public class BoxListMapper extends AbstractMapper<IBoxListModel> {
 	public IBoxListModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new BoxListModel(
 			null,
-			this.mapToString(r, "userId"),
-			this.mapToDateTime(r, "todayAtMidnightInUTC")
+			this.mapToString(r, "userId")
 		);
 	}
 }
