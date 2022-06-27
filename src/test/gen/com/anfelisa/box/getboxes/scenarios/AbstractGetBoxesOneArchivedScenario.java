@@ -171,13 +171,13 @@ public abstract class AbstractGetBoxesOneArchivedScenario extends BaseScenario {
 	
 	private HttpResponse<com.anfelisa.box.data.GetBoxesResponse> when_0() throws Exception {
 		String uuid = this.randomUUID();
-		this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200421 02:00", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 		com.anfelisa.box.data.BoxListData data_0 = objectMapper.readValue("{" +
-		"\"uuid\" : \"" + uuid + "\" }",
-		com.anfelisa.box.data.BoxListData.class);
+		"\"uuid\" : \"" + uuid + "\"," + 
+		"\"todayAtMidnightInUTC\" : \"2020-04-20T02:00\"} ",
+				com.anfelisa.box.data.BoxListData.class);
 		HttpResponse<com.anfelisa.box.data.GetBoxesResponse> response = 
 		this.httpGet(
-			"/boxes/my/", 
+			"/boxes/my/?todayAtMidnightInUTC=" + data_0.getTodayAtMidnightInUTC() + "", 
 			authorization("Annette-${testId}", "password"),
 			uuid,
 			com.anfelisa.box.data.GetBoxesResponse.class

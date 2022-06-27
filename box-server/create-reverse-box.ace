@@ -26,29 +26,6 @@ scenarios
 				archived: false
 			}
 			
-	CreateReverseBoxSecondTime
-		GIVEN
-			CreateReverseBox
-		WHEN
-			com.anfelisa.box.CreateReverseBox
-				uuid "reverseBoxId2-${testId}"
-				{
-					rootCategoryId: "boxId-${testId}"
-				}
-				authorization "Annette-${testId}" : "password"
-		THEN 200
-		persistence
-			reverseBoxWasCreated Box selectBy ( boxId: "reverseBoxId-${testId}") shouldBe
-			{
-				boxId: "reverseBoxId-${testId}",
-				categoryId: "boxId-${testId}",
-				maxCardsPerDay: 10,
-				userId: "uuid-${testId}",
-				reverse: true,
-				archived: false
-			}
-			secondReverseBoxWasNotCreated Box selectBy ( boxId: "reverseBoxId2-${testId}") shouldBe null
-			
 	CreateReverseBoxBoxDoesNotExist
 		GIVEN
 			com.anfelisa.box.createbox.CreateBoxMinimal

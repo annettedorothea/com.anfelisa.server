@@ -20,6 +20,9 @@ public interface IBoxStatisticsListModel {
 	String getUserId();
 	void setUserId(String userId);
 	
+	java.time.LocalDateTime getTodayAtMidnightInUTC();
+	void setTodayAtMidnightInUTC(java.time.LocalDateTime todayAtMidnightInUTC);
+	
 	
 	IBoxStatisticsListModel deepCopy();
 }

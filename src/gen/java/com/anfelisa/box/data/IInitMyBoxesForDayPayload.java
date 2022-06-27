@@ -5,17 +5,13 @@
 
 
 
-package com.anfelisa.box.scorecard.scenarios;
+package com.anfelisa.box.data;
 
-import com.anfelisa.box.data.ScoreCardResponse;
-
-@SuppressWarnings("unused")
-public class ScoreCardMinEfScenario extends AbstractScoreCardMinEfScenario {
-
+public interface IInitMyBoxesForDayPayload {
+	java.time.LocalDateTime getTodayAtMidnightInUTC();
 	
 
 }
-
 
 
 

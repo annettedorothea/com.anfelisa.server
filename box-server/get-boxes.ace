@@ -8,7 +8,9 @@ scenarios
 			com.anfelisa.box.schedulecards.ScheduleCards
 		WHEN
 			com.anfelisa.box.GetBoxes
-				systemTime "20200419 02:00" "yyyyMMdd HH:mm"
+				{
+					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
+				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response shouldBe {
@@ -34,7 +36,9 @@ scenarios
 			com.anfelisa.box.scorecard.ScoreCard5 exclude GIVEN
 		WHEN
 			com.anfelisa.box.GetBoxes
-				systemTime "20200419 02:00" "yyyyMMdd HH:mm"
+				{
+					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
+				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response shouldBe {
@@ -58,7 +62,9 @@ scenarios
 			com.anfelisa.box.scorecard.ScoreCard1
 		WHEN
 			com.anfelisa.box.GetBoxes
-				systemTime "20200419 02:00" "yyyyMMdd HH:mm"
+				{
+					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
+				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response shouldBe {
@@ -82,7 +88,9 @@ scenarios
 			com.anfelisa.box.scorecard.ScoreCard0
 		WHEN
 			com.anfelisa.box.GetBoxes
-				systemTime "20200419 02:00" "yyyyMMdd HH:mm"
+				{
+					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
+				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response shouldBe {
@@ -106,7 +114,9 @@ scenarios
 			com.anfelisa.box.scorecard.ScoreCard2
 		WHEN
 			com.anfelisa.box.GetBoxes
-				systemTime "20200419 02:00" "yyyyMMdd HH:mm"
+				{
+					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
+				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response shouldBe {
@@ -130,7 +140,9 @@ scenarios
 			com.anfelisa.box.scorecard.ScoreCard3
 		WHEN
 			com.anfelisa.box.GetBoxes
-				systemTime "20200419 02:00" "yyyyMMdd HH:mm"
+				{
+					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
+				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response shouldBe {
@@ -154,7 +166,9 @@ scenarios
 			com.anfelisa.box.scorecard.ScoreCard5
 		WHEN
 			com.anfelisa.box.GetBoxes
-				systemTime "20200419 02:00" "yyyyMMdd HH:mm"
+				{
+					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
+				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response shouldBe {
@@ -178,7 +192,9 @@ scenarios
 			com.anfelisa.box.scorecard.ScoreCard4
 		WHEN
 			com.anfelisa.box.GetBoxes
-				systemTime "20200419 02:00" "yyyyMMdd HH:mm"
+				{
+					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
+				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response shouldBe {
@@ -203,7 +219,9 @@ scenarios
 			com.anfelisa.box.initmyboxes.InitMyBoxesForDayWithScoredAndReinforceCardsOneDayLaterDeletesOutdatedReinforceCards
 		WHEN
 			com.anfelisa.box.GetBoxes
-				systemTime "20200420 02:00" "yyyyMMdd HH:mm"
+				{
+					todayAtMidnightInUTC: "20200419 02:00" "yyyyMMdd HH:mm"
+				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response shouldBe {
@@ -227,7 +245,9 @@ scenarios
 			com.anfelisa.box.initmyboxes.InitMyBoxesForDayWithScoredAndReinforceCardsTwoDaysLaterPostponesCards
 		WHEN
 			com.anfelisa.box.GetBoxes
-				systemTime "20200421 02:00" "yyyyMMdd HH:mm"
+				{
+					todayAtMidnightInUTC: "20200420 02:00" "yyyyMMdd HH:mm"
+				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response shouldBe {
@@ -252,7 +272,9 @@ scenarios
 			com.anfelisa.box.createreversebox.CreateReverseBox
 		WHEN
 			com.anfelisa.box.GetBoxes
-				systemTime "20200421 02:00" "yyyyMMdd HH:mm"
+				{
+					todayAtMidnightInUTC: "20200420 02:00" "yyyyMMdd HH:mm"
+				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response shouldBe {
@@ -288,7 +310,9 @@ scenarios
 			com.anfelisa.category.inviteusertocategory.InviteUserToCategory
 		WHEN
 			com.anfelisa.box.GetBoxes
-				systemTime "20200421 02:00" "yyyyMMdd HH:mm"
+				{
+					todayAtMidnightInUTC: "20200420 02:00" "yyyyMMdd HH:mm"
+				}
 				authorization "Anne-${testId}" : "pw"
 		THEN 200
 			response shouldBe {
@@ -312,7 +336,9 @@ scenarios
 			com.anfelisa.category.inviteusertocategory.InviteUserToCategoryEditable
 		WHEN
 			com.anfelisa.box.GetBoxes
-				systemTime "20200421 02:00" "yyyyMMdd HH:mm"
+				{
+					todayAtMidnightInUTC: "20200420 02:00" "yyyyMMdd HH:mm"
+				}
 				authorization "Anne-${testId}" : "pw"
 		THEN 200
 			response shouldBe {
@@ -336,7 +362,9 @@ scenarios
 			com.anfelisa.category.inviteusertocategory.InviteUserToCategory
 		WHEN
 			com.anfelisa.box.GetBoxes
-				systemTime "20200421 02:00" "yyyyMMdd HH:mm"
+				{
+					todayAtMidnightInUTC: "20200420 02:00" "yyyyMMdd HH:mm"
+				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response shouldBe {
@@ -360,7 +388,9 @@ scenarios
 			com.anfelisa.category.inviteusertocategory.InviteUserToCategoryEditable
 		WHEN
 			com.anfelisa.box.GetBoxes
-				systemTime "20200421 02:00" "yyyyMMdd HH:mm"
+				{
+					todayAtMidnightInUTC: "20200420 02:00" "yyyyMMdd HH:mm"
+				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response shouldBe {
@@ -379,12 +409,25 @@ scenarios
 				]
 			}		
 
+	GetBoxesTodayAtMidnightInUTCNull
+		GIVEN
+			com.anfelisa.box.schedulecards.ScheduleCards
+		WHEN
+			com.anfelisa.box.GetBoxes
+				{
+					todayAtMidnightInUTC: null
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 400
+
 	GetBoxesUnauthorized
 		GIVEN
 			com.anfelisa.box.schedulecards.ScheduleCards
 		WHEN
 			com.anfelisa.box.GetBoxes
-				systemTime "20200419 02:00" "yyyyMMdd HH:mm"
+				{
+					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
+				}
 		THEN 401
 		
 	GetBoxesOneArchived
@@ -393,7 +436,9 @@ scenarios
 			com.anfelisa.box.archivebox.ArchiveBox exclude GIVEN
 		WHEN
 			com.anfelisa.box.GetBoxes
-				systemTime "20200421 02:00" "yyyyMMdd HH:mm"
+				{
+					todayAtMidnightInUTC: "20200420 02:00" "yyyyMMdd HH:mm"
+				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response shouldBe {

@@ -348,13 +348,13 @@ public abstract class AbstractGetBoxesUnauthorizedScenario extends BaseScenario 
 	
 	private HttpResponse<com.anfelisa.box.data.GetBoxStatisticsResponse> when_0() throws Exception {
 		String uuid = this.randomUUID();
-		this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200419 02:00", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 		com.anfelisa.box.data.BoxStatisticsListData data_0 = objectMapper.readValue("{" +
-		"\"uuid\" : \"" + uuid + "\" }",
-		com.anfelisa.box.data.BoxStatisticsListData.class);
+		"\"uuid\" : \"" + uuid + "\"," + 
+		"\"todayAtMidnightInUTC\" : \"2020-04-18T02:00\"} ",
+				com.anfelisa.box.data.BoxStatisticsListData.class);
 		HttpResponse<com.anfelisa.box.data.GetBoxStatisticsResponse> response = 
 		this.httpGet(
-			"/boxes/statistics/", 
+			"/boxes/statistics/?todayAtMidnightInUTC=" + data_0.getTodayAtMidnightInUTC() + "", 
 			null,
 			uuid,
 			com.anfelisa.box.data.GetBoxStatisticsResponse.class

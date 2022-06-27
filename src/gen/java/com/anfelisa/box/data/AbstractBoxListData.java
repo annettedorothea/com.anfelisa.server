@@ -32,15 +32,19 @@ public abstract class AbstractBoxListData extends AbstractData implements IBoxLi
 	
 	private String userId;
 	
+	private java.time.LocalDateTime todayAtMidnightInUTC;
+	
 
 	public AbstractBoxListData(
 		@JsonProperty("boxList") java.util.List<com.anfelisa.box.models.IBoxViewModel> boxList,
-		@JsonProperty("userId") String userId
+		@JsonProperty("userId") String userId,
+		@JsonProperty("todayAtMidnightInUTC") java.time.LocalDateTime todayAtMidnightInUTC
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
 		this.boxList = boxList;
 		this.userId = userId;
+		this.todayAtMidnightInUTC = todayAtMidnightInUTC;
 	}
 
 	public AbstractBoxListData( String uuid ) {
@@ -71,6 +75,20 @@ public abstract class AbstractBoxListData extends AbstractData implements IBoxLi
 		return this;
 	}
 	
+	@JsonProperty
+	@JsonSerialize(converter = DateTimeToStringConverter.class)
+	@JsonDeserialize(converter = StringToDateTimeConverter.class)
+	public java.time.LocalDateTime getTodayAtMidnightInUTC() {
+		return this.todayAtMidnightInUTC;
+	}
+	public void setTodayAtMidnightInUTC(java.time.LocalDateTime todayAtMidnightInUTC) {
+		this.todayAtMidnightInUTC = todayAtMidnightInUTC;
+	}
+	public IBoxListData withTodayAtMidnightInUTC(java.time.LocalDateTime todayAtMidnightInUTC) {
+		this.todayAtMidnightInUTC = todayAtMidnightInUTC;
+		return this;
+	}
+	
 	
 	
 	public IBoxListData deepCopy() {
@@ -83,6 +101,7 @@ public abstract class AbstractBoxListData extends AbstractData implements IBoxLi
 		}
 		copy.setBoxList(boxListCopy);
 		copy.setUserId(this.getUserId());
+		copy.setTodayAtMidnightInUTC(this.getTodayAtMidnightInUTC());
 		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}

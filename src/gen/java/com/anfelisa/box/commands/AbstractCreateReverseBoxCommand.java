@@ -26,9 +26,6 @@ public abstract class AbstractCreateReverseBoxCommand extends Command<IBoxCreati
 	protected void addOkOutcome(IBoxCreationData data) {
 		data.addOutcome("ok");
 	}
-	protected void addAlreadyExistsOutcome(IBoxCreationData data) {
-		data.addOutcome("alreadyExists");
-	}
 	
 	@Override
 	public void addEventsToTimeline(IBoxCreationData data, PersistenceHandle timelineHandle) {

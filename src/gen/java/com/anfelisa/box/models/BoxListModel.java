@@ -24,16 +24,20 @@ public class BoxListModel implements IBoxListModel {
 
 	private String userId;
 
+	private java.time.LocalDateTime todayAtMidnightInUTC;
+
 
 	public BoxListModel() {
 	}
 
 	public BoxListModel(
 		@JsonProperty("boxList") java.util.List<com.anfelisa.box.models.IBoxViewModel> boxList,
-		@JsonProperty("userId") String userId
+		@JsonProperty("userId") String userId,
+		@JsonProperty("todayAtMidnightInUTC") java.time.LocalDateTime todayAtMidnightInUTC
 	) {
 		this.boxList = boxList;
 		this.userId = userId;
+		this.todayAtMidnightInUTC = todayAtMidnightInUTC;
 	}
 
 	@JsonProperty
@@ -52,6 +56,16 @@ public class BoxListModel implements IBoxListModel {
 		this.userId = userId;
 	}
 	
+	@JsonProperty
+	@JsonSerialize(converter = DateTimeToStringConverter.class)
+	@JsonDeserialize(converter = StringToDateTimeConverter.class)
+	public java.time.LocalDateTime getTodayAtMidnightInUTC() {
+		return this.todayAtMidnightInUTC;
+	}
+	public void setTodayAtMidnightInUTC(java.time.LocalDateTime todayAtMidnightInUTC) {
+		this.todayAtMidnightInUTC = todayAtMidnightInUTC;
+	}
+	
 
 	public IBoxListModel deepCopy() {
 		IBoxListModel copy = new BoxListModel();
@@ -63,6 +77,7 @@ public class BoxListModel implements IBoxListModel {
 		}
 		copy.setBoxList(boxListCopy);
 		copy.setUserId(this.getUserId());
+		copy.setTodayAtMidnightInUTC(this.getTodayAtMidnightInUTC());
 		return copy;
 	}
 

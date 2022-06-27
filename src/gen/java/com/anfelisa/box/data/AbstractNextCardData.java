@@ -33,6 +33,8 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 	
 	private String boxId;
 	
+	private java.time.LocalDateTime todayAtMidnightInUTC;
+	
 	private com.anfelisa.box.models.INextCardViewModel nextCard;
 	
 	private Boolean reverse = false;
@@ -45,6 +47,7 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 	public AbstractNextCardData(
 		@JsonProperty("userId") String userId,
 		@JsonProperty("boxId") String boxId,
+		@JsonProperty("todayAtMidnightInUTC") java.time.LocalDateTime todayAtMidnightInUTC,
 		@JsonProperty("nextCard") com.anfelisa.box.models.INextCardViewModel nextCard,
 		@JsonProperty("reverse") Boolean reverse,
 		@JsonProperty("openTodaysCards") Integer openTodaysCards,
@@ -54,6 +57,7 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 		super(uuid);
 		this.userId = userId;
 		this.boxId = boxId;
+		this.todayAtMidnightInUTC = todayAtMidnightInUTC;
 		this.nextCard = nextCard;
 		this.reverse = reverse;
 		this.openTodaysCards = openTodaysCards;
@@ -85,6 +89,20 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 	}
 	public INextCardData withBoxId(String boxId) {
 		this.boxId = boxId;
+		return this;
+	}
+	
+	@JsonProperty
+	@JsonSerialize(converter = DateTimeToStringConverter.class)
+	@JsonDeserialize(converter = StringToDateTimeConverter.class)
+	public java.time.LocalDateTime getTodayAtMidnightInUTC() {
+		return this.todayAtMidnightInUTC;
+	}
+	public void setTodayAtMidnightInUTC(java.time.LocalDateTime todayAtMidnightInUTC) {
+		this.todayAtMidnightInUTC = todayAtMidnightInUTC;
+	}
+	public INextCardData withTodayAtMidnightInUTC(java.time.LocalDateTime todayAtMidnightInUTC) {
+		this.todayAtMidnightInUTC = todayAtMidnightInUTC;
 		return this;
 	}
 	
@@ -146,6 +164,7 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 		INextCardData copy = new NextCardData(this.getUuid());
 		copy.setUserId(this.getUserId());
 		copy.setBoxId(this.getBoxId());
+		copy.setTodayAtMidnightInUTC(this.getTodayAtMidnightInUTC());
 		if (this.getNextCard() != null) {
 			copy.setNextCard(this.getNextCard().deepCopy());
 		}

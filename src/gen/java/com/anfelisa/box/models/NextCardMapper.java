@@ -20,6 +20,7 @@ public class NextCardMapper extends AbstractMapper<INextCardModel> {
 		return new NextCardModel(
 			this.mapToString(r, "userId"),
 			this.mapToString(r, "boxId"),
+			this.mapToDateTime(r, "todayAtMidnightInUTC"),
 			null,
 			this.mapToBoolean(r, "reverse"),
 			this.mapToInteger(r, "openTodaysCards"),
