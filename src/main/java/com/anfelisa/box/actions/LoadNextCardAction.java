@@ -4,8 +4,6 @@
 
 package com.anfelisa.box.actions;
 
-import java.time.LocalDateTime;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,9 +38,8 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 			throwSecurityException();
 		}
 
-		LocalDateTime today = data.getSystemTime().minusDays(1);
 		INextCardViewModel nextCard = daoProvider.getScheduledCardDao().selectFirstScheduledCard(readonlyHandle,
-				data.getBoxId(), today);
+				data.getBoxId(), data.getTodayAtMidnightInUTC());
 		if (nextCard == null) {
 			nextCard = daoProvider.getReinforceCardDao().selectFirstReinforceCard(readonlyHandle,
 					data.getBoxId());
@@ -54,7 +51,7 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 			nextCard.setWanted(wanted);
 		}
 		ITodaysCardsStatusModel todaysCardsStatus = daoProvider.getBoxDao().todaysCardsStatus(readonlyHandle,
-				box.getBoxId(), today);
+				box.getBoxId(), data.getTodayAtMidnightInUTC());
 		data.setReverse(box.getReverse());
 		data.setAllTodaysCards(todaysCardsStatus.getAllTodaysCards());
 		data.setOpenTodaysCards(todaysCardsStatus.getOpenTodaysCards());

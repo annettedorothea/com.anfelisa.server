@@ -38,10 +38,10 @@ public class InitMyBoxesForDayCommand extends AbstractInitMyBoxesForDayCommand {
 	@Override
 	protected IInitMyBoxesDataData executeCommand(IInitMyBoxesDataData data, PersistenceHandle readonlyHandle) {
 		List<IInitBoxesModel> boxList = this.daoProvider.getBoxDao().selectInitBoxesModelByUserId(readonlyHandle,
-				data.getUserId());
+				data.getUserId(), data.getTodayAtMidnightInUTC());
 		List<IPostponeCardsModel> postponeCards = new ArrayList<IPostponeCardsModel>();
 		List<String> outdatedReinforceCardsIds = new ArrayList<String>();
-		LocalDateTime today = data.getSystemTime().minusDays(1);
+		LocalDateTime today = data.getTodayAtMidnightInUTC();
 		for (IInitBoxesModel box : boxList) {
 			List<IReinforceCardModel> outdatedReinforceCards = this.daoProvider.getReinforceCardDao()
 					.selectOutdatedReinforceCards(readonlyHandle, box.getBoxId(), today);

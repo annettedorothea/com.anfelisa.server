@@ -7,7 +7,6 @@
 
 package com.anfelisa.box.actions;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -34,9 +33,8 @@ public class GetBoxesAction extends AbstractGetBoxesAction {
 
 	@Override
 	protected IBoxListData loadDataForGetRequest(IBoxListData data, PersistenceHandle readonlyHandle) {
-		LocalDateTime today = data.getSystemTime().minusDays(1);
 		List<IBoxViewModel> boxList = this.daoProvider.getBoxDao().selectByUserId(readonlyHandle,
-				data.getUserId(), today);
+				data.getUserId(), data.getTodayAtMidnightInUTC());
 		data.setBoxList(boxList);
 		return data;
 	}

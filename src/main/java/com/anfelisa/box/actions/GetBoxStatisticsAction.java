@@ -7,7 +7,6 @@
 
 package com.anfelisa.box.actions;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -36,9 +35,8 @@ public class GetBoxStatisticsAction extends AbstractGetBoxStatisticsAction {
 	protected IBoxStatisticsListData loadDataForGetRequest(IBoxStatisticsListData data, PersistenceHandle readonlyHandle) {
 		List<IBoxStatisticsModel> boxList = this.daoProvider.getBoxDao().selectStatisticsByUserId(readonlyHandle,
 				data.getUserId());
-		LocalDateTime today = data.getSystemTime().minusDays(1);
 		for (IBoxStatisticsModel box : boxList) {
-			List<Integer> countOfDay = this.daoProvider.getBoxDao().selectCountOfDay(readonlyHandle, box.getBoxId(), today);
+			List<Integer> countOfDay = this.daoProvider.getBoxDao().selectCountOfDay(readonlyHandle, box.getBoxId(), data.getTodayAtMidnightInUTC());
 			box.setCountsPerDayNextWeek(countOfDay);
 		}
 		data.setBoxStatisticsList(boxList);

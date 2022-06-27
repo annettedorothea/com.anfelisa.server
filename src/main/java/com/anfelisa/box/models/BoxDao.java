@@ -101,12 +101,13 @@ public class BoxDao extends AbstractBoxDao {
 		return optional.isPresent() ? optional.get() : null;
 	}
 
-	public List<IInitBoxesModel> selectInitBoxesModelByUserId(PersistenceHandle handle, String userId) {
+	public List<IInitBoxesModel> selectInitBoxesModelByUserId(PersistenceHandle handle, String userId, LocalDateTime today) {
 		return handle.getHandle().createQuery("SELECT "
 				+ "(select min(scheduleddate) from scheduledcard where boxid = b.boxid and quality is null) as minscheduleddate, "
 				+ "b.boxid "
 				+ "FROM public.box b where userid = :userid and archived = false")
 				.bind("userid", userId)
+				.bind("today", today)
 				.map(new InitBoxesMapper()).list();
 	}
 
