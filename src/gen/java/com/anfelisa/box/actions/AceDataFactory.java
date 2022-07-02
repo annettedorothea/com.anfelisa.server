@@ -38,7 +38,8 @@ public class AceDataFactory {
 			}
 			if (className.equals("com.anfelisa.box.actions.CreateReverseBoxAction") ||
 					className.equals("com.anfelisa.box.commands.CreateReverseBoxCommand") ||
-					className.equals("com.anfelisa.box.events.CreateReverseBoxOkEvent")
+					className.equals("com.anfelisa.box.events.CreateReverseBoxOkEvent")||
+					className.equals("com.anfelisa.box.events.CreateReverseBoxAlreadyExistsEvent")
 			) {
 				BoxCreationData data = mapper.readValue(json, BoxCreationData.class);
 				data.migrateLegacyData(json);

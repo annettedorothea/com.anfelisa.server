@@ -26,6 +26,20 @@ scenarios
 				archived: false
 			}
 			
+	CreateReverseBoxAlreadyExists
+		GIVEN
+			CreateReverseBox
+		WHEN
+			com.anfelisa.box.CreateReverseBox
+				uuid "secondReverseBoxId-${testId}"
+				{
+					rootCategoryId: "boxId-${testId}"
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+		persistence
+			reverseBoxWasNotCreated Box selectBy ( boxId: "secondReverseBoxId-${testId}") shouldBe null
+			
 	CreateReverseBoxBoxDoesNotExist
 		GIVEN
 			com.anfelisa.box.createbox.CreateBoxMinimal

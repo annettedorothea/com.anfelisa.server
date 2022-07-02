@@ -27,9 +27,9 @@ import de.acegen.SquishyDataProvider;
 import de.acegen.HttpResponse;
 
 @SuppressWarnings("unused")
-public abstract class AbstractScheduleCardsNullCardIdsScenario extends BaseScenario {
+public abstract class AbstractScheduleCardsNullBoxIdScenario extends BaseScenario {
 
-	static final Logger LOG = LoggerFactory.getLogger(AbstractScheduleCardsNullCardIdsScenario.class);
+	static final Logger LOG = LoggerFactory.getLogger(AbstractScheduleCardsNullBoxIdScenario.class);
 	
 	private void given() throws Exception {
 		String uuid;
@@ -350,13 +350,13 @@ public abstract class AbstractScheduleCardsNullCardIdsScenario extends BaseScena
 		String uuid = "sc1-null-" + this.getTestId() + "";
 		this.callSquishyDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200419 12:20", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 		com.anfelisa.box.data.ScheduleCardsPayload payload_0 = objectMapper.readValue("{" +
-			"\"cardIds\" : null," + 
-			"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
+			"\"cardIds\" : []," + 
+			"\"boxId\" : null} ",
 				com.anfelisa.box.data.ScheduleCardsPayload.class);
 		com.anfelisa.box.data.ScheduledCardsData data_0 = objectMapper.readValue("{" +
 		"\"uuid\" : \"" + uuid + "\"," + 
-		"\"cardIds\" : null," + 
-		"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
+		"\"cardIds\" : []," + 
+		"\"boxId\" : null} ",
 				com.anfelisa.box.data.ScheduledCardsData.class);
 		HttpResponse<Object> response = 
 		this.httpPost(
@@ -396,14 +396,14 @@ public abstract class AbstractScheduleCardsNullCardIdsScenario extends BaseScena
 	public void runTest() throws Exception {
 		given();
 		
-		if (prerequisite("ScheduleCardsNullCardIds")) {
+		if (prerequisite("ScheduleCardsNullBoxId")) {
 			
 				HttpResponse<Object> response_0 = when_0();
 				then_0(response_0);
 				
 		
 		} else {
-			LOG.info("WHEN: prerequisite for ScheduleCardsNullCardIds not met");
+			LOG.info("WHEN: prerequisite for ScheduleCardsNullBoxId not met");
 		}
 		
 			
@@ -413,7 +413,7 @@ public abstract class AbstractScheduleCardsNullCardIdsScenario extends BaseScena
 		
 	@Override
 	protected String scenarioName() {
-		return "ScheduleCardsNullCardIds";
+		return "ScheduleCardsNullBoxId";
 	}
 	
 }

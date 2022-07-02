@@ -23,6 +23,7 @@ ACE
 		payload 
 			NotNull rootCategoryId
 		on ok (Box.createBox)
+		on alreadyExists
 
 	ArchiveBox<BoxArchive>
 		PUT "/box/archive"  
