@@ -44,8 +44,8 @@ public interface IBoxSettingsModel {
 	Integer getAllActiveCards();
 	void setAllActiveCards(Integer allActiveCards);
 	
-	Boolean getShared();
-	void setShared(Boolean shared);
+	Boolean getEditable();
+	void setEditable(Boolean editable);
 	
 	
 	IBoxSettingsModel deepCopy();

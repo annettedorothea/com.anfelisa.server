@@ -38,7 +38,8 @@ public class UserAccessToCategoryView implements IUserAccessToCategoryView {
 
 	@Override
 	public void delete(IDeleteBoxData data, PersistenceHandle handle) {
-		daoProvider.getUserAccessToCategoryDao().deleteByCategoryId(handle, data.getRootCategoryId());
+		daoProvider.getUserAccessToCategoryDao().deleteByCategoryIdAndUserId(handle, data.getRootCategoryId(),
+				data.getUserId());
 	}
 
 }

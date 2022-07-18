@@ -49,13 +49,6 @@ public class UserAccessToCategoryDao extends AbstractUserAccessToCategoryDao {
 		statement.execute();
 	}
 
-	public void deleteByCategoryId(PersistenceHandle handle, String categoryId) {
-		Update statement = handle.getHandle().createUpdate(
-				"DELETE FROM public.useraccesstocategory WHERE categoryid = :categoryid");
-		statement.bind("categoryid", categoryId);
-		statement.execute();
-	}
-
 	public IUserAccessToCategoryModel hasUserAccessTo(PersistenceHandle handle, String categoryId, String userId) {
 		Optional<IUserAccessToCategoryModel> optional = handle.getHandle()
 				.createQuery("SELECT uc.categoryid, uc.userid, uc.editable "

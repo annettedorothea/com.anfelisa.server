@@ -48,7 +48,7 @@ public abstract class AbstractBoxSettingsData extends AbstractData implements IB
 	
 	private Integer allActiveCards;
 	
-	private Boolean shared = false;
+	private Boolean editable = false;
 	
 
 	public AbstractBoxSettingsData(
@@ -62,7 +62,7 @@ public abstract class AbstractBoxSettingsData extends AbstractData implements IB
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("allCards") Integer allCards,
 		@JsonProperty("allActiveCards") Integer allActiveCards,
-		@JsonProperty("shared") Boolean shared
+		@JsonProperty("editable") Boolean editable
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
@@ -76,7 +76,7 @@ public abstract class AbstractBoxSettingsData extends AbstractData implements IB
 		this.categoryId = categoryId;
 		this.allCards = allCards;
 		this.allActiveCards = allActiveCards;
-		this.shared = shared;
+		this.editable = editable;
 	}
 
 	public AbstractBoxSettingsData( String uuid ) {
@@ -204,14 +204,14 @@ public abstract class AbstractBoxSettingsData extends AbstractData implements IB
 	}
 	
 	@JsonProperty
-	public Boolean getShared() {
-		return this.shared;
+	public Boolean getEditable() {
+		return this.editable;
 	}
-	public void setShared(Boolean shared) {
-		this.shared = shared;
+	public void setEditable(Boolean editable) {
+		this.editable = editable;
 	}
-	public IBoxSettingsData withShared(Boolean shared) {
-		this.shared = shared;
+	public IBoxSettingsData withEditable(Boolean editable) {
+		this.editable = editable;
 		return this;
 	}
 	
@@ -229,7 +229,7 @@ public abstract class AbstractBoxSettingsData extends AbstractData implements IB
 		copy.setCategoryId(this.getCategoryId());
 		copy.setAllCards(this.getAllCards());
 		copy.setAllActiveCards(this.getAllActiveCards());
-		copy.setShared(this.getShared());
+		copy.setEditable(this.getEditable());
 		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}

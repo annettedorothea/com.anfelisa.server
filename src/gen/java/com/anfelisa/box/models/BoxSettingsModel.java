@@ -40,7 +40,7 @@ public class BoxSettingsModel implements IBoxSettingsModel {
 
 	private Integer allActiveCards;
 
-	private Boolean shared = false;
+	private Boolean editable = false;
 
 
 	public BoxSettingsModel() {
@@ -57,7 +57,7 @@ public class BoxSettingsModel implements IBoxSettingsModel {
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("allCards") Integer allCards,
 		@JsonProperty("allActiveCards") Integer allActiveCards,
-		@JsonProperty("shared") Boolean shared
+		@JsonProperty("editable") Boolean editable
 	) {
 		this.boxId = boxId;
 		this.maxInterval = maxInterval;
@@ -69,7 +69,7 @@ public class BoxSettingsModel implements IBoxSettingsModel {
 		this.categoryId = categoryId;
 		this.allCards = allCards;
 		this.allActiveCards = allActiveCards;
-		this.shared = shared;
+		this.editable = editable;
 	}
 
 	@JsonProperty
@@ -153,11 +153,11 @@ public class BoxSettingsModel implements IBoxSettingsModel {
 	}
 	
 	@JsonProperty
-	public Boolean getShared() {
-		return this.shared;
+	public Boolean getEditable() {
+		return this.editable;
 	}
-	public void setShared(Boolean shared) {
-		this.shared = shared;
+	public void setEditable(Boolean editable) {
+		this.editable = editable;
 	}
 	
 
@@ -173,7 +173,7 @@ public class BoxSettingsModel implements IBoxSettingsModel {
 		copy.setCategoryId(this.getCategoryId());
 		copy.setAllCards(this.getAllCards());
 		copy.setAllActiveCards(this.getAllActiveCards());
-		copy.setShared(this.getShared());
+		copy.setEditable(this.getEditable());
 		return copy;
 	}
 

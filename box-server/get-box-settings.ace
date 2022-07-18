@@ -22,7 +22,7 @@ scenarios
 					maxCardsPerDay: 10,
 					allActiveCards: 0,
 					allCards: 0,
-					shared: false
+					editable: true
 				}
 			}		
 
@@ -45,7 +45,7 @@ scenarios
 					maxCardsPerDay: 10,
 					allActiveCards: 3,
 					allCards: 5,
-					shared: false
+					editable: true
 				}
 			}		
 
@@ -68,7 +68,7 @@ scenarios
 					maxCardsPerDay: 10,
 					allActiveCards: 1,
 					allCards: 5,
-					shared: false
+					editable: true
 				}
 			}		
 
@@ -93,7 +93,7 @@ scenarios
 					maxCardsPerDay: 10,
 					allActiveCards: 0,
 					allCards: 0,
-					shared: false
+					editable: true
 				}
 			}		
 
@@ -116,7 +116,30 @@ scenarios
 					maxCardsPerDay: 10,
 					allActiveCards: 0,
 					allCards: 0,
-					shared: true
+					editable: false
+				}
+			}		
+
+	GetSharedBoxSettingsEditable
+	GIVEN
+			com.anfelisa.category.inviteusertocategory.InviteUserToCategoryEditable
+		WHEN
+			com.anfelisa.box.GetBoxSettings
+				{
+					boxId: "boxIdOfInvitedUser-${testId}"
+				}
+				authorization "Anne-${testId}" : "pw"
+		THEN 200
+			response shouldBe {
+				boxSettings: {
+					categoryId: "boxId-${testId}",
+					boxId: "boxIdOfInvitedUser-${testId}",
+					categoryName: "cat",
+					dictionaryLookup: false,
+					maxCardsPerDay: 10,
+					allActiveCards: 0,
+					allCards: 0,
+					editable: true
 				}
 			}		
 

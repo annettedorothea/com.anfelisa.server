@@ -28,7 +28,7 @@ public class BoxSettingsMapper extends AbstractMapper<IBoxSettingsModel> {
 			this.mapToString(r, "categoryId"),
 			this.mapToInteger(r, "allCards"),
 			this.mapToInteger(r, "allActiveCards"),
-			this.mapToBoolean(r, "shared")
+			this.mapToBoolean(r, "editable")
 		);
 	}
 }

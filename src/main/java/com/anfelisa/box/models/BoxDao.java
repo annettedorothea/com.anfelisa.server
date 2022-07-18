@@ -138,7 +138,7 @@ public class BoxDao extends AbstractBoxDao {
 				+ "c.categoryname, c.dictionarylookup, c.givenlanguage, c.wantedLanguage, c.categoryid,"
 				+ "(select count(cardid) from card where rootcategoryid = c.categoryid) as allcards,"
 				+ "(select count(scheduledcardid) from scheduledcard where boxid = :boxid and quality is null AND scheduleddate is not null) as allactivecards, "
-				+ "(select count(uac.userid) from useraccesstocategory uac where b.categoryid = uac.categoryid and uac.userid != b.userid) > 0 as shared "
+				+ "(select editable from useraccesstocategory where userid = b.userid and categoryid = b.categoryid) as editable " 
 				+ "FROM \"box\" b, category c "
 				+ "WHERE b.boxid = :boxid "
 				+ "AND c.categoryid = b.categoryid")

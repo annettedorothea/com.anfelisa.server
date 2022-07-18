@@ -169,7 +169,7 @@ public abstract class AbstractGetBoxSettingsWithDictionaryLookupScenario extends
 				"\"maxCardsPerDay\" : 10," + 
 				"\"allActiveCards\" : 0," + 
 				"\"allCards\" : 0," + 
-				"\"shared\" : false}} ",
+				"\"editable\" : true}} ",
 			com.anfelisa.box.data.BoxSettingsWrapperData.class);
 			
 			com.anfelisa.box.data.GetBoxSettingsResponse expected = new com.anfelisa.box.data.GetBoxSettingsResponse(expectedData);

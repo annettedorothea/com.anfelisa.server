@@ -36,7 +36,7 @@ public interface IBoxSettingsData extends IBoxSettingsModel, IDataContainer {
 	
 	IBoxSettingsData withAllActiveCards(Integer allActiveCards);
 	
-	IBoxSettingsData withShared(Boolean shared);
+	IBoxSettingsData withEditable(Boolean editable);
 	
 	
 	IBoxSettingsData deepCopy();

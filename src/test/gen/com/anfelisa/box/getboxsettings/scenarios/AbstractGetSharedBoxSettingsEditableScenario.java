@@ -27,9 +27,9 @@ import de.acegen.SquishyDataProvider;
 import de.acegen.HttpResponse;
 
 @SuppressWarnings("unused")
-public abstract class AbstractGetSharedBoxSettingsScenario extends BaseScenario {
+public abstract class AbstractGetSharedBoxSettingsEditableScenario extends BaseScenario {
 
-	static final Logger LOG = LoggerFactory.getLogger(AbstractGetSharedBoxSettingsScenario.class);
+	static final Logger LOG = LoggerFactory.getLogger(AbstractGetSharedBoxSettingsEditableScenario.class);
 	
 	private void given() throws Exception {
 		String uuid;
@@ -142,18 +142,18 @@ public abstract class AbstractGetSharedBoxSettingsScenario extends BaseScenario 
 			LOG.info("GIVEN: prerequisite for RegisterTwoUsers not met");
 		}
 
-		if (prerequisite("InviteUserToCategory")) {
+		if (prerequisite("InviteUserToCategoryEditable")) {
 			uuid = "boxIdOfInvitedUser-" + this.getTestId() + "";
 			com.anfelisa.category.data.InviteUserToCategoryPayload payload_3 = objectMapper.readValue("{" +
 				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"invitedUsername\" : \"Anne-" + this.getTestId() + "\"," + 
-				"\"editable\" : false} ",
+				"\"editable\" : true} ",
 					com.anfelisa.category.data.InviteUserToCategoryPayload.class);
 			com.anfelisa.category.data.UserToCategoryInvitationData data_3 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 			"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 			"\"invitedUsername\" : \"Anne-" + this.getTestId() + "\"," + 
-			"\"editable\" : false} ",
+			"\"editable\" : true} ",
 					com.anfelisa.category.data.UserToCategoryInvitationData.class);
 			HttpResponse<Object> response_3 = 
 			this.httpPut(
@@ -166,14 +166,14 @@ public abstract class AbstractGetSharedBoxSettingsScenario extends BaseScenario 
 			
 			if (response_3.getStatusCode() >= 400) {
 				String statusMessage = response_3.getStatusMessage() != null ? response_3.getStatusMessage() : "";
-				String message = "GIVEN InviteUserToCategory fails\n" + statusMessage;
-				LOG.error("GIVEN: InviteUserToCategory fails due to {} in {} ms", message, response_3.getDuration());
+				String message = "GIVEN InviteUserToCategoryEditable fails\n" + statusMessage;
+				LOG.error("GIVEN: InviteUserToCategoryEditable fails due to {} in {} ms", message, response_3.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: InviteUserToCategory success in {} ms", response_3.getDuration());
+			LOG.info("GIVEN: InviteUserToCategoryEditable success in {} ms", response_3.getDuration());
 			addToMetrics("InviteUserToCategory", response_3.getDuration());
 		} else {
-			LOG.info("GIVEN: prerequisite for InviteUserToCategory not met");
+			LOG.info("GIVEN: prerequisite for InviteUserToCategoryEditable not met");
 		}
 
 	}
@@ -234,7 +234,7 @@ public abstract class AbstractGetSharedBoxSettingsScenario extends BaseScenario 
 				"\"maxCardsPerDay\" : 10," + 
 				"\"allActiveCards\" : 0," + 
 				"\"allCards\" : 0," + 
-				"\"editable\" : false}} ",
+				"\"editable\" : true}} ",
 			com.anfelisa.box.data.BoxSettingsWrapperData.class);
 			
 			com.anfelisa.box.data.GetBoxSettingsResponse expected = new com.anfelisa.box.data.GetBoxSettingsResponse(expectedData);
@@ -251,14 +251,14 @@ public abstract class AbstractGetSharedBoxSettingsScenario extends BaseScenario 
 	public void runTest() throws Exception {
 		given();
 		
-		if (prerequisite("GetSharedBoxSettings")) {
+		if (prerequisite("GetSharedBoxSettingsEditable")) {
 			
 				HttpResponse<com.anfelisa.box.data.GetBoxSettingsResponse> response_0 = when_0();
 				com.anfelisa.box.data.GetBoxSettingsResponse actualResponse_0 = then_0(response_0);
 				
 		
 		} else {
-			LOG.info("WHEN: prerequisite for GetSharedBoxSettings not met");
+			LOG.info("WHEN: prerequisite for GetSharedBoxSettingsEditable not met");
 		}
 		
 			
@@ -268,7 +268,7 @@ public abstract class AbstractGetSharedBoxSettingsScenario extends BaseScenario 
 		
 	@Override
 	protected String scenarioName() {
-		return "GetSharedBoxSettings";
+		return "GetSharedBoxSettingsEditable";
 	}
 	
 }

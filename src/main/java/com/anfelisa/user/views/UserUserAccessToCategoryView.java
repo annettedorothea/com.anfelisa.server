@@ -32,7 +32,8 @@ public class UserUserAccessToCategoryView implements IUserUserAccessToCategoryVi
 
 	public void delete(IDeleteUserData data, PersistenceHandle handle) {
 		for (String rootCategoryId : data.getRootCategoryIds()) {
-			daoProvider.getUserAccessToCategoryDao().deleteByCategoryId(handle, rootCategoryId);
+			daoProvider.getUserAccessToCategoryDao().deleteByCategoryIdAndUserId(handle, rootCategoryId,
+					data.getUserId());
 		}
 	}
 

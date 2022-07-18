@@ -302,7 +302,7 @@ models
 		String categoryId
 		Integer allCards
 		Integer allActiveCards
-		Boolean shared
+		Boolean editable
 	}
 
 	BoxSettingsWrapper {

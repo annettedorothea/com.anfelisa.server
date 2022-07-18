@@ -436,7 +436,7 @@ public abstract class AbstractGetBoxSettingsWithSortedOutCardsScenario extends B
 				"\"maxCardsPerDay\" : 10," + 
 				"\"allActiveCards\" : 1," + 
 				"\"allCards\" : 5," + 
-				"\"shared\" : false}} ",
+				"\"editable\" : true}} ",
 			com.anfelisa.box.data.BoxSettingsWrapperData.class);
 			
 			com.anfelisa.box.data.GetBoxSettingsResponse expected = new com.anfelisa.box.data.GetBoxSettingsResponse(expectedData);
