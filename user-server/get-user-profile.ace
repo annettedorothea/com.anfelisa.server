@@ -14,7 +14,8 @@ scenarios
 		response shouldBe {
 			email : "annette.pohl@anfelisa.de",
 			username : "Annette-${testId}",
-			userId : "uuid-${testId}"
+			userId : "uuid-${testId}",
+			deletable: true
 		}
 
 	GetUserProfileAdmin
@@ -27,6 +28,34 @@ scenarios
 		response shouldBe {
 			email : "annette.pohl@anfelisa.de",
 			username : "Admin",
-			userId: "uuid-admin"
+			userId: "uuid-admin",
+			deletable: true
 		}
 
+	GetUserProfileAdminWithSharedBox
+		GIVEN
+			com.anfelisa.category.inviteusertocategory.InviteUserToCategory 
+		WHEN com.anfelisa.user.GetUserProfile
+			authorization "Annette-${testId}" : "password"
+		THEN 200
+		response shouldBe {
+			email : "annette.pohl@anfelisa.de",
+			username : "Annette-${testId}",
+			userId : "uuid-${testId}",
+			deletable: false
+		}
+
+
+	GetUserProfileAdminWithSharedBoxWhenThereIsAnotherUserWithWriteAccess
+		GIVEN
+			com.anfelisa.category.inviteusertocategory.InviteUserToCategoryEditable 
+		WHEN com.anfelisa.user.GetUserProfile
+			authorization "Annette-${testId}" : "password"
+		THEN 200
+		response shouldBe {
+			email : "annette.pohl@anfelisa.de",
+			username : "Annette-${testId}",
+			userId : "uuid-${testId}",
+			deletable: true
+		}
+			

@@ -107,6 +107,45 @@ scenarios
 			cardsOfOtherUserWereNotDeleted Card filterAndCountBy (rootCategoryId:  "adminBox-${testId}") shouldBe 1
 			scheduledCardsOfOtherUserWereNotDeleted ScheduledCard filterAndCountBy (boxId: "adminBox-${testId}") shouldBe 2
 			reinforceCardsOfOtherUserWereNotDeleted ReinforceCard filterAndCountBy (boxId: "adminBox-${testId}") shouldBe 1
+
+	DeleteDoesNotDeleteUserWhenBoxIsShared
+		GIVEN
+			com.anfelisa.box.scorecard.ScoreCard0
+			com.anfelisa.user.registeruser.RegisterTwoUsers exclude GIVEN
+			com.anfelisa.category.inviteusertocategory.InviteUserToCategory exclude GIVEN 
+		WHEN com.anfelisa.user.DeleteUser {
+			usernameToBeDeleted: "Annette-${testId}"
+		}
+		authorization "Annette-${testId}" : "password"
+		THEN 400
+		persistence
+			userWasNotDeleted User selectBy(username: "Annette-${testId}") shouldBe notNull
+			boxWasNotDeleted Box selectBy(boxId: "boxId-${testId}") shouldBe notNull
+			accessToCategoryWasNotDeleted UserAccessToCategory selectByPrimaryKey( categoryId: "boxId-${testId}", userId: "uuid-${testId}") shouldBe notNull
+			noCategoriesWereDeleted Category filterAndCountBy (rootCategoryId: "boxId-${testId}") shouldBe 2
+			noCardsWereDeleted Card filterAndCountBy (rootCategoryId:  "boxId-${testId}") shouldBe 5
+			noScheduledCardsWereDeleted ScheduledCard filterAndCountBy (boxId: "boxId-${testId}") shouldBe 4
+			noReinforceCardsWereDeleted ReinforceCard filterAndCountBy (boxId: "boxId-${testId}") shouldBe 1
+
+
+	DoesNotDeleteSharedCategoriesAndCardsWhenThereIsAnotherUserWithWriteAccess
+		GIVEN
+			com.anfelisa.box.scorecard.ScoreCard0
+			com.anfelisa.user.registeruser.RegisterTwoUsers exclude GIVEN
+			com.anfelisa.category.inviteusertocategory.InviteUserToCategoryEditable exclude GIVEN 
+		WHEN com.anfelisa.user.DeleteUser {
+			usernameToBeDeleted: "Annette-${testId}"
+		}
+		authorization "Annette-${testId}" : "password"
+		THEN 200
+		persistence
+			userWasDeleted User selectBy(username: "Annette-${testId}") shouldBe null
+			boxWasDeleted Box selectBy(boxId: "boxId-${testId}") shouldBe null
+			accessToCategoryWasDeleted UserAccessToCategory selectByPrimaryKey( categoryId: "boxId-${testId}", userId: "uuid-${testId}") shouldBe null
+			allScheduledCardsWereDeleted ScheduledCard filterAndCountBy (boxId: "boxId-${testId}") shouldBe 0
+			allReinforceCardsWereDeleted ReinforceCard filterAndCountBy (boxId: "boxId-${testId}") shouldBe 0
+			noCategoriesWereDeleted Category filterAndCountBy (rootCategoryId: "boxId-${testId}") shouldBe 2
+			noCardsWereDeleted Card filterAndCountBy (rootCategoryId:  "boxId-${testId}") shouldBe 5
 			
 			
 			

@@ -50,13 +50,14 @@ ACE
 		on ok (User.confirmEmail EmailConfirmation.delete)
 		on alreadyConfirmed
 	
-	GetUserProfile<User>
+	GetUserProfile<ProfileUser>
 		GET "/user/get" 
 		authorize 
 		response
 			email
 			username
 			userId
+			deletable
 	
 	ForgotPassword<ForgotPassword>
 		POST "/users/forgot-password" 
@@ -87,11 +88,7 @@ ACE
 		queryParams 
 			NotNull usernameToBeDeleted
 		on ok ( 
-			UserScheduledCard.deleteAll 
-			UserReinforceCard.deleteAll 
 			UserRootCategory.deleteAll 
-			UserBox.deleteAll 
-			UserUserAccessToCategory.delete 
 			User.deleteUser
 		)
 	
@@ -119,26 +116,9 @@ views
 		sendRegistrationEmail(UserRegistration)
 	}
 	
-	UserBox {
-		deleteAll (DeleteUser)
-	}
-	
-	UserScheduledCard { 
-		deleteAll(DeleteUser)
-	}
-	
-	UserReinforceCard { 
-		deleteAll(DeleteUser)
-	}
-	
 	UserRootCategory {
 		deleteAll(DeleteUser)
 	}
-	
-	UserUserAccessToCategory { 
-		delete(DeleteUser)
-	}
-
 
 models 
 
@@ -174,7 +154,6 @@ models
 		String username
 		String userId
 		String role
-		List String boxIds
 		List String rootCategoryIds
 	}
 	ChangeUserRole {
@@ -211,5 +190,9 @@ models
 		String username
 		String token
 		String userId
+	}
+	
+	ProfileUser extends User {
+		Boolean deletable
 	}
 	

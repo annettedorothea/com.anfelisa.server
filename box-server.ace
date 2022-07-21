@@ -62,7 +62,10 @@ ACE
 		payload 
 			NotNull cardIds 
 			NotNull boxId
-		on ok (Box.scheduleCards)
+		on ok (
+			Box.scheduleCards
+			ReinforceCard.deleteAllOfBox
+		)
 		on nullOrEmpty
 	
 	SortCardsOut<SortCardsOut>
@@ -80,7 +83,10 @@ ACE
 		payload 
 			NotNull scheduledCardId 
 			NotNull scoredCardQuality
-		response intervalDifference
+		response 
+			intervalDifference
+			maxCardsPerDay
+			maxInterval
 		on score (ScheduledCard.score ScheduledCard.scheduleNext)
 		on reinforce (ReinforceCard.add)
 		
@@ -138,10 +144,13 @@ ACE
 			ScheduledCard.deleteAll 
 			ReinforceCard.deleteAll 
 			Box.deleteBox 
-			UserAccessToCategory.delete
 		)
 		on deleteCategory (
 			RootCategory.deleteAll 
+			UserAccessToCategory.delete
+		)
+		on deleteUserAccessToCategory (
+			UserAccessToCategory.delete
 		)
 		on deleteReverseBox (
 			Box.deleteReverseBox 
@@ -180,6 +189,7 @@ views
 		update(ScoreReinforceCard)
 		clear(InitMyBoxesData)
 		deleteAll(DeleteBox)
+		deleteAllOfBox(ScheduledCards)
 		sortOut(SortCardsOut)
 	}
 	
@@ -195,7 +205,13 @@ views
 	}
 
 models 
-	persistent Box {
+	MinimalBox {
+		String boxId
+		String categoryId
+		NotNull Boolean reverse
+	}
+	
+	persistent Box extends MinimalBox {
 		Unique PrimaryKey NotNull String boxId
 		NotNull String userId references com.anfelisa.user.User.userId
 		NotNull String categoryId references com.anfelisa.category.Category.categoryId
@@ -227,16 +243,16 @@ models
 		NotNull DateTime changeDate
 	}
 
-	BoxView {
+	BoxView extends MinimalBox {
 		Integer openTodaysCards
 		String categoryName
-		String categoryAuthor
-		String categoryId
-		String boxId
-		Boolean reverse
 		Boolean editable
-		Boolean archived
 		Boolean deletable
+		String boxId
+		String categoryId
+		Integer maxCardsPerDay
+		Boolean reverse
+		Boolean archived
 	}
 
 	BoxStatistics {
@@ -362,6 +378,8 @@ models
 		String boxId
 		
 		Integer intervalDifference
+		Integer maxInterval 
+		NotNull Integer maxCardsPerDay
 	}
 
 	ScoreReinforceCard {
