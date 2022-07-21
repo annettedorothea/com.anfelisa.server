@@ -14,25 +14,25 @@ public class BoxViewData extends AbstractBoxViewData implements IBoxViewData {
 	public BoxViewData(
 		@JsonProperty("openTodaysCards") Integer openTodaysCards, 
 		@JsonProperty("categoryName") String categoryName, 
-		@JsonProperty("categoryAuthor") String categoryAuthor, 
-		@JsonProperty("categoryId") String categoryId, 
-		@JsonProperty("boxId") String boxId, 
-		@JsonProperty("reverse") Boolean reverse, 
 		@JsonProperty("editable") Boolean editable, 
-		@JsonProperty("archived") Boolean archived, 
 		@JsonProperty("deletable") Boolean deletable, 
+		@JsonProperty("boxId") String boxId, 
+		@JsonProperty("categoryId") String categoryId, 
+		@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay, 
+		@JsonProperty("reverse") Boolean reverse, 
+		@JsonProperty("archived") Boolean archived, 
 		@JsonProperty("uuid") String uuid
 	) {
 		super(
 			openTodaysCards,
 			categoryName,
-			categoryAuthor,
-			categoryId,
-			boxId,
-			reverse,
 			editable,
-			archived,
 			deletable,
+			boxId,
+			categoryId,
+			maxCardsPerDay,
+			reverse,
+			archived,
 			uuid
 		);
 	}
@@ -49,13 +49,13 @@ public class BoxViewData extends AbstractBoxViewData implements IBoxViewData {
 		com.anfelisa.box.models.IBoxViewModel testData = new com.anfelisa.box.models.BoxViewModel();
 		testData.setOpenTodaysCards(random.nextInt(50));
 		testData.setCategoryName(randomString(random));
-		testData.setCategoryAuthor(randomString(random));
-		testData.setCategoryId(randomString(random));
-		testData.setBoxId(randomString(random));
-		testData.setReverse(random.nextBoolean());
 		testData.setEditable(random.nextBoolean());
-		testData.setArchived(random.nextBoolean());
 		testData.setDeletable(random.nextBoolean());
+		testData.setBoxId(randomString(random));
+		testData.setCategoryId(randomString(random));
+		testData.setMaxCardsPerDay(random.nextInt(50));
+		testData.setReverse(random.nextBoolean());
+		testData.setArchived(random.nextBoolean());
 		return testData;
 	}
 	

@@ -65,6 +65,12 @@ public interface IScoreCardModel {
 	Integer getIntervalDifference();
 	void setIntervalDifference(Integer intervalDifference);
 	
+	Integer getMaxInterval();
+	void setMaxInterval(Integer maxInterval);
+	
+	Integer getMaxCardsPerDay();
+	void setMaxCardsPerDay(Integer maxCardsPerDay);
+	
 	
 	IScoreCardModel deepCopy();
 }

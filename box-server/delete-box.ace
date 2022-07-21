@@ -75,7 +75,7 @@ scenarios
 		persistence
 			reverseBoxWasDeleted Box selectBy(boxId: "reverseBoxId-${testId}") shouldBe null
 			boxWasNotDeleted Box selectBy(boxId: "boxId-${testId}") shouldBe notNull
-			accessToCategoryWasDeleted UserAccessToCategory selectByPrimaryKey( categoryId: "reverseBoxId-${testId}", userId: "uuid2-${testId}") shouldBe null
+			accessToCategoryWasNotDeleted UserAccessToCategory selectByPrimaryKey( categoryId: "boxId-${testId}", userId: "uuid-${testId}") shouldBe notNull
 			categoriesWereNotDeleted Category filterAndCountBy (rootCategoryId: "boxId-${testId}") shouldBe 2
 			cardsWereNotDeleted Card filterAndCountBy (rootCategoryId:  "boxId-${testId}") shouldBe 5
 			allScheduledCardsOfOtherUserWereNotDeleted ScheduledCard filterAndCountBy (boxId: "boxId-${testId}") shouldBe 4

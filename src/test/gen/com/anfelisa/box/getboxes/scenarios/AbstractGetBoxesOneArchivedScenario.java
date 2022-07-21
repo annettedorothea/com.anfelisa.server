@@ -222,7 +222,6 @@ public abstract class AbstractGetBoxesOneArchivedScenario extends BaseScenario {
 				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"openTodaysCards\" : 0," + 
-				"\"categoryAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
 				"\"editable\" : true," + 
 				"\"reverse\" : true," + 
 				"\"archived\" : false," + 
@@ -231,7 +230,6 @@ public abstract class AbstractGetBoxesOneArchivedScenario extends BaseScenario {
 				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"openTodaysCards\" : 0," + 
-				"\"categoryAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
 				"\"editable\" : true," + 
 				"\"reverse\" : false," + 
 				"\"archived\" : true," + 

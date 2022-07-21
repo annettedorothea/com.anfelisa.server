@@ -70,6 +70,10 @@ public class AppRegistration {
 			viewProvider.boxView.scheduleCards((com.anfelisa.box.data.ScheduledCardsData) dataContainer, handle);
 		});
 		
+		viewProvider.addConsumer("com.anfelisa.box.events.ScheduleCardsOkEvent", (dataContainer, handle) -> {
+			viewProvider.reinforceCardView.deleteAllOfBox((com.anfelisa.box.data.ScheduledCardsData) dataContainer, handle);
+		});
+		
 		viewProvider.addConsumer("com.anfelisa.box.events.SortCardsOutOkEvent", (dataContainer, handle) -> {
 			viewProvider.boxView.sortCardsOut((com.anfelisa.box.data.SortCardsOutData) dataContainer, handle);
 		});
@@ -118,12 +122,16 @@ public class AppRegistration {
 			viewProvider.boxView.deleteBox((com.anfelisa.box.data.DeleteBoxData) dataContainer, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.box.events.DeleteBoxDeleteBoxEvent", (dataContainer, handle) -> {
-			viewProvider.userAccessToCategoryView.delete((com.anfelisa.box.data.DeleteBoxData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.box.events.DeleteBoxDeleteCategoryEvent", (dataContainer, handle) -> {
+			viewProvider.rootCategoryView.deleteAll((com.anfelisa.box.data.DeleteBoxData) dataContainer, handle);
 		});
 		
 		viewProvider.addConsumer("com.anfelisa.box.events.DeleteBoxDeleteCategoryEvent", (dataContainer, handle) -> {
-			viewProvider.rootCategoryView.deleteAll((com.anfelisa.box.data.DeleteBoxData) dataContainer, handle);
+			viewProvider.userAccessToCategoryView.delete((com.anfelisa.box.data.DeleteBoxData) dataContainer, handle);
+		});
+		
+		viewProvider.addConsumer("com.anfelisa.box.events.DeleteBoxDeleteUserAccessToCategoryEvent", (dataContainer, handle) -> {
+			viewProvider.userAccessToCategoryView.delete((com.anfelisa.box.data.DeleteBoxData) dataContainer, handle);
 		});
 		
 		viewProvider.addConsumer("com.anfelisa.box.events.DeleteBoxDeleteReverseBoxEvent", (dataContainer, handle) -> {

@@ -28,8 +28,6 @@ public class DeleteUserModel implements IDeleteUserModel {
 
 	private String role;
 
-	private java.util.List<String> boxIds;
-
 	private java.util.List<String> rootCategoryIds;
 
 
@@ -41,14 +39,12 @@ public class DeleteUserModel implements IDeleteUserModel {
 		@JsonProperty("username") String username,
 		@JsonProperty("userId") String userId,
 		@JsonProperty("role") String role,
-		@JsonProperty("boxIds") java.util.List<String> boxIds,
 		@JsonProperty("rootCategoryIds") java.util.List<String> rootCategoryIds
 	) {
 		this.usernameToBeDeleted = usernameToBeDeleted;
 		this.username = username;
 		this.userId = userId;
 		this.role = role;
-		this.boxIds = boxIds;
 		this.rootCategoryIds = rootCategoryIds;
 	}
 
@@ -85,14 +81,6 @@ public class DeleteUserModel implements IDeleteUserModel {
 	}
 	
 	@JsonProperty
-	public java.util.List<String> getBoxIds() {
-		return this.boxIds;
-	}
-	public void setBoxIds(java.util.List<String> boxIds) {
-		this.boxIds = boxIds;
-	}
-	
-	@JsonProperty
 	public java.util.List<String> getRootCategoryIds() {
 		return this.rootCategoryIds;
 	}
@@ -107,13 +95,6 @@ public class DeleteUserModel implements IDeleteUserModel {
 		copy.setUsername(this.getUsername());
 		copy.setUserId(this.getUserId());
 		copy.setRole(this.getRole());
-		List<String> boxIdsCopy = new ArrayList<String>();
-		if (this.getBoxIds() != null) {
-			for(String item: this.getBoxIds()) {
-				boxIdsCopy.add(item);
-			}
-		}
-		copy.setBoxIds(boxIdsCopy);
 		List<String> rootCategoryIdsCopy = new ArrayList<String>();
 		if (this.getRootCategoryIds() != null) {
 			for(String item: this.getRootCategoryIds()) {

@@ -22,19 +22,19 @@ public interface IBoxWithStatisticsData extends IBoxWithStatisticsModel, IDataCo
 	
 	IBoxWithStatisticsData withCategoryName(String categoryName);
 	
-	IBoxWithStatisticsData withCategoryAuthor(String categoryAuthor);
+	IBoxWithStatisticsData withEditable(Boolean editable);
 	
-	IBoxWithStatisticsData withCategoryId(String categoryId);
+	IBoxWithStatisticsData withDeletable(Boolean deletable);
 	
 	IBoxWithStatisticsData withBoxId(String boxId);
 	
+	IBoxWithStatisticsData withCategoryId(String categoryId);
+	
+	IBoxWithStatisticsData withMaxCardsPerDay(Integer maxCardsPerDay);
+	
 	IBoxWithStatisticsData withReverse(Boolean reverse);
 	
-	IBoxWithStatisticsData withEditable(Boolean editable);
-	
 	IBoxWithStatisticsData withArchived(Boolean archived);
-	
-	IBoxWithStatisticsData withDeletable(Boolean deletable);
 	
 	IBoxWithStatisticsData withQuality0Count(Integer quality0Count);
 	
@@ -49,8 +49,6 @@ public interface IBoxWithStatisticsData extends IBoxWithStatisticsModel, IDataCo
 	IBoxWithStatisticsData withQuality5Count(Integer quality5Count);
 	
 	IBoxWithStatisticsData withCountsPerDayNextWeek(java.util.List<Integer> countsPerDayNextWeek);
-	
-	IBoxWithStatisticsData withMaxCardsPerDay(Integer maxCardsPerDay);
 	
 	
 	IBoxWithStatisticsData deepCopy();

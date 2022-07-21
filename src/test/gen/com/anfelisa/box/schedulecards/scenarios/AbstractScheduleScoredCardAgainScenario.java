@@ -434,7 +434,7 @@ public abstract class AbstractScheduleScoredCardAgainScenario extends BaseScenar
 				HttpResponse<Object> response_0 = when_0();
 				then_0(response_0);
 				this.scoredCardWasScheduledForToday();
-				this.reinforceCardWasNotChanged();
+				this.reinforceCardWasDeleted();
 				this.anotherScheduledCardWasNotCreated();
 				
 		
@@ -467,18 +467,12 @@ public abstract class AbstractScheduleScoredCardAgainScenario extends BaseScenar
 	
 		LOG.info("THEN: scoredCardWasScheduledForToday passed");
 	}
-	private void reinforceCardWasNotChanged() throws Exception {
+	private void reinforceCardWasDeleted() throws Exception {
 		com.anfelisa.box.models.IReinforceCardModel actual = daoProvider.getReinforceCardDao().selectByReinforceCardId(handle, "score0-" + this.getTestId() + "");
 		
-		com.anfelisa.box.models.IReinforceCardModel expected = objectMapper.readValue("{" +
-			"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
-			"\"changeDate\" : \"2020-04-18T16:30\"," + 
-			"\"reinforceCardId\" : \"score0-" + this.getTestId() + "\"," + 
-			"\"scheduledCardId\" : \"c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
-		com.anfelisa.box.models.ReinforceCardModel.class);
-		assertThat(actual, expected);
+		assertIsNull(actual);
 	
-		LOG.info("THEN: reinforceCardWasNotChanged passed");
+		LOG.info("THEN: reinforceCardWasDeleted passed");
 	}
 	private void anotherScheduledCardWasNotCreated() throws Exception {
 		com.anfelisa.box.models.IScheduledCardModel actual = daoProvider.getScheduledCardDao().selectByScheduledCardId(handle, "again-" + this.getTestId() + "");

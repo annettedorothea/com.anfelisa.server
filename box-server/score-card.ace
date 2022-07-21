@@ -16,6 +16,11 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		response shouldBe {
+			intervalDifference: 0,
+			maxCardsPerDay: 10,
+			maxInterval: null
+		}
 		persistence
 			cardWasScored ScheduledCard selectBy (scheduledCardId: "c1-${testId}-sc1-${testId}") shouldBe 
 			{
@@ -68,6 +73,11 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		response shouldBe {
+			intervalDifference: 0,
+			maxCardsPerDay: 10,
+			maxInterval: null
+		}
 		persistence
 			cardWasScored ScheduledCard selectBy (scheduledCardId: "c3-${testId}-sc1-${testId}") shouldBe 
 			{
@@ -120,6 +130,11 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		response shouldBe {
+			intervalDifference: 0,
+			maxCardsPerDay: 10,
+			maxInterval: null
+		}
 		persistence
 			cardWasScored ScheduledCard selectBy (scheduledCardId: "c1-${testId}-sc1-${testId}") shouldBe 
 			{
@@ -172,6 +187,11 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		response shouldBe {
+			intervalDifference: 0,
+			maxCardsPerDay: 10,
+			maxInterval: null
+		}
 		persistence
 			cardWasScored ScheduledCard selectBy (scheduledCardId: "c1-${testId}-sc1-${testId}") shouldBe 
 			{
@@ -224,6 +244,11 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		response shouldBe {
+			intervalDifference: 0,
+			maxCardsPerDay: 10,
+			maxInterval: null
+		}
 		persistence
 			cardWasScored ScheduledCard selectBy (scheduledCardId: "c1-${testId}-sc1-${testId}") shouldBe 
 			{
@@ -270,6 +295,11 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		response shouldBe {
+			intervalDifference: 0,
+			maxCardsPerDay: 10,
+			maxInterval: null
+		}
 		persistence
 			cardWasScored ScheduledCard selectBy (scheduledCardId: "c4-${testId}-sc1-${testId}") shouldBe 
 			{
@@ -316,6 +346,11 @@ scenarios
 				}
 				authorization "Admin" : "admin-password"
 		THEN 200
+		response shouldBe {
+			intervalDifference: 0,
+			maxCardsPerDay: 10,
+			maxInterval: null
+		}
 
 	ScoreCardCardDoesNotExist
 		GIVEN

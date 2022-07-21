@@ -231,7 +231,6 @@ public abstract class AbstractGetBoxesSharedBoxOfOtherUserScenario extends BaseS
 				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"openTodaysCards\" : 0," + 
-				"\"categoryAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
 				"\"editable\" : false," + 
 				"\"reverse\" : false," + 
 				"\"archived\" : false," + 

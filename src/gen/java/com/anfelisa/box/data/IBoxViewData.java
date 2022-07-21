@@ -15,24 +15,25 @@ import com.anfelisa.box.models.IBoxViewModel;
 
 @JsonDeserialize(as=BoxViewData.class)
 public interface IBoxViewData extends IBoxViewModel, IDataContainer {
+	void mapFrom(com.anfelisa.box.models.IMinimalBoxModel model);
 	
 	IBoxViewData withOpenTodaysCards(Integer openTodaysCards);
 	
 	IBoxViewData withCategoryName(String categoryName);
 	
-	IBoxViewData withCategoryAuthor(String categoryAuthor);
+	IBoxViewData withEditable(Boolean editable);
 	
-	IBoxViewData withCategoryId(String categoryId);
+	IBoxViewData withDeletable(Boolean deletable);
 	
 	IBoxViewData withBoxId(String boxId);
 	
+	IBoxViewData withCategoryId(String categoryId);
+	
+	IBoxViewData withMaxCardsPerDay(Integer maxCardsPerDay);
+	
 	IBoxViewData withReverse(Boolean reverse);
 	
-	IBoxViewData withEditable(Boolean editable);
-	
 	IBoxViewData withArchived(Boolean archived);
-	
-	IBoxViewData withDeletable(Boolean deletable);
 	
 	
 	IBoxViewData deepCopy();

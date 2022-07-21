@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import com.anfelisa.box.models.IBoxViewModel;
+import com.anfelisa.box.models.IMinimalBoxModel;
 
 import de.acegen.AbstractData;
 import de.acegen.IDataContainer;
@@ -32,43 +33,43 @@ public abstract class AbstractBoxViewData extends AbstractData implements IBoxVi
 	
 	private String categoryName;
 	
-	private String categoryAuthor;
+	private Boolean editable = false;
 	
-	private String categoryId;
+	private Boolean deletable = false;
 	
 	private String boxId;
 	
+	private String categoryId;
+	
+	private Integer maxCardsPerDay;
+	
 	private Boolean reverse = false;
 	
-	private Boolean editable = false;
-	
 	private Boolean archived = false;
-	
-	private Boolean deletable = false;
 	
 
 	public AbstractBoxViewData(
 		@JsonProperty("openTodaysCards") Integer openTodaysCards,
 		@JsonProperty("categoryName") String categoryName,
-		@JsonProperty("categoryAuthor") String categoryAuthor,
-		@JsonProperty("categoryId") String categoryId,
-		@JsonProperty("boxId") String boxId,
-		@JsonProperty("reverse") Boolean reverse,
 		@JsonProperty("editable") Boolean editable,
-		@JsonProperty("archived") Boolean archived,
-		@JsonProperty("deletable") Boolean deletable
+		@JsonProperty("deletable") Boolean deletable,
+		@JsonProperty("boxId") String boxId,
+		@JsonProperty("categoryId") String categoryId,
+		@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay,
+		@JsonProperty("reverse") Boolean reverse,
+		@JsonProperty("archived") Boolean archived
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
 		this.openTodaysCards = openTodaysCards;
 		this.categoryName = categoryName;
-		this.categoryAuthor = categoryAuthor;
-		this.categoryId = categoryId;
-		this.boxId = boxId;
-		this.reverse = reverse;
 		this.editable = editable;
-		this.archived = archived;
 		this.deletable = deletable;
+		this.boxId = boxId;
+		this.categoryId = categoryId;
+		this.maxCardsPerDay = maxCardsPerDay;
+		this.reverse = reverse;
+		this.archived = archived;
 	}
 
 	public AbstractBoxViewData( String uuid ) {
@@ -100,26 +101,26 @@ public abstract class AbstractBoxViewData extends AbstractData implements IBoxVi
 	}
 	
 	@JsonProperty
-	public String getCategoryAuthor() {
-		return this.categoryAuthor;
+	public Boolean getEditable() {
+		return this.editable;
 	}
-	public void setCategoryAuthor(String categoryAuthor) {
-		this.categoryAuthor = categoryAuthor;
+	public void setEditable(Boolean editable) {
+		this.editable = editable;
 	}
-	public IBoxViewData withCategoryAuthor(String categoryAuthor) {
-		this.categoryAuthor = categoryAuthor;
+	public IBoxViewData withEditable(Boolean editable) {
+		this.editable = editable;
 		return this;
 	}
 	
 	@JsonProperty
-	public String getCategoryId() {
-		return this.categoryId;
+	public Boolean getDeletable() {
+		return this.deletable;
 	}
-	public void setCategoryId(String categoryId) {
-		this.categoryId = categoryId;
+	public void setDeletable(Boolean deletable) {
+		this.deletable = deletable;
 	}
-	public IBoxViewData withCategoryId(String categoryId) {
-		this.categoryId = categoryId;
+	public IBoxViewData withDeletable(Boolean deletable) {
+		this.deletable = deletable;
 		return this;
 	}
 	
@@ -136,6 +137,30 @@ public abstract class AbstractBoxViewData extends AbstractData implements IBoxVi
 	}
 	
 	@JsonProperty
+	public String getCategoryId() {
+		return this.categoryId;
+	}
+	public void setCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+	}
+	public IBoxViewData withCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+		return this;
+	}
+	
+	@JsonProperty
+	public Integer getMaxCardsPerDay() {
+		return this.maxCardsPerDay;
+	}
+	public void setMaxCardsPerDay(Integer maxCardsPerDay) {
+		this.maxCardsPerDay = maxCardsPerDay;
+	}
+	public IBoxViewData withMaxCardsPerDay(Integer maxCardsPerDay) {
+		this.maxCardsPerDay = maxCardsPerDay;
+		return this;
+	}
+	
+	@JsonProperty
 	public Boolean getReverse() {
 		return this.reverse;
 	}
@@ -144,18 +169,6 @@ public abstract class AbstractBoxViewData extends AbstractData implements IBoxVi
 	}
 	public IBoxViewData withReverse(Boolean reverse) {
 		this.reverse = reverse;
-		return this;
-	}
-	
-	@JsonProperty
-	public Boolean getEditable() {
-		return this.editable;
-	}
-	public void setEditable(Boolean editable) {
-		this.editable = editable;
-	}
-	public IBoxViewData withEditable(Boolean editable) {
-		this.editable = editable;
 		return this;
 	}
 	
@@ -171,31 +184,24 @@ public abstract class AbstractBoxViewData extends AbstractData implements IBoxVi
 		return this;
 	}
 	
-	@JsonProperty
-	public Boolean getDeletable() {
-		return this.deletable;
-	}
-	public void setDeletable(Boolean deletable) {
-		this.deletable = deletable;
-	}
-	public IBoxViewData withDeletable(Boolean deletable) {
-		this.deletable = deletable;
-		return this;
-	}
 	
-	
+	public void mapFrom(com.anfelisa.box.models.IMinimalBoxModel model) {
+		this.boxId = model.getBoxId();
+		this.categoryId = model.getCategoryId();
+		this.reverse = model.getReverse();
+	}
 	
 	public IBoxViewData deepCopy() {
 		IBoxViewData copy = new BoxViewData(this.getUuid());
 		copy.setOpenTodaysCards(this.getOpenTodaysCards());
 		copy.setCategoryName(this.getCategoryName());
-		copy.setCategoryAuthor(this.getCategoryAuthor());
-		copy.setCategoryId(this.getCategoryId());
-		copy.setBoxId(this.getBoxId());
-		copy.setReverse(this.getReverse());
 		copy.setEditable(this.getEditable());
-		copy.setArchived(this.getArchived());
 		copy.setDeletable(this.getDeletable());
+		copy.setBoxId(this.getBoxId());
+		copy.setCategoryId(this.getCategoryId());
+		copy.setMaxCardsPerDay(this.getMaxCardsPerDay());
+		copy.setReverse(this.getReverse());
+		copy.setArchived(this.getArchived());
 		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}

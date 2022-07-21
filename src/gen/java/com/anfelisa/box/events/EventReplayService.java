@@ -131,6 +131,13 @@ public class EventReplayService {
 				event.notifyListeners(data, handle);
 				event.notifyAfterCommitListeners(data, handle);
 			}
+			if (eventClass.equals("com.anfelisa.box.events.DeleteBoxDeleteUserAccessToCategoryEvent")) {
+				DeleteBoxData data = mapper.readValue(json, DeleteBoxData.class);
+				data.migrateLegacyData(json);
+				Event event = new Event<DeleteBoxData>("com.anfelisa.box.events.DeleteBoxDeleteUserAccessToCategoryEvent", viewProvider);
+				event.notifyListeners(data, handle);
+				event.notifyAfterCommitListeners(data, handle);
+			}
 			if (eventClass.equals("com.anfelisa.box.events.DeleteBoxDeleteReverseBoxEvent")) {
 				DeleteBoxData data = mapper.readValue(json, DeleteBoxData.class);
 				data.migrateLegacyData(json);

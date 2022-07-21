@@ -15,6 +15,7 @@ import com.anfelisa.box.data.IScoreReinforceCardData;
 import com.anfelisa.box.data.IScoreReinforceCardData;
 import com.anfelisa.box.data.IInitMyBoxesDataData;
 import com.anfelisa.box.data.IDeleteBoxData;
+import com.anfelisa.box.data.IScheduledCardsData;
 import com.anfelisa.box.data.ISortCardsOutData;
 
 @SuppressWarnings("all")
@@ -25,6 +26,7 @@ public interface IReinforceCardView {
 	void update(IScoreReinforceCardData data, PersistenceHandle handle);
 	void clear(IInitMyBoxesDataData data, PersistenceHandle handle);
 	void deleteAll(IDeleteBoxData data, PersistenceHandle handle);
+	void deleteAllOfBox(IScheduledCardsData data, PersistenceHandle handle);
 	void sortOut(ISortCardsOutData data, PersistenceHandle handle);
 
 }

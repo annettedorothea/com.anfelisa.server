@@ -20,13 +20,13 @@ public class BoxViewMapper extends AbstractMapper<IBoxViewModel> {
 		return new BoxViewModel(
 			this.mapToInteger(r, "openTodaysCards"),
 			this.mapToString(r, "categoryName"),
-			this.mapToString(r, "categoryAuthor"),
-			this.mapToString(r, "categoryId"),
-			this.mapToString(r, "boxId"),
-			this.mapToBoolean(r, "reverse"),
 			this.mapToBoolean(r, "editable"),
-			this.mapToBoolean(r, "archived"),
-			this.mapToBoolean(r, "deletable")
+			this.mapToBoolean(r, "deletable"),
+			this.mapToString(r, "boxId"),
+			this.mapToString(r, "categoryId"),
+			this.mapToInteger(r, "maxCardsPerDay"),
+			this.mapToBoolean(r, "reverse"),
+			this.mapToBoolean(r, "archived")
 		);
 	}
 }

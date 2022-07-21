@@ -24,11 +24,11 @@ import de.acegen.ReadAction;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 
-import com.anfelisa.user.data.IUserData;
-import com.anfelisa.user.data.UserData;
+import com.anfelisa.user.data.IProfileUserData;
+import com.anfelisa.user.data.ProfileUserData;
 
 @SuppressWarnings("unused")
-public abstract class AbstractGetUserProfileAction extends ReadAction<IUserData> {
+public abstract class AbstractGetUserProfileAction extends ReadAction<IProfileUserData> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractGetUserProfileAction.class);
 	
@@ -37,10 +37,10 @@ public abstract class AbstractGetUserProfileAction extends ReadAction<IUserData>
 		super("com.anfelisa.user.actions.GetUserProfileAction", persistenceConnection, appConfiguration, daoProvider, viewProvider);
 	}
 
-	protected abstract IUserData loadDataForGetRequest(IUserData data, PersistenceHandle readonlyHandle);
+	protected abstract IProfileUserData loadDataForGetRequest(IProfileUserData data, PersistenceHandle readonlyHandle);
 
 	@Override
-	protected IUserData initActionDataFromSquishyDataProvider(IUserData data) {
+	protected IProfileUserData initActionDataFromSquishyDataProvider(IProfileUserData data) {
 		LocalDateTime systemTime = SquishyDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
 			data.setSystemTime(systemTime);
@@ -48,7 +48,7 @@ public abstract class AbstractGetUserProfileAction extends ReadAction<IUserData>
 		return data;
 	}
 
-	public IUserData initActionData(IUserData data) {
+	public IProfileUserData initActionData(IProfileUserData data) {
 		return data;
 	}
 

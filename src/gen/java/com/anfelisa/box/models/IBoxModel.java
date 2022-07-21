@@ -12,7 +12,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @SuppressWarnings("unused")
 @JsonDeserialize(as=BoxModel.class)
-public interface IBoxModel {
+public interface IBoxModel extends com.anfelisa.box.models.IMinimalBoxModel{
 
 	String getBoxId();
 	void setBoxId(String boxId);

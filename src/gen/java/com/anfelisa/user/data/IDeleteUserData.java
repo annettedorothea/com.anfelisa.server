@@ -24,8 +24,6 @@ public interface IDeleteUserData extends IDeleteUserModel, IDataContainer {
 	
 	IDeleteUserData withRole(String role);
 	
-	IDeleteUserData withBoxIds(java.util.List<String> boxIds);
-	
 	IDeleteUserData withRootCategoryIds(java.util.List<String> rootCategoryIds);
 	
 	

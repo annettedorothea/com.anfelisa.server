@@ -62,6 +62,10 @@ public abstract class AbstractScoreCardData extends AbstractData implements ISco
 	
 	private Integer intervalDifference;
 	
+	private Integer maxInterval;
+	
+	private Integer maxCardsPerDay;
+	
 
 	public AbstractScoreCardData(
 		@JsonProperty("cardId") String cardId,
@@ -80,7 +84,9 @@ public abstract class AbstractScoreCardData extends AbstractData implements ISco
 		@JsonProperty("reinforceCardCreatedDate") java.time.LocalDateTime reinforceCardCreatedDate,
 		@JsonProperty("userId") String userId,
 		@JsonProperty("boxId") String boxId,
-		@JsonProperty("intervalDifference") Integer intervalDifference
+		@JsonProperty("intervalDifference") Integer intervalDifference,
+		@JsonProperty("maxInterval") Integer maxInterval,
+		@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
@@ -101,6 +107,8 @@ public abstract class AbstractScoreCardData extends AbstractData implements ISco
 		this.userId = userId;
 		this.boxId = boxId;
 		this.intervalDifference = intervalDifference;
+		this.maxInterval = maxInterval;
+		this.maxCardsPerDay = maxCardsPerDay;
 	}
 
 	public AbstractScoreCardData( String uuid ) {
@@ -319,6 +327,30 @@ public abstract class AbstractScoreCardData extends AbstractData implements ISco
 		return this;
 	}
 	
+	@JsonProperty
+	public Integer getMaxInterval() {
+		return this.maxInterval;
+	}
+	public void setMaxInterval(Integer maxInterval) {
+		this.maxInterval = maxInterval;
+	}
+	public IScoreCardData withMaxInterval(Integer maxInterval) {
+		this.maxInterval = maxInterval;
+		return this;
+	}
+	
+	@JsonProperty
+	public Integer getMaxCardsPerDay() {
+		return this.maxCardsPerDay;
+	}
+	public void setMaxCardsPerDay(Integer maxCardsPerDay) {
+		this.maxCardsPerDay = maxCardsPerDay;
+	}
+	public IScoreCardData withMaxCardsPerDay(Integer maxCardsPerDay) {
+		this.maxCardsPerDay = maxCardsPerDay;
+		return this;
+	}
+	
 	
 	
 	public IScoreCardData deepCopy() {
@@ -340,6 +372,8 @@ public abstract class AbstractScoreCardData extends AbstractData implements ISco
 		copy.setUserId(this.getUserId());
 		copy.setBoxId(this.getBoxId());
 		copy.setIntervalDifference(this.getIntervalDifference());
+		copy.setMaxInterval(this.getMaxInterval());
+		copy.setMaxCardsPerDay(this.getMaxCardsPerDay());
 		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}

@@ -2,6 +2,7 @@ package com.anfelisa.box.views;
 
 import com.anfelisa.box.data.IDeleteBoxData;
 import com.anfelisa.box.data.IInitMyBoxesDataData;
+import com.anfelisa.box.data.IScheduledCardsData;
 import com.anfelisa.box.data.IScoreCardData;
 import com.anfelisa.box.data.IScoreReinforceCardData;
 import com.anfelisa.box.data.ISortCardsOutData;
@@ -47,6 +48,11 @@ public class ReinforceCardView implements IReinforceCardView {
 		for (String reinforceCardId : data.getSortedOutReinforceCardIds()) {
 			daoProvider.getReinforceCardDao().deleteByReinforceCardId(handle, reinforceCardId);
 		}
+	}
+
+	@Override
+	public void deleteAllOfBox(IScheduledCardsData data, PersistenceHandle handle) {
+		daoProvider.getReinforceCardDao().deleteByBoxId(handle, data.getBoxId());
 	}
 
 }

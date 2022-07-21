@@ -458,7 +458,7 @@ public abstract class AbstractDeleteReverseBoxScenario extends BaseScenario {
 				then_0(response_0);
 				this.reverseBoxWasDeleted();
 				this.boxWasNotDeleted();
-				this.accessToCategoryWasDeleted();
+				this.accessToCategoryWasNotDeleted();
 				this.categoriesWereNotDeleted();
 				this.cardsWereNotDeleted();
 				this.allScheduledCardsOfOtherUserWereNotDeleted();
@@ -487,12 +487,12 @@ public abstract class AbstractDeleteReverseBoxScenario extends BaseScenario {
 	
 		LOG.info("THEN: boxWasNotDeleted passed");
 	}
-	private void accessToCategoryWasDeleted() throws Exception {
-		com.anfelisa.category.models.IUserAccessToCategoryModel actual = daoProvider.getUserAccessToCategoryDao().selectByPrimaryKey(handle, "reverseBoxId-" + this.getTestId() + "", "uuid2-" + this.getTestId() + "");
+	private void accessToCategoryWasNotDeleted() throws Exception {
+		com.anfelisa.category.models.IUserAccessToCategoryModel actual = daoProvider.getUserAccessToCategoryDao().selectByPrimaryKey(handle, "boxId-" + this.getTestId() + "", "uuid-" + this.getTestId() + "");
 		
-		assertIsNull(actual);
+		assertIsNotNull(actual);
 	
-		LOG.info("THEN: accessToCategoryWasDeleted passed");
+		LOG.info("THEN: accessToCategoryWasNotDeleted passed");
 	}
 	private void categoriesWereNotDeleted() throws Exception {
 		Map<String, String> filterMap = new HashMap<String, String>();

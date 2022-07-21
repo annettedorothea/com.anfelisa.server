@@ -20,21 +20,20 @@ public class BoxWithStatisticsMapper extends AbstractMapper<IBoxWithStatisticsMo
 		return new BoxWithStatisticsModel(
 			this.mapToInteger(r, "openTodaysCards"),
 			this.mapToString(r, "categoryName"),
-			this.mapToString(r, "categoryAuthor"),
-			this.mapToString(r, "categoryId"),
-			this.mapToString(r, "boxId"),
-			this.mapToBoolean(r, "reverse"),
 			this.mapToBoolean(r, "editable"),
-			this.mapToBoolean(r, "archived"),
 			this.mapToBoolean(r, "deletable"),
+			this.mapToString(r, "boxId"),
+			this.mapToString(r, "categoryId"),
+			this.mapToInteger(r, "maxCardsPerDay"),
+			this.mapToBoolean(r, "reverse"),
+			this.mapToBoolean(r, "archived"),
 			this.mapToInteger(r, "quality0Count"),
 			this.mapToInteger(r, "quality1Count"),
 			this.mapToInteger(r, "quality2Count"),
 			this.mapToInteger(r, "quality3Count"),
 			this.mapToInteger(r, "quality4Count"),
 			this.mapToInteger(r, "quality5Count"),
-			null,
-			this.mapToInteger(r, "maxCardsPerDay")
+			null
 		);
 	}
 }

@@ -4,10 +4,14 @@
 
 package com.anfelisa.user.actions;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.user.data.IUserData;
+import com.anfelisa.box.models.IBoxModel;
+import com.anfelisa.box.utils.Deletable;
+import com.anfelisa.user.data.IProfileUserData;
 import com.anfelisa.user.models.IUserModel;
 
 import de.acegen.CustomAppConfiguration;
@@ -27,12 +31,20 @@ public class GetUserProfileAction extends AbstractGetUserProfileAction {
 	}
 
 	@Override
-	protected IUserData loadDataForGetRequest(IUserData data, PersistenceHandle readonlyHandle) {
+	protected IProfileUserData loadDataForGetRequest(IProfileUserData data, PersistenceHandle readonlyHandle) {
 		IUserModel user = daoProvider.getUserDao().selectByUsername(readonlyHandle, data.getUsername());
 		data.setEmail(user.getEmail());
 		data.setEmailConfirmed(user.getEmailConfirmed());
+		List<IBoxModel> boxesOfUser = daoProvider.getBoxDao().selectAllOfUser(readonlyHandle, data.getUserId());
+		data.setDeletable(true);
+		for (IBoxModel box : boxesOfUser) {
+			if (!Deletable.isBoxDeletable(daoProvider, readonlyHandle, box, data.getUserId())) {
+				data.setDeletable(false);
+			}
+		}
 		return data;
 	}
+
 
 }
 

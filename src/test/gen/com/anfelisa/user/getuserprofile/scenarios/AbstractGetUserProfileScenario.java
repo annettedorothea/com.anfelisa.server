@@ -112,9 +112,9 @@ public abstract class AbstractGetUserProfileScenario extends BaseScenario {
 	
 	private HttpResponse<com.anfelisa.user.data.GetUserProfileResponse> when_0() throws Exception {
 		String uuid = this.randomUUID();
-		com.anfelisa.user.data.UserData data_0 = objectMapper.readValue("{" +
+		com.anfelisa.user.data.ProfileUserData data_0 = objectMapper.readValue("{" +
 		"\"uuid\" : \"" + uuid + "\" }",
-		com.anfelisa.user.data.UserData.class);
+		com.anfelisa.user.data.ProfileUserData.class);
 		HttpResponse<com.anfelisa.user.data.GetUserProfileResponse> response = 
 		this.httpGet(
 			"/user/get", 
@@ -156,12 +156,13 @@ public abstract class AbstractGetUserProfileScenario extends BaseScenario {
 				assertFail(x.getMessage());
 			}
 	
-			com.anfelisa.user.data.UserData expectedData = objectMapper.readValue("{" +
+			com.anfelisa.user.data.ProfileUserData expectedData = objectMapper.readValue("{" +
 				"\"uuid\" : \"\"," + 
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
 				"\"username\" : \"Annette-" + this.getTestId() + "\"," + 
-				"\"userId\" : \"uuid-" + this.getTestId() + "\"} ",
-			com.anfelisa.user.data.UserData.class);
+				"\"userId\" : \"uuid-" + this.getTestId() + "\"," + 
+				"\"deletable\" : true} ",
+			com.anfelisa.user.data.ProfileUserData.class);
 			
 			com.anfelisa.user.data.GetUserProfileResponse expected = new com.anfelisa.user.data.GetUserProfileResponse(expectedData);
 			

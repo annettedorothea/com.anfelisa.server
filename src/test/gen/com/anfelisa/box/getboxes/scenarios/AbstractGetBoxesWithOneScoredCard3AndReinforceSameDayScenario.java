@@ -432,7 +432,6 @@ public abstract class AbstractGetBoxesWithOneScoredCard3AndReinforceSameDayScena
 				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"openTodaysCards\" : 3," + 
-				"\"categoryAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
 				"\"editable\" : true," + 
 				"\"reverse\" : false," + 
 				"\"archived\" : false," + 

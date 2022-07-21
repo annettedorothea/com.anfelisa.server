@@ -28,13 +28,16 @@ public class GetUserProfileResponse implements IGetUserProfileResponse {
 	
 	private String userId;
 	
+	private Boolean deletable = false;
+	
 	public GetUserProfileResponse() {
 	}
 	
-	public GetUserProfileResponse(com.anfelisa.user.models.IUserModel data) {
+	public GetUserProfileResponse(com.anfelisa.user.models.IProfileUserModel data) {
 		email = data.getEmail();
 		username = data.getUsername();
 		userId = data.getUserId();
+		deletable = data.getDeletable();
 	}
 	
 	@JsonProperty
@@ -50,6 +53,11 @@ public class GetUserProfileResponse implements IGetUserProfileResponse {
 	@JsonProperty
 	public String getUserId() {
 		return this.userId;
+	}
+	
+	@JsonProperty
+	public Boolean getDeletable() {
+		return this.deletable;
 	}
 	
 }

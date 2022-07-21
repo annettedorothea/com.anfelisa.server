@@ -12,7 +12,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @SuppressWarnings("unused")
 @JsonDeserialize(as=BoxViewModel.class)
-public interface IBoxViewModel {
+public interface IBoxViewModel extends com.anfelisa.box.models.IMinimalBoxModel{
 
 	Integer getOpenTodaysCards();
 	void setOpenTodaysCards(Integer openTodaysCards);
@@ -20,26 +20,26 @@ public interface IBoxViewModel {
 	String getCategoryName();
 	void setCategoryName(String categoryName);
 	
-	String getCategoryAuthor();
-	void setCategoryAuthor(String categoryAuthor);
+	Boolean getEditable();
+	void setEditable(Boolean editable);
 	
-	String getCategoryId();
-	void setCategoryId(String categoryId);
+	Boolean getDeletable();
+	void setDeletable(Boolean deletable);
 	
 	String getBoxId();
 	void setBoxId(String boxId);
 	
+	String getCategoryId();
+	void setCategoryId(String categoryId);
+	
+	Integer getMaxCardsPerDay();
+	void setMaxCardsPerDay(Integer maxCardsPerDay);
+	
 	Boolean getReverse();
 	void setReverse(Boolean reverse);
 	
-	Boolean getEditable();
-	void setEditable(Boolean editable);
-	
 	Boolean getArchived();
 	void setArchived(Boolean archived);
-	
-	Boolean getDeletable();
-	void setDeletable(Boolean deletable);
 	
 	
 	IBoxViewModel deepCopy();

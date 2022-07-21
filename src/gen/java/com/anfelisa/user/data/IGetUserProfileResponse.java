@@ -14,6 +14,8 @@ public interface IGetUserProfileResponse {
 	
 	String getUserId();
 	
+	Boolean getDeletable();
+	
 
 }
 

@@ -15,6 +15,7 @@ import com.anfelisa.box.models.IBoxModel;
 
 @JsonDeserialize(as=BoxData.class)
 public interface IBoxData extends IBoxModel, IDataContainer {
+	void mapFrom(com.anfelisa.box.models.IMinimalBoxModel model);
 	
 	IBoxData withBoxId(String boxId);
 	

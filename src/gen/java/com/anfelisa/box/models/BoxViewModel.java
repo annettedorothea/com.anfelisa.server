@@ -24,19 +24,19 @@ public class BoxViewModel implements IBoxViewModel {
 
 	private String categoryName;
 
-	private String categoryAuthor;
+	private Boolean editable = false;
 
-	private String categoryId;
+	private Boolean deletable = false;
 
 	private String boxId;
 
+	private String categoryId;
+
+	private Integer maxCardsPerDay;
+
 	private Boolean reverse = false;
 
-	private Boolean editable = false;
-
 	private Boolean archived = false;
-
-	private Boolean deletable = false;
 
 
 	public BoxViewModel() {
@@ -45,23 +45,23 @@ public class BoxViewModel implements IBoxViewModel {
 	public BoxViewModel(
 		@JsonProperty("openTodaysCards") Integer openTodaysCards,
 		@JsonProperty("categoryName") String categoryName,
-		@JsonProperty("categoryAuthor") String categoryAuthor,
-		@JsonProperty("categoryId") String categoryId,
-		@JsonProperty("boxId") String boxId,
-		@JsonProperty("reverse") Boolean reverse,
 		@JsonProperty("editable") Boolean editable,
-		@JsonProperty("archived") Boolean archived,
-		@JsonProperty("deletable") Boolean deletable
+		@JsonProperty("deletable") Boolean deletable,
+		@JsonProperty("boxId") String boxId,
+		@JsonProperty("categoryId") String categoryId,
+		@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay,
+		@JsonProperty("reverse") Boolean reverse,
+		@JsonProperty("archived") Boolean archived
 	) {
 		this.openTodaysCards = openTodaysCards;
 		this.categoryName = categoryName;
-		this.categoryAuthor = categoryAuthor;
-		this.categoryId = categoryId;
-		this.boxId = boxId;
-		this.reverse = reverse;
 		this.editable = editable;
-		this.archived = archived;
 		this.deletable = deletable;
+		this.boxId = boxId;
+		this.categoryId = categoryId;
+		this.maxCardsPerDay = maxCardsPerDay;
+		this.reverse = reverse;
+		this.archived = archived;
 	}
 
 	@JsonProperty
@@ -81,19 +81,19 @@ public class BoxViewModel implements IBoxViewModel {
 	}
 	
 	@JsonProperty
-	public String getCategoryAuthor() {
-		return this.categoryAuthor;
+	public Boolean getEditable() {
+		return this.editable;
 	}
-	public void setCategoryAuthor(String categoryAuthor) {
-		this.categoryAuthor = categoryAuthor;
+	public void setEditable(Boolean editable) {
+		this.editable = editable;
 	}
 	
 	@JsonProperty
-	public String getCategoryId() {
-		return this.categoryId;
+	public Boolean getDeletable() {
+		return this.deletable;
 	}
-	public void setCategoryId(String categoryId) {
-		this.categoryId = categoryId;
+	public void setDeletable(Boolean deletable) {
+		this.deletable = deletable;
 	}
 	
 	@JsonProperty
@@ -105,19 +105,27 @@ public class BoxViewModel implements IBoxViewModel {
 	}
 	
 	@JsonProperty
+	public String getCategoryId() {
+		return this.categoryId;
+	}
+	public void setCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+	}
+	
+	@JsonProperty
+	public Integer getMaxCardsPerDay() {
+		return this.maxCardsPerDay;
+	}
+	public void setMaxCardsPerDay(Integer maxCardsPerDay) {
+		this.maxCardsPerDay = maxCardsPerDay;
+	}
+	
+	@JsonProperty
 	public Boolean getReverse() {
 		return this.reverse;
 	}
 	public void setReverse(Boolean reverse) {
 		this.reverse = reverse;
-	}
-	
-	@JsonProperty
-	public Boolean getEditable() {
-		return this.editable;
-	}
-	public void setEditable(Boolean editable) {
-		this.editable = editable;
 	}
 	
 	@JsonProperty
@@ -128,26 +136,18 @@ public class BoxViewModel implements IBoxViewModel {
 		this.archived = archived;
 	}
 	
-	@JsonProperty
-	public Boolean getDeletable() {
-		return this.deletable;
-	}
-	public void setDeletable(Boolean deletable) {
-		this.deletable = deletable;
-	}
-	
 
 	public IBoxViewModel deepCopy() {
 		IBoxViewModel copy = new BoxViewModel();
 		copy.setOpenTodaysCards(this.getOpenTodaysCards());
 		copy.setCategoryName(this.getCategoryName());
-		copy.setCategoryAuthor(this.getCategoryAuthor());
-		copy.setCategoryId(this.getCategoryId());
-		copy.setBoxId(this.getBoxId());
-		copy.setReverse(this.getReverse());
 		copy.setEditable(this.getEditable());
-		copy.setArchived(this.getArchived());
 		copy.setDeletable(this.getDeletable());
+		copy.setBoxId(this.getBoxId());
+		copy.setCategoryId(this.getCategoryId());
+		copy.setMaxCardsPerDay(this.getMaxCardsPerDay());
+		copy.setReverse(this.getReverse());
+		copy.setArchived(this.getArchived());
 		return copy;
 	}
 

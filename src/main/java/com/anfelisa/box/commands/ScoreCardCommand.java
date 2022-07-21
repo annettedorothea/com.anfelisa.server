@@ -106,6 +106,8 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 		}
 		
 		data.setIntervalDifference(interval - calculatedInterval); 
+		data.setMaxCardsPerDay(box.getMaxCardsPerDay());
+		data.setMaxInterval(box.getMaxInterval());
 
 		return data;
 	}

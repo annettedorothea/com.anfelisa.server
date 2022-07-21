@@ -52,8 +52,8 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.DELETE;
 
-import com.anfelisa.user.data.IUserData;
-import com.anfelisa.user.data.UserData;
+import com.anfelisa.user.data.IProfileUserData;
+import com.anfelisa.user.data.ProfileUserData;
 
 import de.acegen.Resource;
 
@@ -91,7 +91,7 @@ public class GetUserProfileResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.user.data.IUserData data = new UserData(uuid);
+			com.anfelisa.user.data.IProfileUserData data = new ProfileUserData(uuid);
 			data.setUserId(authUser.getUserId());
 			data.setUsername(authUser.getUsername());
 			data.setRole(authUser.getRole());

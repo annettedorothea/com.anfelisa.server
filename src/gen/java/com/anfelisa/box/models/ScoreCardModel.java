@@ -54,6 +54,10 @@ public class ScoreCardModel implements IScoreCardModel {
 
 	private Integer intervalDifference;
 
+	private Integer maxInterval;
+
+	private Integer maxCardsPerDay;
+
 
 	public ScoreCardModel() {
 	}
@@ -75,7 +79,9 @@ public class ScoreCardModel implements IScoreCardModel {
 		@JsonProperty("reinforceCardCreatedDate") java.time.LocalDateTime reinforceCardCreatedDate,
 		@JsonProperty("userId") String userId,
 		@JsonProperty("boxId") String boxId,
-		@JsonProperty("intervalDifference") Integer intervalDifference
+		@JsonProperty("intervalDifference") Integer intervalDifference,
+		@JsonProperty("maxInterval") Integer maxInterval,
+		@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay
 	) {
 		this.cardId = cardId;
 		this.nextScheduledCardScheduledCardId = nextScheduledCardScheduledCardId;
@@ -94,6 +100,8 @@ public class ScoreCardModel implements IScoreCardModel {
 		this.userId = userId;
 		this.boxId = boxId;
 		this.intervalDifference = intervalDifference;
+		this.maxInterval = maxInterval;
+		this.maxCardsPerDay = maxCardsPerDay;
 	}
 
 	@JsonProperty
@@ -240,6 +248,22 @@ public class ScoreCardModel implements IScoreCardModel {
 		this.intervalDifference = intervalDifference;
 	}
 	
+	@JsonProperty
+	public Integer getMaxInterval() {
+		return this.maxInterval;
+	}
+	public void setMaxInterval(Integer maxInterval) {
+		this.maxInterval = maxInterval;
+	}
+	
+	@JsonProperty
+	public Integer getMaxCardsPerDay() {
+		return this.maxCardsPerDay;
+	}
+	public void setMaxCardsPerDay(Integer maxCardsPerDay) {
+		this.maxCardsPerDay = maxCardsPerDay;
+	}
+	
 
 	public IScoreCardModel deepCopy() {
 		IScoreCardModel copy = new ScoreCardModel();
@@ -260,6 +284,8 @@ public class ScoreCardModel implements IScoreCardModel {
 		copy.setUserId(this.getUserId());
 		copy.setBoxId(this.getBoxId());
 		copy.setIntervalDifference(this.getIntervalDifference());
+		copy.setMaxInterval(this.getMaxInterval());
+		copy.setMaxCardsPerDay(this.getMaxCardsPerDay());
 		return copy;
 	}
 

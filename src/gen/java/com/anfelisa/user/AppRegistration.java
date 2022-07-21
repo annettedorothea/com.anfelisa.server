@@ -74,23 +74,7 @@ public class AppRegistration {
 		});
 		
 		viewProvider.addConsumer("com.anfelisa.user.events.DeleteUserOkEvent", (dataContainer, handle) -> {
-			viewProvider.userScheduledCardView.deleteAll((com.anfelisa.user.data.DeleteUserData) dataContainer, handle);
-		});
-		
-		viewProvider.addConsumer("com.anfelisa.user.events.DeleteUserOkEvent", (dataContainer, handle) -> {
-			viewProvider.userReinforceCardView.deleteAll((com.anfelisa.user.data.DeleteUserData) dataContainer, handle);
-		});
-		
-		viewProvider.addConsumer("com.anfelisa.user.events.DeleteUserOkEvent", (dataContainer, handle) -> {
 			viewProvider.userRootCategoryView.deleteAll((com.anfelisa.user.data.DeleteUserData) dataContainer, handle);
-		});
-		
-		viewProvider.addConsumer("com.anfelisa.user.events.DeleteUserOkEvent", (dataContainer, handle) -> {
-			viewProvider.userBoxView.deleteAll((com.anfelisa.user.data.DeleteUserData) dataContainer, handle);
-		});
-		
-		viewProvider.addConsumer("com.anfelisa.user.events.DeleteUserOkEvent", (dataContainer, handle) -> {
-			viewProvider.userUserAccessToCategoryView.delete((com.anfelisa.user.data.DeleteUserData) dataContainer, handle);
 		});
 		
 		viewProvider.addConsumer("com.anfelisa.user.events.DeleteUserOkEvent", (dataContainer, handle) -> {

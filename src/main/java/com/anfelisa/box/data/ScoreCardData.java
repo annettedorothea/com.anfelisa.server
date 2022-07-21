@@ -29,6 +29,8 @@ public class ScoreCardData extends AbstractScoreCardData implements IScoreCardDa
 		@JsonProperty("userId") String userId, 
 		@JsonProperty("boxId") String boxId, 
 		@JsonProperty("intervalDifference") Integer intervalDifference, 
+		@JsonProperty("maxInterval") Integer maxInterval, 
+		@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay, 
 		@JsonProperty("uuid") String uuid
 	) {
 		super(
@@ -49,6 +51,8 @@ public class ScoreCardData extends AbstractScoreCardData implements IScoreCardDa
 			userId,
 			boxId,
 			intervalDifference,
+			maxInterval,
+			maxCardsPerDay,
 			uuid
 		);
 	}
@@ -80,6 +84,8 @@ public class ScoreCardData extends AbstractScoreCardData implements IScoreCardDa
 		testData.setUserId(randomString(random));
 		testData.setBoxId(randomString(random));
 		testData.setIntervalDifference(random.nextInt(50));
+		testData.setMaxInterval(random.nextInt(50));
+		testData.setMaxCardsPerDay(random.nextInt(50));
 		return testData;
 	}
 	

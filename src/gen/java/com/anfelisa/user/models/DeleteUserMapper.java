@@ -22,7 +22,6 @@ public class DeleteUserMapper extends AbstractMapper<IDeleteUserModel> {
 			this.mapToString(r, "username"),
 			this.mapToString(r, "userId"),
 			this.mapToString(r, "role"),
-			null,
 			null
 		);
 	}

@@ -26,9 +26,6 @@ public interface IDeleteUserModel {
 	String getRole();
 	void setRole(String role);
 	
-	java.util.List<String> getBoxIds();
-	void setBoxIds(java.util.List<String> boxIds);
-	
 	java.util.List<String> getRootCategoryIds();
 	void setRootCategoryIds(java.util.List<String> rootCategoryIds);
 	

@@ -50,6 +50,10 @@ public interface IScoreCardData extends IScoreCardModel, IDataContainer {
 	
 	IScoreCardData withIntervalDifference(Integer intervalDifference);
 	
+	IScoreCardData withMaxInterval(Integer maxInterval);
+	
+	IScoreCardData withMaxCardsPerDay(Integer maxCardsPerDay);
+	
 	
 	IScoreCardData deepCopy();
 }

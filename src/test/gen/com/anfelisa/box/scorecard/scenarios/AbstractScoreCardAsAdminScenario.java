@@ -260,6 +260,18 @@ public abstract class AbstractScoreCardAsAdminScenario extends BaseScenario {
 				assertFail(x.getMessage());
 			}
 	
+			com.anfelisa.box.data.ScoreCardData expectedData = objectMapper.readValue("{" +
+				"\"uuid\" : \"\"," + 
+				"\"intervalDifference\" : 0," + 
+				"\"maxCardsPerDay\" : 10," + 
+				"\"maxInterval\" : null} ",
+			com.anfelisa.box.data.ScoreCardData.class);
+			
+			com.anfelisa.box.data.ScoreCardResponse expected = new com.anfelisa.box.data.ScoreCardResponse(expectedData);
+			
+			assertThat(actual, expected);
+			
+			LOG.info("THEN: response passed");
 		}
 	
 		return actual;

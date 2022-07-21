@@ -4,13 +4,12 @@
 
 package com.anfelisa.box.commands;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.box.data.IDeleteBoxData;
 import com.anfelisa.box.models.IBoxModel;
+import com.anfelisa.box.utils.Deletable;
 import com.anfelisa.category.models.IUserAccessToCategoryModel;
 
 import de.acegen.CustomAppConfiguration;
@@ -41,52 +40,27 @@ public class DeleteBoxCommand extends AbstractDeleteBoxCommand {
 		if (access == null) {
 			throwSecurityException();
 		}
-		data.setRootCategoryId(box.getCategoryId());
 		if (!box.getReverse()) {
-			IBoxModel reverseBox = daoProvider.getBoxDao().selectByCategoryIdAndUserId(readonlyHandle, box.getCategoryId(), data.getUserId(), true);
+			IBoxModel reverseBox = daoProvider.getBoxDao().selectByCategoryIdAndUserId(readonlyHandle,
+					box.getCategoryId(), data.getUserId(), true);
 			if (reverseBox != null) {
 				data.setReverseBoxId(reverseBox.getBoxId());
 				this.addDeleteReverseBoxOutcome(data);
 			}
 		}
-		if (access.getEditable() && !box.getReverse()) {
-			List<IUserAccessToCategoryModel> accesses = daoProvider.getUserAccessToCategoryDao()
-					.selectByCategoryIdAndNotMine(readonlyHandle, box.getCategoryId(), data.getUserId());
-			if (!atLeastOneUserHasWriteAccess(accesses)) {
-				if (atLeastOneUserHasReadAccess(accesses)) {
-					throwIllegalArgumentException("cannotDeleteSharedBox");
-				}
-				this.addDeleteCategoryOutcome(data);
-			} 
+		if (!Deletable.isBoxDeletable(daoProvider, readonlyHandle, box, data.getUserId())) {
+			throwIllegalArgumentException("cannot delete shared box");
 		}
+		if (Deletable.onDeleteBoxDeleteCategory(daoProvider, readonlyHandle, box)) {
+			this.addDeleteCategoryOutcome(data);
+		} else if (!box.getReverse()) {
+			this.addDeleteUserAccessToCategoryOutcome(data);
+		}
+		data.setRootCategoryId(box.getCategoryId());
 		this.addDeleteBoxOutcome(data);
 		return data;
 	}
-	
-	private boolean atLeastOneUserHasWriteAccess(List<IUserAccessToCategoryModel> accesses) {
-		if (accesses.size() == 0) {
-			return false;
-		}
-		for (IUserAccessToCategoryModel access : accesses) {
-			if (access.getEditable()) {
-				return true;
-			}
-		}
-		return false;
-	}
 
-	private boolean atLeastOneUserHasReadAccess(List<IUserAccessToCategoryModel> accesses) {
-		if (accesses.size() == 0) {
-			return false;
-		}
-		for (IUserAccessToCategoryModel access : accesses) {
-			if (!access.getEditable()) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
 }
 
 /******* S.D.G. *******/

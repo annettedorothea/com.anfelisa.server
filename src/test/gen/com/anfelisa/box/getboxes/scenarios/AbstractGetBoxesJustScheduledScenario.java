@@ -399,7 +399,6 @@ public abstract class AbstractGetBoxesJustScheduledScenario extends BaseScenario
 				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"openTodaysCards\" : 3," + 
-				"\"categoryAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
 				"\"editable\" : true," + 
 				"\"reverse\" : false," + 
 				"\"archived\" : false," + 

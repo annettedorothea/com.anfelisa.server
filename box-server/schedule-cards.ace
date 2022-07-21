@@ -94,13 +94,7 @@ scenarios
 				scheduledDate: "20200418 17:30" "yyyyMMdd HH:mm",
 				scoredDate: null
 			}
-			reinforceCardWasNotChanged ReinforceCard selectBy ( reinforceCardId: "score0-${testId}" ) shouldBe 
-			{
-				boxId: "boxId-${testId}",
-				changeDate: "20200418 16:30" "yyyyMMdd HH:mm",
-				reinforceCardId: "score0-${testId}",
-				scheduledCardId: "c1-${testId}-sc1-${testId}"
-			}
+			reinforceCardWasDeleted ReinforceCard selectBy ( reinforceCardId: "score0-${testId}" ) shouldBe null
 			anotherScheduledCardWasNotCreated ScheduledCard selectBy (scheduledCardId: "again-${testId}") shouldBe null
 
 	ScheduleScheduledCardAgain

@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import com.anfelisa.box.models.IBoxModel;
+import com.anfelisa.box.models.IMinimalBoxModel;
 
 import de.acegen.AbstractData;
 import de.acegen.IDataContainer;
@@ -152,6 +153,11 @@ public abstract class AbstractBoxData extends AbstractData implements IBoxData {
 	}
 	
 	
+	public void mapFrom(com.anfelisa.box.models.IMinimalBoxModel model) {
+		this.boxId = model.getBoxId();
+		this.categoryId = model.getCategoryId();
+		this.reverse = model.getReverse();
+	}
 	
 	public IBoxData deepCopy() {
 		IBoxData copy = new BoxData(this.getUuid());

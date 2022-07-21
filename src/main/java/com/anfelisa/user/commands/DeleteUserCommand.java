@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import com.anfelisa.auth.Roles;
 import com.anfelisa.box.models.IBoxModel;
+import com.anfelisa.box.utils.Deletable;
 import com.anfelisa.user.data.IDeleteUserData;
 import com.anfelisa.user.models.IUserModel;
 
@@ -49,13 +50,15 @@ public class DeleteUserCommand extends AbstractDeleteUserCommand {
 			}
 		}
 		List<IBoxModel> boxesOfUser = daoProvider.getBoxDao().selectAllOfUser(readonlyHandle, userToBeDeleted.getUserId());
-		List<String> boxIds = new ArrayList<>();
 		List<String> rootCategoryIds = new ArrayList<>();
 		for (IBoxModel box : boxesOfUser) {
-			boxIds.add(box.getBoxId());
-			rootCategoryIds.add(box.getCategoryId());
+			if (!Deletable.isBoxDeletable(daoProvider, readonlyHandle, box, data.getUserId())) {
+				throwIllegalArgumentException("cannot delete user with shared boxes");
+			} 
+			if (Deletable.onDeleteBoxDeleteCategory(daoProvider, readonlyHandle, box)) {
+				rootCategoryIds.add(box.getCategoryId());
+			}
 		}
-		data.setBoxIds(boxIds);
 		data.setRootCategoryIds(rootCategoryIds);
 		data.setUserId(userToBeDeleted.getUserId());
 		this.addOkOutcome(data);

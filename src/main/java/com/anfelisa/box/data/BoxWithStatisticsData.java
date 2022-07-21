@@ -14,13 +14,13 @@ public class BoxWithStatisticsData extends AbstractBoxWithStatisticsData impleme
 	public BoxWithStatisticsData(
 		@JsonProperty("openTodaysCards") Integer openTodaysCards, 
 		@JsonProperty("categoryName") String categoryName, 
-		@JsonProperty("categoryAuthor") String categoryAuthor, 
-		@JsonProperty("categoryId") String categoryId, 
-		@JsonProperty("boxId") String boxId, 
-		@JsonProperty("reverse") Boolean reverse, 
 		@JsonProperty("editable") Boolean editable, 
-		@JsonProperty("archived") Boolean archived, 
 		@JsonProperty("deletable") Boolean deletable, 
+		@JsonProperty("boxId") String boxId, 
+		@JsonProperty("categoryId") String categoryId, 
+		@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay, 
+		@JsonProperty("reverse") Boolean reverse, 
+		@JsonProperty("archived") Boolean archived, 
 		@JsonProperty("quality0Count") Integer quality0Count, 
 		@JsonProperty("quality1Count") Integer quality1Count, 
 		@JsonProperty("quality2Count") Integer quality2Count, 
@@ -28,19 +28,18 @@ public class BoxWithStatisticsData extends AbstractBoxWithStatisticsData impleme
 		@JsonProperty("quality4Count") Integer quality4Count, 
 		@JsonProperty("quality5Count") Integer quality5Count, 
 		@JsonProperty("countsPerDayNextWeek") java.util.List<Integer> countsPerDayNextWeek, 
-		@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay, 
 		@JsonProperty("uuid") String uuid
 	) {
 		super(
 			openTodaysCards,
 			categoryName,
-			categoryAuthor,
-			categoryId,
-			boxId,
-			reverse,
 			editable,
-			archived,
 			deletable,
+			boxId,
+			categoryId,
+			maxCardsPerDay,
+			reverse,
+			archived,
 			quality0Count,
 			quality1Count,
 			quality2Count,
@@ -48,7 +47,6 @@ public class BoxWithStatisticsData extends AbstractBoxWithStatisticsData impleme
 			quality4Count,
 			quality5Count,
 			countsPerDayNextWeek,
-			maxCardsPerDay,
 			uuid
 		);
 	}
@@ -66,13 +64,13 @@ public class BoxWithStatisticsData extends AbstractBoxWithStatisticsData impleme
 		com.anfelisa.box.models.IBoxWithStatisticsModel testData = new com.anfelisa.box.models.BoxWithStatisticsModel();
 		testData.setOpenTodaysCards(random.nextInt(50));
 		testData.setCategoryName(randomString(random));
-		testData.setCategoryAuthor(randomString(random));
-		testData.setCategoryId(randomString(random));
-		testData.setBoxId(randomString(random));
-		testData.setReverse(random.nextBoolean());
 		testData.setEditable(random.nextBoolean());
-		testData.setArchived(random.nextBoolean());
 		testData.setDeletable(random.nextBoolean());
+		testData.setBoxId(randomString(random));
+		testData.setCategoryId(randomString(random));
+		testData.setMaxCardsPerDay(random.nextInt(50));
+		testData.setReverse(random.nextBoolean());
+		testData.setArchived(random.nextBoolean());
 		testData.setQuality0Count(random.nextInt(50));
 		testData.setQuality1Count(random.nextInt(50));
 		testData.setQuality2Count(random.nextInt(50));
@@ -85,7 +83,6 @@ public class BoxWithStatisticsData extends AbstractBoxWithStatisticsData impleme
 			countsPerDayNextWeekList.add(random.nextInt(50));
 		}
 		testData.setCountsPerDayNextWeek(countsPerDayNextWeekList);
-		testData.setMaxCardsPerDay(random.nextInt(50));
 		return testData;
 	}
 	

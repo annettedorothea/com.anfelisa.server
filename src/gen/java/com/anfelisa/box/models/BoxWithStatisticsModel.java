@@ -24,19 +24,19 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 
 	private String categoryName;
 
-	private String categoryAuthor;
+	private Boolean editable = false;
 
-	private String categoryId;
+	private Boolean deletable = false;
 
 	private String boxId;
 
+	private String categoryId;
+
+	private Integer maxCardsPerDay;
+
 	private Boolean reverse = false;
 
-	private Boolean editable = false;
-
 	private Boolean archived = false;
-
-	private Boolean deletable = false;
 
 	private Integer quality0Count;
 
@@ -52,8 +52,6 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 
 	private java.util.List<Integer> countsPerDayNextWeek;
 
-	private Integer maxCardsPerDay;
-
 
 	public BoxWithStatisticsModel() {
 	}
@@ -61,31 +59,30 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 	public BoxWithStatisticsModel(
 		@JsonProperty("openTodaysCards") Integer openTodaysCards,
 		@JsonProperty("categoryName") String categoryName,
-		@JsonProperty("categoryAuthor") String categoryAuthor,
-		@JsonProperty("categoryId") String categoryId,
-		@JsonProperty("boxId") String boxId,
-		@JsonProperty("reverse") Boolean reverse,
 		@JsonProperty("editable") Boolean editable,
-		@JsonProperty("archived") Boolean archived,
 		@JsonProperty("deletable") Boolean deletable,
+		@JsonProperty("boxId") String boxId,
+		@JsonProperty("categoryId") String categoryId,
+		@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay,
+		@JsonProperty("reverse") Boolean reverse,
+		@JsonProperty("archived") Boolean archived,
 		@JsonProperty("quality0Count") Integer quality0Count,
 		@JsonProperty("quality1Count") Integer quality1Count,
 		@JsonProperty("quality2Count") Integer quality2Count,
 		@JsonProperty("quality3Count") Integer quality3Count,
 		@JsonProperty("quality4Count") Integer quality4Count,
 		@JsonProperty("quality5Count") Integer quality5Count,
-		@JsonProperty("countsPerDayNextWeek") java.util.List<Integer> countsPerDayNextWeek,
-		@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay
+		@JsonProperty("countsPerDayNextWeek") java.util.List<Integer> countsPerDayNextWeek
 	) {
 		this.openTodaysCards = openTodaysCards;
 		this.categoryName = categoryName;
-		this.categoryAuthor = categoryAuthor;
-		this.categoryId = categoryId;
-		this.boxId = boxId;
-		this.reverse = reverse;
 		this.editable = editable;
-		this.archived = archived;
 		this.deletable = deletable;
+		this.boxId = boxId;
+		this.categoryId = categoryId;
+		this.maxCardsPerDay = maxCardsPerDay;
+		this.reverse = reverse;
+		this.archived = archived;
 		this.quality0Count = quality0Count;
 		this.quality1Count = quality1Count;
 		this.quality2Count = quality2Count;
@@ -93,7 +90,6 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 		this.quality4Count = quality4Count;
 		this.quality5Count = quality5Count;
 		this.countsPerDayNextWeek = countsPerDayNextWeek;
-		this.maxCardsPerDay = maxCardsPerDay;
 	}
 
 	@JsonProperty
@@ -113,19 +109,19 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 	}
 	
 	@JsonProperty
-	public String getCategoryAuthor() {
-		return this.categoryAuthor;
+	public Boolean getEditable() {
+		return this.editable;
 	}
-	public void setCategoryAuthor(String categoryAuthor) {
-		this.categoryAuthor = categoryAuthor;
+	public void setEditable(Boolean editable) {
+		this.editable = editable;
 	}
 	
 	@JsonProperty
-	public String getCategoryId() {
-		return this.categoryId;
+	public Boolean getDeletable() {
+		return this.deletable;
 	}
-	public void setCategoryId(String categoryId) {
-		this.categoryId = categoryId;
+	public void setDeletable(Boolean deletable) {
+		this.deletable = deletable;
 	}
 	
 	@JsonProperty
@@ -137,6 +133,22 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 	}
 	
 	@JsonProperty
+	public String getCategoryId() {
+		return this.categoryId;
+	}
+	public void setCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+	}
+	
+	@JsonProperty
+	public Integer getMaxCardsPerDay() {
+		return this.maxCardsPerDay;
+	}
+	public void setMaxCardsPerDay(Integer maxCardsPerDay) {
+		this.maxCardsPerDay = maxCardsPerDay;
+	}
+	
+	@JsonProperty
 	public Boolean getReverse() {
 		return this.reverse;
 	}
@@ -145,27 +157,11 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 	}
 	
 	@JsonProperty
-	public Boolean getEditable() {
-		return this.editable;
-	}
-	public void setEditable(Boolean editable) {
-		this.editable = editable;
-	}
-	
-	@JsonProperty
 	public Boolean getArchived() {
 		return this.archived;
 	}
 	public void setArchived(Boolean archived) {
 		this.archived = archived;
-	}
-	
-	@JsonProperty
-	public Boolean getDeletable() {
-		return this.deletable;
-	}
-	public void setDeletable(Boolean deletable) {
-		this.deletable = deletable;
 	}
 	
 	@JsonProperty
@@ -224,26 +220,18 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 		this.countsPerDayNextWeek = countsPerDayNextWeek;
 	}
 	
-	@JsonProperty
-	public Integer getMaxCardsPerDay() {
-		return this.maxCardsPerDay;
-	}
-	public void setMaxCardsPerDay(Integer maxCardsPerDay) {
-		this.maxCardsPerDay = maxCardsPerDay;
-	}
-	
 
 	public IBoxWithStatisticsModel deepCopy() {
 		IBoxWithStatisticsModel copy = new BoxWithStatisticsModel();
 		copy.setOpenTodaysCards(this.getOpenTodaysCards());
 		copy.setCategoryName(this.getCategoryName());
-		copy.setCategoryAuthor(this.getCategoryAuthor());
-		copy.setCategoryId(this.getCategoryId());
-		copy.setBoxId(this.getBoxId());
-		copy.setReverse(this.getReverse());
 		copy.setEditable(this.getEditable());
-		copy.setArchived(this.getArchived());
 		copy.setDeletable(this.getDeletable());
+		copy.setBoxId(this.getBoxId());
+		copy.setCategoryId(this.getCategoryId());
+		copy.setMaxCardsPerDay(this.getMaxCardsPerDay());
+		copy.setReverse(this.getReverse());
+		copy.setArchived(this.getArchived());
 		copy.setQuality0Count(this.getQuality0Count());
 		copy.setQuality1Count(this.getQuality1Count());
 		copy.setQuality2Count(this.getQuality2Count());
@@ -257,7 +245,6 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 			}
 		}
 		copy.setCountsPerDayNextWeek(countsPerDayNextWeekCopy);
-		copy.setMaxCardsPerDay(this.getMaxCardsPerDay());
 		return copy;
 	}
 

@@ -63,7 +63,7 @@ public class AceDataFactory {
 				return data;
 			}
 			if (className.equals("com.anfelisa.user.actions.GetUserProfileAction")) {
-				UserData data = mapper.readValue(json, UserData.class);
+				ProfileUserData data = mapper.readValue(json, ProfileUserData.class);
 				data.migrateLegacyData(json);
 				return data;
 			}

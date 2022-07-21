@@ -24,16 +24,32 @@ public class ScoreCardResponse implements IScoreCardResponse {
 	
 	private Integer intervalDifference;
 	
+	private Integer maxCardsPerDay;
+	
+	private Integer maxInterval;
+	
 	public ScoreCardResponse() {
 	}
 	
 	public ScoreCardResponse(com.anfelisa.box.models.IScoreCardModel data) {
 		intervalDifference = data.getIntervalDifference();
+		maxCardsPerDay = data.getMaxCardsPerDay();
+		maxInterval = data.getMaxInterval();
 	}
 	
 	@JsonProperty
 	public Integer getIntervalDifference() {
 		return this.intervalDifference;
+	}
+	
+	@JsonProperty
+	public Integer getMaxCardsPerDay() {
+		return this.maxCardsPerDay;
+	}
+	
+	@JsonProperty
+	public Integer getMaxInterval() {
+		return this.maxInterval;
 	}
 	
 }

@@ -231,7 +231,6 @@ public abstract class AbstractGetBoxesSharedEditableBoxOfMyselfScenario extends 
 				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"openTodaysCards\" : 0," + 
-				"\"categoryAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
 				"\"editable\" : true," + 
 				"\"reverse\" : false," + 
 				"\"archived\" : false," + 

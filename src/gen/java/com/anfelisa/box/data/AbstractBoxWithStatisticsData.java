@@ -34,19 +34,19 @@ public abstract class AbstractBoxWithStatisticsData extends AbstractData impleme
 	
 	private String categoryName;
 	
-	private String categoryAuthor;
+	private Boolean editable = false;
 	
-	private String categoryId;
+	private Boolean deletable = false;
 	
 	private String boxId;
 	
+	private String categoryId;
+	
+	private Integer maxCardsPerDay;
+	
 	private Boolean reverse = false;
 	
-	private Boolean editable = false;
-	
 	private Boolean archived = false;
-	
-	private Boolean deletable = false;
 	
 	private Integer quality0Count;
 	
@@ -62,39 +62,36 @@ public abstract class AbstractBoxWithStatisticsData extends AbstractData impleme
 	
 	private java.util.List<Integer> countsPerDayNextWeek;
 	
-	private Integer maxCardsPerDay;
-	
 
 	public AbstractBoxWithStatisticsData(
 		@JsonProperty("openTodaysCards") Integer openTodaysCards,
 		@JsonProperty("categoryName") String categoryName,
-		@JsonProperty("categoryAuthor") String categoryAuthor,
-		@JsonProperty("categoryId") String categoryId,
-		@JsonProperty("boxId") String boxId,
-		@JsonProperty("reverse") Boolean reverse,
 		@JsonProperty("editable") Boolean editable,
-		@JsonProperty("archived") Boolean archived,
 		@JsonProperty("deletable") Boolean deletable,
+		@JsonProperty("boxId") String boxId,
+		@JsonProperty("categoryId") String categoryId,
+		@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay,
+		@JsonProperty("reverse") Boolean reverse,
+		@JsonProperty("archived") Boolean archived,
 		@JsonProperty("quality0Count") Integer quality0Count,
 		@JsonProperty("quality1Count") Integer quality1Count,
 		@JsonProperty("quality2Count") Integer quality2Count,
 		@JsonProperty("quality3Count") Integer quality3Count,
 		@JsonProperty("quality4Count") Integer quality4Count,
 		@JsonProperty("quality5Count") Integer quality5Count,
-		@JsonProperty("countsPerDayNextWeek") java.util.List<Integer> countsPerDayNextWeek,
-		@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay
+		@JsonProperty("countsPerDayNextWeek") java.util.List<Integer> countsPerDayNextWeek
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
 		this.openTodaysCards = openTodaysCards;
 		this.categoryName = categoryName;
-		this.categoryAuthor = categoryAuthor;
-		this.categoryId = categoryId;
-		this.boxId = boxId;
-		this.reverse = reverse;
 		this.editable = editable;
-		this.archived = archived;
 		this.deletable = deletable;
+		this.boxId = boxId;
+		this.categoryId = categoryId;
+		this.maxCardsPerDay = maxCardsPerDay;
+		this.reverse = reverse;
+		this.archived = archived;
 		this.quality0Count = quality0Count;
 		this.quality1Count = quality1Count;
 		this.quality2Count = quality2Count;
@@ -102,7 +99,6 @@ public abstract class AbstractBoxWithStatisticsData extends AbstractData impleme
 		this.quality4Count = quality4Count;
 		this.quality5Count = quality5Count;
 		this.countsPerDayNextWeek = countsPerDayNextWeek;
-		this.maxCardsPerDay = maxCardsPerDay;
 	}
 
 	public AbstractBoxWithStatisticsData( String uuid ) {
@@ -134,26 +130,26 @@ public abstract class AbstractBoxWithStatisticsData extends AbstractData impleme
 	}
 	
 	@JsonProperty
-	public String getCategoryAuthor() {
-		return this.categoryAuthor;
+	public Boolean getEditable() {
+		return this.editable;
 	}
-	public void setCategoryAuthor(String categoryAuthor) {
-		this.categoryAuthor = categoryAuthor;
+	public void setEditable(Boolean editable) {
+		this.editable = editable;
 	}
-	public IBoxWithStatisticsData withCategoryAuthor(String categoryAuthor) {
-		this.categoryAuthor = categoryAuthor;
+	public IBoxWithStatisticsData withEditable(Boolean editable) {
+		this.editable = editable;
 		return this;
 	}
 	
 	@JsonProperty
-	public String getCategoryId() {
-		return this.categoryId;
+	public Boolean getDeletable() {
+		return this.deletable;
 	}
-	public void setCategoryId(String categoryId) {
-		this.categoryId = categoryId;
+	public void setDeletable(Boolean deletable) {
+		this.deletable = deletable;
 	}
-	public IBoxWithStatisticsData withCategoryId(String categoryId) {
-		this.categoryId = categoryId;
+	public IBoxWithStatisticsData withDeletable(Boolean deletable) {
+		this.deletable = deletable;
 		return this;
 	}
 	
@@ -170,6 +166,30 @@ public abstract class AbstractBoxWithStatisticsData extends AbstractData impleme
 	}
 	
 	@JsonProperty
+	public String getCategoryId() {
+		return this.categoryId;
+	}
+	public void setCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+	}
+	public IBoxWithStatisticsData withCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+		return this;
+	}
+	
+	@JsonProperty
+	public Integer getMaxCardsPerDay() {
+		return this.maxCardsPerDay;
+	}
+	public void setMaxCardsPerDay(Integer maxCardsPerDay) {
+		this.maxCardsPerDay = maxCardsPerDay;
+	}
+	public IBoxWithStatisticsData withMaxCardsPerDay(Integer maxCardsPerDay) {
+		this.maxCardsPerDay = maxCardsPerDay;
+		return this;
+	}
+	
+	@JsonProperty
 	public Boolean getReverse() {
 		return this.reverse;
 	}
@@ -182,18 +202,6 @@ public abstract class AbstractBoxWithStatisticsData extends AbstractData impleme
 	}
 	
 	@JsonProperty
-	public Boolean getEditable() {
-		return this.editable;
-	}
-	public void setEditable(Boolean editable) {
-		this.editable = editable;
-	}
-	public IBoxWithStatisticsData withEditable(Boolean editable) {
-		this.editable = editable;
-		return this;
-	}
-	
-	@JsonProperty
 	public Boolean getArchived() {
 		return this.archived;
 	}
@@ -202,18 +210,6 @@ public abstract class AbstractBoxWithStatisticsData extends AbstractData impleme
 	}
 	public IBoxWithStatisticsData withArchived(Boolean archived) {
 		this.archived = archived;
-		return this;
-	}
-	
-	@JsonProperty
-	public Boolean getDeletable() {
-		return this.deletable;
-	}
-	public void setDeletable(Boolean deletable) {
-		this.deletable = deletable;
-	}
-	public IBoxWithStatisticsData withDeletable(Boolean deletable) {
-		this.deletable = deletable;
 		return this;
 	}
 	
@@ -301,29 +297,17 @@ public abstract class AbstractBoxWithStatisticsData extends AbstractData impleme
 		return this;
 	}
 	
-	@JsonProperty
-	public Integer getMaxCardsPerDay() {
-		return this.maxCardsPerDay;
-	}
-	public void setMaxCardsPerDay(Integer maxCardsPerDay) {
-		this.maxCardsPerDay = maxCardsPerDay;
-	}
-	public IBoxWithStatisticsData withMaxCardsPerDay(Integer maxCardsPerDay) {
-		this.maxCardsPerDay = maxCardsPerDay;
-		return this;
-	}
-	
 	
 	public void mapFrom(com.anfelisa.box.models.IBoxViewModel model) {
 		this.openTodaysCards = model.getOpenTodaysCards();
 		this.categoryName = model.getCategoryName();
-		this.categoryAuthor = model.getCategoryAuthor();
-		this.categoryId = model.getCategoryId();
-		this.boxId = model.getBoxId();
-		this.reverse = model.getReverse();
 		this.editable = model.getEditable();
-		this.archived = model.getArchived();
 		this.deletable = model.getDeletable();
+		this.boxId = model.getBoxId();
+		this.categoryId = model.getCategoryId();
+		this.maxCardsPerDay = model.getMaxCardsPerDay();
+		this.reverse = model.getReverse();
+		this.archived = model.getArchived();
 	}
 	public void mapFrom(com.anfelisa.box.models.IBoxStatisticsModel model) {
 		this.boxId = model.getBoxId();
@@ -341,13 +325,13 @@ public abstract class AbstractBoxWithStatisticsData extends AbstractData impleme
 		IBoxWithStatisticsData copy = new BoxWithStatisticsData(this.getUuid());
 		copy.setOpenTodaysCards(this.getOpenTodaysCards());
 		copy.setCategoryName(this.getCategoryName());
-		copy.setCategoryAuthor(this.getCategoryAuthor());
-		copy.setCategoryId(this.getCategoryId());
-		copy.setBoxId(this.getBoxId());
-		copy.setReverse(this.getReverse());
 		copy.setEditable(this.getEditable());
-		copy.setArchived(this.getArchived());
 		copy.setDeletable(this.getDeletable());
+		copy.setBoxId(this.getBoxId());
+		copy.setCategoryId(this.getCategoryId());
+		copy.setMaxCardsPerDay(this.getMaxCardsPerDay());
+		copy.setReverse(this.getReverse());
+		copy.setArchived(this.getArchived());
 		copy.setQuality0Count(this.getQuality0Count());
 		copy.setQuality1Count(this.getQuality1Count());
 		copy.setQuality2Count(this.getQuality2Count());
@@ -361,7 +345,6 @@ public abstract class AbstractBoxWithStatisticsData extends AbstractData impleme
 			}
 		}
 		copy.setCountsPerDayNextWeek(countsPerDayNextWeekCopy);
-		copy.setMaxCardsPerDay(this.getMaxCardsPerDay());
 		copy.setSystemTime(this.getSystemTime());
 		return copy;
 	}

@@ -528,7 +528,6 @@ public abstract class AbstractGetBoxesOneDayLaterScenario extends BaseScenario {
 				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"openTodaysCards\" : 2," + 
-				"\"categoryAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
 				"\"editable\" : true," + 
 				"\"reverse\" : false," + 
 				"\"archived\" : false," + 
