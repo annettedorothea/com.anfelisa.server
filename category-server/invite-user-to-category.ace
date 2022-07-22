@@ -68,6 +68,38 @@ scenarios
 				archived: false
 			}
 			
+	InviteUserToCategoryUseMaxCardsPerDayAndMaxIntervalOfOriginalBox
+		GIVEN
+			com.anfelisa.box.createbox.CreateBoxMinimalWithMaxCardsPerDayAndMaxInterval
+			com.anfelisa.user.registeruser.RegisterTwoUsers exclude GIVEN
+		WHEN
+			com.anfelisa.category.InviteUserToCategory 
+			uuid "boxIdOfInvitedUser-${testId}"
+			{
+				categoryId: "boxId-${testId}",
+				invitedUsername: "Anne-${testId}",
+				editable: true
+			}
+			authorization "Annette-${testId}" : "password"
+		THEN
+			200
+			persistence accessToCategoryWasGranted UserAccessToCategory selectByPrimaryKey ( categoryId: "boxId-${testId}", userId: "uuid2-${testId}") shouldBe
+			{
+				categoryId: "boxId-${testId}",
+				editable: true,
+				userId: "uuid2-${testId}"
+			}
+			boxWasCreated Box selectByPrimaryKey ( boxId: "boxIdOfInvitedUser-${testId}" ) shouldBe
+			{
+				categoryId: "boxId-${testId}",
+				userId: "uuid2-${testId}",
+				boxId: "boxIdOfInvitedUser-${testId}",
+				maxCardsPerDay: 3,
+				maxInterval: 14,
+				reverse: false,
+				archived: false
+			}
+			
 	InviteUserChangeEditableTrue
 		GIVEN
 			InviteUserToCategory

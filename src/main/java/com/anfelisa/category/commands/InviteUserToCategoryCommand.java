@@ -55,13 +55,19 @@ public class InviteUserToCategoryCommand extends AbstractInviteUserToCategoryCom
 			throwSecurityException();
 		}
 		
+		IBoxModel originalBox = this.daoProvider.getBoxDao().selectByCategoryIdAndUserId(readonlyHandle, data.getCategoryId(), data.getUserId(), false);
+		if (originalBox == null) {
+			this.throwIllegalArgumentException("original box is null");
+		}
+		
 		IUserAccessToCategoryModel alreadyExistingAccess = this.daoProvider.getUserAccessToCategoryDao().selectByCategoryIdAndUserId(readonlyHandle, data.getCategoryId(), invitedUser.getUserId());
 		if (alreadyExistingAccess == null) {
 			this.addInsertOutcome(data);
 			IBoxModel boxForInvitedUser = new BoxModel();
 			boxForInvitedUser.setBoxId(data.getUuid());
 			boxForInvitedUser.setCategoryId(data.getCategoryId());
-			boxForInvitedUser.setMaxCardsPerDay(10);
+			boxForInvitedUser.setMaxCardsPerDay(originalBox.getMaxCardsPerDay());
+			boxForInvitedUser.setMaxInterval(originalBox.getMaxInterval());
 			boxForInvitedUser.setUserId(invitedUser.getUserId());
 			data.setBoxForInvitedUser(boxForInvitedUser);
 		} else {
