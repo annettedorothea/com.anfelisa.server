@@ -40,7 +40,11 @@ public class App extends Application<CustomAppConfiguration> {
 	}
 
 	public static String getVersion() {
-		return "1.12.1";
+		String version = App.class.getPackage().getImplementationVersion();
+		if (version == null) {
+			version = "development";
+		}
+		return version;
 	}
 
 	@Override
@@ -63,7 +67,7 @@ public class App extends Application<CustomAppConfiguration> {
 	@Override
 	public void run(CustomAppConfiguration configuration, Environment environment) throws ClassNotFoundException {
 		LOG.info("running version {}", getVersion());
-
+		
 		DaoProvider daoProvider = new DaoProvider();
 		ViewProvider viewProvider = new ViewProvider(daoProvider, new EmailService(configuration));
 
