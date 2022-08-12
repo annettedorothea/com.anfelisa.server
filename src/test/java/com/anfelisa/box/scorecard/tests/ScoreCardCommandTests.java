@@ -69,10 +69,9 @@ public class ScoreCardCommandTests {
 	private IScheduledCardModel scheduledCard;
 	private IBoxModel box;
 
-	@SuppressWarnings("deprecation")
 	@BeforeEach
 	public void before() {
-		MockitoAnnotations.initMocks(this);
+		MockitoAnnotations.openMocks(this);
 		scoreCardCommand = new ScoreCardCommand(daoProviderMock, viewProviderMock, appConfigurationMock);
 		data = new ScoreCardData(UUID);
 		data.setBoxId(BOX_ID);

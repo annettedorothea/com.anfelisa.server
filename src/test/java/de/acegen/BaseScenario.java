@@ -51,7 +51,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.platform.suite.api.Suite;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.box.data.GetBoxSettingsResponse;
@@ -91,8 +90,8 @@ import liquibase.Liquibase;
 import liquibase.database.jvm.JdbcConnection;
 import liquibase.resource.ClassLoaderResourceAccessor;
 
+
 @ExtendWith(DropwizardExtensionsSupport.class)
-@Suite
 public abstract class BaseScenario extends AbstractBaseScenario {
 
 	static final Logger LOG = (Logger) LoggerFactory.getLogger(BaseScenario.class);

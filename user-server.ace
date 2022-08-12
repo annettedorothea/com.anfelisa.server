@@ -101,7 +101,7 @@ views
 		resetPassword(ResetPasswordWithNewPassword)
 	}
 	
-	afterCommit EmailConfirmation { 
+	EmailConfirmation { 
 		insert(UserRegistration)
 		delete(ConfirmEmail)
 	}
@@ -111,7 +111,7 @@ views
 		delete(ResetPasswordWithNewPassword)
 	}
 	
-	Email { 
+	afterCommit Email { 
 		sendForgotPasswordEmail(ForgotPassword)
 		sendRegistrationEmail(UserRegistration)
 	}
