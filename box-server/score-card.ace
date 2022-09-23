@@ -352,6 +352,42 @@ scenarios
 			maxInterval: null
 		}
 
+	DoNotScheduleCardThatWasAccidentallyAlreadyScheduled
+		GIVEN
+			com.anfelisa.box.scorecard.ScoreCard5
+		WHEN
+			com.anfelisa.box.ScoreCard
+				uuid "score-scheduled-${testId}"
+				systemTime "20200419 16:55" "yyyyMMdd HH:mm"
+				{
+					scoredCardQuality: 4,
+					scheduledCardId: "c4-${testId}-sc1-${testId}"
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+		response shouldBe {
+			intervalDifference: 0,
+			maxCardsPerDay: 10,
+			maxInterval: null
+		}
+		persistence
+			scoredCardWasNotChanged ScheduledCard selectBy (scheduledCardId: "c4-${testId}-sc1-${testId}") shouldBe 
+			{
+				boxId: "boxId-${testId}",
+				cardId: "c4-${testId}",
+				count: 0,
+				createdDate: "20200418 10:30" "yyyyMMdd HH:mm",
+				ef: "2.5F",
+				interval: 1,
+				lastQuality: null,
+				n: 1,
+				quality: 5,
+				scheduledCardId: "c4-${testId}-sc1-${testId}",
+				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
+				scoredDate: "20200418 16:55" "yyyyMMdd HH:mm"
+			}
+			newScheduledCardWasNotCreated ScheduledCard selectBy ( scheduledCardId: "score-scheduled-${testId}" ) shouldBe null			
+
 	ScoreCardCardDoesNotExist
 		GIVEN
 			com.anfelisa.box.schedulecards.ScheduleCards
