@@ -465,6 +465,7 @@ public abstract class AbstractLoadNextCardSecondScoredScenario extends BaseScena
 				"\"allTodaysCards\" : 3," + 
 				"\"openTodaysCards\" : 3," + 
 				"\"reverse\" : false," + 
+				"\"boxName\" : \"cat\"," + 
 				"\"nextCard\" : { \"cardId\" : \"c4-" + this.getTestId() + "\"," + 
 				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 				"\"count\" : 0," + 

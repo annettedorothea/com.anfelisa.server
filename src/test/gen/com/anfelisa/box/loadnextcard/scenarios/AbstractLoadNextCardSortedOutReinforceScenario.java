@@ -499,6 +499,7 @@ public abstract class AbstractLoadNextCardSortedOutReinforceScenario extends Bas
 				"\"allTodaysCards\" : 2," + 
 				"\"openTodaysCards\" : 1," + 
 				"\"reverse\" : false," + 
+				"\"boxName\" : \"cat\"," + 
 				"\"nextCard\" : { \"cardId\" : \"c3-" + this.getTestId() + "\"," + 
 				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 				"\"count\" : 0," + 

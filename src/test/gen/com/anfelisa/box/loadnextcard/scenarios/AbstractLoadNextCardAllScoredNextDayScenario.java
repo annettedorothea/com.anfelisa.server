@@ -528,6 +528,7 @@ public abstract class AbstractLoadNextCardAllScoredNextDayScenario extends BaseS
 				"\"allTodaysCards\" : 2," + 
 				"\"openTodaysCards\" : 2," + 
 				"\"reverse\" : false," + 
+				"\"boxName\" : \"cat\"," + 
 				"\"nextCard\" : { \"cardId\" : \"c1-" + this.getTestId() + "\"," + 
 				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 				"\"count\" : 1," + 

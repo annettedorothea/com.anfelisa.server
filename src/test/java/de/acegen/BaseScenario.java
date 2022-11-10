@@ -396,6 +396,7 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 		assertThat(actual.getAllTodaysCards(), expected.getAllTodaysCards());
 		assertThat(actual.getOpenTodaysCards(), expected.getOpenTodaysCards());
 		assertThat(actual.getReverse(), expected.getReverse());
+		assertThat(actual.getBoxName(), expected.getBoxName());
 		INextCardViewModel nextCard = actual.getNextCard();
 		INextCardViewModel expectedNextCard = expected.getNextCard();
 		if (expectedNextCard == null) {

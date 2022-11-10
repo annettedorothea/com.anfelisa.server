@@ -508,6 +508,7 @@ public abstract class AbstractLoadNextCardThirdScoredScenario extends BaseScenar
 				"\"categoryName\" : \"level 1 #1\"}," + 
 				"\"allTodaysCards\" : 3," + 
 				"\"openTodaysCards\" : 2," + 
+				"\"boxName\" : \"cat\"," + 
 				"\"reverse\" : false} ",
 			com.anfelisa.box.data.NextCardData.class);
 			

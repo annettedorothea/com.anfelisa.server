@@ -399,6 +399,7 @@ public abstract class AbstractLoadNextCardJustScheduledScenario extends BaseScen
 				"\"allTodaysCards\" : 3," + 
 				"\"openTodaysCards\" : 3," + 
 				"\"reverse\" : false," + 
+				"\"boxName\" : \"cat\"," + 
 				"\"nextCard\" : { \"cardId\" : \"c1-" + this.getTestId() + "\"," + 
 				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 				"\"count\" : 0," + 

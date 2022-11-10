@@ -564,6 +564,7 @@ public abstract class AbstractLoadNextCardSecondReinforceScoredScenario extends 
 				"\"allTodaysCards\" : 3," + 
 				"\"openTodaysCards\" : 1," + 
 				"\"reverse\" : false," + 
+				"\"boxName\" : \"cat\"," + 
 				"\"nextCard\" : { \"cardId\" : \"c1-" + this.getTestId() + "\"," + 
 				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 				"\"count\" : 0," + 

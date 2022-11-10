@@ -20,6 +20,9 @@ public interface INextCardModel extends com.anfelisa.box.models.ITodaysCardsStat
 	String getBoxId();
 	void setBoxId(String boxId);
 	
+	String getBoxName();
+	void setBoxName(String boxName);
+	
 	java.time.LocalDateTime getTodayAtMidnightInUTC();
 	void setTodayAtMidnightInUTC(java.time.LocalDateTime todayAtMidnightInUTC);
 	

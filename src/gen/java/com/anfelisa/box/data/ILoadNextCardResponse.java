@@ -16,6 +16,8 @@ public interface ILoadNextCardResponse {
 	
 	Boolean getReverse();
 	
+	String getBoxName();
+	
 
 }
 

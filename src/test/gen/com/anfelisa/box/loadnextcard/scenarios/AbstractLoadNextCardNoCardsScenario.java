@@ -362,6 +362,7 @@ public abstract class AbstractLoadNextCardNoCardsScenario extends BaseScenario {
 				"\"allTodaysCards\" : 0," + 
 				"\"openTodaysCards\" : 0," + 
 				"\"reverse\" : false," + 
+				"\"boxName\" : \"cat\"," + 
 				"\"nextCard\" : null} ",
 			com.anfelisa.box.data.NextCardData.class);
 			

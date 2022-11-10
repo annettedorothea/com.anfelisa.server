@@ -11,6 +11,7 @@ import com.anfelisa.box.data.INextCardData;
 import com.anfelisa.box.models.IBoxModel;
 import com.anfelisa.box.models.INextCardViewModel;
 import com.anfelisa.box.models.ITodaysCardsStatusModel;
+import com.anfelisa.category.models.ICategoryModel;
 
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
@@ -37,6 +38,8 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 		if (!box.getUserId().equals(data.getUserId())) {
 			throwSecurityException();
 		}
+		ICategoryModel category = daoProvider.getCategoryDao().selectByPrimaryKey(readonlyHandle, box.getCategoryId());
+		data.setBoxName(category.getCategoryName());
 
 		INextCardViewModel nextCard = daoProvider.getScheduledCardDao().selectFirstScheduledCard(readonlyHandle,
 				data.getBoxId(), data.getTodayAtMidnightInUTC());

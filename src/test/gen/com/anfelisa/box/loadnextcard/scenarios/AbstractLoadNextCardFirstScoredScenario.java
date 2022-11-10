@@ -432,6 +432,7 @@ public abstract class AbstractLoadNextCardFirstScoredScenario extends BaseScenar
 				"\"allTodaysCards\" : 3," + 
 				"\"openTodaysCards\" : 3," + 
 				"\"reverse\" : false," + 
+				"\"boxName\" : \"cat\"," + 
 				"\"nextCard\" : { \"cardId\" : \"c3-" + this.getTestId() + "\"," + 
 				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 				"\"count\" : 0," + 

@@ -433,6 +433,7 @@ public abstract class AbstractLoadNextCardSortedOutScenario extends BaseScenario
 				"\"allTodaysCards\" : 1," + 
 				"\"openTodaysCards\" : 1," + 
 				"\"reverse\" : false," + 
+				"\"boxName\" : \"cat\"," + 
 				"\"nextCard\" : { \"cardId\" : \"c3-" + this.getTestId() + "\"," + 
 				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 				"\"count\" : 0," + 

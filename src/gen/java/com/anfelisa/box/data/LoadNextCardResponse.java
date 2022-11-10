@@ -30,6 +30,8 @@ public class LoadNextCardResponse implements ILoadNextCardResponse {
 	
 	private Boolean reverse = false;
 	
+	private String boxName;
+	
 	public LoadNextCardResponse() {
 	}
 	
@@ -38,6 +40,7 @@ public class LoadNextCardResponse implements ILoadNextCardResponse {
 		allTodaysCards = data.getAllTodaysCards();
 		openTodaysCards = data.getOpenTodaysCards();
 		reverse = data.getReverse();
+		boxName = data.getBoxName();
 	}
 	
 	@JsonProperty
@@ -58,6 +61,11 @@ public class LoadNextCardResponse implements ILoadNextCardResponse {
 	@JsonProperty
 	public Boolean getReverse() {
 		return this.reverse;
+	}
+	
+	@JsonProperty
+	public String getBoxName() {
+		return this.boxName;
 	}
 	
 }

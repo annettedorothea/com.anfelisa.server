@@ -597,6 +597,7 @@ public abstract class AbstractLoadNextCardFinished4Scenario extends BaseScenario
 				"\"allTodaysCards\" : 3," + 
 				"\"openTodaysCards\" : 0," + 
 				"\"reverse\" : false," + 
+				"\"boxName\" : \"cat\"," + 
 				"\"nextCard\" : null} ",
 			com.anfelisa.box.data.NextCardData.class);
 			

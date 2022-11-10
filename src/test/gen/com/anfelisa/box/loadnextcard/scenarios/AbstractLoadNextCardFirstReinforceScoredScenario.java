@@ -531,6 +531,7 @@ public abstract class AbstractLoadNextCardFirstReinforceScoredScenario extends B
 				"\"allTodaysCards\" : 3," + 
 				"\"openTodaysCards\" : 2," + 
 				"\"reverse\" : false," + 
+				"\"boxName\" : \"cat\"," + 
 				"\"nextCard\" : { \"cardId\" : \"c3-" + this.getTestId() + "\"," + 
 				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 				"\"count\" : 0," + 

@@ -33,6 +33,8 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 	
 	private String boxId;
 	
+	private String boxName;
+	
 	private java.time.LocalDateTime todayAtMidnightInUTC;
 	
 	private com.anfelisa.box.models.INextCardViewModel nextCard;
@@ -47,6 +49,7 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 	public AbstractNextCardData(
 		@JsonProperty("userId") String userId,
 		@JsonProperty("boxId") String boxId,
+		@JsonProperty("boxName") String boxName,
 		@JsonProperty("todayAtMidnightInUTC") java.time.LocalDateTime todayAtMidnightInUTC,
 		@JsonProperty("nextCard") com.anfelisa.box.models.INextCardViewModel nextCard,
 		@JsonProperty("reverse") Boolean reverse,
@@ -57,6 +60,7 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 		super(uuid);
 		this.userId = userId;
 		this.boxId = boxId;
+		this.boxName = boxName;
 		this.todayAtMidnightInUTC = todayAtMidnightInUTC;
 		this.nextCard = nextCard;
 		this.reverse = reverse;
@@ -89,6 +93,18 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 	}
 	public INextCardData withBoxId(String boxId) {
 		this.boxId = boxId;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getBoxName() {
+		return this.boxName;
+	}
+	public void setBoxName(String boxName) {
+		this.boxName = boxName;
+	}
+	public INextCardData withBoxName(String boxName) {
+		this.boxName = boxName;
 		return this;
 	}
 	
@@ -164,6 +180,7 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 		INextCardData copy = new NextCardData(this.getUuid());
 		copy.setUserId(this.getUserId());
 		copy.setBoxId(this.getBoxId());
+		copy.setBoxName(this.getBoxName());
 		copy.setTodayAtMidnightInUTC(this.getTodayAtMidnightInUTC());
 		if (this.getNextCard() != null) {
 			copy.setNextCard(this.getNextCard().deepCopy());

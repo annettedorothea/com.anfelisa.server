@@ -21,6 +21,8 @@ public interface INextCardData extends INextCardModel, IDataContainer {
 	
 	INextCardData withBoxId(String boxId);
 	
+	INextCardData withBoxName(String boxName);
+	
 	INextCardData withTodayAtMidnightInUTC(java.time.LocalDateTime todayAtMidnightInUTC);
 	
 	INextCardData withNextCard(com.anfelisa.box.models.INextCardViewModel nextCard);
