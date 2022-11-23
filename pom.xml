@@ -11,7 +11,7 @@
 		<junit.jupiter.version>5.9.0</junit.jupiter.version>
 		<junit.platform.version>1.9.0</junit.platform.version>
 		<hamcrest.version>1.3</hamcrest.version>
-		<postgresql.version>42.4.1</postgresql.version>
+		<postgresql.version>42.4.3</postgresql.version>
 		<org.apache.commons.commons-math3.version>3.6.1</org.apache.commons.commons-math3.version>
 		<io.jsonwebtoken.version>0.11.5</io.jsonwebtoken.version>
 		<maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
