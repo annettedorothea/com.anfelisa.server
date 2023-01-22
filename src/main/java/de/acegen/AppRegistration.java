@@ -21,8 +21,8 @@ public class AppRegistration {
 
 	}
 
-	public static void registerConsumers(ViewProvider viewProvider) {
-		com.anfelisa.user.AppRegistration.registerConsumers(viewProvider);
+	public static void registerConsumers(Environment environment, ViewProvider viewProvider) {
+		com.anfelisa.user.AppRegistration.registerConsumers(environment, viewProvider);
 
 		com.anfelisa.box.AppRegistration.registerConsumers(viewProvider);
 

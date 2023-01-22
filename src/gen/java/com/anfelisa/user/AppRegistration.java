@@ -32,7 +32,7 @@ public class AppRegistration {
 		environment.jersey().register(new DeleteUserResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
 	}
 	
-	public static void registerConsumers(ViewProvider viewProvider) {
+	public static void registerConsumers(Environment environment, ViewProvider viewProvider) {
 		viewProvider.addConsumer("com.anfelisa.user.events.RegisterUserOkEvent", (dataContainer, handle) -> {
 			viewProvider.userView.insertUser((com.anfelisa.user.data.UserRegistrationData) dataContainer, handle);
 		});
@@ -41,8 +41,8 @@ public class AppRegistration {
 			viewProvider.emailConfirmationView.insert((com.anfelisa.user.data.UserRegistrationData) dataContainer, handle);
 		});
 		
-		viewProvider.addAfterCommitConsumer("com.anfelisa.user.events.RegisterUserOkEvent", (dataContainer, handle) -> {
-			viewProvider.emailView.sendRegistrationEmail((com.anfelisa.user.data.UserRegistrationData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.user.events.RegisterUserOkEvent", (dataContainer, handle) -> {
+			viewProvider.emailView.addToQueue(() -> viewProvider.emailView.sendRegistrationEmail((com.anfelisa.user.data.UserRegistrationData) dataContainer, handle));
 		});
 		
 		viewProvider.addConsumer("com.anfelisa.user.events.ConfirmEmailOkEvent", (dataContainer, handle) -> {
@@ -57,8 +57,8 @@ public class AppRegistration {
 			viewProvider.resetPasswordView.insert((com.anfelisa.user.data.ForgotPasswordData) dataContainer, handle);
 		});
 		
-		viewProvider.addAfterCommitConsumer("com.anfelisa.user.events.ForgotPasswordOkEvent", (dataContainer, handle) -> {
-			viewProvider.emailView.sendForgotPasswordEmail((com.anfelisa.user.data.ForgotPasswordData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.user.events.ForgotPasswordOkEvent", (dataContainer, handle) -> {
+			viewProvider.emailView.addToQueue(() -> viewProvider.emailView.sendForgotPasswordEmail((com.anfelisa.user.data.ForgotPasswordData) dataContainer, handle));
 		});
 		
 		viewProvider.addConsumer("com.anfelisa.user.events.ResetPasswordOkEvent", (dataContainer, handle) -> {
@@ -81,6 +81,7 @@ public class AppRegistration {
 			viewProvider.userView.deleteUser((com.anfelisa.user.data.DeleteUserData) dataContainer, handle);
 		});
 		
+		environment.lifecycle().manage(viewProvider.emailView);
 	}
 }
 

@@ -99,7 +99,9 @@ public class App extends Application<CustomAppConfiguration> {
 
 		AppRegistration.registerResources(environment, new PersistenceConnection(jdbi), configuration, daoProvider,
 				viewProvider);
-		AppRegistration.registerConsumers(viewProvider);
+		AppRegistration.registerConsumers(environment, viewProvider);
+		
+        
 	}
 
 }

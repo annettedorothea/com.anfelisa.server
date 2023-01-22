@@ -45,9 +45,6 @@ public abstract class AbstractRegisterUserCommand extends Command<IUserRegistrat
 	
 	@Override
 	public void publishAfterCommitEvents(IUserRegistrationData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
-		if (data.hasOutcome("ok")){
-			new Event<IUserRegistrationData>("com.anfelisa.user.events.RegisterUserOkEvent", viewProvider).publishAfterCommit(data.deepCopy(), handle, timelineHandle);
-		}
 	}
 	
 }

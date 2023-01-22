@@ -111,7 +111,7 @@ views
 		delete(ResetPasswordWithNewPassword)
 	}
 	
-	afterCommit Email { 
+	Email { 
 		sendForgotPasswordEmail(ForgotPassword)
 		sendRegistrationEmail(UserRegistration)
 	}

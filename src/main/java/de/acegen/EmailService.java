@@ -11,14 +11,24 @@ import org.apache.commons.mail.SimpleEmail;
 public class EmailService {
 
 	private CustomAppConfiguration configuration;
+	private boolean sending;
+
+	public boolean isSending() {
+		return sending;
+	}
+
+	public void setSending(boolean sending) {
+		this.sending = sending;
+	}
 
 	public EmailService(CustomAppConfiguration configuration) {
 		this.configuration = configuration;
 	}
 
 	public void sendEmail(String to, String subject, String message) {
+		setSending(true);
 		if (Config.DEV.equals(configuration.getConfig().getMode())) {
-			return;
+			//return;
 		}
 		try {
 			Email email = new SimpleEmail();
@@ -37,6 +47,7 @@ public class EmailService {
 			e.printStackTrace();
 			throw new WebApplicationException("failedToSendEmail", Response.Status.BAD_REQUEST);
 		}
+		setSending(false);
 	}
 
 	public String getLocalhost() {
