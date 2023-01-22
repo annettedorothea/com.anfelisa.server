@@ -46,10 +46,6 @@ public abstract class AbstractMoveCategoryCommand extends Command<ICategoryMoveD
 		}
 	}
 	
-	@Override
-	public void publishAfterCommitEvents(ICategoryMoveData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
-	}
-	
 }
 
 

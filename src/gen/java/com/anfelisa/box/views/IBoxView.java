@@ -28,7 +28,7 @@ public interface IBoxView {
 	void archiveBox(IBoxArchiveData data, PersistenceHandle handle);
 	void scheduleCards(IScheduledCardsData data, PersistenceHandle handle);
 	void sortCardsOut(ISortCardsOutData data, PersistenceHandle handle);
-
+	
 }
 
 

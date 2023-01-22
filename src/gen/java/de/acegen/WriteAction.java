@@ -59,7 +59,6 @@ public abstract class WriteAction<T extends IDataContainer> extends Action<T> {
 			command.addEventsToTimeline(data, databaseHandle.getTimelineHandle());
 			command.publishEvents(data, databaseHandle.getHandle(), databaseHandle.getTimelineHandle());
 			databaseHandle.commitTransaction();
-			command.publishAfterCommitEvents(data, databaseHandle.getHandle(), databaseHandle.getTimelineHandle());
 			return data;
 		} catch (IllegalArgumentException x) {
 			LOG.error(actionName + " IllegalArgumentException {} ", x.getMessage());

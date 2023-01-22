@@ -43,10 +43,6 @@ public abstract class AbstractResetPasswordCommand extends Command<IResetPasswor
 		}
 	}
 	
-	@Override
-	public void publishAfterCommitEvents(IResetPasswordWithNewPasswordData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
-	}
-	
 }
 
 

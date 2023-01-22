@@ -37,7 +37,7 @@ public class AppRegistration {
 		environment.jersey().register(new LoadAllActiveCardsResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
 	}
 	
-	public static void registerConsumers(ViewProvider viewProvider) {
+	public static void registerConsumers(Environment environment, ViewProvider viewProvider) {
 		viewProvider.addConsumer("com.anfelisa.box.events.CreateBoxOkEvent", (dataContainer, handle) -> {
 			viewProvider.rootCategoryView.insert((com.anfelisa.box.data.BoxCreationData) dataContainer, handle);
 		});
@@ -137,6 +137,7 @@ public class AppRegistration {
 		viewProvider.addConsumer("com.anfelisa.box.events.DeleteBoxDeleteReverseBoxEvent", (dataContainer, handle) -> {
 			viewProvider.boxView.deleteReverseBox((com.anfelisa.box.data.DeleteBoxData) dataContainer, handle);
 		});
+		
 		
 	}
 }

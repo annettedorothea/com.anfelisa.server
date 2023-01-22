@@ -34,10 +34,6 @@ public abstract class AbstractGetTokenCommand extends Command<ITokenData> {
 	public void publishEvents(ITokenData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
 	}
 	
-	@Override
-	public void publishAfterCommitEvents(ITokenData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
-	}
-	
 }
 
 

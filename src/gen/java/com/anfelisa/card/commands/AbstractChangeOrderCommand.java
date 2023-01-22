@@ -43,10 +43,6 @@ public abstract class AbstractChangeOrderCommand extends Command<IChangeCardOrde
 		}
 	}
 	
-	@Override
-	public void publishAfterCommitEvents(IChangeCardOrderListData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
-	}
-	
 }
 
 

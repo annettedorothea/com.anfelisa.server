@@ -28,7 +28,7 @@ public interface IReinforceCardView {
 	void deleteAll(IDeleteBoxData data, PersistenceHandle handle);
 	void deleteAllOfBox(IScheduledCardsData data, PersistenceHandle handle);
 	void sortOut(ISortCardsOutData data, PersistenceHandle handle);
-
+	
 }
 
 

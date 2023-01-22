@@ -43,10 +43,6 @@ public abstract class AbstractDeleteCardCommand extends Command<ICardDeleteData>
 		}
 	}
 	
-	@Override
-	public void publishAfterCommitEvents(ICardDeleteData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
-	}
-	
 }
 
 

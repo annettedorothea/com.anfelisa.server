@@ -22,7 +22,7 @@ public interface IScheduledCardView {
 	void scheduleNext(IScoreCardData data, PersistenceHandle handle);
 	void postponeCards(IInitMyBoxesDataData data, PersistenceHandle handle);
 	void deleteAll(IDeleteBoxData data, PersistenceHandle handle);
-
+	
 }
 
 

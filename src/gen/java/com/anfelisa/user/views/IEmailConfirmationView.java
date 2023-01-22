@@ -18,7 +18,7 @@ public interface IEmailConfirmationView {
 
 	void insert(IUserRegistrationData data, PersistenceHandle handle);
 	void delete(IConfirmEmailData data, PersistenceHandle handle);
-
+	
 }
 
 

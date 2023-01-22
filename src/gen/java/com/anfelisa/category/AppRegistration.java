@@ -31,7 +31,7 @@ public class AppRegistration {
 		environment.jersey().register(new SearchUsernameForInvitationResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
 	}
 	
-	public static void registerConsumers(ViewProvider viewProvider) {
+	public static void registerConsumers(Environment environment, ViewProvider viewProvider) {
 		viewProvider.addConsumer("com.anfelisa.category.events.CreateCategoryOkEvent", (dataContainer, handle) -> {
 			viewProvider.categoryView.insert((com.anfelisa.category.data.CategoryCreationData) dataContainer, handle);
 		});
@@ -63,6 +63,7 @@ public class AppRegistration {
 		viewProvider.addConsumer("com.anfelisa.category.events.InviteUserToCategoryUpdateEvent", (dataContainer, handle) -> {
 			viewProvider.userAccessToCategoryInvitationView.changeEditable((com.anfelisa.category.data.UserToCategoryInvitationData) dataContainer, handle);
 		});
+		
 		
 	}
 }

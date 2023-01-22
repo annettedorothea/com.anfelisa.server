@@ -18,7 +18,7 @@ public interface IUserAccessToCategoryView {
 
 	void grantAccess(IBoxCreationData data, PersistenceHandle handle);
 	void delete(IDeleteBoxData data, PersistenceHandle handle);
-
+	
 }
 
 

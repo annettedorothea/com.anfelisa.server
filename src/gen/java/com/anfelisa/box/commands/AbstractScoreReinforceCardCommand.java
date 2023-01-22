@@ -52,10 +52,6 @@ public abstract class AbstractScoreReinforceCardCommand extends Command<IScoreRe
 		}
 	}
 	
-	@Override
-	public void publishAfterCommitEvents(IScoreReinforceCardData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
-	}
-	
 }
 
 

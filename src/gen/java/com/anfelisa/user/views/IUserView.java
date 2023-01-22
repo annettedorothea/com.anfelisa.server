@@ -24,7 +24,7 @@ public interface IUserView {
 	void changeUserRole(IChangeUserRoleData data, PersistenceHandle handle);
 	void deleteUser(IDeleteUserData data, PersistenceHandle handle);
 	void resetPassword(IResetPasswordWithNewPasswordData data, PersistenceHandle handle);
-
+	
 }
 
 

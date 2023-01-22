@@ -28,7 +28,7 @@ public interface ICardView {
 	void moveCards(IMoveCardsData data, PersistenceHandle handle);
 	void bulkInsert(ICsvUploadData data, PersistenceHandle handle);
 	void changeCardOrder(IChangeCardOrderListData data, PersistenceHandle handle);
-
+	
 }
 
 

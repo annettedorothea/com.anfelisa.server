@@ -43,10 +43,6 @@ public abstract class AbstractDeleteUserCommand extends Command<IDeleteUserData>
 		}
 	}
 	
-	@Override
-	public void publishAfterCommitEvents(IDeleteUserData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
-	}
-	
 }
 
 

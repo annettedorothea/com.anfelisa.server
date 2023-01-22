@@ -31,7 +31,7 @@ public class AppRegistration {
 		environment.jersey().register(new GetTranslationResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
 	}
 	
-	public static void registerConsumers(ViewProvider viewProvider) {
+	public static void registerConsumers(Environment environment, ViewProvider viewProvider) {
 		viewProvider.addConsumer("com.anfelisa.card.events.CreateCardOkEvent", (dataContainer, handle) -> {
 			viewProvider.cardView.insert((com.anfelisa.card.data.CardCreationData) dataContainer, handle);
 		});
@@ -55,6 +55,7 @@ public class AppRegistration {
 		viewProvider.addConsumer("com.anfelisa.card.events.ChangeOrderOkEvent", (dataContainer, handle) -> {
 			viewProvider.cardView.changeCardOrder((com.anfelisa.card.data.ChangeCardOrderListData) dataContainer, handle);
 		});
+		
 		
 	}
 }

@@ -43,10 +43,6 @@ public abstract class AbstractRegisterUserCommand extends Command<IUserRegistrat
 		}
 	}
 	
-	@Override
-	public void publishAfterCommitEvents(IUserRegistrationData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
-	}
-	
 }
 
 

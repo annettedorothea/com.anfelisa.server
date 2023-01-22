@@ -46,10 +46,6 @@ public abstract class AbstractConfirmEmailCommand extends Command<IConfirmEmailD
 		}
 	}
 	
-	@Override
-	public void publishAfterCommitEvents(IConfirmEmailData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
-	}
-	
 }
 
 

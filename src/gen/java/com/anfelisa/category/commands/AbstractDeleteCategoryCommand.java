@@ -43,10 +43,6 @@ public abstract class AbstractDeleteCategoryCommand extends Command<ICategoryDel
 		}
 	}
 	
-	@Override
-	public void publishAfterCommitEvents(ICategoryDeleteData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
-	}
-	
 }
 
 

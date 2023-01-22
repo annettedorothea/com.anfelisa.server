@@ -46,10 +46,6 @@ public abstract class AbstractScheduleCardsCommand extends Command<IScheduledCar
 		}
 	}
 	
-	@Override
-	public void publishAfterCommitEvents(IScheduledCardsData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
-	}
-	
 }
 
 

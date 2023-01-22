@@ -43,10 +43,6 @@ public abstract class AbstractUpdateCategoryCommand extends Command<ICategoryUpd
 		}
 	}
 	
-	@Override
-	public void publishAfterCommitEvents(ICategoryUpdateData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
-	}
-	
 }
 
 

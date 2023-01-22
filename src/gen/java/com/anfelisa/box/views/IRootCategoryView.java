@@ -20,7 +20,7 @@ public interface IRootCategoryView {
 	void insert(IBoxCreationData data, PersistenceHandle handle);
 	void update(IBoxUpdateData data, PersistenceHandle handle);
 	void deleteAll(IDeleteBoxData data, PersistenceHandle handle);
-
+	
 }
 
 

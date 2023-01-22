@@ -24,7 +24,7 @@ public interface ICategoryView {
 	void update(ICategoryUpdateData data, PersistenceHandle handle);
 	void moveCategory(ICategoryMoveData data, PersistenceHandle handle);
 	void changeOrder(ICategoryChangeOrderData data, PersistenceHandle handle);
-
+	
 }
 
 

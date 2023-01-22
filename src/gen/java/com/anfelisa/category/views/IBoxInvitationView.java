@@ -16,7 +16,7 @@ import com.anfelisa.category.data.IUserToCategoryInvitationData;
 public interface IBoxInvitationView {
 
 	void createBox(IUserToCategoryInvitationData data, PersistenceHandle handle);
-
+	
 }
 
 

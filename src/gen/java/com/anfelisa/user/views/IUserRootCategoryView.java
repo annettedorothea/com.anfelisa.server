@@ -16,7 +16,7 @@ import com.anfelisa.user.data.IDeleteUserData;
 public interface IUserRootCategoryView {
 
 	void deleteAll(IDeleteUserData data, PersistenceHandle handle);
-
+	
 }
 
 

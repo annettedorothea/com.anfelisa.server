@@ -24,10 +24,10 @@ public class AppRegistration {
 	public static void registerConsumers(Environment environment, ViewProvider viewProvider) {
 		com.anfelisa.user.AppRegistration.registerConsumers(environment, viewProvider);
 
-		com.anfelisa.box.AppRegistration.registerConsumers(viewProvider);
+		com.anfelisa.box.AppRegistration.registerConsumers(environment, viewProvider);
 
-		com.anfelisa.category.AppRegistration.registerConsumers(viewProvider);
+		com.anfelisa.category.AppRegistration.registerConsumers(environment, viewProvider);
 
-		com.anfelisa.card.AppRegistration.registerConsumers(viewProvider);
+		com.anfelisa.card.AppRegistration.registerConsumers(environment, viewProvider);
 	}
 }

@@ -18,7 +18,7 @@ public interface IUserAccessToCategoryInvitationView {
 
 	void invite(IUserToCategoryInvitationData data, PersistenceHandle handle);
 	void changeEditable(IUserToCategoryInvitationData data, PersistenceHandle handle);
-
+	
 }
 
 

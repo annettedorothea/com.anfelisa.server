@@ -43,10 +43,6 @@ public abstract class AbstractArchiveBoxCommand extends Command<IBoxArchiveData>
 		}
 	}
 	
-	@Override
-	public void publishAfterCommitEvents(IBoxArchiveData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
-	}
-	
 }
 
 

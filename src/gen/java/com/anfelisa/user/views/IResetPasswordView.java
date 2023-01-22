@@ -18,7 +18,7 @@ public interface IResetPasswordView {
 
 	void insert(IForgotPasswordData data, PersistenceHandle handle);
 	void delete(IResetPasswordWithNewPasswordData data, PersistenceHandle handle);
-
+	
 }
 
 

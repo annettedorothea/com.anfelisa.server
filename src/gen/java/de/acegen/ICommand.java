@@ -17,8 +17,6 @@ public interface ICommand<T extends IDataContainer> {
 
 	void publishEvents(T data, PersistenceHandle handle, PersistenceHandle timelineHandle);
 
-	void publishAfterCommitEvents(T data, PersistenceHandle handle, PersistenceHandle timelineHandle);
-
 }
 
 

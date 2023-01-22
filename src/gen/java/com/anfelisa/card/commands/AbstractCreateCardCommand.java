@@ -43,10 +43,6 @@ public abstract class AbstractCreateCardCommand extends Command<ICardCreationDat
 		}
 	}
 	
-	@Override
-	public void publishAfterCommitEvents(ICardCreationData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
-	}
-	
 }
 
 
