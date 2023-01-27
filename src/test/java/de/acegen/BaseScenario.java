@@ -90,7 +90,6 @@ import liquibase.Liquibase;
 import liquibase.database.jvm.JdbcConnection;
 import liquibase.resource.ClassLoaderResourceAccessor;
 
-
 @ExtendWith(DropwizardExtensionsSupport.class)
 public abstract class BaseScenario extends AbstractBaseScenario {
 
@@ -110,13 +109,24 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 
 	protected static Map<String, DescriptiveStatistics> metrics;
 
-	@SuppressWarnings("unused")
+	private static String secretString;
+
+	/* when server shall be started within test */
 	private static DropwizardAppExtension<CustomAppConfiguration> EXT = new DropwizardAppExtension<>(
 			App.class,
 			"test.yml");
+	/* when server shall be started within test */
 
 	@BeforeAll
 	public static void beforeClass() throws Exception {
+		Logger rootLogger = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
+		rootLogger.setLevel(Level.INFO);
+
+		if (metrics == null) {
+			metrics = new HashMap<>();
+		}
+
+		/* when server shall be started within test */
 		ManagedDataSource ds = EXT.getConfiguration().getDataSourceFactory().build(
 				EXT.getEnvironment().metrics(), "migrations");
 		try (Connection connection = ds.getConnection()) {
@@ -125,20 +135,26 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 			migrator.update("");
 			migrator.close();
 		}
-
-		Logger rootLogger = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
-		rootLogger.setLevel(Level.INFO);
-
 		port = EXT.getLocalPort();
 		protocol = "http";
 		rootPath = "/api";
 		final JdbiFactory factory = new JdbiFactory();
-		jdbi = factory.build(EXT.getEnvironment(), EXT.getConfiguration().getDataSourceFactory(), "anfelisa test database");
+		jdbi = factory.build(EXT.getEnvironment(), EXT.getConfiguration().getDataSourceFactory(),
+				"anfelisa test database");
+		secretString = EXT.getConfiguration().getSecretString();
+		/* when server shall be started within test */
 
-		if (metrics == null) {
-			metrics = new HashMap<>();
-		}
-
+		/* when server runs independently */
+//		ObjectMapper mapper = new ObjectMapper(new YAMLFactory())
+//				.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+//		YamlConfiguration config = mapper.readValue(new File("dev.yml"), YamlConfiguration.class);
+//		port = Integer.parseInt(config.getServer().getApplicationConnectors()[0].getPort());
+//		protocol = config.getServer().getApplicationConnectors()[0].getType();
+//		rootPath = config.getServer().getRootPath();
+//		jdbi = Jdbi.create(config.getDatabase().getUrl(), config.getDatabase().getUser(),
+//				config.getDatabase().getPassword() == null ? "" : config.getDatabase().getPassword());
+//		secretString = config.getSecretString();
+		/* when server runs independently */
 	}
 
 	@AfterAll
@@ -391,7 +407,7 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 			org.hamcrest.MatcherAssert.assertThat(boxSettings, is(samePropertyValuesAs(expectedBoxSettings)));
 		}
 	}
-	
+
 	private void assertThat(LoadNextCardResponse actual, LoadNextCardResponse expected) {
 		assertThat(actual.getAllTodaysCards(), expected.getAllTodaysCards());
 		assertThat(actual.getOpenTodaysCards(), expected.getOpenTodaysCards());
@@ -631,7 +647,7 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 
 	protected void validateToken(String actualToken, String expectedUserId, String expectedUsername,
 			String expectedRole) {
-		Key key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(EXT.getConfiguration().getSecretString()));
+		Key key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretString));
 		Jws<Claims> claims = Jwts.parserBuilder()
 				.requireIssuer("anfelisa")
 				.setSigningKey(key)
