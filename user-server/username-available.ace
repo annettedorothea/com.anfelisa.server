@@ -6,8 +6,6 @@ com.anfelisa.user.usernameavailable
 scenarios 
 
 	UsernameAvailable
-		GIVEN 
-			com.anfelisa.user.registeruser.RegisterUser
 		WHEN com.anfelisa.user.UsernameAvailable
 				{
 					username : "username-available-${testId}"

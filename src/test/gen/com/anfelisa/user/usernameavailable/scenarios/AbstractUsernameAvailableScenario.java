@@ -34,43 +34,6 @@ public abstract class AbstractUsernameAvailableScenario extends BaseScenario {
 	private void given() throws Exception {
 		String uuid;
 		
-		if (prerequisite("RegisterUser")) {
-			uuid = "uuid-" + this.getTestId() + "";
-			this.callSquishyDataProviderPutValue(uuid, "token",	"TOKEN-" + this.getTestId() + "");
-			com.anfelisa.user.data.RegisterUserPayload payload_0 = objectMapper.readValue("{" +
-				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
-				"\"language\" : \"de\"," + 
-				"\"password\" : \"password\"," + 
-				"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
-					com.anfelisa.user.data.RegisterUserPayload.class);
-			com.anfelisa.user.data.UserRegistrationData data_0 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"email\" : \"annette.pohl@anfelisa.de\"," + 
-			"\"language\" : \"de\"," + 
-			"\"password\" : \"password\"," + 
-			"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
-					com.anfelisa.user.data.UserRegistrationData.class);
-			HttpResponse<Object> response_0 = 
-			this.httpPost(
-				"/users/register", 
-			 	payload_0,
-				null,
-				uuid,
-				null
-			);
-			
-			if (response_0.getStatusCode() >= 400) {
-				String statusMessage = response_0.getStatusMessage() != null ? response_0.getStatusMessage() : "";
-				String message = "GIVEN RegisterUser fails\n" + statusMessage;
-				LOG.error("GIVEN: RegisterUser fails due to {} in {} ms", message, response_0.getDuration());
-				assertFail(message);
-			}
-			LOG.info("GIVEN: RegisterUser success in {} ms", response_0.getDuration());
-			addToMetrics("RegisterUser", response_0.getDuration());
-		} else {
-			LOG.info("GIVEN: prerequisite for RegisterUser not met");
-		}
-
 	}
 	
 	private HttpResponse<com.anfelisa.user.data.UsernameAvailableResponse> when_0() throws Exception {
