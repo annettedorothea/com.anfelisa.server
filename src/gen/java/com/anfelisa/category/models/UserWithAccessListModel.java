@@ -11,14 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 import de.acegen.AbstractModel;
 
-@SuppressWarnings("all")
+@SuppressWarnings("unused")
 public class UserWithAccessListModel extends AbstractModel {
 
 	private String categoryId;
@@ -77,19 +74,6 @@ public class UserWithAccessListModel extends AbstractModel {
 		}
 	}
 
-	public com.anfelisa.category.models.UserWithAccessListModel deepCopy() {
-		com.anfelisa.category.models.UserWithAccessListModel copy = new UserWithAccessListModel();
-		copy.setCategoryId(this.getCategoryId());
-		List<com.anfelisa.category.models.UserWithAccessModel> userListCopy = new ArrayList<com.anfelisa.category.models.UserWithAccessModel>();
-		if (this.getUserList() != null) {
-			for(com.anfelisa.category.models.UserWithAccessModel item: this.getUserList()) {
-				userListCopy.add(item.deepCopy());
-			}
-		}
-		copy.setUserList(userListCopy);
-		return copy;
-	}
-	
 	public static UserWithAccessListModel generateTestData() {
 		java.util.Random random = new java.util.Random();
 		int n;

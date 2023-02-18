@@ -11,14 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 import de.acegen.AbstractModel;
 
-@SuppressWarnings("all")
+@SuppressWarnings("unused")
 public class BoxViewModel extends AbstractModel {
 
 	private Integer openTodaysCards;
@@ -198,20 +195,6 @@ public class BoxViewModel extends AbstractModel {
 		this.frozen = true;
 	}
 
-	public com.anfelisa.box.models.BoxViewModel deepCopy() {
-		com.anfelisa.box.models.BoxViewModel copy = new BoxViewModel();
-		copy.setOpenTodaysCards(this.getOpenTodaysCards());
-		copy.setCategoryName(this.getCategoryName());
-		copy.setEditable(this.getEditable());
-		copy.setDeletable(this.getDeletable());
-		copy.setBoxId(this.getBoxId());
-		copy.setCategoryId(this.getCategoryId());
-		copy.setMaxCardsPerDay(this.getMaxCardsPerDay());
-		copy.setReverse(this.getReverse());
-		copy.setArchived(this.getArchived());
-		return copy;
-	}
-	
 	public static BoxViewModel generateTestData() {
 		java.util.Random random = new java.util.Random();
 		BoxViewModel testData = new BoxViewModel();

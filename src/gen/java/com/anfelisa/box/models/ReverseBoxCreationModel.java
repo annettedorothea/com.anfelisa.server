@@ -11,14 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 import de.acegen.AbstractModel;
 
-@SuppressWarnings("all")
+@SuppressWarnings("unused")
 public class ReverseBoxCreationModel extends AbstractModel {
 
 	private String boxId;
@@ -72,13 +69,6 @@ public class ReverseBoxCreationModel extends AbstractModel {
 		this.frozen = true;
 	}
 
-	public com.anfelisa.box.models.ReverseBoxCreationModel deepCopy() {
-		com.anfelisa.box.models.ReverseBoxCreationModel copy = new ReverseBoxCreationModel();
-		copy.setBoxId(this.getBoxId());
-		copy.setUsername(this.getUsername());
-		return copy;
-	}
-	
 	public static ReverseBoxCreationModel generateTestData() {
 		java.util.Random random = new java.util.Random();
 		ReverseBoxCreationModel testData = new ReverseBoxCreationModel();

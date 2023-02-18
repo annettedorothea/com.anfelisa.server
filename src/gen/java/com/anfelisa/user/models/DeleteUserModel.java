@@ -11,14 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 import de.acegen.AbstractModel;
 
-@SuppressWarnings("all")
+@SuppressWarnings("unused")
 public class DeleteUserModel extends AbstractModel {
 
 	private String usernameToBeDeleted;
@@ -123,22 +120,6 @@ public class DeleteUserModel extends AbstractModel {
 		this.frozen = true;
 	}
 
-	public com.anfelisa.user.models.DeleteUserModel deepCopy() {
-		com.anfelisa.user.models.DeleteUserModel copy = new DeleteUserModel();
-		copy.setUsernameToBeDeleted(this.getUsernameToBeDeleted());
-		copy.setUsername(this.getUsername());
-		copy.setUserId(this.getUserId());
-		copy.setRole(this.getRole());
-		List<String> rootCategoryIdsCopy = new ArrayList<String>();
-		if (this.getRootCategoryIds() != null) {
-			for(String item: this.getRootCategoryIds()) {
-				rootCategoryIdsCopy.add(item);
-			}
-		}
-		copy.setRootCategoryIds(rootCategoryIdsCopy);
-		return copy;
-	}
-	
 	public static DeleteUserModel generateTestData() {
 		java.util.Random random = new java.util.Random();
 		int n;

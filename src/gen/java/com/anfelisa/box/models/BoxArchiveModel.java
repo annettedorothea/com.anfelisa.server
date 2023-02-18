@@ -11,14 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 import de.acegen.AbstractModel;
 
-@SuppressWarnings("all")
+@SuppressWarnings("unused")
 public class BoxArchiveModel extends AbstractModel {
 
 	private String userId;
@@ -89,14 +86,6 @@ public class BoxArchiveModel extends AbstractModel {
 		this.frozen = true;
 	}
 
-	public com.anfelisa.box.models.BoxArchiveModel deepCopy() {
-		com.anfelisa.box.models.BoxArchiveModel copy = new BoxArchiveModel();
-		copy.setUserId(this.getUserId());
-		copy.setBoxId(this.getBoxId());
-		copy.setArchived(this.getArchived());
-		return copy;
-	}
-	
 	public static BoxArchiveModel generateTestData() {
 		java.util.Random random = new java.util.Random();
 		BoxArchiveModel testData = new BoxArchiveModel();

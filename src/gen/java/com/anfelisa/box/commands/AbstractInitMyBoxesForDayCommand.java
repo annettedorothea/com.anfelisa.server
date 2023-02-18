@@ -15,8 +15,6 @@ import de.acegen.ViewProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.Event;
 
-import com.anfelisa.box.models.InitMyBoxesDataModel;
-
 @SuppressWarnings("unused")
 public abstract class AbstractInitMyBoxesForDayCommand extends Command<com.anfelisa.box.models.InitMyBoxesDataModel> {
 

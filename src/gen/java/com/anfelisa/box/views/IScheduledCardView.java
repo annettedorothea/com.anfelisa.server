@@ -9,12 +9,7 @@ package com.anfelisa.box.views;
 
 import de.acegen.Data;
 import de.acegen.PersistenceHandle;
-import com.anfelisa.box.models.ScoreCardModel;
-import com.anfelisa.box.models.ScoreCardModel;
-import com.anfelisa.box.models.InitMyBoxesDataModel;
-import com.anfelisa.box.models.DeleteBoxModel;
 
-@SuppressWarnings("all")
 public interface IScheduledCardView {
 
 	void score(Data<com.anfelisa.box.models.ScoreCardModel> data, PersistenceHandle handle);

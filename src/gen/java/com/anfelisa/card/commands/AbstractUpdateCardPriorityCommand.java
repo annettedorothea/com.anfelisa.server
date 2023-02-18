@@ -15,8 +15,6 @@ import de.acegen.ViewProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.Event;
 
-import com.anfelisa.card.models.CardUpdatePriorityModel;
-
 @SuppressWarnings("unused")
 public abstract class AbstractUpdateCardPriorityCommand extends Command<com.anfelisa.card.models.CardUpdatePriorityModel> {
 

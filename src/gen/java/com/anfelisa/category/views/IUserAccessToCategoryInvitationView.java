@@ -9,10 +9,7 @@ package com.anfelisa.category.views;
 
 import de.acegen.Data;
 import de.acegen.PersistenceHandle;
-import com.anfelisa.category.models.UserToCategoryInvitationModel;
-import com.anfelisa.category.models.UserToCategoryInvitationModel;
 
-@SuppressWarnings("all")
 public interface IUserAccessToCategoryInvitationView {
 
 	void invite(Data<com.anfelisa.category.models.UserToCategoryInvitationModel> data, PersistenceHandle handle);

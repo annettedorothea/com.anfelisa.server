@@ -11,14 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 import de.acegen.AbstractModel;
 
-@SuppressWarnings("all")
+@SuppressWarnings("unused")
 public class CardUpdatePriorityModel extends AbstractModel {
 
 	private String cardId;
@@ -89,14 +86,6 @@ public class CardUpdatePriorityModel extends AbstractModel {
 		this.frozen = true;
 	}
 
-	public com.anfelisa.card.models.CardUpdatePriorityModel deepCopy() {
-		com.anfelisa.card.models.CardUpdatePriorityModel copy = new CardUpdatePriorityModel();
-		copy.setCardId(this.getCardId());
-		copy.setPriority(this.getPriority());
-		copy.setUserId(this.getUserId());
-		return copy;
-	}
-	
 	public static CardUpdatePriorityModel generateTestData() {
 		java.util.Random random = new java.util.Random();
 		CardUpdatePriorityModel testData = new CardUpdatePriorityModel();

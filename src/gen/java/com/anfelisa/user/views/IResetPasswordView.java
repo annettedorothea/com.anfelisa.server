@@ -9,10 +9,7 @@ package com.anfelisa.user.views;
 
 import de.acegen.Data;
 import de.acegen.PersistenceHandle;
-import com.anfelisa.user.models.ForgotPasswordModel;
-import com.anfelisa.user.models.ResetPasswordWithNewPasswordModel;
 
-@SuppressWarnings("all")
 public interface IResetPasswordView {
 
 	void insert(Data<com.anfelisa.user.models.ForgotPasswordModel> data, PersistenceHandle handle);

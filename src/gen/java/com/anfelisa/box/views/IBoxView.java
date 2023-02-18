@@ -9,15 +9,7 @@ package com.anfelisa.box.views;
 
 import de.acegen.Data;
 import de.acegen.PersistenceHandle;
-import com.anfelisa.box.models.BoxCreationModel;
-import com.anfelisa.box.models.BoxUpdateModel;
-import com.anfelisa.box.models.DeleteBoxModel;
-import com.anfelisa.box.models.DeleteBoxModel;
-import com.anfelisa.box.models.BoxArchiveModel;
-import com.anfelisa.box.models.ScheduledCardsModel;
-import com.anfelisa.box.models.SortCardsOutModel;
 
-@SuppressWarnings("all")
 public interface IBoxView {
 
 	void createBox(Data<com.anfelisa.box.models.BoxCreationModel> data, PersistenceHandle handle);

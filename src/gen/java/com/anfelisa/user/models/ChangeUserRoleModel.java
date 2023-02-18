@@ -11,14 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 import de.acegen.AbstractModel;
 
-@SuppressWarnings("all")
+@SuppressWarnings("unused")
 public class ChangeUserRoleModel extends AbstractModel {
 
 	private String editedUserId;
@@ -106,15 +103,6 @@ public class ChangeUserRoleModel extends AbstractModel {
 		this.frozen = true;
 	}
 
-	public com.anfelisa.user.models.ChangeUserRoleModel deepCopy() {
-		com.anfelisa.user.models.ChangeUserRoleModel copy = new ChangeUserRoleModel();
-		copy.setEditedUserId(this.getEditedUserId());
-		copy.setNewRole(this.getNewRole());
-		copy.setUserId(this.getUserId());
-		copy.setRole(this.getRole());
-		return copy;
-	}
-	
 	public static ChangeUserRoleModel generateTestData() {
 		java.util.Random random = new java.util.Random();
 		ChangeUserRoleModel testData = new ChangeUserRoleModel();

@@ -11,14 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 import de.acegen.AbstractModel;
 
-@SuppressWarnings("all")
+@SuppressWarnings("unused")
 public class MinimalBoxModel extends AbstractModel {
 
 	private String boxId;
@@ -89,14 +86,6 @@ public class MinimalBoxModel extends AbstractModel {
 		this.frozen = true;
 	}
 
-	public com.anfelisa.box.models.MinimalBoxModel deepCopy() {
-		com.anfelisa.box.models.MinimalBoxModel copy = new MinimalBoxModel();
-		copy.setBoxId(this.getBoxId());
-		copy.setCategoryId(this.getCategoryId());
-		copy.setReverse(this.getReverse());
-		return copy;
-	}
-	
 	public static MinimalBoxModel generateTestData() {
 		java.util.Random random = new java.util.Random();
 		MinimalBoxModel testData = new MinimalBoxModel();

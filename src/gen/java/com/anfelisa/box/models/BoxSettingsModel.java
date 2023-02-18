@@ -11,14 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 import de.acegen.AbstractModel;
 
-@SuppressWarnings("all")
+@SuppressWarnings("unused")
 public class BoxSettingsModel extends AbstractModel {
 
 	private String boxId;
@@ -225,22 +222,6 @@ public class BoxSettingsModel extends AbstractModel {
 		this.frozen = true;
 	}
 
-	public com.anfelisa.box.models.BoxSettingsModel deepCopy() {
-		com.anfelisa.box.models.BoxSettingsModel copy = new BoxSettingsModel();
-		copy.setBoxId(this.getBoxId());
-		copy.setMaxInterval(this.getMaxInterval());
-		copy.setMaxCardsPerDay(this.getMaxCardsPerDay());
-		copy.setCategoryName(this.getCategoryName());
-		copy.setDictionaryLookup(this.getDictionaryLookup());
-		copy.setGivenLanguage(this.getGivenLanguage());
-		copy.setWantedLanguage(this.getWantedLanguage());
-		copy.setCategoryId(this.getCategoryId());
-		copy.setAllCards(this.getAllCards());
-		copy.setAllActiveCards(this.getAllActiveCards());
-		copy.setEditable(this.getEditable());
-		return copy;
-	}
-	
 	public static BoxSettingsModel generateTestData() {
 		java.util.Random random = new java.util.Random();
 		BoxSettingsModel testData = new BoxSettingsModel();

@@ -9,15 +9,7 @@ package com.anfelisa.box.views;
 
 import de.acegen.Data;
 import de.acegen.PersistenceHandle;
-import com.anfelisa.box.models.ScoreCardModel;
-import com.anfelisa.box.models.ScoreReinforceCardModel;
-import com.anfelisa.box.models.ScoreReinforceCardModel;
-import com.anfelisa.box.models.InitMyBoxesDataModel;
-import com.anfelisa.box.models.DeleteBoxModel;
-import com.anfelisa.box.models.ScheduledCardsModel;
-import com.anfelisa.box.models.SortCardsOutModel;
 
-@SuppressWarnings("all")
 public interface IReinforceCardView {
 
 	void add(Data<com.anfelisa.box.models.ScoreCardModel> data, PersistenceHandle handle);

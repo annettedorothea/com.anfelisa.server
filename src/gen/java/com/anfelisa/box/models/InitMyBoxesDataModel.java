@@ -11,14 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 import de.acegen.AbstractModel;
 
-@SuppressWarnings("all")
+@SuppressWarnings("unused")
 public class InitMyBoxesDataModel extends AbstractModel {
 
 	private String userId;
@@ -115,27 +112,6 @@ public class InitMyBoxesDataModel extends AbstractModel {
 		}
 	}
 
-	public com.anfelisa.box.models.InitMyBoxesDataModel deepCopy() {
-		com.anfelisa.box.models.InitMyBoxesDataModel copy = new InitMyBoxesDataModel();
-		copy.setUserId(this.getUserId());
-		copy.setTodayAtMidnightInUTC(this.getTodayAtMidnightInUTC());
-		List<com.anfelisa.box.models.PostponeCardsModel> postponeCardsCopy = new ArrayList<com.anfelisa.box.models.PostponeCardsModel>();
-		if (this.getPostponeCards() != null) {
-			for(com.anfelisa.box.models.PostponeCardsModel item: this.getPostponeCards()) {
-				postponeCardsCopy.add(item.deepCopy());
-			}
-		}
-		copy.setPostponeCards(postponeCardsCopy);
-		List<String> outdatedReinforceCardsIdsCopy = new ArrayList<String>();
-		if (this.getOutdatedReinforceCardsIds() != null) {
-			for(String item: this.getOutdatedReinforceCardsIds()) {
-				outdatedReinforceCardsIdsCopy.add(item);
-			}
-		}
-		copy.setOutdatedReinforceCardsIds(outdatedReinforceCardsIdsCopy);
-		return copy;
-	}
-	
 	public static InitMyBoxesDataModel generateTestData() {
 		java.util.Random random = new java.util.Random();
 		int n;

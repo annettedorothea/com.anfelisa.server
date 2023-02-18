@@ -15,8 +15,6 @@ import de.acegen.ViewProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.Event;
 
-import com.anfelisa.category.models.CategoryCreationModel;
-
 @SuppressWarnings("unused")
 public abstract class AbstractCreateCategoryCommand extends Command<com.anfelisa.category.models.CategoryCreationModel> {
 

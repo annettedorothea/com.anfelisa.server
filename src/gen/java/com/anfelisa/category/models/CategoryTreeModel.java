@@ -11,14 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 import de.acegen.AbstractModel;
 
-@SuppressWarnings("all")
+@SuppressWarnings("unused")
 public class CategoryTreeModel extends AbstractModel {
 
 	private com.anfelisa.category.models.CategoryTreeItemModel rootCategory;
@@ -194,22 +191,6 @@ public class CategoryTreeModel extends AbstractModel {
 		}
 	}
 
-	public com.anfelisa.category.models.CategoryTreeModel deepCopy() {
-		com.anfelisa.category.models.CategoryTreeModel copy = new CategoryTreeModel();
-		if (this.getRootCategory() != null) {
-			copy.setRootCategory(this.getRootCategory().deepCopy());
-		}
-		copy.setUserId(this.getUserId());
-		copy.setRootCategoryId(this.getRootCategoryId());
-		copy.setFilterNonScheduled(this.getFilterNonScheduled());
-		copy.setPriority(this.getPriority());
-		copy.setEditable(this.getEditable());
-		copy.setReverse(this.getReverse());
-		copy.setReverseBoxExists(this.getReverseBoxExists());
-		copy.setBoxId(this.getBoxId());
-		return copy;
-	}
-	
 	public static CategoryTreeModel generateTestData() {
 		java.util.Random random = new java.util.Random();
 		CategoryTreeModel testData = new CategoryTreeModel();

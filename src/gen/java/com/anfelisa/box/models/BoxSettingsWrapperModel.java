@@ -11,14 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 import de.acegen.AbstractModel;
 
-@SuppressWarnings("all")
+@SuppressWarnings("unused")
 public class BoxSettingsWrapperModel extends AbstractModel {
 
 	private String userId;
@@ -92,16 +89,6 @@ public class BoxSettingsWrapperModel extends AbstractModel {
 		}
 	}
 
-	public com.anfelisa.box.models.BoxSettingsWrapperModel deepCopy() {
-		com.anfelisa.box.models.BoxSettingsWrapperModel copy = new BoxSettingsWrapperModel();
-		copy.setUserId(this.getUserId());
-		copy.setBoxId(this.getBoxId());
-		if (this.getBoxSettings() != null) {
-			copy.setBoxSettings(this.getBoxSettings().deepCopy());
-		}
-		return copy;
-	}
-	
 	public static BoxSettingsWrapperModel generateTestData() {
 		java.util.Random random = new java.util.Random();
 		BoxSettingsWrapperModel testData = new BoxSettingsWrapperModel();

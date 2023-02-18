@@ -11,14 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 import de.acegen.AbstractModel;
 
-@SuppressWarnings("all")
+@SuppressWarnings("unused")
 public class UserAccessToCategoryModel extends AbstractModel {
 
 	private String categoryId;
@@ -89,14 +86,6 @@ public class UserAccessToCategoryModel extends AbstractModel {
 		this.frozen = true;
 	}
 
-	public com.anfelisa.category.models.UserAccessToCategoryModel deepCopy() {
-		com.anfelisa.category.models.UserAccessToCategoryModel copy = new UserAccessToCategoryModel();
-		copy.setCategoryId(this.getCategoryId());
-		copy.setUserId(this.getUserId());
-		copy.setEditable(this.getEditable());
-		return copy;
-	}
-	
 	public static UserAccessToCategoryModel generateTestData() {
 		java.util.Random random = new java.util.Random();
 		UserAccessToCategoryModel testData = new UserAccessToCategoryModel();

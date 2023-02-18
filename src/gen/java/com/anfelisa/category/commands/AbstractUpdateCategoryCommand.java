@@ -15,8 +15,6 @@ import de.acegen.ViewProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.Event;
 
-import com.anfelisa.category.models.CategoryUpdateModel;
-
 @SuppressWarnings("unused")
 public abstract class AbstractUpdateCategoryCommand extends Command<com.anfelisa.category.models.CategoryUpdateModel> {
 

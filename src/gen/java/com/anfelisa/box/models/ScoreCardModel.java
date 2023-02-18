@@ -11,14 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 import de.acegen.AbstractModel;
 
-@SuppressWarnings("all")
+@SuppressWarnings("unused")
 public class ScoreCardModel extends AbstractModel {
 
 	private String cardId;
@@ -377,30 +374,6 @@ public class ScoreCardModel extends AbstractModel {
 		this.frozen = true;
 	}
 
-	public com.anfelisa.box.models.ScoreCardModel deepCopy() {
-		com.anfelisa.box.models.ScoreCardModel copy = new ScoreCardModel();
-		copy.setCardId(this.getCardId());
-		copy.setNextScheduledCardScheduledCardId(this.getNextScheduledCardScheduledCardId());
-		copy.setNextScheduledCardCreatedDate(this.getNextScheduledCardCreatedDate());
-		copy.setNextScheduledCardEf(this.getNextScheduledCardEf());
-		copy.setNextScheduledCardInterval(this.getNextScheduledCardInterval());
-		copy.setNextScheduledCardN(this.getNextScheduledCardN());
-		copy.setNextScheduledCardCount(this.getNextScheduledCardCount());
-		copy.setNextScheduledCardScheduledDate(this.getNextScheduledCardScheduledDate());
-		copy.setNextScheduledCardLastQuality(this.getNextScheduledCardLastQuality());
-		copy.setScheduledCardId(this.getScheduledCardId());
-		copy.setScoredCardQuality(this.getScoredCardQuality());
-		copy.setScoredCardScoredDate(this.getScoredCardScoredDate());
-		copy.setReinforceCardId(this.getReinforceCardId());
-		copy.setReinforceCardCreatedDate(this.getReinforceCardCreatedDate());
-		copy.setUserId(this.getUserId());
-		copy.setBoxId(this.getBoxId());
-		copy.setIntervalDifference(this.getIntervalDifference());
-		copy.setMaxInterval(this.getMaxInterval());
-		copy.setMaxCardsPerDay(this.getMaxCardsPerDay());
-		return copy;
-	}
-	
 	public static ScoreCardModel generateTestData() {
 		java.util.Random random = new java.util.Random();
 		ScoreCardModel testData = new ScoreCardModel();

@@ -9,11 +9,7 @@ package com.anfelisa.box.views;
 
 import de.acegen.Data;
 import de.acegen.PersistenceHandle;
-import com.anfelisa.box.models.BoxCreationModel;
-import com.anfelisa.box.models.BoxUpdateModel;
-import com.anfelisa.box.models.DeleteBoxModel;
 
-@SuppressWarnings("all")
 public interface IRootCategoryView {
 
 	void insert(Data<com.anfelisa.box.models.BoxCreationModel> data, PersistenceHandle handle);

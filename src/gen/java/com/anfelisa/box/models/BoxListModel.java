@@ -11,14 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 import de.acegen.AbstractModel;
 
-@SuppressWarnings("all")
+@SuppressWarnings("unused")
 public class BoxListModel extends AbstractModel {
 
 	private java.util.List<com.anfelisa.box.models.BoxViewModel> boxList;
@@ -98,20 +95,6 @@ public class BoxListModel extends AbstractModel {
 		}
 	}
 
-	public com.anfelisa.box.models.BoxListModel deepCopy() {
-		com.anfelisa.box.models.BoxListModel copy = new BoxListModel();
-		List<com.anfelisa.box.models.BoxViewModel> boxListCopy = new ArrayList<com.anfelisa.box.models.BoxViewModel>();
-		if (this.getBoxList() != null) {
-			for(com.anfelisa.box.models.BoxViewModel item: this.getBoxList()) {
-				boxListCopy.add(item.deepCopy());
-			}
-		}
-		copy.setBoxList(boxListCopy);
-		copy.setUserId(this.getUserId());
-		copy.setTodayAtMidnightInUTC(this.getTodayAtMidnightInUTC());
-		return copy;
-	}
-	
 	public static BoxListModel generateTestData() {
 		java.util.Random random = new java.util.Random();
 		int n;

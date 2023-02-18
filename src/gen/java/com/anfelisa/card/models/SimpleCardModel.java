@@ -11,14 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 import de.acegen.AbstractModel;
 
-@SuppressWarnings("all")
+@SuppressWarnings("unused")
 public class SimpleCardModel extends AbstractModel {
 
 	private String given;
@@ -89,14 +86,6 @@ public class SimpleCardModel extends AbstractModel {
 		this.frozen = true;
 	}
 
-	public com.anfelisa.card.models.SimpleCardModel deepCopy() {
-		com.anfelisa.card.models.SimpleCardModel copy = new SimpleCardModel();
-		copy.setGiven(this.getGiven());
-		copy.setWanted(this.getWanted());
-		copy.setId(this.getId());
-		return copy;
-	}
-	
 	public static SimpleCardModel generateTestData() {
 		java.util.Random random = new java.util.Random();
 		SimpleCardModel testData = new SimpleCardModel();

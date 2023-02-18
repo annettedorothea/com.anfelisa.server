@@ -11,14 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 import de.acegen.AbstractModel;
 
-@SuppressWarnings("all")
+@SuppressWarnings("unused")
 public class ReinforceCardModel extends AbstractModel {
 
 	private String reinforceCardId;
@@ -110,15 +107,6 @@ public class ReinforceCardModel extends AbstractModel {
 		this.frozen = true;
 	}
 
-	public com.anfelisa.box.models.ReinforceCardModel deepCopy() {
-		com.anfelisa.box.models.ReinforceCardModel copy = new ReinforceCardModel();
-		copy.setReinforceCardId(this.getReinforceCardId());
-		copy.setScheduledCardId(this.getScheduledCardId());
-		copy.setBoxId(this.getBoxId());
-		copy.setChangeDate(this.getChangeDate());
-		return copy;
-	}
-	
 	public static ReinforceCardModel generateTestData() {
 		java.util.Random random = new java.util.Random();
 		ReinforceCardModel testData = new ReinforceCardModel();

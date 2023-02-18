@@ -9,10 +9,7 @@ package com.anfelisa.user.views;
 
 import de.acegen.Data;
 import de.acegen.PersistenceHandle;
-import com.anfelisa.user.models.ForgotPasswordModel;
-import com.anfelisa.user.models.UserRegistrationModel;
 
-@SuppressWarnings("all")
 public interface IEmailView {
 
 	void sendForgotPasswordEmail(Data<com.anfelisa.user.models.ForgotPasswordModel> data, PersistenceHandle handle);

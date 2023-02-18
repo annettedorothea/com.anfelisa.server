@@ -11,14 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 import de.acegen.AbstractModel;
 
-@SuppressWarnings("all")
+@SuppressWarnings("unused")
 public class CardWithStatisticsModel extends AbstractModel {
 
 	private Float ef;
@@ -276,24 +273,6 @@ public class CardWithStatisticsModel extends AbstractModel {
 		this.frozen = true;
 	}
 
-	public com.anfelisa.box.models.CardWithStatisticsModel deepCopy() {
-		com.anfelisa.box.models.CardWithStatisticsModel copy = new CardWithStatisticsModel();
-		copy.setEf(this.getEf());
-		copy.setInterval(this.getInterval());
-		copy.setCount(this.getCount());
-		copy.setLastQuality(this.getLastQuality());
-		copy.setNext(this.getNext());
-		copy.setCardId(this.getCardId());
-		copy.setGiven(this.getGiven());
-		copy.setWanted(this.getWanted());
-		copy.setCardAuthor(this.getCardAuthor());
-		copy.setCardIndex(this.getCardIndex());
-		copy.setCategoryId(this.getCategoryId());
-		copy.setRootCategoryId(this.getRootCategoryId());
-		copy.setPriority(this.getPriority());
-		return copy;
-	}
-	
 	public static CardWithStatisticsModel generateTestData() {
 		java.util.Random random = new java.util.Random();
 		CardWithStatisticsModel testData = new CardWithStatisticsModel();

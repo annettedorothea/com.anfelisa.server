@@ -11,14 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 import de.acegen.AbstractModel;
 
-@SuppressWarnings("all")
+@SuppressWarnings("unused")
 public class ProfileUserModel extends AbstractModel {
 
 	private Boolean deletable;
@@ -167,18 +164,6 @@ public class ProfileUserModel extends AbstractModel {
 		this.frozen = true;
 	}
 
-	public com.anfelisa.user.models.ProfileUserModel deepCopy() {
-		com.anfelisa.user.models.ProfileUserModel copy = new ProfileUserModel();
-		copy.setDeletable(this.getDeletable());
-		copy.setUserId(this.getUserId());
-		copy.setUsername(this.getUsername());
-		copy.setPassword(this.getPassword());
-		copy.setEmail(this.getEmail());
-		copy.setRole(this.getRole());
-		copy.setEmailConfirmed(this.getEmailConfirmed());
-		return copy;
-	}
-	
 	public static ProfileUserModel generateTestData() {
 		java.util.Random random = new java.util.Random();
 		ProfileUserModel testData = new ProfileUserModel();

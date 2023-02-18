@@ -11,14 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 import de.acegen.AbstractModel;
 
-@SuppressWarnings("all")
+@SuppressWarnings("unused")
 public class PostponeCardsModel extends AbstractModel {
 
 	private Integer days;
@@ -72,13 +69,6 @@ public class PostponeCardsModel extends AbstractModel {
 		this.frozen = true;
 	}
 
-	public com.anfelisa.box.models.PostponeCardsModel deepCopy() {
-		com.anfelisa.box.models.PostponeCardsModel copy = new PostponeCardsModel();
-		copy.setDays(this.getDays());
-		copy.setBoxId(this.getBoxId());
-		return copy;
-	}
-	
 	public static PostponeCardsModel generateTestData() {
 		java.util.Random random = new java.util.Random();
 		PostponeCardsModel testData = new PostponeCardsModel();

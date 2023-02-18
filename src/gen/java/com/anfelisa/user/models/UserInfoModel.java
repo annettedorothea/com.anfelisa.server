@@ -11,14 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 import de.acegen.AbstractModel;
 
-@SuppressWarnings("all")
+@SuppressWarnings("unused")
 public class UserInfoModel extends AbstractModel {
 
 	private String username;
@@ -55,12 +52,6 @@ public class UserInfoModel extends AbstractModel {
 		this.frozen = true;
 	}
 
-	public com.anfelisa.user.models.UserInfoModel deepCopy() {
-		com.anfelisa.user.models.UserInfoModel copy = new UserInfoModel();
-		copy.setUsername(this.getUsername());
-		return copy;
-	}
-	
 	public static UserInfoModel generateTestData() {
 		java.util.Random random = new java.util.Random();
 		UserInfoModel testData = new UserInfoModel();

@@ -11,14 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 import de.acegen.AbstractModel;
 
-@SuppressWarnings("all")
+@SuppressWarnings("unused")
 public class CategoryChangeOrderModel extends AbstractModel {
 
 	private String movedCategoryId;
@@ -111,21 +108,6 @@ public class CategoryChangeOrderModel extends AbstractModel {
 		}
 	}
 
-	public com.anfelisa.category.models.CategoryChangeOrderModel deepCopy() {
-		com.anfelisa.category.models.CategoryChangeOrderModel copy = new CategoryChangeOrderModel();
-		copy.setMovedCategoryId(this.getMovedCategoryId());
-		copy.setTargetCategoryId(this.getTargetCategoryId());
-		copy.setUserId(this.getUserId());
-		List<com.anfelisa.category.models.CategoryModel> updatedIndicesCopy = new ArrayList<com.anfelisa.category.models.CategoryModel>();
-		if (this.getUpdatedIndices() != null) {
-			for(com.anfelisa.category.models.CategoryModel item: this.getUpdatedIndices()) {
-				updatedIndicesCopy.add(item.deepCopy());
-			}
-		}
-		copy.setUpdatedIndices(updatedIndicesCopy);
-		return copy;
-	}
-	
 	public static CategoryChangeOrderModel generateTestData() {
 		java.util.Random random = new java.util.Random();
 		int n;

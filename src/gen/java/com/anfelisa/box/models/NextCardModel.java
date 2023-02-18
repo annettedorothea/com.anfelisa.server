@@ -11,14 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 import de.acegen.AbstractModel;
 
-@SuppressWarnings("all")
+@SuppressWarnings("unused")
 public class NextCardModel extends AbstractModel {
 
 	private String userId;
@@ -187,21 +184,6 @@ public class NextCardModel extends AbstractModel {
 		}
 	}
 
-	public com.anfelisa.box.models.NextCardModel deepCopy() {
-		com.anfelisa.box.models.NextCardModel copy = new NextCardModel();
-		copy.setUserId(this.getUserId());
-		copy.setBoxId(this.getBoxId());
-		copy.setBoxName(this.getBoxName());
-		copy.setTodayAtMidnightInUTC(this.getTodayAtMidnightInUTC());
-		if (this.getNextCard() != null) {
-			copy.setNextCard(this.getNextCard().deepCopy());
-		}
-		copy.setReverse(this.getReverse());
-		copy.setOpenTodaysCards(this.getOpenTodaysCards());
-		copy.setAllTodaysCards(this.getAllTodaysCards());
-		return copy;
-	}
-	
 	public static NextCardModel generateTestData() {
 		java.util.Random random = new java.util.Random();
 		NextCardModel testData = new NextCardModel();

@@ -11,14 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 import de.acegen.AbstractModel;
 
-@SuppressWarnings("all")
+@SuppressWarnings("unused")
 public class UserRegistrationModel extends AbstractModel {
 
 	private String language;
@@ -190,19 +187,6 @@ public class UserRegistrationModel extends AbstractModel {
 		this.frozen = true;
 	}
 
-	public com.anfelisa.user.models.UserRegistrationModel deepCopy() {
-		com.anfelisa.user.models.UserRegistrationModel copy = new UserRegistrationModel();
-		copy.setLanguage(this.getLanguage());
-		copy.setUserId(this.getUserId());
-		copy.setUsername(this.getUsername());
-		copy.setPassword(this.getPassword());
-		copy.setEmail(this.getEmail());
-		copy.setRole(this.getRole());
-		copy.setEmailConfirmed(this.getEmailConfirmed());
-		copy.setToken(this.getToken());
-		return copy;
-	}
-	
 	public static UserRegistrationModel generateTestData() {
 		java.util.Random random = new java.util.Random();
 		UserRegistrationModel testData = new UserRegistrationModel();

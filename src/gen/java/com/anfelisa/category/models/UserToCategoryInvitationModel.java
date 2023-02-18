@@ -11,14 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 import de.acegen.AbstractModel;
 
-@SuppressWarnings("all")
+@SuppressWarnings("unused")
 public class UserToCategoryInvitationModel extends AbstractModel {
 
 	private String categoryId;
@@ -143,19 +140,6 @@ public class UserToCategoryInvitationModel extends AbstractModel {
 		}
 	}
 
-	public com.anfelisa.category.models.UserToCategoryInvitationModel deepCopy() {
-		com.anfelisa.category.models.UserToCategoryInvitationModel copy = new UserToCategoryInvitationModel();
-		copy.setCategoryId(this.getCategoryId());
-		copy.setUserId(this.getUserId());
-		copy.setInvitedUsername(this.getInvitedUsername());
-		copy.setInvitedUserId(this.getInvitedUserId());
-		copy.setEditable(this.getEditable());
-		if (this.getBoxForInvitedUser() != null) {
-			copy.setBoxForInvitedUser(this.getBoxForInvitedUser().deepCopy());
-		}
-		return copy;
-	}
-	
 	public static UserToCategoryInvitationModel generateTestData() {
 		java.util.Random random = new java.util.Random();
 		UserToCategoryInvitationModel testData = new UserToCategoryInvitationModel();

@@ -11,14 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 import de.acegen.AbstractModel;
 
-@SuppressWarnings("all")
+@SuppressWarnings("unused")
 public class CsvUploadModel extends AbstractModel {
 
 	private String userId;
@@ -116,27 +113,6 @@ public class CsvUploadModel extends AbstractModel {
 		}
 	}
 
-	public com.anfelisa.card.models.CsvUploadModel deepCopy() {
-		com.anfelisa.card.models.CsvUploadModel copy = new CsvUploadModel();
-		copy.setUserId(this.getUserId());
-		copy.setCategoryId(this.getCategoryId());
-		List<com.anfelisa.card.models.SimpleCardModel> previewCsvCopy = new ArrayList<com.anfelisa.card.models.SimpleCardModel>();
-		if (this.getPreviewCsv() != null) {
-			for(com.anfelisa.card.models.SimpleCardModel item: this.getPreviewCsv()) {
-				previewCsvCopy.add(item.deepCopy());
-			}
-		}
-		copy.setPreviewCsv(previewCsvCopy);
-		List<com.anfelisa.card.models.CardModel> cardsCopy = new ArrayList<com.anfelisa.card.models.CardModel>();
-		if (this.getCards() != null) {
-			for(com.anfelisa.card.models.CardModel item: this.getCards()) {
-				cardsCopy.add(item.deepCopy());
-			}
-		}
-		copy.setCards(cardsCopy);
-		return copy;
-	}
-	
 	public static CsvUploadModel generateTestData() {
 		java.util.Random random = new java.util.Random();
 		int n;

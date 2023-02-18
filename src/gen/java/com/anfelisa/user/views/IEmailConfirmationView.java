@@ -9,10 +9,7 @@ package com.anfelisa.user.views;
 
 import de.acegen.Data;
 import de.acegen.PersistenceHandle;
-import com.anfelisa.user.models.UserRegistrationModel;
-import com.anfelisa.user.models.ConfirmEmailModel;
 
-@SuppressWarnings("all")
 public interface IEmailConfirmationView {
 
 	void insert(Data<com.anfelisa.user.models.UserRegistrationModel> data, PersistenceHandle handle);

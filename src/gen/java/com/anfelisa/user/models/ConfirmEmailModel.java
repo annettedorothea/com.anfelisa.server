@@ -11,14 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 import de.acegen.AbstractModel;
 
-@SuppressWarnings("all")
+@SuppressWarnings("unused")
 public class ConfirmEmailModel extends AbstractModel {
 
 	private String username;
@@ -95,14 +92,6 @@ public class ConfirmEmailModel extends AbstractModel {
 		this.frozen = true;
 	}
 
-	public com.anfelisa.user.models.ConfirmEmailModel deepCopy() {
-		com.anfelisa.user.models.ConfirmEmailModel copy = new ConfirmEmailModel();
-		copy.setUsername(this.getUsername());
-		copy.setToken(this.getToken());
-		copy.setUserId(this.getUserId());
-		return copy;
-	}
-	
 	public static ConfirmEmailModel generateTestData() {
 		java.util.Random random = new java.util.Random();
 		ConfirmEmailModel testData = new ConfirmEmailModel();

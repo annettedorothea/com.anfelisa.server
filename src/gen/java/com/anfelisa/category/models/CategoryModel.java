@@ -11,14 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 import de.acegen.AbstractModel;
 
-@SuppressWarnings("all")
+@SuppressWarnings("unused")
 public class CategoryModel extends AbstractModel {
 
 	private String categoryId;
@@ -191,20 +188,6 @@ public class CategoryModel extends AbstractModel {
 		this.frozen = true;
 	}
 
-	public com.anfelisa.category.models.CategoryModel deepCopy() {
-		com.anfelisa.category.models.CategoryModel copy = new CategoryModel();
-		copy.setCategoryId(this.getCategoryId());
-		copy.setCategoryName(this.getCategoryName());
-		copy.setCategoryAuthor(this.getCategoryAuthor());
-		copy.setCategoryIndex(this.getCategoryIndex());
-		copy.setParentCategoryId(this.getParentCategoryId());
-		copy.setRootCategoryId(this.getRootCategoryId());
-		copy.setDictionaryLookup(this.getDictionaryLookup());
-		copy.setGivenLanguage(this.getGivenLanguage());
-		copy.setWantedLanguage(this.getWantedLanguage());
-		return copy;
-	}
-	
 	public static CategoryModel generateTestData() {
 		java.util.Random random = new java.util.Random();
 		CategoryModel testData = new CategoryModel();

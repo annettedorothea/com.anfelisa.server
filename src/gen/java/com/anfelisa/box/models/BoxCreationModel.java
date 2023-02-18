@@ -11,14 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 import de.acegen.AbstractModel;
 
-@SuppressWarnings("all")
+@SuppressWarnings("unused")
 public class BoxCreationModel extends AbstractModel {
 
 	private String username;
@@ -358,28 +355,6 @@ public class BoxCreationModel extends AbstractModel {
 		this.frozen = true;
 	}
 
-	public com.anfelisa.box.models.BoxCreationModel deepCopy() {
-		com.anfelisa.box.models.BoxCreationModel copy = new BoxCreationModel();
-		copy.setUsername(this.getUsername());
-		copy.setCategoryId(this.getCategoryId());
-		copy.setCategoryName(this.getCategoryName());
-		copy.setCategoryAuthor(this.getCategoryAuthor());
-		copy.setCategoryIndex(this.getCategoryIndex());
-		copy.setParentCategoryId(this.getParentCategoryId());
-		copy.setRootCategoryId(this.getRootCategoryId());
-		copy.setDictionaryLookup(this.getDictionaryLookup());
-		copy.setGivenLanguage(this.getGivenLanguage());
-		copy.setWantedLanguage(this.getWantedLanguage());
-		copy.setUserId(this.getUserId());
-		copy.setEditable(this.getEditable());
-		copy.setBoxId(this.getBoxId());
-		copy.setMaxInterval(this.getMaxInterval());
-		copy.setMaxCardsPerDay(this.getMaxCardsPerDay());
-		copy.setReverse(this.getReverse());
-		copy.setArchived(this.getArchived());
-		return copy;
-	}
-	
 	public static BoxCreationModel generateTestData() {
 		java.util.Random random = new java.util.Random();
 		BoxCreationModel testData = new BoxCreationModel();

@@ -11,14 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 import de.acegen.AbstractModel;
 
-@SuppressWarnings("all")
+@SuppressWarnings("unused")
 public class NextCardViewModel extends AbstractModel {
 
 	private String scheduledCardId;
@@ -250,23 +247,6 @@ public class NextCardViewModel extends AbstractModel {
 		this.frozen = true;
 	}
 
-	public com.anfelisa.box.models.NextCardViewModel deepCopy() {
-		com.anfelisa.box.models.NextCardViewModel copy = new NextCardViewModel();
-		copy.setScheduledCardId(this.getScheduledCardId());
-		copy.setReinforceCardId(this.getReinforceCardId());
-		copy.setCardId(this.getCardId());
-		copy.setScheduledDate(this.getScheduledDate());
-		copy.setLastQuality(this.getLastQuality());
-		copy.setGiven(this.getGiven());
-		copy.setWanted(this.getWanted());
-		copy.setCategoryId(this.getCategoryId());
-		copy.setCategoryName(this.getCategoryName());
-		copy.setRootCategoryId(this.getRootCategoryId());
-		copy.setCount(this.getCount());
-		copy.setScoredDate(this.getScoredDate());
-		return copy;
-	}
-	
 	public static NextCardViewModel generateTestData() {
 		java.util.Random random = new java.util.Random();
 		NextCardViewModel testData = new NextCardViewModel();

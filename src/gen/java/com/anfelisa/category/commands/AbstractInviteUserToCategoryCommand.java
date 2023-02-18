@@ -15,8 +15,6 @@ import de.acegen.ViewProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.Event;
 
-import com.anfelisa.category.models.UserToCategoryInvitationModel;
-
 @SuppressWarnings("unused")
 public abstract class AbstractInviteUserToCategoryCommand extends Command<com.anfelisa.category.models.UserToCategoryInvitationModel> {
 

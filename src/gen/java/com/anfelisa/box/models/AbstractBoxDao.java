@@ -8,15 +8,14 @@
 package com.anfelisa.box.models;
 
 import de.acegen.PersistenceHandle;
-import de.acegen.AbstractDao;
 import org.jdbi.v3.core.statement.Update;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-@SuppressWarnings("all")
-public class AbstractBoxDao extends AbstractDao {
+//@SuppressWarnings("all")
+public class AbstractBoxDao {
 	
 	public void insert(PersistenceHandle handle, com.anfelisa.box.models.BoxModel boxModel) {
 		Update statement = handle.getHandle().createUpdate("INSERT INTO \"box\" (boxid, userid, categoryid, maxinterval, maxcardsperday, reverse, archived) VALUES (:boxid, :userid, :categoryid, :maxinterval, :maxcardsperday, :reverse, :archived)");

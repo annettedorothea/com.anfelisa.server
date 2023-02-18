@@ -11,14 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 import de.acegen.AbstractModel;
 
-@SuppressWarnings("all")
+@SuppressWarnings("unused")
 public class ScheduledCardsModel extends AbstractModel {
 
 	private java.util.List<com.anfelisa.box.models.ScheduledCardModel> newScheduledCards;
@@ -166,36 +163,6 @@ public class ScheduledCardsModel extends AbstractModel {
 		}
 	}
 
-	public com.anfelisa.box.models.ScheduledCardsModel deepCopy() {
-		com.anfelisa.box.models.ScheduledCardsModel copy = new ScheduledCardsModel();
-		List<com.anfelisa.box.models.ScheduledCardModel> newScheduledCardsCopy = new ArrayList<com.anfelisa.box.models.ScheduledCardModel>();
-		if (this.getNewScheduledCards() != null) {
-			for(com.anfelisa.box.models.ScheduledCardModel item: this.getNewScheduledCards()) {
-				newScheduledCardsCopy.add(item.deepCopy());
-			}
-		}
-		copy.setNewScheduledCards(newScheduledCardsCopy);
-		List<String> existingScheduledCardIdsCopy = new ArrayList<String>();
-		if (this.getExistingScheduledCardIds() != null) {
-			for(String item: this.getExistingScheduledCardIds()) {
-				existingScheduledCardIdsCopy.add(item);
-			}
-		}
-		copy.setExistingScheduledCardIds(existingScheduledCardIdsCopy);
-		List<String> cardIdsCopy = new ArrayList<String>();
-		if (this.getCardIds() != null) {
-			for(String item: this.getCardIds()) {
-				cardIdsCopy.add(item);
-			}
-		}
-		copy.setCardIds(cardIdsCopy);
-		copy.setScheduledDate(this.getScheduledDate());
-		copy.setUserId(this.getUserId());
-		copy.setBoxId(this.getBoxId());
-		copy.setReverse(this.getReverse());
-		return copy;
-	}
-	
 	public static ScheduledCardsModel generateTestData() {
 		java.util.Random random = new java.util.Random();
 		int n;

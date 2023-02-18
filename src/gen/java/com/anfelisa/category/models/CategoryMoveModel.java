@@ -11,14 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 import de.acegen.AbstractModel;
 
-@SuppressWarnings("all")
+@SuppressWarnings("unused")
 public class CategoryMoveModel extends AbstractModel {
 
 	private String movedCategoryId;
@@ -143,19 +140,6 @@ public class CategoryMoveModel extends AbstractModel {
 		}
 	}
 
-	public com.anfelisa.category.models.CategoryMoveModel deepCopy() {
-		com.anfelisa.category.models.CategoryMoveModel copy = new CategoryMoveModel();
-		copy.setMovedCategoryId(this.getMovedCategoryId());
-		copy.setTargetCategoryId(this.getTargetCategoryId());
-		if (this.getMovedCategory() != null) {
-			copy.setMovedCategory(this.getMovedCategory().deepCopy());
-		}
-		copy.setCategoryIndexWhereRemoved(this.getCategoryIndexWhereRemoved());
-		copy.setParentCategoryIdWhereRemoved(this.getParentCategoryIdWhereRemoved());
-		copy.setUserId(this.getUserId());
-		return copy;
-	}
-	
 	public static CategoryMoveModel generateTestData() {
 		java.util.Random random = new java.util.Random();
 		CategoryMoveModel testData = new CategoryMoveModel();

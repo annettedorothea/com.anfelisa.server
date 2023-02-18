@@ -11,14 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 import de.acegen.AbstractModel;
 
-@SuppressWarnings("all")
+@SuppressWarnings("unused")
 public class BoxUpdateModel extends AbstractModel {
 
 	private String userId;
@@ -191,20 +188,6 @@ public class BoxUpdateModel extends AbstractModel {
 		this.frozen = true;
 	}
 
-	public com.anfelisa.box.models.BoxUpdateModel deepCopy() {
-		com.anfelisa.box.models.BoxUpdateModel copy = new BoxUpdateModel();
-		copy.setUserId(this.getUserId());
-		copy.setBoxId(this.getBoxId());
-		copy.setMaxInterval(this.getMaxInterval());
-		copy.setMaxCardsPerDay(this.getMaxCardsPerDay());
-		copy.setCategoryName(this.getCategoryName());
-		copy.setDictionaryLookup(this.getDictionaryLookup());
-		copy.setGivenLanguage(this.getGivenLanguage());
-		copy.setWantedLanguage(this.getWantedLanguage());
-		copy.setCategoryId(this.getCategoryId());
-		return copy;
-	}
-	
 	public static BoxUpdateModel generateTestData() {
 		java.util.Random random = new java.util.Random();
 		BoxUpdateModel testData = new BoxUpdateModel();

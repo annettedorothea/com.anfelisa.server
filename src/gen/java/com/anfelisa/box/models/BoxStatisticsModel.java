@@ -11,14 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 import de.acegen.AbstractModel;
 
-@SuppressWarnings("all")
+@SuppressWarnings("unused")
 public class BoxStatisticsModel extends AbstractModel {
 
 	private String boxId;
@@ -191,26 +188,6 @@ public class BoxStatisticsModel extends AbstractModel {
 		this.frozen = true;
 	}
 
-	public com.anfelisa.box.models.BoxStatisticsModel deepCopy() {
-		com.anfelisa.box.models.BoxStatisticsModel copy = new BoxStatisticsModel();
-		copy.setBoxId(this.getBoxId());
-		copy.setQuality0Count(this.getQuality0Count());
-		copy.setQuality1Count(this.getQuality1Count());
-		copy.setQuality2Count(this.getQuality2Count());
-		copy.setQuality3Count(this.getQuality3Count());
-		copy.setQuality4Count(this.getQuality4Count());
-		copy.setQuality5Count(this.getQuality5Count());
-		List<Integer> countsPerDayNextWeekCopy = new ArrayList<Integer>();
-		if (this.getCountsPerDayNextWeek() != null) {
-			for(Integer item: this.getCountsPerDayNextWeek()) {
-				countsPerDayNextWeekCopy.add(item);
-			}
-		}
-		copy.setCountsPerDayNextWeek(countsPerDayNextWeekCopy);
-		copy.setMaxCardsPerDay(this.getMaxCardsPerDay());
-		return copy;
-	}
-	
 	public static BoxStatisticsModel generateTestData() {
 		java.util.Random random = new java.util.Random();
 		int n;

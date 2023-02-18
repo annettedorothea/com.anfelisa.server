@@ -8,15 +8,14 @@
 package com.anfelisa.box.models;
 
 import de.acegen.PersistenceHandle;
-import de.acegen.AbstractDao;
 import org.jdbi.v3.core.statement.Update;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-@SuppressWarnings("all")
-public class AbstractReinforceCardDao extends AbstractDao {
+//@SuppressWarnings("all")
+public class AbstractReinforceCardDao {
 	
 	public void insert(PersistenceHandle handle, com.anfelisa.box.models.ReinforceCardModel reinforceCardModel) {
 		Update statement = handle.getHandle().createUpdate("INSERT INTO \"reinforcecard\" (reinforcecardid, scheduledcardid, boxid, changedate) VALUES (:reinforcecardid, :scheduledcardid, :boxid, :changedate)");

@@ -15,8 +15,6 @@ import de.acegen.ViewProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.Event;
 
-import com.anfelisa.user.models.ResetPasswordWithNewPasswordModel;
-
 @SuppressWarnings("unused")
 public abstract class AbstractResetPasswordCommand extends Command<com.anfelisa.user.models.ResetPasswordWithNewPasswordModel> {
 

@@ -11,14 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 import de.acegen.AbstractModel;
 
-@SuppressWarnings("all")
+@SuppressWarnings("unused")
 public class ScheduledCardModel extends AbstractModel {
 
 	private String scheduledCardId;
@@ -254,23 +251,6 @@ public class ScheduledCardModel extends AbstractModel {
 		this.frozen = true;
 	}
 
-	public com.anfelisa.box.models.ScheduledCardModel deepCopy() {
-		com.anfelisa.box.models.ScheduledCardModel copy = new ScheduledCardModel();
-		copy.setScheduledCardId(this.getScheduledCardId());
-		copy.setCardId(this.getCardId());
-		copy.setBoxId(this.getBoxId());
-		copy.setCreatedDate(this.getCreatedDate());
-		copy.setEf(this.getEf());
-		copy.setInterval(this.getInterval());
-		copy.setN(this.getN());
-		copy.setCount(this.getCount());
-		copy.setScheduledDate(this.getScheduledDate());
-		copy.setLastQuality(this.getLastQuality());
-		copy.setQuality(this.getQuality());
-		copy.setScoredDate(this.getScoredDate());
-		return copy;
-	}
-	
 	public static ScheduledCardModel generateTestData() {
 		java.util.Random random = new java.util.Random();
 		ScheduledCardModel testData = new ScheduledCardModel();

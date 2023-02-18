@@ -9,13 +9,7 @@ package com.anfelisa.user.views;
 
 import de.acegen.Data;
 import de.acegen.PersistenceHandle;
-import com.anfelisa.user.models.UserRegistrationModel;
-import com.anfelisa.user.models.ConfirmEmailModel;
-import com.anfelisa.user.models.ChangeUserRoleModel;
-import com.anfelisa.user.models.DeleteUserModel;
-import com.anfelisa.user.models.ResetPasswordWithNewPasswordModel;
 
-@SuppressWarnings("all")
 public interface IUserView {
 
 	void insertUser(Data<com.anfelisa.user.models.UserRegistrationModel> data, PersistenceHandle handle);

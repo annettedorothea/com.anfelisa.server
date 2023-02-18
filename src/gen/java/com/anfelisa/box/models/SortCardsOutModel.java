@@ -11,14 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 import de.acegen.AbstractModel;
 
-@SuppressWarnings("all")
+@SuppressWarnings("unused")
 public class SortCardsOutModel extends AbstractModel {
 
 	private java.util.List<String> sortedOutScheduledCardIds;
@@ -140,35 +137,6 @@ public class SortCardsOutModel extends AbstractModel {
 		this.frozen = true;
 	}
 
-	public com.anfelisa.box.models.SortCardsOutModel deepCopy() {
-		com.anfelisa.box.models.SortCardsOutModel copy = new SortCardsOutModel();
-		List<String> sortedOutScheduledCardIdsCopy = new ArrayList<String>();
-		if (this.getSortedOutScheduledCardIds() != null) {
-			for(String item: this.getSortedOutScheduledCardIds()) {
-				sortedOutScheduledCardIdsCopy.add(item);
-			}
-		}
-		copy.setSortedOutScheduledCardIds(sortedOutScheduledCardIdsCopy);
-		List<String> sortedOutReinforceCardIdsCopy = new ArrayList<String>();
-		if (this.getSortedOutReinforceCardIds() != null) {
-			for(String item: this.getSortedOutReinforceCardIds()) {
-				sortedOutReinforceCardIdsCopy.add(item);
-			}
-		}
-		copy.setSortedOutReinforceCardIds(sortedOutReinforceCardIdsCopy);
-		List<String> cardIdsCopy = new ArrayList<String>();
-		if (this.getCardIds() != null) {
-			for(String item: this.getCardIds()) {
-				cardIdsCopy.add(item);
-			}
-		}
-		copy.setCardIds(cardIdsCopy);
-		copy.setUserId(this.getUserId());
-		copy.setBoxId(this.getBoxId());
-		copy.setReverse(this.getReverse());
-		return copy;
-	}
-	
 	public static SortCardsOutModel generateTestData() {
 		java.util.Random random = new java.util.Random();
 		int n;

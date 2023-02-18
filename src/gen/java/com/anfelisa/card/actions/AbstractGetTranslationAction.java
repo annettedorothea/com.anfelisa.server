@@ -12,8 +12,6 @@ import java.time.LocalDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.apache.commons.lang3.StringUtils;
-
 import de.acegen.Data;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
@@ -21,10 +19,8 @@ import de.acegen.ViewProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
 import de.acegen.ReadAction;
-import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 
-@SuppressWarnings("unused")
 public abstract class AbstractGetTranslationAction extends ReadAction<com.anfelisa.card.models.CardTranslationModel> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractGetTranslationAction.class);

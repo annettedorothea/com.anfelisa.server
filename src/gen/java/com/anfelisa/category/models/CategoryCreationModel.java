@@ -11,14 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 import de.acegen.AbstractModel;
 
-@SuppressWarnings("all")
+@SuppressWarnings("unused")
 public class CategoryCreationModel extends AbstractModel {
 
 	private String username;
@@ -238,22 +235,6 @@ public class CategoryCreationModel extends AbstractModel {
 		this.frozen = true;
 	}
 
-	public com.anfelisa.category.models.CategoryCreationModel deepCopy() {
-		com.anfelisa.category.models.CategoryCreationModel copy = new CategoryCreationModel();
-		copy.setUsername(this.getUsername());
-		copy.setUserId(this.getUserId());
-		copy.setCategoryId(this.getCategoryId());
-		copy.setCategoryName(this.getCategoryName());
-		copy.setCategoryAuthor(this.getCategoryAuthor());
-		copy.setCategoryIndex(this.getCategoryIndex());
-		copy.setParentCategoryId(this.getParentCategoryId());
-		copy.setRootCategoryId(this.getRootCategoryId());
-		copy.setDictionaryLookup(this.getDictionaryLookup());
-		copy.setGivenLanguage(this.getGivenLanguage());
-		copy.setWantedLanguage(this.getWantedLanguage());
-		return copy;
-	}
-	
 	public static CategoryCreationModel generateTestData() {
 		java.util.Random random = new java.util.Random();
 		CategoryCreationModel testData = new CategoryCreationModel();

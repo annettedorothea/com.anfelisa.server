@@ -11,14 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 import de.acegen.AbstractModel;
 
-@SuppressWarnings("all")
+@SuppressWarnings("unused")
 public class UsernameSearchModel extends AbstractModel {
 
 	private String usernameSearchString;
@@ -106,21 +103,6 @@ public class UsernameSearchModel extends AbstractModel {
 		this.frozen = true;
 	}
 
-	public com.anfelisa.category.models.UsernameSearchModel deepCopy() {
-		com.anfelisa.category.models.UsernameSearchModel copy = new UsernameSearchModel();
-		copy.setUsernameSearchString(this.getUsernameSearchString());
-		copy.setUserId(this.getUserId());
-		copy.setCategoryId(this.getCategoryId());
-		List<String> usernamesCopy = new ArrayList<String>();
-		if (this.getUsernames() != null) {
-			for(String item: this.getUsernames()) {
-				usernamesCopy.add(item);
-			}
-		}
-		copy.setUsernames(usernamesCopy);
-		return copy;
-	}
-	
 	public static UsernameSearchModel generateTestData() {
 		java.util.Random random = new java.util.Random();
 		int n;

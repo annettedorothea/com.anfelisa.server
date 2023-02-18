@@ -9,13 +9,7 @@ package com.anfelisa.category.views;
 
 import de.acegen.Data;
 import de.acegen.PersistenceHandle;
-import com.anfelisa.category.models.CategoryCreationModel;
-import com.anfelisa.category.models.CategoryDeleteModel;
-import com.anfelisa.category.models.CategoryUpdateModel;
-import com.anfelisa.category.models.CategoryMoveModel;
-import com.anfelisa.category.models.CategoryChangeOrderModel;
 
-@SuppressWarnings("all")
 public interface ICategoryView {
 
 	void insert(Data<com.anfelisa.category.models.CategoryCreationModel> data, PersistenceHandle handle);

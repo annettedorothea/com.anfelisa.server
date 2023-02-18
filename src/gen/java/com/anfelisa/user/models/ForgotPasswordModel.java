@@ -11,14 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 import de.acegen.AbstractModel;
 
-@SuppressWarnings("all")
+@SuppressWarnings("unused")
 public class ForgotPasswordModel extends AbstractModel {
 
 	private String language;
@@ -123,16 +120,6 @@ public class ForgotPasswordModel extends AbstractModel {
 		this.frozen = true;
 	}
 
-	public com.anfelisa.user.models.ForgotPasswordModel deepCopy() {
-		com.anfelisa.user.models.ForgotPasswordModel copy = new ForgotPasswordModel();
-		copy.setLanguage(this.getLanguage());
-		copy.setEmail(this.getEmail());
-		copy.setUsername(this.getUsername());
-		copy.setToken(this.getToken());
-		copy.setUserId(this.getUserId());
-		return copy;
-	}
-	
 	public static ForgotPasswordModel generateTestData() {
 		java.util.Random random = new java.util.Random();
 		ForgotPasswordModel testData = new ForgotPasswordModel();

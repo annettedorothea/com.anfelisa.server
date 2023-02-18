@@ -11,14 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 import de.acegen.AbstractModel;
 
-@SuppressWarnings("all")
+@SuppressWarnings("unused")
 public class CategoryTreeItemModel extends AbstractModel {
 
 	private String categoryId;
@@ -247,29 +244,6 @@ public class CategoryTreeItemModel extends AbstractModel {
 		}
 	}
 
-	public com.anfelisa.category.models.CategoryTreeItemModel deepCopy() {
-		com.anfelisa.category.models.CategoryTreeItemModel copy = new CategoryTreeItemModel();
-		copy.setCategoryId(this.getCategoryId());
-		copy.setCategoryName(this.getCategoryName());
-		copy.setCategoryIndex(this.getCategoryIndex());
-		copy.setEmpty(this.getEmpty());
-		copy.setParentCategoryId(this.getParentCategoryId());
-		copy.setDictionaryLookup(this.getDictionaryLookup());
-		copy.setGivenLanguage(this.getGivenLanguage());
-		copy.setWantedLanguage(this.getWantedLanguage());
-		copy.setRootCategoryId(this.getRootCategoryId());
-		List<com.anfelisa.category.models.CategoryTreeItemModel> childCategoriesCopy = new ArrayList<com.anfelisa.category.models.CategoryTreeItemModel>();
-		if (this.getChildCategories() != null) {
-			for(com.anfelisa.category.models.CategoryTreeItemModel item: this.getChildCategories()) {
-				childCategoriesCopy.add(item.deepCopy());
-			}
-		}
-		copy.setChildCategories(childCategoriesCopy);
-		copy.setNonScheduledCount(this.getNonScheduledCount());
-		copy.setEditable(this.getEditable());
-		return copy;
-	}
-	
 	public static CategoryTreeItemModel generateTestData() {
 		java.util.Random random = new java.util.Random();
 		int n;

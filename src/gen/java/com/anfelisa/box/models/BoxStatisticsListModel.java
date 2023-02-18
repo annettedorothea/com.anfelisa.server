@@ -11,14 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 import de.acegen.AbstractModel;
 
-@SuppressWarnings("all")
+@SuppressWarnings("unused")
 public class BoxStatisticsListModel extends AbstractModel {
 
 	private java.util.List<com.anfelisa.box.models.BoxStatisticsModel> boxStatisticsList;
@@ -98,20 +95,6 @@ public class BoxStatisticsListModel extends AbstractModel {
 		}
 	}
 
-	public com.anfelisa.box.models.BoxStatisticsListModel deepCopy() {
-		com.anfelisa.box.models.BoxStatisticsListModel copy = new BoxStatisticsListModel();
-		List<com.anfelisa.box.models.BoxStatisticsModel> boxStatisticsListCopy = new ArrayList<com.anfelisa.box.models.BoxStatisticsModel>();
-		if (this.getBoxStatisticsList() != null) {
-			for(com.anfelisa.box.models.BoxStatisticsModel item: this.getBoxStatisticsList()) {
-				boxStatisticsListCopy.add(item.deepCopy());
-			}
-		}
-		copy.setBoxStatisticsList(boxStatisticsListCopy);
-		copy.setUserId(this.getUserId());
-		copy.setTodayAtMidnightInUTC(this.getTodayAtMidnightInUTC());
-		return copy;
-	}
-	
 	public static BoxStatisticsListModel generateTestData() {
 		java.util.Random random = new java.util.Random();
 		int n;

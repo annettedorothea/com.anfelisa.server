@@ -15,8 +15,6 @@ import de.acegen.ViewProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.Event;
 
-import com.anfelisa.user.models.ForgotPasswordModel;
-
 @SuppressWarnings("unused")
 public abstract class AbstractForgotPasswordCommand extends Command<com.anfelisa.user.models.ForgotPasswordModel> {
 

@@ -15,8 +15,6 @@ import de.acegen.ViewProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.Event;
 
-import com.anfelisa.box.models.DeleteBoxModel;
-
 @SuppressWarnings("unused")
 public abstract class AbstractDeleteBoxCommand extends Command<com.anfelisa.box.models.DeleteBoxModel> {
 

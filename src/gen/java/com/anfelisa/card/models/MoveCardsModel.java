@@ -11,14 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 import de.acegen.AbstractModel;
 
-@SuppressWarnings("all")
+@SuppressWarnings("unused")
 public class MoveCardsModel extends AbstractModel {
 
 	private java.util.List<String> cardIdList;
@@ -133,34 +130,6 @@ public class MoveCardsModel extends AbstractModel {
 		}
 	}
 
-	public com.anfelisa.card.models.MoveCardsModel deepCopy() {
-		com.anfelisa.card.models.MoveCardsModel copy = new MoveCardsModel();
-		List<String> cardIdListCopy = new ArrayList<String>();
-		if (this.getCardIdList() != null) {
-			for(String item: this.getCardIdList()) {
-				cardIdListCopy.add(item);
-			}
-		}
-		copy.setCardIdList(cardIdListCopy);
-		copy.setCategoryId(this.getCategoryId());
-		copy.setUserId(this.getUserId());
-		List<com.anfelisa.card.models.CardModel> movedCardsCopy = new ArrayList<com.anfelisa.card.models.CardModel>();
-		if (this.getMovedCards() != null) {
-			for(com.anfelisa.card.models.CardModel item: this.getMovedCards()) {
-				movedCardsCopy.add(item.deepCopy());
-			}
-		}
-		copy.setMovedCards(movedCardsCopy);
-		List<com.anfelisa.card.models.CardModel> updatedIndicesCopy = new ArrayList<com.anfelisa.card.models.CardModel>();
-		if (this.getUpdatedIndices() != null) {
-			for(com.anfelisa.card.models.CardModel item: this.getUpdatedIndices()) {
-				updatedIndicesCopy.add(item.deepCopy());
-			}
-		}
-		copy.setUpdatedIndices(updatedIndicesCopy);
-		return copy;
-	}
-	
 	public static MoveCardsModel generateTestData() {
 		java.util.Random random = new java.util.Random();
 		int n;

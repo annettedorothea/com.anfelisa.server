@@ -9,15 +9,7 @@ package com.anfelisa.card.views;
 
 import de.acegen.Data;
 import de.acegen.PersistenceHandle;
-import com.anfelisa.card.models.CardCreationModel;
-import com.anfelisa.card.models.CardDeleteModel;
-import com.anfelisa.card.models.CardUpdateModel;
-import com.anfelisa.card.models.CardUpdatePriorityModel;
-import com.anfelisa.card.models.MoveCardsModel;
-import com.anfelisa.card.models.CsvUploadModel;
-import com.anfelisa.card.models.ChangeCardOrderListModel;
 
-@SuppressWarnings("all")
 public interface ICardView {
 
 	void insert(Data<com.anfelisa.card.models.CardCreationModel> data, PersistenceHandle handle);

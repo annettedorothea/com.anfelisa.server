@@ -11,14 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 import de.acegen.AbstractModel;
 
-@SuppressWarnings("all")
+@SuppressWarnings("unused")
 public class CardSearchModel extends AbstractModel {
 
 	private String userId;
@@ -145,23 +142,6 @@ public class CardSearchModel extends AbstractModel {
 		}
 	}
 
-	public com.anfelisa.card.models.CardSearchModel deepCopy() {
-		com.anfelisa.card.models.CardSearchModel copy = new CardSearchModel();
-		copy.setUserId(this.getUserId());
-		copy.setGiven(this.getGiven());
-		copy.setWanted(this.getWanted());
-		copy.setCategoryId(this.getCategoryId());
-		List<com.anfelisa.card.models.CardWithCategoryNameModel> cardListCopy = new ArrayList<com.anfelisa.card.models.CardWithCategoryNameModel>();
-		if (this.getCardList() != null) {
-			for(com.anfelisa.card.models.CardWithCategoryNameModel item: this.getCardList()) {
-				cardListCopy.add(item.deepCopy());
-			}
-		}
-		copy.setCardList(cardListCopy);
-		copy.setNaturalInputOrder(this.getNaturalInputOrder());
-		return copy;
-	}
-	
 	public static CardSearchModel generateTestData() {
 		java.util.Random random = new java.util.Random();
 		int n;

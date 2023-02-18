@@ -15,8 +15,6 @@ import de.acegen.ViewProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.Event;
 
-import com.anfelisa.user.models.ConfirmEmailModel;
-
 @SuppressWarnings("unused")
 public abstract class AbstractConfirmEmailCommand extends Command<com.anfelisa.user.models.ConfirmEmailModel> {
 

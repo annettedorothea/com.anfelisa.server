@@ -15,8 +15,6 @@ import de.acegen.ViewProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.Event;
 
-import com.anfelisa.card.models.CardCreationModel;
-
 @SuppressWarnings("unused")
 public abstract class AbstractCreateCardCommand extends Command<com.anfelisa.card.models.CardCreationModel> {
 
