@@ -16,16 +16,19 @@ import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
+import de.acegen.AbstractModel;
 
 @SuppressWarnings("all")
-public class UserAccessToCategoryModel implements IUserAccessToCategoryModel {
+public class UserAccessToCategoryModel extends AbstractModel {
 
 	private String categoryId;
 
 	private String userId;
 
-	private Boolean editable = false;
+	private Boolean editable;
 
+	
+	private Boolean frozen = false;
 
 	public UserAccessToCategoryModel() {
 	}
@@ -44,7 +47,12 @@ public class UserAccessToCategoryModel implements IUserAccessToCategoryModel {
 	public String getCategoryId() {
 		return this.categoryId;
 	}
+	
+	@JsonProperty
 	public void setCategoryId(String categoryId) {
+		if (this.frozen) {
+			throw new RuntimeException("categoryId is frozen");
+		}
 		this.categoryId = categoryId;
 	}
 	
@@ -52,7 +60,12 @@ public class UserAccessToCategoryModel implements IUserAccessToCategoryModel {
 	public String getUserId() {
 		return this.userId;
 	}
+	
+	@JsonProperty
 	public void setUserId(String userId) {
+		if (this.frozen) {
+			throw new RuntimeException("userId is frozen");
+		}
 		this.userId = userId;
 	}
 	
@@ -60,17 +73,49 @@ public class UserAccessToCategoryModel implements IUserAccessToCategoryModel {
 	public Boolean getEditable() {
 		return this.editable;
 	}
+	
+	@JsonProperty
 	public void setEditable(Boolean editable) {
+		if (this.frozen) {
+			throw new RuntimeException("editable is frozen");
+		}
 		this.editable = editable;
 	}
 	
+	
+	
+	@Override
+	public void freeze() {
+		this.frozen = true;
+	}
 
-	public IUserAccessToCategoryModel deepCopy() {
-		IUserAccessToCategoryModel copy = new UserAccessToCategoryModel();
+	public com.anfelisa.category.models.UserAccessToCategoryModel deepCopy() {
+		com.anfelisa.category.models.UserAccessToCategoryModel copy = new UserAccessToCategoryModel();
 		copy.setCategoryId(this.getCategoryId());
 		copy.setUserId(this.getUserId());
 		copy.setEditable(this.getEditable());
 		return copy;
+	}
+	
+	public static UserAccessToCategoryModel generateTestData() {
+		java.util.Random random = new java.util.Random();
+		UserAccessToCategoryModel testData = new UserAccessToCategoryModel();
+		testData.setCategoryId(randomString(random));
+		testData.setUserId(randomString(random));
+		testData.setEditable(random.nextBoolean());
+		return testData;
+	}
+	
+	private static String randomString(java.util.Random random) {
+		String chars = "aaaaaaabcdeeeeeeeffffghiiiiiiijkllllllmmmmnnnnnnnooooooooopqrstttuuuuuuuvxyz";
+		int n = random.nextInt(20) + 5;
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		String string  = sb.toString(); 
+		return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
 	}
 
 }

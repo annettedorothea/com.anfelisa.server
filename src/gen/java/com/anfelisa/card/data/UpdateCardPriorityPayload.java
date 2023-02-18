@@ -15,12 +15,11 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class UpdateCardPriorityPayload implements IUpdateCardPriorityPayload {
+public class UpdateCardPriorityPayload {
 	
 	private String cardId;
 	
@@ -29,10 +28,6 @@ public class UpdateCardPriorityPayload implements IUpdateCardPriorityPayload {
 	public UpdateCardPriorityPayload() {
 	}
 	
-	public UpdateCardPriorityPayload(com.anfelisa.card.models.ICardUpdatePriorityModel data) {
-		cardId = data.getCardId();
-		priority = data.getPriority();
-	}
 	
 	@JsonProperty
 	public String getCardId() {

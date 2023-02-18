@@ -16,9 +16,10 @@ import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
+import de.acegen.AbstractModel;
 
 @SuppressWarnings("all")
-public class ChangeUserRoleModel implements IChangeUserRoleModel {
+public class ChangeUserRoleModel extends AbstractModel {
 
 	private String editedUserId;
 
@@ -28,6 +29,8 @@ public class ChangeUserRoleModel implements IChangeUserRoleModel {
 
 	private String role;
 
+	
+	private Boolean frozen = false;
 
 	public ChangeUserRoleModel() {
 	}
@@ -48,7 +51,12 @@ public class ChangeUserRoleModel implements IChangeUserRoleModel {
 	public String getEditedUserId() {
 		return this.editedUserId;
 	}
+	
+	@JsonProperty
 	public void setEditedUserId(String editedUserId) {
+		if (this.frozen) {
+			throw new RuntimeException("editedUserId is frozen");
+		}
 		this.editedUserId = editedUserId;
 	}
 	
@@ -56,7 +64,12 @@ public class ChangeUserRoleModel implements IChangeUserRoleModel {
 	public String getNewRole() {
 		return this.newRole;
 	}
+	
+	@JsonProperty
 	public void setNewRole(String newRole) {
+		if (this.frozen) {
+			throw new RuntimeException("newRole is frozen");
+		}
 		this.newRole = newRole;
 	}
 	
@@ -64,7 +77,12 @@ public class ChangeUserRoleModel implements IChangeUserRoleModel {
 	public String getUserId() {
 		return this.userId;
 	}
+	
+	@JsonProperty
 	public void setUserId(String userId) {
+		if (this.frozen) {
+			throw new RuntimeException("userId is frozen");
+		}
 		this.userId = userId;
 	}
 	
@@ -72,18 +90,51 @@ public class ChangeUserRoleModel implements IChangeUserRoleModel {
 	public String getRole() {
 		return this.role;
 	}
+	
+	@JsonProperty
 	public void setRole(String role) {
+		if (this.frozen) {
+			throw new RuntimeException("role is frozen");
+		}
 		this.role = role;
 	}
 	
+	
+	
+	@Override
+	public void freeze() {
+		this.frozen = true;
+	}
 
-	public IChangeUserRoleModel deepCopy() {
-		IChangeUserRoleModel copy = new ChangeUserRoleModel();
+	public com.anfelisa.user.models.ChangeUserRoleModel deepCopy() {
+		com.anfelisa.user.models.ChangeUserRoleModel copy = new ChangeUserRoleModel();
 		copy.setEditedUserId(this.getEditedUserId());
 		copy.setNewRole(this.getNewRole());
 		copy.setUserId(this.getUserId());
 		copy.setRole(this.getRole());
 		return copy;
+	}
+	
+	public static ChangeUserRoleModel generateTestData() {
+		java.util.Random random = new java.util.Random();
+		ChangeUserRoleModel testData = new ChangeUserRoleModel();
+		testData.setEditedUserId(randomString(random));
+		testData.setNewRole(randomString(random));
+		testData.setUserId(randomString(random));
+		testData.setRole(randomString(random));
+		return testData;
+	}
+	
+	private static String randomString(java.util.Random random) {
+		String chars = "aaaaaaabcdeeeeeeeffffghiiiiiiijkllllllmmmmnnnnnnnooooooooopqrstttuuuuuuuvxyz";
+		int n = random.nextInt(20) + 5;
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		String string  = sb.toString(); 
+		return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
 	}
 
 }

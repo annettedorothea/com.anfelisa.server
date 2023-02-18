@@ -6,12 +6,11 @@ import java.util.Optional;
 import org.jdbi.v3.core.statement.Update;
 
 import com.anfelisa.auth.Roles;
-import com.anfelisa.user.data.IResetPasswordWithNewPasswordData;
 
 import de.acegen.PersistenceHandle;
 
 public class UserDao extends AbstractUserDao {
-	public void updatePassword(PersistenceHandle handle, IResetPasswordWithNewPasswordData data) {
+	public void updatePassword(PersistenceHandle handle, ResetPasswordWithNewPasswordModel data) {
 		Update statement = handle.getHandle().createUpdate("UPDATE public.user SET password = :password WHERE userid = :userid");
 		statement.bind("userid", data.getUserId());
 		statement.bind("password", data.getPassword());
@@ -31,7 +30,7 @@ public class UserDao extends AbstractUserDao {
 		statement.execute();
 	}
 
-	public List<IUserModel> selectAll(PersistenceHandle handle) {
+	public List<UserModel> selectAll(PersistenceHandle handle) {
 		return handle.getHandle().createQuery(
 				"SELECT userid, username, password, email, role, emailconfirmed FROM public.user order by username")
 				.map(new UserMapper()).list();

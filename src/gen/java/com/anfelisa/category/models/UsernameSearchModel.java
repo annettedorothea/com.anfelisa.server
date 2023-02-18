@@ -16,9 +16,10 @@ import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
+import de.acegen.AbstractModel;
 
 @SuppressWarnings("all")
-public class UsernameSearchModel implements IUsernameSearchModel {
+public class UsernameSearchModel extends AbstractModel {
 
 	private String usernameSearchString;
 
@@ -28,6 +29,8 @@ public class UsernameSearchModel implements IUsernameSearchModel {
 
 	private java.util.List<String> usernames;
 
+	
+	private Boolean frozen = false;
 
 	public UsernameSearchModel() {
 	}
@@ -48,7 +51,12 @@ public class UsernameSearchModel implements IUsernameSearchModel {
 	public String getUsernameSearchString() {
 		return this.usernameSearchString;
 	}
+	
+	@JsonProperty
 	public void setUsernameSearchString(String usernameSearchString) {
+		if (this.frozen) {
+			throw new RuntimeException("usernameSearchString is frozen");
+		}
 		this.usernameSearchString = usernameSearchString;
 	}
 	
@@ -56,7 +64,12 @@ public class UsernameSearchModel implements IUsernameSearchModel {
 	public String getUserId() {
 		return this.userId;
 	}
+	
+	@JsonProperty
 	public void setUserId(String userId) {
+		if (this.frozen) {
+			throw new RuntimeException("userId is frozen");
+		}
 		this.userId = userId;
 	}
 	
@@ -64,7 +77,12 @@ public class UsernameSearchModel implements IUsernameSearchModel {
 	public String getCategoryId() {
 		return this.categoryId;
 	}
+	
+	@JsonProperty
 	public void setCategoryId(String categoryId) {
+		if (this.frozen) {
+			throw new RuntimeException("categoryId is frozen");
+		}
 		this.categoryId = categoryId;
 	}
 	
@@ -72,13 +90,24 @@ public class UsernameSearchModel implements IUsernameSearchModel {
 	public java.util.List<String> getUsernames() {
 		return this.usernames;
 	}
+	
+	@JsonProperty
 	public void setUsernames(java.util.List<String> usernames) {
+		if (this.frozen) {
+			throw new RuntimeException("usernames is frozen");
+		}
 		this.usernames = usernames;
 	}
 	
+	
+	
+	@Override
+	public void freeze() {
+		this.frozen = true;
+	}
 
-	public IUsernameSearchModel deepCopy() {
-		IUsernameSearchModel copy = new UsernameSearchModel();
+	public com.anfelisa.category.models.UsernameSearchModel deepCopy() {
+		com.anfelisa.category.models.UsernameSearchModel copy = new UsernameSearchModel();
 		copy.setUsernameSearchString(this.getUsernameSearchString());
 		copy.setUserId(this.getUserId());
 		copy.setCategoryId(this.getCategoryId());
@@ -90,6 +119,34 @@ public class UsernameSearchModel implements IUsernameSearchModel {
 		}
 		copy.setUsernames(usernamesCopy);
 		return copy;
+	}
+	
+	public static UsernameSearchModel generateTestData() {
+		java.util.Random random = new java.util.Random();
+		int n;
+		UsernameSearchModel testData = new UsernameSearchModel();
+		testData.setUsernameSearchString(randomString(random));
+		testData.setUserId(randomString(random));
+		testData.setCategoryId(randomString(random));
+		java.util.List<String> usernamesList = new java.util.ArrayList<String>();
+		n = random.nextInt(20) + 1;
+		for ( int i = 0; i < n; i++ ) {
+			usernamesList.add(randomString(random));
+		}
+		testData.setUsernames(usernamesList);
+		return testData;
+	}
+	
+	private static String randomString(java.util.Random random) {
+		String chars = "aaaaaaabcdeeeeeeeffffghiiiiiiijkllllllmmmmnnnnnnnooooooooopqrstttuuuuuuuvxyz";
+		int n = random.nextInt(20) + 5;
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		String string  = sb.toString(); 
+		return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
 	}
 
 }

@@ -7,23 +7,22 @@
 
 package com.anfelisa.category.views;
 
-
-import de.acegen.IDataContainer;
+import de.acegen.Data;
 import de.acegen.PersistenceHandle;
-import com.anfelisa.category.data.ICategoryCreationData;
-import com.anfelisa.category.data.ICategoryDeleteData;
-import com.anfelisa.category.data.ICategoryUpdateData;
-import com.anfelisa.category.data.ICategoryMoveData;
-import com.anfelisa.category.data.ICategoryChangeOrderData;
+import com.anfelisa.category.models.CategoryCreationModel;
+import com.anfelisa.category.models.CategoryDeleteModel;
+import com.anfelisa.category.models.CategoryUpdateModel;
+import com.anfelisa.category.models.CategoryMoveModel;
+import com.anfelisa.category.models.CategoryChangeOrderModel;
 
 @SuppressWarnings("all")
 public interface ICategoryView {
 
-	void insert(ICategoryCreationData data, PersistenceHandle handle);
-	void delete(ICategoryDeleteData data, PersistenceHandle handle);
-	void update(ICategoryUpdateData data, PersistenceHandle handle);
-	void moveCategory(ICategoryMoveData data, PersistenceHandle handle);
-	void changeOrder(ICategoryChangeOrderData data, PersistenceHandle handle);
+	void insert(Data<com.anfelisa.category.models.CategoryCreationModel> data, PersistenceHandle handle);
+	void delete(Data<com.anfelisa.category.models.CategoryDeleteModel> data, PersistenceHandle handle);
+	void update(Data<com.anfelisa.category.models.CategoryUpdateModel> data, PersistenceHandle handle);
+	void moveCategory(Data<com.anfelisa.category.models.CategoryMoveModel> data, PersistenceHandle handle);
+	void changeOrder(Data<com.anfelisa.category.models.CategoryChangeOrderModel> data, PersistenceHandle handle);
 	
 }
 

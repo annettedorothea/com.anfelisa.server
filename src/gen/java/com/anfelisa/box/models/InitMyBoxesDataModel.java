@@ -16,18 +16,21 @@ import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
+import de.acegen.AbstractModel;
 
 @SuppressWarnings("all")
-public class InitMyBoxesDataModel implements IInitMyBoxesDataModel {
+public class InitMyBoxesDataModel extends AbstractModel {
 
 	private String userId;
 
 	private java.time.LocalDateTime todayAtMidnightInUTC;
 
-	private java.util.List<com.anfelisa.box.models.IPostponeCardsModel> postponeCards;
+	private java.util.List<com.anfelisa.box.models.PostponeCardsModel> postponeCards;
 
 	private java.util.List<String> outdatedReinforceCardsIds;
 
+	
+	private Boolean frozen = false;
 
 	public InitMyBoxesDataModel() {
 	}
@@ -35,7 +38,7 @@ public class InitMyBoxesDataModel implements IInitMyBoxesDataModel {
 	public InitMyBoxesDataModel(
 		@JsonProperty("userId") String userId,
 		@JsonProperty("todayAtMidnightInUTC") java.time.LocalDateTime todayAtMidnightInUTC,
-		@JsonProperty("postponeCards") java.util.List<com.anfelisa.box.models.IPostponeCardsModel> postponeCards,
+		@JsonProperty("postponeCards") java.util.List<com.anfelisa.box.models.PostponeCardsModel> postponeCards,
 		@JsonProperty("outdatedReinforceCardsIds") java.util.List<String> outdatedReinforceCardsIds
 	) {
 		this.userId = userId;
@@ -48,7 +51,12 @@ public class InitMyBoxesDataModel implements IInitMyBoxesDataModel {
 	public String getUserId() {
 		return this.userId;
 	}
+	
+	@JsonProperty
 	public void setUserId(String userId) {
+		if (this.frozen) {
+			throw new RuntimeException("userId is frozen");
+		}
 		this.userId = userId;
 	}
 	
@@ -58,15 +66,27 @@ public class InitMyBoxesDataModel implements IInitMyBoxesDataModel {
 	public java.time.LocalDateTime getTodayAtMidnightInUTC() {
 		return this.todayAtMidnightInUTC;
 	}
+	
+	@JsonProperty
+	@JsonSerialize(converter = DateTimeToStringConverter.class)
+	@JsonDeserialize(converter = StringToDateTimeConverter.class)
 	public void setTodayAtMidnightInUTC(java.time.LocalDateTime todayAtMidnightInUTC) {
+		if (this.frozen) {
+			throw new RuntimeException("todayAtMidnightInUTC is frozen");
+		}
 		this.todayAtMidnightInUTC = todayAtMidnightInUTC;
 	}
 	
 	@JsonProperty
-	public java.util.List<com.anfelisa.box.models.IPostponeCardsModel> getPostponeCards() {
+	public java.util.List<com.anfelisa.box.models.PostponeCardsModel> getPostponeCards() {
 		return this.postponeCards;
 	}
-	public void setPostponeCards(java.util.List<com.anfelisa.box.models.IPostponeCardsModel> postponeCards) {
+	
+	@JsonProperty
+	public void setPostponeCards(java.util.List<com.anfelisa.box.models.PostponeCardsModel> postponeCards) {
+		if (this.frozen) {
+			throw new RuntimeException("postponeCards is frozen");
+		}
 		this.postponeCards = postponeCards;
 	}
 	
@@ -74,18 +94,34 @@ public class InitMyBoxesDataModel implements IInitMyBoxesDataModel {
 	public java.util.List<String> getOutdatedReinforceCardsIds() {
 		return this.outdatedReinforceCardsIds;
 	}
+	
+	@JsonProperty
 	public void setOutdatedReinforceCardsIds(java.util.List<String> outdatedReinforceCardsIds) {
+		if (this.frozen) {
+			throw new RuntimeException("outdatedReinforceCardsIds is frozen");
+		}
 		this.outdatedReinforceCardsIds = outdatedReinforceCardsIds;
 	}
 	
+	
+	
+	@Override
+	public void freeze() {
+		this.frozen = true;
+		if (this.postponeCards != null) {
+			for ( int i = 0; i < postponeCards.size(); i++ ) {
+				postponeCards.get(i).freeze();
+			}
+		}
+	}
 
-	public IInitMyBoxesDataModel deepCopy() {
-		IInitMyBoxesDataModel copy = new InitMyBoxesDataModel();
+	public com.anfelisa.box.models.InitMyBoxesDataModel deepCopy() {
+		com.anfelisa.box.models.InitMyBoxesDataModel copy = new InitMyBoxesDataModel();
 		copy.setUserId(this.getUserId());
 		copy.setTodayAtMidnightInUTC(this.getTodayAtMidnightInUTC());
-		List<com.anfelisa.box.models.IPostponeCardsModel> postponeCardsCopy = new ArrayList<com.anfelisa.box.models.IPostponeCardsModel>();
+		List<com.anfelisa.box.models.PostponeCardsModel> postponeCardsCopy = new ArrayList<com.anfelisa.box.models.PostponeCardsModel>();
 		if (this.getPostponeCards() != null) {
-			for(com.anfelisa.box.models.IPostponeCardsModel item: this.getPostponeCards()) {
+			for(com.anfelisa.box.models.PostponeCardsModel item: this.getPostponeCards()) {
 				postponeCardsCopy.add(item.deepCopy());
 			}
 		}
@@ -98,6 +134,39 @@ public class InitMyBoxesDataModel implements IInitMyBoxesDataModel {
 		}
 		copy.setOutdatedReinforceCardsIds(outdatedReinforceCardsIdsCopy);
 		return copy;
+	}
+	
+	public static InitMyBoxesDataModel generateTestData() {
+		java.util.Random random = new java.util.Random();
+		int n;
+		InitMyBoxesDataModel testData = new InitMyBoxesDataModel();
+		testData.setUserId(randomString(random));
+		testData.setTodayAtMidnightInUTC(random.nextBoolean() ? java.time.LocalDateTime.now().plusMinutes(random.nextInt(60)) : java.time.LocalDateTime.now().minusMinutes(random.nextInt(60)) );
+		java.util.List<com.anfelisa.box.models.PostponeCardsModel> postponeCardsList = new java.util.ArrayList<com.anfelisa.box.models.PostponeCardsModel>();
+		n = random.nextInt(20) + 1;
+		for ( int i = 0; i < n; i++ ) {
+			postponeCardsList.add(com.anfelisa.box.models.PostponeCardsModel.generateTestData());
+		}
+		testData.setPostponeCards(postponeCardsList);
+		java.util.List<String> outdatedReinforceCardsIdsList = new java.util.ArrayList<String>();
+		n = random.nextInt(20) + 1;
+		for ( int i = 0; i < n; i++ ) {
+			outdatedReinforceCardsIdsList.add(randomString(random));
+		}
+		testData.setOutdatedReinforceCardsIds(outdatedReinforceCardsIdsList);
+		return testData;
+	}
+	
+	private static String randomString(java.util.Random random) {
+		String chars = "aaaaaaabcdeeeeeeeffffghiiiiiiijkllllllmmmmnnnnnnnooooooooopqrstttuuuuuuuvxyz";
+		int n = random.nextInt(20) + 5;
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		String string  = sb.toString(); 
+		return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
 	}
 
 }

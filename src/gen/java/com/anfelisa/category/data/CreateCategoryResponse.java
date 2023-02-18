@@ -15,18 +15,19 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class CreateCategoryResponse implements ICreateCategoryResponse {
+public class CreateCategoryResponse {
 	
 	public CreateCategoryResponse() {
 	}
 	
-	public CreateCategoryResponse(com.anfelisa.category.models.ICategoryCreationModel data) {
+	public CreateCategoryResponse(com.anfelisa.category.models.CategoryCreationModel model) {
 	}
+	
+	
 	
 }
 

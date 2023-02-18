@@ -7,6 +7,7 @@
 
 package com.anfelisa.user.commands;
 
+import de.acegen.Data;
 import de.acegen.Command;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
@@ -14,21 +15,21 @@ import de.acegen.ViewProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.Event;
 
-import com.anfelisa.user.data.IDeleteUserData;
+import com.anfelisa.user.models.DeleteUserModel;
 
 @SuppressWarnings("unused")
-public abstract class AbstractDeleteUserCommand extends Command<IDeleteUserData> {
+public abstract class AbstractDeleteUserCommand extends Command<com.anfelisa.user.models.DeleteUserModel> {
 
 	public AbstractDeleteUserCommand(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
 		super("com.anfelisa.user.commands.DeleteUserCommand", daoProvider, viewProvider, appConfiguration);
 	}
 
-	protected void addOkOutcome(IDeleteUserData data) {
+	protected void addOkOutcome(Data<com.anfelisa.user.models.DeleteUserModel> data) {
 		data.addOutcome("ok");
 	}
 	
 	@Override
-	public void addEventsToTimeline(IDeleteUserData data, PersistenceHandle timelineHandle) {
+	public void addEventsToTimeline(Data<com.anfelisa.user.models.DeleteUserModel> data, PersistenceHandle timelineHandle) {
 		if (appConfiguration.getConfig().writeTimeline()) {
 			if (data.hasOutcome("ok")){
 				daoProvider.getAceDao().addEventToTimeline("com.anfelisa.user.events.DeleteUserOkEvent", data, timelineHandle);
@@ -37,9 +38,10 @@ public abstract class AbstractDeleteUserCommand extends Command<IDeleteUserData>
 	}
 	
 	@Override
-	public void publishEvents(IDeleteUserData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	public void publishEvents(Data<com.anfelisa.user.models.DeleteUserModel> data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+		data.freeze();
 		if (data.hasOutcome("ok")){
-			new Event<IDeleteUserData>("com.anfelisa.user.events.DeleteUserOkEvent", viewProvider).publish(data.deepCopy(), handle, timelineHandle);
+			new Event<com.anfelisa.user.models.DeleteUserModel>("com.anfelisa.user.events.DeleteUserOkEvent", viewProvider).publish(data, handle, timelineHandle);
 		}
 	}
 	

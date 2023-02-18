@@ -16,9 +16,10 @@ import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
+import de.acegen.AbstractModel;
 
 @SuppressWarnings("all")
-public class DeleteBoxModel implements IDeleteBoxModel {
+public class DeleteBoxModel extends AbstractModel {
 
 	private String userId;
 
@@ -28,6 +29,8 @@ public class DeleteBoxModel implements IDeleteBoxModel {
 
 	private String rootCategoryId;
 
+	
+	private Boolean frozen = false;
 
 	public DeleteBoxModel() {
 	}
@@ -48,7 +51,12 @@ public class DeleteBoxModel implements IDeleteBoxModel {
 	public String getUserId() {
 		return this.userId;
 	}
+	
+	@JsonProperty
 	public void setUserId(String userId) {
+		if (this.frozen) {
+			throw new RuntimeException("userId is frozen");
+		}
 		this.userId = userId;
 	}
 	
@@ -56,7 +64,12 @@ public class DeleteBoxModel implements IDeleteBoxModel {
 	public String getBoxId() {
 		return this.boxId;
 	}
+	
+	@JsonProperty
 	public void setBoxId(String boxId) {
+		if (this.frozen) {
+			throw new RuntimeException("boxId is frozen");
+		}
 		this.boxId = boxId;
 	}
 	
@@ -64,7 +77,12 @@ public class DeleteBoxModel implements IDeleteBoxModel {
 	public String getReverseBoxId() {
 		return this.reverseBoxId;
 	}
+	
+	@JsonProperty
 	public void setReverseBoxId(String reverseBoxId) {
+		if (this.frozen) {
+			throw new RuntimeException("reverseBoxId is frozen");
+		}
 		this.reverseBoxId = reverseBoxId;
 	}
 	
@@ -72,18 +90,51 @@ public class DeleteBoxModel implements IDeleteBoxModel {
 	public String getRootCategoryId() {
 		return this.rootCategoryId;
 	}
+	
+	@JsonProperty
 	public void setRootCategoryId(String rootCategoryId) {
+		if (this.frozen) {
+			throw new RuntimeException("rootCategoryId is frozen");
+		}
 		this.rootCategoryId = rootCategoryId;
 	}
 	
+	
+	
+	@Override
+	public void freeze() {
+		this.frozen = true;
+	}
 
-	public IDeleteBoxModel deepCopy() {
-		IDeleteBoxModel copy = new DeleteBoxModel();
+	public com.anfelisa.box.models.DeleteBoxModel deepCopy() {
+		com.anfelisa.box.models.DeleteBoxModel copy = new DeleteBoxModel();
 		copy.setUserId(this.getUserId());
 		copy.setBoxId(this.getBoxId());
 		copy.setReverseBoxId(this.getReverseBoxId());
 		copy.setRootCategoryId(this.getRootCategoryId());
 		return copy;
+	}
+	
+	public static DeleteBoxModel generateTestData() {
+		java.util.Random random = new java.util.Random();
+		DeleteBoxModel testData = new DeleteBoxModel();
+		testData.setUserId(randomString(random));
+		testData.setBoxId(randomString(random));
+		testData.setReverseBoxId(randomString(random));
+		testData.setRootCategoryId(randomString(random));
+		return testData;
+	}
+	
+	private static String randomString(java.util.Random random) {
+		String chars = "aaaaaaabcdeeeeeeeffffghiiiiiiijkllllllmmmmnnnnnnnooooooooopqrstttuuuuuuuvxyz";
+		int n = random.nextInt(20) + 5;
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		String string  = sb.toString(); 
+		return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
 	}
 
 }

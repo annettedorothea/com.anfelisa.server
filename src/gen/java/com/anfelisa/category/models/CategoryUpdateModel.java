@@ -16,9 +16,10 @@ import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
+import de.acegen.AbstractModel;
 
 @SuppressWarnings("all")
-public class CategoryUpdateModel implements ICategoryUpdateModel {
+public class CategoryUpdateModel extends AbstractModel {
 
 	private String categoryId;
 
@@ -26,6 +27,8 @@ public class CategoryUpdateModel implements ICategoryUpdateModel {
 
 	private String userId;
 
+	
+	private Boolean frozen = false;
 
 	public CategoryUpdateModel() {
 	}
@@ -44,7 +47,12 @@ public class CategoryUpdateModel implements ICategoryUpdateModel {
 	public String getCategoryId() {
 		return this.categoryId;
 	}
+	
+	@JsonProperty
 	public void setCategoryId(String categoryId) {
+		if (this.frozen) {
+			throw new RuntimeException("categoryId is frozen");
+		}
 		this.categoryId = categoryId;
 	}
 	
@@ -52,7 +60,12 @@ public class CategoryUpdateModel implements ICategoryUpdateModel {
 	public String getCategoryName() {
 		return this.categoryName;
 	}
+	
+	@JsonProperty
 	public void setCategoryName(String categoryName) {
+		if (this.frozen) {
+			throw new RuntimeException("categoryName is frozen");
+		}
 		this.categoryName = categoryName;
 	}
 	
@@ -60,17 +73,49 @@ public class CategoryUpdateModel implements ICategoryUpdateModel {
 	public String getUserId() {
 		return this.userId;
 	}
+	
+	@JsonProperty
 	public void setUserId(String userId) {
+		if (this.frozen) {
+			throw new RuntimeException("userId is frozen");
+		}
 		this.userId = userId;
 	}
 	
+	
+	
+	@Override
+	public void freeze() {
+		this.frozen = true;
+	}
 
-	public ICategoryUpdateModel deepCopy() {
-		ICategoryUpdateModel copy = new CategoryUpdateModel();
+	public com.anfelisa.category.models.CategoryUpdateModel deepCopy() {
+		com.anfelisa.category.models.CategoryUpdateModel copy = new CategoryUpdateModel();
 		copy.setCategoryId(this.getCategoryId());
 		copy.setCategoryName(this.getCategoryName());
 		copy.setUserId(this.getUserId());
 		return copy;
+	}
+	
+	public static CategoryUpdateModel generateTestData() {
+		java.util.Random random = new java.util.Random();
+		CategoryUpdateModel testData = new CategoryUpdateModel();
+		testData.setCategoryId(randomString(random));
+		testData.setCategoryName(randomString(random));
+		testData.setUserId(randomString(random));
+		return testData;
+	}
+	
+	private static String randomString(java.util.Random random) {
+		String chars = "aaaaaaabcdeeeeeeeffffghiiiiiiijkllllllmmmmnnnnnnnooooooooopqrstttuuuuuuuvxyz";
+		int n = random.nextInt(20) + 5;
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		String string  = sb.toString(); 
+		return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
 	}
 
 }

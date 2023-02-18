@@ -7,6 +7,7 @@
 
 package com.anfelisa.box.commands;
 
+import de.acegen.Data;
 import de.acegen.Command;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
@@ -14,24 +15,24 @@ import de.acegen.ViewProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.Event;
 
-import com.anfelisa.box.data.IScoreReinforceCardData;
+import com.anfelisa.box.models.ScoreReinforceCardModel;
 
 @SuppressWarnings("unused")
-public abstract class AbstractScoreReinforceCardCommand extends Command<IScoreReinforceCardData> {
+public abstract class AbstractScoreReinforceCardCommand extends Command<com.anfelisa.box.models.ScoreReinforceCardModel> {
 
 	public AbstractScoreReinforceCardCommand(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
 		super("com.anfelisa.box.commands.ScoreReinforceCardCommand", daoProvider, viewProvider, appConfiguration);
 	}
 
-	protected void addKeepOutcome(IScoreReinforceCardData data) {
+	protected void addKeepOutcome(Data<com.anfelisa.box.models.ScoreReinforceCardModel> data) {
 		data.addOutcome("keep");
 	}
-	protected void addRemoveOutcome(IScoreReinforceCardData data) {
+	protected void addRemoveOutcome(Data<com.anfelisa.box.models.ScoreReinforceCardModel> data) {
 		data.addOutcome("remove");
 	}
 	
 	@Override
-	public void addEventsToTimeline(IScoreReinforceCardData data, PersistenceHandle timelineHandle) {
+	public void addEventsToTimeline(Data<com.anfelisa.box.models.ScoreReinforceCardModel> data, PersistenceHandle timelineHandle) {
 		if (appConfiguration.getConfig().writeTimeline()) {
 			if (data.hasOutcome("keep")){
 				daoProvider.getAceDao().addEventToTimeline("com.anfelisa.box.events.ScoreReinforceCardKeepEvent", data, timelineHandle);
@@ -43,12 +44,13 @@ public abstract class AbstractScoreReinforceCardCommand extends Command<IScoreRe
 	}
 	
 	@Override
-	public void publishEvents(IScoreReinforceCardData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	public void publishEvents(Data<com.anfelisa.box.models.ScoreReinforceCardModel> data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+		data.freeze();
 		if (data.hasOutcome("keep")){
-			new Event<IScoreReinforceCardData>("com.anfelisa.box.events.ScoreReinforceCardKeepEvent", viewProvider).publish(data.deepCopy(), handle, timelineHandle);
+			new Event<com.anfelisa.box.models.ScoreReinforceCardModel>("com.anfelisa.box.events.ScoreReinforceCardKeepEvent", viewProvider).publish(data, handle, timelineHandle);
 		}
 		if (data.hasOutcome("remove")){
-			new Event<IScoreReinforceCardData>("com.anfelisa.box.events.ScoreReinforceCardRemoveEvent", viewProvider).publish(data.deepCopy(), handle, timelineHandle);
+			new Event<com.anfelisa.box.models.ScoreReinforceCardModel>("com.anfelisa.box.events.ScoreReinforceCardRemoveEvent", viewProvider).publish(data, handle, timelineHandle);
 		}
 	}
 	

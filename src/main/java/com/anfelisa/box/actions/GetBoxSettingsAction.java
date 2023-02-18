@@ -7,11 +7,12 @@ package com.anfelisa.box.actions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.box.data.IBoxSettingsWrapperData;
-import com.anfelisa.box.models.IBoxModel;
-import com.anfelisa.box.models.IBoxSettingsModel;
+import com.anfelisa.box.models.BoxModel;
+import com.anfelisa.box.models.BoxSettingsModel;
+import com.anfelisa.box.models.BoxSettingsWrapperModel;
 
 import de.acegen.CustomAppConfiguration;
+import de.acegen.Data;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -22,21 +23,20 @@ public class GetBoxSettingsAction extends AbstractGetBoxSettingsAction {
 	static final Logger LOG = LoggerFactory.getLogger(GetBoxSettingsAction.class);
 
 	public GetBoxSettingsAction(PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration,
-			IDaoProvider daoProvider,
-			ViewProvider viewProvider) {
+			IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super(persistenceConnection, appConfiguration, daoProvider, viewProvider);
 	}
 
 	@Override
-	protected IBoxSettingsWrapperData loadDataForGetRequest(IBoxSettingsWrapperData data,
+	protected Data<BoxSettingsWrapperModel> loadDataForGetRequest(Data<BoxSettingsWrapperModel> data,
 			PersistenceHandle readonlyHandle) {
-		IBoxModel box = daoProvider.getBoxDao().selectByBoxId(readonlyHandle, data.getBoxId());
-		if (!box.getUserId().equals(data.getUserId())) {
+		BoxModel box = daoProvider.getBoxDao().selectByBoxId(readonlyHandle, data.getModel().getBoxId());
+		if (!box.getUserId().equals(data.getModel().getUserId())) {
 			throwSecurityException();
 		}
-		IBoxSettingsModel settings = this.daoProvider.getBoxDao().selectSettingsByBoxId(readonlyHandle,
-				data.getBoxId());
-		data.setBoxSettings(settings);
+		BoxSettingsModel settings = this.daoProvider.getBoxDao().selectSettingsByBoxId(readonlyHandle,
+				data.getModel().getBoxId());
+		data.getModel().setBoxSettings(settings);
 		return data;
 	}
 

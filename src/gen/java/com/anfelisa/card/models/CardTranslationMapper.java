@@ -14,9 +14,9 @@ import org.jdbi.v3.core.statement.StatementContext;
 
 import de.acegen.AbstractMapper;
 
-public class CardTranslationMapper extends AbstractMapper<ICardTranslationModel> {
+public class CardTranslationMapper extends AbstractMapper<CardTranslationModel> {
 	
-	public ICardTranslationModel map(ResultSet r, StatementContext ctx) throws SQLException {
+	public CardTranslationModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new CardTranslationModel(
 			this.mapToString(r, "sourceValue"),
 			this.mapToString(r, "targetValue"),

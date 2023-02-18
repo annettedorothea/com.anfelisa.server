@@ -9,12 +9,13 @@ import java.time.LocalDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.box.data.IScoreCardData;
-import com.anfelisa.box.models.IBoxModel;
-import com.anfelisa.box.models.IReinforceCardModel;
-import com.anfelisa.box.models.IScheduledCardModel;
+import com.anfelisa.box.models.BoxModel;
+import com.anfelisa.box.models.ReinforceCardModel;
+import com.anfelisa.box.models.ScheduledCardModel;
+import com.anfelisa.box.models.ScoreCardModel;
 
 import de.acegen.CustomAppConfiguration;
+import de.acegen.Data;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.ViewProvider;
@@ -29,15 +30,15 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 	}
 
 	@Override
-	protected IScoreCardData executeCommand(IScoreCardData data, PersistenceHandle readonlyHandle) {
-		IScheduledCardModel scheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(
+	protected Data<ScoreCardModel>  executeCommand(Data<ScoreCardModel> data, PersistenceHandle readonlyHandle) {
+		ScheduledCardModel scheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(
 				readonlyHandle,
-				data.getScheduledCardId());
+				data.getModel().getScheduledCardId());
 		if (scheduledCard == null) {
 			throwIllegalArgumentException("cardDoesNotExist");
 		}
-		IBoxModel box = daoProvider.getBoxDao().selectByBoxId(readonlyHandle, scheduledCard.getBoxId());
-		if (!data.getUserId().equals(box.getUserId())) {
+		BoxModel box = daoProvider.getBoxDao().selectByBoxId(readonlyHandle, scheduledCard.getBoxId());
+		if (!data.getModel().getUserId().equals(box.getUserId())) {
 			throwSecurityException();
 		}
 		
@@ -46,7 +47,7 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 			Integer interval = scheduledCard.getInterval();
 			Integer count = scheduledCard.getCount() + 1;
 			Integer n = scheduledCard.getN();
-			Integer quality = data.getScoredCardQuality();
+			Integer quality = data.getModel().getScoredCardQuality();
 
 			if (quality >= 3) {
 				if (n == 0) {
@@ -83,37 +84,37 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 							stripTime(newTime), stripTime(newTime.plusDays(1)));
 				}
 			}
-			data.setNextScheduledCardScheduledCardId(data.getUuid());
-			data.setNextScheduledCardEf(ef);
-			data.setNextScheduledCardInterval(interval);
-			data.setNextScheduledCardCount(count);
-			data.setNextScheduledCardN(n);
-			data.setNextScheduledCardScheduledDate(newTime);
-			data.setNextScheduledCardLastQuality(quality);
-			data.setNextScheduledCardCreatedDate(data.getSystemTime());
+			data.getModel().setNextScheduledCardScheduledCardId(data.getUuid());
+			data.getModel().setNextScheduledCardEf(ef);
+			data.getModel().setNextScheduledCardInterval(interval);
+			data.getModel().setNextScheduledCardCount(count);
+			data.getModel().setNextScheduledCardN(n);
+			data.getModel().setNextScheduledCardScheduledDate(newTime);
+			data.getModel().setNextScheduledCardLastQuality(quality);
+			data.getModel().setNextScheduledCardCreatedDate(data.getSystemTime());
 
-			data.setCardId(scheduledCard.getCardId());
-			data.setBoxId(scheduledCard.getBoxId());
+			data.getModel().setCardId(scheduledCard.getCardId());
+			data.getModel().setBoxId(scheduledCard.getBoxId());
 
-			data.setScoredCardScoredDate(data.getSystemTime());
+			data.getModel().setScoredCardScoredDate(data.getSystemTime());
 
 			this.addScoreOutcome(data);
-			IReinforceCardModel reinforceCard = daoProvider.getReinforceCardDao().selectByScheduledCardId(readonlyHandle,
+			ReinforceCardModel reinforceCard = daoProvider.getReinforceCardDao().selectByScheduledCardId(readonlyHandle,
 					scheduledCard.getScheduledCardId());
 			if (quality <= 3 && reinforceCard == null) {
 				this.addReinforceOutcome(data);
-				data.setReinforceCardId(data.getUuid());
-				data.setReinforceCardCreatedDate(data.getSystemTime());
+				data.getModel().setReinforceCardId(data.getUuid());
+				data.getModel().setReinforceCardCreatedDate(data.getSystemTime());
 			}
 
-			data.setIntervalDifference(interval - calculatedInterval); 
+			data.getModel().setIntervalDifference(interval - calculatedInterval); 
 		} else {
-			data.setIntervalDifference(0); 
+			data.getModel().setIntervalDifference(0); 
 		}
 
 
-		data.setMaxCardsPerDay(box.getMaxCardsPerDay());
-		data.setMaxInterval(box.getMaxInterval());
+		data.getModel().setMaxCardsPerDay(box.getMaxCardsPerDay());
+		data.getModel().setMaxInterval(box.getMaxInterval());
 
 		return data;
 	}

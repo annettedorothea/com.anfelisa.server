@@ -9,6 +9,7 @@ package com.anfelisa.box.actions;
 
 import java.time.LocalDateTime;
 
+import de.acegen.Data;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.ICommand;
 import de.acegen.IDaoProvider;
@@ -17,13 +18,12 @@ import de.acegen.SquishyDataProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.WriteAction;
 
-import com.anfelisa.box.data.IBoxUpdateData;
 import com.anfelisa.box.commands.UpdateBoxCommand;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractUpdateBoxAction extends WriteAction<IBoxUpdateData> {
+public abstract class AbstractUpdateBoxAction extends WriteAction<com.anfelisa.box.models.BoxUpdateModel> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractUpdateBoxAction.class);
 
@@ -33,12 +33,12 @@ public abstract class AbstractUpdateBoxAction extends WriteAction<IBoxUpdateData
 	}
 
 	@Override
-	public ICommand<IBoxUpdateData> getCommand() {
+	public ICommand<com.anfelisa.box.models.BoxUpdateModel> getCommand() {
 		return new UpdateBoxCommand(daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	@Override
-	protected IBoxUpdateData initActionDataFromSquishyDataProvider(IBoxUpdateData data) {
+	protected Data<com.anfelisa.box.models.BoxUpdateModel> initActionDataFromSquishyDataProvider(Data<com.anfelisa.box.models.BoxUpdateModel> data) {
 		LocalDateTime systemTime = SquishyDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
 			data.setSystemTime(systemTime);
@@ -46,7 +46,7 @@ public abstract class AbstractUpdateBoxAction extends WriteAction<IBoxUpdateData
 		return data;
 	}
 
-	public IBoxUpdateData initActionData(IBoxUpdateData data) {
+	public Data<com.anfelisa.box.models.BoxUpdateModel> initActionData(Data<com.anfelisa.box.models.BoxUpdateModel> data) {
 		return data;
 	}
 

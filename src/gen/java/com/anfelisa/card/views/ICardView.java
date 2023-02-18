@@ -7,27 +7,26 @@
 
 package com.anfelisa.card.views;
 
-
-import de.acegen.IDataContainer;
+import de.acegen.Data;
 import de.acegen.PersistenceHandle;
-import com.anfelisa.card.data.ICardCreationData;
-import com.anfelisa.card.data.ICardDeleteData;
-import com.anfelisa.card.data.ICardUpdateData;
-import com.anfelisa.card.data.ICardUpdatePriorityData;
-import com.anfelisa.card.data.IMoveCardsData;
-import com.anfelisa.card.data.ICsvUploadData;
-import com.anfelisa.card.data.IChangeCardOrderListData;
+import com.anfelisa.card.models.CardCreationModel;
+import com.anfelisa.card.models.CardDeleteModel;
+import com.anfelisa.card.models.CardUpdateModel;
+import com.anfelisa.card.models.CardUpdatePriorityModel;
+import com.anfelisa.card.models.MoveCardsModel;
+import com.anfelisa.card.models.CsvUploadModel;
+import com.anfelisa.card.models.ChangeCardOrderListModel;
 
 @SuppressWarnings("all")
 public interface ICardView {
 
-	void insert(ICardCreationData data, PersistenceHandle handle);
-	void delete(ICardDeleteData data, PersistenceHandle handle);
-	void update(ICardUpdateData data, PersistenceHandle handle);
-	void updatePriority(ICardUpdatePriorityData data, PersistenceHandle handle);
-	void moveCards(IMoveCardsData data, PersistenceHandle handle);
-	void bulkInsert(ICsvUploadData data, PersistenceHandle handle);
-	void changeCardOrder(IChangeCardOrderListData data, PersistenceHandle handle);
+	void insert(Data<com.anfelisa.card.models.CardCreationModel> data, PersistenceHandle handle);
+	void delete(Data<com.anfelisa.card.models.CardDeleteModel> data, PersistenceHandle handle);
+	void update(Data<com.anfelisa.card.models.CardUpdateModel> data, PersistenceHandle handle);
+	void updatePriority(Data<com.anfelisa.card.models.CardUpdatePriorityModel> data, PersistenceHandle handle);
+	void moveCards(Data<com.anfelisa.card.models.MoveCardsModel> data, PersistenceHandle handle);
+	void bulkInsert(Data<com.anfelisa.card.models.CsvUploadModel> data, PersistenceHandle handle);
+	void changeCardOrder(Data<com.anfelisa.card.models.ChangeCardOrderListModel> data, PersistenceHandle handle);
 	
 }
 

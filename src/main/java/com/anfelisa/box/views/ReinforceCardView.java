@@ -1,12 +1,13 @@
 package com.anfelisa.box.views;
 
-import com.anfelisa.box.data.IDeleteBoxData;
-import com.anfelisa.box.data.IInitMyBoxesDataData;
-import com.anfelisa.box.data.IScheduledCardsData;
-import com.anfelisa.box.data.IScoreCardData;
-import com.anfelisa.box.data.IScoreReinforceCardData;
-import com.anfelisa.box.data.ISortCardsOutData;
+import com.anfelisa.box.models.DeleteBoxModel;
+import com.anfelisa.box.models.InitMyBoxesDataModel;
+import com.anfelisa.box.models.ScheduledCardsModel;
+import com.anfelisa.box.models.ScoreCardModel;
+import com.anfelisa.box.models.ScoreReinforceCardModel;
+import com.anfelisa.box.models.SortCardsOutModel;
 
+import de.acegen.Data;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceHandle;
 
@@ -19,40 +20,40 @@ public class ReinforceCardView implements IReinforceCardView {
 		this.daoProvider = daoProvider;
 	}
 
-	public void add(IScoreCardData data, PersistenceHandle handle) {
-		daoProvider.getReinforceCardDao().insert(handle, data);
+	public void add(Data<ScoreCardModel> data, PersistenceHandle handle) {
+		daoProvider.getReinforceCardDao().insert(handle, data.getModel());
 	}
 
-	public void remove(IScoreReinforceCardData data, PersistenceHandle handle) {
-		daoProvider.getReinforceCardDao().deleteByReinforceCardId(handle, data.getReinforceCardId());
+	public void remove(Data<ScoreReinforceCardModel> data, PersistenceHandle handle) {
+		daoProvider.getReinforceCardDao().deleteByReinforceCardId(handle, data.getModel().getReinforceCardId());
 	}
 
-	public void update(IScoreReinforceCardData data, PersistenceHandle handle) {
-		daoProvider.getReinforceCardDao().updateChangeDate(handle, data.getReinforceCardId(), data.getChangeDate());
+	public void update(Data<ScoreReinforceCardModel> data, PersistenceHandle handle) {
+		daoProvider.getReinforceCardDao().updateChangeDate(handle, data.getModel().getReinforceCardId(), data.getModel().getChangeDate());
 	}
 
 	@Override
-	public void clear(IInitMyBoxesDataData data, PersistenceHandle handle) {
-		for (String scheduledCardId : data.getOutdatedReinforceCardsIds()) {
+	public void clear(Data<InitMyBoxesDataModel> data, PersistenceHandle handle) {
+		for (String scheduledCardId : data.getModel().getOutdatedReinforceCardsIds()) {
 			daoProvider.getReinforceCardDao().deleteByScheduledCardId(handle, scheduledCardId);
 		}
 	}
 
 	@Override
-	public void deleteAll(IDeleteBoxData data, PersistenceHandle handle) {
-		daoProvider.getReinforceCardDao().deleteByBoxId(handle, data.getBoxId());
+	public void deleteAll(Data<DeleteBoxModel> data, PersistenceHandle handle) {
+		daoProvider.getReinforceCardDao().deleteByBoxId(handle, data.getModel().getBoxId());
 	}
 
 	@Override
-	public void sortOut(ISortCardsOutData data, PersistenceHandle handle) {
-		for (String reinforceCardId : data.getSortedOutReinforceCardIds()) {
+	public void sortOut(Data<SortCardsOutModel> data, PersistenceHandle handle) {
+		for (String reinforceCardId : data.getModel().getSortedOutReinforceCardIds()) {
 			daoProvider.getReinforceCardDao().deleteByReinforceCardId(handle, reinforceCardId);
 		}
 	}
 
 	@Override
-	public void deleteAllOfBox(IScheduledCardsData data, PersistenceHandle handle) {
-		daoProvider.getReinforceCardDao().deleteByBoxId(handle, data.getBoxId());
+	public void deleteAllOfBox(Data<ScheduledCardsModel> data, PersistenceHandle handle) {
+		daoProvider.getReinforceCardDao().deleteByBoxId(handle, data.getModel().getBoxId());
 	}
 
 }

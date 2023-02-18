@@ -28,7 +28,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
-import de.acegen.IDataContainer;
 import de.acegen.ViewProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -36,6 +35,7 @@ import de.acegen.ReadAction;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.Config;
+import de.acegen.Data;
 
 import de.acegen.auth.AuthUser;
 import io.dropwizard.auth.Auth;
@@ -52,8 +52,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.DELETE;
 
-import com.anfelisa.box.data.IInitMyBoxesDataData;
-import com.anfelisa.box.data.InitMyBoxesDataData;
+import com.anfelisa.box.models.InitMyBoxesDataModel;
 
 import de.acegen.Resource;
 
@@ -86,7 +85,7 @@ public class InitMyBoxesForDayResource extends Resource {
 	public Response initMyBoxesForDayResource(
 			@Auth AuthUser authUser, 
 			@QueryParam("uuid") String uuid, 
-			IInitMyBoxesDataData payload) 
+			com.anfelisa.box.data.InitMyBoxesForDayPayload payload) 
 			throws JsonProcessingException {
 		if (payload == null) {
 			return badRequest("payload must not be null");
@@ -95,13 +94,15 @@ public class InitMyBoxesForDayResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.box.data.IInitMyBoxesDataData data = new InitMyBoxesDataData(uuid);
+			Data<com.anfelisa.box.models.InitMyBoxesDataModel> data = new Data<com.anfelisa.box.models.InitMyBoxesDataModel>(uuid);
+			com.anfelisa.box.models.InitMyBoxesDataModel model = new com.anfelisa.box.models.InitMyBoxesDataModel();
 			if (payload.getTodayAtMidnightInUTC() == null) {
 				return badRequest("todayAtMidnightInUTC is mandatory");
 			}
-			data.setTodayAtMidnightInUTC(payload.getTodayAtMidnightInUTC());
-			data.setUserId(authUser.getUserId());
+			model.setTodayAtMidnightInUTC(payload.getTodayAtMidnightInUTC());
+			model.setUserId(authUser.getUserId());
 			
+			data.setModel(model);
 			com.anfelisa.box.actions.InitMyBoxesForDayAction action = new com.anfelisa.box.actions.InitMyBoxesForDayAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
 			data = action.apply(data);
 			return ok();

@@ -7,17 +7,16 @@
 
 package com.anfelisa.user.views;
 
-
-import de.acegen.IDataContainer;
+import de.acegen.Data;
 import de.acegen.PersistenceHandle;
-import com.anfelisa.user.data.IForgotPasswordData;
-import com.anfelisa.user.data.IUserRegistrationData;
+import com.anfelisa.user.models.ForgotPasswordModel;
+import com.anfelisa.user.models.UserRegistrationModel;
 
 @SuppressWarnings("all")
 public interface IEmailView {
 
-	void sendForgotPasswordEmail(IForgotPasswordData data, PersistenceHandle handle);
-	void sendRegistrationEmail(IUserRegistrationData data, PersistenceHandle handle);
+	void sendForgotPasswordEmail(Data<com.anfelisa.user.models.ForgotPasswordModel> data, PersistenceHandle handle);
+	void sendRegistrationEmail(Data<com.anfelisa.user.models.UserRegistrationModel> data, PersistenceHandle handle);
 	
 }
 

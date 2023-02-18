@@ -14,9 +14,9 @@ import org.slf4j.LoggerFactory;
 
 import org.apache.commons.lang3.StringUtils;
 
+import de.acegen.Data;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
-import de.acegen.IDataContainer;
 import de.acegen.ViewProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -24,11 +24,8 @@ import de.acegen.ReadAction;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 
-import com.anfelisa.category.data.ICategoryTreeData;
-import com.anfelisa.category.data.CategoryTreeData;
-
 @SuppressWarnings("unused")
-public abstract class AbstractGetCategoryTreeAction extends ReadAction<ICategoryTreeData> {
+public abstract class AbstractGetCategoryTreeAction extends ReadAction<com.anfelisa.category.models.CategoryTreeModel> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractGetCategoryTreeAction.class);
 	
@@ -37,10 +34,10 @@ public abstract class AbstractGetCategoryTreeAction extends ReadAction<ICategory
 		super("com.anfelisa.category.actions.GetCategoryTreeAction", persistenceConnection, appConfiguration, daoProvider, viewProvider);
 	}
 
-	protected abstract ICategoryTreeData loadDataForGetRequest(ICategoryTreeData data, PersistenceHandle readonlyHandle);
+	protected abstract Data<com.anfelisa.category.models.CategoryTreeModel> loadDataForGetRequest(Data<com.anfelisa.category.models.CategoryTreeModel> data, PersistenceHandle readonlyHandle);
 
 	@Override
-	protected ICategoryTreeData initActionDataFromSquishyDataProvider(ICategoryTreeData data) {
+	protected Data<com.anfelisa.category.models.CategoryTreeModel> initActionDataFromSquishyDataProvider(Data<com.anfelisa.category.models.CategoryTreeModel> data) {
 		LocalDateTime systemTime = SquishyDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
 			data.setSystemTime(systemTime);
@@ -48,7 +45,7 @@ public abstract class AbstractGetCategoryTreeAction extends ReadAction<ICategory
 		return data;
 	}
 
-	public ICategoryTreeData initActionData(ICategoryTreeData data) {
+	public Data<com.anfelisa.category.models.CategoryTreeModel> initActionData(Data<com.anfelisa.category.models.CategoryTreeModel> data) {
 		return data;
 	}
 

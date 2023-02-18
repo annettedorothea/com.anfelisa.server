@@ -25,6 +25,9 @@ import de.acegen.BaseScenario;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.HttpResponse;
+import de.acegen.Data;
+
+import com.fasterxml.jackson.core.type.TypeReference;
 
 @SuppressWarnings("unused")
 public abstract class AbstractSearchUsernameScenario extends BaseScenario {
@@ -43,13 +46,13 @@ public abstract class AbstractSearchUsernameScenario extends BaseScenario {
 				"\"password\" : \"password\"," + 
 				"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 					com.anfelisa.user.data.RegisterUserPayload.class);
-			com.anfelisa.user.data.UserRegistrationData data_0 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"email\" : \"annette.pohl@anfelisa.de\"," + 
-			"\"language\" : \"de\"," + 
-			"\"password\" : \"password\"," + 
-			"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
-					com.anfelisa.user.data.UserRegistrationData.class);
+			com.anfelisa.user.models.UserRegistrationModel model_0 = objectMapper.readValue("{" +
+				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"password\"," + 
+				"\"username\" : \"Annette-" + this.getTestId() + "\"} ", com.anfelisa.user.models.UserRegistrationModel.class);
+			Data<com.anfelisa.user.models.UserRegistrationModel> data_0 = new Data<com.anfelisa.user.models.UserRegistrationModel>(uuid);
+			data_0.setModel(model_0);
 			HttpResponse<Object> response_0 = 
 			this.httpPost(
 				"/users/register", 
@@ -78,12 +81,12 @@ public abstract class AbstractSearchUsernameScenario extends BaseScenario {
 				"\"dictionaryLookup\" : false," + 
 				"\"maxCardsPerDay\" : 10} ",
 					com.anfelisa.box.data.CreateBoxPayload.class);
-			com.anfelisa.box.data.BoxCreationData data_1 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"categoryName\" : \"cat\"," + 
-			"\"dictionaryLookup\" : false," + 
-			"\"maxCardsPerDay\" : 10} ",
-					com.anfelisa.box.data.BoxCreationData.class);
+			com.anfelisa.box.models.BoxCreationModel model_1 = objectMapper.readValue("{" +
+				"\"categoryName\" : \"cat\"," + 
+				"\"dictionaryLookup\" : false," + 
+				"\"maxCardsPerDay\" : 10} ", com.anfelisa.box.models.BoxCreationModel.class);
+			Data<com.anfelisa.box.models.BoxCreationModel> data_1 = new Data<com.anfelisa.box.models.BoxCreationModel>(uuid);
+			data_1.setModel(model_1);
 			HttpResponse<Object> response_1 = 
 			this.httpPost(
 				"/box/create", 
@@ -114,13 +117,13 @@ public abstract class AbstractSearchUsernameScenario extends BaseScenario {
 				"\"password\" : \"pw\"," + 
 				"\"username\" : \"Anne-" + this.getTestId() + "\"} ",
 					com.anfelisa.user.data.RegisterUserPayload.class);
-			com.anfelisa.user.data.UserRegistrationData data_2 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"email\" : \"info@anfelisa.de\"," + 
-			"\"language\" : \"de\"," + 
-			"\"password\" : \"pw\"," + 
-			"\"username\" : \"Anne-" + this.getTestId() + "\"} ",
-					com.anfelisa.user.data.UserRegistrationData.class);
+			com.anfelisa.user.models.UserRegistrationModel model_2 = objectMapper.readValue("{" +
+				"\"email\" : \"info@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"pw\"," + 
+				"\"username\" : \"Anne-" + this.getTestId() + "\"} ", com.anfelisa.user.models.UserRegistrationModel.class);
+			Data<com.anfelisa.user.models.UserRegistrationModel> data_2 = new Data<com.anfelisa.user.models.UserRegistrationModel>(uuid);
+			data_2.setModel(model_2);
 			HttpResponse<Object> response_2 = 
 			this.httpPost(
 				"/users/register", 
@@ -146,14 +149,14 @@ public abstract class AbstractSearchUsernameScenario extends BaseScenario {
 	
 	private HttpResponse<com.anfelisa.category.data.SearchUsernameForInvitationResponse> when_0() throws Exception {
 		String uuid = this.randomUUID();
-		com.anfelisa.category.data.UsernameSearchData data_0 = objectMapper.readValue("{" +
-		"\"uuid\" : \"" + uuid + "\"," + 
-		"\"usernameSearchString\" : \"Anne\"," + 
-		"\"categoryId\" : \"boxId-" + this.getTestId() + "\"} ",
-				com.anfelisa.category.data.UsernameSearchData.class);
+		com.anfelisa.category.models.UsernameSearchModel model_0 = objectMapper.readValue("{" +
+			"\"usernameSearchString\" : \"Anne\"," + 
+			"\"categoryId\" : \"boxId-" + this.getTestId() + "\"} ", com.anfelisa.category.models.UsernameSearchModel.class);
+		Data<com.anfelisa.category.models.UsernameSearchModel> data_0 = new Data<com.anfelisa.category.models.UsernameSearchModel>(uuid);
+		data_0.setModel(model_0);
 		HttpResponse<com.anfelisa.category.data.SearchUsernameForInvitationResponse> response = 
 		this.httpGet(
-			"/users/search?usernameSearchString=" + (data_0.getUsernameSearchString() != null ? URLEncoder.encode(data_0.getUsernameSearchString(), StandardCharsets.UTF_8.toString()) : "") + "&categoryId=" + (data_0.getCategoryId() != null ? URLEncoder.encode(data_0.getCategoryId(), StandardCharsets.UTF_8.toString()) : "") + "", 
+			"/users/search?usernameSearchString=" + (data_0.getModel().getUsernameSearchString() != null ? URLEncoder.encode(data_0.getModel().getUsernameSearchString(), StandardCharsets.UTF_8.toString()) : "") + "&categoryId=" + (data_0.getModel().getCategoryId() != null ? URLEncoder.encode(data_0.getModel().getCategoryId(), StandardCharsets.UTF_8.toString()) : "") + "", 
 			authorization("Annette-${testId}", "password"),
 			uuid,
 			com.anfelisa.category.data.SearchUsernameForInvitationResponse.class

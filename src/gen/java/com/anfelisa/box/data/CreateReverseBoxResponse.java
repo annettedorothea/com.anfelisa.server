@@ -15,18 +15,19 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class CreateReverseBoxResponse implements ICreateReverseBoxResponse {
+public class CreateReverseBoxResponse {
 	
 	public CreateReverseBoxResponse() {
 	}
 	
-	public CreateReverseBoxResponse(com.anfelisa.box.models.IBoxCreationModel data) {
+	public CreateReverseBoxResponse(com.anfelisa.box.models.BoxCreationModel model) {
 	}
+	
+	
 	
 }
 

@@ -15,24 +15,19 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class ScoreReinforceCardPayload implements IScoreReinforceCardPayload {
+public class ScoreReinforceCardPayload {
 	
 	private String reinforceCardId;
 	
-	private Boolean keep = false;
+	private Boolean keep;
 	
 	public ScoreReinforceCardPayload() {
 	}
 	
-	public ScoreReinforceCardPayload(com.anfelisa.box.models.IScoreReinforceCardModel data) {
-		reinforceCardId = data.getReinforceCardId();
-		keep = data.getKeep();
-	}
 	
 	@JsonProperty
 	public String getReinforceCardId() {

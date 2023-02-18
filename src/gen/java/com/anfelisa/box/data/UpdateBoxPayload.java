@@ -15,12 +15,11 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class UpdateBoxPayload implements IUpdateBoxPayload {
+public class UpdateBoxPayload {
 	
 	private Integer maxInterval;
 	
@@ -32,7 +31,7 @@ public class UpdateBoxPayload implements IUpdateBoxPayload {
 	
 	private String categoryName;
 	
-	private Boolean dictionaryLookup = false;
+	private Boolean dictionaryLookup;
 	
 	private String givenLanguage;
 	
@@ -41,16 +40,6 @@ public class UpdateBoxPayload implements IUpdateBoxPayload {
 	public UpdateBoxPayload() {
 	}
 	
-	public UpdateBoxPayload(com.anfelisa.box.models.IBoxUpdateModel data) {
-		maxInterval = data.getMaxInterval();
-		maxCardsPerDay = data.getMaxCardsPerDay();
-		boxId = data.getBoxId();
-		categoryId = data.getCategoryId();
-		categoryName = data.getCategoryName();
-		dictionaryLookup = data.getDictionaryLookup();
-		givenLanguage = data.getGivenLanguage();
-		wantedLanguage = data.getWantedLanguage();
-	}
 	
 	@JsonProperty
 	public Integer getMaxInterval() {

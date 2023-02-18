@@ -15,12 +15,11 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class GetUserProfileResponse implements IGetUserProfileResponse {
+public class GetUserProfileResponse {
 	
 	private String email;
 	
@@ -28,37 +27,35 @@ public class GetUserProfileResponse implements IGetUserProfileResponse {
 	
 	private String userId;
 	
-	private Boolean deletable = false;
+	private Boolean deletable;
 	
 	public GetUserProfileResponse() {
 	}
 	
-	public GetUserProfileResponse(com.anfelisa.user.models.IProfileUserModel data) {
-		email = data.getEmail();
-		username = data.getUsername();
-		userId = data.getUserId();
-		deletable = data.getDeletable();
+	public GetUserProfileResponse(com.anfelisa.user.models.ProfileUserModel model) {
+		email = model.getEmail();
+		username = model.getUsername();
+		userId = model.getUserId();
+		deletable = model.getDeletable();
 	}
 	
-	@JsonProperty
 	public String getEmail() {
 		return this.email;
 	}
 	
-	@JsonProperty
 	public String getUsername() {
 		return this.username;
 	}
 	
-	@JsonProperty
 	public String getUserId() {
 		return this.userId;
 	}
 	
-	@JsonProperty
 	public Boolean getDeletable() {
 		return this.deletable;
 	}
+	
+	
 	
 }
 

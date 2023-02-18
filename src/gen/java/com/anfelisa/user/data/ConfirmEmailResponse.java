@@ -15,18 +15,19 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class ConfirmEmailResponse implements IConfirmEmailResponse {
+public class ConfirmEmailResponse {
 	
 	public ConfirmEmailResponse() {
 	}
 	
-	public ConfirmEmailResponse(com.anfelisa.user.models.IConfirmEmailModel data) {
+	public ConfirmEmailResponse(com.anfelisa.user.models.ConfirmEmailModel model) {
 	}
+	
+	
 	
 }
 

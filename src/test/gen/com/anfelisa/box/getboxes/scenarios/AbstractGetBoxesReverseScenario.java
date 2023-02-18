@@ -25,6 +25,9 @@ import de.acegen.BaseScenario;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.HttpResponse;
+import de.acegen.Data;
+
+import com.fasterxml.jackson.core.type.TypeReference;
 
 @SuppressWarnings("unused")
 public abstract class AbstractGetBoxesReverseScenario extends BaseScenario {
@@ -43,13 +46,13 @@ public abstract class AbstractGetBoxesReverseScenario extends BaseScenario {
 				"\"password\" : \"password\"," + 
 				"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 					com.anfelisa.user.data.RegisterUserPayload.class);
-			com.anfelisa.user.data.UserRegistrationData data_0 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"email\" : \"annette.pohl@anfelisa.de\"," + 
-			"\"language\" : \"de\"," + 
-			"\"password\" : \"password\"," + 
-			"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
-					com.anfelisa.user.data.UserRegistrationData.class);
+			com.anfelisa.user.models.UserRegistrationModel model_0 = objectMapper.readValue("{" +
+				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"password\"," + 
+				"\"username\" : \"Annette-" + this.getTestId() + "\"} ", com.anfelisa.user.models.UserRegistrationModel.class);
+			Data<com.anfelisa.user.models.UserRegistrationModel> data_0 = new Data<com.anfelisa.user.models.UserRegistrationModel>(uuid);
+			data_0.setModel(model_0);
 			HttpResponse<Object> response_0 = 
 			this.httpPost(
 				"/users/register", 
@@ -78,12 +81,12 @@ public abstract class AbstractGetBoxesReverseScenario extends BaseScenario {
 				"\"dictionaryLookup\" : false," + 
 				"\"maxCardsPerDay\" : 10} ",
 					com.anfelisa.box.data.CreateBoxPayload.class);
-			com.anfelisa.box.data.BoxCreationData data_1 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"categoryName\" : \"cat\"," + 
-			"\"dictionaryLookup\" : false," + 
-			"\"maxCardsPerDay\" : 10} ",
-					com.anfelisa.box.data.BoxCreationData.class);
+			com.anfelisa.box.models.BoxCreationModel model_1 = objectMapper.readValue("{" +
+				"\"categoryName\" : \"cat\"," + 
+				"\"dictionaryLookup\" : false," + 
+				"\"maxCardsPerDay\" : 10} ", com.anfelisa.box.models.BoxCreationModel.class);
+			Data<com.anfelisa.box.models.BoxCreationModel> data_1 = new Data<com.anfelisa.box.models.BoxCreationModel>(uuid);
+			data_1.setModel(model_1);
 			HttpResponse<Object> response_1 = 
 			this.httpPost(
 				"/box/create", 
@@ -110,10 +113,10 @@ public abstract class AbstractGetBoxesReverseScenario extends BaseScenario {
 			com.anfelisa.box.data.CreateReverseBoxPayload payload_2 = objectMapper.readValue("{" +
 				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.CreateReverseBoxPayload.class);
-			com.anfelisa.box.data.BoxCreationData data_2 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
-					com.anfelisa.box.data.BoxCreationData.class);
+			com.anfelisa.box.models.BoxCreationModel model_2 = objectMapper.readValue("{" +
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"} ", com.anfelisa.box.models.BoxCreationModel.class);
+			Data<com.anfelisa.box.models.BoxCreationModel> data_2 = new Data<com.anfelisa.box.models.BoxCreationModel>(uuid);
+			data_2.setModel(model_2);
 			HttpResponse<Object> response_2 = 
 			this.httpPost(
 				"/box/create-reverse", 
@@ -139,13 +142,13 @@ public abstract class AbstractGetBoxesReverseScenario extends BaseScenario {
 	
 	private HttpResponse<com.anfelisa.box.data.GetBoxesResponse> when_0() throws Exception {
 		String uuid = this.randomUUID();
-		com.anfelisa.box.data.BoxListData data_0 = objectMapper.readValue("{" +
-		"\"uuid\" : \"" + uuid + "\"," + 
-		"\"todayAtMidnightInUTC\" : \"2020-04-20T02:00\"} ",
-				com.anfelisa.box.data.BoxListData.class);
+		com.anfelisa.box.models.BoxListModel model_0 = objectMapper.readValue("{" +
+			"\"todayAtMidnightInUTC\" : \"2020-04-20T02:00\"} ", com.anfelisa.box.models.BoxListModel.class);
+		Data<com.anfelisa.box.models.BoxListModel> data_0 = new Data<com.anfelisa.box.models.BoxListModel>(uuid);
+		data_0.setModel(model_0);
 		HttpResponse<com.anfelisa.box.data.GetBoxesResponse> response = 
 		this.httpGet(
-			"/boxes/my/?todayAtMidnightInUTC=" + data_0.getTodayAtMidnightInUTC() + "", 
+			"/boxes/my/?todayAtMidnightInUTC=" + data_0.getModel().getTodayAtMidnightInUTC() + "", 
 			authorization("Annette-${testId}", "password"),
 			uuid,
 			com.anfelisa.box.data.GetBoxesResponse.class
@@ -184,8 +187,7 @@ public abstract class AbstractGetBoxesReverseScenario extends BaseScenario {
 				assertFail(x.getMessage());
 			}
 	
-			com.anfelisa.box.data.BoxListData expectedData = objectMapper.readValue("{" +
-				"\"uuid\" : \"\"," + 
+			com.anfelisa.box.models.BoxListModel expectedData = objectMapper.readValue("{" +
 				"\"boxList\" : [ { \"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"categoryName\" : \"cat\"," + 
@@ -201,8 +203,7 @@ public abstract class AbstractGetBoxesReverseScenario extends BaseScenario {
 				"\"editable\" : true," + 
 				"\"reverse\" : true," + 
 				"\"archived\" : false," + 
-				"\"deletable\" : true}]} ",
-			com.anfelisa.box.data.BoxListData.class);
+				"\"deletable\" : true}]} ", com.anfelisa.box.models.BoxListModel.class);
 			
 			com.anfelisa.box.data.GetBoxesResponse expected = new com.anfelisa.box.data.GetBoxesResponse(expectedData);
 			

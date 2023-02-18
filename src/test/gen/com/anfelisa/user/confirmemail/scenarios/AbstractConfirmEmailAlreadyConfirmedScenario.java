@@ -25,6 +25,9 @@ import de.acegen.BaseScenario;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.HttpResponse;
+import de.acegen.Data;
+
+import com.fasterxml.jackson.core.type.TypeReference;
 
 @SuppressWarnings("unused")
 public abstract class AbstractConfirmEmailAlreadyConfirmedScenario extends BaseScenario {
@@ -43,13 +46,13 @@ public abstract class AbstractConfirmEmailAlreadyConfirmedScenario extends BaseS
 				"\"password\" : \"password\"," + 
 				"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 					com.anfelisa.user.data.RegisterUserPayload.class);
-			com.anfelisa.user.data.UserRegistrationData data_0 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"email\" : \"annette.pohl@anfelisa.de\"," + 
-			"\"language\" : \"de\"," + 
-			"\"password\" : \"password\"," + 
-			"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
-					com.anfelisa.user.data.UserRegistrationData.class);
+			com.anfelisa.user.models.UserRegistrationModel model_0 = objectMapper.readValue("{" +
+				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"password\"," + 
+				"\"username\" : \"Annette-" + this.getTestId() + "\"} ", com.anfelisa.user.models.UserRegistrationModel.class);
+			Data<com.anfelisa.user.models.UserRegistrationModel> data_0 = new Data<com.anfelisa.user.models.UserRegistrationModel>(uuid);
+			data_0.setModel(model_0);
 			HttpResponse<Object> response_0 = 
 			this.httpPost(
 				"/users/register", 
@@ -77,11 +80,11 @@ public abstract class AbstractConfirmEmailAlreadyConfirmedScenario extends BaseS
 				"\"token\" : \"TOKEN-" + this.getTestId() + "\"," + 
 				"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 					com.anfelisa.user.data.ConfirmEmailPayload.class);
-			com.anfelisa.user.data.ConfirmEmailData data_1 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"token\" : \"TOKEN-" + this.getTestId() + "\"," + 
-			"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
-					com.anfelisa.user.data.ConfirmEmailData.class);
+			com.anfelisa.user.models.ConfirmEmailModel model_1 = objectMapper.readValue("{" +
+				"\"token\" : \"TOKEN-" + this.getTestId() + "\"," + 
+				"\"username\" : \"Annette-" + this.getTestId() + "\"} ", com.anfelisa.user.models.ConfirmEmailModel.class);
+			Data<com.anfelisa.user.models.ConfirmEmailModel> data_1 = new Data<com.anfelisa.user.models.ConfirmEmailModel>(uuid);
+			data_1.setModel(model_1);
 			HttpResponse<Object> response_1 = 
 			this.httpPut(
 				"/users/confirm", 
@@ -111,11 +114,11 @@ public abstract class AbstractConfirmEmailAlreadyConfirmedScenario extends BaseS
 			"\"token\" : \"TOKEN-" + this.getTestId() + "\"," + 
 			"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 				com.anfelisa.user.data.ConfirmEmailPayload.class);
-		com.anfelisa.user.data.ConfirmEmailData data_0 = objectMapper.readValue("{" +
-		"\"uuid\" : \"" + uuid + "\"," + 
-		"\"token\" : \"TOKEN-" + this.getTestId() + "\"," + 
-		"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
-				com.anfelisa.user.data.ConfirmEmailData.class);
+		com.anfelisa.user.models.ConfirmEmailModel model_0 = objectMapper.readValue("{" +
+			"\"token\" : \"TOKEN-" + this.getTestId() + "\"," + 
+			"\"username\" : \"Annette-" + this.getTestId() + "\"} ", com.anfelisa.user.models.ConfirmEmailModel.class);
+		Data<com.anfelisa.user.models.ConfirmEmailModel> data_0 = new Data<com.anfelisa.user.models.ConfirmEmailModel>(uuid);
+		data_0.setModel(model_0);
 		HttpResponse<Object> response = 
 		this.httpPut(
 			"/users/confirm", 
@@ -171,9 +174,9 @@ public abstract class AbstractConfirmEmailAlreadyConfirmedScenario extends BaseS
 	
 	
 	private void confirmedIsStillTrue() throws Exception {
-		com.anfelisa.user.models.IUserModel actual = daoProvider.getUserDao().selectByUsername(handle, "Annette-" + this.getTestId() + "");
+		com.anfelisa.user.models.UserModel actual = daoProvider.getUserDao().selectByUsername(handle, "Annette-" + this.getTestId() + "");
 		
-		com.anfelisa.user.models.IUserModel expected = objectMapper.readValue("{" +
+		com.anfelisa.user.models.UserModel expected = objectMapper.readValue("{" +
 			"\"email\" : \"annette.pohl@anfelisa.de\"," + 
 			"\"emailConfirmed\" : true," + 
 			"\"password\" : \"password\"," + 
@@ -186,7 +189,7 @@ public abstract class AbstractConfirmEmailAlreadyConfirmedScenario extends BaseS
 		LOG.info("THEN: confirmedIsStillTrue passed");
 	}
 	private void tokenWasDeleted() throws Exception {
-		com.anfelisa.user.models.IEmailConfirmationModel actual = daoProvider.getEmailConfirmationDao().selectByToken(handle, "TOKEN-" + this.getTestId() + "");
+		com.anfelisa.user.models.EmailConfirmationModel actual = daoProvider.getEmailConfirmationDao().selectByToken(handle, "TOKEN-" + this.getTestId() + "");
 		
 		assertIsNull(actual);
 	

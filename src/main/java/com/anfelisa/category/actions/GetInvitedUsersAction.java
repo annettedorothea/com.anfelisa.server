@@ -12,12 +12,13 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.category.data.IAlreadyInvitedUsernamesData;
-import com.anfelisa.category.models.ICategoryModel;
-import com.anfelisa.category.models.IUserAccessToCategoryModel;
-import com.anfelisa.category.models.IUsernameEditableModel;
+import com.anfelisa.category.models.AlreadyInvitedUsernamesModel;
+import com.anfelisa.category.models.CategoryModel;
+import com.anfelisa.category.models.UserAccessToCategoryModel;
+import com.anfelisa.category.models.UsernameEditableModel;
 
 import de.acegen.CustomAppConfiguration;
+import de.acegen.Data;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -34,19 +35,19 @@ public class GetInvitedUsersAction extends AbstractGetInvitedUsersAction {
 
 
 	@Override
-	protected IAlreadyInvitedUsernamesData loadDataForGetRequest(IAlreadyInvitedUsernamesData data, PersistenceHandle readonlyHandle) {
-		ICategoryModel category = daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle, data.getCategoryId());
+	protected Data<AlreadyInvitedUsernamesModel> loadDataForGetRequest(Data<AlreadyInvitedUsernamesModel> data, PersistenceHandle readonlyHandle) {
+		CategoryModel category = daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle, data.getModel().getCategoryId());
 		if (category == null) {
 			throwIllegalArgumentException("categoryDoesNotExist");
 		}
 		
-		IUserAccessToCategoryModel access = daoProvider.getUserAccessToCategoryDao().selectByCategoryIdAndUserId(readonlyHandle, data.getCategoryId(), data.getUserId());
+		UserAccessToCategoryModel access = daoProvider.getUserAccessToCategoryDao().selectByCategoryIdAndUserId(readonlyHandle, data.getModel().getCategoryId(), data.getModel().getUserId());
 		if (access == null || !access.getEditable()) {
 			throwSecurityException();
 		}
 		
-		List<IUsernameEditableModel> invitedUsers = daoProvider.getUserAccessToCategoryDao().selectAllInvitedUsers(readonlyHandle, data.getCategoryId(), data.getUserId());
-		data.setInvitedUsers(invitedUsers);
+		List<UsernameEditableModel> invitedUsers = daoProvider.getUserAccessToCategoryDao().selectAllInvitedUsers(readonlyHandle, data.getModel().getCategoryId(), data.getModel().getUserId());
+		data.getModel().setInvitedUsers(invitedUsers);
 		return data;
 	}
 	

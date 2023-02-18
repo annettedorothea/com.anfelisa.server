@@ -15,12 +15,11 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class GetTokenPayload implements IGetTokenPayload {
+public class GetTokenPayload {
 	
 	private String username;
 	
@@ -29,10 +28,6 @@ public class GetTokenPayload implements IGetTokenPayload {
 	public GetTokenPayload() {
 	}
 	
-	public GetTokenPayload(com.anfelisa.user.models.ITokenModel data) {
-		username = data.getUsername();
-		password = data.getPassword();
-	}
 	
 	@JsonProperty
 	public String getUsername() {

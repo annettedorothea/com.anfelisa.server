@@ -14,9 +14,9 @@ import org.jdbi.v3.core.statement.StatementContext;
 
 import de.acegen.AbstractMapper;
 
-public class CardWithInfoMapper extends AbstractMapper<ICardWithInfoModel> {
+public class CardWithInfoMapper extends AbstractMapper<CardWithInfoModel> {
 	
-	public ICardWithInfoModel map(ResultSet r, StatementContext ctx) throws SQLException {
+	public CardWithInfoModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new CardWithInfoModel(
 			this.mapToDateTime(r, "next"),
 			this.mapToString(r, "cardId"),

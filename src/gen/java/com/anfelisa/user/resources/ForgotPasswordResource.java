@@ -28,7 +28,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
-import de.acegen.IDataContainer;
 import de.acegen.ViewProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -36,6 +35,7 @@ import de.acegen.ReadAction;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.Config;
+import de.acegen.Data;
 
 
 import com.codahale.metrics.annotation.Timed;
@@ -50,8 +50,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.DELETE;
 
-import com.anfelisa.user.data.IForgotPasswordData;
-import com.anfelisa.user.data.ForgotPasswordData;
+import com.anfelisa.user.models.ForgotPasswordModel;
 
 import de.acegen.Resource;
 
@@ -83,7 +82,7 @@ public class ForgotPasswordResource extends Resource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response forgotPasswordResource(
 			@QueryParam("uuid") String uuid, 
-			IForgotPasswordData payload) 
+			com.anfelisa.user.data.ForgotPasswordPayload payload) 
 			throws JsonProcessingException {
 		if (payload == null) {
 			return badRequest("payload must not be null");
@@ -92,16 +91,18 @@ public class ForgotPasswordResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.user.data.IForgotPasswordData data = new ForgotPasswordData(uuid);
+			Data<com.anfelisa.user.models.ForgotPasswordModel> data = new Data<com.anfelisa.user.models.ForgotPasswordModel>(uuid);
+			com.anfelisa.user.models.ForgotPasswordModel model = new com.anfelisa.user.models.ForgotPasswordModel();
 			if (StringUtils.isBlank(payload.getUsername()) || "null".equals(payload.getUsername())) {
 				return badRequest("username is mandatory");
 			}
-			data.setUsername(payload.getUsername());
+			model.setUsername(payload.getUsername());
 			if (StringUtils.isBlank(payload.getLanguage()) || "null".equals(payload.getLanguage())) {
 				return badRequest("language is mandatory");
 			}
-			data.setLanguage(payload.getLanguage());
+			model.setLanguage(payload.getLanguage());
 			
+			data.setModel(model);
 			com.anfelisa.user.actions.ForgotPasswordAction action = new com.anfelisa.user.actions.ForgotPasswordAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
 			data = action.apply(data);
 			return ok();

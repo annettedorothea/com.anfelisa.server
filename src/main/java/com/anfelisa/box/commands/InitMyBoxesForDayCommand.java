@@ -15,13 +15,13 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.box.data.IInitMyBoxesDataData;
-import com.anfelisa.box.data.PostponeCardsData;
-import com.anfelisa.box.models.IInitBoxesModel;
-import com.anfelisa.box.models.IPostponeCardsModel;
-import com.anfelisa.box.models.IReinforceCardModel;
+import com.anfelisa.box.models.InitBoxesModel;
+import com.anfelisa.box.models.InitMyBoxesDataModel;
+import com.anfelisa.box.models.PostponeCardsModel;
+import com.anfelisa.box.models.ReinforceCardModel;
 
 import de.acegen.CustomAppConfiguration;
+import de.acegen.Data;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.ViewProvider;
@@ -36,30 +36,29 @@ public class InitMyBoxesForDayCommand extends AbstractInitMyBoxesForDayCommand {
 	}
 
 	@Override
-	protected IInitMyBoxesDataData executeCommand(IInitMyBoxesDataData data, PersistenceHandle readonlyHandle) {
-		List<IInitBoxesModel> boxList = this.daoProvider.getBoxDao().selectInitBoxesModelByUserId(readonlyHandle,
-				data.getUserId(), data.getTodayAtMidnightInUTC());
-		List<IPostponeCardsModel> postponeCards = new ArrayList<IPostponeCardsModel>();
+	protected Data<InitMyBoxesDataModel>  executeCommand(Data<InitMyBoxesDataModel> data, PersistenceHandle readonlyHandle) {
+		List<InitBoxesModel> boxList = this.daoProvider.getBoxDao().selectInitBoxesModelByUserId(readonlyHandle,
+				data.getModel().getUserId(), data.getModel().getTodayAtMidnightInUTC());
+		List<PostponeCardsModel> postponeCards = new ArrayList<PostponeCardsModel>();
 		List<String> outdatedReinforceCardsIds = new ArrayList<String>();
-		LocalDateTime today = data.getTodayAtMidnightInUTC();
-		for (IInitBoxesModel box : boxList) {
-			List<IReinforceCardModel> outdatedReinforceCards = this.daoProvider.getReinforceCardDao()
+		LocalDateTime today = data.getModel().getTodayAtMidnightInUTC();
+		for (InitBoxesModel box : boxList) {
+			List<ReinforceCardModel> outdatedReinforceCards = this.daoProvider.getReinforceCardDao()
 					.selectOutdatedReinforceCards(readonlyHandle, box.getBoxId(), today);
-			for (IReinforceCardModel card : outdatedReinforceCards) {
+			for (ReinforceCardModel card : outdatedReinforceCards) {
 				outdatedReinforceCardsIds.add(card.getScheduledCardId());
 			}
 			LocalDateTime min = box.getMinScheduledDate();
 			if (min != null) {
 				if (min.isBefore(today)) {
 					int days = (int) ChronoUnit.DAYS.between(min, today) + 1;
-					PostponeCardsData postponeData = new PostponeCardsData(days, box.getBoxId(),
-							data.getUuid());
+					PostponeCardsModel postponeData = new PostponeCardsModel(days, box.getBoxId());
 					postponeCards.add(postponeData);
 				}
 			}
 		}
-		data.setPostponeCards(postponeCards);
-		data.setOutdatedReinforceCardsIds(outdatedReinforceCardsIds);
+		data.getModel().setPostponeCards(postponeCards);
+		data.getModel().setOutdatedReinforceCardsIds(outdatedReinforceCardsIds);
 		this.addOkOutcome(data);
 		return data;
 	}

@@ -14,9 +14,9 @@ import org.slf4j.LoggerFactory;
 
 import org.apache.commons.lang3.StringUtils;
 
+import de.acegen.Data;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
-import de.acegen.IDataContainer;
 import de.acegen.ViewProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -24,11 +24,8 @@ import de.acegen.ReadAction;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 
-import com.anfelisa.card.data.ICardListData;
-import com.anfelisa.card.data.CardListData;
-
 @SuppressWarnings("unused")
-public abstract class AbstractGetCardsAction extends ReadAction<ICardListData> {
+public abstract class AbstractGetCardsAction extends ReadAction<com.anfelisa.card.models.CardListModel> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractGetCardsAction.class);
 	
@@ -37,10 +34,10 @@ public abstract class AbstractGetCardsAction extends ReadAction<ICardListData> {
 		super("com.anfelisa.card.actions.GetCardsAction", persistenceConnection, appConfiguration, daoProvider, viewProvider);
 	}
 
-	protected abstract ICardListData loadDataForGetRequest(ICardListData data, PersistenceHandle readonlyHandle);
+	protected abstract Data<com.anfelisa.card.models.CardListModel> loadDataForGetRequest(Data<com.anfelisa.card.models.CardListModel> data, PersistenceHandle readonlyHandle);
 
 	@Override
-	protected ICardListData initActionDataFromSquishyDataProvider(ICardListData data) {
+	protected Data<com.anfelisa.card.models.CardListModel> initActionDataFromSquishyDataProvider(Data<com.anfelisa.card.models.CardListModel> data) {
 		LocalDateTime systemTime = SquishyDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
 			data.setSystemTime(systemTime);
@@ -48,7 +45,7 @@ public abstract class AbstractGetCardsAction extends ReadAction<ICardListData> {
 		return data;
 	}
 
-	public ICardListData initActionData(ICardListData data) {
+	public Data<com.anfelisa.card.models.CardListModel> initActionData(Data<com.anfelisa.card.models.CardListModel> data) {
 		return data;
 	}
 

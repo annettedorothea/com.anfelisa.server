@@ -7,27 +7,26 @@
 
 package com.anfelisa.box.views;
 
-
-import de.acegen.IDataContainer;
+import de.acegen.Data;
 import de.acegen.PersistenceHandle;
-import com.anfelisa.box.data.IBoxCreationData;
-import com.anfelisa.box.data.IBoxUpdateData;
-import com.anfelisa.box.data.IDeleteBoxData;
-import com.anfelisa.box.data.IDeleteBoxData;
-import com.anfelisa.box.data.IBoxArchiveData;
-import com.anfelisa.box.data.IScheduledCardsData;
-import com.anfelisa.box.data.ISortCardsOutData;
+import com.anfelisa.box.models.BoxCreationModel;
+import com.anfelisa.box.models.BoxUpdateModel;
+import com.anfelisa.box.models.DeleteBoxModel;
+import com.anfelisa.box.models.DeleteBoxModel;
+import com.anfelisa.box.models.BoxArchiveModel;
+import com.anfelisa.box.models.ScheduledCardsModel;
+import com.anfelisa.box.models.SortCardsOutModel;
 
 @SuppressWarnings("all")
 public interface IBoxView {
 
-	void createBox(IBoxCreationData data, PersistenceHandle handle);
-	void updateBox(IBoxUpdateData data, PersistenceHandle handle);
-	void deleteBox(IDeleteBoxData data, PersistenceHandle handle);
-	void deleteReverseBox(IDeleteBoxData data, PersistenceHandle handle);
-	void archiveBox(IBoxArchiveData data, PersistenceHandle handle);
-	void scheduleCards(IScheduledCardsData data, PersistenceHandle handle);
-	void sortCardsOut(ISortCardsOutData data, PersistenceHandle handle);
+	void createBox(Data<com.anfelisa.box.models.BoxCreationModel> data, PersistenceHandle handle);
+	void updateBox(Data<com.anfelisa.box.models.BoxUpdateModel> data, PersistenceHandle handle);
+	void deleteBox(Data<com.anfelisa.box.models.DeleteBoxModel> data, PersistenceHandle handle);
+	void deleteReverseBox(Data<com.anfelisa.box.models.DeleteBoxModel> data, PersistenceHandle handle);
+	void archiveBox(Data<com.anfelisa.box.models.BoxArchiveModel> data, PersistenceHandle handle);
+	void scheduleCards(Data<com.anfelisa.box.models.ScheduledCardsModel> data, PersistenceHandle handle);
+	void sortCardsOut(Data<com.anfelisa.box.models.SortCardsOutModel> data, PersistenceHandle handle);
 	
 }
 

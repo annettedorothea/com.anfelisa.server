@@ -15,18 +15,19 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class ScoreReinforceCardResponse implements IScoreReinforceCardResponse {
+public class ScoreReinforceCardResponse {
 	
 	public ScoreReinforceCardResponse() {
 	}
 	
-	public ScoreReinforceCardResponse(com.anfelisa.box.models.IScoreReinforceCardModel data) {
+	public ScoreReinforceCardResponse(com.anfelisa.box.models.ScoreReinforceCardModel model) {
 	}
+	
+	
 	
 }
 

@@ -16,9 +16,10 @@ import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
+import de.acegen.AbstractModel;
 
 @SuppressWarnings("all")
-public class CardTranslationModel implements ICardTranslationModel {
+public class CardTranslationModel extends AbstractModel {
 
 	private String sourceValue;
 
@@ -28,6 +29,8 @@ public class CardTranslationModel implements ICardTranslationModel {
 
 	private String targetLanguage;
 
+	
+	private Boolean frozen = false;
 
 	public CardTranslationModel() {
 	}
@@ -48,7 +51,12 @@ public class CardTranslationModel implements ICardTranslationModel {
 	public String getSourceValue() {
 		return this.sourceValue;
 	}
+	
+	@JsonProperty
 	public void setSourceValue(String sourceValue) {
+		if (this.frozen) {
+			throw new RuntimeException("sourceValue is frozen");
+		}
 		this.sourceValue = sourceValue;
 	}
 	
@@ -56,7 +64,12 @@ public class CardTranslationModel implements ICardTranslationModel {
 	public String getTargetValue() {
 		return this.targetValue;
 	}
+	
+	@JsonProperty
 	public void setTargetValue(String targetValue) {
+		if (this.frozen) {
+			throw new RuntimeException("targetValue is frozen");
+		}
 		this.targetValue = targetValue;
 	}
 	
@@ -64,7 +77,12 @@ public class CardTranslationModel implements ICardTranslationModel {
 	public String getSourceLanguage() {
 		return this.sourceLanguage;
 	}
+	
+	@JsonProperty
 	public void setSourceLanguage(String sourceLanguage) {
+		if (this.frozen) {
+			throw new RuntimeException("sourceLanguage is frozen");
+		}
 		this.sourceLanguage = sourceLanguage;
 	}
 	
@@ -72,18 +90,51 @@ public class CardTranslationModel implements ICardTranslationModel {
 	public String getTargetLanguage() {
 		return this.targetLanguage;
 	}
+	
+	@JsonProperty
 	public void setTargetLanguage(String targetLanguage) {
+		if (this.frozen) {
+			throw new RuntimeException("targetLanguage is frozen");
+		}
 		this.targetLanguage = targetLanguage;
 	}
 	
+	
+	
+	@Override
+	public void freeze() {
+		this.frozen = true;
+	}
 
-	public ICardTranslationModel deepCopy() {
-		ICardTranslationModel copy = new CardTranslationModel();
+	public com.anfelisa.card.models.CardTranslationModel deepCopy() {
+		com.anfelisa.card.models.CardTranslationModel copy = new CardTranslationModel();
 		copy.setSourceValue(this.getSourceValue());
 		copy.setTargetValue(this.getTargetValue());
 		copy.setSourceLanguage(this.getSourceLanguage());
 		copy.setTargetLanguage(this.getTargetLanguage());
 		return copy;
+	}
+	
+	public static CardTranslationModel generateTestData() {
+		java.util.Random random = new java.util.Random();
+		CardTranslationModel testData = new CardTranslationModel();
+		testData.setSourceValue(randomString(random));
+		testData.setTargetValue(randomString(random));
+		testData.setSourceLanguage(randomString(random));
+		testData.setTargetLanguage(randomString(random));
+		return testData;
+	}
+	
+	private static String randomString(java.util.Random random) {
+		String chars = "aaaaaaabcdeeeeeeeffffghiiiiiiijkllllllmmmmnnnnnnnooooooooopqrstttuuuuuuuvxyz";
+		int n = random.nextInt(20) + 5;
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		String string  = sb.toString(); 
+		return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
 	}
 
 }

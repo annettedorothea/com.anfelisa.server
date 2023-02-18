@@ -14,9 +14,9 @@ import org.jdbi.v3.core.statement.StatementContext;
 
 import de.acegen.AbstractMapper;
 
-public class UserToCategoryInvitationMapper extends AbstractMapper<IUserToCategoryInvitationModel> {
+public class UserToCategoryInvitationMapper extends AbstractMapper<UserToCategoryInvitationModel> {
 	
-	public IUserToCategoryInvitationModel map(ResultSet r, StatementContext ctx) throws SQLException {
+	public UserToCategoryInvitationModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new UserToCategoryInvitationModel(
 			this.mapToString(r, "categoryId"),
 			this.mapToString(r, "userId"),

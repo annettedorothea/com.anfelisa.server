@@ -28,7 +28,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
-import de.acegen.IDataContainer;
 import de.acegen.ViewProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -36,6 +35,7 @@ import de.acegen.ReadAction;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.Config;
+import de.acegen.Data;
 
 import de.acegen.auth.AuthUser;
 import io.dropwizard.auth.Auth;
@@ -52,8 +52,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.DELETE;
 
-import com.anfelisa.user.data.IChangeUserRoleData;
-import com.anfelisa.user.data.ChangeUserRoleData;
+import com.anfelisa.user.models.ChangeUserRoleModel;
 
 import de.acegen.Resource;
 
@@ -86,7 +85,7 @@ public class ChangeUserRoleResource extends Resource {
 	public Response changeUserRoleResource(
 			@Auth AuthUser authUser, 
 			@QueryParam("uuid") String uuid, 
-			IChangeUserRoleData payload) 
+			com.anfelisa.user.data.ChangeUserRolePayload payload) 
 			throws JsonProcessingException {
 		if (payload == null) {
 			return badRequest("payload must not be null");
@@ -95,18 +94,20 @@ public class ChangeUserRoleResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.user.data.IChangeUserRoleData data = new ChangeUserRoleData(uuid);
+			Data<com.anfelisa.user.models.ChangeUserRoleModel> data = new Data<com.anfelisa.user.models.ChangeUserRoleModel>(uuid);
+			com.anfelisa.user.models.ChangeUserRoleModel model = new com.anfelisa.user.models.ChangeUserRoleModel();
 			if (StringUtils.isBlank(payload.getNewRole()) || "null".equals(payload.getNewRole())) {
 				return badRequest("newRole is mandatory");
 			}
-			data.setNewRole(payload.getNewRole());
+			model.setNewRole(payload.getNewRole());
 			if (StringUtils.isBlank(payload.getEditedUserId()) || "null".equals(payload.getEditedUserId())) {
 				return badRequest("editedUserId is mandatory");
 			}
-			data.setEditedUserId(payload.getEditedUserId());
-			data.setUserId(authUser.getUserId());
-			data.setRole(authUser.getRole());
+			model.setEditedUserId(payload.getEditedUserId());
+			model.setUserId(authUser.getUserId());
+			model.setRole(authUser.getRole());
 			
+			data.setModel(model);
 			com.anfelisa.user.actions.ChangeUserRoleAction action = new com.anfelisa.user.actions.ChangeUserRoleAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
 			data = action.apply(data);
 			return ok();

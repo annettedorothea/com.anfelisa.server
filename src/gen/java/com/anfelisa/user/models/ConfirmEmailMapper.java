@@ -14,9 +14,9 @@ import org.jdbi.v3.core.statement.StatementContext;
 
 import de.acegen.AbstractMapper;
 
-public class ConfirmEmailMapper extends AbstractMapper<IConfirmEmailModel> {
+public class ConfirmEmailMapper extends AbstractMapper<ConfirmEmailModel> {
 	
-	public IConfirmEmailModel map(ResultSet r, StatementContext ctx) throws SQLException {
+	public ConfirmEmailModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new ConfirmEmailModel(
 			this.mapToString(r, "username"),
 			this.mapToString(r, "token"),

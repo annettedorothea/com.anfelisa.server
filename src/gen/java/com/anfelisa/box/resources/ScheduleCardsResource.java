@@ -28,7 +28,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
-import de.acegen.IDataContainer;
 import de.acegen.ViewProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -36,6 +35,7 @@ import de.acegen.ReadAction;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.Config;
+import de.acegen.Data;
 
 import de.acegen.auth.AuthUser;
 import io.dropwizard.auth.Auth;
@@ -52,8 +52,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.DELETE;
 
-import com.anfelisa.box.data.IScheduledCardsData;
-import com.anfelisa.box.data.ScheduledCardsData;
+import com.anfelisa.box.models.ScheduledCardsModel;
 
 import de.acegen.Resource;
 
@@ -86,7 +85,7 @@ public class ScheduleCardsResource extends Resource {
 	public Response scheduleCardsResource(
 			@Auth AuthUser authUser, 
 			@QueryParam("uuid") String uuid, 
-			IScheduledCardsData payload) 
+			com.anfelisa.box.data.ScheduleCardsPayload payload) 
 			throws JsonProcessingException {
 		if (payload == null) {
 			return badRequest("payload must not be null");
@@ -95,17 +94,19 @@ public class ScheduleCardsResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.box.data.IScheduledCardsData data = new ScheduledCardsData(uuid);
+			Data<com.anfelisa.box.models.ScheduledCardsModel> data = new Data<com.anfelisa.box.models.ScheduledCardsModel>(uuid);
+			com.anfelisa.box.models.ScheduledCardsModel model = new com.anfelisa.box.models.ScheduledCardsModel();
 			if (payload.getCardIds() == null) {
 				return badRequest("cardIds is mandatory");
 			}
-			data.setCardIds(payload.getCardIds());
+			model.setCardIds(payload.getCardIds());
 			if (StringUtils.isBlank(payload.getBoxId()) || "null".equals(payload.getBoxId())) {
 				return badRequest("boxId is mandatory");
 			}
-			data.setBoxId(payload.getBoxId());
-			data.setUserId(authUser.getUserId());
+			model.setBoxId(payload.getBoxId());
+			model.setUserId(authUser.getUserId());
 			
+			data.setModel(model);
 			com.anfelisa.box.actions.ScheduleCardsAction action = new com.anfelisa.box.actions.ScheduleCardsAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
 			data = action.apply(data);
 			return ok();

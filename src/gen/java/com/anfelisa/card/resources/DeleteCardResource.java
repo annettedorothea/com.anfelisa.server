@@ -28,7 +28,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
-import de.acegen.IDataContainer;
 import de.acegen.ViewProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -36,6 +35,7 @@ import de.acegen.ReadAction;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.Config;
+import de.acegen.Data;
 
 import de.acegen.auth.AuthUser;
 import io.dropwizard.auth.Auth;
@@ -52,8 +52,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.DELETE;
 
-import com.anfelisa.card.data.ICardDeleteData;
-import com.anfelisa.card.data.CardDeleteData;
+import com.anfelisa.card.models.CardDeleteModel;
 
 import de.acegen.Resource;
 
@@ -92,15 +91,17 @@ public class DeleteCardResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.card.data.ICardDeleteData data = new CardDeleteData(uuid);
+			Data<com.anfelisa.card.models.CardDeleteModel> data = new Data<com.anfelisa.card.models.CardDeleteModel>(uuid);
+			com.anfelisa.card.models.CardDeleteModel model = new com.anfelisa.card.models.CardDeleteModel();
 			if (cardId == null || StringUtils.isBlank(cardId) || "null".equals(cardId)) {
 				return badRequest("cardId is mandatory");
 			}
 			if (cardId != null) {
-				data.setCardId(cardId);
+				model.setCardId(cardId);
 			}
-			data.setUserId(authUser.getUserId());
+			model.setUserId(authUser.getUserId());
 			
+			data.setModel(model);
 			com.anfelisa.card.actions.DeleteCardAction action = new com.anfelisa.card.actions.DeleteCardAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
 			data = action.apply(data);
 			return ok();

@@ -14,9 +14,9 @@ import org.jdbi.v3.core.statement.StatementContext;
 
 import de.acegen.AbstractMapper;
 
-public class BoxSettingsMapper extends AbstractMapper<IBoxSettingsModel> {
+public class BoxSettingsMapper extends AbstractMapper<BoxSettingsModel> {
 	
-	public IBoxSettingsModel map(ResultSet r, StatementContext ctx) throws SQLException {
+	public BoxSettingsModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new BoxSettingsModel(
 			this.mapToString(r, "boxId"),
 			this.mapToInteger(r, "maxInterval"),

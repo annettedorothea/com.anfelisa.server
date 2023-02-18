@@ -15,26 +15,26 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class GetTranslationResponse implements IGetTranslationResponse {
+public class GetTranslationResponse {
 	
 	private String targetValue;
 	
 	public GetTranslationResponse() {
 	}
 	
-	public GetTranslationResponse(com.anfelisa.card.models.ICardTranslationModel data) {
-		targetValue = data.getTargetValue();
+	public GetTranslationResponse(com.anfelisa.card.models.CardTranslationModel model) {
+		targetValue = model.getTargetValue();
 	}
 	
-	@JsonProperty
 	public String getTargetValue() {
 		return this.targetValue;
 	}
+	
+	
 	
 }
 

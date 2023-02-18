@@ -25,6 +25,9 @@ import de.acegen.BaseScenario;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.HttpResponse;
+import de.acegen.Data;
+
+import com.fasterxml.jackson.core.type.TypeReference;
 
 @SuppressWarnings("unused")
 public abstract class AbstractGetDuplicatesOrderByWantedScenario extends BaseScenario {
@@ -43,13 +46,13 @@ public abstract class AbstractGetDuplicatesOrderByWantedScenario extends BaseSce
 				"\"password\" : \"password\"," + 
 				"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 					com.anfelisa.user.data.RegisterUserPayload.class);
-			com.anfelisa.user.data.UserRegistrationData data_0 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"email\" : \"annette.pohl@anfelisa.de\"," + 
-			"\"language\" : \"de\"," + 
-			"\"password\" : \"password\"," + 
-			"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
-					com.anfelisa.user.data.UserRegistrationData.class);
+			com.anfelisa.user.models.UserRegistrationModel model_0 = objectMapper.readValue("{" +
+				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"password\"," + 
+				"\"username\" : \"Annette-" + this.getTestId() + "\"} ", com.anfelisa.user.models.UserRegistrationModel.class);
+			Data<com.anfelisa.user.models.UserRegistrationModel> data_0 = new Data<com.anfelisa.user.models.UserRegistrationModel>(uuid);
+			data_0.setModel(model_0);
 			HttpResponse<Object> response_0 = 
 			this.httpPost(
 				"/users/register", 
@@ -78,12 +81,12 @@ public abstract class AbstractGetDuplicatesOrderByWantedScenario extends BaseSce
 				"\"dictionaryLookup\" : false," + 
 				"\"maxCardsPerDay\" : 10} ",
 					com.anfelisa.box.data.CreateBoxPayload.class);
-			com.anfelisa.box.data.BoxCreationData data_1 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"categoryName\" : \"cat\"," + 
-			"\"dictionaryLookup\" : false," + 
-			"\"maxCardsPerDay\" : 10} ",
-					com.anfelisa.box.data.BoxCreationData.class);
+			com.anfelisa.box.models.BoxCreationModel model_1 = objectMapper.readValue("{" +
+				"\"categoryName\" : \"cat\"," + 
+				"\"dictionaryLookup\" : false," + 
+				"\"maxCardsPerDay\" : 10} ", com.anfelisa.box.models.BoxCreationModel.class);
+			Data<com.anfelisa.box.models.BoxCreationModel> data_1 = new Data<com.anfelisa.box.models.BoxCreationModel>(uuid);
+			data_1.setModel(model_1);
 			HttpResponse<Object> response_1 = 
 			this.httpPost(
 				"/box/create", 
@@ -111,11 +114,11 @@ public abstract class AbstractGetDuplicatesOrderByWantedScenario extends BaseSce
 				"\"categoryName\" : \"level 1 #1\"," + 
 				"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 					com.anfelisa.category.data.CreateCategoryPayload.class);
-			com.anfelisa.category.data.CategoryCreationData data_2 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"categoryName\" : \"level 1 #1\"," + 
-			"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
-					com.anfelisa.category.data.CategoryCreationData.class);
+			com.anfelisa.category.models.CategoryCreationModel model_2 = objectMapper.readValue("{" +
+				"\"categoryName\" : \"level 1 #1\"," + 
+				"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ", com.anfelisa.category.models.CategoryCreationModel.class);
+			Data<com.anfelisa.category.models.CategoryCreationModel> data_2 = new Data<com.anfelisa.category.models.CategoryCreationModel>(uuid);
+			data_2.setModel(model_2);
 			HttpResponse<Object> response_2 = 
 			this.httpPost(
 				"/category/create", 
@@ -144,12 +147,12 @@ public abstract class AbstractGetDuplicatesOrderByWantedScenario extends BaseSce
 				"\"given\" : \"given\"," + 
 				"\"wanted\" : \"wanted\"} ",
 					com.anfelisa.card.data.CreateCardPayload.class);
-			com.anfelisa.card.data.CardCreationData data_3 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-			"\"given\" : \"given\"," + 
-			"\"wanted\" : \"wanted\"} ",
-					com.anfelisa.card.data.CardCreationData.class);
+			com.anfelisa.card.models.CardCreationModel model_3 = objectMapper.readValue("{" +
+				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
+				"\"given\" : \"given\"," + 
+				"\"wanted\" : \"wanted\"} ", com.anfelisa.card.models.CardCreationModel.class);
+			Data<com.anfelisa.card.models.CardCreationModel> data_3 = new Data<com.anfelisa.card.models.CardCreationModel>(uuid);
+			data_3.setModel(model_3);
 			HttpResponse<Object> response_3 = 
 			this.httpPost(
 				"/card/create", 
@@ -178,12 +181,12 @@ public abstract class AbstractGetDuplicatesOrderByWantedScenario extends BaseSce
 				"\"given\" : \"given2\"," + 
 				"\"wanted\" : \"wanted2\"} ",
 					com.anfelisa.card.data.CreateCardPayload.class);
-			com.anfelisa.card.data.CardCreationData data_4 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-			"\"given\" : \"given2\"," + 
-			"\"wanted\" : \"wanted2\"} ",
-					com.anfelisa.card.data.CardCreationData.class);
+			com.anfelisa.card.models.CardCreationModel model_4 = objectMapper.readValue("{" +
+				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
+				"\"given\" : \"given2\"," + 
+				"\"wanted\" : \"wanted2\"} ", com.anfelisa.card.models.CardCreationModel.class);
+			Data<com.anfelisa.card.models.CardCreationModel> data_4 = new Data<com.anfelisa.card.models.CardCreationModel>(uuid);
+			data_4.setModel(model_4);
 			HttpResponse<Object> response_4 = 
 			this.httpPost(
 				"/card/create", 
@@ -212,12 +215,12 @@ public abstract class AbstractGetDuplicatesOrderByWantedScenario extends BaseSce
 				"\"given\" : \"3given\"," + 
 				"\"wanted\" : \"3wanted\"} ",
 					com.anfelisa.card.data.CreateCardPayload.class);
-			com.anfelisa.card.data.CardCreationData data_5 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-			"\"given\" : \"3given\"," + 
-			"\"wanted\" : \"3wanted\"} ",
-					com.anfelisa.card.data.CardCreationData.class);
+			com.anfelisa.card.models.CardCreationModel model_5 = objectMapper.readValue("{" +
+				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
+				"\"given\" : \"3given\"," + 
+				"\"wanted\" : \"3wanted\"} ", com.anfelisa.card.models.CardCreationModel.class);
+			Data<com.anfelisa.card.models.CardCreationModel> data_5 = new Data<com.anfelisa.card.models.CardCreationModel>(uuid);
+			data_5.setModel(model_5);
 			HttpResponse<Object> response_5 = 
 			this.httpPost(
 				"/card/create", 
@@ -246,12 +249,12 @@ public abstract class AbstractGetDuplicatesOrderByWantedScenario extends BaseSce
 				"\"given\" : \"4given4\"," + 
 				"\"wanted\" : \"4wanted4\"} ",
 					com.anfelisa.card.data.CreateCardPayload.class);
-			com.anfelisa.card.data.CardCreationData data_6 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-			"\"given\" : \"4given4\"," + 
-			"\"wanted\" : \"4wanted4\"} ",
-					com.anfelisa.card.data.CardCreationData.class);
+			com.anfelisa.card.models.CardCreationModel model_6 = objectMapper.readValue("{" +
+				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
+				"\"given\" : \"4given4\"," + 
+				"\"wanted\" : \"4wanted4\"} ", com.anfelisa.card.models.CardCreationModel.class);
+			Data<com.anfelisa.card.models.CardCreationModel> data_6 = new Data<com.anfelisa.card.models.CardCreationModel>(uuid);
+			data_6.setModel(model_6);
 			HttpResponse<Object> response_6 = 
 			this.httpPost(
 				"/card/create", 
@@ -280,12 +283,12 @@ public abstract class AbstractGetDuplicatesOrderByWantedScenario extends BaseSce
 				"\"given\" : \"different\"," + 
 				"\"wanted\" : \"different\"} ",
 					com.anfelisa.card.data.CreateCardPayload.class);
-			com.anfelisa.card.data.CardCreationData data_7 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-			"\"given\" : \"different\"," + 
-			"\"wanted\" : \"different\"} ",
-					com.anfelisa.card.data.CardCreationData.class);
+			com.anfelisa.card.models.CardCreationModel model_7 = objectMapper.readValue("{" +
+				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
+				"\"given\" : \"different\"," + 
+				"\"wanted\" : \"different\"} ", com.anfelisa.card.models.CardCreationModel.class);
+			Data<com.anfelisa.card.models.CardCreationModel> data_7 = new Data<com.anfelisa.card.models.CardCreationModel>(uuid);
+			data_7.setModel(model_7);
 			HttpResponse<Object> response_7 = 
 			this.httpPost(
 				"/card/create", 
@@ -313,11 +316,11 @@ public abstract class AbstractGetDuplicatesOrderByWantedScenario extends BaseSce
 				"\"categoryName\" : \"level 1 #2\"," + 
 				"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 					com.anfelisa.category.data.CreateCategoryPayload.class);
-			com.anfelisa.category.data.CategoryCreationData data_8 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"categoryName\" : \"level 1 #2\"," + 
-			"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
-					com.anfelisa.category.data.CategoryCreationData.class);
+			com.anfelisa.category.models.CategoryCreationModel model_8 = objectMapper.readValue("{" +
+				"\"categoryName\" : \"level 1 #2\"," + 
+				"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ", com.anfelisa.category.models.CategoryCreationModel.class);
+			Data<com.anfelisa.category.models.CategoryCreationModel> data_8 = new Data<com.anfelisa.category.models.CategoryCreationModel>(uuid);
+			data_8.setModel(model_8);
 			HttpResponse<Object> response_8 = 
 			this.httpPost(
 				"/category/create", 
@@ -346,12 +349,12 @@ public abstract class AbstractGetDuplicatesOrderByWantedScenario extends BaseSce
 				"\"given\" : \"aa-given\"," + 
 				"\"wanted\" : \"zz-wanted\"} ",
 					com.anfelisa.card.data.CreateCardPayload.class);
-			com.anfelisa.card.data.CardCreationData data_9 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"categoryId\" : \"cat2-" + this.getTestId() + "\"," + 
-			"\"given\" : \"aa-given\"," + 
-			"\"wanted\" : \"zz-wanted\"} ",
-					com.anfelisa.card.data.CardCreationData.class);
+			com.anfelisa.card.models.CardCreationModel model_9 = objectMapper.readValue("{" +
+				"\"categoryId\" : \"cat2-" + this.getTestId() + "\"," + 
+				"\"given\" : \"aa-given\"," + 
+				"\"wanted\" : \"zz-wanted\"} ", com.anfelisa.card.models.CardCreationModel.class);
+			Data<com.anfelisa.card.models.CardCreationModel> data_9 = new Data<com.anfelisa.card.models.CardCreationModel>(uuid);
+			data_9.setModel(model_9);
 			HttpResponse<Object> response_9 = 
 			this.httpPost(
 				"/card/create", 
@@ -380,12 +383,12 @@ public abstract class AbstractGetDuplicatesOrderByWantedScenario extends BaseSce
 				"\"dictionaryLookup\" : false," + 
 				"\"maxCardsPerDay\" : 8} ",
 					com.anfelisa.box.data.CreateBoxPayload.class);
-			com.anfelisa.box.data.BoxCreationData data_10 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"categoryName\" : \"cat2-" + this.getTestId() + "\"," + 
-			"\"dictionaryLookup\" : false," + 
-			"\"maxCardsPerDay\" : 8} ",
-					com.anfelisa.box.data.BoxCreationData.class);
+			com.anfelisa.box.models.BoxCreationModel model_10 = objectMapper.readValue("{" +
+				"\"categoryName\" : \"cat2-" + this.getTestId() + "\"," + 
+				"\"dictionaryLookup\" : false," + 
+				"\"maxCardsPerDay\" : 8} ", com.anfelisa.box.models.BoxCreationModel.class);
+			Data<com.anfelisa.box.models.BoxCreationModel> data_10 = new Data<com.anfelisa.box.models.BoxCreationModel>(uuid);
+			data_10.setModel(model_10);
 			HttpResponse<Object> response_10 = 
 			this.httpPost(
 				"/box/create", 
@@ -414,12 +417,12 @@ public abstract class AbstractGetDuplicatesOrderByWantedScenario extends BaseSce
 				"\"given\" : \"given\"," + 
 				"\"wanted\" : \"wanted\"} ",
 					com.anfelisa.card.data.CreateCardPayload.class);
-			com.anfelisa.card.data.CardCreationData data_11 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"categoryId\" : \"boxId2-" + this.getTestId() + "\"," + 
-			"\"given\" : \"given\"," + 
-			"\"wanted\" : \"wanted\"} ",
-					com.anfelisa.card.data.CardCreationData.class);
+			com.anfelisa.card.models.CardCreationModel model_11 = objectMapper.readValue("{" +
+				"\"categoryId\" : \"boxId2-" + this.getTestId() + "\"," + 
+				"\"given\" : \"given\"," + 
+				"\"wanted\" : \"wanted\"} ", com.anfelisa.card.models.CardCreationModel.class);
+			Data<com.anfelisa.card.models.CardCreationModel> data_11 = new Data<com.anfelisa.card.models.CardCreationModel>(uuid);
+			data_11.setModel(model_11);
 			HttpResponse<Object> response_11 = 
 			this.httpPost(
 				"/card/create", 
@@ -445,16 +448,16 @@ public abstract class AbstractGetDuplicatesOrderByWantedScenario extends BaseSce
 	
 	private HttpResponse<com.anfelisa.card.data.GetDuplicatesResponse> when_0() throws Exception {
 		String uuid = this.randomUUID();
-		com.anfelisa.card.data.CardSearchData data_0 = objectMapper.readValue("{" +
-		"\"uuid\" : \"" + uuid + "\"," + 
-		"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
-		"\"given\" : \"ive\"," + 
-		"\"wanted\" : \"nted\"," + 
-		"\"naturalInputOrder\" : false} ",
-				com.anfelisa.card.data.CardSearchData.class);
+		com.anfelisa.card.models.CardSearchModel model_0 = objectMapper.readValue("{" +
+			"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+			"\"given\" : \"ive\"," + 
+			"\"wanted\" : \"nted\"," + 
+			"\"naturalInputOrder\" : false} ", com.anfelisa.card.models.CardSearchModel.class);
+		Data<com.anfelisa.card.models.CardSearchModel> data_0 = new Data<com.anfelisa.card.models.CardSearchModel>(uuid);
+		data_0.setModel(model_0);
 		HttpResponse<com.anfelisa.card.data.GetDuplicatesResponse> response = 
 		this.httpGet(
-			"/cards/search?given=" + (data_0.getGiven() != null ? URLEncoder.encode(data_0.getGiven(), StandardCharsets.UTF_8.toString()) : "") + "&wanted=" + (data_0.getWanted() != null ? URLEncoder.encode(data_0.getWanted(), StandardCharsets.UTF_8.toString()) : "") + "&naturalInputOrder=" + data_0.getNaturalInputOrder() + "&categoryId=" + (data_0.getCategoryId() != null ? URLEncoder.encode(data_0.getCategoryId(), StandardCharsets.UTF_8.toString()) : "") + "", 
+			"/cards/search?given=" + (data_0.getModel().getGiven() != null ? URLEncoder.encode(data_0.getModel().getGiven(), StandardCharsets.UTF_8.toString()) : "") + "&wanted=" + (data_0.getModel().getWanted() != null ? URLEncoder.encode(data_0.getModel().getWanted(), StandardCharsets.UTF_8.toString()) : "") + "&naturalInputOrder=" + data_0.getModel().getNaturalInputOrder() + "&categoryId=" + (data_0.getModel().getCategoryId() != null ? URLEncoder.encode(data_0.getModel().getCategoryId(), StandardCharsets.UTF_8.toString()) : "") + "", 
 			authorization("Annette-${testId}", "password"),
 			uuid,
 			com.anfelisa.card.data.GetDuplicatesResponse.class
@@ -493,8 +496,7 @@ public abstract class AbstractGetDuplicatesOrderByWantedScenario extends BaseSce
 				assertFail(x.getMessage());
 			}
 	
-			com.anfelisa.card.data.CardSearchData expectedData = objectMapper.readValue("{" +
-				"\"uuid\" : \"\"," + 
+			com.anfelisa.card.models.CardSearchModel expectedData = objectMapper.readValue("{" +
 				"\"cardList\" : [ { \"cardAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
 				"\"cardId\" : \"c3-" + this.getTestId() + "\"," + 
 				"\"cardIndex\" : 3," + 
@@ -534,8 +536,7 @@ public abstract class AbstractGetDuplicatesOrderByWantedScenario extends BaseSce
 				"\"given\" : \"aa-given\"," + 
 				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"wanted\" : \"zz-wanted\"," + 
-				"\"categoryName\" : \"level 1 #2\"}]} ",
-			com.anfelisa.card.data.CardSearchData.class);
+				"\"categoryName\" : \"level 1 #2\"}]} ", com.anfelisa.card.models.CardSearchModel.class);
 			
 			com.anfelisa.card.data.GetDuplicatesResponse expected = new com.anfelisa.card.data.GetDuplicatesResponse(expectedData);
 			

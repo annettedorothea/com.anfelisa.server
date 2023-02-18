@@ -14,9 +14,9 @@ import org.jdbi.v3.core.statement.StatementContext;
 
 import de.acegen.AbstractMapper;
 
-public class ProfileUserMapper extends AbstractMapper<IProfileUserModel> {
+public class ProfileUserMapper extends AbstractMapper<ProfileUserModel> {
 	
-	public IProfileUserModel map(ResultSet r, StatementContext ctx) throws SQLException {
+	public ProfileUserModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new ProfileUserModel(
 			this.mapToBoolean(r, "deletable"),
 			this.mapToString(r, "userId"),

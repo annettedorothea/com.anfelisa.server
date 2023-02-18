@@ -15,18 +15,19 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class InviteUserToCategoryResponse implements IInviteUserToCategoryResponse {
+public class InviteUserToCategoryResponse {
 	
 	public InviteUserToCategoryResponse() {
 	}
 	
-	public InviteUserToCategoryResponse(com.anfelisa.category.models.IUserToCategoryInvitationModel data) {
+	public InviteUserToCategoryResponse(com.anfelisa.category.models.UserToCategoryInvitationModel model) {
 	}
+	
+	
 	
 }
 

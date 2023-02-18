@@ -12,12 +12,13 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.card.data.ICardSearchData;
-import com.anfelisa.card.models.ICardWithCategoryNameModel;
-import com.anfelisa.category.models.ICategoryModel;
-import com.anfelisa.category.models.IUserAccessToCategoryModel;
+import com.anfelisa.card.models.CardSearchModel;
+import com.anfelisa.card.models.CardWithCategoryNameModel;
+import com.anfelisa.category.models.CategoryModel;
+import com.anfelisa.category.models.UserAccessToCategoryModel;
 
 import de.acegen.CustomAppConfiguration;
+import de.acegen.Data;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -34,20 +35,20 @@ public class GetDuplicatesAction extends AbstractGetDuplicatesAction {
 
 
 	@Override
-	protected ICardSearchData loadDataForGetRequest(ICardSearchData data, PersistenceHandle readonlyHandle) {
-		ICategoryModel category = daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
-				data.getCategoryId());
+	protected Data<CardSearchModel> loadDataForGetRequest(Data<CardSearchModel> data, PersistenceHandle readonlyHandle) {
+		CategoryModel category = daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
+				data.getModel().getCategoryId());
 		if (category == null) {
 			throwIllegalArgumentException("categoryDoesNotExist");
 		}
-		IUserAccessToCategoryModel userAccessToCategoryModel = daoProvider.getUserAccessToCategoryDao()
-				.hasUserAccessTo(readonlyHandle, data.getCategoryId(), data.getUserId());
+		UserAccessToCategoryModel userAccessToCategoryModel = daoProvider.getUserAccessToCategoryDao()
+				.hasUserAccessTo(readonlyHandle, data.getModel().getCategoryId(), data.getModel().getUserId());
 		if (userAccessToCategoryModel == null) {
 			throwSecurityException();
 		}
-		List<ICardWithCategoryNameModel> cardList = this.daoProvider.getCardDao().search(readonlyHandle, data.getCategoryId(),
-				data.getNaturalInputOrder(), data.getGiven(), data.getWanted());
-		data.setCardList(cardList);
+		List<CardWithCategoryNameModel> cardList = this.daoProvider.getCardDao().search(readonlyHandle, data.getModel().getCategoryId(),
+				data.getModel().getNaturalInputOrder(), data.getModel().getGiven(), data.getModel().getWanted());
+		data.getModel().setCardList(cardList);
 		return data;
 	}
 	

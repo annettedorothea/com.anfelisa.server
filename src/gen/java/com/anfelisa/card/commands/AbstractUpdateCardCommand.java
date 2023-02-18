@@ -7,6 +7,7 @@
 
 package com.anfelisa.card.commands;
 
+import de.acegen.Data;
 import de.acegen.Command;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
@@ -14,21 +15,21 @@ import de.acegen.ViewProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.Event;
 
-import com.anfelisa.card.data.ICardUpdateData;
+import com.anfelisa.card.models.CardUpdateModel;
 
 @SuppressWarnings("unused")
-public abstract class AbstractUpdateCardCommand extends Command<ICardUpdateData> {
+public abstract class AbstractUpdateCardCommand extends Command<com.anfelisa.card.models.CardUpdateModel> {
 
 	public AbstractUpdateCardCommand(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
 		super("com.anfelisa.card.commands.UpdateCardCommand", daoProvider, viewProvider, appConfiguration);
 	}
 
-	protected void addOkOutcome(ICardUpdateData data) {
+	protected void addOkOutcome(Data<com.anfelisa.card.models.CardUpdateModel> data) {
 		data.addOutcome("ok");
 	}
 	
 	@Override
-	public void addEventsToTimeline(ICardUpdateData data, PersistenceHandle timelineHandle) {
+	public void addEventsToTimeline(Data<com.anfelisa.card.models.CardUpdateModel> data, PersistenceHandle timelineHandle) {
 		if (appConfiguration.getConfig().writeTimeline()) {
 			if (data.hasOutcome("ok")){
 				daoProvider.getAceDao().addEventToTimeline("com.anfelisa.card.events.UpdateCardOkEvent", data, timelineHandle);
@@ -37,9 +38,10 @@ public abstract class AbstractUpdateCardCommand extends Command<ICardUpdateData>
 	}
 	
 	@Override
-	public void publishEvents(ICardUpdateData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	public void publishEvents(Data<com.anfelisa.card.models.CardUpdateModel> data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+		data.freeze();
 		if (data.hasOutcome("ok")){
-			new Event<ICardUpdateData>("com.anfelisa.card.events.UpdateCardOkEvent", viewProvider).publish(data.deepCopy(), handle, timelineHandle);
+			new Event<com.anfelisa.card.models.CardUpdateModel>("com.anfelisa.card.events.UpdateCardOkEvent", viewProvider).publish(data, handle, timelineHandle);
 		}
 	}
 	

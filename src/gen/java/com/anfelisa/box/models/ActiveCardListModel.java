@@ -16,18 +16,21 @@ import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
+import de.acegen.AbstractModel;
 
 @SuppressWarnings("all")
-public class ActiveCardListModel implements IActiveCardListModel {
+public class ActiveCardListModel extends AbstractModel {
 
 	private String userId;
 
 	private String boxId;
 
-	private java.util.List<com.anfelisa.box.models.ICardWithStatisticsModel> cardList;
+	private java.util.List<com.anfelisa.box.models.CardWithStatisticsModel> cardList;
 
-	private Boolean editable = false;
+	private Boolean editable;
 
+	
+	private Boolean frozen = false;
 
 	public ActiveCardListModel() {
 	}
@@ -35,7 +38,7 @@ public class ActiveCardListModel implements IActiveCardListModel {
 	public ActiveCardListModel(
 		@JsonProperty("userId") String userId,
 		@JsonProperty("boxId") String boxId,
-		@JsonProperty("cardList") java.util.List<com.anfelisa.box.models.ICardWithStatisticsModel> cardList,
+		@JsonProperty("cardList") java.util.List<com.anfelisa.box.models.CardWithStatisticsModel> cardList,
 		@JsonProperty("editable") Boolean editable
 	) {
 		this.userId = userId;
@@ -48,7 +51,12 @@ public class ActiveCardListModel implements IActiveCardListModel {
 	public String getUserId() {
 		return this.userId;
 	}
+	
+	@JsonProperty
 	public void setUserId(String userId) {
+		if (this.frozen) {
+			throw new RuntimeException("userId is frozen");
+		}
 		this.userId = userId;
 	}
 	
@@ -56,15 +64,25 @@ public class ActiveCardListModel implements IActiveCardListModel {
 	public String getBoxId() {
 		return this.boxId;
 	}
+	
+	@JsonProperty
 	public void setBoxId(String boxId) {
+		if (this.frozen) {
+			throw new RuntimeException("boxId is frozen");
+		}
 		this.boxId = boxId;
 	}
 	
 	@JsonProperty
-	public java.util.List<com.anfelisa.box.models.ICardWithStatisticsModel> getCardList() {
+	public java.util.List<com.anfelisa.box.models.CardWithStatisticsModel> getCardList() {
 		return this.cardList;
 	}
-	public void setCardList(java.util.List<com.anfelisa.box.models.ICardWithStatisticsModel> cardList) {
+	
+	@JsonProperty
+	public void setCardList(java.util.List<com.anfelisa.box.models.CardWithStatisticsModel> cardList) {
+		if (this.frozen) {
+			throw new RuntimeException("cardList is frozen");
+		}
 		this.cardList = cardList;
 	}
 	
@@ -72,24 +90,68 @@ public class ActiveCardListModel implements IActiveCardListModel {
 	public Boolean getEditable() {
 		return this.editable;
 	}
+	
+	@JsonProperty
 	public void setEditable(Boolean editable) {
+		if (this.frozen) {
+			throw new RuntimeException("editable is frozen");
+		}
 		this.editable = editable;
 	}
 	
+	
+	
+	@Override
+	public void freeze() {
+		this.frozen = true;
+		if (this.cardList != null) {
+			for ( int i = 0; i < cardList.size(); i++ ) {
+				cardList.get(i).freeze();
+			}
+		}
+	}
 
-	public IActiveCardListModel deepCopy() {
-		IActiveCardListModel copy = new ActiveCardListModel();
+	public com.anfelisa.box.models.ActiveCardListModel deepCopy() {
+		com.anfelisa.box.models.ActiveCardListModel copy = new ActiveCardListModel();
 		copy.setUserId(this.getUserId());
 		copy.setBoxId(this.getBoxId());
-		List<com.anfelisa.box.models.ICardWithStatisticsModel> cardListCopy = new ArrayList<com.anfelisa.box.models.ICardWithStatisticsModel>();
+		List<com.anfelisa.box.models.CardWithStatisticsModel> cardListCopy = new ArrayList<com.anfelisa.box.models.CardWithStatisticsModel>();
 		if (this.getCardList() != null) {
-			for(com.anfelisa.box.models.ICardWithStatisticsModel item: this.getCardList()) {
+			for(com.anfelisa.box.models.CardWithStatisticsModel item: this.getCardList()) {
 				cardListCopy.add(item.deepCopy());
 			}
 		}
 		copy.setCardList(cardListCopy);
 		copy.setEditable(this.getEditable());
 		return copy;
+	}
+	
+	public static ActiveCardListModel generateTestData() {
+		java.util.Random random = new java.util.Random();
+		int n;
+		ActiveCardListModel testData = new ActiveCardListModel();
+		testData.setUserId(randomString(random));
+		testData.setBoxId(randomString(random));
+		java.util.List<com.anfelisa.box.models.CardWithStatisticsModel> cardListList = new java.util.ArrayList<com.anfelisa.box.models.CardWithStatisticsModel>();
+		n = random.nextInt(20) + 1;
+		for ( int i = 0; i < n; i++ ) {
+			cardListList.add(com.anfelisa.box.models.CardWithStatisticsModel.generateTestData());
+		}
+		testData.setCardList(cardListList);
+		testData.setEditable(random.nextBoolean());
+		return testData;
+	}
+	
+	private static String randomString(java.util.Random random) {
+		String chars = "aaaaaaabcdeeeeeeeffffghiiiiiiijkllllllmmmmnnnnnnnooooooooopqrstttuuuuuuuvxyz";
+		int n = random.nextInt(20) + 5;
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		String string  = sb.toString(); 
+		return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
 	}
 
 }

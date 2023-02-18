@@ -7,21 +7,20 @@
 
 package com.anfelisa.box.views;
 
-
-import de.acegen.IDataContainer;
+import de.acegen.Data;
 import de.acegen.PersistenceHandle;
-import com.anfelisa.box.data.IScoreCardData;
-import com.anfelisa.box.data.IScoreCardData;
-import com.anfelisa.box.data.IInitMyBoxesDataData;
-import com.anfelisa.box.data.IDeleteBoxData;
+import com.anfelisa.box.models.ScoreCardModel;
+import com.anfelisa.box.models.ScoreCardModel;
+import com.anfelisa.box.models.InitMyBoxesDataModel;
+import com.anfelisa.box.models.DeleteBoxModel;
 
 @SuppressWarnings("all")
 public interface IScheduledCardView {
 
-	void score(IScoreCardData data, PersistenceHandle handle);
-	void scheduleNext(IScoreCardData data, PersistenceHandle handle);
-	void postponeCards(IInitMyBoxesDataData data, PersistenceHandle handle);
-	void deleteAll(IDeleteBoxData data, PersistenceHandle handle);
+	void score(Data<com.anfelisa.box.models.ScoreCardModel> data, PersistenceHandle handle);
+	void scheduleNext(Data<com.anfelisa.box.models.ScoreCardModel> data, PersistenceHandle handle);
+	void postponeCards(Data<com.anfelisa.box.models.InitMyBoxesDataModel> data, PersistenceHandle handle);
+	void deleteAll(Data<com.anfelisa.box.models.DeleteBoxModel> data, PersistenceHandle handle);
 	
 }
 

@@ -10,10 +10,11 @@ package com.anfelisa.box.commands;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.box.data.IBoxCreationData;
+import com.anfelisa.box.models.BoxCreationModel;
 import com.anfelisa.box.utils.LanguageValidator;
 
 import de.acegen.CustomAppConfiguration;
+import de.acegen.Data;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.ViewProvider;
@@ -28,26 +29,29 @@ public class CreateBoxCommand extends AbstractCreateBoxCommand {
 	}
 
 	@Override
-	protected IBoxCreationData executeCommand(IBoxCreationData data, PersistenceHandle readonlyHandle) {
-		if (data.getDictionaryLookup() != null && data.getDictionaryLookup()) {
-			if (!LanguageValidator.isLanguageValid(data.getGivenLanguage())) {
+	protected Data<BoxCreationModel> executeCommand(Data<BoxCreationModel> data, PersistenceHandle readonlyHandle) {
+		if (data.getModel().getDictionaryLookup() != null && data.getModel().getDictionaryLookup()) {
+			if (!LanguageValidator.isLanguageValid(data.getModel().getGivenLanguage())) {
 				throwIllegalArgumentException("givenLanguageIsInvalid");
 			}
-			if (!LanguageValidator.isLanguageValid(data.getWantedLanguage())) {
+			if (!LanguageValidator.isLanguageValid(data.getModel().getWantedLanguage())) {
 				throwIllegalArgumentException("wantedLanguageIsInvalid");
 			}
 		} else {
-			data.setGivenLanguage(null);
-			data.setWantedLanguage(null);
+			data.getModel().setGivenLanguage(null);
+			data.getModel().setWantedLanguage(null);
+			data.getModel().setDictionaryLookup(false);
 		}
 
-		data.setCategoryId(data.getUuid());
-		data.setCategoryAuthor(data.getUsername());
-		data.setRootCategoryId(data.getCategoryId());
-		data.setBoxId(data.getCategoryId());
+		data.getModel().setCategoryId(data.getUuid());
+		data.getModel().setCategoryAuthor(data.getModel().getUsername());
+		data.getModel().setRootCategoryId(data.getModel().getCategoryId());
+		data.getModel().setBoxId(data.getModel().getCategoryId());
 
-		data.setCategoryIndex(null);
-		data.setEditable(true);
+		data.getModel().setCategoryIndex(null);
+		data.getModel().setEditable(true);
+		data.getModel().setArchived(false);
+		data.getModel().setReverse(false);
 		this.addOkOutcome(data);
 		return data;
 	}

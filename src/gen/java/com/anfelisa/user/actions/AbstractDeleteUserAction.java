@@ -9,6 +9,7 @@ package com.anfelisa.user.actions;
 
 import java.time.LocalDateTime;
 
+import de.acegen.Data;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.ICommand;
 import de.acegen.IDaoProvider;
@@ -17,13 +18,12 @@ import de.acegen.SquishyDataProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.WriteAction;
 
-import com.anfelisa.user.data.IDeleteUserData;
 import com.anfelisa.user.commands.DeleteUserCommand;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractDeleteUserAction extends WriteAction<IDeleteUserData> {
+public abstract class AbstractDeleteUserAction extends WriteAction<com.anfelisa.user.models.DeleteUserModel> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractDeleteUserAction.class);
 
@@ -33,12 +33,12 @@ public abstract class AbstractDeleteUserAction extends WriteAction<IDeleteUserDa
 	}
 
 	@Override
-	public ICommand<IDeleteUserData> getCommand() {
+	public ICommand<com.anfelisa.user.models.DeleteUserModel> getCommand() {
 		return new DeleteUserCommand(daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	@Override
-	protected IDeleteUserData initActionDataFromSquishyDataProvider(IDeleteUserData data) {
+	protected Data<com.anfelisa.user.models.DeleteUserModel> initActionDataFromSquishyDataProvider(Data<com.anfelisa.user.models.DeleteUserModel> data) {
 		LocalDateTime systemTime = SquishyDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
 			data.setSystemTime(systemTime);
@@ -46,7 +46,7 @@ public abstract class AbstractDeleteUserAction extends WriteAction<IDeleteUserDa
 		return data;
 	}
 
-	public IDeleteUserData initActionData(IDeleteUserData data) {
+	public Data<com.anfelisa.user.models.DeleteUserModel> initActionData(Data<com.anfelisa.user.models.DeleteUserModel> data) {
 		return data;
 	}
 

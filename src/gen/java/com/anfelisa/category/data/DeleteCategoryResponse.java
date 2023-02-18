@@ -15,18 +15,19 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class DeleteCategoryResponse implements IDeleteCategoryResponse {
+public class DeleteCategoryResponse {
 	
 	public DeleteCategoryResponse() {
 	}
 	
-	public DeleteCategoryResponse(com.anfelisa.category.models.ICategoryDeleteModel data) {
+	public DeleteCategoryResponse(com.anfelisa.category.models.CategoryDeleteModel model) {
 	}
+	
+	
 	
 }
 

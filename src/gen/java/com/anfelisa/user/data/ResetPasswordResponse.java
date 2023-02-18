@@ -15,18 +15,19 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class ResetPasswordResponse implements IResetPasswordResponse {
+public class ResetPasswordResponse {
 	
 	public ResetPasswordResponse() {
 	}
 	
-	public ResetPasswordResponse(com.anfelisa.user.models.IResetPasswordWithNewPasswordModel data) {
+	public ResetPasswordResponse(com.anfelisa.user.models.ResetPasswordWithNewPasswordModel model) {
 	}
+	
+	
 	
 }
 

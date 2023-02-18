@@ -14,9 +14,9 @@ import org.jdbi.v3.core.statement.StatementContext;
 
 import de.acegen.AbstractMapper;
 
-public class BoxCreationMapper extends AbstractMapper<IBoxCreationModel> {
+public class BoxCreationMapper extends AbstractMapper<BoxCreationModel> {
 	
-	public IBoxCreationModel map(ResultSet r, StatementContext ctx) throws SQLException {
+	public BoxCreationModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new BoxCreationModel(
 			this.mapToString(r, "username"),
 			this.mapToString(r, "categoryId"),

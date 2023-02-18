@@ -7,6 +7,7 @@
 
 package com.anfelisa.box.commands;
 
+import de.acegen.Data;
 import de.acegen.Command;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
@@ -14,21 +15,21 @@ import de.acegen.ViewProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.Event;
 
-import com.anfelisa.box.data.IBoxArchiveData;
+import com.anfelisa.box.models.BoxArchiveModel;
 
 @SuppressWarnings("unused")
-public abstract class AbstractArchiveBoxCommand extends Command<IBoxArchiveData> {
+public abstract class AbstractArchiveBoxCommand extends Command<com.anfelisa.box.models.BoxArchiveModel> {
 
 	public AbstractArchiveBoxCommand(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
 		super("com.anfelisa.box.commands.ArchiveBoxCommand", daoProvider, viewProvider, appConfiguration);
 	}
 
-	protected void addOkOutcome(IBoxArchiveData data) {
+	protected void addOkOutcome(Data<com.anfelisa.box.models.BoxArchiveModel> data) {
 		data.addOutcome("ok");
 	}
 	
 	@Override
-	public void addEventsToTimeline(IBoxArchiveData data, PersistenceHandle timelineHandle) {
+	public void addEventsToTimeline(Data<com.anfelisa.box.models.BoxArchiveModel> data, PersistenceHandle timelineHandle) {
 		if (appConfiguration.getConfig().writeTimeline()) {
 			if (data.hasOutcome("ok")){
 				daoProvider.getAceDao().addEventToTimeline("com.anfelisa.box.events.ArchiveBoxOkEvent", data, timelineHandle);
@@ -37,9 +38,10 @@ public abstract class AbstractArchiveBoxCommand extends Command<IBoxArchiveData>
 	}
 	
 	@Override
-	public void publishEvents(IBoxArchiveData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	public void publishEvents(Data<com.anfelisa.box.models.BoxArchiveModel> data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+		data.freeze();
 		if (data.hasOutcome("ok")){
-			new Event<IBoxArchiveData>("com.anfelisa.box.events.ArchiveBoxOkEvent", viewProvider).publish(data.deepCopy(), handle, timelineHandle);
+			new Event<com.anfelisa.box.models.BoxArchiveModel>("com.anfelisa.box.events.ArchiveBoxOkEvent", viewProvider).publish(data, handle, timelineHandle);
 		}
 	}
 	

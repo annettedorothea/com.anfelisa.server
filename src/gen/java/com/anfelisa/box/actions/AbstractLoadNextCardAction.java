@@ -14,9 +14,9 @@ import org.slf4j.LoggerFactory;
 
 import org.apache.commons.lang3.StringUtils;
 
+import de.acegen.Data;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
-import de.acegen.IDataContainer;
 import de.acegen.ViewProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -24,11 +24,8 @@ import de.acegen.ReadAction;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 
-import com.anfelisa.box.data.INextCardData;
-import com.anfelisa.box.data.NextCardData;
-
 @SuppressWarnings("unused")
-public abstract class AbstractLoadNextCardAction extends ReadAction<INextCardData> {
+public abstract class AbstractLoadNextCardAction extends ReadAction<com.anfelisa.box.models.NextCardModel> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractLoadNextCardAction.class);
 	
@@ -37,10 +34,10 @@ public abstract class AbstractLoadNextCardAction extends ReadAction<INextCardDat
 		super("com.anfelisa.box.actions.LoadNextCardAction", persistenceConnection, appConfiguration, daoProvider, viewProvider);
 	}
 
-	protected abstract INextCardData loadDataForGetRequest(INextCardData data, PersistenceHandle readonlyHandle);
+	protected abstract Data<com.anfelisa.box.models.NextCardModel> loadDataForGetRequest(Data<com.anfelisa.box.models.NextCardModel> data, PersistenceHandle readonlyHandle);
 
 	@Override
-	protected INextCardData initActionDataFromSquishyDataProvider(INextCardData data) {
+	protected Data<com.anfelisa.box.models.NextCardModel> initActionDataFromSquishyDataProvider(Data<com.anfelisa.box.models.NextCardModel> data) {
 		LocalDateTime systemTime = SquishyDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
 			data.setSystemTime(systemTime);
@@ -48,7 +45,7 @@ public abstract class AbstractLoadNextCardAction extends ReadAction<INextCardDat
 		return data;
 	}
 
-	public INextCardData initActionData(INextCardData data) {
+	public Data<com.anfelisa.box.models.NextCardModel> initActionData(Data<com.anfelisa.box.models.NextCardModel> data) {
 		return data;
 	}
 

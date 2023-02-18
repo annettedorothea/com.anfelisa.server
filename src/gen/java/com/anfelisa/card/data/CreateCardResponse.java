@@ -15,18 +15,19 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class CreateCardResponse implements ICreateCardResponse {
+public class CreateCardResponse {
 	
 	public CreateCardResponse() {
 	}
 	
-	public CreateCardResponse(com.anfelisa.card.models.ICardCreationModel data) {
+	public CreateCardResponse(com.anfelisa.card.models.CardCreationModel model) {
 	}
+	
+	
 	
 }
 

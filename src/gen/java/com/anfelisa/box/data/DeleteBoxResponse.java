@@ -15,18 +15,19 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class DeleteBoxResponse implements IDeleteBoxResponse {
+public class DeleteBoxResponse {
 	
 	public DeleteBoxResponse() {
 	}
 	
-	public DeleteBoxResponse(com.anfelisa.box.models.IDeleteBoxModel data) {
+	public DeleteBoxResponse(com.anfelisa.box.models.DeleteBoxModel model) {
 	}
+	
+	
 	
 }
 

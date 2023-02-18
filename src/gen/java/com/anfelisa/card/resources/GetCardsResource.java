@@ -28,7 +28,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
-import de.acegen.IDataContainer;
 import de.acegen.ViewProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -36,6 +35,7 @@ import de.acegen.ReadAction;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.Config;
+import de.acegen.Data;
 
 import de.acegen.auth.AuthUser;
 import io.dropwizard.auth.Auth;
@@ -52,8 +52,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.DELETE;
 
-import com.anfelisa.card.data.ICardListData;
-import com.anfelisa.card.data.CardListData;
+import com.anfelisa.card.models.CardListModel;
 
 import de.acegen.Resource;
 
@@ -95,27 +94,29 @@ public class GetCardsResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.card.data.ICardListData data = new CardListData(uuid);
+			Data<com.anfelisa.card.models.CardListModel> data = new Data<com.anfelisa.card.models.CardListModel>(uuid);
+			com.anfelisa.card.models.CardListModel model = new com.anfelisa.card.models.CardListModel();
 			if (categoryId == null || StringUtils.isBlank(categoryId) || "null".equals(categoryId)) {
 				return badRequest("categoryId is mandatory");
 			}
 			if (categoryId != null) {
-				data.setCategoryId(categoryId);
+				model.setCategoryId(categoryId);
 			}
 			if (filterNonScheduled != null) {
-				data.setFilterNonScheduled("null".equals(filterNonScheduled) ? null : Boolean.parseBoolean(filterNonScheduled));
+				model.setFilterNonScheduled("null".equals(filterNonScheduled) ? null : Boolean.parseBoolean(filterNonScheduled));
 			}
 			if (priority != null) {
-				data.setPriority("null".equals(priority) ? null : Integer.parseInt(priority));
+				model.setPriority("null".equals(priority) ? null : Integer.parseInt(priority));
 			}
 			if (reverse != null) {
-				data.setReverse("null".equals(reverse) ? null : Boolean.parseBoolean(reverse));
+				model.setReverse("null".equals(reverse) ? null : Boolean.parseBoolean(reverse));
 			}
-			data.setUserId(authUser.getUserId());
+			model.setUserId(authUser.getUserId());
 			
+			data.setModel(model);
 			com.anfelisa.card.actions.GetCardsAction action = new com.anfelisa.card.actions.GetCardsAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
 			data = action.apply(data);
-			return Response.ok(new com.anfelisa.card.data.GetCardsResponse(data)).build();
+			return Response.ok(new com.anfelisa.card.data.GetCardsResponse(data.getModel())).build();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());
 			if (Config.DEV.equals(appConfiguration.getConfig().getMode())) {

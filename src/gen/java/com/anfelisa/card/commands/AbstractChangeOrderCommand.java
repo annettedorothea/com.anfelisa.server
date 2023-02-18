@@ -7,6 +7,7 @@
 
 package com.anfelisa.card.commands;
 
+import de.acegen.Data;
 import de.acegen.Command;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
@@ -14,21 +15,21 @@ import de.acegen.ViewProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.Event;
 
-import com.anfelisa.card.data.IChangeCardOrderListData;
+import com.anfelisa.card.models.ChangeCardOrderListModel;
 
 @SuppressWarnings("unused")
-public abstract class AbstractChangeOrderCommand extends Command<IChangeCardOrderListData> {
+public abstract class AbstractChangeOrderCommand extends Command<com.anfelisa.card.models.ChangeCardOrderListModel> {
 
 	public AbstractChangeOrderCommand(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
 		super("com.anfelisa.card.commands.ChangeOrderCommand", daoProvider, viewProvider, appConfiguration);
 	}
 
-	protected void addOkOutcome(IChangeCardOrderListData data) {
+	protected void addOkOutcome(Data<com.anfelisa.card.models.ChangeCardOrderListModel> data) {
 		data.addOutcome("ok");
 	}
 	
 	@Override
-	public void addEventsToTimeline(IChangeCardOrderListData data, PersistenceHandle timelineHandle) {
+	public void addEventsToTimeline(Data<com.anfelisa.card.models.ChangeCardOrderListModel> data, PersistenceHandle timelineHandle) {
 		if (appConfiguration.getConfig().writeTimeline()) {
 			if (data.hasOutcome("ok")){
 				daoProvider.getAceDao().addEventToTimeline("com.anfelisa.card.events.ChangeOrderOkEvent", data, timelineHandle);
@@ -37,9 +38,10 @@ public abstract class AbstractChangeOrderCommand extends Command<IChangeCardOrde
 	}
 	
 	@Override
-	public void publishEvents(IChangeCardOrderListData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	public void publishEvents(Data<com.anfelisa.card.models.ChangeCardOrderListModel> data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+		data.freeze();
 		if (data.hasOutcome("ok")){
-			new Event<IChangeCardOrderListData>("com.anfelisa.card.events.ChangeOrderOkEvent", viewProvider).publish(data.deepCopy(), handle, timelineHandle);
+			new Event<com.anfelisa.card.models.ChangeCardOrderListModel>("com.anfelisa.card.events.ChangeOrderOkEvent", viewProvider).publish(data, handle, timelineHandle);
 		}
 	}
 	

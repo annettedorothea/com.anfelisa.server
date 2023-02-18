@@ -9,6 +9,7 @@ package com.anfelisa.card.actions;
 
 import java.time.LocalDateTime;
 
+import de.acegen.Data;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.ICommand;
 import de.acegen.IDaoProvider;
@@ -17,13 +18,12 @@ import de.acegen.SquishyDataProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.WriteAction;
 
-import com.anfelisa.card.data.IChangeCardOrderListData;
 import com.anfelisa.card.commands.ChangeOrderCommand;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractChangeOrderAction extends WriteAction<IChangeCardOrderListData> {
+public abstract class AbstractChangeOrderAction extends WriteAction<com.anfelisa.card.models.ChangeCardOrderListModel> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractChangeOrderAction.class);
 
@@ -33,12 +33,12 @@ public abstract class AbstractChangeOrderAction extends WriteAction<IChangeCardO
 	}
 
 	@Override
-	public ICommand<IChangeCardOrderListData> getCommand() {
+	public ICommand<com.anfelisa.card.models.ChangeCardOrderListModel> getCommand() {
 		return new ChangeOrderCommand(daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	@Override
-	protected IChangeCardOrderListData initActionDataFromSquishyDataProvider(IChangeCardOrderListData data) {
+	protected Data<com.anfelisa.card.models.ChangeCardOrderListModel> initActionDataFromSquishyDataProvider(Data<com.anfelisa.card.models.ChangeCardOrderListModel> data) {
 		LocalDateTime systemTime = SquishyDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
 			data.setSystemTime(systemTime);
@@ -46,7 +46,7 @@ public abstract class AbstractChangeOrderAction extends WriteAction<IChangeCardO
 		return data;
 	}
 
-	public IChangeCardOrderListData initActionData(IChangeCardOrderListData data) {
+	public Data<com.anfelisa.card.models.ChangeCardOrderListModel> initActionData(Data<com.anfelisa.card.models.ChangeCardOrderListModel> data) {
 		return data;
 	}
 

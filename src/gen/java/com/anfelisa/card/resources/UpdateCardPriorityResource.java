@@ -28,7 +28,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
-import de.acegen.IDataContainer;
 import de.acegen.ViewProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -36,6 +35,7 @@ import de.acegen.ReadAction;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.Config;
+import de.acegen.Data;
 
 import de.acegen.auth.AuthUser;
 import io.dropwizard.auth.Auth;
@@ -52,8 +52,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.DELETE;
 
-import com.anfelisa.card.data.ICardUpdatePriorityData;
-import com.anfelisa.card.data.CardUpdatePriorityData;
+import com.anfelisa.card.models.CardUpdatePriorityModel;
 
 import de.acegen.Resource;
 
@@ -86,7 +85,7 @@ public class UpdateCardPriorityResource extends Resource {
 	public Response updateCardPriorityResource(
 			@Auth AuthUser authUser, 
 			@QueryParam("uuid") String uuid, 
-			ICardUpdatePriorityData payload) 
+			com.anfelisa.card.data.UpdateCardPriorityPayload payload) 
 			throws JsonProcessingException {
 		if (payload == null) {
 			return badRequest("payload must not be null");
@@ -95,14 +94,16 @@ public class UpdateCardPriorityResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.card.data.ICardUpdatePriorityData data = new CardUpdatePriorityData(uuid);
+			Data<com.anfelisa.card.models.CardUpdatePriorityModel> data = new Data<com.anfelisa.card.models.CardUpdatePriorityModel>(uuid);
+			com.anfelisa.card.models.CardUpdatePriorityModel model = new com.anfelisa.card.models.CardUpdatePriorityModel();
 			if (StringUtils.isBlank(payload.getCardId()) || "null".equals(payload.getCardId())) {
 				return badRequest("cardId is mandatory");
 			}
-			data.setCardId(payload.getCardId());
-			data.setPriority(payload.getPriority());
-			data.setUserId(authUser.getUserId());
+			model.setCardId(payload.getCardId());
+			model.setPriority(payload.getPriority());
+			model.setUserId(authUser.getUserId());
 			
+			data.setModel(model);
 			com.anfelisa.card.actions.UpdateCardPriorityAction action = new com.anfelisa.card.actions.UpdateCardPriorityAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
 			data = action.apply(data);
 			return ok();

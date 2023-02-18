@@ -14,9 +14,9 @@ import org.slf4j.LoggerFactory;
 
 import org.apache.commons.lang3.StringUtils;
 
+import de.acegen.Data;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
-import de.acegen.IDataContainer;
 import de.acegen.ViewProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -24,11 +24,8 @@ import de.acegen.ReadAction;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 
-import com.anfelisa.box.data.IActiveCardListData;
-import com.anfelisa.box.data.ActiveCardListData;
-
 @SuppressWarnings("unused")
-public abstract class AbstractLoadAllActiveCardsAction extends ReadAction<IActiveCardListData> {
+public abstract class AbstractLoadAllActiveCardsAction extends ReadAction<com.anfelisa.box.models.ActiveCardListModel> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractLoadAllActiveCardsAction.class);
 	
@@ -37,10 +34,10 @@ public abstract class AbstractLoadAllActiveCardsAction extends ReadAction<IActiv
 		super("com.anfelisa.box.actions.LoadAllActiveCardsAction", persistenceConnection, appConfiguration, daoProvider, viewProvider);
 	}
 
-	protected abstract IActiveCardListData loadDataForGetRequest(IActiveCardListData data, PersistenceHandle readonlyHandle);
+	protected abstract Data<com.anfelisa.box.models.ActiveCardListModel> loadDataForGetRequest(Data<com.anfelisa.box.models.ActiveCardListModel> data, PersistenceHandle readonlyHandle);
 
 	@Override
-	protected IActiveCardListData initActionDataFromSquishyDataProvider(IActiveCardListData data) {
+	protected Data<com.anfelisa.box.models.ActiveCardListModel> initActionDataFromSquishyDataProvider(Data<com.anfelisa.box.models.ActiveCardListModel> data) {
 		LocalDateTime systemTime = SquishyDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
 			data.setSystemTime(systemTime);
@@ -48,7 +45,7 @@ public abstract class AbstractLoadAllActiveCardsAction extends ReadAction<IActiv
 		return data;
 	}
 
-	public IActiveCardListData initActionData(IActiveCardListData data) {
+	public Data<com.anfelisa.box.models.ActiveCardListModel> initActionData(Data<com.anfelisa.box.models.ActiveCardListModel> data) {
 		return data;
 	}
 

@@ -28,7 +28,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
-import de.acegen.IDataContainer;
 import de.acegen.ViewProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -36,6 +35,7 @@ import de.acegen.ReadAction;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.Config;
+import de.acegen.Data;
 
 import de.acegen.auth.AuthUser;
 import io.dropwizard.auth.Auth;
@@ -52,8 +52,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.DELETE;
 
-import com.anfelisa.user.data.IUserInfoData;
-import com.anfelisa.user.data.UserInfoData;
+import com.anfelisa.user.models.UserInfoModel;
 
 import de.acegen.Resource;
 
@@ -91,12 +90,14 @@ public class GetUserInfoResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.user.data.IUserInfoData data = new UserInfoData(uuid);
-			data.setUsername(authUser.getUsername());
+			Data<com.anfelisa.user.models.UserInfoModel> data = new Data<com.anfelisa.user.models.UserInfoModel>(uuid);
+			com.anfelisa.user.models.UserInfoModel model = new com.anfelisa.user.models.UserInfoModel();
+			model.setUsername(authUser.getUsername());
 			
+			data.setModel(model);
 			com.anfelisa.user.actions.GetUserInfoAction action = new com.anfelisa.user.actions.GetUserInfoAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
 			data = action.apply(data);
-			return Response.ok(new com.anfelisa.user.data.GetUserInfoResponse(data)).build();
+			return Response.ok(new com.anfelisa.user.data.GetUserInfoResponse(data.getModel())).build();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());
 			if (Config.DEV.equals(appConfiguration.getConfig().getMode())) {

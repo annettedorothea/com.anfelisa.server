@@ -7,8 +7,9 @@
 
 package com.anfelisa.category.views;
 
-import com.anfelisa.category.data.IUserToCategoryInvitationData;
+import com.anfelisa.category.models.UserToCategoryInvitationModel;
 
+import de.acegen.Data;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceHandle;
 
@@ -21,13 +22,13 @@ public class UserAccessToCategoryInvitationView implements IUserAccessToCategory
 		this.daoProvider = daoProvider;
 	}
 
-	public void invite(IUserToCategoryInvitationData data, PersistenceHandle handle) {
-		daoProvider.getUserAccessToCategoryDao().invite(handle, data);
+	public void invite(Data<UserToCategoryInvitationModel> data, PersistenceHandle handle) {
+		daoProvider.getUserAccessToCategoryDao().invite(handle, data.getModel());
 	}
 
 	@Override
-	public void changeEditable(IUserToCategoryInvitationData data, PersistenceHandle handle) {
-		daoProvider.getUserAccessToCategoryDao().changeEditable(handle, data);
+	public void changeEditable(Data<UserToCategoryInvitationModel> data, PersistenceHandle handle) {
+		daoProvider.getUserAccessToCategoryDao().changeEditable(handle, data.getModel());
 	}
 
 }

@@ -25,6 +25,9 @@ import de.acegen.BaseScenario;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.HttpResponse;
+import de.acegen.Data;
+
+import com.fasterxml.jackson.core.type.TypeReference;
 
 @SuppressWarnings("unused")
 public abstract class AbstractCreateCardWithLongUuidScenario extends BaseScenario {
@@ -43,13 +46,13 @@ public abstract class AbstractCreateCardWithLongUuidScenario extends BaseScenari
 				"\"password\" : \"password\"," + 
 				"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 					com.anfelisa.user.data.RegisterUserPayload.class);
-			com.anfelisa.user.data.UserRegistrationData data_0 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"email\" : \"annette.pohl@anfelisa.de\"," + 
-			"\"language\" : \"de\"," + 
-			"\"password\" : \"password\"," + 
-			"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
-					com.anfelisa.user.data.UserRegistrationData.class);
+			com.anfelisa.user.models.UserRegistrationModel model_0 = objectMapper.readValue("{" +
+				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"password\"," + 
+				"\"username\" : \"Annette-" + this.getTestId() + "\"} ", com.anfelisa.user.models.UserRegistrationModel.class);
+			Data<com.anfelisa.user.models.UserRegistrationModel> data_0 = new Data<com.anfelisa.user.models.UserRegistrationModel>(uuid);
+			data_0.setModel(model_0);
 			HttpResponse<Object> response_0 = 
 			this.httpPost(
 				"/users/register", 
@@ -78,12 +81,12 @@ public abstract class AbstractCreateCardWithLongUuidScenario extends BaseScenari
 				"\"dictionaryLookup\" : false," + 
 				"\"maxCardsPerDay\" : 10} ",
 					com.anfelisa.box.data.CreateBoxPayload.class);
-			com.anfelisa.box.data.BoxCreationData data_1 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"categoryName\" : \"cat\"," + 
-			"\"dictionaryLookup\" : false," + 
-			"\"maxCardsPerDay\" : 10} ",
-					com.anfelisa.box.data.BoxCreationData.class);
+			com.anfelisa.box.models.BoxCreationModel model_1 = objectMapper.readValue("{" +
+				"\"categoryName\" : \"cat\"," + 
+				"\"dictionaryLookup\" : false," + 
+				"\"maxCardsPerDay\" : 10} ", com.anfelisa.box.models.BoxCreationModel.class);
+			Data<com.anfelisa.box.models.BoxCreationModel> data_1 = new Data<com.anfelisa.box.models.BoxCreationModel>(uuid);
+			data_1.setModel(model_1);
 			HttpResponse<Object> response_1 = 
 			this.httpPost(
 				"/box/create", 
@@ -111,11 +114,11 @@ public abstract class AbstractCreateCardWithLongUuidScenario extends BaseScenari
 				"\"categoryName\" : \"level 1 #1\"," + 
 				"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 					com.anfelisa.category.data.CreateCategoryPayload.class);
-			com.anfelisa.category.data.CategoryCreationData data_2 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"categoryName\" : \"level 1 #1\"," + 
-			"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
-					com.anfelisa.category.data.CategoryCreationData.class);
+			com.anfelisa.category.models.CategoryCreationModel model_2 = objectMapper.readValue("{" +
+				"\"categoryName\" : \"level 1 #1\"," + 
+				"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ", com.anfelisa.category.models.CategoryCreationModel.class);
+			Data<com.anfelisa.category.models.CategoryCreationModel> data_2 = new Data<com.anfelisa.category.models.CategoryCreationModel>(uuid);
+			data_2.setModel(model_2);
 			HttpResponse<Object> response_2 = 
 			this.httpPost(
 				"/category/create", 
@@ -146,12 +149,12 @@ public abstract class AbstractCreateCardWithLongUuidScenario extends BaseScenari
 			"\"given\" : \"x\"," + 
 			"\"wanted\" : \"y\"} ",
 				com.anfelisa.card.data.CreateCardPayload.class);
-		com.anfelisa.card.data.CardCreationData data_0 = objectMapper.readValue("{" +
-		"\"uuid\" : \"" + uuid + "\"," + 
-		"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-		"\"given\" : \"x\"," + 
-		"\"wanted\" : \"y\"} ",
-				com.anfelisa.card.data.CardCreationData.class);
+		com.anfelisa.card.models.CardCreationModel model_0 = objectMapper.readValue("{" +
+			"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
+			"\"given\" : \"x\"," + 
+			"\"wanted\" : \"y\"} ", com.anfelisa.card.models.CardCreationModel.class);
+		Data<com.anfelisa.card.models.CardCreationModel> data_0 = new Data<com.anfelisa.card.models.CardCreationModel>(uuid);
+		data_0.setModel(model_0);
 		HttpResponse<Object> response = 
 		this.httpPost(
 			"/card/create", 
@@ -206,9 +209,9 @@ public abstract class AbstractCreateCardWithLongUuidScenario extends BaseScenari
 	
 	
 	private void firstCard() throws Exception {
-		com.anfelisa.card.models.ICardModel actual = daoProvider.getCardDao().selectByPrimaryKey(handle, "123456789-123456789-123456789-" + this.getTestId() + "");
+		com.anfelisa.card.models.CardModel actual = daoProvider.getCardDao().selectByPrimaryKey(handle, "123456789-123456789-123456789-" + this.getTestId() + "");
 		
-		com.anfelisa.card.models.ICardModel expected = objectMapper.readValue("{" +
+		com.anfelisa.card.models.CardModel expected = objectMapper.readValue("{" +
 			"\"cardAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
 			"\"cardId\" : \"123456789-123456789-123456789-" + this.getTestId() + "\"," + 
 			"\"cardIndex\" : 1," + 

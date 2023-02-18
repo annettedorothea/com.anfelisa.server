@@ -14,9 +14,9 @@ import org.jdbi.v3.core.statement.StatementContext;
 
 import de.acegen.AbstractMapper;
 
-public class ForgotPasswordMapper extends AbstractMapper<IForgotPasswordModel> {
+public class ForgotPasswordMapper extends AbstractMapper<ForgotPasswordModel> {
 	
-	public IForgotPasswordModel map(ResultSet r, StatementContext ctx) throws SQLException {
+	public ForgotPasswordModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new ForgotPasswordModel(
 			this.mapToString(r, "language"),
 			this.mapToString(r, "email"),

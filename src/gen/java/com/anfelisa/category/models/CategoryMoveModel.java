@@ -16,15 +16,16 @@ import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
+import de.acegen.AbstractModel;
 
 @SuppressWarnings("all")
-public class CategoryMoveModel implements ICategoryMoveModel {
+public class CategoryMoveModel extends AbstractModel {
 
 	private String movedCategoryId;
 
 	private String targetCategoryId;
 
-	private com.anfelisa.category.models.ICategoryModel movedCategory;
+	private com.anfelisa.category.models.CategoryModel movedCategory;
 
 	private Integer categoryIndexWhereRemoved;
 
@@ -32,6 +33,8 @@ public class CategoryMoveModel implements ICategoryMoveModel {
 
 	private String userId;
 
+	
+	private Boolean frozen = false;
 
 	public CategoryMoveModel() {
 	}
@@ -39,7 +42,7 @@ public class CategoryMoveModel implements ICategoryMoveModel {
 	public CategoryMoveModel(
 		@JsonProperty("movedCategoryId") String movedCategoryId,
 		@JsonProperty("targetCategoryId") String targetCategoryId,
-		@JsonProperty("movedCategory") com.anfelisa.category.models.ICategoryModel movedCategory,
+		@JsonProperty("movedCategory") com.anfelisa.category.models.CategoryModel movedCategory,
 		@JsonProperty("categoryIndexWhereRemoved") Integer categoryIndexWhereRemoved,
 		@JsonProperty("parentCategoryIdWhereRemoved") String parentCategoryIdWhereRemoved,
 		@JsonProperty("userId") String userId
@@ -56,7 +59,12 @@ public class CategoryMoveModel implements ICategoryMoveModel {
 	public String getMovedCategoryId() {
 		return this.movedCategoryId;
 	}
+	
+	@JsonProperty
 	public void setMovedCategoryId(String movedCategoryId) {
+		if (this.frozen) {
+			throw new RuntimeException("movedCategoryId is frozen");
+		}
 		this.movedCategoryId = movedCategoryId;
 	}
 	
@@ -64,15 +72,25 @@ public class CategoryMoveModel implements ICategoryMoveModel {
 	public String getTargetCategoryId() {
 		return this.targetCategoryId;
 	}
+	
+	@JsonProperty
 	public void setTargetCategoryId(String targetCategoryId) {
+		if (this.frozen) {
+			throw new RuntimeException("targetCategoryId is frozen");
+		}
 		this.targetCategoryId = targetCategoryId;
 	}
 	
 	@JsonProperty
-	public com.anfelisa.category.models.ICategoryModel getMovedCategory() {
+	public com.anfelisa.category.models.CategoryModel getMovedCategory() {
 		return this.movedCategory;
 	}
-	public void setMovedCategory(com.anfelisa.category.models.ICategoryModel movedCategory) {
+	
+	@JsonProperty
+	public void setMovedCategory(com.anfelisa.category.models.CategoryModel movedCategory) {
+		if (this.frozen) {
+			throw new RuntimeException("movedCategory is frozen");
+		}
 		this.movedCategory = movedCategory;
 	}
 	
@@ -80,7 +98,12 @@ public class CategoryMoveModel implements ICategoryMoveModel {
 	public Integer getCategoryIndexWhereRemoved() {
 		return this.categoryIndexWhereRemoved;
 	}
+	
+	@JsonProperty
 	public void setCategoryIndexWhereRemoved(Integer categoryIndexWhereRemoved) {
+		if (this.frozen) {
+			throw new RuntimeException("categoryIndexWhereRemoved is frozen");
+		}
 		this.categoryIndexWhereRemoved = categoryIndexWhereRemoved;
 	}
 	
@@ -88,7 +111,12 @@ public class CategoryMoveModel implements ICategoryMoveModel {
 	public String getParentCategoryIdWhereRemoved() {
 		return this.parentCategoryIdWhereRemoved;
 	}
+	
+	@JsonProperty
 	public void setParentCategoryIdWhereRemoved(String parentCategoryIdWhereRemoved) {
+		if (this.frozen) {
+			throw new RuntimeException("parentCategoryIdWhereRemoved is frozen");
+		}
 		this.parentCategoryIdWhereRemoved = parentCategoryIdWhereRemoved;
 	}
 	
@@ -96,13 +124,27 @@ public class CategoryMoveModel implements ICategoryMoveModel {
 	public String getUserId() {
 		return this.userId;
 	}
+	
+	@JsonProperty
 	public void setUserId(String userId) {
+		if (this.frozen) {
+			throw new RuntimeException("userId is frozen");
+		}
 		this.userId = userId;
 	}
 	
+	
+	
+	@Override
+	public void freeze() {
+		this.frozen = true;
+		if (this.movedCategory != null) {
+			this.movedCategory.freeze();
+		}
+	}
 
-	public ICategoryMoveModel deepCopy() {
-		ICategoryMoveModel copy = new CategoryMoveModel();
+	public com.anfelisa.category.models.CategoryMoveModel deepCopy() {
+		com.anfelisa.category.models.CategoryMoveModel copy = new CategoryMoveModel();
 		copy.setMovedCategoryId(this.getMovedCategoryId());
 		copy.setTargetCategoryId(this.getTargetCategoryId());
 		if (this.getMovedCategory() != null) {
@@ -112,6 +154,30 @@ public class CategoryMoveModel implements ICategoryMoveModel {
 		copy.setParentCategoryIdWhereRemoved(this.getParentCategoryIdWhereRemoved());
 		copy.setUserId(this.getUserId());
 		return copy;
+	}
+	
+	public static CategoryMoveModel generateTestData() {
+		java.util.Random random = new java.util.Random();
+		CategoryMoveModel testData = new CategoryMoveModel();
+		testData.setMovedCategoryId(randomString(random));
+		testData.setTargetCategoryId(randomString(random));
+		testData.setMovedCategory(com.anfelisa.category.models.CategoryModel.generateTestData());
+		testData.setCategoryIndexWhereRemoved(random.nextInt(50));
+		testData.setParentCategoryIdWhereRemoved(randomString(random));
+		testData.setUserId(randomString(random));
+		return testData;
+	}
+	
+	private static String randomString(java.util.Random random) {
+		String chars = "aaaaaaabcdeeeeeeeffffghiiiiiiijkllllllmmmmnnnnnnnooooooooopqrstttuuuuuuuvxyz";
+		int n = random.nextInt(20) + 5;
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		String string  = sb.toString(); 
+		return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
 	}
 
 }

@@ -7,6 +7,7 @@
 
 package com.anfelisa.category.commands;
 
+import de.acegen.Data;
 import de.acegen.Command;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
@@ -14,24 +15,24 @@ import de.acegen.ViewProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.Event;
 
-import com.anfelisa.category.data.ICategoryMoveData;
+import com.anfelisa.category.models.CategoryMoveModel;
 
 @SuppressWarnings("unused")
-public abstract class AbstractMoveCategoryCommand extends Command<ICategoryMoveData> {
+public abstract class AbstractMoveCategoryCommand extends Command<com.anfelisa.category.models.CategoryMoveModel> {
 
 	public AbstractMoveCategoryCommand(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
 		super("com.anfelisa.category.commands.MoveCategoryCommand", daoProvider, viewProvider, appConfiguration);
 	}
 
-	protected void addOkOutcome(ICategoryMoveData data) {
+	protected void addOkOutcome(Data<com.anfelisa.category.models.CategoryMoveModel> data) {
 		data.addOutcome("ok");
 	}
-	protected void addNoMoveOutcome(ICategoryMoveData data) {
+	protected void addNoMoveOutcome(Data<com.anfelisa.category.models.CategoryMoveModel> data) {
 		data.addOutcome("noMove");
 	}
 	
 	@Override
-	public void addEventsToTimeline(ICategoryMoveData data, PersistenceHandle timelineHandle) {
+	public void addEventsToTimeline(Data<com.anfelisa.category.models.CategoryMoveModel> data, PersistenceHandle timelineHandle) {
 		if (appConfiguration.getConfig().writeTimeline()) {
 			if (data.hasOutcome("ok")){
 				daoProvider.getAceDao().addEventToTimeline("com.anfelisa.category.events.MoveCategoryOkEvent", data, timelineHandle);
@@ -40,9 +41,10 @@ public abstract class AbstractMoveCategoryCommand extends Command<ICategoryMoveD
 	}
 	
 	@Override
-	public void publishEvents(ICategoryMoveData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	public void publishEvents(Data<com.anfelisa.category.models.CategoryMoveModel> data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+		data.freeze();
 		if (data.hasOutcome("ok")){
-			new Event<ICategoryMoveData>("com.anfelisa.category.events.MoveCategoryOkEvent", viewProvider).publish(data.deepCopy(), handle, timelineHandle);
+			new Event<com.anfelisa.category.models.CategoryMoveModel>("com.anfelisa.category.events.MoveCategoryOkEvent", viewProvider).publish(data, handle, timelineHandle);
 		}
 	}
 	

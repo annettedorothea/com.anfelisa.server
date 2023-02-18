@@ -28,7 +28,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
-import de.acegen.IDataContainer;
 import de.acegen.ViewProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -36,6 +35,7 @@ import de.acegen.ReadAction;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.Config;
+import de.acegen.Data;
 
 import de.acegen.auth.AuthUser;
 import io.dropwizard.auth.Auth;
@@ -52,8 +52,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.DELETE;
 
-import com.anfelisa.box.data.IDeleteBoxData;
-import com.anfelisa.box.data.DeleteBoxData;
+import com.anfelisa.box.models.DeleteBoxModel;
 
 import de.acegen.Resource;
 
@@ -92,15 +91,17 @@ public class DeleteBoxResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.box.data.IDeleteBoxData data = new DeleteBoxData(uuid);
+			Data<com.anfelisa.box.models.DeleteBoxModel> data = new Data<com.anfelisa.box.models.DeleteBoxModel>(uuid);
+			com.anfelisa.box.models.DeleteBoxModel model = new com.anfelisa.box.models.DeleteBoxModel();
 			if (boxId == null || StringUtils.isBlank(boxId) || "null".equals(boxId)) {
 				return badRequest("boxId is mandatory");
 			}
 			if (boxId != null) {
-				data.setBoxId(boxId);
+				model.setBoxId(boxId);
 			}
-			data.setUserId(authUser.getUserId());
+			model.setUserId(authUser.getUserId());
 			
+			data.setModel(model);
 			com.anfelisa.box.actions.DeleteBoxAction action = new com.anfelisa.box.actions.DeleteBoxAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
 			data = action.apply(data);
 			return ok();

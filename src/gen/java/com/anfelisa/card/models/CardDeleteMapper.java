@@ -14,9 +14,9 @@ import org.jdbi.v3.core.statement.StatementContext;
 
 import de.acegen.AbstractMapper;
 
-public class CardDeleteMapper extends AbstractMapper<ICardDeleteModel> {
+public class CardDeleteMapper extends AbstractMapper<CardDeleteModel> {
 	
-	public ICardDeleteModel map(ResultSet r, StatementContext ctx) throws SQLException {
+	public CardDeleteModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new CardDeleteModel(
 			this.mapToString(r, "cardId"),
 			this.mapToInteger(r, "cardIndex"),

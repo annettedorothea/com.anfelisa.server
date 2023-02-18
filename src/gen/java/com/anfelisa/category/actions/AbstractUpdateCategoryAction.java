@@ -9,6 +9,7 @@ package com.anfelisa.category.actions;
 
 import java.time.LocalDateTime;
 
+import de.acegen.Data;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.ICommand;
 import de.acegen.IDaoProvider;
@@ -17,13 +18,12 @@ import de.acegen.SquishyDataProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.WriteAction;
 
-import com.anfelisa.category.data.ICategoryUpdateData;
 import com.anfelisa.category.commands.UpdateCategoryCommand;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractUpdateCategoryAction extends WriteAction<ICategoryUpdateData> {
+public abstract class AbstractUpdateCategoryAction extends WriteAction<com.anfelisa.category.models.CategoryUpdateModel> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractUpdateCategoryAction.class);
 
@@ -33,12 +33,12 @@ public abstract class AbstractUpdateCategoryAction extends WriteAction<ICategory
 	}
 
 	@Override
-	public ICommand<ICategoryUpdateData> getCommand() {
+	public ICommand<com.anfelisa.category.models.CategoryUpdateModel> getCommand() {
 		return new UpdateCategoryCommand(daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	@Override
-	protected ICategoryUpdateData initActionDataFromSquishyDataProvider(ICategoryUpdateData data) {
+	protected Data<com.anfelisa.category.models.CategoryUpdateModel> initActionDataFromSquishyDataProvider(Data<com.anfelisa.category.models.CategoryUpdateModel> data) {
 		LocalDateTime systemTime = SquishyDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
 			data.setSystemTime(systemTime);
@@ -46,7 +46,7 @@ public abstract class AbstractUpdateCategoryAction extends WriteAction<ICategory
 		return data;
 	}
 
-	public ICategoryUpdateData initActionData(ICategoryUpdateData data) {
+	public Data<com.anfelisa.category.models.CategoryUpdateModel> initActionData(Data<com.anfelisa.category.models.CategoryUpdateModel> data) {
 		return data;
 	}
 

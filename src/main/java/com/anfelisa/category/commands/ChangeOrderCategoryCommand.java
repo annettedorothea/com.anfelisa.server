@@ -12,11 +12,12 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.category.data.ICategoryChangeOrderData;
-import com.anfelisa.category.models.ICategoryModel;
-import com.anfelisa.category.models.IUserAccessToCategoryModel;
+import com.anfelisa.category.models.CategoryChangeOrderModel;
+import com.anfelisa.category.models.CategoryModel;
+import com.anfelisa.category.models.UserAccessToCategoryModel;
 
 import de.acegen.CustomAppConfiguration;
+import de.acegen.Data;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.ViewProvider;
@@ -31,35 +32,35 @@ public class ChangeOrderCategoryCommand extends AbstractChangeOrderCategoryComma
 	}
 
 	@Override
-	protected ICategoryChangeOrderData executeCommand(ICategoryChangeOrderData data, PersistenceHandle readonlyHandle) {
-		ICategoryModel targetCategory = daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
-				data.getTargetCategoryId());
+	protected Data<CategoryChangeOrderModel> executeCommand(Data<CategoryChangeOrderModel> data, PersistenceHandle readonlyHandle) {
+		CategoryModel targetCategory = daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
+				data.getModel().getTargetCategoryId());
 		if (targetCategory == null) {
 			throwIllegalArgumentException("categoryDoesNotExist");
 		}
-		IUserAccessToCategoryModel accessToRootCategory = this.daoProvider.getUserAccessToCategoryDao()
-				.hasUserAccessTo(readonlyHandle, targetCategory.getRootCategoryId(), data.getUserId());
+		UserAccessToCategoryModel accessToRootCategory = this.daoProvider.getUserAccessToCategoryDao()
+				.hasUserAccessTo(readonlyHandle, targetCategory.getRootCategoryId(), data.getModel().getUserId());
 		if (accessToRootCategory == null || !accessToRootCategory.getEditable()) {
 			throwSecurityException();
 		}
 
-		ICategoryModel movedCategory = daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
-				data.getMovedCategoryId());
+		CategoryModel movedCategory = daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
+				data.getModel().getMovedCategoryId());
 		if (movedCategory == null) {
 			throwIllegalArgumentException("categoryDoesNotExist");
 		}
 		accessToRootCategory = this.daoProvider.getUserAccessToCategoryDao()
-				.hasUserAccessTo(readonlyHandle, movedCategory.getRootCategoryId(), data.getUserId());
+				.hasUserAccessTo(readonlyHandle, movedCategory.getRootCategoryId(), data.getModel().getUserId());
 		if (accessToRootCategory == null || !accessToRootCategory.getEditable()) {
 			throwSecurityException();
 		}
 		
-		List<ICategoryModel> categories = this.daoProvider.getCategoryDao().selectAllChildren(readonlyHandle,
+		List<CategoryModel> categories = this.daoProvider.getCategoryDao().selectAllChildren(readonlyHandle,
 				targetCategory.getParentCategoryId());
 		int index = 1;
-		for (ICategoryModel category : categories) {
+		for (CategoryModel category : categories) {
 			if (category.getCategoryIndex() < targetCategory.getCategoryIndex()) {
-				if (!data.getMovedCategoryId().equals(category.getCategoryId())) {
+				if (!data.getModel().getMovedCategoryId().equals(category.getCategoryId())) {
 					category.setCategoryIndex(index);
 					index++;
 				}
@@ -67,22 +68,22 @@ public class ChangeOrderCategoryCommand extends AbstractChangeOrderCategoryComma
 				break;
 			}
 		}
-		for (ICategoryModel category : categories) {
-			if (data.getMovedCategoryId().equals(category.getCategoryId())) {
+		for (CategoryModel category : categories) {
+			if (data.getModel().getMovedCategoryId().equals(category.getCategoryId())) {
 				category.setCategoryIndex(index);
 				index++;
 				break;
 			}
 		}
-		for (ICategoryModel category : categories) {
+		for (CategoryModel category : categories) {
 			if (category.getCategoryIndex() >= targetCategory.getCategoryIndex()) {
-				if (!data.getMovedCategoryId().equals(category.getCategoryId())) {
+				if (!data.getModel().getMovedCategoryId().equals(category.getCategoryId())) {
 					category.setCategoryIndex(index);
 					index++;
 				}
 			}
 		}
-		data.setUpdatedIndices(categories);
+		data.getModel().setUpdatedIndices(categories);
 		this.addOkOutcome(data);
 		return data;
 	}

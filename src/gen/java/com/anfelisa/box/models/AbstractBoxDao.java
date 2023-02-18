@@ -18,29 +18,28 @@ import java.util.Optional;
 @SuppressWarnings("all")
 public class AbstractBoxDao extends AbstractDao {
 	
-	public void insert(PersistenceHandle handle, IBoxModel boxModel) {
+	public void insert(PersistenceHandle handle, com.anfelisa.box.models.BoxModel boxModel) {
 		Update statement = handle.getHandle().createUpdate("INSERT INTO \"box\" (boxid, userid, categoryid, maxinterval, maxcardsperday, reverse, archived) VALUES (:boxid, :userid, :categoryid, :maxinterval, :maxcardsperday, :reverse, :archived)");
-		statement.bind("boxid",  boxModel.getBoxId() );
-		statement.bind("userid",  boxModel.getUserId() );
-		statement.bind("categoryid",  boxModel.getCategoryId() );
-		statement.bind("maxinterval",  boxModel.getMaxInterval() );
-		statement.bind("maxcardsperday",  boxModel.getMaxCardsPerDay() );
-		statement.bind("reverse",  boxModel.getReverse() );
-		statement.bind("archived",  boxModel.getArchived() );
+		statement.bind("boxid", boxModel.getBoxId());
+		statement.bind("userid", boxModel.getUserId());
+		statement.bind("categoryid", boxModel.getCategoryId());
+		statement.bind("maxinterval", boxModel.getMaxInterval());
+		statement.bind("maxcardsperday", boxModel.getMaxCardsPerDay());
+		statement.bind("reverse", boxModel.getReverse());
+		statement.bind("archived", boxModel.getArchived());
 		statement.execute();
 	}
 	
 	
-	public void updateByBoxId(PersistenceHandle handle, IBoxModel boxModel) {
+	public void updateByBoxId(PersistenceHandle handle, com.anfelisa.box.models.BoxModel boxModel) {
 		Update statement = handle.getHandle().createUpdate("UPDATE \"box\" SET boxid = :boxid, userid = :userid, categoryid = :categoryid, maxinterval = :maxinterval, maxcardsperday = :maxcardsperday, reverse = :reverse, archived = :archived WHERE boxid = :boxid");
-		statement.bind("boxid",  boxModel.getBoxId() );
-		statement.bind("userid",  boxModel.getUserId() );
-		statement.bind("categoryid",  boxModel.getCategoryId() );
-		statement.bind("maxinterval",  boxModel.getMaxInterval() );
-		statement.bind("maxcardsperday",  boxModel.getMaxCardsPerDay() );
-		statement.bind("reverse",  boxModel.getReverse() );
-		statement.bind("archived",  boxModel.getArchived() );
-		statement.bind("boxid",  boxModel.getBoxId()  );
+		statement.bind("boxid", boxModel.getBoxId());
+		statement.bind("userid", boxModel.getUserId());
+		statement.bind("categoryid", boxModel.getCategoryId());
+		statement.bind("maxinterval", boxModel.getMaxInterval());
+		statement.bind("maxcardsperday", boxModel.getMaxCardsPerDay());
+		statement.bind("reverse", boxModel.getReverse());
+		statement.bind("archived", boxModel.getArchived());
 		statement.execute();
 	}
 
@@ -50,16 +49,16 @@ public class AbstractBoxDao extends AbstractDao {
 		statement.execute();
 	}
 
-	public IBoxModel selectByBoxId(PersistenceHandle handle, String boxId) {
-		Optional<IBoxModel> optional = handle.getHandle().createQuery("SELECT boxid, userid, categoryid, maxinterval, maxcardsperday, reverse, archived FROM \"box\" WHERE boxid = :boxid")
+	public com.anfelisa.box.models.BoxModel selectByBoxId(PersistenceHandle handle, String boxId) {
+		Optional<com.anfelisa.box.models.BoxModel> optional = handle.getHandle().createQuery("SELECT boxid, userid, categoryid, maxinterval, maxcardsperday, reverse, archived FROM \"box\" WHERE boxid = :boxid")
 			.bind("boxid", boxId)
 			.map(new BoxMapper())
 			.findFirst();
 		return optional.isPresent() ? optional.get() : null;
 	}
 	
-	public IBoxModel selectByPrimaryKey(PersistenceHandle handle, String boxId) {
-		Optional<IBoxModel> optional = handle.getHandle().createQuery("SELECT boxid, userid, categoryid, maxinterval, maxcardsperday, reverse, archived FROM \"box\" WHERE boxid = :boxid")
+	public com.anfelisa.box.models.BoxModel selectByPrimaryKey(PersistenceHandle handle, String boxId) {
+		Optional<com.anfelisa.box.models.BoxModel> optional = handle.getHandle().createQuery("SELECT boxid, userid, categoryid, maxinterval, maxcardsperday, reverse, archived FROM \"box\" WHERE boxid = :boxid")
 			.bind("boxid", boxId)
 			.map(new BoxMapper())
 			.findFirst();
@@ -82,7 +81,7 @@ public class AbstractBoxDao extends AbstractDao {
 		return handle.getHandle().createQuery(sql).mapTo(Integer.class).first();
 	}
 
-	public List<IBoxModel> selectAll(PersistenceHandle handle) {
+	public List<com.anfelisa.box.models.BoxModel> selectAll(PersistenceHandle handle) {
 		return handle.getHandle().createQuery("SELECT boxid, userid, categoryid, maxinterval, maxcardsperday, reverse, archived FROM \"box\"")
 			.map(new BoxMapper())
 			.list();

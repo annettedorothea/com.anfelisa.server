@@ -18,18 +18,18 @@ import java.util.Optional;
 @SuppressWarnings("all")
 public class AbstractUserAccessToCategoryDao extends AbstractDao {
 	
-	public void insert(PersistenceHandle handle, IUserAccessToCategoryModel userAccessToCategoryModel) {
+	public void insert(PersistenceHandle handle, com.anfelisa.category.models.UserAccessToCategoryModel userAccessToCategoryModel) {
 		Update statement = handle.getHandle().createUpdate("INSERT INTO \"useraccesstocategory\" (categoryid, userid, editable) VALUES (:categoryid, :userid, :editable)");
-		statement.bind("categoryid",  userAccessToCategoryModel.getCategoryId() );
-		statement.bind("userid",  userAccessToCategoryModel.getUserId() );
-		statement.bind("editable",  userAccessToCategoryModel.getEditable() );
+		statement.bind("categoryid", userAccessToCategoryModel.getCategoryId());
+		statement.bind("userid", userAccessToCategoryModel.getUserId());
+		statement.bind("editable", userAccessToCategoryModel.getEditable());
 		statement.execute();
 	}
 	
 	
 	
-	public IUserAccessToCategoryModel selectByPrimaryKey(PersistenceHandle handle, String categoryId, String userId) {
-		Optional<IUserAccessToCategoryModel> optional = handle.getHandle().createQuery("SELECT categoryid, userid, editable FROM \"useraccesstocategory\" WHERE categoryid = :categoryid AND userid = :userid")
+	public com.anfelisa.category.models.UserAccessToCategoryModel selectByPrimaryKey(PersistenceHandle handle, String categoryId, String userId) {
+		Optional<com.anfelisa.category.models.UserAccessToCategoryModel> optional = handle.getHandle().createQuery("SELECT categoryid, userid, editable FROM \"useraccesstocategory\" WHERE categoryid = :categoryid AND userid = :userid")
 			.bind("categoryid", categoryId)
 			.bind("userid", userId)
 			.map(new UserAccessToCategoryMapper())
@@ -53,7 +53,7 @@ public class AbstractUserAccessToCategoryDao extends AbstractDao {
 		return handle.getHandle().createQuery(sql).mapTo(Integer.class).first();
 	}
 
-	public List<IUserAccessToCategoryModel> selectAll(PersistenceHandle handle) {
+	public List<com.anfelisa.category.models.UserAccessToCategoryModel> selectAll(PersistenceHandle handle) {
 		return handle.getHandle().createQuery("SELECT categoryid, userid, editable FROM \"useraccesstocategory\"")
 			.map(new UserAccessToCategoryMapper())
 			.list();

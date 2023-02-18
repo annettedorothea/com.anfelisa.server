@@ -14,9 +14,9 @@ import org.jdbi.v3.core.statement.StatementContext;
 
 import de.acegen.AbstractMapper;
 
-public class UserRegistrationMapper extends AbstractMapper<IUserRegistrationModel> {
+public class UserRegistrationMapper extends AbstractMapper<UserRegistrationModel> {
 	
-	public IUserRegistrationModel map(ResultSet r, StatementContext ctx) throws SQLException {
+	public UserRegistrationModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new UserRegistrationModel(
 			this.mapToString(r, "language"),
 			this.mapToString(r, "userId"),

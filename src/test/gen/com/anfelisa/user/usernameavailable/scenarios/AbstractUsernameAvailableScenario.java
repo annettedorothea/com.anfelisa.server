@@ -25,6 +25,9 @@ import de.acegen.BaseScenario;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.HttpResponse;
+import de.acegen.Data;
+
+import com.fasterxml.jackson.core.type.TypeReference;
 
 @SuppressWarnings("unused")
 public abstract class AbstractUsernameAvailableScenario extends BaseScenario {
@@ -38,13 +41,13 @@ public abstract class AbstractUsernameAvailableScenario extends BaseScenario {
 	
 	private HttpResponse<com.anfelisa.user.data.UsernameAvailableResponse> when_0() throws Exception {
 		String uuid = this.randomUUID();
-		com.anfelisa.user.data.UsernameAvailableData data_0 = objectMapper.readValue("{" +
-		"\"uuid\" : \"" + uuid + "\"," + 
-		"\"username\" : \"username-available-" + this.getTestId() + "\"} ",
-				com.anfelisa.user.data.UsernameAvailableData.class);
+		com.anfelisa.user.models.UsernameAvailableModel model_0 = objectMapper.readValue("{" +
+			"\"username\" : \"username-available-" + this.getTestId() + "\"} ", com.anfelisa.user.models.UsernameAvailableModel.class);
+		Data<com.anfelisa.user.models.UsernameAvailableModel> data_0 = new Data<com.anfelisa.user.models.UsernameAvailableModel>(uuid);
+		data_0.setModel(model_0);
 		HttpResponse<com.anfelisa.user.data.UsernameAvailableResponse> response = 
 		this.httpGet(
-			"/users/username?username=" + (data_0.getUsername() != null ? URLEncoder.encode(data_0.getUsername(), StandardCharsets.UTF_8.toString()) : "") + "", 
+			"/users/username?username=" + (data_0.getModel().getUsername() != null ? URLEncoder.encode(data_0.getModel().getUsername(), StandardCharsets.UTF_8.toString()) : "") + "", 
 			null,
 			uuid,
 			com.anfelisa.user.data.UsernameAvailableResponse.class
@@ -83,10 +86,8 @@ public abstract class AbstractUsernameAvailableScenario extends BaseScenario {
 				assertFail(x.getMessage());
 			}
 	
-			com.anfelisa.user.data.UsernameAvailableData expectedData = objectMapper.readValue("{" +
-				"\"uuid\" : \"\"," + 
-				"\"available\" : true} ",
-			com.anfelisa.user.data.UsernameAvailableData.class);
+			com.anfelisa.user.models.UsernameAvailableModel expectedData = objectMapper.readValue("{" +
+				"\"available\" : true} ", com.anfelisa.user.models.UsernameAvailableModel.class);
 			
 			com.anfelisa.user.data.UsernameAvailableResponse expected = new com.anfelisa.user.data.UsernameAvailableResponse(expectedData);
 			

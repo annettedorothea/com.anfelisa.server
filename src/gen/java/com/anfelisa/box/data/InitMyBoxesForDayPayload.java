@@ -15,21 +15,17 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class InitMyBoxesForDayPayload implements IInitMyBoxesForDayPayload {
+public class InitMyBoxesForDayPayload {
 	
 	private java.time.LocalDateTime todayAtMidnightInUTC;
 	
 	public InitMyBoxesForDayPayload() {
 	}
 	
-	public InitMyBoxesForDayPayload(com.anfelisa.box.models.IInitMyBoxesDataModel data) {
-		todayAtMidnightInUTC = data.getTodayAtMidnightInUTC();
-	}
 	
 	@JsonProperty
 	@JsonSerialize(converter = DateTimeToStringConverter.class)

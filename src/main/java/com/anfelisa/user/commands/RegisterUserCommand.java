@@ -8,10 +8,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.auth.Roles;
-import com.anfelisa.user.data.IUserRegistrationData;
-import com.anfelisa.user.models.IUserModel;
+import com.anfelisa.user.models.UserModel;
+import com.anfelisa.user.models.UserRegistrationModel;
 
 import de.acegen.CustomAppConfiguration;
+import de.acegen.Data;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.ViewProvider;
@@ -26,18 +27,18 @@ public class RegisterUserCommand extends AbstractRegisterUserCommand {
 	}
 
 	@Override
-	protected IUserRegistrationData executeCommand(IUserRegistrationData data, PersistenceHandle readonlyHandle) {
-		IUserModel user = daoProvider.getUserDao().selectByUsername(readonlyHandle, data.getUsername());
+	protected Data<UserRegistrationModel> executeCommand(Data<UserRegistrationModel> data, PersistenceHandle readonlyHandle) {
+		UserModel user = daoProvider.getUserDao().selectByUsername(readonlyHandle, data.getModel().getUsername());
 		if (user != null) {
 			throwIllegalArgumentException("usernameAlreadyTaken");
 		}
-		if ("Admin".equals(data.getUsername())) {
-			data.setRole(Roles.ADMIN);
+		if ("Admin".equals(data.getModel().getUsername())) {
+			data.getModel().setRole(Roles.ADMIN);
 		} else {
-			data.setRole(Roles.STUDENT);
+			data.getModel().setRole(Roles.STUDENT);
 		}
-		data.setUserId(data.getUuid());
-		data.setEmailConfirmed(false);
+		data.getModel().setUserId(data.getUuid());
+		data.getModel().setEmailConfirmed(false);
 		this.addOkOutcome(data);
 		return data;
 	}

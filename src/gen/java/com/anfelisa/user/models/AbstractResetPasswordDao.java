@@ -18,19 +18,18 @@ import java.util.Optional;
 @SuppressWarnings("all")
 public class AbstractResetPasswordDao extends AbstractDao {
 	
-	public void insert(PersistenceHandle handle, IResetPasswordModel resetPasswordModel) {
+	public void insert(PersistenceHandle handle, com.anfelisa.user.models.ResetPasswordModel resetPasswordModel) {
 		Update statement = handle.getHandle().createUpdate("INSERT INTO \"resetpassword\" (token, userid) VALUES (:token, :userid)");
-		statement.bind("token",  resetPasswordModel.getToken() );
-		statement.bind("userid",  resetPasswordModel.getUserId() );
+		statement.bind("token", resetPasswordModel.getToken());
+		statement.bind("userid", resetPasswordModel.getUserId());
 		statement.execute();
 	}
 	
 	
-	public void updateByToken(PersistenceHandle handle, IResetPasswordModel resetPasswordModel) {
+	public void updateByToken(PersistenceHandle handle, com.anfelisa.user.models.ResetPasswordModel resetPasswordModel) {
 		Update statement = handle.getHandle().createUpdate("UPDATE \"resetpassword\" SET token = :token, userid = :userid WHERE token = :token");
-		statement.bind("token",  resetPasswordModel.getToken() );
-		statement.bind("userid",  resetPasswordModel.getUserId() );
-		statement.bind("token",  resetPasswordModel.getToken()  );
+		statement.bind("token", resetPasswordModel.getToken());
+		statement.bind("userid", resetPasswordModel.getUserId());
 		statement.execute();
 	}
 
@@ -40,16 +39,16 @@ public class AbstractResetPasswordDao extends AbstractDao {
 		statement.execute();
 	}
 
-	public IResetPasswordModel selectByToken(PersistenceHandle handle, String token) {
-		Optional<IResetPasswordModel> optional = handle.getHandle().createQuery("SELECT token, userid FROM \"resetpassword\" WHERE token = :token")
+	public com.anfelisa.user.models.ResetPasswordModel selectByToken(PersistenceHandle handle, String token) {
+		Optional<com.anfelisa.user.models.ResetPasswordModel> optional = handle.getHandle().createQuery("SELECT token, userid FROM \"resetpassword\" WHERE token = :token")
 			.bind("token", token)
 			.map(new ResetPasswordMapper())
 			.findFirst();
 		return optional.isPresent() ? optional.get() : null;
 	}
 	
-	public IResetPasswordModel selectByPrimaryKey(PersistenceHandle handle, String token) {
-		Optional<IResetPasswordModel> optional = handle.getHandle().createQuery("SELECT token, userid FROM \"resetpassword\" WHERE token = :token")
+	public com.anfelisa.user.models.ResetPasswordModel selectByPrimaryKey(PersistenceHandle handle, String token) {
+		Optional<com.anfelisa.user.models.ResetPasswordModel> optional = handle.getHandle().createQuery("SELECT token, userid FROM \"resetpassword\" WHERE token = :token")
 			.bind("token", token)
 			.map(new ResetPasswordMapper())
 			.findFirst();
@@ -72,7 +71,7 @@ public class AbstractResetPasswordDao extends AbstractDao {
 		return handle.getHandle().createQuery(sql).mapTo(Integer.class).first();
 	}
 
-	public List<IResetPasswordModel> selectAll(PersistenceHandle handle) {
+	public List<com.anfelisa.user.models.ResetPasswordModel> selectAll(PersistenceHandle handle) {
 		return handle.getHandle().createQuery("SELECT token, userid FROM \"resetpassword\"")
 			.map(new ResetPasswordMapper())
 			.list();

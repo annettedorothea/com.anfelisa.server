@@ -10,11 +10,12 @@ package com.anfelisa.category.commands;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.category.data.ICategoryCreationData;
-import com.anfelisa.category.models.ICategoryModel;
-import com.anfelisa.category.models.IUserAccessToCategoryModel;
+import com.anfelisa.category.models.CategoryCreationModel;
+import com.anfelisa.category.models.CategoryModel;
+import com.anfelisa.category.models.UserAccessToCategoryModel;
 
 import de.acegen.CustomAppConfiguration;
+import de.acegen.Data;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.ViewProvider;
@@ -29,32 +30,32 @@ public class CreateCategoryCommand extends AbstractCreateCategoryCommand {
 	}
 
 	@Override
-	protected ICategoryCreationData executeCommand(ICategoryCreationData data, PersistenceHandle readonlyHandle) {
-		ICategoryModel parentCategory = this.daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
-				data.getParentCategoryId());
-		IUserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao()
+	protected Data<CategoryCreationModel> executeCommand(Data<CategoryCreationModel> data, PersistenceHandle readonlyHandle) {
+		CategoryModel parentCategory = this.daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
+				data.getModel().getParentCategoryId());
+		UserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao()
 				.selectByCategoryIdAndUserId(readonlyHandle, parentCategory.getRootCategoryId(),
-						data.getUserId());
+						data.getModel().getUserId());
 		if (access == null || !access.getEditable()) {
 			throwSecurityException();
 		}
-		data.setRootCategoryId(parentCategory.getRootCategoryId());
-		data.setCategoryId(data.getUuid());
-		data.setCategoryAuthor(data.getUsername());
+		data.getModel().setRootCategoryId(parentCategory.getRootCategoryId());
+		data.getModel().setCategoryId(data.getUuid());
+		data.getModel().setCategoryAuthor(data.getModel().getUsername());
 
-		ICategoryModel rootCategory = this.daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
+		CategoryModel rootCategory = this.daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
 				parentCategory.getRootCategoryId());
 
-		data.setDictionaryLookup(rootCategory.getDictionaryLookup());
-		data.setGivenLanguage(rootCategory.getGivenLanguage());
-		data.setWantedLanguage(rootCategory.getWantedLanguage());
+		data.getModel().setDictionaryLookup(rootCategory.getDictionaryLookup());
+		data.getModel().setGivenLanguage(rootCategory.getGivenLanguage());
+		data.getModel().setWantedLanguage(rootCategory.getWantedLanguage());
 
 		Integer max = this.daoProvider.getCategoryDao().selectMaxIndexInCategory(readonlyHandle,
-				data.getParentCategoryId());
+				data.getModel().getParentCategoryId());
 		if (max == null) {
 			max = 0;
 		}
-		data.setCategoryIndex(max + 1);
+		data.getModel().setCategoryIndex(max + 1);
 		this.addOkOutcome(data);
 		return data;
 	}

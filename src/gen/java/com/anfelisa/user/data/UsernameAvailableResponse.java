@@ -15,26 +15,26 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class UsernameAvailableResponse implements IUsernameAvailableResponse {
+public class UsernameAvailableResponse {
 	
-	private Boolean available = false;
+	private Boolean available;
 	
 	public UsernameAvailableResponse() {
 	}
 	
-	public UsernameAvailableResponse(com.anfelisa.user.models.IUsernameAvailableModel data) {
-		available = data.getAvailable();
+	public UsernameAvailableResponse(com.anfelisa.user.models.UsernameAvailableModel model) {
+		available = model.getAvailable();
 	}
 	
-	@JsonProperty
 	public Boolean getAvailable() {
 		return this.available;
 	}
+	
+	
 	
 }
 

@@ -28,7 +28,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
-import de.acegen.IDataContainer;
 import de.acegen.ViewProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -36,6 +35,7 @@ import de.acegen.ReadAction;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.Config;
+import de.acegen.Data;
 
 import de.acegen.auth.AuthUser;
 import io.dropwizard.auth.Auth;
@@ -52,8 +52,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.DELETE;
 
-import com.anfelisa.box.data.IBoxArchiveData;
-import com.anfelisa.box.data.BoxArchiveData;
+import com.anfelisa.box.models.BoxArchiveModel;
 
 import de.acegen.Resource;
 
@@ -86,7 +85,7 @@ public class ArchiveBoxResource extends Resource {
 	public Response archiveBoxResource(
 			@Auth AuthUser authUser, 
 			@QueryParam("uuid") String uuid, 
-			IBoxArchiveData payload) 
+			com.anfelisa.box.data.ArchiveBoxPayload payload) 
 			throws JsonProcessingException {
 		if (payload == null) {
 			return badRequest("payload must not be null");
@@ -95,17 +94,19 @@ public class ArchiveBoxResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.box.data.IBoxArchiveData data = new BoxArchiveData(uuid);
+			Data<com.anfelisa.box.models.BoxArchiveModel> data = new Data<com.anfelisa.box.models.BoxArchiveModel>(uuid);
+			com.anfelisa.box.models.BoxArchiveModel model = new com.anfelisa.box.models.BoxArchiveModel();
 			if (StringUtils.isBlank(payload.getBoxId()) || "null".equals(payload.getBoxId())) {
 				return badRequest("boxId is mandatory");
 			}
-			data.setBoxId(payload.getBoxId());
+			model.setBoxId(payload.getBoxId());
 			if (payload.getArchived() == null) {
 				return badRequest("archived is mandatory");
 			}
-			data.setArchived(payload.getArchived());
-			data.setUserId(authUser.getUserId());
+			model.setArchived(payload.getArchived());
+			model.setUserId(authUser.getUserId());
 			
+			data.setModel(model);
 			com.anfelisa.box.actions.ArchiveBoxAction action = new com.anfelisa.box.actions.ArchiveBoxAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
 			data = action.apply(data);
 			return ok();

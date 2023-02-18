@@ -14,9 +14,9 @@ import org.slf4j.LoggerFactory;
 
 import org.apache.commons.lang3.StringUtils;
 
+import de.acegen.Data;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
-import de.acegen.IDataContainer;
 import de.acegen.ViewProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -24,11 +24,8 @@ import de.acegen.ReadAction;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 
-import com.anfelisa.card.data.ICardSearchData;
-import com.anfelisa.card.data.CardSearchData;
-
 @SuppressWarnings("unused")
-public abstract class AbstractGetDuplicatesAction extends ReadAction<ICardSearchData> {
+public abstract class AbstractGetDuplicatesAction extends ReadAction<com.anfelisa.card.models.CardSearchModel> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractGetDuplicatesAction.class);
 	
@@ -37,10 +34,10 @@ public abstract class AbstractGetDuplicatesAction extends ReadAction<ICardSearch
 		super("com.anfelisa.card.actions.GetDuplicatesAction", persistenceConnection, appConfiguration, daoProvider, viewProvider);
 	}
 
-	protected abstract ICardSearchData loadDataForGetRequest(ICardSearchData data, PersistenceHandle readonlyHandle);
+	protected abstract Data<com.anfelisa.card.models.CardSearchModel> loadDataForGetRequest(Data<com.anfelisa.card.models.CardSearchModel> data, PersistenceHandle readonlyHandle);
 
 	@Override
-	protected ICardSearchData initActionDataFromSquishyDataProvider(ICardSearchData data) {
+	protected Data<com.anfelisa.card.models.CardSearchModel> initActionDataFromSquishyDataProvider(Data<com.anfelisa.card.models.CardSearchModel> data) {
 		LocalDateTime systemTime = SquishyDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
 			data.setSystemTime(systemTime);
@@ -48,7 +45,7 @@ public abstract class AbstractGetDuplicatesAction extends ReadAction<ICardSearch
 		return data;
 	}
 
-	public ICardSearchData initActionData(ICardSearchData data) {
+	public Data<com.anfelisa.card.models.CardSearchModel> initActionData(Data<com.anfelisa.card.models.CardSearchModel> data) {
 		return data;
 	}
 

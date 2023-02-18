@@ -16,14 +16,17 @@ import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
+import de.acegen.AbstractModel;
 
 @SuppressWarnings("all")
-public class TodaysCardsStatusModel implements ITodaysCardsStatusModel {
+public class TodaysCardsStatusModel extends AbstractModel {
 
 	private Integer openTodaysCards;
 
 	private Integer allTodaysCards;
 
+	
+	private Boolean frozen = false;
 
 	public TodaysCardsStatusModel() {
 	}
@@ -40,7 +43,12 @@ public class TodaysCardsStatusModel implements ITodaysCardsStatusModel {
 	public Integer getOpenTodaysCards() {
 		return this.openTodaysCards;
 	}
+	
+	@JsonProperty
 	public void setOpenTodaysCards(Integer openTodaysCards) {
+		if (this.frozen) {
+			throw new RuntimeException("openTodaysCards is frozen");
+		}
 		this.openTodaysCards = openTodaysCards;
 	}
 	
@@ -48,16 +56,47 @@ public class TodaysCardsStatusModel implements ITodaysCardsStatusModel {
 	public Integer getAllTodaysCards() {
 		return this.allTodaysCards;
 	}
+	
+	@JsonProperty
 	public void setAllTodaysCards(Integer allTodaysCards) {
+		if (this.frozen) {
+			throw new RuntimeException("allTodaysCards is frozen");
+		}
 		this.allTodaysCards = allTodaysCards;
 	}
 	
+	
+	
+	@Override
+	public void freeze() {
+		this.frozen = true;
+	}
 
-	public ITodaysCardsStatusModel deepCopy() {
-		ITodaysCardsStatusModel copy = new TodaysCardsStatusModel();
+	public com.anfelisa.box.models.TodaysCardsStatusModel deepCopy() {
+		com.anfelisa.box.models.TodaysCardsStatusModel copy = new TodaysCardsStatusModel();
 		copy.setOpenTodaysCards(this.getOpenTodaysCards());
 		copy.setAllTodaysCards(this.getAllTodaysCards());
 		return copy;
+	}
+	
+	public static TodaysCardsStatusModel generateTestData() {
+		java.util.Random random = new java.util.Random();
+		TodaysCardsStatusModel testData = new TodaysCardsStatusModel();
+		testData.setOpenTodaysCards(random.nextInt(50));
+		testData.setAllTodaysCards(random.nextInt(50));
+		return testData;
+	}
+	
+	private static String randomString(java.util.Random random) {
+		String chars = "aaaaaaabcdeeeeeeeffffghiiiiiiijkllllllmmmmnnnnnnnooooooooopqrstttuuuuuuuvxyz";
+		int n = random.nextInt(20) + 5;
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		String string  = sb.toString(); 
+		return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
 	}
 
 }

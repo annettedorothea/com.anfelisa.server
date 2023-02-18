@@ -18,27 +18,26 @@ import java.util.Optional;
 @SuppressWarnings("all")
 public class AbstractUserDao extends AbstractDao {
 	
-	public void insert(PersistenceHandle handle, IUserModel userModel) {
+	public void insert(PersistenceHandle handle, com.anfelisa.user.models.UserModel userModel) {
 		Update statement = handle.getHandle().createUpdate("INSERT INTO \"user\" (userid, username, password, email, role, emailconfirmed) VALUES (:userid, :username, :password, :email, :role, :emailconfirmed)");
-		statement.bind("userid",  userModel.getUserId() );
-		statement.bind("username",  userModel.getUsername() );
-		statement.bind("password",  userModel.getPassword() );
-		statement.bind("email",  userModel.getEmail() );
-		statement.bind("role",  userModel.getRole() );
-		statement.bind("emailconfirmed",  userModel.getEmailConfirmed() );
+		statement.bind("userid", userModel.getUserId());
+		statement.bind("username", userModel.getUsername());
+		statement.bind("password", userModel.getPassword());
+		statement.bind("email", userModel.getEmail());
+		statement.bind("role", userModel.getRole());
+		statement.bind("emailconfirmed", userModel.getEmailConfirmed());
 		statement.execute();
 	}
 	
 	
-	public void updateByUserId(PersistenceHandle handle, IUserModel userModel) {
+	public void updateByUserId(PersistenceHandle handle, com.anfelisa.user.models.UserModel userModel) {
 		Update statement = handle.getHandle().createUpdate("UPDATE \"user\" SET userid = :userid, username = :username, password = :password, email = :email, role = :role, emailconfirmed = :emailconfirmed WHERE userid = :userid");
-		statement.bind("userid",  userModel.getUserId() );
-		statement.bind("username",  userModel.getUsername() );
-		statement.bind("password",  userModel.getPassword() );
-		statement.bind("email",  userModel.getEmail() );
-		statement.bind("role",  userModel.getRole() );
-		statement.bind("emailconfirmed",  userModel.getEmailConfirmed() );
-		statement.bind("userid",  userModel.getUserId()  );
+		statement.bind("userid", userModel.getUserId());
+		statement.bind("username", userModel.getUsername());
+		statement.bind("password", userModel.getPassword());
+		statement.bind("email", userModel.getEmail());
+		statement.bind("role", userModel.getRole());
+		statement.bind("emailconfirmed", userModel.getEmailConfirmed());
 		statement.execute();
 	}
 
@@ -48,22 +47,21 @@ public class AbstractUserDao extends AbstractDao {
 		statement.execute();
 	}
 
-	public IUserModel selectByUserId(PersistenceHandle handle, String userId) {
-		Optional<IUserModel> optional = handle.getHandle().createQuery("SELECT userid, username, password, email, role, emailconfirmed FROM \"user\" WHERE userid = :userid")
+	public com.anfelisa.user.models.UserModel selectByUserId(PersistenceHandle handle, String userId) {
+		Optional<com.anfelisa.user.models.UserModel> optional = handle.getHandle().createQuery("SELECT userid, username, password, email, role, emailconfirmed FROM \"user\" WHERE userid = :userid")
 			.bind("userid", userId)
 			.map(new UserMapper())
 			.findFirst();
 		return optional.isPresent() ? optional.get() : null;
 	}
-	public void updateByUsername(PersistenceHandle handle, IUserModel userModel) {
+	public void updateByUsername(PersistenceHandle handle, com.anfelisa.user.models.UserModel userModel) {
 		Update statement = handle.getHandle().createUpdate("UPDATE \"user\" SET userid = :userid, username = :username, password = :password, email = :email, role = :role, emailconfirmed = :emailconfirmed WHERE username = :username");
-		statement.bind("userid",  userModel.getUserId() );
-		statement.bind("username",  userModel.getUsername() );
-		statement.bind("password",  userModel.getPassword() );
-		statement.bind("email",  userModel.getEmail() );
-		statement.bind("role",  userModel.getRole() );
-		statement.bind("emailconfirmed",  userModel.getEmailConfirmed() );
-		statement.bind("username",  userModel.getUsername()  );
+		statement.bind("userid", userModel.getUserId());
+		statement.bind("username", userModel.getUsername());
+		statement.bind("password", userModel.getPassword());
+		statement.bind("email", userModel.getEmail());
+		statement.bind("role", userModel.getRole());
+		statement.bind("emailconfirmed", userModel.getEmailConfirmed());
 		statement.execute();
 	}
 
@@ -73,16 +71,16 @@ public class AbstractUserDao extends AbstractDao {
 		statement.execute();
 	}
 
-	public IUserModel selectByUsername(PersistenceHandle handle, String username) {
-		Optional<IUserModel> optional = handle.getHandle().createQuery("SELECT userid, username, password, email, role, emailconfirmed FROM \"user\" WHERE username = :username")
+	public com.anfelisa.user.models.UserModel selectByUsername(PersistenceHandle handle, String username) {
+		Optional<com.anfelisa.user.models.UserModel> optional = handle.getHandle().createQuery("SELECT userid, username, password, email, role, emailconfirmed FROM \"user\" WHERE username = :username")
 			.bind("username", username)
 			.map(new UserMapper())
 			.findFirst();
 		return optional.isPresent() ? optional.get() : null;
 	}
 	
-	public IUserModel selectByPrimaryKey(PersistenceHandle handle, String userId) {
-		Optional<IUserModel> optional = handle.getHandle().createQuery("SELECT userid, username, password, email, role, emailconfirmed FROM \"user\" WHERE userid = :userid")
+	public com.anfelisa.user.models.UserModel selectByPrimaryKey(PersistenceHandle handle, String userId) {
+		Optional<com.anfelisa.user.models.UserModel> optional = handle.getHandle().createQuery("SELECT userid, username, password, email, role, emailconfirmed FROM \"user\" WHERE userid = :userid")
 			.bind("userid", userId)
 			.map(new UserMapper())
 			.findFirst();
@@ -105,7 +103,7 @@ public class AbstractUserDao extends AbstractDao {
 		return handle.getHandle().createQuery(sql).mapTo(Integer.class).first();
 	}
 
-	public List<IUserModel> selectAll(PersistenceHandle handle) {
+	public List<com.anfelisa.user.models.UserModel> selectAll(PersistenceHandle handle) {
 		return handle.getHandle().createQuery("SELECT userid, username, password, email, role, emailconfirmed FROM \"user\"")
 			.map(new UserMapper())
 			.list();

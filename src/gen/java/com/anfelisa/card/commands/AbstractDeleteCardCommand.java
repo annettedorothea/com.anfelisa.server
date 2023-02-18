@@ -7,6 +7,7 @@
 
 package com.anfelisa.card.commands;
 
+import de.acegen.Data;
 import de.acegen.Command;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
@@ -14,21 +15,21 @@ import de.acegen.ViewProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.Event;
 
-import com.anfelisa.card.data.ICardDeleteData;
+import com.anfelisa.card.models.CardDeleteModel;
 
 @SuppressWarnings("unused")
-public abstract class AbstractDeleteCardCommand extends Command<ICardDeleteData> {
+public abstract class AbstractDeleteCardCommand extends Command<com.anfelisa.card.models.CardDeleteModel> {
 
 	public AbstractDeleteCardCommand(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
 		super("com.anfelisa.card.commands.DeleteCardCommand", daoProvider, viewProvider, appConfiguration);
 	}
 
-	protected void addOkOutcome(ICardDeleteData data) {
+	protected void addOkOutcome(Data<com.anfelisa.card.models.CardDeleteModel> data) {
 		data.addOutcome("ok");
 	}
 	
 	@Override
-	public void addEventsToTimeline(ICardDeleteData data, PersistenceHandle timelineHandle) {
+	public void addEventsToTimeline(Data<com.anfelisa.card.models.CardDeleteModel> data, PersistenceHandle timelineHandle) {
 		if (appConfiguration.getConfig().writeTimeline()) {
 			if (data.hasOutcome("ok")){
 				daoProvider.getAceDao().addEventToTimeline("com.anfelisa.card.events.DeleteCardOkEvent", data, timelineHandle);
@@ -37,9 +38,10 @@ public abstract class AbstractDeleteCardCommand extends Command<ICardDeleteData>
 	}
 	
 	@Override
-	public void publishEvents(ICardDeleteData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	public void publishEvents(Data<com.anfelisa.card.models.CardDeleteModel> data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+		data.freeze();
 		if (data.hasOutcome("ok")){
-			new Event<ICardDeleteData>("com.anfelisa.card.events.DeleteCardOkEvent", viewProvider).publish(data.deepCopy(), handle, timelineHandle);
+			new Event<com.anfelisa.card.models.CardDeleteModel>("com.anfelisa.card.events.DeleteCardOkEvent", viewProvider).publish(data, handle, timelineHandle);
 		}
 	}
 	

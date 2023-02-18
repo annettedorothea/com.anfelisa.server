@@ -14,9 +14,9 @@ import org.jdbi.v3.core.statement.StatementContext;
 
 import de.acegen.AbstractMapper;
 
-public class ScoreReinforceCardMapper extends AbstractMapper<IScoreReinforceCardModel> {
+public class ScoreReinforceCardMapper extends AbstractMapper<ScoreReinforceCardModel> {
 	
-	public IScoreReinforceCardModel map(ResultSet r, StatementContext ctx) throws SQLException {
+	public ScoreReinforceCardModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new ScoreReinforceCardModel(
 			this.mapToString(r, "reinforceCardId"),
 			this.mapToBoolean(r, "keep"),

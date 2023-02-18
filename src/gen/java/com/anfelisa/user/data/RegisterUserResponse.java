@@ -15,18 +15,19 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class RegisterUserResponse implements IRegisterUserResponse {
+public class RegisterUserResponse {
 	
 	public RegisterUserResponse() {
 	}
 	
-	public RegisterUserResponse(com.anfelisa.user.models.IUserRegistrationModel data) {
+	public RegisterUserResponse(com.anfelisa.user.models.UserRegistrationModel model) {
 	}
+	
+	
 	
 }
 

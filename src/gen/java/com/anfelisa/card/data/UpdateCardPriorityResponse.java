@@ -15,18 +15,19 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class UpdateCardPriorityResponse implements IUpdateCardPriorityResponse {
+public class UpdateCardPriorityResponse {
 	
 	public UpdateCardPriorityResponse() {
 	}
 	
-	public UpdateCardPriorityResponse(com.anfelisa.card.models.ICardUpdatePriorityModel data) {
+	public UpdateCardPriorityResponse(com.anfelisa.card.models.CardUpdatePriorityModel model) {
 	}
+	
+	
 	
 }
 

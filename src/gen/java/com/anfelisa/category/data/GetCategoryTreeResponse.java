@@ -15,42 +15,40 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class GetCategoryTreeResponse implements IGetCategoryTreeResponse {
+public class GetCategoryTreeResponse {
 	
-	private com.anfelisa.category.models.ICategoryTreeItemModel rootCategory;
+	private com.anfelisa.category.models.CategoryTreeItemModel rootCategory;
 	
-	private Boolean reverseBoxExists = false;
+	private Boolean reverseBoxExists;
 	
 	private String boxId;
 	
 	public GetCategoryTreeResponse() {
 	}
 	
-	public GetCategoryTreeResponse(com.anfelisa.category.models.ICategoryTreeModel data) {
-		rootCategory = data.getRootCategory();
-		reverseBoxExists = data.getReverseBoxExists();
-		boxId = data.getBoxId();
+	public GetCategoryTreeResponse(com.anfelisa.category.models.CategoryTreeModel model) {
+		rootCategory = model.getRootCategory();
+		reverseBoxExists = model.getReverseBoxExists();
+		boxId = model.getBoxId();
 	}
 	
-	@JsonProperty
-	public com.anfelisa.category.models.ICategoryTreeItemModel getRootCategory() {
+	public com.anfelisa.category.models.CategoryTreeItemModel getRootCategory() {
 		return this.rootCategory;
 	}
 	
-	@JsonProperty
 	public Boolean getReverseBoxExists() {
 		return this.reverseBoxExists;
 	}
 	
-	@JsonProperty
 	public String getBoxId() {
 		return this.boxId;
 	}
+	
+	
 	
 }
 

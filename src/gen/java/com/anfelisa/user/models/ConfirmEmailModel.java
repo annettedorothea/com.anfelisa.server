@@ -16,9 +16,10 @@ import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
+import de.acegen.AbstractModel;
 
 @SuppressWarnings("all")
-public class ConfirmEmailModel implements IConfirmEmailModel {
+public class ConfirmEmailModel extends AbstractModel {
 
 	private String username;
 
@@ -26,6 +27,8 @@ public class ConfirmEmailModel implements IConfirmEmailModel {
 
 	private String userId;
 
+	
+	private Boolean frozen = false;
 
 	public ConfirmEmailModel() {
 	}
@@ -44,7 +47,12 @@ public class ConfirmEmailModel implements IConfirmEmailModel {
 	public String getUsername() {
 		return this.username;
 	}
+	
+	@JsonProperty
 	public void setUsername(String username) {
+		if (this.frozen) {
+			throw new RuntimeException("username is frozen");
+		}
 		this.username = username;
 	}
 	
@@ -52,7 +60,12 @@ public class ConfirmEmailModel implements IConfirmEmailModel {
 	public String getToken() {
 		return this.token;
 	}
+	
+	@JsonProperty
 	public void setToken(String token) {
+		if (this.frozen) {
+			throw new RuntimeException("token is frozen");
+		}
 		this.token = token;
 	}
 	
@@ -60,17 +73,55 @@ public class ConfirmEmailModel implements IConfirmEmailModel {
 	public String getUserId() {
 		return this.userId;
 	}
+	
+	@JsonProperty
 	public void setUserId(String userId) {
+		if (this.frozen) {
+			throw new RuntimeException("userId is frozen");
+		}
 		this.userId = userId;
 	}
 	
+	
+	public com.anfelisa.user.models.EmailConfirmationModel mapToEmailConfirmationModel() {
+		com.anfelisa.user.models.EmailConfirmationModel model = new com.anfelisa.user.models.EmailConfirmationModel();
+		model.setToken(this.getToken());
+		model.setUserId(this.getUserId());
+		return model;
+	}	
+	
+	@Override
+	public void freeze() {
+		this.frozen = true;
+	}
 
-	public IConfirmEmailModel deepCopy() {
-		IConfirmEmailModel copy = new ConfirmEmailModel();
+	public com.anfelisa.user.models.ConfirmEmailModel deepCopy() {
+		com.anfelisa.user.models.ConfirmEmailModel copy = new ConfirmEmailModel();
 		copy.setUsername(this.getUsername());
 		copy.setToken(this.getToken());
 		copy.setUserId(this.getUserId());
 		return copy;
+	}
+	
+	public static ConfirmEmailModel generateTestData() {
+		java.util.Random random = new java.util.Random();
+		ConfirmEmailModel testData = new ConfirmEmailModel();
+		testData.setUsername(randomString(random));
+		testData.setToken(randomString(random));
+		testData.setUserId(randomString(random));
+		return testData;
+	}
+	
+	private static String randomString(java.util.Random random) {
+		String chars = "aaaaaaabcdeeeeeeeffffghiiiiiiijkllllllmmmmnnnnnnnooooooooopqrstttuuuuuuuvxyz";
+		int n = random.nextInt(20) + 5;
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		String string  = sb.toString(); 
+		return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
 	}
 
 }

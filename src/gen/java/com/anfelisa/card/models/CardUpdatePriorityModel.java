@@ -16,9 +16,10 @@ import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
+import de.acegen.AbstractModel;
 
 @SuppressWarnings("all")
-public class CardUpdatePriorityModel implements ICardUpdatePriorityModel {
+public class CardUpdatePriorityModel extends AbstractModel {
 
 	private String cardId;
 
@@ -26,6 +27,8 @@ public class CardUpdatePriorityModel implements ICardUpdatePriorityModel {
 
 	private String userId;
 
+	
+	private Boolean frozen = false;
 
 	public CardUpdatePriorityModel() {
 	}
@@ -44,7 +47,12 @@ public class CardUpdatePriorityModel implements ICardUpdatePriorityModel {
 	public String getCardId() {
 		return this.cardId;
 	}
+	
+	@JsonProperty
 	public void setCardId(String cardId) {
+		if (this.frozen) {
+			throw new RuntimeException("cardId is frozen");
+		}
 		this.cardId = cardId;
 	}
 	
@@ -52,7 +60,12 @@ public class CardUpdatePriorityModel implements ICardUpdatePriorityModel {
 	public Integer getPriority() {
 		return this.priority;
 	}
+	
+	@JsonProperty
 	public void setPriority(Integer priority) {
+		if (this.frozen) {
+			throw new RuntimeException("priority is frozen");
+		}
 		this.priority = priority;
 	}
 	
@@ -60,17 +73,49 @@ public class CardUpdatePriorityModel implements ICardUpdatePriorityModel {
 	public String getUserId() {
 		return this.userId;
 	}
+	
+	@JsonProperty
 	public void setUserId(String userId) {
+		if (this.frozen) {
+			throw new RuntimeException("userId is frozen");
+		}
 		this.userId = userId;
 	}
 	
+	
+	
+	@Override
+	public void freeze() {
+		this.frozen = true;
+	}
 
-	public ICardUpdatePriorityModel deepCopy() {
-		ICardUpdatePriorityModel copy = new CardUpdatePriorityModel();
+	public com.anfelisa.card.models.CardUpdatePriorityModel deepCopy() {
+		com.anfelisa.card.models.CardUpdatePriorityModel copy = new CardUpdatePriorityModel();
 		copy.setCardId(this.getCardId());
 		copy.setPriority(this.getPriority());
 		copy.setUserId(this.getUserId());
 		return copy;
+	}
+	
+	public static CardUpdatePriorityModel generateTestData() {
+		java.util.Random random = new java.util.Random();
+		CardUpdatePriorityModel testData = new CardUpdatePriorityModel();
+		testData.setCardId(randomString(random));
+		testData.setPriority(random.nextInt(50));
+		testData.setUserId(randomString(random));
+		return testData;
+	}
+	
+	private static String randomString(java.util.Random random) {
+		String chars = "aaaaaaabcdeeeeeeeffffghiiiiiiijkllllllmmmmnnnnnnnooooooooopqrstttuuuuuuuvxyz";
+		int n = random.nextInt(20) + 5;
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		String string  = sb.toString(); 
+		return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
 	}
 
 }

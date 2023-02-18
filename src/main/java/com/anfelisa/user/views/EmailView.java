@@ -7,9 +7,10 @@ import java.util.ResourceBundle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.user.data.IForgotPasswordData;
-import com.anfelisa.user.data.IUserRegistrationData;
+import com.anfelisa.user.models.ForgotPasswordModel;
+import com.anfelisa.user.models.UserRegistrationModel;
 
+import de.acegen.Data;
 import de.acegen.EmailService;
 import de.acegen.PersistenceHandle;
 import de.acegen.QueuedView;
@@ -25,26 +26,26 @@ public class EmailView extends QueuedView implements IEmailView {
 		this.emailService = emailService;
 	}
 
-	public void sendForgotPasswordEmail(IForgotPasswordData data, PersistenceHandle handle) {
-		Locale currentLocale = Locale.forLanguageTag(data.getLanguage());
+	public void sendForgotPasswordEmail(Data<ForgotPasswordModel> data, PersistenceHandle handle) {
+		Locale currentLocale = Locale.forLanguageTag(data.getModel().getLanguage());
 		ResourceBundle messages = ResourceBundle.getBundle("EmailsBundle", currentLocale);
-		String link = emailService.getLocalhost() + "#resetpassword/" + data.getToken();
-		Object[] params = { data.getUsername(), link };
+		String link = emailService.getLocalhost() + "#resetpassword/" + data.getModel().getToken();
+		Object[] params = { data.getModel().getUsername(), link };
 		String message = MessageFormat.format(messages.getString("passwordResetEmailContent"), params);
 		String subject = messages.getString("passwordResetEmailHeader");
 		
-		emailService.sendEmail(data.getEmail(), subject, message);
+		emailService.sendEmail(data.getModel().getEmail(), subject, message);
 	}
 
-	public void sendRegistrationEmail(IUserRegistrationData data, PersistenceHandle handle) {
-		Locale currentLocale = Locale.forLanguageTag(data.getLanguage());
+	public void sendRegistrationEmail(Data<UserRegistrationModel> data, PersistenceHandle handle) {
+		Locale currentLocale = Locale.forLanguageTag(data.getModel().getLanguage());
 		ResourceBundle messages = ResourceBundle.getBundle("EmailsBundle", currentLocale);
-		String link = emailService.getLocalhost() + "#confirmemail/" + data.getUsername() + "/" + data.getToken();
-		Object[] params = { data.getUsername(), link };
+		String link = emailService.getLocalhost() + "#confirmemail/" + data.getModel().getUsername() + "/" + data.getModel().getToken();
+		Object[] params = { data.getModel().getUsername(), link };
 		String message = MessageFormat.format(messages.getString("RegistrationEmailContent"), params);
 		String subject = messages.getString("RegistrationEmailHeader");
 
-		emailService.sendEmail(data.getEmail(), subject, message);
+		emailService.sendEmail(data.getModel().getEmail(), subject, message);
 	}
 
 	@Override

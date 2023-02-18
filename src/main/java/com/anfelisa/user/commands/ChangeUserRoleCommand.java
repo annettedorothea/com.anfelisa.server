@@ -8,10 +8,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.auth.Roles;
-import com.anfelisa.user.data.IChangeUserRoleData;
-import com.anfelisa.user.models.IUserModel;
+import com.anfelisa.user.models.ChangeUserRoleModel;
+import com.anfelisa.user.models.UserModel;
 
 import de.acegen.CustomAppConfiguration;
+import de.acegen.Data;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.ViewProvider;
@@ -26,14 +27,14 @@ public class ChangeUserRoleCommand extends AbstractChangeUserRoleCommand {
 	}
 
 	@Override
-	protected IChangeUserRoleData executeCommand(IChangeUserRoleData data, PersistenceHandle readonlyHandle) {
-		if (!Roles.ADMIN.equals(data.getRole())) {
+	protected Data<ChangeUserRoleModel> executeCommand(Data<ChangeUserRoleModel> data, PersistenceHandle readonlyHandle) {
+		if (!Roles.ADMIN.equals(data.getModel().getRole())) {
 			throwSecurityException();
 		}
-		if (!isRoleValid(data.getNewRole())) {
+		if (!isRoleValid(data.getModel().getNewRole())) {
 			throwIllegalArgumentException("invalidRole");
 		}
-		IUserModel user = daoProvider.getUserDao().selectByUserId(readonlyHandle, data.getEditedUserId());
+		UserModel user = daoProvider.getUserDao().selectByUserId(readonlyHandle, data.getModel().getEditedUserId());
 		if (user == null) {
 			throwIllegalArgumentException("userDoesNotExist");
 		}

@@ -9,6 +9,7 @@ package com.anfelisa.card.actions;
 
 import java.time.LocalDateTime;
 
+import de.acegen.Data;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.ICommand;
 import de.acegen.IDaoProvider;
@@ -17,13 +18,12 @@ import de.acegen.SquishyDataProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.WriteAction;
 
-import com.anfelisa.card.data.ICardCreationData;
 import com.anfelisa.card.commands.CreateCardCommand;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractCreateCardAction extends WriteAction<ICardCreationData> {
+public abstract class AbstractCreateCardAction extends WriteAction<com.anfelisa.card.models.CardCreationModel> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractCreateCardAction.class);
 
@@ -33,12 +33,12 @@ public abstract class AbstractCreateCardAction extends WriteAction<ICardCreation
 	}
 
 	@Override
-	public ICommand<ICardCreationData> getCommand() {
+	public ICommand<com.anfelisa.card.models.CardCreationModel> getCommand() {
 		return new CreateCardCommand(daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	@Override
-	protected ICardCreationData initActionDataFromSquishyDataProvider(ICardCreationData data) {
+	protected Data<com.anfelisa.card.models.CardCreationModel> initActionDataFromSquishyDataProvider(Data<com.anfelisa.card.models.CardCreationModel> data) {
 		LocalDateTime systemTime = SquishyDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
 			data.setSystemTime(systemTime);
@@ -46,7 +46,7 @@ public abstract class AbstractCreateCardAction extends WriteAction<ICardCreation
 		return data;
 	}
 
-	public ICardCreationData initActionData(ICardCreationData data) {
+	public Data<com.anfelisa.card.models.CardCreationModel> initActionData(Data<com.anfelisa.card.models.CardCreationModel> data) {
 		return data;
 	}
 

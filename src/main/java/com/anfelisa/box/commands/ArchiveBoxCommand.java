@@ -10,10 +10,11 @@ package com.anfelisa.box.commands;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.box.data.IBoxArchiveData;
-import com.anfelisa.box.models.IBoxModel;
+import com.anfelisa.box.models.BoxArchiveModel;
+import com.anfelisa.box.models.BoxModel;
 
 import de.acegen.CustomAppConfiguration;
+import de.acegen.Data;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.ViewProvider;
@@ -28,9 +29,9 @@ public class ArchiveBoxCommand extends AbstractArchiveBoxCommand {
 	}
 
 	@Override
-	protected IBoxArchiveData executeCommand(IBoxArchiveData data, PersistenceHandle readonlyHandle) {
-		IBoxModel box = daoProvider.getBoxDao().selectByBoxId(readonlyHandle, data.getBoxId());
-		if (!box.getUserId().equals(data.getUserId())) {
+	protected Data<BoxArchiveModel> executeCommand(Data<BoxArchiveModel> data, PersistenceHandle readonlyHandle) {
+		BoxModel box = daoProvider.getBoxDao().selectByBoxId(readonlyHandle, data.getModel().getBoxId());
+		if (!box.getUserId().equals(data.getModel().getUserId())) {
 			throwSecurityException();
 		}
 		this.addOkOutcome(data);

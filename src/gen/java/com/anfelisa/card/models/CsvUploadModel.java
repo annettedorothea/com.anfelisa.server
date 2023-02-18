@@ -16,18 +16,21 @@ import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
+import de.acegen.AbstractModel;
 
 @SuppressWarnings("all")
-public class CsvUploadModel implements ICsvUploadModel {
+public class CsvUploadModel extends AbstractModel {
 
 	private String userId;
 
 	private String categoryId;
 
-	private java.util.List<com.anfelisa.card.models.ISimpleCardModel> previewCsv;
+	private java.util.List<com.anfelisa.card.models.SimpleCardModel> previewCsv;
 
-	private java.util.List<com.anfelisa.card.models.ICardModel> cards;
+	private java.util.List<com.anfelisa.card.models.CardModel> cards;
 
+	
+	private Boolean frozen = false;
 
 	public CsvUploadModel() {
 	}
@@ -35,8 +38,8 @@ public class CsvUploadModel implements ICsvUploadModel {
 	public CsvUploadModel(
 		@JsonProperty("userId") String userId,
 		@JsonProperty("categoryId") String categoryId,
-		@JsonProperty("previewCsv") java.util.List<com.anfelisa.card.models.ISimpleCardModel> previewCsv,
-		@JsonProperty("cards") java.util.List<com.anfelisa.card.models.ICardModel> cards
+		@JsonProperty("previewCsv") java.util.List<com.anfelisa.card.models.SimpleCardModel> previewCsv,
+		@JsonProperty("cards") java.util.List<com.anfelisa.card.models.CardModel> cards
 	) {
 		this.userId = userId;
 		this.categoryId = categoryId;
@@ -48,7 +51,12 @@ public class CsvUploadModel implements ICsvUploadModel {
 	public String getUserId() {
 		return this.userId;
 	}
+	
+	@JsonProperty
 	public void setUserId(String userId) {
+		if (this.frozen) {
+			throw new RuntimeException("userId is frozen");
+		}
 		this.userId = userId;
 	}
 	
@@ -56,46 +64,110 @@ public class CsvUploadModel implements ICsvUploadModel {
 	public String getCategoryId() {
 		return this.categoryId;
 	}
+	
+	@JsonProperty
 	public void setCategoryId(String categoryId) {
+		if (this.frozen) {
+			throw new RuntimeException("categoryId is frozen");
+		}
 		this.categoryId = categoryId;
 	}
 	
 	@JsonProperty
-	public java.util.List<com.anfelisa.card.models.ISimpleCardModel> getPreviewCsv() {
+	public java.util.List<com.anfelisa.card.models.SimpleCardModel> getPreviewCsv() {
 		return this.previewCsv;
 	}
-	public void setPreviewCsv(java.util.List<com.anfelisa.card.models.ISimpleCardModel> previewCsv) {
+	
+	@JsonProperty
+	public void setPreviewCsv(java.util.List<com.anfelisa.card.models.SimpleCardModel> previewCsv) {
+		if (this.frozen) {
+			throw new RuntimeException("previewCsv is frozen");
+		}
 		this.previewCsv = previewCsv;
 	}
 	
 	@JsonProperty
-	public java.util.List<com.anfelisa.card.models.ICardModel> getCards() {
+	public java.util.List<com.anfelisa.card.models.CardModel> getCards() {
 		return this.cards;
 	}
-	public void setCards(java.util.List<com.anfelisa.card.models.ICardModel> cards) {
+	
+	@JsonProperty
+	public void setCards(java.util.List<com.anfelisa.card.models.CardModel> cards) {
+		if (this.frozen) {
+			throw new RuntimeException("cards is frozen");
+		}
 		this.cards = cards;
 	}
 	
+	
+	
+	@Override
+	public void freeze() {
+		this.frozen = true;
+		if (this.previewCsv != null) {
+			for ( int i = 0; i < previewCsv.size(); i++ ) {
+				previewCsv.get(i).freeze();
+			}
+		}
+		if (this.cards != null) {
+			for ( int i = 0; i < cards.size(); i++ ) {
+				cards.get(i).freeze();
+			}
+		}
+	}
 
-	public ICsvUploadModel deepCopy() {
-		ICsvUploadModel copy = new CsvUploadModel();
+	public com.anfelisa.card.models.CsvUploadModel deepCopy() {
+		com.anfelisa.card.models.CsvUploadModel copy = new CsvUploadModel();
 		copy.setUserId(this.getUserId());
 		copy.setCategoryId(this.getCategoryId());
-		List<com.anfelisa.card.models.ISimpleCardModel> previewCsvCopy = new ArrayList<com.anfelisa.card.models.ISimpleCardModel>();
+		List<com.anfelisa.card.models.SimpleCardModel> previewCsvCopy = new ArrayList<com.anfelisa.card.models.SimpleCardModel>();
 		if (this.getPreviewCsv() != null) {
-			for(com.anfelisa.card.models.ISimpleCardModel item: this.getPreviewCsv()) {
+			for(com.anfelisa.card.models.SimpleCardModel item: this.getPreviewCsv()) {
 				previewCsvCopy.add(item.deepCopy());
 			}
 		}
 		copy.setPreviewCsv(previewCsvCopy);
-		List<com.anfelisa.card.models.ICardModel> cardsCopy = new ArrayList<com.anfelisa.card.models.ICardModel>();
+		List<com.anfelisa.card.models.CardModel> cardsCopy = new ArrayList<com.anfelisa.card.models.CardModel>();
 		if (this.getCards() != null) {
-			for(com.anfelisa.card.models.ICardModel item: this.getCards()) {
+			for(com.anfelisa.card.models.CardModel item: this.getCards()) {
 				cardsCopy.add(item.deepCopy());
 			}
 		}
 		copy.setCards(cardsCopy);
 		return copy;
+	}
+	
+	public static CsvUploadModel generateTestData() {
+		java.util.Random random = new java.util.Random();
+		int n;
+		CsvUploadModel testData = new CsvUploadModel();
+		testData.setUserId(randomString(random));
+		testData.setCategoryId(randomString(random));
+		java.util.List<com.anfelisa.card.models.SimpleCardModel> previewCsvList = new java.util.ArrayList<com.anfelisa.card.models.SimpleCardModel>();
+		n = random.nextInt(20) + 1;
+		for ( int i = 0; i < n; i++ ) {
+			previewCsvList.add(com.anfelisa.card.models.SimpleCardModel.generateTestData());
+		}
+		testData.setPreviewCsv(previewCsvList);
+		java.util.List<com.anfelisa.card.models.CardModel> cardsList = new java.util.ArrayList<com.anfelisa.card.models.CardModel>();
+		n = random.nextInt(20) + 1;
+		for ( int i = 0; i < n; i++ ) {
+			cardsList.add(com.anfelisa.card.models.CardModel.generateTestData());
+		}
+		testData.setCards(cardsList);
+		return testData;
+	}
+	
+	private static String randomString(java.util.Random random) {
+		String chars = "aaaaaaabcdeeeeeeeffffghiiiiiiijkllllllmmmmnnnnnnnooooooooopqrstttuuuuuuuvxyz";
+		int n = random.nextInt(20) + 5;
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		String string  = sb.toString(); 
+		return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
 	}
 
 }

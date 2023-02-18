@@ -7,6 +7,7 @@
 
 package com.anfelisa.category.commands;
 
+import de.acegen.Data;
 import de.acegen.Command;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
@@ -14,24 +15,24 @@ import de.acegen.ViewProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.Event;
 
-import com.anfelisa.category.data.ICategoryChangeOrderData;
+import com.anfelisa.category.models.CategoryChangeOrderModel;
 
 @SuppressWarnings("unused")
-public abstract class AbstractChangeOrderCategoryCommand extends Command<ICategoryChangeOrderData> {
+public abstract class AbstractChangeOrderCategoryCommand extends Command<com.anfelisa.category.models.CategoryChangeOrderModel> {
 
 	public AbstractChangeOrderCategoryCommand(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
 		super("com.anfelisa.category.commands.ChangeOrderCategoryCommand", daoProvider, viewProvider, appConfiguration);
 	}
 
-	protected void addOkOutcome(ICategoryChangeOrderData data) {
+	protected void addOkOutcome(Data<com.anfelisa.category.models.CategoryChangeOrderModel> data) {
 		data.addOutcome("ok");
 	}
-	protected void addNoMoveOutcome(ICategoryChangeOrderData data) {
+	protected void addNoMoveOutcome(Data<com.anfelisa.category.models.CategoryChangeOrderModel> data) {
 		data.addOutcome("noMove");
 	}
 	
 	@Override
-	public void addEventsToTimeline(ICategoryChangeOrderData data, PersistenceHandle timelineHandle) {
+	public void addEventsToTimeline(Data<com.anfelisa.category.models.CategoryChangeOrderModel> data, PersistenceHandle timelineHandle) {
 		if (appConfiguration.getConfig().writeTimeline()) {
 			if (data.hasOutcome("ok")){
 				daoProvider.getAceDao().addEventToTimeline("com.anfelisa.category.events.ChangeOrderCategoryOkEvent", data, timelineHandle);
@@ -40,9 +41,10 @@ public abstract class AbstractChangeOrderCategoryCommand extends Command<ICatego
 	}
 	
 	@Override
-	public void publishEvents(ICategoryChangeOrderData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	public void publishEvents(Data<com.anfelisa.category.models.CategoryChangeOrderModel> data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+		data.freeze();
 		if (data.hasOutcome("ok")){
-			new Event<ICategoryChangeOrderData>("com.anfelisa.category.events.ChangeOrderCategoryOkEvent", viewProvider).publish(data.deepCopy(), handle, timelineHandle);
+			new Event<com.anfelisa.category.models.CategoryChangeOrderModel>("com.anfelisa.category.events.ChangeOrderCategoryOkEvent", viewProvider).publish(data, handle, timelineHandle);
 		}
 	}
 	

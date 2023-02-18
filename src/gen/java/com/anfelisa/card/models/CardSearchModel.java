@@ -16,9 +16,10 @@ import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
+import de.acegen.AbstractModel;
 
 @SuppressWarnings("all")
-public class CardSearchModel implements ICardSearchModel {
+public class CardSearchModel extends AbstractModel {
 
 	private String userId;
 
@@ -28,10 +29,12 @@ public class CardSearchModel implements ICardSearchModel {
 
 	private String categoryId;
 
-	private java.util.List<com.anfelisa.card.models.ICardWithCategoryNameModel> cardList;
+	private java.util.List<com.anfelisa.card.models.CardWithCategoryNameModel> cardList;
 
-	private Boolean naturalInputOrder = false;
+	private Boolean naturalInputOrder;
 
+	
+	private Boolean frozen = false;
 
 	public CardSearchModel() {
 	}
@@ -41,7 +44,7 @@ public class CardSearchModel implements ICardSearchModel {
 		@JsonProperty("given") String given,
 		@JsonProperty("wanted") String wanted,
 		@JsonProperty("categoryId") String categoryId,
-		@JsonProperty("cardList") java.util.List<com.anfelisa.card.models.ICardWithCategoryNameModel> cardList,
+		@JsonProperty("cardList") java.util.List<com.anfelisa.card.models.CardWithCategoryNameModel> cardList,
 		@JsonProperty("naturalInputOrder") Boolean naturalInputOrder
 	) {
 		this.userId = userId;
@@ -56,7 +59,12 @@ public class CardSearchModel implements ICardSearchModel {
 	public String getUserId() {
 		return this.userId;
 	}
+	
+	@JsonProperty
 	public void setUserId(String userId) {
+		if (this.frozen) {
+			throw new RuntimeException("userId is frozen");
+		}
 		this.userId = userId;
 	}
 	
@@ -64,7 +72,12 @@ public class CardSearchModel implements ICardSearchModel {
 	public String getGiven() {
 		return this.given;
 	}
+	
+	@JsonProperty
 	public void setGiven(String given) {
+		if (this.frozen) {
+			throw new RuntimeException("given is frozen");
+		}
 		this.given = given;
 	}
 	
@@ -72,7 +85,12 @@ public class CardSearchModel implements ICardSearchModel {
 	public String getWanted() {
 		return this.wanted;
 	}
+	
+	@JsonProperty
 	public void setWanted(String wanted) {
+		if (this.frozen) {
+			throw new RuntimeException("wanted is frozen");
+		}
 		this.wanted = wanted;
 	}
 	
@@ -80,15 +98,25 @@ public class CardSearchModel implements ICardSearchModel {
 	public String getCategoryId() {
 		return this.categoryId;
 	}
+	
+	@JsonProperty
 	public void setCategoryId(String categoryId) {
+		if (this.frozen) {
+			throw new RuntimeException("categoryId is frozen");
+		}
 		this.categoryId = categoryId;
 	}
 	
 	@JsonProperty
-	public java.util.List<com.anfelisa.card.models.ICardWithCategoryNameModel> getCardList() {
+	public java.util.List<com.anfelisa.card.models.CardWithCategoryNameModel> getCardList() {
 		return this.cardList;
 	}
-	public void setCardList(java.util.List<com.anfelisa.card.models.ICardWithCategoryNameModel> cardList) {
+	
+	@JsonProperty
+	public void setCardList(java.util.List<com.anfelisa.card.models.CardWithCategoryNameModel> cardList) {
+		if (this.frozen) {
+			throw new RuntimeException("cardList is frozen");
+		}
 		this.cardList = cardList;
 	}
 	
@@ -96,26 +124,72 @@ public class CardSearchModel implements ICardSearchModel {
 	public Boolean getNaturalInputOrder() {
 		return this.naturalInputOrder;
 	}
+	
+	@JsonProperty
 	public void setNaturalInputOrder(Boolean naturalInputOrder) {
+		if (this.frozen) {
+			throw new RuntimeException("naturalInputOrder is frozen");
+		}
 		this.naturalInputOrder = naturalInputOrder;
 	}
 	
+	
+	
+	@Override
+	public void freeze() {
+		this.frozen = true;
+		if (this.cardList != null) {
+			for ( int i = 0; i < cardList.size(); i++ ) {
+				cardList.get(i).freeze();
+			}
+		}
+	}
 
-	public ICardSearchModel deepCopy() {
-		ICardSearchModel copy = new CardSearchModel();
+	public com.anfelisa.card.models.CardSearchModel deepCopy() {
+		com.anfelisa.card.models.CardSearchModel copy = new CardSearchModel();
 		copy.setUserId(this.getUserId());
 		copy.setGiven(this.getGiven());
 		copy.setWanted(this.getWanted());
 		copy.setCategoryId(this.getCategoryId());
-		List<com.anfelisa.card.models.ICardWithCategoryNameModel> cardListCopy = new ArrayList<com.anfelisa.card.models.ICardWithCategoryNameModel>();
+		List<com.anfelisa.card.models.CardWithCategoryNameModel> cardListCopy = new ArrayList<com.anfelisa.card.models.CardWithCategoryNameModel>();
 		if (this.getCardList() != null) {
-			for(com.anfelisa.card.models.ICardWithCategoryNameModel item: this.getCardList()) {
+			for(com.anfelisa.card.models.CardWithCategoryNameModel item: this.getCardList()) {
 				cardListCopy.add(item.deepCopy());
 			}
 		}
 		copy.setCardList(cardListCopy);
 		copy.setNaturalInputOrder(this.getNaturalInputOrder());
 		return copy;
+	}
+	
+	public static CardSearchModel generateTestData() {
+		java.util.Random random = new java.util.Random();
+		int n;
+		CardSearchModel testData = new CardSearchModel();
+		testData.setUserId(randomString(random));
+		testData.setGiven(randomString(random));
+		testData.setWanted(randomString(random));
+		testData.setCategoryId(randomString(random));
+		java.util.List<com.anfelisa.card.models.CardWithCategoryNameModel> cardListList = new java.util.ArrayList<com.anfelisa.card.models.CardWithCategoryNameModel>();
+		n = random.nextInt(20) + 1;
+		for ( int i = 0; i < n; i++ ) {
+			cardListList.add(com.anfelisa.card.models.CardWithCategoryNameModel.generateTestData());
+		}
+		testData.setCardList(cardListList);
+		testData.setNaturalInputOrder(random.nextBoolean());
+		return testData;
+	}
+	
+	private static String randomString(java.util.Random random) {
+		String chars = "aaaaaaabcdeeeeeeeffffghiiiiiiijkllllllmmmmnnnnnnnooooooooopqrstttuuuuuuuvxyz";
+		int n = random.nextInt(20) + 5;
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		String string  = sb.toString(); 
+		return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
 	}
 
 }

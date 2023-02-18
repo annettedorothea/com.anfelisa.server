@@ -25,6 +25,9 @@ import de.acegen.BaseScenario;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.HttpResponse;
+import de.acegen.Data;
+
+import com.fasterxml.jackson.core.type.TypeReference;
 
 @SuppressWarnings("unused")
 public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extends BaseScenario {
@@ -43,13 +46,13 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 				"\"password\" : \"password\"," + 
 				"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 					com.anfelisa.user.data.RegisterUserPayload.class);
-			com.anfelisa.user.data.UserRegistrationData data_0 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"email\" : \"annette.pohl@anfelisa.de\"," + 
-			"\"language\" : \"de\"," + 
-			"\"password\" : \"password\"," + 
-			"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
-					com.anfelisa.user.data.UserRegistrationData.class);
+			com.anfelisa.user.models.UserRegistrationModel model_0 = objectMapper.readValue("{" +
+				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"password\"," + 
+				"\"username\" : \"Annette-" + this.getTestId() + "\"} ", com.anfelisa.user.models.UserRegistrationModel.class);
+			Data<com.anfelisa.user.models.UserRegistrationModel> data_0 = new Data<com.anfelisa.user.models.UserRegistrationModel>(uuid);
+			data_0.setModel(model_0);
 			HttpResponse<Object> response_0 = 
 			this.httpPost(
 				"/users/register", 
@@ -80,14 +83,14 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 				"\"givenLanguage\" : \"de\"," + 
 				"\"wantedLanguage\" : \"en\"} ",
 					com.anfelisa.box.data.CreateBoxPayload.class);
-			com.anfelisa.box.data.BoxCreationData data_1 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"categoryName\" : \"cat\"," + 
-			"\"maxCardsPerDay\" : 10," + 
-			"\"dictionaryLookup\" : true," + 
-			"\"givenLanguage\" : \"de\"," + 
-			"\"wantedLanguage\" : \"en\"} ",
-					com.anfelisa.box.data.BoxCreationData.class);
+			com.anfelisa.box.models.BoxCreationModel model_1 = objectMapper.readValue("{" +
+				"\"categoryName\" : \"cat\"," + 
+				"\"maxCardsPerDay\" : 10," + 
+				"\"dictionaryLookup\" : true," + 
+				"\"givenLanguage\" : \"de\"," + 
+				"\"wantedLanguage\" : \"en\"} ", com.anfelisa.box.models.BoxCreationModel.class);
+			Data<com.anfelisa.box.models.BoxCreationModel> data_1 = new Data<com.anfelisa.box.models.BoxCreationModel>(uuid);
+			data_1.setModel(model_1);
 			HttpResponse<Object> response_1 = 
 			this.httpPost(
 				"/box/create", 
@@ -115,11 +118,11 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 				"\"categoryName\" : \"dict-" + this.getTestId() + "\"," + 
 				"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 					com.anfelisa.category.data.CreateCategoryPayload.class);
-			com.anfelisa.category.data.CategoryCreationData data_2 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"categoryName\" : \"dict-" + this.getTestId() + "\"," + 
-			"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
-					com.anfelisa.category.data.CategoryCreationData.class);
+			com.anfelisa.category.models.CategoryCreationModel model_2 = objectMapper.readValue("{" +
+				"\"categoryName\" : \"dict-" + this.getTestId() + "\"," + 
+				"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ", com.anfelisa.category.models.CategoryCreationModel.class);
+			Data<com.anfelisa.category.models.CategoryCreationModel> data_2 = new Data<com.anfelisa.category.models.CategoryCreationModel>(uuid);
+			data_2.setModel(model_2);
 			HttpResponse<Object> response_2 = 
 			this.httpPost(
 				"/category/create", 
@@ -145,15 +148,15 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 	
 	private HttpResponse<com.anfelisa.category.data.GetCategoryTreeResponse> when_0() throws Exception {
 		String uuid = this.randomUUID();
-		com.anfelisa.category.data.CategoryTreeData data_0 = objectMapper.readValue("{" +
-		"\"uuid\" : \"" + uuid + "\"," + 
-		"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
-		"\"filterNonScheduled\" : false," + 
-		"\"reverse\" : false} ",
-				com.anfelisa.category.data.CategoryTreeData.class);
+		com.anfelisa.category.models.CategoryTreeModel model_0 = objectMapper.readValue("{" +
+			"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+			"\"filterNonScheduled\" : false," + 
+			"\"reverse\" : false} ", com.anfelisa.category.models.CategoryTreeModel.class);
+		Data<com.anfelisa.category.models.CategoryTreeModel> data_0 = new Data<com.anfelisa.category.models.CategoryTreeModel>(uuid);
+		data_0.setModel(model_0);
 		HttpResponse<com.anfelisa.category.data.GetCategoryTreeResponse> response = 
 		this.httpGet(
-			"/category/tree?rootCategoryId=" + (data_0.getRootCategoryId() != null ? URLEncoder.encode(data_0.getRootCategoryId(), StandardCharsets.UTF_8.toString()) : "") + "&filterNonScheduled=" + data_0.getFilterNonScheduled() + "&priority=" + data_0.getPriority() + "&reverse=" + data_0.getReverse() + "", 
+			"/category/tree?rootCategoryId=" + (data_0.getModel().getRootCategoryId() != null ? URLEncoder.encode(data_0.getModel().getRootCategoryId(), StandardCharsets.UTF_8.toString()) : "") + "&filterNonScheduled=" + data_0.getModel().getFilterNonScheduled() + "&priority=" + data_0.getModel().getPriority() + "&reverse=" + data_0.getModel().getReverse() + "", 
 			authorization("Annette-${testId}", "password"),
 			uuid,
 			com.anfelisa.category.data.GetCategoryTreeResponse.class
@@ -192,8 +195,7 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 				assertFail(x.getMessage());
 			}
 	
-			com.anfelisa.category.data.CategoryTreeData expectedData = objectMapper.readValue("{" +
-				"\"uuid\" : \"\"," + 
+			com.anfelisa.category.models.CategoryTreeModel expectedData = objectMapper.readValue("{" +
 				"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"reverseBoxExists\" : false," + 
 				"\"rootCategory\" : { \"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
@@ -215,8 +217,7 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 				"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"editable\" : true," + 
-				"\"childCategories\" : []}]}} ",
-			com.anfelisa.category.data.CategoryTreeData.class);
+				"\"childCategories\" : []}]}} ", com.anfelisa.category.models.CategoryTreeModel.class);
 			
 			com.anfelisa.category.data.GetCategoryTreeResponse expected = new com.anfelisa.category.data.GetCategoryTreeResponse(expectedData);
 			

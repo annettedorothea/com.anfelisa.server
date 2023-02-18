@@ -9,6 +9,7 @@ package com.anfelisa.box.actions;
 
 import java.time.LocalDateTime;
 
+import de.acegen.Data;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.ICommand;
 import de.acegen.IDaoProvider;
@@ -17,13 +18,12 @@ import de.acegen.SquishyDataProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.WriteAction;
 
-import com.anfelisa.box.data.IScoreReinforceCardData;
 import com.anfelisa.box.commands.ScoreReinforceCardCommand;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractScoreReinforceCardAction extends WriteAction<IScoreReinforceCardData> {
+public abstract class AbstractScoreReinforceCardAction extends WriteAction<com.anfelisa.box.models.ScoreReinforceCardModel> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractScoreReinforceCardAction.class);
 
@@ -33,12 +33,12 @@ public abstract class AbstractScoreReinforceCardAction extends WriteAction<IScor
 	}
 
 	@Override
-	public ICommand<IScoreReinforceCardData> getCommand() {
+	public ICommand<com.anfelisa.box.models.ScoreReinforceCardModel> getCommand() {
 		return new ScoreReinforceCardCommand(daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	@Override
-	protected IScoreReinforceCardData initActionDataFromSquishyDataProvider(IScoreReinforceCardData data) {
+	protected Data<com.anfelisa.box.models.ScoreReinforceCardModel> initActionDataFromSquishyDataProvider(Data<com.anfelisa.box.models.ScoreReinforceCardModel> data) {
 		LocalDateTime systemTime = SquishyDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
 			data.setSystemTime(systemTime);
@@ -46,7 +46,7 @@ public abstract class AbstractScoreReinforceCardAction extends WriteAction<IScor
 		return data;
 	}
 
-	public IScoreReinforceCardData initActionData(IScoreReinforceCardData data) {
+	public Data<com.anfelisa.box.models.ScoreReinforceCardModel> initActionData(Data<com.anfelisa.box.models.ScoreReinforceCardModel> data) {
 		return data;
 	}
 

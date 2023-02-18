@@ -9,6 +9,7 @@ package com.anfelisa.card.actions;
 
 import java.time.LocalDateTime;
 
+import de.acegen.Data;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.ICommand;
 import de.acegen.IDaoProvider;
@@ -17,13 +18,12 @@ import de.acegen.SquishyDataProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.WriteAction;
 
-import com.anfelisa.card.data.ICardUpdatePriorityData;
 import com.anfelisa.card.commands.UpdateCardPriorityCommand;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractUpdateCardPriorityAction extends WriteAction<ICardUpdatePriorityData> {
+public abstract class AbstractUpdateCardPriorityAction extends WriteAction<com.anfelisa.card.models.CardUpdatePriorityModel> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractUpdateCardPriorityAction.class);
 
@@ -33,12 +33,12 @@ public abstract class AbstractUpdateCardPriorityAction extends WriteAction<ICard
 	}
 
 	@Override
-	public ICommand<ICardUpdatePriorityData> getCommand() {
+	public ICommand<com.anfelisa.card.models.CardUpdatePriorityModel> getCommand() {
 		return new UpdateCardPriorityCommand(daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	@Override
-	protected ICardUpdatePriorityData initActionDataFromSquishyDataProvider(ICardUpdatePriorityData data) {
+	protected Data<com.anfelisa.card.models.CardUpdatePriorityModel> initActionDataFromSquishyDataProvider(Data<com.anfelisa.card.models.CardUpdatePriorityModel> data) {
 		LocalDateTime systemTime = SquishyDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
 			data.setSystemTime(systemTime);
@@ -46,7 +46,7 @@ public abstract class AbstractUpdateCardPriorityAction extends WriteAction<ICard
 		return data;
 	}
 
-	public ICardUpdatePriorityData initActionData(ICardUpdatePriorityData data) {
+	public Data<com.anfelisa.card.models.CardUpdatePriorityModel> initActionData(Data<com.anfelisa.card.models.CardUpdatePriorityModel> data) {
 		return data;
 	}
 

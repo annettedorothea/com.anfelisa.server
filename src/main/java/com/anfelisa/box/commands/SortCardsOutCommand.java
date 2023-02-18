@@ -10,13 +10,14 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.box.data.ISortCardsOutData;
-import com.anfelisa.box.models.IBoxModel;
-import com.anfelisa.box.models.IReinforceCardModel;
-import com.anfelisa.box.models.IScheduledCardModel;
-import com.anfelisa.card.models.ICardModel;
+import com.anfelisa.box.models.BoxModel;
+import com.anfelisa.box.models.ReinforceCardModel;
+import com.anfelisa.box.models.ScheduledCardModel;
+import com.anfelisa.box.models.SortCardsOutModel;
+import com.anfelisa.card.models.CardModel;
 
 import de.acegen.CustomAppConfiguration;
+import de.acegen.Data;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.ViewProvider;
@@ -31,32 +32,32 @@ public class SortCardsOutCommand extends AbstractSortCardsOutCommand {
 	}
 
 	@Override
-	protected ISortCardsOutData executeCommand(ISortCardsOutData data, PersistenceHandle readonlyHandle) {
-		if (data.getCardIds() == null || data.getCardIds().isEmpty()) {
+	protected Data<SortCardsOutModel> executeCommand(Data<SortCardsOutModel> data, PersistenceHandle readonlyHandle) {
+		if (data.getModel().getCardIds() == null || data.getModel().getCardIds().isEmpty()) {
 			this.addNullOrEmptyOutcome(data);
 		} else {
-			data.setSortedOutScheduledCardIds(new ArrayList<String>());
-			data.setSortedOutReinforceCardIds(new ArrayList<String>());
-			IBoxModel box = daoProvider.getBoxDao().selectByBoxId(readonlyHandle, data.getBoxId());
+			data.getModel().setSortedOutScheduledCardIds(new ArrayList<String>());
+			data.getModel().setSortedOutReinforceCardIds(new ArrayList<String>());
+			BoxModel box = daoProvider.getBoxDao().selectByBoxId(readonlyHandle, data.getModel().getBoxId());
 			if (box == null) {
 				throwIllegalArgumentException("boxDoesNotExist");
 			}
-			if (!box.getUserId().equals(data.getUserId())) {
+			if (!box.getUserId().equals(data.getModel().getUserId())) {
 				throwSecurityException();
 			}
-			for (String cardId : data.getCardIds()) {
-				ICardModel card = daoProvider.getCardDao().selectByCardId(readonlyHandle, cardId);
+			for (String cardId : data.getModel().getCardIds()) {
+				CardModel card = daoProvider.getCardDao().selectByCardId(readonlyHandle, cardId);
 				if (card == null) {
 					throwIllegalArgumentException("cardDoesNotExist");
 				}
-				IScheduledCardModel scheduledCard = daoProvider.getScheduledCardDao()
+				ScheduledCardModel scheduledCard = daoProvider.getScheduledCardDao()
 						.selectUnscoredByCardIdAndBoxId(readonlyHandle, cardId, box.getBoxId());
 				if (scheduledCard != null) {
-					data.getSortedOutScheduledCardIds().add(scheduledCard.getScheduledCardId());
-					List<IReinforceCardModel> allOfCard = daoProvider.getReinforceCardDao()
+					data.getModel().getSortedOutScheduledCardIds().add(scheduledCard.getScheduledCardId());
+					List<ReinforceCardModel> allOfCard = daoProvider.getReinforceCardDao()
 							.selectAllOfCard(readonlyHandle, cardId);
-					for (IReinforceCardModel reinforceCard : allOfCard) {
-						data.getSortedOutReinforceCardIds().add(reinforceCard.getReinforceCardId());
+					for (ReinforceCardModel reinforceCard : allOfCard) {
+						data.getModel().getSortedOutReinforceCardIds().add(reinforceCard.getReinforceCardId());
 					}
 				}
 			}

@@ -16,22 +16,25 @@ import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
+import de.acegen.AbstractModel;
 
 @SuppressWarnings("all")
-public class BoxStatisticsListModel implements IBoxStatisticsListModel {
+public class BoxStatisticsListModel extends AbstractModel {
 
-	private java.util.List<com.anfelisa.box.models.IBoxStatisticsModel> boxStatisticsList;
+	private java.util.List<com.anfelisa.box.models.BoxStatisticsModel> boxStatisticsList;
 
 	private String userId;
 
 	private java.time.LocalDateTime todayAtMidnightInUTC;
 
+	
+	private Boolean frozen = false;
 
 	public BoxStatisticsListModel() {
 	}
 
 	public BoxStatisticsListModel(
-		@JsonProperty("boxStatisticsList") java.util.List<com.anfelisa.box.models.IBoxStatisticsModel> boxStatisticsList,
+		@JsonProperty("boxStatisticsList") java.util.List<com.anfelisa.box.models.BoxStatisticsModel> boxStatisticsList,
 		@JsonProperty("userId") String userId,
 		@JsonProperty("todayAtMidnightInUTC") java.time.LocalDateTime todayAtMidnightInUTC
 	) {
@@ -41,10 +44,15 @@ public class BoxStatisticsListModel implements IBoxStatisticsListModel {
 	}
 
 	@JsonProperty
-	public java.util.List<com.anfelisa.box.models.IBoxStatisticsModel> getBoxStatisticsList() {
+	public java.util.List<com.anfelisa.box.models.BoxStatisticsModel> getBoxStatisticsList() {
 		return this.boxStatisticsList;
 	}
-	public void setBoxStatisticsList(java.util.List<com.anfelisa.box.models.IBoxStatisticsModel> boxStatisticsList) {
+	
+	@JsonProperty
+	public void setBoxStatisticsList(java.util.List<com.anfelisa.box.models.BoxStatisticsModel> boxStatisticsList) {
+		if (this.frozen) {
+			throw new RuntimeException("boxStatisticsList is frozen");
+		}
 		this.boxStatisticsList = boxStatisticsList;
 	}
 	
@@ -52,7 +60,12 @@ public class BoxStatisticsListModel implements IBoxStatisticsListModel {
 	public String getUserId() {
 		return this.userId;
 	}
+	
+	@JsonProperty
 	public void setUserId(String userId) {
+		if (this.frozen) {
+			throw new RuntimeException("userId is frozen");
+		}
 		this.userId = userId;
 	}
 	
@@ -62,16 +75,34 @@ public class BoxStatisticsListModel implements IBoxStatisticsListModel {
 	public java.time.LocalDateTime getTodayAtMidnightInUTC() {
 		return this.todayAtMidnightInUTC;
 	}
+	
+	@JsonProperty
+	@JsonSerialize(converter = DateTimeToStringConverter.class)
+	@JsonDeserialize(converter = StringToDateTimeConverter.class)
 	public void setTodayAtMidnightInUTC(java.time.LocalDateTime todayAtMidnightInUTC) {
+		if (this.frozen) {
+			throw new RuntimeException("todayAtMidnightInUTC is frozen");
+		}
 		this.todayAtMidnightInUTC = todayAtMidnightInUTC;
 	}
 	
+	
+	
+	@Override
+	public void freeze() {
+		this.frozen = true;
+		if (this.boxStatisticsList != null) {
+			for ( int i = 0; i < boxStatisticsList.size(); i++ ) {
+				boxStatisticsList.get(i).freeze();
+			}
+		}
+	}
 
-	public IBoxStatisticsListModel deepCopy() {
-		IBoxStatisticsListModel copy = new BoxStatisticsListModel();
-		List<com.anfelisa.box.models.IBoxStatisticsModel> boxStatisticsListCopy = new ArrayList<com.anfelisa.box.models.IBoxStatisticsModel>();
+	public com.anfelisa.box.models.BoxStatisticsListModel deepCopy() {
+		com.anfelisa.box.models.BoxStatisticsListModel copy = new BoxStatisticsListModel();
+		List<com.anfelisa.box.models.BoxStatisticsModel> boxStatisticsListCopy = new ArrayList<com.anfelisa.box.models.BoxStatisticsModel>();
 		if (this.getBoxStatisticsList() != null) {
-			for(com.anfelisa.box.models.IBoxStatisticsModel item: this.getBoxStatisticsList()) {
+			for(com.anfelisa.box.models.BoxStatisticsModel item: this.getBoxStatisticsList()) {
 				boxStatisticsListCopy.add(item.deepCopy());
 			}
 		}
@@ -79,6 +110,33 @@ public class BoxStatisticsListModel implements IBoxStatisticsListModel {
 		copy.setUserId(this.getUserId());
 		copy.setTodayAtMidnightInUTC(this.getTodayAtMidnightInUTC());
 		return copy;
+	}
+	
+	public static BoxStatisticsListModel generateTestData() {
+		java.util.Random random = new java.util.Random();
+		int n;
+		BoxStatisticsListModel testData = new BoxStatisticsListModel();
+		java.util.List<com.anfelisa.box.models.BoxStatisticsModel> boxStatisticsListList = new java.util.ArrayList<com.anfelisa.box.models.BoxStatisticsModel>();
+		n = random.nextInt(20) + 1;
+		for ( int i = 0; i < n; i++ ) {
+			boxStatisticsListList.add(com.anfelisa.box.models.BoxStatisticsModel.generateTestData());
+		}
+		testData.setBoxStatisticsList(boxStatisticsListList);
+		testData.setUserId(randomString(random));
+		testData.setTodayAtMidnightInUTC(random.nextBoolean() ? java.time.LocalDateTime.now().plusMinutes(random.nextInt(60)) : java.time.LocalDateTime.now().minusMinutes(random.nextInt(60)) );
+		return testData;
+	}
+	
+	private static String randomString(java.util.Random random) {
+		String chars = "aaaaaaabcdeeeeeeeffffghiiiiiiijkllllllmmmmnnnnnnnooooooooopqrstttuuuuuuuvxyz";
+		int n = random.nextInt(20) + 5;
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		String string  = sb.toString(); 
+		return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
 	}
 
 }

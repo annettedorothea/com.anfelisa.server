@@ -28,7 +28,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
-import de.acegen.IDataContainer;
 import de.acegen.ViewProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -36,6 +35,7 @@ import de.acegen.ReadAction;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.Config;
+import de.acegen.Data;
 
 
 import com.codahale.metrics.annotation.Timed;
@@ -50,8 +50,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.DELETE;
 
-import com.anfelisa.user.data.IUsernameAvailableData;
-import com.anfelisa.user.data.UsernameAvailableData;
+import com.anfelisa.user.models.UsernameAvailableModel;
 
 import de.acegen.Resource;
 
@@ -89,17 +88,19 @@ public class UsernameAvailableResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.user.data.IUsernameAvailableData data = new UsernameAvailableData(uuid);
+			Data<com.anfelisa.user.models.UsernameAvailableModel> data = new Data<com.anfelisa.user.models.UsernameAvailableModel>(uuid);
+			com.anfelisa.user.models.UsernameAvailableModel model = new com.anfelisa.user.models.UsernameAvailableModel();
 			if (username == null || StringUtils.isBlank(username) || "null".equals(username)) {
 				return badRequest("username is mandatory");
 			}
 			if (username != null) {
-				data.setUsername(username);
+				model.setUsername(username);
 			}
 			
+			data.setModel(model);
 			com.anfelisa.user.actions.UsernameAvailableAction action = new com.anfelisa.user.actions.UsernameAvailableAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
 			data = action.apply(data);
-			return Response.ok(new com.anfelisa.user.data.UsernameAvailableResponse(data)).build();
+			return Response.ok(new com.anfelisa.user.data.UsernameAvailableResponse(data.getModel())).build();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());
 			if (Config.DEV.equals(appConfiguration.getConfig().getMode())) {

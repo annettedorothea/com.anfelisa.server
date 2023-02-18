@@ -14,9 +14,9 @@ import org.jdbi.v3.core.statement.StatementContext;
 
 import de.acegen.AbstractMapper;
 
-public class BoxSettingsWrapperMapper extends AbstractMapper<IBoxSettingsWrapperModel> {
+public class BoxSettingsWrapperMapper extends AbstractMapper<BoxSettingsWrapperModel> {
 	
-	public IBoxSettingsWrapperModel map(ResultSet r, StatementContext ctx) throws SQLException {
+	public BoxSettingsWrapperModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new BoxSettingsWrapperModel(
 			this.mapToString(r, "userId"),
 			this.mapToString(r, "boxId"),

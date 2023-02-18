@@ -12,6 +12,7 @@ import de.acegen.PersistenceConnection;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
 import de.acegen.ViewProvider;
+import de.acegen.Data;
 
 import com.anfelisa.box.resources.*;
 
@@ -38,104 +39,104 @@ public class AppRegistration {
 	}
 	
 	public static void registerConsumers(Environment environment, ViewProvider viewProvider) {
-		viewProvider.addConsumer("com.anfelisa.box.events.CreateBoxOkEvent", (dataContainer, handle) -> {
-			viewProvider.rootCategoryView.insert((com.anfelisa.box.data.BoxCreationData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.box.events.CreateBoxOkEvent", (data, handle) -> {
+			viewProvider.rootCategoryView.insert((Data<com.anfelisa.box.models.BoxCreationModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.box.events.CreateBoxOkEvent", (dataContainer, handle) -> {
-			viewProvider.userAccessToCategoryView.grantAccess((com.anfelisa.box.data.BoxCreationData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.box.events.CreateBoxOkEvent", (data, handle) -> {
+			viewProvider.userAccessToCategoryView.grantAccess((Data<com.anfelisa.box.models.BoxCreationModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.box.events.CreateBoxOkEvent", (dataContainer, handle) -> {
-			viewProvider.boxView.createBox((com.anfelisa.box.data.BoxCreationData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.box.events.CreateBoxOkEvent", (data, handle) -> {
+			viewProvider.boxView.createBox((Data<com.anfelisa.box.models.BoxCreationModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.box.events.CreateReverseBoxOkEvent", (dataContainer, handle) -> {
-			viewProvider.boxView.createBox((com.anfelisa.box.data.BoxCreationData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.box.events.CreateReverseBoxOkEvent", (data, handle) -> {
+			viewProvider.boxView.createBox((Data<com.anfelisa.box.models.BoxCreationModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.box.events.ArchiveBoxOkEvent", (dataContainer, handle) -> {
-			viewProvider.boxView.archiveBox((com.anfelisa.box.data.BoxArchiveData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.box.events.ArchiveBoxOkEvent", (data, handle) -> {
+			viewProvider.boxView.archiveBox((Data<com.anfelisa.box.models.BoxArchiveModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.box.events.UpdateBoxCanEditCategoryEvent", (dataContainer, handle) -> {
-			viewProvider.rootCategoryView.update((com.anfelisa.box.data.BoxUpdateData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.box.events.UpdateBoxCanEditCategoryEvent", (data, handle) -> {
+			viewProvider.rootCategoryView.update((Data<com.anfelisa.box.models.BoxUpdateModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.box.events.UpdateBoxOkEvent", (dataContainer, handle) -> {
-			viewProvider.boxView.updateBox((com.anfelisa.box.data.BoxUpdateData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.box.events.UpdateBoxOkEvent", (data, handle) -> {
+			viewProvider.boxView.updateBox((Data<com.anfelisa.box.models.BoxUpdateModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.box.events.ScheduleCardsOkEvent", (dataContainer, handle) -> {
-			viewProvider.boxView.scheduleCards((com.anfelisa.box.data.ScheduledCardsData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.box.events.ScheduleCardsOkEvent", (data, handle) -> {
+			viewProvider.boxView.scheduleCards((Data<com.anfelisa.box.models.ScheduledCardsModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.box.events.ScheduleCardsOkEvent", (dataContainer, handle) -> {
-			viewProvider.reinforceCardView.deleteAllOfBox((com.anfelisa.box.data.ScheduledCardsData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.box.events.ScheduleCardsOkEvent", (data, handle) -> {
+			viewProvider.reinforceCardView.deleteAllOfBox((Data<com.anfelisa.box.models.ScheduledCardsModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.box.events.SortCardsOutOkEvent", (dataContainer, handle) -> {
-			viewProvider.boxView.sortCardsOut((com.anfelisa.box.data.SortCardsOutData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.box.events.SortCardsOutOkEvent", (data, handle) -> {
+			viewProvider.boxView.sortCardsOut((Data<com.anfelisa.box.models.SortCardsOutModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.box.events.SortCardsOutOkEvent", (dataContainer, handle) -> {
-			viewProvider.reinforceCardView.sortOut((com.anfelisa.box.data.SortCardsOutData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.box.events.SortCardsOutOkEvent", (data, handle) -> {
+			viewProvider.reinforceCardView.sortOut((Data<com.anfelisa.box.models.SortCardsOutModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.box.events.ScoreCardScoreEvent", (dataContainer, handle) -> {
-			viewProvider.scheduledCardView.score((com.anfelisa.box.data.ScoreCardData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.box.events.ScoreCardScoreEvent", (data, handle) -> {
+			viewProvider.scheduledCardView.score((Data<com.anfelisa.box.models.ScoreCardModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.box.events.ScoreCardScoreEvent", (dataContainer, handle) -> {
-			viewProvider.scheduledCardView.scheduleNext((com.anfelisa.box.data.ScoreCardData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.box.events.ScoreCardScoreEvent", (data, handle) -> {
+			viewProvider.scheduledCardView.scheduleNext((Data<com.anfelisa.box.models.ScoreCardModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.box.events.ScoreCardReinforceEvent", (dataContainer, handle) -> {
-			viewProvider.reinforceCardView.add((com.anfelisa.box.data.ScoreCardData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.box.events.ScoreCardReinforceEvent", (data, handle) -> {
+			viewProvider.reinforceCardView.add((Data<com.anfelisa.box.models.ScoreCardModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.box.events.ScoreReinforceCardKeepEvent", (dataContainer, handle) -> {
-			viewProvider.reinforceCardView.update((com.anfelisa.box.data.ScoreReinforceCardData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.box.events.ScoreReinforceCardKeepEvent", (data, handle) -> {
+			viewProvider.reinforceCardView.update((Data<com.anfelisa.box.models.ScoreReinforceCardModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.box.events.ScoreReinforceCardRemoveEvent", (dataContainer, handle) -> {
-			viewProvider.reinforceCardView.remove((com.anfelisa.box.data.ScoreReinforceCardData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.box.events.ScoreReinforceCardRemoveEvent", (data, handle) -> {
+			viewProvider.reinforceCardView.remove((Data<com.anfelisa.box.models.ScoreReinforceCardModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.box.events.InitMyBoxesForDayOkEvent", (dataContainer, handle) -> {
-			viewProvider.scheduledCardView.postponeCards((com.anfelisa.box.data.InitMyBoxesDataData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.box.events.InitMyBoxesForDayOkEvent", (data, handle) -> {
+			viewProvider.scheduledCardView.postponeCards((Data<com.anfelisa.box.models.InitMyBoxesDataModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.box.events.InitMyBoxesForDayOkEvent", (dataContainer, handle) -> {
-			viewProvider.reinforceCardView.clear((com.anfelisa.box.data.InitMyBoxesDataData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.box.events.InitMyBoxesForDayOkEvent", (data, handle) -> {
+			viewProvider.reinforceCardView.clear((Data<com.anfelisa.box.models.InitMyBoxesDataModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.box.events.DeleteBoxDeleteBoxEvent", (dataContainer, handle) -> {
-			viewProvider.scheduledCardView.deleteAll((com.anfelisa.box.data.DeleteBoxData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.box.events.DeleteBoxDeleteBoxEvent", (data, handle) -> {
+			viewProvider.scheduledCardView.deleteAll((Data<com.anfelisa.box.models.DeleteBoxModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.box.events.DeleteBoxDeleteBoxEvent", (dataContainer, handle) -> {
-			viewProvider.reinforceCardView.deleteAll((com.anfelisa.box.data.DeleteBoxData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.box.events.DeleteBoxDeleteBoxEvent", (data, handle) -> {
+			viewProvider.reinforceCardView.deleteAll((Data<com.anfelisa.box.models.DeleteBoxModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.box.events.DeleteBoxDeleteBoxEvent", (dataContainer, handle) -> {
-			viewProvider.boxView.deleteBox((com.anfelisa.box.data.DeleteBoxData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.box.events.DeleteBoxDeleteBoxEvent", (data, handle) -> {
+			viewProvider.boxView.deleteBox((Data<com.anfelisa.box.models.DeleteBoxModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.box.events.DeleteBoxDeleteCategoryEvent", (dataContainer, handle) -> {
-			viewProvider.rootCategoryView.deleteAll((com.anfelisa.box.data.DeleteBoxData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.box.events.DeleteBoxDeleteCategoryEvent", (data, handle) -> {
+			viewProvider.rootCategoryView.deleteAll((Data<com.anfelisa.box.models.DeleteBoxModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.box.events.DeleteBoxDeleteCategoryEvent", (dataContainer, handle) -> {
-			viewProvider.userAccessToCategoryView.delete((com.anfelisa.box.data.DeleteBoxData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.box.events.DeleteBoxDeleteCategoryEvent", (data, handle) -> {
+			viewProvider.userAccessToCategoryView.delete((Data<com.anfelisa.box.models.DeleteBoxModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.box.events.DeleteBoxDeleteUserAccessToCategoryEvent", (dataContainer, handle) -> {
-			viewProvider.userAccessToCategoryView.delete((com.anfelisa.box.data.DeleteBoxData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.box.events.DeleteBoxDeleteUserAccessToCategoryEvent", (data, handle) -> {
+			viewProvider.userAccessToCategoryView.delete((Data<com.anfelisa.box.models.DeleteBoxModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.box.events.DeleteBoxDeleteReverseBoxEvent", (dataContainer, handle) -> {
-			viewProvider.boxView.deleteReverseBox((com.anfelisa.box.data.DeleteBoxData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.box.events.DeleteBoxDeleteReverseBoxEvent", (data, handle) -> {
+			viewProvider.boxView.deleteReverseBox((Data<com.anfelisa.box.models.DeleteBoxModel>) data, handle);
 		});
 		
 		

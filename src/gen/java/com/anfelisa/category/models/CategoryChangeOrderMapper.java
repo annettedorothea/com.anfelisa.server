@@ -14,9 +14,9 @@ import org.jdbi.v3.core.statement.StatementContext;
 
 import de.acegen.AbstractMapper;
 
-public class CategoryChangeOrderMapper extends AbstractMapper<ICategoryChangeOrderModel> {
+public class CategoryChangeOrderMapper extends AbstractMapper<CategoryChangeOrderModel> {
 	
-	public ICategoryChangeOrderModel map(ResultSet r, StatementContext ctx) throws SQLException {
+	public CategoryChangeOrderModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new CategoryChangeOrderModel(
 			this.mapToString(r, "movedCategoryId"),
 			this.mapToString(r, "targetCategoryId"),

@@ -16,16 +16,19 @@ import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
+import de.acegen.AbstractModel;
 
 @SuppressWarnings("all")
-public class AlreadyInvitedUsernamesModel implements IAlreadyInvitedUsernamesModel {
+public class AlreadyInvitedUsernamesModel extends AbstractModel {
 
 	private String categoryId;
 
 	private String userId;
 
-	private java.util.List<com.anfelisa.category.models.IUsernameEditableModel> invitedUsers;
+	private java.util.List<com.anfelisa.category.models.UsernameEditableModel> invitedUsers;
 
+	
+	private Boolean frozen = false;
 
 	public AlreadyInvitedUsernamesModel() {
 	}
@@ -33,7 +36,7 @@ public class AlreadyInvitedUsernamesModel implements IAlreadyInvitedUsernamesMod
 	public AlreadyInvitedUsernamesModel(
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("userId") String userId,
-		@JsonProperty("invitedUsers") java.util.List<com.anfelisa.category.models.IUsernameEditableModel> invitedUsers
+		@JsonProperty("invitedUsers") java.util.List<com.anfelisa.category.models.UsernameEditableModel> invitedUsers
 	) {
 		this.categoryId = categoryId;
 		this.userId = userId;
@@ -44,7 +47,12 @@ public class AlreadyInvitedUsernamesModel implements IAlreadyInvitedUsernamesMod
 	public String getCategoryId() {
 		return this.categoryId;
 	}
+	
+	@JsonProperty
 	public void setCategoryId(String categoryId) {
+		if (this.frozen) {
+			throw new RuntimeException("categoryId is frozen");
+		}
 		this.categoryId = categoryId;
 	}
 	
@@ -52,31 +60,79 @@ public class AlreadyInvitedUsernamesModel implements IAlreadyInvitedUsernamesMod
 	public String getUserId() {
 		return this.userId;
 	}
+	
+	@JsonProperty
 	public void setUserId(String userId) {
+		if (this.frozen) {
+			throw new RuntimeException("userId is frozen");
+		}
 		this.userId = userId;
 	}
 	
 	@JsonProperty
-	public java.util.List<com.anfelisa.category.models.IUsernameEditableModel> getInvitedUsers() {
+	public java.util.List<com.anfelisa.category.models.UsernameEditableModel> getInvitedUsers() {
 		return this.invitedUsers;
 	}
-	public void setInvitedUsers(java.util.List<com.anfelisa.category.models.IUsernameEditableModel> invitedUsers) {
+	
+	@JsonProperty
+	public void setInvitedUsers(java.util.List<com.anfelisa.category.models.UsernameEditableModel> invitedUsers) {
+		if (this.frozen) {
+			throw new RuntimeException("invitedUsers is frozen");
+		}
 		this.invitedUsers = invitedUsers;
 	}
 	
+	
+	
+	@Override
+	public void freeze() {
+		this.frozen = true;
+		if (this.invitedUsers != null) {
+			for ( int i = 0; i < invitedUsers.size(); i++ ) {
+				invitedUsers.get(i).freeze();
+			}
+		}
+	}
 
-	public IAlreadyInvitedUsernamesModel deepCopy() {
-		IAlreadyInvitedUsernamesModel copy = new AlreadyInvitedUsernamesModel();
+	public com.anfelisa.category.models.AlreadyInvitedUsernamesModel deepCopy() {
+		com.anfelisa.category.models.AlreadyInvitedUsernamesModel copy = new AlreadyInvitedUsernamesModel();
 		copy.setCategoryId(this.getCategoryId());
 		copy.setUserId(this.getUserId());
-		List<com.anfelisa.category.models.IUsernameEditableModel> invitedUsersCopy = new ArrayList<com.anfelisa.category.models.IUsernameEditableModel>();
+		List<com.anfelisa.category.models.UsernameEditableModel> invitedUsersCopy = new ArrayList<com.anfelisa.category.models.UsernameEditableModel>();
 		if (this.getInvitedUsers() != null) {
-			for(com.anfelisa.category.models.IUsernameEditableModel item: this.getInvitedUsers()) {
+			for(com.anfelisa.category.models.UsernameEditableModel item: this.getInvitedUsers()) {
 				invitedUsersCopy.add(item.deepCopy());
 			}
 		}
 		copy.setInvitedUsers(invitedUsersCopy);
 		return copy;
+	}
+	
+	public static AlreadyInvitedUsernamesModel generateTestData() {
+		java.util.Random random = new java.util.Random();
+		int n;
+		AlreadyInvitedUsernamesModel testData = new AlreadyInvitedUsernamesModel();
+		testData.setCategoryId(randomString(random));
+		testData.setUserId(randomString(random));
+		java.util.List<com.anfelisa.category.models.UsernameEditableModel> invitedUsersList = new java.util.ArrayList<com.anfelisa.category.models.UsernameEditableModel>();
+		n = random.nextInt(20) + 1;
+		for ( int i = 0; i < n; i++ ) {
+			invitedUsersList.add(com.anfelisa.category.models.UsernameEditableModel.generateTestData());
+		}
+		testData.setInvitedUsers(invitedUsersList);
+		return testData;
+	}
+	
+	private static String randomString(java.util.Random random) {
+		String chars = "aaaaaaabcdeeeeeeeffffghiiiiiiijkllllllmmmmnnnnnnnooooooooopqrstttuuuuuuuvxyz";
+		int n = random.nextInt(20) + 5;
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		String string  = sb.toString(); 
+		return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
 	}
 
 }

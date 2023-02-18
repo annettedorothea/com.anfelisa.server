@@ -7,6 +7,7 @@
 
 package com.anfelisa.category.commands;
 
+import de.acegen.Data;
 import de.acegen.Command;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
@@ -14,24 +15,24 @@ import de.acegen.ViewProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.Event;
 
-import com.anfelisa.category.data.IUserToCategoryInvitationData;
+import com.anfelisa.category.models.UserToCategoryInvitationModel;
 
 @SuppressWarnings("unused")
-public abstract class AbstractInviteUserToCategoryCommand extends Command<IUserToCategoryInvitationData> {
+public abstract class AbstractInviteUserToCategoryCommand extends Command<com.anfelisa.category.models.UserToCategoryInvitationModel> {
 
 	public AbstractInviteUserToCategoryCommand(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
 		super("com.anfelisa.category.commands.InviteUserToCategoryCommand", daoProvider, viewProvider, appConfiguration);
 	}
 
-	protected void addInsertOutcome(IUserToCategoryInvitationData data) {
+	protected void addInsertOutcome(Data<com.anfelisa.category.models.UserToCategoryInvitationModel> data) {
 		data.addOutcome("insert");
 	}
-	protected void addUpdateOutcome(IUserToCategoryInvitationData data) {
+	protected void addUpdateOutcome(Data<com.anfelisa.category.models.UserToCategoryInvitationModel> data) {
 		data.addOutcome("update");
 	}
 	
 	@Override
-	public void addEventsToTimeline(IUserToCategoryInvitationData data, PersistenceHandle timelineHandle) {
+	public void addEventsToTimeline(Data<com.anfelisa.category.models.UserToCategoryInvitationModel> data, PersistenceHandle timelineHandle) {
 		if (appConfiguration.getConfig().writeTimeline()) {
 			if (data.hasOutcome("insert")){
 				daoProvider.getAceDao().addEventToTimeline("com.anfelisa.category.events.InviteUserToCategoryInsertEvent", data, timelineHandle);
@@ -43,12 +44,13 @@ public abstract class AbstractInviteUserToCategoryCommand extends Command<IUserT
 	}
 	
 	@Override
-	public void publishEvents(IUserToCategoryInvitationData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	public void publishEvents(Data<com.anfelisa.category.models.UserToCategoryInvitationModel> data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+		data.freeze();
 		if (data.hasOutcome("insert")){
-			new Event<IUserToCategoryInvitationData>("com.anfelisa.category.events.InviteUserToCategoryInsertEvent", viewProvider).publish(data.deepCopy(), handle, timelineHandle);
+			new Event<com.anfelisa.category.models.UserToCategoryInvitationModel>("com.anfelisa.category.events.InviteUserToCategoryInsertEvent", viewProvider).publish(data, handle, timelineHandle);
 		}
 		if (data.hasOutcome("update")){
-			new Event<IUserToCategoryInvitationData>("com.anfelisa.category.events.InviteUserToCategoryUpdateEvent", viewProvider).publish(data.deepCopy(), handle, timelineHandle);
+			new Event<com.anfelisa.category.models.UserToCategoryInvitationModel>("com.anfelisa.category.events.InviteUserToCategoryUpdateEvent", viewProvider).publish(data, handle, timelineHandle);
 		}
 	}
 	

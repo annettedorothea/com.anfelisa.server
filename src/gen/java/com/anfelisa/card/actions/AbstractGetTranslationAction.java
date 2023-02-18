@@ -14,9 +14,9 @@ import org.slf4j.LoggerFactory;
 
 import org.apache.commons.lang3.StringUtils;
 
+import de.acegen.Data;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
-import de.acegen.IDataContainer;
 import de.acegen.ViewProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -24,11 +24,8 @@ import de.acegen.ReadAction;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 
-import com.anfelisa.card.data.ICardTranslationData;
-import com.anfelisa.card.data.CardTranslationData;
-
 @SuppressWarnings("unused")
-public abstract class AbstractGetTranslationAction extends ReadAction<ICardTranslationData> {
+public abstract class AbstractGetTranslationAction extends ReadAction<com.anfelisa.card.models.CardTranslationModel> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractGetTranslationAction.class);
 	
@@ -37,10 +34,10 @@ public abstract class AbstractGetTranslationAction extends ReadAction<ICardTrans
 		super("com.anfelisa.card.actions.GetTranslationAction", persistenceConnection, appConfiguration, daoProvider, viewProvider);
 	}
 
-	protected abstract ICardTranslationData loadDataForGetRequest(ICardTranslationData data, PersistenceHandle readonlyHandle);
+	protected abstract Data<com.anfelisa.card.models.CardTranslationModel> loadDataForGetRequest(Data<com.anfelisa.card.models.CardTranslationModel> data, PersistenceHandle readonlyHandle);
 
 	@Override
-	protected ICardTranslationData initActionDataFromSquishyDataProvider(ICardTranslationData data) {
+	protected Data<com.anfelisa.card.models.CardTranslationModel> initActionDataFromSquishyDataProvider(Data<com.anfelisa.card.models.CardTranslationModel> data) {
 		LocalDateTime systemTime = SquishyDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
 			data.setSystemTime(systemTime);
@@ -48,7 +45,7 @@ public abstract class AbstractGetTranslationAction extends ReadAction<ICardTrans
 		return data;
 	}
 
-	public ICardTranslationData initActionData(ICardTranslationData data) {
+	public Data<com.anfelisa.card.models.CardTranslationModel> initActionData(Data<com.anfelisa.card.models.CardTranslationModel> data) {
 		return data;
 	}
 

@@ -25,6 +25,9 @@ import de.acegen.BaseScenario;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.HttpResponse;
+import de.acegen.Data;
+
+import com.fasterxml.jackson.core.type.TypeReference;
 
 @SuppressWarnings("unused")
 public abstract class AbstractGetUserProfileScenario extends BaseScenario {
@@ -43,13 +46,13 @@ public abstract class AbstractGetUserProfileScenario extends BaseScenario {
 				"\"password\" : \"admin-password\"," + 
 				"\"username\" : \"Admin\"} ",
 					com.anfelisa.user.data.RegisterUserPayload.class);
-			com.anfelisa.user.data.UserRegistrationData data_0 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"email\" : \"annette.pohl@anfelisa.de\"," + 
-			"\"language\" : \"de\"," + 
-			"\"password\" : \"admin-password\"," + 
-			"\"username\" : \"Admin\"} ",
-					com.anfelisa.user.data.UserRegistrationData.class);
+			com.anfelisa.user.models.UserRegistrationModel model_0 = objectMapper.readValue("{" +
+				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"admin-password\"," + 
+				"\"username\" : \"Admin\"} ", com.anfelisa.user.models.UserRegistrationModel.class);
+			Data<com.anfelisa.user.models.UserRegistrationModel> data_0 = new Data<com.anfelisa.user.models.UserRegistrationModel>(uuid);
+			data_0.setModel(model_0);
 			HttpResponse<Object> response_0 = 
 			this.httpPost(
 				"/users/register", 
@@ -80,13 +83,13 @@ public abstract class AbstractGetUserProfileScenario extends BaseScenario {
 				"\"password\" : \"password\"," + 
 				"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 					com.anfelisa.user.data.RegisterUserPayload.class);
-			com.anfelisa.user.data.UserRegistrationData data_1 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"email\" : \"annette.pohl@anfelisa.de\"," + 
-			"\"language\" : \"de\"," + 
-			"\"password\" : \"password\"," + 
-			"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
-					com.anfelisa.user.data.UserRegistrationData.class);
+			com.anfelisa.user.models.UserRegistrationModel model_1 = objectMapper.readValue("{" +
+				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"password\"," + 
+				"\"username\" : \"Annette-" + this.getTestId() + "\"} ", com.anfelisa.user.models.UserRegistrationModel.class);
+			Data<com.anfelisa.user.models.UserRegistrationModel> data_1 = new Data<com.anfelisa.user.models.UserRegistrationModel>(uuid);
+			data_1.setModel(model_1);
 			HttpResponse<Object> response_1 = 
 			this.httpPost(
 				"/users/register", 
@@ -112,9 +115,9 @@ public abstract class AbstractGetUserProfileScenario extends BaseScenario {
 	
 	private HttpResponse<com.anfelisa.user.data.GetUserProfileResponse> when_0() throws Exception {
 		String uuid = this.randomUUID();
-		com.anfelisa.user.data.ProfileUserData data_0 = objectMapper.readValue("{" +
-		"\"uuid\" : \"" + uuid + "\" }",
-		com.anfelisa.user.data.ProfileUserData.class);
+		com.anfelisa.user.models.ProfileUserModel model_0 = new com.anfelisa.user.models.ProfileUserModel();
+		Data<com.anfelisa.user.models.ProfileUserModel> data_0 = new Data<com.anfelisa.user.models.ProfileUserModel>(uuid);
+		data_0.setModel(model_0);
 		HttpResponse<com.anfelisa.user.data.GetUserProfileResponse> response = 
 		this.httpGet(
 			"/user/get", 
@@ -156,13 +159,11 @@ public abstract class AbstractGetUserProfileScenario extends BaseScenario {
 				assertFail(x.getMessage());
 			}
 	
-			com.anfelisa.user.data.ProfileUserData expectedData = objectMapper.readValue("{" +
-				"\"uuid\" : \"\"," + 
+			com.anfelisa.user.models.ProfileUserModel expectedData = objectMapper.readValue("{" +
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
 				"\"username\" : \"Annette-" + this.getTestId() + "\"," + 
 				"\"userId\" : \"uuid-" + this.getTestId() + "\"," + 
-				"\"deletable\" : true} ",
-			com.anfelisa.user.data.ProfileUserData.class);
+				"\"deletable\" : true} ", com.anfelisa.user.models.ProfileUserModel.class);
 			
 			com.anfelisa.user.data.GetUserProfileResponse expected = new com.anfelisa.user.data.GetUserProfileResponse(expectedData);
 			

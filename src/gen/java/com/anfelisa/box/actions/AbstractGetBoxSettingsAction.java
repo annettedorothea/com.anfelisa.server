@@ -14,9 +14,9 @@ import org.slf4j.LoggerFactory;
 
 import org.apache.commons.lang3.StringUtils;
 
+import de.acegen.Data;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
-import de.acegen.IDataContainer;
 import de.acegen.ViewProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -24,11 +24,8 @@ import de.acegen.ReadAction;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 
-import com.anfelisa.box.data.IBoxSettingsWrapperData;
-import com.anfelisa.box.data.BoxSettingsWrapperData;
-
 @SuppressWarnings("unused")
-public abstract class AbstractGetBoxSettingsAction extends ReadAction<IBoxSettingsWrapperData> {
+public abstract class AbstractGetBoxSettingsAction extends ReadAction<com.anfelisa.box.models.BoxSettingsWrapperModel> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractGetBoxSettingsAction.class);
 	
@@ -37,10 +34,10 @@ public abstract class AbstractGetBoxSettingsAction extends ReadAction<IBoxSettin
 		super("com.anfelisa.box.actions.GetBoxSettingsAction", persistenceConnection, appConfiguration, daoProvider, viewProvider);
 	}
 
-	protected abstract IBoxSettingsWrapperData loadDataForGetRequest(IBoxSettingsWrapperData data, PersistenceHandle readonlyHandle);
+	protected abstract Data<com.anfelisa.box.models.BoxSettingsWrapperModel> loadDataForGetRequest(Data<com.anfelisa.box.models.BoxSettingsWrapperModel> data, PersistenceHandle readonlyHandle);
 
 	@Override
-	protected IBoxSettingsWrapperData initActionDataFromSquishyDataProvider(IBoxSettingsWrapperData data) {
+	protected Data<com.anfelisa.box.models.BoxSettingsWrapperModel> initActionDataFromSquishyDataProvider(Data<com.anfelisa.box.models.BoxSettingsWrapperModel> data) {
 		LocalDateTime systemTime = SquishyDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
 			data.setSystemTime(systemTime);
@@ -48,7 +45,7 @@ public abstract class AbstractGetBoxSettingsAction extends ReadAction<IBoxSettin
 		return data;
 	}
 
-	public IBoxSettingsWrapperData initActionData(IBoxSettingsWrapperData data) {
+	public Data<com.anfelisa.box.models.BoxSettingsWrapperModel> initActionData(Data<com.anfelisa.box.models.BoxSettingsWrapperModel> data) {
 		return data;
 	}
 

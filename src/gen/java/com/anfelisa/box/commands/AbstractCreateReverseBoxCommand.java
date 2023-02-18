@@ -7,6 +7,7 @@
 
 package com.anfelisa.box.commands;
 
+import de.acegen.Data;
 import de.acegen.Command;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
@@ -14,24 +15,24 @@ import de.acegen.ViewProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.Event;
 
-import com.anfelisa.box.data.IBoxCreationData;
+import com.anfelisa.box.models.BoxCreationModel;
 
 @SuppressWarnings("unused")
-public abstract class AbstractCreateReverseBoxCommand extends Command<IBoxCreationData> {
+public abstract class AbstractCreateReverseBoxCommand extends Command<com.anfelisa.box.models.BoxCreationModel> {
 
 	public AbstractCreateReverseBoxCommand(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
 		super("com.anfelisa.box.commands.CreateReverseBoxCommand", daoProvider, viewProvider, appConfiguration);
 	}
 
-	protected void addOkOutcome(IBoxCreationData data) {
+	protected void addOkOutcome(Data<com.anfelisa.box.models.BoxCreationModel> data) {
 		data.addOutcome("ok");
 	}
-	protected void addAlreadyExistsOutcome(IBoxCreationData data) {
+	protected void addAlreadyExistsOutcome(Data<com.anfelisa.box.models.BoxCreationModel> data) {
 		data.addOutcome("alreadyExists");
 	}
 	
 	@Override
-	public void addEventsToTimeline(IBoxCreationData data, PersistenceHandle timelineHandle) {
+	public void addEventsToTimeline(Data<com.anfelisa.box.models.BoxCreationModel> data, PersistenceHandle timelineHandle) {
 		if (appConfiguration.getConfig().writeTimeline()) {
 			if (data.hasOutcome("ok")){
 				daoProvider.getAceDao().addEventToTimeline("com.anfelisa.box.events.CreateReverseBoxOkEvent", data, timelineHandle);
@@ -40,9 +41,10 @@ public abstract class AbstractCreateReverseBoxCommand extends Command<IBoxCreati
 	}
 	
 	@Override
-	public void publishEvents(IBoxCreationData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	public void publishEvents(Data<com.anfelisa.box.models.BoxCreationModel> data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+		data.freeze();
 		if (data.hasOutcome("ok")){
-			new Event<IBoxCreationData>("com.anfelisa.box.events.CreateReverseBoxOkEvent", viewProvider).publish(data.deepCopy(), handle, timelineHandle);
+			new Event<com.anfelisa.box.models.BoxCreationModel>("com.anfelisa.box.events.CreateReverseBoxOkEvent", viewProvider).publish(data, handle, timelineHandle);
 		}
 	}
 	

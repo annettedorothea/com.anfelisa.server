@@ -15,18 +15,19 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class ForgotPasswordResponse implements IForgotPasswordResponse {
+public class ForgotPasswordResponse {
 	
 	public ForgotPasswordResponse() {
 	}
 	
-	public ForgotPasswordResponse(com.anfelisa.user.models.IForgotPasswordModel data) {
+	public ForgotPasswordResponse(com.anfelisa.user.models.ForgotPasswordModel model) {
 	}
+	
+	
 	
 }
 

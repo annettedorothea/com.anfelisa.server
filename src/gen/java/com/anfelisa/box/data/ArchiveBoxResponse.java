@@ -15,18 +15,19 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class ArchiveBoxResponse implements IArchiveBoxResponse {
+public class ArchiveBoxResponse {
 	
 	public ArchiveBoxResponse() {
 	}
 	
-	public ArchiveBoxResponse(com.anfelisa.box.models.IBoxArchiveModel data) {
+	public ArchiveBoxResponse(com.anfelisa.box.models.BoxArchiveModel model) {
 	}
+	
+	
 	
 }
 

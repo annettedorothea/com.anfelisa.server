@@ -11,13 +11,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.box.models.BoxModel;
-import com.anfelisa.box.models.IBoxModel;
-import com.anfelisa.category.data.IUserToCategoryInvitationData;
-import com.anfelisa.category.models.ICategoryModel;
-import com.anfelisa.category.models.IUserAccessToCategoryModel;
-import com.anfelisa.user.models.IUserModel;
+import com.anfelisa.category.models.CategoryModel;
+import com.anfelisa.category.models.UserAccessToCategoryModel;
+import com.anfelisa.category.models.UserToCategoryInvitationModel;
+import com.anfelisa.user.models.UserModel;
 
 import de.acegen.CustomAppConfiguration;
+import de.acegen.Data;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.ViewProvider;
@@ -32,44 +32,46 @@ public class InviteUserToCategoryCommand extends AbstractInviteUserToCategoryCom
 	}
 
 	@Override
-	protected IUserToCategoryInvitationData executeCommand(IUserToCategoryInvitationData data, PersistenceHandle readonlyHandle) {
-		ICategoryModel category = daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle, 
-				data.getCategoryId());
+	protected Data<UserToCategoryInvitationModel> executeCommand(Data<UserToCategoryInvitationModel> data, PersistenceHandle readonlyHandle) {
+		CategoryModel category = daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle, 
+				data.getModel().getCategoryId());
 		if (category == null) {
 			throwIllegalArgumentException("categoryDoesNotExist");
 		}
 
-		IUserModel invitedUser = this.daoProvider.getUserDao().selectByUsername(readonlyHandle, data.getInvitedUsername());
+		UserModel invitedUser = this.daoProvider.getUserDao().selectByUsername(readonlyHandle, data.getModel().getInvitedUsername());
 		if (invitedUser == null) {
 			this.throwIllegalArgumentException("userDoesNotExist");
 		} else {
-			data.setInvitedUserId(invitedUser.getUserId());
+			data.getModel().setInvitedUserId(invitedUser.getUserId());
 		}
 		
-		if (invitedUser.getUserId().equals(data.getUserId())) {
+		if (invitedUser.getUserId().equals(data.getModel().getUserId())) {
 			this.throwIllegalArgumentException("userCannotInviteHimself");
 		}
 		
-		IUserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao().selectByCategoryIdAndUserId(readonlyHandle, data.getCategoryId(), data.getUserId());
+		UserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao().selectByCategoryIdAndUserId(readonlyHandle, data.getModel().getCategoryId(), data.getModel().getUserId());
 		if (access == null || !access.getEditable()) {
 			throwSecurityException();
 		}
 		
-		IBoxModel originalBox = this.daoProvider.getBoxDao().selectByCategoryIdAndUserId(readonlyHandle, data.getCategoryId(), data.getUserId(), false);
+		BoxModel originalBox = this.daoProvider.getBoxDao().selectByCategoryIdAndUserId(readonlyHandle, data.getModel().getCategoryId(), data.getModel().getUserId(), false);
 		if (originalBox == null) {
 			this.throwIllegalArgumentException("original box is null");
 		}
 		
-		IUserAccessToCategoryModel alreadyExistingAccess = this.daoProvider.getUserAccessToCategoryDao().selectByCategoryIdAndUserId(readonlyHandle, data.getCategoryId(), invitedUser.getUserId());
+		UserAccessToCategoryModel alreadyExistingAccess = this.daoProvider.getUserAccessToCategoryDao().selectByCategoryIdAndUserId(readonlyHandle, data.getModel().getCategoryId(), invitedUser.getUserId());
 		if (alreadyExistingAccess == null) {
 			this.addInsertOutcome(data);
-			IBoxModel boxForInvitedUser = new BoxModel();
+			BoxModel boxForInvitedUser = new BoxModel();
 			boxForInvitedUser.setBoxId(data.getUuid());
-			boxForInvitedUser.setCategoryId(data.getCategoryId());
+			boxForInvitedUser.setCategoryId(data.getModel().getCategoryId());
 			boxForInvitedUser.setMaxCardsPerDay(originalBox.getMaxCardsPerDay());
 			boxForInvitedUser.setMaxInterval(originalBox.getMaxInterval());
 			boxForInvitedUser.setUserId(invitedUser.getUserId());
-			data.setBoxForInvitedUser(boxForInvitedUser);
+			boxForInvitedUser.setArchived(false);
+			boxForInvitedUser.setReverse(false);
+			data.getModel().setBoxForInvitedUser(boxForInvitedUser);
 		} else {
 			this.addUpdateOutcome(data);
 		}

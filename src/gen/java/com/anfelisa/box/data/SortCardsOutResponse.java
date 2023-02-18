@@ -15,18 +15,19 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class SortCardsOutResponse implements ISortCardsOutResponse {
+public class SortCardsOutResponse {
 	
 	public SortCardsOutResponse() {
 	}
 	
-	public SortCardsOutResponse(com.anfelisa.box.models.ISortCardsOutModel data) {
+	public SortCardsOutResponse(com.anfelisa.box.models.SortCardsOutModel model) {
 	}
+	
+	
 	
 }
 

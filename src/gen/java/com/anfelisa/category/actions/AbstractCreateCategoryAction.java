@@ -9,6 +9,7 @@ package com.anfelisa.category.actions;
 
 import java.time.LocalDateTime;
 
+import de.acegen.Data;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.ICommand;
 import de.acegen.IDaoProvider;
@@ -17,13 +18,12 @@ import de.acegen.SquishyDataProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.WriteAction;
 
-import com.anfelisa.category.data.ICategoryCreationData;
 import com.anfelisa.category.commands.CreateCategoryCommand;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractCreateCategoryAction extends WriteAction<ICategoryCreationData> {
+public abstract class AbstractCreateCategoryAction extends WriteAction<com.anfelisa.category.models.CategoryCreationModel> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractCreateCategoryAction.class);
 
@@ -33,12 +33,12 @@ public abstract class AbstractCreateCategoryAction extends WriteAction<ICategory
 	}
 
 	@Override
-	public ICommand<ICategoryCreationData> getCommand() {
+	public ICommand<com.anfelisa.category.models.CategoryCreationModel> getCommand() {
 		return new CreateCategoryCommand(daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	@Override
-	protected ICategoryCreationData initActionDataFromSquishyDataProvider(ICategoryCreationData data) {
+	protected Data<com.anfelisa.category.models.CategoryCreationModel> initActionDataFromSquishyDataProvider(Data<com.anfelisa.category.models.CategoryCreationModel> data) {
 		LocalDateTime systemTime = SquishyDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
 			data.setSystemTime(systemTime);
@@ -46,7 +46,7 @@ public abstract class AbstractCreateCategoryAction extends WriteAction<ICategory
 		return data;
 	}
 
-	public ICategoryCreationData initActionData(ICategoryCreationData data) {
+	public Data<com.anfelisa.category.models.CategoryCreationModel> initActionData(Data<com.anfelisa.category.models.CategoryCreationModel> data) {
 		return data;
 	}
 

@@ -25,6 +25,9 @@ import de.acegen.BaseScenario;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.HttpResponse;
+import de.acegen.Data;
+
+import com.fasterxml.jackson.core.type.TypeReference;
 
 @SuppressWarnings("unused")
 public abstract class AbstractDeleteUserUnauthorizedNotAdminScenario extends BaseScenario {
@@ -43,13 +46,13 @@ public abstract class AbstractDeleteUserUnauthorizedNotAdminScenario extends Bas
 				"\"password\" : \"password\"," + 
 				"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 					com.anfelisa.user.data.RegisterUserPayload.class);
-			com.anfelisa.user.data.UserRegistrationData data_0 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"email\" : \"annette.pohl@anfelisa.de\"," + 
-			"\"language\" : \"de\"," + 
-			"\"password\" : \"password\"," + 
-			"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
-					com.anfelisa.user.data.UserRegistrationData.class);
+			com.anfelisa.user.models.UserRegistrationModel model_0 = objectMapper.readValue("{" +
+				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"password\"," + 
+				"\"username\" : \"Annette-" + this.getTestId() + "\"} ", com.anfelisa.user.models.UserRegistrationModel.class);
+			Data<com.anfelisa.user.models.UserRegistrationModel> data_0 = new Data<com.anfelisa.user.models.UserRegistrationModel>(uuid);
+			data_0.setModel(model_0);
 			HttpResponse<Object> response_0 = 
 			this.httpPost(
 				"/users/register", 
@@ -80,13 +83,13 @@ public abstract class AbstractDeleteUserUnauthorizedNotAdminScenario extends Bas
 				"\"password\" : \"pw\"," + 
 				"\"username\" : \"Anne-" + this.getTestId() + "\"} ",
 					com.anfelisa.user.data.RegisterUserPayload.class);
-			com.anfelisa.user.data.UserRegistrationData data_1 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"email\" : \"info@anfelisa.de\"," + 
-			"\"language\" : \"de\"," + 
-			"\"password\" : \"pw\"," + 
-			"\"username\" : \"Anne-" + this.getTestId() + "\"} ",
-					com.anfelisa.user.data.UserRegistrationData.class);
+			com.anfelisa.user.models.UserRegistrationModel model_1 = objectMapper.readValue("{" +
+				"\"email\" : \"info@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"pw\"," + 
+				"\"username\" : \"Anne-" + this.getTestId() + "\"} ", com.anfelisa.user.models.UserRegistrationModel.class);
+			Data<com.anfelisa.user.models.UserRegistrationModel> data_1 = new Data<com.anfelisa.user.models.UserRegistrationModel>(uuid);
+			data_1.setModel(model_1);
 			HttpResponse<Object> response_1 = 
 			this.httpPost(
 				"/users/register", 
@@ -112,13 +115,13 @@ public abstract class AbstractDeleteUserUnauthorizedNotAdminScenario extends Bas
 	
 	private HttpResponse<Object> when_0() throws Exception {
 		String uuid = this.randomUUID();
-		com.anfelisa.user.data.DeleteUserData data_0 = objectMapper.readValue("{" +
-		"\"uuid\" : \"" + uuid + "\"," + 
-		"\"usernameToBeDeleted\" : \"Annette-" + this.getTestId() + "\"} ",
-				com.anfelisa.user.data.DeleteUserData.class);
+		com.anfelisa.user.models.DeleteUserModel model_0 = objectMapper.readValue("{" +
+			"\"usernameToBeDeleted\" : \"Annette-" + this.getTestId() + "\"} ", com.anfelisa.user.models.DeleteUserModel.class);
+		Data<com.anfelisa.user.models.DeleteUserModel> data_0 = new Data<com.anfelisa.user.models.DeleteUserModel>(uuid);
+		data_0.setModel(model_0);
 		HttpResponse<Object> response = 
 		this.httpDelete(
-			"/user/delete?usernameToBeDeleted=" + (data_0.getUsernameToBeDeleted() != null ? URLEncoder.encode(data_0.getUsernameToBeDeleted(), StandardCharsets.UTF_8.toString()) : "") + "", 
+			"/user/delete?usernameToBeDeleted=" + (data_0.getModel().getUsernameToBeDeleted() != null ? URLEncoder.encode(data_0.getModel().getUsernameToBeDeleted(), StandardCharsets.UTF_8.toString()) : "") + "", 
 			authorization("Anne-${testId}", "pw"),
 			uuid,
 			null
@@ -169,7 +172,7 @@ public abstract class AbstractDeleteUserUnauthorizedNotAdminScenario extends Bas
 	
 	
 	private void userWasNotDeleted() throws Exception {
-		com.anfelisa.user.models.IUserModel actual = daoProvider.getUserDao().selectByUsername(handle, "Annette-" + this.getTestId() + "");
+		com.anfelisa.user.models.UserModel actual = daoProvider.getUserDao().selectByUsername(handle, "Annette-" + this.getTestId() + "");
 		
 		assertIsNotNull(actual);
 	

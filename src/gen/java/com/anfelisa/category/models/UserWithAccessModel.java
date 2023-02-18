@@ -16,16 +16,19 @@ import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
+import de.acegen.AbstractModel;
 
 @SuppressWarnings("all")
-public class UserWithAccessModel implements IUserWithAccessModel {
+public class UserWithAccessModel extends AbstractModel {
 
 	private String userId;
 
 	private String username;
 
-	private Boolean editable = false;
+	private Boolean editable;
 
+	
+	private Boolean frozen = false;
 
 	public UserWithAccessModel() {
 	}
@@ -44,7 +47,12 @@ public class UserWithAccessModel implements IUserWithAccessModel {
 	public String getUserId() {
 		return this.userId;
 	}
+	
+	@JsonProperty
 	public void setUserId(String userId) {
+		if (this.frozen) {
+			throw new RuntimeException("userId is frozen");
+		}
 		this.userId = userId;
 	}
 	
@@ -52,7 +60,12 @@ public class UserWithAccessModel implements IUserWithAccessModel {
 	public String getUsername() {
 		return this.username;
 	}
+	
+	@JsonProperty
 	public void setUsername(String username) {
+		if (this.frozen) {
+			throw new RuntimeException("username is frozen");
+		}
 		this.username = username;
 	}
 	
@@ -60,17 +73,49 @@ public class UserWithAccessModel implements IUserWithAccessModel {
 	public Boolean getEditable() {
 		return this.editable;
 	}
+	
+	@JsonProperty
 	public void setEditable(Boolean editable) {
+		if (this.frozen) {
+			throw new RuntimeException("editable is frozen");
+		}
 		this.editable = editable;
 	}
 	
+	
+	
+	@Override
+	public void freeze() {
+		this.frozen = true;
+	}
 
-	public IUserWithAccessModel deepCopy() {
-		IUserWithAccessModel copy = new UserWithAccessModel();
+	public com.anfelisa.category.models.UserWithAccessModel deepCopy() {
+		com.anfelisa.category.models.UserWithAccessModel copy = new UserWithAccessModel();
 		copy.setUserId(this.getUserId());
 		copy.setUsername(this.getUsername());
 		copy.setEditable(this.getEditable());
 		return copy;
+	}
+	
+	public static UserWithAccessModel generateTestData() {
+		java.util.Random random = new java.util.Random();
+		UserWithAccessModel testData = new UserWithAccessModel();
+		testData.setUserId(randomString(random));
+		testData.setUsername(randomString(random));
+		testData.setEditable(random.nextBoolean());
+		return testData;
+	}
+	
+	private static String randomString(java.util.Random random) {
+		String chars = "aaaaaaabcdeeeeeeeffffghiiiiiiijkllllllmmmmnnnnnnnooooooooopqrstttuuuuuuuvxyz";
+		int n = random.nextInt(20) + 5;
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		String string  = sb.toString(); 
+		return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
 	}
 
 }

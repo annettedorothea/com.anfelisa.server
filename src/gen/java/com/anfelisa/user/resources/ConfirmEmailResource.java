@@ -28,7 +28,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
-import de.acegen.IDataContainer;
 import de.acegen.ViewProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -36,6 +35,7 @@ import de.acegen.ReadAction;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.Config;
+import de.acegen.Data;
 
 
 import com.codahale.metrics.annotation.Timed;
@@ -50,8 +50,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.DELETE;
 
-import com.anfelisa.user.data.IConfirmEmailData;
-import com.anfelisa.user.data.ConfirmEmailData;
+import com.anfelisa.user.models.ConfirmEmailModel;
 
 import de.acegen.Resource;
 
@@ -83,7 +82,7 @@ public class ConfirmEmailResource extends Resource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response confirmEmailResource(
 			@QueryParam("uuid") String uuid, 
-			IConfirmEmailData payload) 
+			com.anfelisa.user.data.ConfirmEmailPayload payload) 
 			throws JsonProcessingException {
 		if (payload == null) {
 			return badRequest("payload must not be null");
@@ -92,16 +91,18 @@ public class ConfirmEmailResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.user.data.IConfirmEmailData data = new ConfirmEmailData(uuid);
+			Data<com.anfelisa.user.models.ConfirmEmailModel> data = new Data<com.anfelisa.user.models.ConfirmEmailModel>(uuid);
+			com.anfelisa.user.models.ConfirmEmailModel model = new com.anfelisa.user.models.ConfirmEmailModel();
 			if (StringUtils.isBlank(payload.getToken()) || "null".equals(payload.getToken())) {
 				return badRequest("token is mandatory");
 			}
-			data.setToken(payload.getToken());
+			model.setToken(payload.getToken());
 			if (StringUtils.isBlank(payload.getUsername()) || "null".equals(payload.getUsername())) {
 				return badRequest("username is mandatory");
 			}
-			data.setUsername(payload.getUsername());
+			model.setUsername(payload.getUsername());
 			
+			data.setModel(model);
 			com.anfelisa.user.actions.ConfirmEmailAction action = new com.anfelisa.user.actions.ConfirmEmailAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
 			data = action.apply(data);
 			return ok();

@@ -14,9 +14,9 @@ import org.jdbi.v3.core.statement.StatementContext;
 
 import de.acegen.AbstractMapper;
 
-public class ResetPasswordWithNewPasswordMapper extends AbstractMapper<IResetPasswordWithNewPasswordModel> {
+public class ResetPasswordWithNewPasswordMapper extends AbstractMapper<ResetPasswordWithNewPasswordModel> {
 	
-	public IResetPasswordWithNewPasswordModel map(ResultSet r, StatementContext ctx) throws SQLException {
+	public ResetPasswordWithNewPasswordModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new ResetPasswordWithNewPasswordModel(
 			this.mapToString(r, "password"),
 			this.mapToString(r, "token"),

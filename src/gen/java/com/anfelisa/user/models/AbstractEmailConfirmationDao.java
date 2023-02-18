@@ -18,19 +18,18 @@ import java.util.Optional;
 @SuppressWarnings("all")
 public class AbstractEmailConfirmationDao extends AbstractDao {
 	
-	public void insert(PersistenceHandle handle, IEmailConfirmationModel emailConfirmationModel) {
+	public void insert(PersistenceHandle handle, com.anfelisa.user.models.EmailConfirmationModel emailConfirmationModel) {
 		Update statement = handle.getHandle().createUpdate("INSERT INTO \"emailconfirmation\" (token, userid) VALUES (:token, :userid)");
-		statement.bind("token",  emailConfirmationModel.getToken() );
-		statement.bind("userid",  emailConfirmationModel.getUserId() );
+		statement.bind("token", emailConfirmationModel.getToken());
+		statement.bind("userid", emailConfirmationModel.getUserId());
 		statement.execute();
 	}
 	
 	
-	public void updateByToken(PersistenceHandle handle, IEmailConfirmationModel emailConfirmationModel) {
+	public void updateByToken(PersistenceHandle handle, com.anfelisa.user.models.EmailConfirmationModel emailConfirmationModel) {
 		Update statement = handle.getHandle().createUpdate("UPDATE \"emailconfirmation\" SET token = :token, userid = :userid WHERE token = :token");
-		statement.bind("token",  emailConfirmationModel.getToken() );
-		statement.bind("userid",  emailConfirmationModel.getUserId() );
-		statement.bind("token",  emailConfirmationModel.getToken()  );
+		statement.bind("token", emailConfirmationModel.getToken());
+		statement.bind("userid", emailConfirmationModel.getUserId());
 		statement.execute();
 	}
 
@@ -40,16 +39,16 @@ public class AbstractEmailConfirmationDao extends AbstractDao {
 		statement.execute();
 	}
 
-	public IEmailConfirmationModel selectByToken(PersistenceHandle handle, String token) {
-		Optional<IEmailConfirmationModel> optional = handle.getHandle().createQuery("SELECT token, userid FROM \"emailconfirmation\" WHERE token = :token")
+	public com.anfelisa.user.models.EmailConfirmationModel selectByToken(PersistenceHandle handle, String token) {
+		Optional<com.anfelisa.user.models.EmailConfirmationModel> optional = handle.getHandle().createQuery("SELECT token, userid FROM \"emailconfirmation\" WHERE token = :token")
 			.bind("token", token)
 			.map(new EmailConfirmationMapper())
 			.findFirst();
 		return optional.isPresent() ? optional.get() : null;
 	}
 	
-	public IEmailConfirmationModel selectByPrimaryKey(PersistenceHandle handle, String token) {
-		Optional<IEmailConfirmationModel> optional = handle.getHandle().createQuery("SELECT token, userid FROM \"emailconfirmation\" WHERE token = :token")
+	public com.anfelisa.user.models.EmailConfirmationModel selectByPrimaryKey(PersistenceHandle handle, String token) {
+		Optional<com.anfelisa.user.models.EmailConfirmationModel> optional = handle.getHandle().createQuery("SELECT token, userid FROM \"emailconfirmation\" WHERE token = :token")
 			.bind("token", token)
 			.map(new EmailConfirmationMapper())
 			.findFirst();
@@ -72,7 +71,7 @@ public class AbstractEmailConfirmationDao extends AbstractDao {
 		return handle.getHandle().createQuery(sql).mapTo(Integer.class).first();
 	}
 
-	public List<IEmailConfirmationModel> selectAll(PersistenceHandle handle) {
+	public List<com.anfelisa.user.models.EmailConfirmationModel> selectAll(PersistenceHandle handle) {
 		return handle.getHandle().createQuery("SELECT token, userid FROM \"emailconfirmation\"")
 			.map(new EmailConfirmationMapper())
 			.list();

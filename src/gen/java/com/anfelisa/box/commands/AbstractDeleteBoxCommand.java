@@ -7,6 +7,7 @@
 
 package com.anfelisa.box.commands;
 
+import de.acegen.Data;
 import de.acegen.Command;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
@@ -14,30 +15,30 @@ import de.acegen.ViewProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.Event;
 
-import com.anfelisa.box.data.IDeleteBoxData;
+import com.anfelisa.box.models.DeleteBoxModel;
 
 @SuppressWarnings("unused")
-public abstract class AbstractDeleteBoxCommand extends Command<IDeleteBoxData> {
+public abstract class AbstractDeleteBoxCommand extends Command<com.anfelisa.box.models.DeleteBoxModel> {
 
 	public AbstractDeleteBoxCommand(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
 		super("com.anfelisa.box.commands.DeleteBoxCommand", daoProvider, viewProvider, appConfiguration);
 	}
 
-	protected void addDeleteBoxOutcome(IDeleteBoxData data) {
+	protected void addDeleteBoxOutcome(Data<com.anfelisa.box.models.DeleteBoxModel> data) {
 		data.addOutcome("deleteBox");
 	}
-	protected void addDeleteCategoryOutcome(IDeleteBoxData data) {
+	protected void addDeleteCategoryOutcome(Data<com.anfelisa.box.models.DeleteBoxModel> data) {
 		data.addOutcome("deleteCategory");
 	}
-	protected void addDeleteUserAccessToCategoryOutcome(IDeleteBoxData data) {
+	protected void addDeleteUserAccessToCategoryOutcome(Data<com.anfelisa.box.models.DeleteBoxModel> data) {
 		data.addOutcome("deleteUserAccessToCategory");
 	}
-	protected void addDeleteReverseBoxOutcome(IDeleteBoxData data) {
+	protected void addDeleteReverseBoxOutcome(Data<com.anfelisa.box.models.DeleteBoxModel> data) {
 		data.addOutcome("deleteReverseBox");
 	}
 	
 	@Override
-	public void addEventsToTimeline(IDeleteBoxData data, PersistenceHandle timelineHandle) {
+	public void addEventsToTimeline(Data<com.anfelisa.box.models.DeleteBoxModel> data, PersistenceHandle timelineHandle) {
 		if (appConfiguration.getConfig().writeTimeline()) {
 			if (data.hasOutcome("deleteBox")){
 				daoProvider.getAceDao().addEventToTimeline("com.anfelisa.box.events.DeleteBoxDeleteBoxEvent", data, timelineHandle);
@@ -55,18 +56,19 @@ public abstract class AbstractDeleteBoxCommand extends Command<IDeleteBoxData> {
 	}
 	
 	@Override
-	public void publishEvents(IDeleteBoxData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	public void publishEvents(Data<com.anfelisa.box.models.DeleteBoxModel> data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+		data.freeze();
 		if (data.hasOutcome("deleteBox")){
-			new Event<IDeleteBoxData>("com.anfelisa.box.events.DeleteBoxDeleteBoxEvent", viewProvider).publish(data.deepCopy(), handle, timelineHandle);
+			new Event<com.anfelisa.box.models.DeleteBoxModel>("com.anfelisa.box.events.DeleteBoxDeleteBoxEvent", viewProvider).publish(data, handle, timelineHandle);
 		}
 		if (data.hasOutcome("deleteCategory")){
-			new Event<IDeleteBoxData>("com.anfelisa.box.events.DeleteBoxDeleteCategoryEvent", viewProvider).publish(data.deepCopy(), handle, timelineHandle);
+			new Event<com.anfelisa.box.models.DeleteBoxModel>("com.anfelisa.box.events.DeleteBoxDeleteCategoryEvent", viewProvider).publish(data, handle, timelineHandle);
 		}
 		if (data.hasOutcome("deleteUserAccessToCategory")){
-			new Event<IDeleteBoxData>("com.anfelisa.box.events.DeleteBoxDeleteUserAccessToCategoryEvent", viewProvider).publish(data.deepCopy(), handle, timelineHandle);
+			new Event<com.anfelisa.box.models.DeleteBoxModel>("com.anfelisa.box.events.DeleteBoxDeleteUserAccessToCategoryEvent", viewProvider).publish(data, handle, timelineHandle);
 		}
 		if (data.hasOutcome("deleteReverseBox")){
-			new Event<IDeleteBoxData>("com.anfelisa.box.events.DeleteBoxDeleteReverseBoxEvent", viewProvider).publish(data.deepCopy(), handle, timelineHandle);
+			new Event<com.anfelisa.box.models.DeleteBoxModel>("com.anfelisa.box.events.DeleteBoxDeleteReverseBoxEvent", viewProvider).publish(data, handle, timelineHandle);
 		}
 	}
 	

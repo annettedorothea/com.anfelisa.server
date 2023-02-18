@@ -16,9 +16,10 @@ import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
+import de.acegen.AbstractModel;
 
 @SuppressWarnings("all")
-public class UserToCategoryInvitationModel implements IUserToCategoryInvitationModel {
+public class UserToCategoryInvitationModel extends AbstractModel {
 
 	private String categoryId;
 
@@ -28,10 +29,12 @@ public class UserToCategoryInvitationModel implements IUserToCategoryInvitationM
 
 	private String invitedUserId;
 
-	private Boolean editable = false;
+	private Boolean editable;
 
-	private com.anfelisa.box.models.IBoxModel boxForInvitedUser;
+	private com.anfelisa.box.models.BoxModel boxForInvitedUser;
 
+	
+	private Boolean frozen = false;
 
 	public UserToCategoryInvitationModel() {
 	}
@@ -42,7 +45,7 @@ public class UserToCategoryInvitationModel implements IUserToCategoryInvitationM
 		@JsonProperty("invitedUsername") String invitedUsername,
 		@JsonProperty("invitedUserId") String invitedUserId,
 		@JsonProperty("editable") Boolean editable,
-		@JsonProperty("boxForInvitedUser") com.anfelisa.box.models.IBoxModel boxForInvitedUser
+		@JsonProperty("boxForInvitedUser") com.anfelisa.box.models.BoxModel boxForInvitedUser
 	) {
 		this.categoryId = categoryId;
 		this.userId = userId;
@@ -56,7 +59,12 @@ public class UserToCategoryInvitationModel implements IUserToCategoryInvitationM
 	public String getCategoryId() {
 		return this.categoryId;
 	}
+	
+	@JsonProperty
 	public void setCategoryId(String categoryId) {
+		if (this.frozen) {
+			throw new RuntimeException("categoryId is frozen");
+		}
 		this.categoryId = categoryId;
 	}
 	
@@ -64,7 +72,12 @@ public class UserToCategoryInvitationModel implements IUserToCategoryInvitationM
 	public String getUserId() {
 		return this.userId;
 	}
+	
+	@JsonProperty
 	public void setUserId(String userId) {
+		if (this.frozen) {
+			throw new RuntimeException("userId is frozen");
+		}
 		this.userId = userId;
 	}
 	
@@ -72,7 +85,12 @@ public class UserToCategoryInvitationModel implements IUserToCategoryInvitationM
 	public String getInvitedUsername() {
 		return this.invitedUsername;
 	}
+	
+	@JsonProperty
 	public void setInvitedUsername(String invitedUsername) {
+		if (this.frozen) {
+			throw new RuntimeException("invitedUsername is frozen");
+		}
 		this.invitedUsername = invitedUsername;
 	}
 	
@@ -80,7 +98,12 @@ public class UserToCategoryInvitationModel implements IUserToCategoryInvitationM
 	public String getInvitedUserId() {
 		return this.invitedUserId;
 	}
+	
+	@JsonProperty
 	public void setInvitedUserId(String invitedUserId) {
+		if (this.frozen) {
+			throw new RuntimeException("invitedUserId is frozen");
+		}
 		this.invitedUserId = invitedUserId;
 	}
 	
@@ -88,21 +111,40 @@ public class UserToCategoryInvitationModel implements IUserToCategoryInvitationM
 	public Boolean getEditable() {
 		return this.editable;
 	}
+	
+	@JsonProperty
 	public void setEditable(Boolean editable) {
+		if (this.frozen) {
+			throw new RuntimeException("editable is frozen");
+		}
 		this.editable = editable;
 	}
 	
 	@JsonProperty
-	public com.anfelisa.box.models.IBoxModel getBoxForInvitedUser() {
+	public com.anfelisa.box.models.BoxModel getBoxForInvitedUser() {
 		return this.boxForInvitedUser;
 	}
-	public void setBoxForInvitedUser(com.anfelisa.box.models.IBoxModel boxForInvitedUser) {
+	
+	@JsonProperty
+	public void setBoxForInvitedUser(com.anfelisa.box.models.BoxModel boxForInvitedUser) {
+		if (this.frozen) {
+			throw new RuntimeException("boxForInvitedUser is frozen");
+		}
 		this.boxForInvitedUser = boxForInvitedUser;
 	}
 	
+	
+	
+	@Override
+	public void freeze() {
+		this.frozen = true;
+		if (this.boxForInvitedUser != null) {
+			this.boxForInvitedUser.freeze();
+		}
+	}
 
-	public IUserToCategoryInvitationModel deepCopy() {
-		IUserToCategoryInvitationModel copy = new UserToCategoryInvitationModel();
+	public com.anfelisa.category.models.UserToCategoryInvitationModel deepCopy() {
+		com.anfelisa.category.models.UserToCategoryInvitationModel copy = new UserToCategoryInvitationModel();
 		copy.setCategoryId(this.getCategoryId());
 		copy.setUserId(this.getUserId());
 		copy.setInvitedUsername(this.getInvitedUsername());
@@ -112,6 +154,30 @@ public class UserToCategoryInvitationModel implements IUserToCategoryInvitationM
 			copy.setBoxForInvitedUser(this.getBoxForInvitedUser().deepCopy());
 		}
 		return copy;
+	}
+	
+	public static UserToCategoryInvitationModel generateTestData() {
+		java.util.Random random = new java.util.Random();
+		UserToCategoryInvitationModel testData = new UserToCategoryInvitationModel();
+		testData.setCategoryId(randomString(random));
+		testData.setUserId(randomString(random));
+		testData.setInvitedUsername(randomString(random));
+		testData.setInvitedUserId(randomString(random));
+		testData.setEditable(random.nextBoolean());
+		testData.setBoxForInvitedUser(com.anfelisa.box.models.BoxModel.generateTestData());
+		return testData;
+	}
+	
+	private static String randomString(java.util.Random random) {
+		String chars = "aaaaaaabcdeeeeeeeffffghiiiiiiijkllllllmmmmnnnnnnnooooooooopqrstttuuuuuuuvxyz";
+		int n = random.nextInt(20) + 5;
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		String string  = sb.toString(); 
+		return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
 	}
 
 }

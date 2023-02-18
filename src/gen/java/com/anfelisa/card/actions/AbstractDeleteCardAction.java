@@ -9,6 +9,7 @@ package com.anfelisa.card.actions;
 
 import java.time.LocalDateTime;
 
+import de.acegen.Data;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.ICommand;
 import de.acegen.IDaoProvider;
@@ -17,13 +18,12 @@ import de.acegen.SquishyDataProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.WriteAction;
 
-import com.anfelisa.card.data.ICardDeleteData;
 import com.anfelisa.card.commands.DeleteCardCommand;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractDeleteCardAction extends WriteAction<ICardDeleteData> {
+public abstract class AbstractDeleteCardAction extends WriteAction<com.anfelisa.card.models.CardDeleteModel> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractDeleteCardAction.class);
 
@@ -33,12 +33,12 @@ public abstract class AbstractDeleteCardAction extends WriteAction<ICardDeleteDa
 	}
 
 	@Override
-	public ICommand<ICardDeleteData> getCommand() {
+	public ICommand<com.anfelisa.card.models.CardDeleteModel> getCommand() {
 		return new DeleteCardCommand(daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	@Override
-	protected ICardDeleteData initActionDataFromSquishyDataProvider(ICardDeleteData data) {
+	protected Data<com.anfelisa.card.models.CardDeleteModel> initActionDataFromSquishyDataProvider(Data<com.anfelisa.card.models.CardDeleteModel> data) {
 		LocalDateTime systemTime = SquishyDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
 			data.setSystemTime(systemTime);
@@ -46,7 +46,7 @@ public abstract class AbstractDeleteCardAction extends WriteAction<ICardDeleteDa
 		return data;
 	}
 
-	public ICardDeleteData initActionData(ICardDeleteData data) {
+	public Data<com.anfelisa.card.models.CardDeleteModel> initActionData(Data<com.anfelisa.card.models.CardDeleteModel> data) {
 		return data;
 	}
 

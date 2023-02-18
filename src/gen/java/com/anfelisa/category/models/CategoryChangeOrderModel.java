@@ -16,9 +16,10 @@ import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
+import de.acegen.AbstractModel;
 
 @SuppressWarnings("all")
-public class CategoryChangeOrderModel implements ICategoryChangeOrderModel {
+public class CategoryChangeOrderModel extends AbstractModel {
 
 	private String movedCategoryId;
 
@@ -26,8 +27,10 @@ public class CategoryChangeOrderModel implements ICategoryChangeOrderModel {
 
 	private String userId;
 
-	private java.util.List<com.anfelisa.category.models.ICategoryModel> updatedIndices;
+	private java.util.List<com.anfelisa.category.models.CategoryModel> updatedIndices;
 
+	
+	private Boolean frozen = false;
 
 	public CategoryChangeOrderModel() {
 	}
@@ -36,7 +39,7 @@ public class CategoryChangeOrderModel implements ICategoryChangeOrderModel {
 		@JsonProperty("movedCategoryId") String movedCategoryId,
 		@JsonProperty("targetCategoryId") String targetCategoryId,
 		@JsonProperty("userId") String userId,
-		@JsonProperty("updatedIndices") java.util.List<com.anfelisa.category.models.ICategoryModel> updatedIndices
+		@JsonProperty("updatedIndices") java.util.List<com.anfelisa.category.models.CategoryModel> updatedIndices
 	) {
 		this.movedCategoryId = movedCategoryId;
 		this.targetCategoryId = targetCategoryId;
@@ -48,7 +51,12 @@ public class CategoryChangeOrderModel implements ICategoryChangeOrderModel {
 	public String getMovedCategoryId() {
 		return this.movedCategoryId;
 	}
+	
+	@JsonProperty
 	public void setMovedCategoryId(String movedCategoryId) {
+		if (this.frozen) {
+			throw new RuntimeException("movedCategoryId is frozen");
+		}
 		this.movedCategoryId = movedCategoryId;
 	}
 	
@@ -56,7 +64,12 @@ public class CategoryChangeOrderModel implements ICategoryChangeOrderModel {
 	public String getTargetCategoryId() {
 		return this.targetCategoryId;
 	}
+	
+	@JsonProperty
 	public void setTargetCategoryId(String targetCategoryId) {
+		if (this.frozen) {
+			throw new RuntimeException("targetCategoryId is frozen");
+		}
 		this.targetCategoryId = targetCategoryId;
 	}
 	
@@ -64,32 +77,81 @@ public class CategoryChangeOrderModel implements ICategoryChangeOrderModel {
 	public String getUserId() {
 		return this.userId;
 	}
+	
+	@JsonProperty
 	public void setUserId(String userId) {
+		if (this.frozen) {
+			throw new RuntimeException("userId is frozen");
+		}
 		this.userId = userId;
 	}
 	
 	@JsonProperty
-	public java.util.List<com.anfelisa.category.models.ICategoryModel> getUpdatedIndices() {
+	public java.util.List<com.anfelisa.category.models.CategoryModel> getUpdatedIndices() {
 		return this.updatedIndices;
 	}
-	public void setUpdatedIndices(java.util.List<com.anfelisa.category.models.ICategoryModel> updatedIndices) {
+	
+	@JsonProperty
+	public void setUpdatedIndices(java.util.List<com.anfelisa.category.models.CategoryModel> updatedIndices) {
+		if (this.frozen) {
+			throw new RuntimeException("updatedIndices is frozen");
+		}
 		this.updatedIndices = updatedIndices;
 	}
 	
+	
+	
+	@Override
+	public void freeze() {
+		this.frozen = true;
+		if (this.updatedIndices != null) {
+			for ( int i = 0; i < updatedIndices.size(); i++ ) {
+				updatedIndices.get(i).freeze();
+			}
+		}
+	}
 
-	public ICategoryChangeOrderModel deepCopy() {
-		ICategoryChangeOrderModel copy = new CategoryChangeOrderModel();
+	public com.anfelisa.category.models.CategoryChangeOrderModel deepCopy() {
+		com.anfelisa.category.models.CategoryChangeOrderModel copy = new CategoryChangeOrderModel();
 		copy.setMovedCategoryId(this.getMovedCategoryId());
 		copy.setTargetCategoryId(this.getTargetCategoryId());
 		copy.setUserId(this.getUserId());
-		List<com.anfelisa.category.models.ICategoryModel> updatedIndicesCopy = new ArrayList<com.anfelisa.category.models.ICategoryModel>();
+		List<com.anfelisa.category.models.CategoryModel> updatedIndicesCopy = new ArrayList<com.anfelisa.category.models.CategoryModel>();
 		if (this.getUpdatedIndices() != null) {
-			for(com.anfelisa.category.models.ICategoryModel item: this.getUpdatedIndices()) {
+			for(com.anfelisa.category.models.CategoryModel item: this.getUpdatedIndices()) {
 				updatedIndicesCopy.add(item.deepCopy());
 			}
 		}
 		copy.setUpdatedIndices(updatedIndicesCopy);
 		return copy;
+	}
+	
+	public static CategoryChangeOrderModel generateTestData() {
+		java.util.Random random = new java.util.Random();
+		int n;
+		CategoryChangeOrderModel testData = new CategoryChangeOrderModel();
+		testData.setMovedCategoryId(randomString(random));
+		testData.setTargetCategoryId(randomString(random));
+		testData.setUserId(randomString(random));
+		java.util.List<com.anfelisa.category.models.CategoryModel> updatedIndicesList = new java.util.ArrayList<com.anfelisa.category.models.CategoryModel>();
+		n = random.nextInt(20) + 1;
+		for ( int i = 0; i < n; i++ ) {
+			updatedIndicesList.add(com.anfelisa.category.models.CategoryModel.generateTestData());
+		}
+		testData.setUpdatedIndices(updatedIndicesList);
+		return testData;
+	}
+	
+	private static String randomString(java.util.Random random) {
+		String chars = "aaaaaaabcdeeeeeeeffffghiiiiiiijkllllllmmmmnnnnnnnooooooooopqrstttuuuuuuuvxyz";
+		int n = random.nextInt(20) + 5;
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		String string  = sb.toString(); 
+		return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
 	}
 
 }

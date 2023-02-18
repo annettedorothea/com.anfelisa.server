@@ -19,10 +19,11 @@
 
 package com.anfelisa.box.views;
 
-import com.anfelisa.box.data.IBoxCreationData;
-import com.anfelisa.box.data.IBoxUpdateData;
-import com.anfelisa.box.data.IDeleteBoxData;
+import com.anfelisa.box.models.BoxCreationModel;
+import com.anfelisa.box.models.BoxUpdateModel;
+import com.anfelisa.box.models.DeleteBoxModel;
 
+import de.acegen.Data;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceHandle;
 
@@ -36,20 +37,20 @@ public class RootCategoryView implements IRootCategoryView {
 	}
 
 	@Override
-	public void insert(IBoxCreationData data, PersistenceHandle handle) {
-		daoProvider.getCategoryDao().insert(handle, data);
+	public void insert(Data<BoxCreationModel> data, PersistenceHandle handle) {
+		daoProvider.getCategoryDao().insert(handle, data.getModel().mapToCategoryModel());
 	}
 
 	@Override
-	public void update(IBoxUpdateData data, PersistenceHandle handle) {
-		daoProvider.getCategoryDao().update(handle, data);
+	public void update(Data<BoxUpdateModel> data, PersistenceHandle handle) {
+		daoProvider.getCategoryDao().update(handle, data.getModel());
 	}
 
 	@Override
-	public void deleteAll(IDeleteBoxData data, PersistenceHandle handle) {
-		daoProvider.getCardDao().deleteByRootCategoryId(handle, data.getRootCategoryId());
-		daoProvider.getCategoryDao().deleteByRootCategoryId(handle, data.getRootCategoryId());
-		daoProvider.getCategoryDao().deleteByCategoryId(handle, data.getRootCategoryId());
+	public void deleteAll(Data<DeleteBoxModel> data, PersistenceHandle handle) {
+		daoProvider.getCardDao().deleteByRootCategoryId(handle, data.getModel().getRootCategoryId());
+		daoProvider.getCategoryDao().deleteByRootCategoryId(handle, data.getModel().getRootCategoryId());
+		daoProvider.getCategoryDao().deleteByCategoryId(handle, data.getModel().getRootCategoryId());
 	}
 
 }

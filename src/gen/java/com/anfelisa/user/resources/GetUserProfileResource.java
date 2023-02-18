@@ -28,7 +28,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
-import de.acegen.IDataContainer;
 import de.acegen.ViewProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -36,6 +35,7 @@ import de.acegen.ReadAction;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.Config;
+import de.acegen.Data;
 
 import de.acegen.auth.AuthUser;
 import io.dropwizard.auth.Auth;
@@ -52,8 +52,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.DELETE;
 
-import com.anfelisa.user.data.IProfileUserData;
-import com.anfelisa.user.data.ProfileUserData;
+import com.anfelisa.user.models.ProfileUserModel;
 
 import de.acegen.Resource;
 
@@ -91,14 +90,16 @@ public class GetUserProfileResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.user.data.IProfileUserData data = new ProfileUserData(uuid);
-			data.setUserId(authUser.getUserId());
-			data.setUsername(authUser.getUsername());
-			data.setRole(authUser.getRole());
+			Data<com.anfelisa.user.models.ProfileUserModel> data = new Data<com.anfelisa.user.models.ProfileUserModel>(uuid);
+			com.anfelisa.user.models.ProfileUserModel model = new com.anfelisa.user.models.ProfileUserModel();
+			model.setUserId(authUser.getUserId());
+			model.setUsername(authUser.getUsername());
+			model.setRole(authUser.getRole());
 			
+			data.setModel(model);
 			com.anfelisa.user.actions.GetUserProfileAction action = new com.anfelisa.user.actions.GetUserProfileAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
 			data = action.apply(data);
-			return Response.ok(new com.anfelisa.user.data.GetUserProfileResponse(data)).build();
+			return Response.ok(new com.anfelisa.user.data.GetUserProfileResponse(data.getModel())).build();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());
 			if (Config.DEV.equals(appConfiguration.getConfig().getMode())) {

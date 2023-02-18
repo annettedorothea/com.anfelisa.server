@@ -15,12 +15,11 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class ChangeUserRolePayload implements IChangeUserRolePayload {
+public class ChangeUserRolePayload {
 	
 	private String newRole;
 	
@@ -29,10 +28,6 @@ public class ChangeUserRolePayload implements IChangeUserRolePayload {
 	public ChangeUserRolePayload() {
 	}
 	
-	public ChangeUserRolePayload(com.anfelisa.user.models.IChangeUserRoleModel data) {
-		newRole = data.getNewRole();
-		editedUserId = data.getEditedUserId();
-	}
 	
 	@JsonProperty
 	public String getNewRole() {

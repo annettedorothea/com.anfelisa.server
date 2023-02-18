@@ -28,7 +28,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
-import de.acegen.IDataContainer;
 import de.acegen.ViewProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -36,6 +35,7 @@ import de.acegen.ReadAction;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.Config;
+import de.acegen.Data;
 
 import de.acegen.auth.AuthUser;
 import io.dropwizard.auth.Auth;
@@ -52,8 +52,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.DELETE;
 
-import com.anfelisa.category.data.ICategoryUpdateData;
-import com.anfelisa.category.data.CategoryUpdateData;
+import com.anfelisa.category.models.CategoryUpdateModel;
 
 import de.acegen.Resource;
 
@@ -86,7 +85,7 @@ public class UpdateCategoryResource extends Resource {
 	public Response updateCategoryResource(
 			@Auth AuthUser authUser, 
 			@QueryParam("uuid") String uuid, 
-			ICategoryUpdateData payload) 
+			com.anfelisa.category.data.UpdateCategoryPayload payload) 
 			throws JsonProcessingException {
 		if (payload == null) {
 			return badRequest("payload must not be null");
@@ -95,17 +94,19 @@ public class UpdateCategoryResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.category.data.ICategoryUpdateData data = new CategoryUpdateData(uuid);
+			Data<com.anfelisa.category.models.CategoryUpdateModel> data = new Data<com.anfelisa.category.models.CategoryUpdateModel>(uuid);
+			com.anfelisa.category.models.CategoryUpdateModel model = new com.anfelisa.category.models.CategoryUpdateModel();
 			if (StringUtils.isBlank(payload.getCategoryId()) || "null".equals(payload.getCategoryId())) {
 				return badRequest("categoryId is mandatory");
 			}
-			data.setCategoryId(payload.getCategoryId());
+			model.setCategoryId(payload.getCategoryId());
 			if (StringUtils.isBlank(payload.getCategoryName()) || "null".equals(payload.getCategoryName())) {
 				return badRequest("categoryName is mandatory");
 			}
-			data.setCategoryName(payload.getCategoryName());
-			data.setUserId(authUser.getUserId());
+			model.setCategoryName(payload.getCategoryName());
+			model.setUserId(authUser.getUserId());
 			
+			data.setModel(model);
 			com.anfelisa.category.actions.UpdateCategoryAction action = new com.anfelisa.category.actions.UpdateCategoryAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
 			data = action.apply(data);
 			return ok();

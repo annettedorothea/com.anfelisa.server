@@ -16,9 +16,10 @@ import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
+import de.acegen.AbstractModel;
 
 @SuppressWarnings("all")
-public class CategoryDeleteModel implements ICategoryDeleteModel {
+public class CategoryDeleteModel extends AbstractModel {
 
 	private String categoryId;
 
@@ -28,6 +29,8 @@ public class CategoryDeleteModel implements ICategoryDeleteModel {
 
 	private String userId;
 
+	
+	private Boolean frozen = false;
 
 	public CategoryDeleteModel() {
 	}
@@ -48,7 +51,12 @@ public class CategoryDeleteModel implements ICategoryDeleteModel {
 	public String getCategoryId() {
 		return this.categoryId;
 	}
+	
+	@JsonProperty
 	public void setCategoryId(String categoryId) {
+		if (this.frozen) {
+			throw new RuntimeException("categoryId is frozen");
+		}
 		this.categoryId = categoryId;
 	}
 	
@@ -56,7 +64,12 @@ public class CategoryDeleteModel implements ICategoryDeleteModel {
 	public Integer getCategoryIndex() {
 		return this.categoryIndex;
 	}
+	
+	@JsonProperty
 	public void setCategoryIndex(Integer categoryIndex) {
+		if (this.frozen) {
+			throw new RuntimeException("categoryIndex is frozen");
+		}
 		this.categoryIndex = categoryIndex;
 	}
 	
@@ -64,7 +77,12 @@ public class CategoryDeleteModel implements ICategoryDeleteModel {
 	public String getParentCategoryId() {
 		return this.parentCategoryId;
 	}
+	
+	@JsonProperty
 	public void setParentCategoryId(String parentCategoryId) {
+		if (this.frozen) {
+			throw new RuntimeException("parentCategoryId is frozen");
+		}
 		this.parentCategoryId = parentCategoryId;
 	}
 	
@@ -72,18 +90,51 @@ public class CategoryDeleteModel implements ICategoryDeleteModel {
 	public String getUserId() {
 		return this.userId;
 	}
+	
+	@JsonProperty
 	public void setUserId(String userId) {
+		if (this.frozen) {
+			throw new RuntimeException("userId is frozen");
+		}
 		this.userId = userId;
 	}
 	
+	
+	
+	@Override
+	public void freeze() {
+		this.frozen = true;
+	}
 
-	public ICategoryDeleteModel deepCopy() {
-		ICategoryDeleteModel copy = new CategoryDeleteModel();
+	public com.anfelisa.category.models.CategoryDeleteModel deepCopy() {
+		com.anfelisa.category.models.CategoryDeleteModel copy = new CategoryDeleteModel();
 		copy.setCategoryId(this.getCategoryId());
 		copy.setCategoryIndex(this.getCategoryIndex());
 		copy.setParentCategoryId(this.getParentCategoryId());
 		copy.setUserId(this.getUserId());
 		return copy;
+	}
+	
+	public static CategoryDeleteModel generateTestData() {
+		java.util.Random random = new java.util.Random();
+		CategoryDeleteModel testData = new CategoryDeleteModel();
+		testData.setCategoryId(randomString(random));
+		testData.setCategoryIndex(random.nextInt(50));
+		testData.setParentCategoryId(randomString(random));
+		testData.setUserId(randomString(random));
+		return testData;
+	}
+	
+	private static String randomString(java.util.Random random) {
+		String chars = "aaaaaaabcdeeeeeeeffffghiiiiiiijkllllllmmmmnnnnnnnooooooooopqrstttuuuuuuuvxyz";
+		int n = random.nextInt(20) + 5;
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		String string  = sb.toString(); 
+		return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
 	}
 
 }

@@ -16,34 +16,37 @@ import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
+import de.acegen.AbstractModel;
 
 @SuppressWarnings("all")
-public class CategoryTreeModel implements ICategoryTreeModel {
+public class CategoryTreeModel extends AbstractModel {
 
-	private com.anfelisa.category.models.ICategoryTreeItemModel rootCategory;
+	private com.anfelisa.category.models.CategoryTreeItemModel rootCategory;
 
 	private String userId;
 
 	private String rootCategoryId;
 
-	private Boolean filterNonScheduled = false;
+	private Boolean filterNonScheduled;
 
 	private Integer priority;
 
-	private Boolean editable = false;
+	private Boolean editable;
 
-	private Boolean reverse = false;
+	private Boolean reverse;
 
-	private Boolean reverseBoxExists = false;
+	private Boolean reverseBoxExists;
 
 	private String boxId;
 
+	
+	private Boolean frozen = false;
 
 	public CategoryTreeModel() {
 	}
 
 	public CategoryTreeModel(
-		@JsonProperty("rootCategory") com.anfelisa.category.models.ICategoryTreeItemModel rootCategory,
+		@JsonProperty("rootCategory") com.anfelisa.category.models.CategoryTreeItemModel rootCategory,
 		@JsonProperty("userId") String userId,
 		@JsonProperty("rootCategoryId") String rootCategoryId,
 		@JsonProperty("filterNonScheduled") Boolean filterNonScheduled,
@@ -65,10 +68,15 @@ public class CategoryTreeModel implements ICategoryTreeModel {
 	}
 
 	@JsonProperty
-	public com.anfelisa.category.models.ICategoryTreeItemModel getRootCategory() {
+	public com.anfelisa.category.models.CategoryTreeItemModel getRootCategory() {
 		return this.rootCategory;
 	}
-	public void setRootCategory(com.anfelisa.category.models.ICategoryTreeItemModel rootCategory) {
+	
+	@JsonProperty
+	public void setRootCategory(com.anfelisa.category.models.CategoryTreeItemModel rootCategory) {
+		if (this.frozen) {
+			throw new RuntimeException("rootCategory is frozen");
+		}
 		this.rootCategory = rootCategory;
 	}
 	
@@ -76,7 +84,12 @@ public class CategoryTreeModel implements ICategoryTreeModel {
 	public String getUserId() {
 		return this.userId;
 	}
+	
+	@JsonProperty
 	public void setUserId(String userId) {
+		if (this.frozen) {
+			throw new RuntimeException("userId is frozen");
+		}
 		this.userId = userId;
 	}
 	
@@ -84,7 +97,12 @@ public class CategoryTreeModel implements ICategoryTreeModel {
 	public String getRootCategoryId() {
 		return this.rootCategoryId;
 	}
+	
+	@JsonProperty
 	public void setRootCategoryId(String rootCategoryId) {
+		if (this.frozen) {
+			throw new RuntimeException("rootCategoryId is frozen");
+		}
 		this.rootCategoryId = rootCategoryId;
 	}
 	
@@ -92,7 +110,12 @@ public class CategoryTreeModel implements ICategoryTreeModel {
 	public Boolean getFilterNonScheduled() {
 		return this.filterNonScheduled;
 	}
+	
+	@JsonProperty
 	public void setFilterNonScheduled(Boolean filterNonScheduled) {
+		if (this.frozen) {
+			throw new RuntimeException("filterNonScheduled is frozen");
+		}
 		this.filterNonScheduled = filterNonScheduled;
 	}
 	
@@ -100,7 +123,12 @@ public class CategoryTreeModel implements ICategoryTreeModel {
 	public Integer getPriority() {
 		return this.priority;
 	}
+	
+	@JsonProperty
 	public void setPriority(Integer priority) {
+		if (this.frozen) {
+			throw new RuntimeException("priority is frozen");
+		}
 		this.priority = priority;
 	}
 	
@@ -108,7 +136,12 @@ public class CategoryTreeModel implements ICategoryTreeModel {
 	public Boolean getEditable() {
 		return this.editable;
 	}
+	
+	@JsonProperty
 	public void setEditable(Boolean editable) {
+		if (this.frozen) {
+			throw new RuntimeException("editable is frozen");
+		}
 		this.editable = editable;
 	}
 	
@@ -116,7 +149,12 @@ public class CategoryTreeModel implements ICategoryTreeModel {
 	public Boolean getReverse() {
 		return this.reverse;
 	}
+	
+	@JsonProperty
 	public void setReverse(Boolean reverse) {
+		if (this.frozen) {
+			throw new RuntimeException("reverse is frozen");
+		}
 		this.reverse = reverse;
 	}
 	
@@ -124,7 +162,12 @@ public class CategoryTreeModel implements ICategoryTreeModel {
 	public Boolean getReverseBoxExists() {
 		return this.reverseBoxExists;
 	}
+	
+	@JsonProperty
 	public void setReverseBoxExists(Boolean reverseBoxExists) {
+		if (this.frozen) {
+			throw new RuntimeException("reverseBoxExists is frozen");
+		}
 		this.reverseBoxExists = reverseBoxExists;
 	}
 	
@@ -132,13 +175,27 @@ public class CategoryTreeModel implements ICategoryTreeModel {
 	public String getBoxId() {
 		return this.boxId;
 	}
+	
+	@JsonProperty
 	public void setBoxId(String boxId) {
+		if (this.frozen) {
+			throw new RuntimeException("boxId is frozen");
+		}
 		this.boxId = boxId;
 	}
 	
+	
+	
+	@Override
+	public void freeze() {
+		this.frozen = true;
+		if (this.rootCategory != null) {
+			this.rootCategory.freeze();
+		}
+	}
 
-	public ICategoryTreeModel deepCopy() {
-		ICategoryTreeModel copy = new CategoryTreeModel();
+	public com.anfelisa.category.models.CategoryTreeModel deepCopy() {
+		com.anfelisa.category.models.CategoryTreeModel copy = new CategoryTreeModel();
 		if (this.getRootCategory() != null) {
 			copy.setRootCategory(this.getRootCategory().deepCopy());
 		}
@@ -151,6 +208,33 @@ public class CategoryTreeModel implements ICategoryTreeModel {
 		copy.setReverseBoxExists(this.getReverseBoxExists());
 		copy.setBoxId(this.getBoxId());
 		return copy;
+	}
+	
+	public static CategoryTreeModel generateTestData() {
+		java.util.Random random = new java.util.Random();
+		CategoryTreeModel testData = new CategoryTreeModel();
+		testData.setRootCategory(com.anfelisa.category.models.CategoryTreeItemModel.generateTestData());
+		testData.setUserId(randomString(random));
+		testData.setRootCategoryId(randomString(random));
+		testData.setFilterNonScheduled(random.nextBoolean());
+		testData.setPriority(random.nextInt(50));
+		testData.setEditable(random.nextBoolean());
+		testData.setReverse(random.nextBoolean());
+		testData.setReverseBoxExists(random.nextBoolean());
+		testData.setBoxId(randomString(random));
+		return testData;
+	}
+	
+	private static String randomString(java.util.Random random) {
+		String chars = "aaaaaaabcdeeeeeeeffffghiiiiiiijkllllllmmmmnnnnnnnooooooooopqrstttuuuuuuuvxyz";
+		int n = random.nextInt(20) + 5;
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		String string  = sb.toString(); 
+		return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
 	}
 
 }

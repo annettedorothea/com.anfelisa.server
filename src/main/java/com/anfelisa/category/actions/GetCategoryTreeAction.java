@@ -12,12 +12,13 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.box.models.IBoxModel;
-import com.anfelisa.category.data.ICategoryTreeData;
-import com.anfelisa.category.models.ICategoryTreeItemModel;
-import com.anfelisa.category.models.IUserAccessToCategoryModel;
+import com.anfelisa.box.models.BoxModel;
+import com.anfelisa.category.models.CategoryTreeItemModel;
+import com.anfelisa.category.models.CategoryTreeModel;
+import com.anfelisa.category.models.UserAccessToCategoryModel;
 
 import de.acegen.CustomAppConfiguration;
+import de.acegen.Data;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -34,53 +35,53 @@ public class GetCategoryTreeAction extends AbstractGetCategoryTreeAction {
 
 
 	@Override
-	protected ICategoryTreeData loadDataForGetRequest(ICategoryTreeData data, PersistenceHandle readonlyHandle) {
-		IUserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao()
-				.selectByCategoryIdAndUserId(readonlyHandle, data.getRootCategoryId(), data.getUserId());
+	protected Data<CategoryTreeModel> loadDataForGetRequest(Data<CategoryTreeModel> data, PersistenceHandle readonlyHandle) {
+		UserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao()
+				.selectByCategoryIdAndUserId(readonlyHandle, data.getModel().getRootCategoryId(), data.getModel().getUserId());
 		if (access == null) {
 			throwSecurityException();
 		}
-		ICategoryTreeItemModel rootCategory = daoProvider.getCategoryDao().selectRoot(readonlyHandle,
-				data.getRootCategoryId(), data.getUserId(), data.getReverse());
-		loadChildren(data, rootCategory, rootCategory.getCategoryId(), readonlyHandle);
+		CategoryTreeItemModel rootCategory = daoProvider.getCategoryDao().selectRoot(readonlyHandle,
+				data.getModel().getRootCategoryId(), data.getModel().getUserId(), data.getModel().getReverse());
+		loadChildren(data.getModel(), rootCategory, rootCategory.getCategoryId(), readonlyHandle);
 
-		IBoxModel box = daoProvider.getBoxDao().selectByCategoryIdAndUserId(readonlyHandle,
-				rootCategory.getCategoryId(), data.getUserId(), data.getReverse());
+		BoxModel box = daoProvider.getBoxDao().selectByCategoryIdAndUserId(readonlyHandle,
+				rootCategory.getCategoryId(), data.getModel().getUserId(), data.getModel().getReverse());
 		if (box == null) {
 			throwIllegalArgumentException("boxNotFound");
 		}
-		data.setBoxId(box.getBoxId());
+		data.getModel().setBoxId(box.getBoxId());
 
-		if (data.getFilterNonScheduled() != null && data.getFilterNonScheduled()) {
-			initNonScheduledCount(rootCategory, box.getBoxId(), data.getPriority(), readonlyHandle);
+		if (data.getModel().getFilterNonScheduled() != null && data.getModel().getFilterNonScheduled()) {
+			initNonScheduledCount(rootCategory, box.getBoxId(), data.getModel().getPriority(), readonlyHandle);
 		}
-		data.setRootCategory(rootCategory);
+		data.getModel().setRootCategory(rootCategory);
 
 		if (box.getReverse()) {
-			data.setReverseBoxExists(true);
+			data.getModel().setReverseBoxExists(true);
 		} else {
-			IBoxModel reverseBox = daoProvider.getBoxDao().selectByCategoryIdAndUserId(readonlyHandle,
-					rootCategory.getCategoryId(), data.getUserId(), true);
-			data.setReverseBoxExists(reverseBox != null);
+			BoxModel reverseBox = daoProvider.getBoxDao().selectByCategoryIdAndUserId(readonlyHandle,
+					rootCategory.getCategoryId(), data.getModel().getUserId(), true);
+			data.getModel().setReverseBoxExists(reverseBox != null);
 		}
 		return data;
 	}
 
-	private void loadChildren(ICategoryTreeData data, ICategoryTreeItemModel categoryItemModel, String rootCategoryId,
+	private void loadChildren(CategoryTreeModel data, CategoryTreeItemModel categoryItemModel, String rootCategoryId,
 			PersistenceHandle readonlyHandle) {
-		List<ICategoryTreeItemModel> children = daoProvider.getCategoryDao().selectAllChildrenForTree(readonlyHandle,
+		List<CategoryTreeItemModel> children = daoProvider.getCategoryDao().selectAllChildrenForTree(readonlyHandle,
 				categoryItemModel.getCategoryId(), data.getUserId(), data.getReverse());
 		categoryItemModel.setChildCategories(children);
-		for (ICategoryTreeItemModel child : children) {
+		for (CategoryTreeItemModel child : children) {
 			loadChildren(data, child, rootCategoryId, readonlyHandle);
 		}
 	}
 
-	private void initNonScheduledCount(ICategoryTreeItemModel categoryItemModel, String boxId, Integer priority,
+	private void initNonScheduledCount(CategoryTreeItemModel categoryItemModel, String boxId, Integer priority,
 			PersistenceHandle readonlyHandle) {
 		Integer nonScheduledCardCount = daoProvider.getCardDao().selectNonScheduledCardCountOfCategory(readonlyHandle,
 				categoryItemModel.getCategoryId(), boxId, priority);
-		for (ICategoryTreeItemModel child : categoryItemModel.getChildCategories()) {
+		for (CategoryTreeItemModel child : categoryItemModel.getChildCategories()) {
 			initNonScheduledCount(child, boxId, priority, readonlyHandle);
 			nonScheduledCardCount += child.getNonScheduledCount();
 		}

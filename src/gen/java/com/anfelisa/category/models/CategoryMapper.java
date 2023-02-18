@@ -14,9 +14,9 @@ import org.jdbi.v3.core.statement.StatementContext;
 
 import de.acegen.AbstractMapper;
 
-public class CategoryMapper extends AbstractMapper<ICategoryModel> {
+public class CategoryMapper extends AbstractMapper<CategoryModel> {
 	
-	public ICategoryModel map(ResultSet r, StatementContext ctx) throws SQLException {
+	public CategoryModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new CategoryModel(
 			this.mapToString(r, "categoryId"),
 			this.mapToString(r, "categoryName"),

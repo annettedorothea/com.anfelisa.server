@@ -7,13 +7,13 @@
 
 package de.acegen;
 
-public interface IAction<T> {
+public interface IAction<T extends AbstractModel> {
 
 	String getActionName();
 	
-    T apply(T data);
+    Data<T> apply(Data<T> data);
     
-    T initActionData(T data);
+    Data<T> initActionData(Data<T> data);
     
 }
 

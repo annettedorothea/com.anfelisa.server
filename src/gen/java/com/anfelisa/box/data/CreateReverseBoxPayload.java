@@ -15,21 +15,17 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class CreateReverseBoxPayload implements ICreateReverseBoxPayload {
+public class CreateReverseBoxPayload {
 	
 	private String rootCategoryId;
 	
 	public CreateReverseBoxPayload() {
 	}
 	
-	public CreateReverseBoxPayload(com.anfelisa.box.models.IBoxCreationModel data) {
-		rootCategoryId = data.getRootCategoryId();
-	}
 	
 	@JsonProperty
 	public String getRootCategoryId() {

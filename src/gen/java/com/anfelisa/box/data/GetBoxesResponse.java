@@ -15,26 +15,26 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class GetBoxesResponse implements IGetBoxesResponse {
+public class GetBoxesResponse {
 	
-	private java.util.List<com.anfelisa.box.models.IBoxViewModel> boxList;
+	private java.util.List<com.anfelisa.box.models.BoxViewModel> boxList;
 	
 	public GetBoxesResponse() {
 	}
 	
-	public GetBoxesResponse(com.anfelisa.box.models.IBoxListModel data) {
-		boxList = data.getBoxList();
+	public GetBoxesResponse(com.anfelisa.box.models.BoxListModel model) {
+		boxList = model.getBoxList();
 	}
 	
-	@JsonProperty
-	public java.util.List<com.anfelisa.box.models.IBoxViewModel> getBoxList() {
+	public java.util.List<com.anfelisa.box.models.BoxViewModel> getBoxList() {
 		return this.boxList;
 	}
+	
+	
 	
 }
 

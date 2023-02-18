@@ -7,6 +7,7 @@
 
 package com.anfelisa.card.commands;
 
+import de.acegen.Data;
 import de.acegen.Command;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
@@ -14,21 +15,21 @@ import de.acegen.ViewProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.Event;
 
-import com.anfelisa.card.data.ICardUpdatePriorityData;
+import com.anfelisa.card.models.CardUpdatePriorityModel;
 
 @SuppressWarnings("unused")
-public abstract class AbstractUpdateCardPriorityCommand extends Command<ICardUpdatePriorityData> {
+public abstract class AbstractUpdateCardPriorityCommand extends Command<com.anfelisa.card.models.CardUpdatePriorityModel> {
 
 	public AbstractUpdateCardPriorityCommand(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
 		super("com.anfelisa.card.commands.UpdateCardPriorityCommand", daoProvider, viewProvider, appConfiguration);
 	}
 
-	protected void addOkOutcome(ICardUpdatePriorityData data) {
+	protected void addOkOutcome(Data<com.anfelisa.card.models.CardUpdatePriorityModel> data) {
 		data.addOutcome("ok");
 	}
 	
 	@Override
-	public void addEventsToTimeline(ICardUpdatePriorityData data, PersistenceHandle timelineHandle) {
+	public void addEventsToTimeline(Data<com.anfelisa.card.models.CardUpdatePriorityModel> data, PersistenceHandle timelineHandle) {
 		if (appConfiguration.getConfig().writeTimeline()) {
 			if (data.hasOutcome("ok")){
 				daoProvider.getAceDao().addEventToTimeline("com.anfelisa.card.events.UpdateCardPriorityOkEvent", data, timelineHandle);
@@ -37,9 +38,10 @@ public abstract class AbstractUpdateCardPriorityCommand extends Command<ICardUpd
 	}
 	
 	@Override
-	public void publishEvents(ICardUpdatePriorityData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	public void publishEvents(Data<com.anfelisa.card.models.CardUpdatePriorityModel> data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+		data.freeze();
 		if (data.hasOutcome("ok")){
-			new Event<ICardUpdatePriorityData>("com.anfelisa.card.events.UpdateCardPriorityOkEvent", viewProvider).publish(data.deepCopy(), handle, timelineHandle);
+			new Event<com.anfelisa.card.models.CardUpdatePriorityModel>("com.anfelisa.card.events.UpdateCardPriorityOkEvent", viewProvider).publish(data, handle, timelineHandle);
 		}
 	}
 	

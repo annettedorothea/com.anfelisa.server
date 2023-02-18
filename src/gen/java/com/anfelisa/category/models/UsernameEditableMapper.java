@@ -14,9 +14,9 @@ import org.jdbi.v3.core.statement.StatementContext;
 
 import de.acegen.AbstractMapper;
 
-public class UsernameEditableMapper extends AbstractMapper<IUsernameEditableModel> {
+public class UsernameEditableMapper extends AbstractMapper<UsernameEditableModel> {
 	
-	public IUsernameEditableModel map(ResultSet r, StatementContext ctx) throws SQLException {
+	public UsernameEditableModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new UsernameEditableModel(
 			this.mapToString(r, "invitedUsername"),
 			this.mapToBoolean(r, "editable")

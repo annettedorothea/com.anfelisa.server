@@ -9,6 +9,7 @@ package com.anfelisa.category.actions;
 
 import java.time.LocalDateTime;
 
+import de.acegen.Data;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.ICommand;
 import de.acegen.IDaoProvider;
@@ -17,13 +18,12 @@ import de.acegen.SquishyDataProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.WriteAction;
 
-import com.anfelisa.category.data.ICategoryChangeOrderData;
 import com.anfelisa.category.commands.ChangeOrderCategoryCommand;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractChangeOrderCategoryAction extends WriteAction<ICategoryChangeOrderData> {
+public abstract class AbstractChangeOrderCategoryAction extends WriteAction<com.anfelisa.category.models.CategoryChangeOrderModel> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractChangeOrderCategoryAction.class);
 
@@ -33,12 +33,12 @@ public abstract class AbstractChangeOrderCategoryAction extends WriteAction<ICat
 	}
 
 	@Override
-	public ICommand<ICategoryChangeOrderData> getCommand() {
+	public ICommand<com.anfelisa.category.models.CategoryChangeOrderModel> getCommand() {
 		return new ChangeOrderCategoryCommand(daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	@Override
-	protected ICategoryChangeOrderData initActionDataFromSquishyDataProvider(ICategoryChangeOrderData data) {
+	protected Data<com.anfelisa.category.models.CategoryChangeOrderModel> initActionDataFromSquishyDataProvider(Data<com.anfelisa.category.models.CategoryChangeOrderModel> data) {
 		LocalDateTime systemTime = SquishyDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
 			data.setSystemTime(systemTime);
@@ -46,7 +46,7 @@ public abstract class AbstractChangeOrderCategoryAction extends WriteAction<ICat
 		return data;
 	}
 
-	public ICategoryChangeOrderData initActionData(ICategoryChangeOrderData data) {
+	public Data<com.anfelisa.category.models.CategoryChangeOrderModel> initActionData(Data<com.anfelisa.category.models.CategoryChangeOrderModel> data) {
 		return data;
 	}
 

@@ -15,18 +15,19 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class ChangeOrderResponse implements IChangeOrderResponse {
+public class ChangeOrderResponse {
 	
 	public ChangeOrderResponse() {
 	}
 	
-	public ChangeOrderResponse(com.anfelisa.card.models.IChangeCardOrderListModel data) {
+	public ChangeOrderResponse(com.anfelisa.card.models.ChangeCardOrderListModel model) {
 	}
+	
+	
 	
 }
 

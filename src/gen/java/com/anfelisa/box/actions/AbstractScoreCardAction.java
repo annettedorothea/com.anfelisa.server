@@ -9,6 +9,7 @@ package com.anfelisa.box.actions;
 
 import java.time.LocalDateTime;
 
+import de.acegen.Data;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.ICommand;
 import de.acegen.IDaoProvider;
@@ -17,13 +18,12 @@ import de.acegen.SquishyDataProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.WriteAction;
 
-import com.anfelisa.box.data.IScoreCardData;
 import com.anfelisa.box.commands.ScoreCardCommand;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractScoreCardAction extends WriteAction<IScoreCardData> {
+public abstract class AbstractScoreCardAction extends WriteAction<com.anfelisa.box.models.ScoreCardModel> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractScoreCardAction.class);
 
@@ -33,12 +33,12 @@ public abstract class AbstractScoreCardAction extends WriteAction<IScoreCardData
 	}
 
 	@Override
-	public ICommand<IScoreCardData> getCommand() {
+	public ICommand<com.anfelisa.box.models.ScoreCardModel> getCommand() {
 		return new ScoreCardCommand(daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	@Override
-	protected IScoreCardData initActionDataFromSquishyDataProvider(IScoreCardData data) {
+	protected Data<com.anfelisa.box.models.ScoreCardModel> initActionDataFromSquishyDataProvider(Data<com.anfelisa.box.models.ScoreCardModel> data) {
 		LocalDateTime systemTime = SquishyDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
 			data.setSystemTime(systemTime);
@@ -46,7 +46,7 @@ public abstract class AbstractScoreCardAction extends WriteAction<IScoreCardData
 		return data;
 	}
 
-	public IScoreCardData initActionData(IScoreCardData data) {
+	public Data<com.anfelisa.box.models.ScoreCardModel> initActionData(Data<com.anfelisa.box.models.ScoreCardModel> data) {
 		return data;
 	}
 

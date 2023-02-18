@@ -12,6 +12,7 @@ import de.acegen.PersistenceConnection;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
 import de.acegen.ViewProvider;
+import de.acegen.Data;
 
 import com.anfelisa.card.resources.*;
 
@@ -32,28 +33,28 @@ public class AppRegistration {
 	}
 	
 	public static void registerConsumers(Environment environment, ViewProvider viewProvider) {
-		viewProvider.addConsumer("com.anfelisa.card.events.CreateCardOkEvent", (dataContainer, handle) -> {
-			viewProvider.cardView.insert((com.anfelisa.card.data.CardCreationData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.card.events.CreateCardOkEvent", (data, handle) -> {
+			viewProvider.cardView.insert((Data<com.anfelisa.card.models.CardCreationModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.card.events.UpdateCardOkEvent", (dataContainer, handle) -> {
-			viewProvider.cardView.update((com.anfelisa.card.data.CardUpdateData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.card.events.UpdateCardOkEvent", (data, handle) -> {
+			viewProvider.cardView.update((Data<com.anfelisa.card.models.CardUpdateModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.card.events.UpdateCardPriorityOkEvent", (dataContainer, handle) -> {
-			viewProvider.cardView.updatePriority((com.anfelisa.card.data.CardUpdatePriorityData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.card.events.UpdateCardPriorityOkEvent", (data, handle) -> {
+			viewProvider.cardView.updatePriority((Data<com.anfelisa.card.models.CardUpdatePriorityModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.card.events.DeleteCardOkEvent", (dataContainer, handle) -> {
-			viewProvider.cardView.delete((com.anfelisa.card.data.CardDeleteData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.card.events.DeleteCardOkEvent", (data, handle) -> {
+			viewProvider.cardView.delete((Data<com.anfelisa.card.models.CardDeleteModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.card.events.MoveCardsOkEvent", (dataContainer, handle) -> {
-			viewProvider.cardView.moveCards((com.anfelisa.card.data.MoveCardsData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.card.events.MoveCardsOkEvent", (data, handle) -> {
+			viewProvider.cardView.moveCards((Data<com.anfelisa.card.models.MoveCardsModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.card.events.ChangeOrderOkEvent", (dataContainer, handle) -> {
-			viewProvider.cardView.changeCardOrder((com.anfelisa.card.data.ChangeCardOrderListData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.card.events.ChangeOrderOkEvent", (data, handle) -> {
+			viewProvider.cardView.changeCardOrder((Data<com.anfelisa.card.models.ChangeCardOrderListModel>) data, handle);
 		});
 		
 		

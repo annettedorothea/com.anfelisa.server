@@ -14,9 +14,9 @@ import org.slf4j.LoggerFactory;
 
 import org.apache.commons.lang3.StringUtils;
 
+import de.acegen.Data;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
-import de.acegen.IDataContainer;
 import de.acegen.ViewProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -24,11 +24,8 @@ import de.acegen.ReadAction;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 
-import com.anfelisa.category.data.IUsernameSearchData;
-import com.anfelisa.category.data.UsernameSearchData;
-
 @SuppressWarnings("unused")
-public abstract class AbstractSearchUsernameForInvitationAction extends ReadAction<IUsernameSearchData> {
+public abstract class AbstractSearchUsernameForInvitationAction extends ReadAction<com.anfelisa.category.models.UsernameSearchModel> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractSearchUsernameForInvitationAction.class);
 	
@@ -37,10 +34,10 @@ public abstract class AbstractSearchUsernameForInvitationAction extends ReadActi
 		super("com.anfelisa.category.actions.SearchUsernameForInvitationAction", persistenceConnection, appConfiguration, daoProvider, viewProvider);
 	}
 
-	protected abstract IUsernameSearchData loadDataForGetRequest(IUsernameSearchData data, PersistenceHandle readonlyHandle);
+	protected abstract Data<com.anfelisa.category.models.UsernameSearchModel> loadDataForGetRequest(Data<com.anfelisa.category.models.UsernameSearchModel> data, PersistenceHandle readonlyHandle);
 
 	@Override
-	protected IUsernameSearchData initActionDataFromSquishyDataProvider(IUsernameSearchData data) {
+	protected Data<com.anfelisa.category.models.UsernameSearchModel> initActionDataFromSquishyDataProvider(Data<com.anfelisa.category.models.UsernameSearchModel> data) {
 		LocalDateTime systemTime = SquishyDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
 			data.setSystemTime(systemTime);
@@ -48,7 +45,7 @@ public abstract class AbstractSearchUsernameForInvitationAction extends ReadActi
 		return data;
 	}
 
-	public IUsernameSearchData initActionData(IUsernameSearchData data) {
+	public Data<com.anfelisa.category.models.UsernameSearchModel> initActionData(Data<com.anfelisa.category.models.UsernameSearchModel> data) {
 		return data;
 	}
 

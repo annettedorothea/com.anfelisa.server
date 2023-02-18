@@ -1,8 +1,8 @@
-<createTable tableName="emailconfirmation">
+<createTable tableName="\"emailconfirmation\"">
 	<column name="token" type="character varying">
 		<constraints primaryKey="true" nullable="false"  />
 	</column>
-	<column name="userid" type="character varying">
-		<constraints  nullable="false"  references="user(userid)" deleteCascade="true" foreignKeyName="fk_emailconfirmation_userid" />
+	<column name="userId" type="character varying">
+		<constraints  nullable="false"  references="\"emailconfirmation\"(userId)" deleteCascade="true" foreignKeyName="fk_\"emailconfirmation\"_userId" />
 	</column>
 </createTable>

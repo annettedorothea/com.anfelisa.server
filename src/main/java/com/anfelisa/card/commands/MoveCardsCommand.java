@@ -13,11 +13,12 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.card.data.IMoveCardsData;
-import com.anfelisa.card.models.ICardModel;
-import com.anfelisa.category.models.IUserAccessToCategoryModel;
+import com.anfelisa.card.models.CardModel;
+import com.anfelisa.card.models.MoveCardsModel;
+import com.anfelisa.category.models.UserAccessToCategoryModel;
 
 import de.acegen.CustomAppConfiguration;
+import de.acegen.Data;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.ViewProvider;
@@ -32,51 +33,51 @@ public class MoveCardsCommand extends AbstractMoveCardsCommand {
 	}
 
 	@Override
-	protected IMoveCardsData executeCommand(IMoveCardsData data, PersistenceHandle readonlyHandle) {
-		IUserAccessToCategoryModel accessToCategory = this.daoProvider.getUserAccessToCategoryDao()
-				.hasUserAccessTo(readonlyHandle, data.getCategoryId(), data.getUserId());
+	protected Data<MoveCardsModel> executeCommand(Data<MoveCardsModel> data, PersistenceHandle readonlyHandle) {
+		UserAccessToCategoryModel accessToCategory = this.daoProvider.getUserAccessToCategoryDao()
+				.hasUserAccessTo(readonlyHandle, data.getModel().getCategoryId(), data.getModel().getUserId());
 		if (accessToCategory == null || !accessToCategory.getEditable()) {
 			throwSecurityException();
 		}
 		Integer cardIndex = this.daoProvider.getCardDao().selectMaxIndexInCategory(readonlyHandle,
-				data.getCategoryId());
+				data.getModel().getCategoryId());
 		if (cardIndex == null) {
 			cardIndex = 1;
 		} else {
 			cardIndex++;
 		}
-		List<ICardModel> movedCards = new ArrayList<>();
+		List<CardModel> movedCards = new ArrayList<>();
 		String sourceCategoryId = "";
-		for (String cardId : data.getCardIdList()) {
-			ICardModel card = daoProvider.getCardDao().selectByCardId(readonlyHandle, cardId);
+		for (String cardId : data.getModel().getCardIdList()) {
+			CardModel card = daoProvider.getCardDao().selectByCardId(readonlyHandle, cardId);
 			if (card == null) {
 				throwIllegalArgumentException("cardDoesNotExist");
 			}
-			IUserAccessToCategoryModel accessToRootCategory = this.daoProvider.getUserAccessToCategoryDao()
-					.hasUserAccessTo(readonlyHandle, card.getRootCategoryId(), data.getUserId());
+			UserAccessToCategoryModel accessToRootCategory = this.daoProvider.getUserAccessToCategoryDao()
+					.hasUserAccessTo(readonlyHandle, card.getRootCategoryId(), data.getModel().getUserId());
 			if (accessToRootCategory == null || !accessToRootCategory.getEditable()) {
 				throwSecurityException();
 			}
 			sourceCategoryId = card.getCategoryId();
 			card.setCardIndex(cardIndex);
-			card.setCategoryId(data.getCategoryId());
+			card.setCategoryId(data.getModel().getCategoryId());
 			movedCards.add(card);
 			cardIndex++;
 		}
-		data.setMovedCards(movedCards);
+		data.getModel().setMovedCards(movedCards);
 
-		List<ICardModel> updatedIndices = new ArrayList<>();
+		List<CardModel> updatedIndices = new ArrayList<>();
 		cardIndex = 1;
-		List<ICardModel> allCardsInSourceCategory = this.daoProvider.getCardDao().selectAll(readonlyHandle,
+		List<CardModel> allCardsInSourceCategory = this.daoProvider.getCardDao().selectAll(readonlyHandle,
 				sourceCategoryId);
-		for (ICardModel card : allCardsInSourceCategory) {
-			if (!data.getCardIdList().contains(card.getCardId())) {
+		for (CardModel card : allCardsInSourceCategory) {
+			if (!data.getModel().getCardIdList().contains(card.getCardId())) {
 				card.setCardIndex(cardIndex);
 				updatedIndices.add(card);
 				cardIndex++;
 			}
 		}
-		data.setUpdatedIndices(updatedIndices);
+		data.getModel().setUpdatedIndices(updatedIndices);
 
 		this.addOkOutcome(data);
 		return data;

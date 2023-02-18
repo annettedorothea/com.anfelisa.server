@@ -14,9 +14,9 @@ import org.jdbi.v3.core.statement.StatementContext;
 
 import de.acegen.AbstractMapper;
 
-public class CategoryDeleteMapper extends AbstractMapper<ICategoryDeleteModel> {
+public class CategoryDeleteMapper extends AbstractMapper<CategoryDeleteModel> {
 	
-	public ICategoryDeleteModel map(ResultSet r, StatementContext ctx) throws SQLException {
+	public CategoryDeleteModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new CategoryDeleteModel(
 			this.mapToString(r, "categoryId"),
 			this.mapToInteger(r, "categoryIndex"),

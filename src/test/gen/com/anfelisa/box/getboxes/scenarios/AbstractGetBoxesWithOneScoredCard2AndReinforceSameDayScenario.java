@@ -25,6 +25,9 @@ import de.acegen.BaseScenario;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.HttpResponse;
+import de.acegen.Data;
+
+import com.fasterxml.jackson.core.type.TypeReference;
 
 @SuppressWarnings("unused")
 public abstract class AbstractGetBoxesWithOneScoredCard2AndReinforceSameDayScenario extends BaseScenario {
@@ -43,13 +46,13 @@ public abstract class AbstractGetBoxesWithOneScoredCard2AndReinforceSameDayScena
 				"\"password\" : \"password\"," + 
 				"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 					com.anfelisa.user.data.RegisterUserPayload.class);
-			com.anfelisa.user.data.UserRegistrationData data_0 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"email\" : \"annette.pohl@anfelisa.de\"," + 
-			"\"language\" : \"de\"," + 
-			"\"password\" : \"password\"," + 
-			"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
-					com.anfelisa.user.data.UserRegistrationData.class);
+			com.anfelisa.user.models.UserRegistrationModel model_0 = objectMapper.readValue("{" +
+				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"password\"," + 
+				"\"username\" : \"Annette-" + this.getTestId() + "\"} ", com.anfelisa.user.models.UserRegistrationModel.class);
+			Data<com.anfelisa.user.models.UserRegistrationModel> data_0 = new Data<com.anfelisa.user.models.UserRegistrationModel>(uuid);
+			data_0.setModel(model_0);
 			HttpResponse<Object> response_0 = 
 			this.httpPost(
 				"/users/register", 
@@ -78,12 +81,12 @@ public abstract class AbstractGetBoxesWithOneScoredCard2AndReinforceSameDayScena
 				"\"dictionaryLookup\" : false," + 
 				"\"maxCardsPerDay\" : 10} ",
 					com.anfelisa.box.data.CreateBoxPayload.class);
-			com.anfelisa.box.data.BoxCreationData data_1 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"categoryName\" : \"cat\"," + 
-			"\"dictionaryLookup\" : false," + 
-			"\"maxCardsPerDay\" : 10} ",
-					com.anfelisa.box.data.BoxCreationData.class);
+			com.anfelisa.box.models.BoxCreationModel model_1 = objectMapper.readValue("{" +
+				"\"categoryName\" : \"cat\"," + 
+				"\"dictionaryLookup\" : false," + 
+				"\"maxCardsPerDay\" : 10} ", com.anfelisa.box.models.BoxCreationModel.class);
+			Data<com.anfelisa.box.models.BoxCreationModel> data_1 = new Data<com.anfelisa.box.models.BoxCreationModel>(uuid);
+			data_1.setModel(model_1);
 			HttpResponse<Object> response_1 = 
 			this.httpPost(
 				"/box/create", 
@@ -111,11 +114,11 @@ public abstract class AbstractGetBoxesWithOneScoredCard2AndReinforceSameDayScena
 				"\"categoryName\" : \"level 1 #1\"," + 
 				"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 					com.anfelisa.category.data.CreateCategoryPayload.class);
-			com.anfelisa.category.data.CategoryCreationData data_2 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"categoryName\" : \"level 1 #1\"," + 
-			"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
-					com.anfelisa.category.data.CategoryCreationData.class);
+			com.anfelisa.category.models.CategoryCreationModel model_2 = objectMapper.readValue("{" +
+				"\"categoryName\" : \"level 1 #1\"," + 
+				"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ", com.anfelisa.category.models.CategoryCreationModel.class);
+			Data<com.anfelisa.category.models.CategoryCreationModel> data_2 = new Data<com.anfelisa.category.models.CategoryCreationModel>(uuid);
+			data_2.setModel(model_2);
 			HttpResponse<Object> response_2 = 
 			this.httpPost(
 				"/category/create", 
@@ -144,12 +147,12 @@ public abstract class AbstractGetBoxesWithOneScoredCard2AndReinforceSameDayScena
 				"\"given\" : \"given\"," + 
 				"\"wanted\" : \"wanted\"} ",
 					com.anfelisa.card.data.CreateCardPayload.class);
-			com.anfelisa.card.data.CardCreationData data_3 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-			"\"given\" : \"given\"," + 
-			"\"wanted\" : \"wanted\"} ",
-					com.anfelisa.card.data.CardCreationData.class);
+			com.anfelisa.card.models.CardCreationModel model_3 = objectMapper.readValue("{" +
+				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
+				"\"given\" : \"given\"," + 
+				"\"wanted\" : \"wanted\"} ", com.anfelisa.card.models.CardCreationModel.class);
+			Data<com.anfelisa.card.models.CardCreationModel> data_3 = new Data<com.anfelisa.card.models.CardCreationModel>(uuid);
+			data_3.setModel(model_3);
 			HttpResponse<Object> response_3 = 
 			this.httpPost(
 				"/card/create", 
@@ -178,12 +181,12 @@ public abstract class AbstractGetBoxesWithOneScoredCard2AndReinforceSameDayScena
 				"\"given\" : \"given2\"," + 
 				"\"wanted\" : \"wanted2\"} ",
 					com.anfelisa.card.data.CreateCardPayload.class);
-			com.anfelisa.card.data.CardCreationData data_4 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-			"\"given\" : \"given2\"," + 
-			"\"wanted\" : \"wanted2\"} ",
-					com.anfelisa.card.data.CardCreationData.class);
+			com.anfelisa.card.models.CardCreationModel model_4 = objectMapper.readValue("{" +
+				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
+				"\"given\" : \"given2\"," + 
+				"\"wanted\" : \"wanted2\"} ", com.anfelisa.card.models.CardCreationModel.class);
+			Data<com.anfelisa.card.models.CardCreationModel> data_4 = new Data<com.anfelisa.card.models.CardCreationModel>(uuid);
+			data_4.setModel(model_4);
 			HttpResponse<Object> response_4 = 
 			this.httpPost(
 				"/card/create", 
@@ -212,12 +215,12 @@ public abstract class AbstractGetBoxesWithOneScoredCard2AndReinforceSameDayScena
 				"\"given\" : \"3given\"," + 
 				"\"wanted\" : \"3wanted\"} ",
 					com.anfelisa.card.data.CreateCardPayload.class);
-			com.anfelisa.card.data.CardCreationData data_5 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-			"\"given\" : \"3given\"," + 
-			"\"wanted\" : \"3wanted\"} ",
-					com.anfelisa.card.data.CardCreationData.class);
+			com.anfelisa.card.models.CardCreationModel model_5 = objectMapper.readValue("{" +
+				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
+				"\"given\" : \"3given\"," + 
+				"\"wanted\" : \"3wanted\"} ", com.anfelisa.card.models.CardCreationModel.class);
+			Data<com.anfelisa.card.models.CardCreationModel> data_5 = new Data<com.anfelisa.card.models.CardCreationModel>(uuid);
+			data_5.setModel(model_5);
 			HttpResponse<Object> response_5 = 
 			this.httpPost(
 				"/card/create", 
@@ -246,12 +249,12 @@ public abstract class AbstractGetBoxesWithOneScoredCard2AndReinforceSameDayScena
 				"\"given\" : \"4given4\"," + 
 				"\"wanted\" : \"4wanted4\"} ",
 					com.anfelisa.card.data.CreateCardPayload.class);
-			com.anfelisa.card.data.CardCreationData data_6 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-			"\"given\" : \"4given4\"," + 
-			"\"wanted\" : \"4wanted4\"} ",
-					com.anfelisa.card.data.CardCreationData.class);
+			com.anfelisa.card.models.CardCreationModel model_6 = objectMapper.readValue("{" +
+				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
+				"\"given\" : \"4given4\"," + 
+				"\"wanted\" : \"4wanted4\"} ", com.anfelisa.card.models.CardCreationModel.class);
+			Data<com.anfelisa.card.models.CardCreationModel> data_6 = new Data<com.anfelisa.card.models.CardCreationModel>(uuid);
+			data_6.setModel(model_6);
 			HttpResponse<Object> response_6 = 
 			this.httpPost(
 				"/card/create", 
@@ -280,12 +283,12 @@ public abstract class AbstractGetBoxesWithOneScoredCard2AndReinforceSameDayScena
 				"\"given\" : \"different\"," + 
 				"\"wanted\" : \"different\"} ",
 					com.anfelisa.card.data.CreateCardPayload.class);
-			com.anfelisa.card.data.CardCreationData data_7 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-			"\"given\" : \"different\"," + 
-			"\"wanted\" : \"different\"} ",
-					com.anfelisa.card.data.CardCreationData.class);
+			com.anfelisa.card.models.CardCreationModel model_7 = objectMapper.readValue("{" +
+				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
+				"\"given\" : \"different\"," + 
+				"\"wanted\" : \"different\"} ", com.anfelisa.card.models.CardCreationModel.class);
+			Data<com.anfelisa.card.models.CardCreationModel> data_7 = new Data<com.anfelisa.card.models.CardCreationModel>(uuid);
+			data_7.setModel(model_7);
 			HttpResponse<Object> response_7 = 
 			this.httpPost(
 				"/card/create", 
@@ -316,13 +319,13 @@ public abstract class AbstractGetBoxesWithOneScoredCard2AndReinforceSameDayScena
 				"\"c4-" + this.getTestId() + "\"]," + 
 				"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.ScheduleCardsPayload.class);
-			com.anfelisa.box.data.ScheduledCardsData data_8 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"," + 
-			"\"c3-" + this.getTestId() + "\"," + 
-			"\"c4-" + this.getTestId() + "\"]," + 
-			"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
-					com.anfelisa.box.data.ScheduledCardsData.class);
+			com.anfelisa.box.models.ScheduledCardsModel model_8 = objectMapper.readValue("{" +
+				"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"," + 
+				"\"c3-" + this.getTestId() + "\"," + 
+				"\"c4-" + this.getTestId() + "\"]," + 
+				"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ", com.anfelisa.box.models.ScheduledCardsModel.class);
+			Data<com.anfelisa.box.models.ScheduledCardsModel> data_8 = new Data<com.anfelisa.box.models.ScheduledCardsModel>(uuid);
+			data_8.setModel(model_8);
 			HttpResponse<Object> response_8 = 
 			this.httpPost(
 				"/cards/schedule", 
@@ -351,11 +354,11 @@ public abstract class AbstractGetBoxesWithOneScoredCard2AndReinforceSameDayScena
 				"\"scoredCardQuality\" : 2," + 
 				"\"scheduledCardId\" : \"c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.ScoreCardPayload.class);
-			com.anfelisa.box.data.ScoreCardData data_9 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"scoredCardQuality\" : 2," + 
-			"\"scheduledCardId\" : \"c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
-					com.anfelisa.box.data.ScoreCardData.class);
+			com.anfelisa.box.models.ScoreCardModel model_9 = objectMapper.readValue("{" +
+				"\"scoredCardQuality\" : 2," + 
+				"\"scheduledCardId\" : \"c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ", com.anfelisa.box.models.ScoreCardModel.class);
+			Data<com.anfelisa.box.models.ScoreCardModel> data_9 = new Data<com.anfelisa.box.models.ScoreCardModel>(uuid);
+			data_9.setModel(model_9);
 			HttpResponse<com.anfelisa.box.data.ScoreCardResponse> response_9 = 
 			this.httpPost(
 				"/card/score", 
@@ -381,13 +384,13 @@ public abstract class AbstractGetBoxesWithOneScoredCard2AndReinforceSameDayScena
 	
 	private HttpResponse<com.anfelisa.box.data.GetBoxesResponse> when_0() throws Exception {
 		String uuid = this.randomUUID();
-		com.anfelisa.box.data.BoxListData data_0 = objectMapper.readValue("{" +
-		"\"uuid\" : \"" + uuid + "\"," + 
-		"\"todayAtMidnightInUTC\" : \"2020-04-18T02:00\"} ",
-				com.anfelisa.box.data.BoxListData.class);
+		com.anfelisa.box.models.BoxListModel model_0 = objectMapper.readValue("{" +
+			"\"todayAtMidnightInUTC\" : \"2020-04-18T02:00\"} ", com.anfelisa.box.models.BoxListModel.class);
+		Data<com.anfelisa.box.models.BoxListModel> data_0 = new Data<com.anfelisa.box.models.BoxListModel>(uuid);
+		data_0.setModel(model_0);
 		HttpResponse<com.anfelisa.box.data.GetBoxesResponse> response = 
 		this.httpGet(
-			"/boxes/my/?todayAtMidnightInUTC=" + data_0.getTodayAtMidnightInUTC() + "", 
+			"/boxes/my/?todayAtMidnightInUTC=" + data_0.getModel().getTodayAtMidnightInUTC() + "", 
 			authorization("Annette-${testId}", "password"),
 			uuid,
 			com.anfelisa.box.data.GetBoxesResponse.class
@@ -426,8 +429,7 @@ public abstract class AbstractGetBoxesWithOneScoredCard2AndReinforceSameDayScena
 				assertFail(x.getMessage());
 			}
 	
-			com.anfelisa.box.data.BoxListData expectedData = objectMapper.readValue("{" +
-				"\"uuid\" : \"\"," + 
+			com.anfelisa.box.models.BoxListModel expectedData = objectMapper.readValue("{" +
 				"\"boxList\" : [ { \"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"categoryName\" : \"cat\"," + 
@@ -435,8 +437,7 @@ public abstract class AbstractGetBoxesWithOneScoredCard2AndReinforceSameDayScena
 				"\"editable\" : true," + 
 				"\"reverse\" : false," + 
 				"\"archived\" : false," + 
-				"\"deletable\" : true}]} ",
-			com.anfelisa.box.data.BoxListData.class);
+				"\"deletable\" : true}]} ", com.anfelisa.box.models.BoxListModel.class);
 			
 			com.anfelisa.box.data.GetBoxesResponse expected = new com.anfelisa.box.data.GetBoxesResponse(expectedData);
 			

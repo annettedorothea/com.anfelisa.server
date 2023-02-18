@@ -16,17 +16,18 @@ import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
+import de.acegen.AbstractModel;
 
 @SuppressWarnings("all")
-public class BoxViewModel implements IBoxViewModel {
+public class BoxViewModel extends AbstractModel {
 
 	private Integer openTodaysCards;
 
 	private String categoryName;
 
-	private Boolean editable = false;
+	private Boolean editable;
 
-	private Boolean deletable = false;
+	private Boolean deletable;
 
 	private String boxId;
 
@@ -34,10 +35,12 @@ public class BoxViewModel implements IBoxViewModel {
 
 	private Integer maxCardsPerDay;
 
-	private Boolean reverse = false;
+	private Boolean reverse;
 
-	private Boolean archived = false;
+	private Boolean archived;
 
+	
+	private Boolean frozen = false;
 
 	public BoxViewModel() {
 	}
@@ -68,7 +71,12 @@ public class BoxViewModel implements IBoxViewModel {
 	public Integer getOpenTodaysCards() {
 		return this.openTodaysCards;
 	}
+	
+	@JsonProperty
 	public void setOpenTodaysCards(Integer openTodaysCards) {
+		if (this.frozen) {
+			throw new RuntimeException("openTodaysCards is frozen");
+		}
 		this.openTodaysCards = openTodaysCards;
 	}
 	
@@ -76,7 +84,12 @@ public class BoxViewModel implements IBoxViewModel {
 	public String getCategoryName() {
 		return this.categoryName;
 	}
+	
+	@JsonProperty
 	public void setCategoryName(String categoryName) {
+		if (this.frozen) {
+			throw new RuntimeException("categoryName is frozen");
+		}
 		this.categoryName = categoryName;
 	}
 	
@@ -84,7 +97,12 @@ public class BoxViewModel implements IBoxViewModel {
 	public Boolean getEditable() {
 		return this.editable;
 	}
+	
+	@JsonProperty
 	public void setEditable(Boolean editable) {
+		if (this.frozen) {
+			throw new RuntimeException("editable is frozen");
+		}
 		this.editable = editable;
 	}
 	
@@ -92,7 +110,12 @@ public class BoxViewModel implements IBoxViewModel {
 	public Boolean getDeletable() {
 		return this.deletable;
 	}
+	
+	@JsonProperty
 	public void setDeletable(Boolean deletable) {
+		if (this.frozen) {
+			throw new RuntimeException("deletable is frozen");
+		}
 		this.deletable = deletable;
 	}
 	
@@ -100,7 +123,12 @@ public class BoxViewModel implements IBoxViewModel {
 	public String getBoxId() {
 		return this.boxId;
 	}
+	
+	@JsonProperty
 	public void setBoxId(String boxId) {
+		if (this.frozen) {
+			throw new RuntimeException("boxId is frozen");
+		}
 		this.boxId = boxId;
 	}
 	
@@ -108,7 +136,12 @@ public class BoxViewModel implements IBoxViewModel {
 	public String getCategoryId() {
 		return this.categoryId;
 	}
+	
+	@JsonProperty
 	public void setCategoryId(String categoryId) {
+		if (this.frozen) {
+			throw new RuntimeException("categoryId is frozen");
+		}
 		this.categoryId = categoryId;
 	}
 	
@@ -116,7 +149,12 @@ public class BoxViewModel implements IBoxViewModel {
 	public Integer getMaxCardsPerDay() {
 		return this.maxCardsPerDay;
 	}
+	
+	@JsonProperty
 	public void setMaxCardsPerDay(Integer maxCardsPerDay) {
+		if (this.frozen) {
+			throw new RuntimeException("maxCardsPerDay is frozen");
+		}
 		this.maxCardsPerDay = maxCardsPerDay;
 	}
 	
@@ -124,7 +162,12 @@ public class BoxViewModel implements IBoxViewModel {
 	public Boolean getReverse() {
 		return this.reverse;
 	}
+	
+	@JsonProperty
 	public void setReverse(Boolean reverse) {
+		if (this.frozen) {
+			throw new RuntimeException("reverse is frozen");
+		}
 		this.reverse = reverse;
 	}
 	
@@ -132,13 +175,31 @@ public class BoxViewModel implements IBoxViewModel {
 	public Boolean getArchived() {
 		return this.archived;
 	}
+	
+	@JsonProperty
 	public void setArchived(Boolean archived) {
+		if (this.frozen) {
+			throw new RuntimeException("archived is frozen");
+		}
 		this.archived = archived;
 	}
 	
+	
+	public com.anfelisa.box.models.MinimalBoxModel mapToMinimalBoxModel() {
+		com.anfelisa.box.models.MinimalBoxModel model = new com.anfelisa.box.models.MinimalBoxModel();
+		model.setBoxId(this.getBoxId());
+		model.setCategoryId(this.getCategoryId());
+		model.setReverse(this.getReverse());
+		return model;
+	}	
+	
+	@Override
+	public void freeze() {
+		this.frozen = true;
+	}
 
-	public IBoxViewModel deepCopy() {
-		IBoxViewModel copy = new BoxViewModel();
+	public com.anfelisa.box.models.BoxViewModel deepCopy() {
+		com.anfelisa.box.models.BoxViewModel copy = new BoxViewModel();
 		copy.setOpenTodaysCards(this.getOpenTodaysCards());
 		copy.setCategoryName(this.getCategoryName());
 		copy.setEditable(this.getEditable());
@@ -149,6 +210,33 @@ public class BoxViewModel implements IBoxViewModel {
 		copy.setReverse(this.getReverse());
 		copy.setArchived(this.getArchived());
 		return copy;
+	}
+	
+	public static BoxViewModel generateTestData() {
+		java.util.Random random = new java.util.Random();
+		BoxViewModel testData = new BoxViewModel();
+		testData.setOpenTodaysCards(random.nextInt(50));
+		testData.setCategoryName(randomString(random));
+		testData.setEditable(random.nextBoolean());
+		testData.setDeletable(random.nextBoolean());
+		testData.setBoxId(randomString(random));
+		testData.setCategoryId(randomString(random));
+		testData.setMaxCardsPerDay(random.nextInt(50));
+		testData.setReverse(random.nextBoolean());
+		testData.setArchived(random.nextBoolean());
+		return testData;
+	}
+	
+	private static String randomString(java.util.Random random) {
+		String chars = "aaaaaaabcdeeeeeeeffffghiiiiiiijkllllllmmmmnnnnnnnooooooooopqrstttuuuuuuuvxyz";
+		int n = random.nextInt(20) + 5;
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		String string  = sb.toString(); 
+		return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
 	}
 
 }

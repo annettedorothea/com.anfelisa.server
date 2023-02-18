@@ -16,16 +16,19 @@ import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
+import de.acegen.AbstractModel;
 
 @SuppressWarnings("all")
-public class BoxArchiveModel implements IBoxArchiveModel {
+public class BoxArchiveModel extends AbstractModel {
 
 	private String userId;
 
 	private String boxId;
 
-	private Boolean archived = false;
+	private Boolean archived;
 
+	
+	private Boolean frozen = false;
 
 	public BoxArchiveModel() {
 	}
@@ -44,7 +47,12 @@ public class BoxArchiveModel implements IBoxArchiveModel {
 	public String getUserId() {
 		return this.userId;
 	}
+	
+	@JsonProperty
 	public void setUserId(String userId) {
+		if (this.frozen) {
+			throw new RuntimeException("userId is frozen");
+		}
 		this.userId = userId;
 	}
 	
@@ -52,7 +60,12 @@ public class BoxArchiveModel implements IBoxArchiveModel {
 	public String getBoxId() {
 		return this.boxId;
 	}
+	
+	@JsonProperty
 	public void setBoxId(String boxId) {
+		if (this.frozen) {
+			throw new RuntimeException("boxId is frozen");
+		}
 		this.boxId = boxId;
 	}
 	
@@ -60,17 +73,49 @@ public class BoxArchiveModel implements IBoxArchiveModel {
 	public Boolean getArchived() {
 		return this.archived;
 	}
+	
+	@JsonProperty
 	public void setArchived(Boolean archived) {
+		if (this.frozen) {
+			throw new RuntimeException("archived is frozen");
+		}
 		this.archived = archived;
 	}
 	
+	
+	
+	@Override
+	public void freeze() {
+		this.frozen = true;
+	}
 
-	public IBoxArchiveModel deepCopy() {
-		IBoxArchiveModel copy = new BoxArchiveModel();
+	public com.anfelisa.box.models.BoxArchiveModel deepCopy() {
+		com.anfelisa.box.models.BoxArchiveModel copy = new BoxArchiveModel();
 		copy.setUserId(this.getUserId());
 		copy.setBoxId(this.getBoxId());
 		copy.setArchived(this.getArchived());
 		return copy;
+	}
+	
+	public static BoxArchiveModel generateTestData() {
+		java.util.Random random = new java.util.Random();
+		BoxArchiveModel testData = new BoxArchiveModel();
+		testData.setUserId(randomString(random));
+		testData.setBoxId(randomString(random));
+		testData.setArchived(random.nextBoolean());
+		return testData;
+	}
+	
+	private static String randomString(java.util.Random random) {
+		String chars = "aaaaaaabcdeeeeeeeffffghiiiiiiijkllllllmmmmnnnnnnnooooooooopqrstttuuuuuuuvxyz";
+		int n = random.nextInt(20) + 5;
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		String string  = sb.toString(); 
+		return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
 	}
 
 }

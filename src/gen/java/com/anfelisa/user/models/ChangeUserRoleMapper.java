@@ -14,9 +14,9 @@ import org.jdbi.v3.core.statement.StatementContext;
 
 import de.acegen.AbstractMapper;
 
-public class ChangeUserRoleMapper extends AbstractMapper<IChangeUserRoleModel> {
+public class ChangeUserRoleMapper extends AbstractMapper<ChangeUserRoleModel> {
 	
-	public IChangeUserRoleModel map(ResultSet r, StatementContext ctx) throws SQLException {
+	public ChangeUserRoleModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new ChangeUserRoleModel(
 			this.mapToString(r, "editedUserId"),
 			this.mapToString(r, "newRole"),

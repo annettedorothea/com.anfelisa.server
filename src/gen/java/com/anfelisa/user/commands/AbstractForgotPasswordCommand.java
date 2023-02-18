@@ -7,6 +7,7 @@
 
 package com.anfelisa.user.commands;
 
+import de.acegen.Data;
 import de.acegen.Command;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
@@ -14,24 +15,24 @@ import de.acegen.ViewProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.Event;
 
-import com.anfelisa.user.data.IForgotPasswordData;
+import com.anfelisa.user.models.ForgotPasswordModel;
 
 @SuppressWarnings("unused")
-public abstract class AbstractForgotPasswordCommand extends Command<IForgotPasswordData> {
+public abstract class AbstractForgotPasswordCommand extends Command<com.anfelisa.user.models.ForgotPasswordModel> {
 
 	public AbstractForgotPasswordCommand(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
 		super("com.anfelisa.user.commands.ForgotPasswordCommand", daoProvider, viewProvider, appConfiguration);
 	}
 
-	protected void addOkOutcome(IForgotPasswordData data) {
+	protected void addOkOutcome(Data<com.anfelisa.user.models.ForgotPasswordModel> data) {
 		data.addOutcome("ok");
 	}
-	protected void addDoesNotExistOutcome(IForgotPasswordData data) {
+	protected void addDoesNotExistOutcome(Data<com.anfelisa.user.models.ForgotPasswordModel> data) {
 		data.addOutcome("doesNotExist");
 	}
 	
 	@Override
-	public void addEventsToTimeline(IForgotPasswordData data, PersistenceHandle timelineHandle) {
+	public void addEventsToTimeline(Data<com.anfelisa.user.models.ForgotPasswordModel> data, PersistenceHandle timelineHandle) {
 		if (appConfiguration.getConfig().writeTimeline()) {
 			if (data.hasOutcome("ok")){
 				daoProvider.getAceDao().addEventToTimeline("com.anfelisa.user.events.ForgotPasswordOkEvent", data, timelineHandle);
@@ -40,9 +41,10 @@ public abstract class AbstractForgotPasswordCommand extends Command<IForgotPassw
 	}
 	
 	@Override
-	public void publishEvents(IForgotPasswordData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	public void publishEvents(Data<com.anfelisa.user.models.ForgotPasswordModel> data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+		data.freeze();
 		if (data.hasOutcome("ok")){
-			new Event<IForgotPasswordData>("com.anfelisa.user.events.ForgotPasswordOkEvent", viewProvider).publish(data.deepCopy(), handle, timelineHandle);
+			new Event<com.anfelisa.user.models.ForgotPasswordModel>("com.anfelisa.user.events.ForgotPasswordOkEvent", viewProvider).publish(data, handle, timelineHandle);
 		}
 	}
 	

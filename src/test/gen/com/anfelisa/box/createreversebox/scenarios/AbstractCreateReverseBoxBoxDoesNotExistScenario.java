@@ -25,6 +25,9 @@ import de.acegen.BaseScenario;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.HttpResponse;
+import de.acegen.Data;
+
+import com.fasterxml.jackson.core.type.TypeReference;
 
 @SuppressWarnings("unused")
 public abstract class AbstractCreateReverseBoxBoxDoesNotExistScenario extends BaseScenario {
@@ -43,13 +46,13 @@ public abstract class AbstractCreateReverseBoxBoxDoesNotExistScenario extends Ba
 				"\"password\" : \"password\"," + 
 				"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 					com.anfelisa.user.data.RegisterUserPayload.class);
-			com.anfelisa.user.data.UserRegistrationData data_0 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"email\" : \"annette.pohl@anfelisa.de\"," + 
-			"\"language\" : \"de\"," + 
-			"\"password\" : \"password\"," + 
-			"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
-					com.anfelisa.user.data.UserRegistrationData.class);
+			com.anfelisa.user.models.UserRegistrationModel model_0 = objectMapper.readValue("{" +
+				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"password\"," + 
+				"\"username\" : \"Annette-" + this.getTestId() + "\"} ", com.anfelisa.user.models.UserRegistrationModel.class);
+			Data<com.anfelisa.user.models.UserRegistrationModel> data_0 = new Data<com.anfelisa.user.models.UserRegistrationModel>(uuid);
+			data_0.setModel(model_0);
 			HttpResponse<Object> response_0 = 
 			this.httpPost(
 				"/users/register", 
@@ -78,12 +81,12 @@ public abstract class AbstractCreateReverseBoxBoxDoesNotExistScenario extends Ba
 				"\"dictionaryLookup\" : false," + 
 				"\"maxCardsPerDay\" : 10} ",
 					com.anfelisa.box.data.CreateBoxPayload.class);
-			com.anfelisa.box.data.BoxCreationData data_1 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"categoryName\" : \"cat\"," + 
-			"\"dictionaryLookup\" : false," + 
-			"\"maxCardsPerDay\" : 10} ",
-					com.anfelisa.box.data.BoxCreationData.class);
+			com.anfelisa.box.models.BoxCreationModel model_1 = objectMapper.readValue("{" +
+				"\"categoryName\" : \"cat\"," + 
+				"\"dictionaryLookup\" : false," + 
+				"\"maxCardsPerDay\" : 10} ", com.anfelisa.box.models.BoxCreationModel.class);
+			Data<com.anfelisa.box.models.BoxCreationModel> data_1 = new Data<com.anfelisa.box.models.BoxCreationModel>(uuid);
+			data_1.setModel(model_1);
 			HttpResponse<Object> response_1 = 
 			this.httpPost(
 				"/box/create", 
@@ -112,10 +115,10 @@ public abstract class AbstractCreateReverseBoxBoxDoesNotExistScenario extends Ba
 		com.anfelisa.box.data.CreateReverseBoxPayload payload_0 = objectMapper.readValue("{" +
 			"\"rootCategoryId\" : \"xxx-" + this.getTestId() + "\"} ",
 				com.anfelisa.box.data.CreateReverseBoxPayload.class);
-		com.anfelisa.box.data.BoxCreationData data_0 = objectMapper.readValue("{" +
-		"\"uuid\" : \"" + uuid + "\"," + 
-		"\"rootCategoryId\" : \"xxx-" + this.getTestId() + "\"} ",
-				com.anfelisa.box.data.BoxCreationData.class);
+		com.anfelisa.box.models.BoxCreationModel model_0 = objectMapper.readValue("{" +
+			"\"rootCategoryId\" : \"xxx-" + this.getTestId() + "\"} ", com.anfelisa.box.models.BoxCreationModel.class);
+		Data<com.anfelisa.box.models.BoxCreationModel> data_0 = new Data<com.anfelisa.box.models.BoxCreationModel>(uuid);
+		data_0.setModel(model_0);
 		HttpResponse<Object> response = 
 		this.httpPost(
 			"/box/create-reverse", 
@@ -170,7 +173,7 @@ public abstract class AbstractCreateReverseBoxBoxDoesNotExistScenario extends Ba
 	
 	
 	private void boxWasNotCreated() throws Exception {
-		com.anfelisa.box.models.IBoxModel actual = daoProvider.getBoxDao().selectByBoxId(handle, "reverseBoxId-" + this.getTestId() + "");
+		com.anfelisa.box.models.BoxModel actual = daoProvider.getBoxDao().selectByBoxId(handle, "reverseBoxId-" + this.getTestId() + "");
 		
 		assertIsNull(actual);
 	

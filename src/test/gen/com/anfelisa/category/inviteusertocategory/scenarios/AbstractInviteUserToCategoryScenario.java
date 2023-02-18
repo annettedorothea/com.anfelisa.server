@@ -25,6 +25,9 @@ import de.acegen.BaseScenario;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.HttpResponse;
+import de.acegen.Data;
+
+import com.fasterxml.jackson.core.type.TypeReference;
 
 @SuppressWarnings("unused")
 public abstract class AbstractInviteUserToCategoryScenario extends BaseScenario {
@@ -43,13 +46,13 @@ public abstract class AbstractInviteUserToCategoryScenario extends BaseScenario 
 				"\"password\" : \"password\"," + 
 				"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 					com.anfelisa.user.data.RegisterUserPayload.class);
-			com.anfelisa.user.data.UserRegistrationData data_0 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"email\" : \"annette.pohl@anfelisa.de\"," + 
-			"\"language\" : \"de\"," + 
-			"\"password\" : \"password\"," + 
-			"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
-					com.anfelisa.user.data.UserRegistrationData.class);
+			com.anfelisa.user.models.UserRegistrationModel model_0 = objectMapper.readValue("{" +
+				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"password\"," + 
+				"\"username\" : \"Annette-" + this.getTestId() + "\"} ", com.anfelisa.user.models.UserRegistrationModel.class);
+			Data<com.anfelisa.user.models.UserRegistrationModel> data_0 = new Data<com.anfelisa.user.models.UserRegistrationModel>(uuid);
+			data_0.setModel(model_0);
 			HttpResponse<Object> response_0 = 
 			this.httpPost(
 				"/users/register", 
@@ -78,12 +81,12 @@ public abstract class AbstractInviteUserToCategoryScenario extends BaseScenario 
 				"\"dictionaryLookup\" : false," + 
 				"\"maxCardsPerDay\" : 10} ",
 					com.anfelisa.box.data.CreateBoxPayload.class);
-			com.anfelisa.box.data.BoxCreationData data_1 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"categoryName\" : \"cat\"," + 
-			"\"dictionaryLookup\" : false," + 
-			"\"maxCardsPerDay\" : 10} ",
-					com.anfelisa.box.data.BoxCreationData.class);
+			com.anfelisa.box.models.BoxCreationModel model_1 = objectMapper.readValue("{" +
+				"\"categoryName\" : \"cat\"," + 
+				"\"dictionaryLookup\" : false," + 
+				"\"maxCardsPerDay\" : 10} ", com.anfelisa.box.models.BoxCreationModel.class);
+			Data<com.anfelisa.box.models.BoxCreationModel> data_1 = new Data<com.anfelisa.box.models.BoxCreationModel>(uuid);
+			data_1.setModel(model_1);
 			HttpResponse<Object> response_1 = 
 			this.httpPost(
 				"/box/create", 
@@ -114,13 +117,13 @@ public abstract class AbstractInviteUserToCategoryScenario extends BaseScenario 
 				"\"password\" : \"pw\"," + 
 				"\"username\" : \"Anne-" + this.getTestId() + "\"} ",
 					com.anfelisa.user.data.RegisterUserPayload.class);
-			com.anfelisa.user.data.UserRegistrationData data_2 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"email\" : \"info@anfelisa.de\"," + 
-			"\"language\" : \"de\"," + 
-			"\"password\" : \"pw\"," + 
-			"\"username\" : \"Anne-" + this.getTestId() + "\"} ",
-					com.anfelisa.user.data.UserRegistrationData.class);
+			com.anfelisa.user.models.UserRegistrationModel model_2 = objectMapper.readValue("{" +
+				"\"email\" : \"info@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"pw\"," + 
+				"\"username\" : \"Anne-" + this.getTestId() + "\"} ", com.anfelisa.user.models.UserRegistrationModel.class);
+			Data<com.anfelisa.user.models.UserRegistrationModel> data_2 = new Data<com.anfelisa.user.models.UserRegistrationModel>(uuid);
+			data_2.setModel(model_2);
 			HttpResponse<Object> response_2 = 
 			this.httpPost(
 				"/users/register", 
@@ -151,12 +154,12 @@ public abstract class AbstractInviteUserToCategoryScenario extends BaseScenario 
 			"\"invitedUsername\" : \"Anne-" + this.getTestId() + "\"," + 
 			"\"editable\" : false} ",
 				com.anfelisa.category.data.InviteUserToCategoryPayload.class);
-		com.anfelisa.category.data.UserToCategoryInvitationData data_0 = objectMapper.readValue("{" +
-		"\"uuid\" : \"" + uuid + "\"," + 
-		"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
-		"\"invitedUsername\" : \"Anne-" + this.getTestId() + "\"," + 
-		"\"editable\" : false} ",
-				com.anfelisa.category.data.UserToCategoryInvitationData.class);
+		com.anfelisa.category.models.UserToCategoryInvitationModel model_0 = objectMapper.readValue("{" +
+			"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+			"\"invitedUsername\" : \"Anne-" + this.getTestId() + "\"," + 
+			"\"editable\" : false} ", com.anfelisa.category.models.UserToCategoryInvitationModel.class);
+		Data<com.anfelisa.category.models.UserToCategoryInvitationModel> data_0 = new Data<com.anfelisa.category.models.UserToCategoryInvitationModel>(uuid);
+		data_0.setModel(model_0);
 		HttpResponse<Object> response = 
 		this.httpPut(
 			"/category/invite", 
@@ -212,9 +215,9 @@ public abstract class AbstractInviteUserToCategoryScenario extends BaseScenario 
 	
 	
 	private void accessToCategoryWasGranted() throws Exception {
-		com.anfelisa.category.models.IUserAccessToCategoryModel actual = daoProvider.getUserAccessToCategoryDao().selectByPrimaryKey(handle, "boxId-" + this.getTestId() + "", "uuid2-" + this.getTestId() + "");
+		com.anfelisa.category.models.UserAccessToCategoryModel actual = daoProvider.getUserAccessToCategoryDao().selectByPrimaryKey(handle, "boxId-" + this.getTestId() + "", "uuid2-" + this.getTestId() + "");
 		
-		com.anfelisa.category.models.IUserAccessToCategoryModel expected = objectMapper.readValue("{" +
+		com.anfelisa.category.models.UserAccessToCategoryModel expected = objectMapper.readValue("{" +
 			"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 			"\"editable\" : false," + 
 			"\"userId\" : \"uuid2-" + this.getTestId() + "\"} ",
@@ -224,9 +227,9 @@ public abstract class AbstractInviteUserToCategoryScenario extends BaseScenario 
 		LOG.info("THEN: accessToCategoryWasGranted passed");
 	}
 	private void boxWasCreated() throws Exception {
-		com.anfelisa.box.models.IBoxModel actual = daoProvider.getBoxDao().selectByPrimaryKey(handle, "boxIdOfInvitedUser-" + this.getTestId() + "");
+		com.anfelisa.box.models.BoxModel actual = daoProvider.getBoxDao().selectByPrimaryKey(handle, "boxIdOfInvitedUser-" + this.getTestId() + "");
 		
-		com.anfelisa.box.models.IBoxModel expected = objectMapper.readValue("{" +
+		com.anfelisa.box.models.BoxModel expected = objectMapper.readValue("{" +
 			"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 			"\"userId\" : \"uuid2-" + this.getTestId() + "\"," + 
 			"\"boxId\" : \"boxIdOfInvitedUser-" + this.getTestId() + "\"," + 

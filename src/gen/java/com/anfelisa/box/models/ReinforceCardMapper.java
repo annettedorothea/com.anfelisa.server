@@ -14,9 +14,9 @@ import org.jdbi.v3.core.statement.StatementContext;
 
 import de.acegen.AbstractMapper;
 
-public class ReinforceCardMapper extends AbstractMapper<IReinforceCardModel> {
+public class ReinforceCardMapper extends AbstractMapper<ReinforceCardModel> {
 	
-	public IReinforceCardModel map(ResultSet r, StatementContext ctx) throws SQLException {
+	public ReinforceCardModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new ReinforceCardModel(
 			this.mapToString(r, "reinforceCardId"),
 			this.mapToString(r, "scheduledCardId"),

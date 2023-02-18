@@ -14,9 +14,9 @@ import org.jdbi.v3.core.statement.StatementContext;
 
 import de.acegen.AbstractMapper;
 
-public class CardUpdatePriorityMapper extends AbstractMapper<ICardUpdatePriorityModel> {
+public class CardUpdatePriorityMapper extends AbstractMapper<CardUpdatePriorityModel> {
 	
-	public ICardUpdatePriorityModel map(ResultSet r, StatementContext ctx) throws SQLException {
+	public CardUpdatePriorityModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new CardUpdatePriorityModel(
 			this.mapToString(r, "cardId"),
 			this.mapToInteger(r, "priority"),

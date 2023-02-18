@@ -15,16 +15,15 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class CreateBoxPayload implements ICreateBoxPayload {
+public class CreateBoxPayload {
 	
 	private String categoryName;
 	
-	private Boolean dictionaryLookup = false;
+	private Boolean dictionaryLookup;
 	
 	private String givenLanguage;
 	
@@ -37,14 +36,6 @@ public class CreateBoxPayload implements ICreateBoxPayload {
 	public CreateBoxPayload() {
 	}
 	
-	public CreateBoxPayload(com.anfelisa.box.models.IBoxCreationModel data) {
-		categoryName = data.getCategoryName();
-		dictionaryLookup = data.getDictionaryLookup();
-		givenLanguage = data.getGivenLanguage();
-		wantedLanguage = data.getWantedLanguage();
-		maxCardsPerDay = data.getMaxCardsPerDay();
-		maxInterval = data.getMaxInterval();
-	}
 	
 	@JsonProperty
 	public String getCategoryName() {

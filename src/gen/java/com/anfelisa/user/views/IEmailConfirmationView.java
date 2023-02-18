@@ -7,17 +7,16 @@
 
 package com.anfelisa.user.views;
 
-
-import de.acegen.IDataContainer;
+import de.acegen.Data;
 import de.acegen.PersistenceHandle;
-import com.anfelisa.user.data.IUserRegistrationData;
-import com.anfelisa.user.data.IConfirmEmailData;
+import com.anfelisa.user.models.UserRegistrationModel;
+import com.anfelisa.user.models.ConfirmEmailModel;
 
 @SuppressWarnings("all")
 public interface IEmailConfirmationView {
 
-	void insert(IUserRegistrationData data, PersistenceHandle handle);
-	void delete(IConfirmEmailData data, PersistenceHandle handle);
+	void insert(Data<com.anfelisa.user.models.UserRegistrationModel> data, PersistenceHandle handle);
+	void delete(Data<com.anfelisa.user.models.ConfirmEmailModel> data, PersistenceHandle handle);
 	
 }
 

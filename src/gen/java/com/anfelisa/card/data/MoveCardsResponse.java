@@ -15,18 +15,19 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class MoveCardsResponse implements IMoveCardsResponse {
+public class MoveCardsResponse {
 	
 	public MoveCardsResponse() {
 	}
 	
-	public MoveCardsResponse(com.anfelisa.card.models.IMoveCardsModel data) {
+	public MoveCardsResponse(com.anfelisa.card.models.MoveCardsModel model) {
 	}
+	
+	
 	
 }
 

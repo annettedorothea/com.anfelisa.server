@@ -16,9 +16,10 @@ import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
+import de.acegen.AbstractModel;
 
 @SuppressWarnings("all")
-public class SimpleCardModel implements ISimpleCardModel {
+public class SimpleCardModel extends AbstractModel {
 
 	private String given;
 
@@ -26,6 +27,8 @@ public class SimpleCardModel implements ISimpleCardModel {
 
 	private String id;
 
+	
+	private Boolean frozen = false;
 
 	public SimpleCardModel() {
 	}
@@ -44,7 +47,12 @@ public class SimpleCardModel implements ISimpleCardModel {
 	public String getGiven() {
 		return this.given;
 	}
+	
+	@JsonProperty
 	public void setGiven(String given) {
+		if (this.frozen) {
+			throw new RuntimeException("given is frozen");
+		}
 		this.given = given;
 	}
 	
@@ -52,7 +60,12 @@ public class SimpleCardModel implements ISimpleCardModel {
 	public String getWanted() {
 		return this.wanted;
 	}
+	
+	@JsonProperty
 	public void setWanted(String wanted) {
+		if (this.frozen) {
+			throw new RuntimeException("wanted is frozen");
+		}
 		this.wanted = wanted;
 	}
 	
@@ -60,17 +73,49 @@ public class SimpleCardModel implements ISimpleCardModel {
 	public String getId() {
 		return this.id;
 	}
+	
+	@JsonProperty
 	public void setId(String id) {
+		if (this.frozen) {
+			throw new RuntimeException("id is frozen");
+		}
 		this.id = id;
 	}
 	
+	
+	
+	@Override
+	public void freeze() {
+		this.frozen = true;
+	}
 
-	public ISimpleCardModel deepCopy() {
-		ISimpleCardModel copy = new SimpleCardModel();
+	public com.anfelisa.card.models.SimpleCardModel deepCopy() {
+		com.anfelisa.card.models.SimpleCardModel copy = new SimpleCardModel();
 		copy.setGiven(this.getGiven());
 		copy.setWanted(this.getWanted());
 		copy.setId(this.getId());
 		return copy;
+	}
+	
+	public static SimpleCardModel generateTestData() {
+		java.util.Random random = new java.util.Random();
+		SimpleCardModel testData = new SimpleCardModel();
+		testData.setGiven(randomString(random));
+		testData.setWanted(randomString(random));
+		testData.setId(randomString(random));
+		return testData;
+	}
+	
+	private static String randomString(java.util.Random random) {
+		String chars = "aaaaaaabcdeeeeeeeffffghiiiiiiijkllllllmmmmnnnnnnnooooooooopqrstttuuuuuuuvxyz";
+		int n = random.nextInt(20) + 5;
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		String string  = sb.toString(); 
+		return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
 	}
 
 }

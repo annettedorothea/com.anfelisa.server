@@ -5,15 +5,14 @@ import java.util.Optional;
 
 import org.jdbi.v3.core.statement.Update;
 
-import com.anfelisa.box.data.IBoxUpdateData;
-import com.anfelisa.category.data.ICategoryUpdateData;
+import com.anfelisa.box.models.BoxUpdateModel;
 
 import de.acegen.PersistenceHandle;
 
 public class CategoryDao extends AbstractCategoryDao {
 
-	public ICategoryTreeItemModel selectRoot(PersistenceHandle handle, String rootCategoryId, String userId, Boolean reverse) {
-		Optional<ICategoryTreeItemModel> optional = handle.getHandle().createQuery(
+	public CategoryTreeItemModel selectRoot(PersistenceHandle handle, String rootCategoryId, String userId, Boolean reverse) {
+		Optional<CategoryTreeItemModel> optional = handle.getHandle().createQuery(
 				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, "
 						+ "(select count(categoryid) from public.category child where child.parentcategoryid = c.categoryid) = 0 as empty, "
 						+ "true as isRoot,"
@@ -28,7 +27,7 @@ public class CategoryDao extends AbstractCategoryDao {
 		return optional.isPresent() ? optional.get() : null;
 	}
 
-	public List<ICategoryTreeItemModel> selectAllChildrenForTree(PersistenceHandle handle, String parentCategoryId, String userId, Boolean reverse) {
+	public List<CategoryTreeItemModel> selectAllChildrenForTree(PersistenceHandle handle, String parentCategoryId, String userId, Boolean reverse) {
 		return handle.getHandle().createQuery(
 				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, "
 						+ "(select count(categoryid) from public.category child where child.parentcategoryid = c.categoryid) = 0 as empty, "
@@ -43,7 +42,7 @@ public class CategoryDao extends AbstractCategoryDao {
 				.list();
 	}
 	
-	public List<ICategoryModel> selectAllUsersRoot(PersistenceHandle handle, String userId) {
+	public List<CategoryModel> selectAllUsersRoot(PersistenceHandle handle, String userId) {
 		return handle.getHandle().createQuery("SELECT * FROM "
 				+ "( SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, "
 				+ "(select a.editable from useraccesstocategory a where a.categoryid = c.rootcategoryid and a.userid = :userid) "
@@ -66,7 +65,7 @@ public class CategoryDao extends AbstractCategoryDao {
 		return optional.isPresent() ? optional.get() : null;
 	}
 
-	public void update(PersistenceHandle handle, ICategoryUpdateData categoryModel) {
+	public void updateCategoryName(PersistenceHandle handle, CategoryUpdateModel categoryModel) {
 		Update statement = handle.getHandle().createUpdate(
 				"UPDATE public.category SET categoryname = :categoryname WHERE categoryid = :categoryid");
 		statement.bind("categoryname", categoryModel.getCategoryName());
@@ -74,7 +73,7 @@ public class CategoryDao extends AbstractCategoryDao {
 		statement.execute();
 	}
 
-	public void updateIndex(PersistenceHandle handle, ICategoryModel categoryModel) {
+	public void updateIndex(PersistenceHandle handle, CategoryModel categoryModel) {
 		Update statement = handle.getHandle().createUpdate(
 				"UPDATE public.category SET categoryindex = :categoryindex WHERE categoryid = :categoryid");
 		statement.bind("categoryindex", categoryModel.getCategoryIndex());
@@ -97,13 +96,13 @@ public class CategoryDao extends AbstractCategoryDao {
 		statement.execute();
 	}
 
-	public List<ICategoryModel> selectAllChildren(PersistenceHandle handle, String parentCategoryId) {
+	public List<CategoryModel> selectAllChildren(PersistenceHandle handle, String parentCategoryId) {
 		return handle.getHandle().createQuery(
 				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage FROM public.category c WHERE parentcategoryid = :parentcategoryid order by categoryindex, categoryname")
 				.bind("parentcategoryid", parentCategoryId).map(new CategoryMapper()).list();
 	}
 
-	public void update(PersistenceHandle handle, IBoxUpdateData categoryModel) {
+	public void update(PersistenceHandle handle, BoxUpdateModel categoryModel) {
 		Update statement = handle.getHandle().createUpdate(
 				"UPDATE public.category SET categoryname = :categoryname, dictionarylookup = :dictionarylookup, givenlanguage = :givenlanguage, wantedlanguage = :wantedlanguage WHERE categoryid = :categoryid");
 		statement.bind("categoryname", categoryModel.getCategoryName());

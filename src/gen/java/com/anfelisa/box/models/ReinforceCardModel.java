@@ -16,9 +16,10 @@ import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
+import de.acegen.AbstractModel;
 
 @SuppressWarnings("all")
-public class ReinforceCardModel implements IReinforceCardModel {
+public class ReinforceCardModel extends AbstractModel {
 
 	private String reinforceCardId;
 
@@ -28,6 +29,8 @@ public class ReinforceCardModel implements IReinforceCardModel {
 
 	private java.time.LocalDateTime changeDate;
 
+	
+	private Boolean frozen = false;
 
 	public ReinforceCardModel() {
 	}
@@ -48,7 +51,12 @@ public class ReinforceCardModel implements IReinforceCardModel {
 	public String getReinforceCardId() {
 		return this.reinforceCardId;
 	}
+	
+	@JsonProperty
 	public void setReinforceCardId(String reinforceCardId) {
+		if (this.frozen) {
+			throw new RuntimeException("reinforceCardId is frozen");
+		}
 		this.reinforceCardId = reinforceCardId;
 	}
 	
@@ -56,7 +64,12 @@ public class ReinforceCardModel implements IReinforceCardModel {
 	public String getScheduledCardId() {
 		return this.scheduledCardId;
 	}
+	
+	@JsonProperty
 	public void setScheduledCardId(String scheduledCardId) {
+		if (this.frozen) {
+			throw new RuntimeException("scheduledCardId is frozen");
+		}
 		this.scheduledCardId = scheduledCardId;
 	}
 	
@@ -64,7 +77,12 @@ public class ReinforceCardModel implements IReinforceCardModel {
 	public String getBoxId() {
 		return this.boxId;
 	}
+	
+	@JsonProperty
 	public void setBoxId(String boxId) {
+		if (this.frozen) {
+			throw new RuntimeException("boxId is frozen");
+		}
 		this.boxId = boxId;
 	}
 	
@@ -74,18 +92,53 @@ public class ReinforceCardModel implements IReinforceCardModel {
 	public java.time.LocalDateTime getChangeDate() {
 		return this.changeDate;
 	}
+	
+	@JsonProperty
+	@JsonSerialize(converter = DateTimeToStringConverter.class)
+	@JsonDeserialize(converter = StringToDateTimeConverter.class)
 	public void setChangeDate(java.time.LocalDateTime changeDate) {
+		if (this.frozen) {
+			throw new RuntimeException("changeDate is frozen");
+		}
 		this.changeDate = changeDate;
 	}
 	
+	
+	
+	@Override
+	public void freeze() {
+		this.frozen = true;
+	}
 
-	public IReinforceCardModel deepCopy() {
-		IReinforceCardModel copy = new ReinforceCardModel();
+	public com.anfelisa.box.models.ReinforceCardModel deepCopy() {
+		com.anfelisa.box.models.ReinforceCardModel copy = new ReinforceCardModel();
 		copy.setReinforceCardId(this.getReinforceCardId());
 		copy.setScheduledCardId(this.getScheduledCardId());
 		copy.setBoxId(this.getBoxId());
 		copy.setChangeDate(this.getChangeDate());
 		return copy;
+	}
+	
+	public static ReinforceCardModel generateTestData() {
+		java.util.Random random = new java.util.Random();
+		ReinforceCardModel testData = new ReinforceCardModel();
+		testData.setReinforceCardId(randomString(random));
+		testData.setScheduledCardId(randomString(random));
+		testData.setBoxId(randomString(random));
+		testData.setChangeDate(random.nextBoolean() ? java.time.LocalDateTime.now().plusMinutes(random.nextInt(60)) : java.time.LocalDateTime.now().minusMinutes(random.nextInt(60)) );
+		return testData;
+	}
+	
+	private static String randomString(java.util.Random random) {
+		String chars = "aaaaaaabcdeeeeeeeffffghiiiiiiijkllllllmmmmnnnnnnnooooooooopqrstttuuuuuuuvxyz";
+		int n = random.nextInt(20) + 5;
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		String string  = sb.toString(); 
+		return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
 	}
 
 }

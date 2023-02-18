@@ -16,9 +16,10 @@ import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
+import de.acegen.AbstractModel;
 
 @SuppressWarnings("all")
-public class BoxUpdateModel implements IBoxUpdateModel {
+public class BoxUpdateModel extends AbstractModel {
 
 	private String userId;
 
@@ -30,7 +31,7 @@ public class BoxUpdateModel implements IBoxUpdateModel {
 
 	private String categoryName;
 
-	private Boolean dictionaryLookup = false;
+	private Boolean dictionaryLookup;
 
 	private String givenLanguage;
 
@@ -38,6 +39,8 @@ public class BoxUpdateModel implements IBoxUpdateModel {
 
 	private String categoryId;
 
+	
+	private Boolean frozen = false;
 
 	public BoxUpdateModel() {
 	}
@@ -68,7 +71,12 @@ public class BoxUpdateModel implements IBoxUpdateModel {
 	public String getUserId() {
 		return this.userId;
 	}
+	
+	@JsonProperty
 	public void setUserId(String userId) {
+		if (this.frozen) {
+			throw new RuntimeException("userId is frozen");
+		}
 		this.userId = userId;
 	}
 	
@@ -76,7 +84,12 @@ public class BoxUpdateModel implements IBoxUpdateModel {
 	public String getBoxId() {
 		return this.boxId;
 	}
+	
+	@JsonProperty
 	public void setBoxId(String boxId) {
+		if (this.frozen) {
+			throw new RuntimeException("boxId is frozen");
+		}
 		this.boxId = boxId;
 	}
 	
@@ -84,7 +97,12 @@ public class BoxUpdateModel implements IBoxUpdateModel {
 	public Integer getMaxInterval() {
 		return this.maxInterval;
 	}
+	
+	@JsonProperty
 	public void setMaxInterval(Integer maxInterval) {
+		if (this.frozen) {
+			throw new RuntimeException("maxInterval is frozen");
+		}
 		this.maxInterval = maxInterval;
 	}
 	
@@ -92,7 +110,12 @@ public class BoxUpdateModel implements IBoxUpdateModel {
 	public Integer getMaxCardsPerDay() {
 		return this.maxCardsPerDay;
 	}
+	
+	@JsonProperty
 	public void setMaxCardsPerDay(Integer maxCardsPerDay) {
+		if (this.frozen) {
+			throw new RuntimeException("maxCardsPerDay is frozen");
+		}
 		this.maxCardsPerDay = maxCardsPerDay;
 	}
 	
@@ -100,7 +123,12 @@ public class BoxUpdateModel implements IBoxUpdateModel {
 	public String getCategoryName() {
 		return this.categoryName;
 	}
+	
+	@JsonProperty
 	public void setCategoryName(String categoryName) {
+		if (this.frozen) {
+			throw new RuntimeException("categoryName is frozen");
+		}
 		this.categoryName = categoryName;
 	}
 	
@@ -108,7 +136,12 @@ public class BoxUpdateModel implements IBoxUpdateModel {
 	public Boolean getDictionaryLookup() {
 		return this.dictionaryLookup;
 	}
+	
+	@JsonProperty
 	public void setDictionaryLookup(Boolean dictionaryLookup) {
+		if (this.frozen) {
+			throw new RuntimeException("dictionaryLookup is frozen");
+		}
 		this.dictionaryLookup = dictionaryLookup;
 	}
 	
@@ -116,7 +149,12 @@ public class BoxUpdateModel implements IBoxUpdateModel {
 	public String getGivenLanguage() {
 		return this.givenLanguage;
 	}
+	
+	@JsonProperty
 	public void setGivenLanguage(String givenLanguage) {
+		if (this.frozen) {
+			throw new RuntimeException("givenLanguage is frozen");
+		}
 		this.givenLanguage = givenLanguage;
 	}
 	
@@ -124,7 +162,12 @@ public class BoxUpdateModel implements IBoxUpdateModel {
 	public String getWantedLanguage() {
 		return this.wantedLanguage;
 	}
+	
+	@JsonProperty
 	public void setWantedLanguage(String wantedLanguage) {
+		if (this.frozen) {
+			throw new RuntimeException("wantedLanguage is frozen");
+		}
 		this.wantedLanguage = wantedLanguage;
 	}
 	
@@ -132,13 +175,24 @@ public class BoxUpdateModel implements IBoxUpdateModel {
 	public String getCategoryId() {
 		return this.categoryId;
 	}
+	
+	@JsonProperty
 	public void setCategoryId(String categoryId) {
+		if (this.frozen) {
+			throw new RuntimeException("categoryId is frozen");
+		}
 		this.categoryId = categoryId;
 	}
 	
+	
+	
+	@Override
+	public void freeze() {
+		this.frozen = true;
+	}
 
-	public IBoxUpdateModel deepCopy() {
-		IBoxUpdateModel copy = new BoxUpdateModel();
+	public com.anfelisa.box.models.BoxUpdateModel deepCopy() {
+		com.anfelisa.box.models.BoxUpdateModel copy = new BoxUpdateModel();
 		copy.setUserId(this.getUserId());
 		copy.setBoxId(this.getBoxId());
 		copy.setMaxInterval(this.getMaxInterval());
@@ -149,6 +203,33 @@ public class BoxUpdateModel implements IBoxUpdateModel {
 		copy.setWantedLanguage(this.getWantedLanguage());
 		copy.setCategoryId(this.getCategoryId());
 		return copy;
+	}
+	
+	public static BoxUpdateModel generateTestData() {
+		java.util.Random random = new java.util.Random();
+		BoxUpdateModel testData = new BoxUpdateModel();
+		testData.setUserId(randomString(random));
+		testData.setBoxId(randomString(random));
+		testData.setMaxInterval(random.nextInt(50));
+		testData.setMaxCardsPerDay(random.nextInt(50));
+		testData.setCategoryName(randomString(random));
+		testData.setDictionaryLookup(random.nextBoolean());
+		testData.setGivenLanguage(randomString(random));
+		testData.setWantedLanguage(randomString(random));
+		testData.setCategoryId(randomString(random));
+		return testData;
+	}
+	
+	private static String randomString(java.util.Random random) {
+		String chars = "aaaaaaabcdeeeeeeeffffghiiiiiiijkllllllmmmmnnnnnnnooooooooopqrstttuuuuuuuvxyz";
+		int n = random.nextInt(20) + 5;
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		String string  = sb.toString(); 
+		return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
 	}
 
 }

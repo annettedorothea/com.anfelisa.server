@@ -16,22 +16,25 @@ import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
+import de.acegen.AbstractModel;
 
 @SuppressWarnings("all")
-public class BoxListModel implements IBoxListModel {
+public class BoxListModel extends AbstractModel {
 
-	private java.util.List<com.anfelisa.box.models.IBoxViewModel> boxList;
+	private java.util.List<com.anfelisa.box.models.BoxViewModel> boxList;
 
 	private String userId;
 
 	private java.time.LocalDateTime todayAtMidnightInUTC;
 
+	
+	private Boolean frozen = false;
 
 	public BoxListModel() {
 	}
 
 	public BoxListModel(
-		@JsonProperty("boxList") java.util.List<com.anfelisa.box.models.IBoxViewModel> boxList,
+		@JsonProperty("boxList") java.util.List<com.anfelisa.box.models.BoxViewModel> boxList,
 		@JsonProperty("userId") String userId,
 		@JsonProperty("todayAtMidnightInUTC") java.time.LocalDateTime todayAtMidnightInUTC
 	) {
@@ -41,10 +44,15 @@ public class BoxListModel implements IBoxListModel {
 	}
 
 	@JsonProperty
-	public java.util.List<com.anfelisa.box.models.IBoxViewModel> getBoxList() {
+	public java.util.List<com.anfelisa.box.models.BoxViewModel> getBoxList() {
 		return this.boxList;
 	}
-	public void setBoxList(java.util.List<com.anfelisa.box.models.IBoxViewModel> boxList) {
+	
+	@JsonProperty
+	public void setBoxList(java.util.List<com.anfelisa.box.models.BoxViewModel> boxList) {
+		if (this.frozen) {
+			throw new RuntimeException("boxList is frozen");
+		}
 		this.boxList = boxList;
 	}
 	
@@ -52,7 +60,12 @@ public class BoxListModel implements IBoxListModel {
 	public String getUserId() {
 		return this.userId;
 	}
+	
+	@JsonProperty
 	public void setUserId(String userId) {
+		if (this.frozen) {
+			throw new RuntimeException("userId is frozen");
+		}
 		this.userId = userId;
 	}
 	
@@ -62,16 +75,34 @@ public class BoxListModel implements IBoxListModel {
 	public java.time.LocalDateTime getTodayAtMidnightInUTC() {
 		return this.todayAtMidnightInUTC;
 	}
+	
+	@JsonProperty
+	@JsonSerialize(converter = DateTimeToStringConverter.class)
+	@JsonDeserialize(converter = StringToDateTimeConverter.class)
 	public void setTodayAtMidnightInUTC(java.time.LocalDateTime todayAtMidnightInUTC) {
+		if (this.frozen) {
+			throw new RuntimeException("todayAtMidnightInUTC is frozen");
+		}
 		this.todayAtMidnightInUTC = todayAtMidnightInUTC;
 	}
 	
+	
+	
+	@Override
+	public void freeze() {
+		this.frozen = true;
+		if (this.boxList != null) {
+			for ( int i = 0; i < boxList.size(); i++ ) {
+				boxList.get(i).freeze();
+			}
+		}
+	}
 
-	public IBoxListModel deepCopy() {
-		IBoxListModel copy = new BoxListModel();
-		List<com.anfelisa.box.models.IBoxViewModel> boxListCopy = new ArrayList<com.anfelisa.box.models.IBoxViewModel>();
+	public com.anfelisa.box.models.BoxListModel deepCopy() {
+		com.anfelisa.box.models.BoxListModel copy = new BoxListModel();
+		List<com.anfelisa.box.models.BoxViewModel> boxListCopy = new ArrayList<com.anfelisa.box.models.BoxViewModel>();
 		if (this.getBoxList() != null) {
-			for(com.anfelisa.box.models.IBoxViewModel item: this.getBoxList()) {
+			for(com.anfelisa.box.models.BoxViewModel item: this.getBoxList()) {
 				boxListCopy.add(item.deepCopy());
 			}
 		}
@@ -79,6 +110,33 @@ public class BoxListModel implements IBoxListModel {
 		copy.setUserId(this.getUserId());
 		copy.setTodayAtMidnightInUTC(this.getTodayAtMidnightInUTC());
 		return copy;
+	}
+	
+	public static BoxListModel generateTestData() {
+		java.util.Random random = new java.util.Random();
+		int n;
+		BoxListModel testData = new BoxListModel();
+		java.util.List<com.anfelisa.box.models.BoxViewModel> boxListList = new java.util.ArrayList<com.anfelisa.box.models.BoxViewModel>();
+		n = random.nextInt(20) + 1;
+		for ( int i = 0; i < n; i++ ) {
+			boxListList.add(com.anfelisa.box.models.BoxViewModel.generateTestData());
+		}
+		testData.setBoxList(boxListList);
+		testData.setUserId(randomString(random));
+		testData.setTodayAtMidnightInUTC(random.nextBoolean() ? java.time.LocalDateTime.now().plusMinutes(random.nextInt(60)) : java.time.LocalDateTime.now().minusMinutes(random.nextInt(60)) );
+		return testData;
+	}
+	
+	private static String randomString(java.util.Random random) {
+		String chars = "aaaaaaabcdeeeeeeeffffghiiiiiiijkllllllmmmmnnnnnnnooooooooopqrstttuuuuuuuvxyz";
+		int n = random.nextInt(20) + 5;
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		String string  = sb.toString(); 
+		return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
 	}
 
 }

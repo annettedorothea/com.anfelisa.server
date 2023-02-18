@@ -7,17 +7,16 @@
 
 package com.anfelisa.box.views;
 
-
-import de.acegen.IDataContainer;
+import de.acegen.Data;
 import de.acegen.PersistenceHandle;
-import com.anfelisa.box.data.IBoxCreationData;
-import com.anfelisa.box.data.IDeleteBoxData;
+import com.anfelisa.box.models.BoxCreationModel;
+import com.anfelisa.box.models.DeleteBoxModel;
 
 @SuppressWarnings("all")
 public interface IUserAccessToCategoryView {
 
-	void grantAccess(IBoxCreationData data, PersistenceHandle handle);
-	void delete(IDeleteBoxData data, PersistenceHandle handle);
+	void grantAccess(Data<com.anfelisa.box.models.BoxCreationModel> data, PersistenceHandle handle);
+	void delete(Data<com.anfelisa.box.models.DeleteBoxModel> data, PersistenceHandle handle);
 	
 }
 

@@ -25,6 +25,9 @@ import de.acegen.BaseScenario;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.HttpResponse;
+import de.acegen.Data;
+
+import com.fasterxml.jackson.core.type.TypeReference;
 
 @SuppressWarnings("unused")
 public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
@@ -43,13 +46,13 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 				"\"password\" : \"admin-password\"," + 
 				"\"username\" : \"Admin\"} ",
 					com.anfelisa.user.data.RegisterUserPayload.class);
-			com.anfelisa.user.data.UserRegistrationData data_0 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"email\" : \"annette.pohl@anfelisa.de\"," + 
-			"\"language\" : \"de\"," + 
-			"\"password\" : \"admin-password\"," + 
-			"\"username\" : \"Admin\"} ",
-					com.anfelisa.user.data.UserRegistrationData.class);
+			com.anfelisa.user.models.UserRegistrationModel model_0 = objectMapper.readValue("{" +
+				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"admin-password\"," + 
+				"\"username\" : \"Admin\"} ", com.anfelisa.user.models.UserRegistrationModel.class);
+			Data<com.anfelisa.user.models.UserRegistrationModel> data_0 = new Data<com.anfelisa.user.models.UserRegistrationModel>(uuid);
+			data_0.setModel(model_0);
 			HttpResponse<Object> response_0 = 
 			this.httpPost(
 				"/users/register", 
@@ -78,12 +81,12 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 				"\"dictionaryLookup\" : false," + 
 				"\"maxCardsPerDay\" : 10} ",
 					com.anfelisa.box.data.CreateBoxPayload.class);
-			com.anfelisa.box.data.BoxCreationData data_1 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"categoryName\" : \"adminBox-" + this.getTestId() + "\"," + 
-			"\"dictionaryLookup\" : false," + 
-			"\"maxCardsPerDay\" : 10} ",
-					com.anfelisa.box.data.BoxCreationData.class);
+			com.anfelisa.box.models.BoxCreationModel model_1 = objectMapper.readValue("{" +
+				"\"categoryName\" : \"adminBox-" + this.getTestId() + "\"," + 
+				"\"dictionaryLookup\" : false," + 
+				"\"maxCardsPerDay\" : 10} ", com.anfelisa.box.models.BoxCreationModel.class);
+			Data<com.anfelisa.box.models.BoxCreationModel> data_1 = new Data<com.anfelisa.box.models.BoxCreationModel>(uuid);
+			data_1.setModel(model_1);
 			HttpResponse<Object> response_1 = 
 			this.httpPost(
 				"/box/create", 
@@ -111,11 +114,11 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 				"\"categoryName\" : \"c\"," + 
 				"\"parentCategoryId\" : \"adminBox-" + this.getTestId() + "\"} ",
 					com.anfelisa.category.data.CreateCategoryPayload.class);
-			com.anfelisa.category.data.CategoryCreationData data_2 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"categoryName\" : \"c\"," + 
-			"\"parentCategoryId\" : \"adminBox-" + this.getTestId() + "\"} ",
-					com.anfelisa.category.data.CategoryCreationData.class);
+			com.anfelisa.category.models.CategoryCreationModel model_2 = objectMapper.readValue("{" +
+				"\"categoryName\" : \"c\"," + 
+				"\"parentCategoryId\" : \"adminBox-" + this.getTestId() + "\"} ", com.anfelisa.category.models.CategoryCreationModel.class);
+			Data<com.anfelisa.category.models.CategoryCreationModel> data_2 = new Data<com.anfelisa.category.models.CategoryCreationModel>(uuid);
+			data_2.setModel(model_2);
 			HttpResponse<Object> response_2 = 
 			this.httpPost(
 				"/category/create", 
@@ -144,12 +147,12 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 				"\"given\" : \"given\"," + 
 				"\"wanted\" : \"wanted\"} ",
 					com.anfelisa.card.data.CreateCardPayload.class);
-			com.anfelisa.card.data.CardCreationData data_3 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"categoryId\" : \"adminCat-" + this.getTestId() + "\"," + 
-			"\"given\" : \"given\"," + 
-			"\"wanted\" : \"wanted\"} ",
-					com.anfelisa.card.data.CardCreationData.class);
+			com.anfelisa.card.models.CardCreationModel model_3 = objectMapper.readValue("{" +
+				"\"categoryId\" : \"adminCat-" + this.getTestId() + "\"," + 
+				"\"given\" : \"given\"," + 
+				"\"wanted\" : \"wanted\"} ", com.anfelisa.card.models.CardCreationModel.class);
+			Data<com.anfelisa.card.models.CardCreationModel> data_3 = new Data<com.anfelisa.card.models.CardCreationModel>(uuid);
+			data_3.setModel(model_3);
 			HttpResponse<Object> response_3 = 
 			this.httpPost(
 				"/card/create", 
@@ -178,11 +181,11 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 				"\"cardIds\" : [ \"c6-" + this.getTestId() + "\"]," + 
 				"\"boxId\" : \"adminBox-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.ScheduleCardsPayload.class);
-			com.anfelisa.box.data.ScheduledCardsData data_4 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"cardIds\" : [ \"c6-" + this.getTestId() + "\"]," + 
-			"\"boxId\" : \"adminBox-" + this.getTestId() + "\"} ",
-					com.anfelisa.box.data.ScheduledCardsData.class);
+			com.anfelisa.box.models.ScheduledCardsModel model_4 = objectMapper.readValue("{" +
+				"\"cardIds\" : [ \"c6-" + this.getTestId() + "\"]," + 
+				"\"boxId\" : \"adminBox-" + this.getTestId() + "\"} ", com.anfelisa.box.models.ScheduledCardsModel.class);
+			Data<com.anfelisa.box.models.ScheduledCardsModel> data_4 = new Data<com.anfelisa.box.models.ScheduledCardsModel>(uuid);
+			data_4.setModel(model_4);
 			HttpResponse<Object> response_4 = 
 			this.httpPost(
 				"/cards/schedule", 
@@ -211,11 +214,11 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 				"\"scoredCardQuality\" : 1," + 
 				"\"scheduledCardId\" : \"c6-" + this.getTestId() + "-sc6-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.ScoreCardPayload.class);
-			com.anfelisa.box.data.ScoreCardData data_5 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"scoredCardQuality\" : 1," + 
-			"\"scheduledCardId\" : \"c6-" + this.getTestId() + "-sc6-" + this.getTestId() + "\"} ",
-					com.anfelisa.box.data.ScoreCardData.class);
+			com.anfelisa.box.models.ScoreCardModel model_5 = objectMapper.readValue("{" +
+				"\"scoredCardQuality\" : 1," + 
+				"\"scheduledCardId\" : \"c6-" + this.getTestId() + "-sc6-" + this.getTestId() + "\"} ", com.anfelisa.box.models.ScoreCardModel.class);
+			Data<com.anfelisa.box.models.ScoreCardModel> data_5 = new Data<com.anfelisa.box.models.ScoreCardModel>(uuid);
+			data_5.setModel(model_5);
 			HttpResponse<com.anfelisa.box.data.ScoreCardResponse> response_5 = 
 			this.httpPost(
 				"/card/score", 
@@ -246,13 +249,13 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 				"\"password\" : \"password\"," + 
 				"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 					com.anfelisa.user.data.RegisterUserPayload.class);
-			com.anfelisa.user.data.UserRegistrationData data_6 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"email\" : \"annette.pohl@anfelisa.de\"," + 
-			"\"language\" : \"de\"," + 
-			"\"password\" : \"password\"," + 
-			"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
-					com.anfelisa.user.data.UserRegistrationData.class);
+			com.anfelisa.user.models.UserRegistrationModel model_6 = objectMapper.readValue("{" +
+				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"password\"," + 
+				"\"username\" : \"Annette-" + this.getTestId() + "\"} ", com.anfelisa.user.models.UserRegistrationModel.class);
+			Data<com.anfelisa.user.models.UserRegistrationModel> data_6 = new Data<com.anfelisa.user.models.UserRegistrationModel>(uuid);
+			data_6.setModel(model_6);
 			HttpResponse<Object> response_6 = 
 			this.httpPost(
 				"/users/register", 
@@ -281,12 +284,12 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 				"\"dictionaryLookup\" : false," + 
 				"\"maxCardsPerDay\" : 10} ",
 					com.anfelisa.box.data.CreateBoxPayload.class);
-			com.anfelisa.box.data.BoxCreationData data_7 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"categoryName\" : \"cat\"," + 
-			"\"dictionaryLookup\" : false," + 
-			"\"maxCardsPerDay\" : 10} ",
-					com.anfelisa.box.data.BoxCreationData.class);
+			com.anfelisa.box.models.BoxCreationModel model_7 = objectMapper.readValue("{" +
+				"\"categoryName\" : \"cat\"," + 
+				"\"dictionaryLookup\" : false," + 
+				"\"maxCardsPerDay\" : 10} ", com.anfelisa.box.models.BoxCreationModel.class);
+			Data<com.anfelisa.box.models.BoxCreationModel> data_7 = new Data<com.anfelisa.box.models.BoxCreationModel>(uuid);
+			data_7.setModel(model_7);
 			HttpResponse<Object> response_7 = 
 			this.httpPost(
 				"/box/create", 
@@ -314,11 +317,11 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 				"\"categoryName\" : \"level 1 #1\"," + 
 				"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 					com.anfelisa.category.data.CreateCategoryPayload.class);
-			com.anfelisa.category.data.CategoryCreationData data_8 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"categoryName\" : \"level 1 #1\"," + 
-			"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
-					com.anfelisa.category.data.CategoryCreationData.class);
+			com.anfelisa.category.models.CategoryCreationModel model_8 = objectMapper.readValue("{" +
+				"\"categoryName\" : \"level 1 #1\"," + 
+				"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ", com.anfelisa.category.models.CategoryCreationModel.class);
+			Data<com.anfelisa.category.models.CategoryCreationModel> data_8 = new Data<com.anfelisa.category.models.CategoryCreationModel>(uuid);
+			data_8.setModel(model_8);
 			HttpResponse<Object> response_8 = 
 			this.httpPost(
 				"/category/create", 
@@ -347,12 +350,12 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 				"\"given\" : \"given\"," + 
 				"\"wanted\" : \"wanted\"} ",
 					com.anfelisa.card.data.CreateCardPayload.class);
-			com.anfelisa.card.data.CardCreationData data_9 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-			"\"given\" : \"given\"," + 
-			"\"wanted\" : \"wanted\"} ",
-					com.anfelisa.card.data.CardCreationData.class);
+			com.anfelisa.card.models.CardCreationModel model_9 = objectMapper.readValue("{" +
+				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
+				"\"given\" : \"given\"," + 
+				"\"wanted\" : \"wanted\"} ", com.anfelisa.card.models.CardCreationModel.class);
+			Data<com.anfelisa.card.models.CardCreationModel> data_9 = new Data<com.anfelisa.card.models.CardCreationModel>(uuid);
+			data_9.setModel(model_9);
 			HttpResponse<Object> response_9 = 
 			this.httpPost(
 				"/card/create", 
@@ -381,12 +384,12 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 				"\"given\" : \"given2\"," + 
 				"\"wanted\" : \"wanted2\"} ",
 					com.anfelisa.card.data.CreateCardPayload.class);
-			com.anfelisa.card.data.CardCreationData data_10 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-			"\"given\" : \"given2\"," + 
-			"\"wanted\" : \"wanted2\"} ",
-					com.anfelisa.card.data.CardCreationData.class);
+			com.anfelisa.card.models.CardCreationModel model_10 = objectMapper.readValue("{" +
+				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
+				"\"given\" : \"given2\"," + 
+				"\"wanted\" : \"wanted2\"} ", com.anfelisa.card.models.CardCreationModel.class);
+			Data<com.anfelisa.card.models.CardCreationModel> data_10 = new Data<com.anfelisa.card.models.CardCreationModel>(uuid);
+			data_10.setModel(model_10);
 			HttpResponse<Object> response_10 = 
 			this.httpPost(
 				"/card/create", 
@@ -415,12 +418,12 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 				"\"given\" : \"3given\"," + 
 				"\"wanted\" : \"3wanted\"} ",
 					com.anfelisa.card.data.CreateCardPayload.class);
-			com.anfelisa.card.data.CardCreationData data_11 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-			"\"given\" : \"3given\"," + 
-			"\"wanted\" : \"3wanted\"} ",
-					com.anfelisa.card.data.CardCreationData.class);
+			com.anfelisa.card.models.CardCreationModel model_11 = objectMapper.readValue("{" +
+				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
+				"\"given\" : \"3given\"," + 
+				"\"wanted\" : \"3wanted\"} ", com.anfelisa.card.models.CardCreationModel.class);
+			Data<com.anfelisa.card.models.CardCreationModel> data_11 = new Data<com.anfelisa.card.models.CardCreationModel>(uuid);
+			data_11.setModel(model_11);
 			HttpResponse<Object> response_11 = 
 			this.httpPost(
 				"/card/create", 
@@ -449,12 +452,12 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 				"\"given\" : \"4given4\"," + 
 				"\"wanted\" : \"4wanted4\"} ",
 					com.anfelisa.card.data.CreateCardPayload.class);
-			com.anfelisa.card.data.CardCreationData data_12 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-			"\"given\" : \"4given4\"," + 
-			"\"wanted\" : \"4wanted4\"} ",
-					com.anfelisa.card.data.CardCreationData.class);
+			com.anfelisa.card.models.CardCreationModel model_12 = objectMapper.readValue("{" +
+				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
+				"\"given\" : \"4given4\"," + 
+				"\"wanted\" : \"4wanted4\"} ", com.anfelisa.card.models.CardCreationModel.class);
+			Data<com.anfelisa.card.models.CardCreationModel> data_12 = new Data<com.anfelisa.card.models.CardCreationModel>(uuid);
+			data_12.setModel(model_12);
 			HttpResponse<Object> response_12 = 
 			this.httpPost(
 				"/card/create", 
@@ -483,12 +486,12 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 				"\"given\" : \"different\"," + 
 				"\"wanted\" : \"different\"} ",
 					com.anfelisa.card.data.CreateCardPayload.class);
-			com.anfelisa.card.data.CardCreationData data_13 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-			"\"given\" : \"different\"," + 
-			"\"wanted\" : \"different\"} ",
-					com.anfelisa.card.data.CardCreationData.class);
+			com.anfelisa.card.models.CardCreationModel model_13 = objectMapper.readValue("{" +
+				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
+				"\"given\" : \"different\"," + 
+				"\"wanted\" : \"different\"} ", com.anfelisa.card.models.CardCreationModel.class);
+			Data<com.anfelisa.card.models.CardCreationModel> data_13 = new Data<com.anfelisa.card.models.CardCreationModel>(uuid);
+			data_13.setModel(model_13);
 			HttpResponse<Object> response_13 = 
 			this.httpPost(
 				"/card/create", 
@@ -519,13 +522,13 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 				"\"c4-" + this.getTestId() + "\"]," + 
 				"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.ScheduleCardsPayload.class);
-			com.anfelisa.box.data.ScheduledCardsData data_14 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"," + 
-			"\"c3-" + this.getTestId() + "\"," + 
-			"\"c4-" + this.getTestId() + "\"]," + 
-			"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
-					com.anfelisa.box.data.ScheduledCardsData.class);
+			com.anfelisa.box.models.ScheduledCardsModel model_14 = objectMapper.readValue("{" +
+				"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"," + 
+				"\"c3-" + this.getTestId() + "\"," + 
+				"\"c4-" + this.getTestId() + "\"]," + 
+				"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ", com.anfelisa.box.models.ScheduledCardsModel.class);
+			Data<com.anfelisa.box.models.ScheduledCardsModel> data_14 = new Data<com.anfelisa.box.models.ScheduledCardsModel>(uuid);
+			data_14.setModel(model_14);
 			HttpResponse<Object> response_14 = 
 			this.httpPost(
 				"/cards/schedule", 
@@ -554,11 +557,11 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 				"\"scoredCardQuality\" : 0," + 
 				"\"scheduledCardId\" : \"c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
 					com.anfelisa.box.data.ScoreCardPayload.class);
-			com.anfelisa.box.data.ScoreCardData data_15 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"scoredCardQuality\" : 0," + 
-			"\"scheduledCardId\" : \"c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
-					com.anfelisa.box.data.ScoreCardData.class);
+			com.anfelisa.box.models.ScoreCardModel model_15 = objectMapper.readValue("{" +
+				"\"scoredCardQuality\" : 0," + 
+				"\"scheduledCardId\" : \"c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ", com.anfelisa.box.models.ScoreCardModel.class);
+			Data<com.anfelisa.box.models.ScoreCardModel> data_15 = new Data<com.anfelisa.box.models.ScoreCardModel>(uuid);
+			data_15.setModel(model_15);
 			HttpResponse<com.anfelisa.box.data.ScoreCardResponse> response_15 = 
 			this.httpPost(
 				"/card/score", 
@@ -584,13 +587,13 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 	
 	private HttpResponse<Object> when_0() throws Exception {
 		String uuid = this.randomUUID();
-		com.anfelisa.user.data.DeleteUserData data_0 = objectMapper.readValue("{" +
-		"\"uuid\" : \"" + uuid + "\"," + 
-		"\"usernameToBeDeleted\" : \"Annette-" + this.getTestId() + "\"} ",
-				com.anfelisa.user.data.DeleteUserData.class);
+		com.anfelisa.user.models.DeleteUserModel model_0 = objectMapper.readValue("{" +
+			"\"usernameToBeDeleted\" : \"Annette-" + this.getTestId() + "\"} ", com.anfelisa.user.models.DeleteUserModel.class);
+		Data<com.anfelisa.user.models.DeleteUserModel> data_0 = new Data<com.anfelisa.user.models.DeleteUserModel>(uuid);
+		data_0.setModel(model_0);
 		HttpResponse<Object> response = 
 		this.httpDelete(
-			"/user/delete?usernameToBeDeleted=" + (data_0.getUsernameToBeDeleted() != null ? URLEncoder.encode(data_0.getUsernameToBeDeleted(), StandardCharsets.UTF_8.toString()) : "") + "", 
+			"/user/delete?usernameToBeDeleted=" + (data_0.getModel().getUsernameToBeDeleted() != null ? URLEncoder.encode(data_0.getModel().getUsernameToBeDeleted(), StandardCharsets.UTF_8.toString()) : "") + "", 
 			authorization("Annette-${testId}", "password"),
 			uuid,
 			null
@@ -654,21 +657,21 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 	
 	
 	private void userWasDeleted() throws Exception {
-		com.anfelisa.user.models.IUserModel actual = daoProvider.getUserDao().selectByUsername(handle, "Annette-" + this.getTestId() + "");
+		com.anfelisa.user.models.UserModel actual = daoProvider.getUserDao().selectByUsername(handle, "Annette-" + this.getTestId() + "");
 		
 		assertIsNull(actual);
 	
 		LOG.info("THEN: userWasDeleted passed");
 	}
 	private void boxWasDeleted() throws Exception {
-		com.anfelisa.box.models.IBoxModel actual = daoProvider.getBoxDao().selectByBoxId(handle, "boxId-" + this.getTestId() + "");
+		com.anfelisa.box.models.BoxModel actual = daoProvider.getBoxDao().selectByBoxId(handle, "boxId-" + this.getTestId() + "");
 		
 		assertIsNull(actual);
 	
 		LOG.info("THEN: boxWasDeleted passed");
 	}
 	private void accessToCategoryWasDeleted() throws Exception {
-		com.anfelisa.category.models.IUserAccessToCategoryModel actual = daoProvider.getUserAccessToCategoryDao().selectByPrimaryKey(handle, "boxId-" + this.getTestId() + "", "uuid-" + this.getTestId() + "");
+		com.anfelisa.category.models.UserAccessToCategoryModel actual = daoProvider.getUserAccessToCategoryDao().selectByPrimaryKey(handle, "boxId-" + this.getTestId() + "", "uuid-" + this.getTestId() + "");
 		
 		assertIsNull(actual);
 	
@@ -711,21 +714,21 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 		LOG.info("THEN: allReinforceCardsWereDeleted passed");
 	}
 	private void otherUserWasNotDeleted() throws Exception {
-		com.anfelisa.user.models.IUserModel actual = daoProvider.getUserDao().selectByUsername(handle, "Admin");
+		com.anfelisa.user.models.UserModel actual = daoProvider.getUserDao().selectByUsername(handle, "Admin");
 		
 		assertIsNotNull(actual);
 	
 		LOG.info("THEN: otherUserWasNotDeleted passed");
 	}
 	private void otherBoxWasNotDeleted() throws Exception {
-		com.anfelisa.box.models.IBoxModel actual = daoProvider.getBoxDao().selectByBoxId(handle, "adminBox-" + this.getTestId() + "");
+		com.anfelisa.box.models.BoxModel actual = daoProvider.getBoxDao().selectByBoxId(handle, "adminBox-" + this.getTestId() + "");
 		
 		assertIsNotNull(actual);
 	
 		LOG.info("THEN: otherBoxWasNotDeleted passed");
 	}
 	private void accessToCategoryOfOtherUserWasNotDeleted() throws Exception {
-		com.anfelisa.category.models.IUserAccessToCategoryModel actual = daoProvider.getUserAccessToCategoryDao().selectByPrimaryKey(handle, "adminBox-" + this.getTestId() + "", "uuid-admin");
+		com.anfelisa.category.models.UserAccessToCategoryModel actual = daoProvider.getUserAccessToCategoryDao().selectByPrimaryKey(handle, "adminBox-" + this.getTestId() + "", "uuid-admin");
 		
 		assertIsNotNull(actual);
 	

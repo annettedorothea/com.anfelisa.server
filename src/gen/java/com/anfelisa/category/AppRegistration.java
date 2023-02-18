@@ -12,6 +12,7 @@ import de.acegen.PersistenceConnection;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
 import de.acegen.ViewProvider;
+import de.acegen.Data;
 
 import com.anfelisa.category.resources.*;
 
@@ -32,36 +33,36 @@ public class AppRegistration {
 	}
 	
 	public static void registerConsumers(Environment environment, ViewProvider viewProvider) {
-		viewProvider.addConsumer("com.anfelisa.category.events.CreateCategoryOkEvent", (dataContainer, handle) -> {
-			viewProvider.categoryView.insert((com.anfelisa.category.data.CategoryCreationData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.category.events.CreateCategoryOkEvent", (data, handle) -> {
+			viewProvider.categoryView.insert((Data<com.anfelisa.category.models.CategoryCreationModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.category.events.UpdateCategoryOkEvent", (dataContainer, handle) -> {
-			viewProvider.categoryView.update((com.anfelisa.category.data.CategoryUpdateData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.category.events.UpdateCategoryOkEvent", (data, handle) -> {
+			viewProvider.categoryView.update((Data<com.anfelisa.category.models.CategoryUpdateModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.category.events.DeleteCategoryOkEvent", (dataContainer, handle) -> {
-			viewProvider.categoryView.delete((com.anfelisa.category.data.CategoryDeleteData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.category.events.DeleteCategoryOkEvent", (data, handle) -> {
+			viewProvider.categoryView.delete((Data<com.anfelisa.category.models.CategoryDeleteModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.category.events.MoveCategoryOkEvent", (dataContainer, handle) -> {
-			viewProvider.categoryView.moveCategory((com.anfelisa.category.data.CategoryMoveData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.category.events.MoveCategoryOkEvent", (data, handle) -> {
+			viewProvider.categoryView.moveCategory((Data<com.anfelisa.category.models.CategoryMoveModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.category.events.ChangeOrderCategoryOkEvent", (dataContainer, handle) -> {
-			viewProvider.categoryView.changeOrder((com.anfelisa.category.data.CategoryChangeOrderData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.category.events.ChangeOrderCategoryOkEvent", (data, handle) -> {
+			viewProvider.categoryView.changeOrder((Data<com.anfelisa.category.models.CategoryChangeOrderModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.category.events.InviteUserToCategoryInsertEvent", (dataContainer, handle) -> {
-			viewProvider.userAccessToCategoryInvitationView.invite((com.anfelisa.category.data.UserToCategoryInvitationData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.category.events.InviteUserToCategoryInsertEvent", (data, handle) -> {
+			viewProvider.userAccessToCategoryInvitationView.invite((Data<com.anfelisa.category.models.UserToCategoryInvitationModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.category.events.InviteUserToCategoryInsertEvent", (dataContainer, handle) -> {
-			viewProvider.boxInvitationView.createBox((com.anfelisa.category.data.UserToCategoryInvitationData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.category.events.InviteUserToCategoryInsertEvent", (data, handle) -> {
+			viewProvider.boxInvitationView.createBox((Data<com.anfelisa.category.models.UserToCategoryInvitationModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.category.events.InviteUserToCategoryUpdateEvent", (dataContainer, handle) -> {
-			viewProvider.userAccessToCategoryInvitationView.changeEditable((com.anfelisa.category.data.UserToCategoryInvitationData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.category.events.InviteUserToCategoryUpdateEvent", (data, handle) -> {
+			viewProvider.userAccessToCategoryInvitationView.changeEditable((Data<com.anfelisa.category.models.UserToCategoryInvitationModel>) data, handle);
 		});
 		
 		

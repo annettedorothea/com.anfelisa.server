@@ -7,10 +7,11 @@ package com.anfelisa.user.commands;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.user.data.IResetPasswordWithNewPasswordData;
-import com.anfelisa.user.models.IResetPasswordModel;
+import com.anfelisa.user.models.ResetPasswordModel;
+import com.anfelisa.user.models.ResetPasswordWithNewPasswordModel;
 
 import de.acegen.CustomAppConfiguration;
+import de.acegen.Data;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.ViewProvider;
@@ -25,14 +26,14 @@ public class ResetPasswordCommand extends AbstractResetPasswordCommand {
 	}
 
 	@Override
-	protected IResetPasswordWithNewPasswordData executeCommand(IResetPasswordWithNewPasswordData data,
+	protected Data<ResetPasswordWithNewPasswordModel> executeCommand(Data<ResetPasswordWithNewPasswordModel> data,
 			PersistenceHandle readonlyHandle) {
-		IResetPasswordModel model = daoProvider.getResetPasswordDao().selectByToken(readonlyHandle,
-				data.getToken());
+		ResetPasswordModel model = daoProvider.getResetPasswordDao().selectByToken(readonlyHandle,
+				data.getModel().getToken());
 		if (model == null) {
 			throwIllegalArgumentException("tokenDoesNotExist");
 		}
-		data.setUserId(model.getUserId());
+		data.getModel().setUserId(model.getUserId());
 		this.addOkOutcome(data);
 		return data;
 	}

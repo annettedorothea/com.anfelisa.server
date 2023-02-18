@@ -28,7 +28,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
-import de.acegen.IDataContainer;
 import de.acegen.ViewProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -36,6 +35,7 @@ import de.acegen.ReadAction;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.Config;
+import de.acegen.Data;
 
 import de.acegen.auth.AuthUser;
 import io.dropwizard.auth.Auth;
@@ -52,8 +52,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.DELETE;
 
-import com.anfelisa.box.data.IBoxUpdateData;
-import com.anfelisa.box.data.BoxUpdateData;
+import com.anfelisa.box.models.BoxUpdateModel;
 
 import de.acegen.Resource;
 
@@ -86,7 +85,7 @@ public class UpdateBoxResource extends Resource {
 	public Response updateBoxResource(
 			@Auth AuthUser authUser, 
 			@QueryParam("uuid") String uuid, 
-			IBoxUpdateData payload) 
+			com.anfelisa.box.data.UpdateBoxPayload payload) 
 			throws JsonProcessingException {
 		if (payload == null) {
 			return badRequest("payload must not be null");
@@ -95,29 +94,31 @@ public class UpdateBoxResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.box.data.IBoxUpdateData data = new BoxUpdateData(uuid);
-			data.setMaxInterval(payload.getMaxInterval());
+			Data<com.anfelisa.box.models.BoxUpdateModel> data = new Data<com.anfelisa.box.models.BoxUpdateModel>(uuid);
+			com.anfelisa.box.models.BoxUpdateModel model = new com.anfelisa.box.models.BoxUpdateModel();
+			model.setMaxInterval(payload.getMaxInterval());
 			if (payload.getMaxCardsPerDay() == null) {
 				return badRequest("maxCardsPerDay is mandatory");
 			}
-			data.setMaxCardsPerDay(payload.getMaxCardsPerDay());
+			model.setMaxCardsPerDay(payload.getMaxCardsPerDay());
 			if (StringUtils.isBlank(payload.getBoxId()) || "null".equals(payload.getBoxId())) {
 				return badRequest("boxId is mandatory");
 			}
-			data.setBoxId(payload.getBoxId());
+			model.setBoxId(payload.getBoxId());
 			if (StringUtils.isBlank(payload.getCategoryId()) || "null".equals(payload.getCategoryId())) {
 				return badRequest("categoryId is mandatory");
 			}
-			data.setCategoryId(payload.getCategoryId());
+			model.setCategoryId(payload.getCategoryId());
 			if (StringUtils.isBlank(payload.getCategoryName()) || "null".equals(payload.getCategoryName())) {
 				return badRequest("categoryName is mandatory");
 			}
-			data.setCategoryName(payload.getCategoryName());
-			data.setDictionaryLookup(payload.getDictionaryLookup());
-			data.setGivenLanguage(payload.getGivenLanguage());
-			data.setWantedLanguage(payload.getWantedLanguage());
-			data.setUserId(authUser.getUserId());
+			model.setCategoryName(payload.getCategoryName());
+			model.setDictionaryLookup(payload.getDictionaryLookup());
+			model.setGivenLanguage(payload.getGivenLanguage());
+			model.setWantedLanguage(payload.getWantedLanguage());
+			model.setUserId(authUser.getUserId());
 			
+			data.setModel(model);
 			com.anfelisa.box.actions.UpdateBoxAction action = new com.anfelisa.box.actions.UpdateBoxAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
 			data = action.apply(data);
 			return ok();

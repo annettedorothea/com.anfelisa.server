@@ -7,19 +7,18 @@
 
 package com.anfelisa.box.views;
 
-
-import de.acegen.IDataContainer;
+import de.acegen.Data;
 import de.acegen.PersistenceHandle;
-import com.anfelisa.box.data.IBoxCreationData;
-import com.anfelisa.box.data.IBoxUpdateData;
-import com.anfelisa.box.data.IDeleteBoxData;
+import com.anfelisa.box.models.BoxCreationModel;
+import com.anfelisa.box.models.BoxUpdateModel;
+import com.anfelisa.box.models.DeleteBoxModel;
 
 @SuppressWarnings("all")
 public interface IRootCategoryView {
 
-	void insert(IBoxCreationData data, PersistenceHandle handle);
-	void update(IBoxUpdateData data, PersistenceHandle handle);
-	void deleteAll(IDeleteBoxData data, PersistenceHandle handle);
+	void insert(Data<com.anfelisa.box.models.BoxCreationModel> data, PersistenceHandle handle);
+	void update(Data<com.anfelisa.box.models.BoxUpdateModel> data, PersistenceHandle handle);
+	void deleteAll(Data<com.anfelisa.box.models.DeleteBoxModel> data, PersistenceHandle handle);
 	
 }
 

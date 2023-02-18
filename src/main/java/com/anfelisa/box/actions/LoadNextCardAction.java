@@ -7,13 +7,14 @@ package com.anfelisa.box.actions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.box.data.INextCardData;
-import com.anfelisa.box.models.IBoxModel;
-import com.anfelisa.box.models.INextCardViewModel;
-import com.anfelisa.box.models.ITodaysCardsStatusModel;
-import com.anfelisa.category.models.ICategoryModel;
+import com.anfelisa.box.models.BoxModel;
+import com.anfelisa.box.models.NextCardModel;
+import com.anfelisa.box.models.NextCardViewModel;
+import com.anfelisa.box.models.TodaysCardsStatusModel;
+import com.anfelisa.category.models.CategoryModel;
 
 import de.acegen.CustomAppConfiguration;
+import de.acegen.Data;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -24,28 +25,27 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 	static final Logger LOG = LoggerFactory.getLogger(LoadNextCardAction.class);
 
 	public LoadNextCardAction(PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration,
-			IDaoProvider daoProvider,
-			ViewProvider viewProvider) {
+			IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super(persistenceConnection, appConfiguration, daoProvider, viewProvider);
 	}
 
 	@Override
-	protected INextCardData loadDataForGetRequest(INextCardData data, PersistenceHandle readonlyHandle) {
-		IBoxModel box = daoProvider.getBoxDao().selectByBoxId(readonlyHandle, data.getBoxId());
+	protected Data<NextCardModel> loadDataForGetRequest(Data<NextCardModel> data, PersistenceHandle readonlyHandle) {
+		BoxModel box = daoProvider.getBoxDao().selectByBoxId(readonlyHandle, data.getModel().getBoxId());
 		if (box == null) {
 			throwIllegalArgumentException("boxDoesNotExist");
 		}
-		if (!box.getUserId().equals(data.getUserId())) {
+		if (!box.getUserId().equals(data.getModel().getUserId())) {
 			throwSecurityException();
 		}
-		ICategoryModel category = daoProvider.getCategoryDao().selectByPrimaryKey(readonlyHandle, box.getCategoryId());
-		data.setBoxName(category.getCategoryName());
+		CategoryModel category = daoProvider.getCategoryDao().selectByPrimaryKey(readonlyHandle, box.getCategoryId());
+		data.getModel().setBoxName(category.getCategoryName());
 
-		INextCardViewModel nextCard = daoProvider.getScheduledCardDao().selectFirstScheduledCard(readonlyHandle,
-				data.getBoxId(), data.getTodayAtMidnightInUTC());
+		NextCardViewModel nextCard = daoProvider.getScheduledCardDao().selectFirstScheduledCard(readonlyHandle,
+				data.getModel().getBoxId(), data.getModel().getTodayAtMidnightInUTC());
 		if (nextCard == null) {
 			nextCard = daoProvider.getReinforceCardDao().selectFirstReinforceCard(readonlyHandle,
-					data.getBoxId());
+					data.getModel().getBoxId());
 		}
 		if (nextCard != null && box.getReverse()) {
 			String given = nextCard.getWanted();
@@ -53,12 +53,12 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 			nextCard.setGiven(given);
 			nextCard.setWanted(wanted);
 		}
-		ITodaysCardsStatusModel todaysCardsStatus = daoProvider.getBoxDao().todaysCardsStatus(readonlyHandle,
-				box.getBoxId(), data.getTodayAtMidnightInUTC());
-		data.setReverse(box.getReverse());
-		data.setAllTodaysCards(todaysCardsStatus.getAllTodaysCards());
-		data.setOpenTodaysCards(todaysCardsStatus.getOpenTodaysCards());
-		data.setNextCard(nextCard);
+		TodaysCardsStatusModel todaysCardsStatus = daoProvider.getBoxDao().todaysCardsStatus(readonlyHandle,
+				box.getBoxId(), data.getModel().getTodayAtMidnightInUTC());
+		data.getModel().setReverse(box.getReverse());
+		data.getModel().setAllTodaysCards(todaysCardsStatus.getAllTodaysCards());
+		data.getModel().setOpenTodaysCards(todaysCardsStatus.getOpenTodaysCards());
+		data.getModel().setNextCard(nextCard);
 		return data;
 	}
 

@@ -16,9 +16,10 @@
 
 package com.anfelisa.box.views;
 
-import com.anfelisa.box.data.IBoxCreationData;
-import com.anfelisa.box.data.IDeleteBoxData;
+import com.anfelisa.box.models.BoxCreationModel;
+import com.anfelisa.box.models.DeleteBoxModel;
 
+import de.acegen.Data;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceHandle;
 
@@ -32,14 +33,14 @@ public class UserAccessToCategoryView implements IUserAccessToCategoryView {
 	}
 
 	@Override
-	public void grantAccess(IBoxCreationData data, PersistenceHandle handle) {
-		daoProvider.getUserAccessToCategoryDao().insert(handle, data);
+	public void grantAccess(Data<BoxCreationModel> data, PersistenceHandle handle) {
+		daoProvider.getUserAccessToCategoryDao().insert(handle, data.getModel().mapToUserAccessToCategoryModel());
 	}
 
 	@Override
-	public void delete(IDeleteBoxData data, PersistenceHandle handle) {
-		daoProvider.getUserAccessToCategoryDao().deleteByCategoryIdAndUserId(handle, data.getRootCategoryId(),
-				data.getUserId());
+	public void delete(Data<DeleteBoxModel> data, PersistenceHandle handle) {
+		daoProvider.getUserAccessToCategoryDao().deleteByCategoryIdAndUserId(handle, data.getModel().getRootCategoryId(),
+				data.getModel().getUserId());
 	}
 
 }

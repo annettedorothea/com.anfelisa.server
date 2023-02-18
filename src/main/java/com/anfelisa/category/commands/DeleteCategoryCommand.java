@@ -10,11 +10,12 @@ package com.anfelisa.category.commands;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.category.data.ICategoryDeleteData;
-import com.anfelisa.category.models.ICategoryModel;
-import com.anfelisa.category.models.IUserAccessToCategoryModel;
+import com.anfelisa.category.models.CategoryDeleteModel;
+import com.anfelisa.category.models.CategoryModel;
+import com.anfelisa.category.models.UserAccessToCategoryModel;
 
 import de.acegen.CustomAppConfiguration;
+import de.acegen.Data;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.ViewProvider;
@@ -29,22 +30,22 @@ public class DeleteCategoryCommand extends AbstractDeleteCategoryCommand {
 	}
 
 	@Override
-	protected ICategoryDeleteData executeCommand(ICategoryDeleteData data, PersistenceHandle readonlyHandle) {
-		ICategoryModel category = daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
-				data.getCategoryId());
+	protected Data<CategoryDeleteModel> executeCommand(Data<CategoryDeleteModel> data, PersistenceHandle readonlyHandle) {
+		CategoryModel category = daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
+				data.getModel().getCategoryId());
 		if (category == null) {
 			throwIllegalArgumentException("categoryDoesNotExist");
 		}
-		IUserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao()
-				.selectByCategoryIdAndUserId(readonlyHandle, category.getRootCategoryId(), data.getUserId());
+		UserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao()
+				.selectByCategoryIdAndUserId(readonlyHandle, category.getRootCategoryId(), data.getModel().getUserId());
 		if (access == null || !access.getEditable()) {
 			throwSecurityException();
 		}
-		data.setCategoryIndex(category.getCategoryIndex());
+		data.getModel().setCategoryIndex(category.getCategoryIndex());
 		if (category.getParentCategoryId() == null) {
 			throwIllegalArgumentException("rootCategoryMustNotBeDeleted");
 		} else {
-			data.setParentCategoryId(category.getParentCategoryId());
+			data.getModel().setParentCategoryId(category.getParentCategoryId());
 			this.addOkOutcome(data);
 		}
 		return data;

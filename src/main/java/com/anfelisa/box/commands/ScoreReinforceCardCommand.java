@@ -10,11 +10,12 @@ package com.anfelisa.box.commands;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.box.data.IScoreReinforceCardData;
-import com.anfelisa.box.models.IBoxModel;
-import com.anfelisa.box.models.IReinforceCardModel;
+import com.anfelisa.box.models.BoxModel;
+import com.anfelisa.box.models.ReinforceCardModel;
+import com.anfelisa.box.models.ScoreReinforceCardModel;
 
 import de.acegen.CustomAppConfiguration;
+import de.acegen.Data;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.ViewProvider;
@@ -29,18 +30,18 @@ public class ScoreReinforceCardCommand extends AbstractScoreReinforceCardCommand
 	}
 
 	@Override
-	protected IScoreReinforceCardData executeCommand(IScoreReinforceCardData data, PersistenceHandle readonlyHandle) {
-		IReinforceCardModel reinforceCard = this.daoProvider.getReinforceCardDao().selectByReinforceCardId(readonlyHandle, data.getReinforceCardId());
+	protected Data<ScoreReinforceCardModel> executeCommand(Data<ScoreReinforceCardModel> data, PersistenceHandle readonlyHandle) {
+		ReinforceCardModel reinforceCard = this.daoProvider.getReinforceCardDao().selectByReinforceCardId(readonlyHandle, data.getModel().getReinforceCardId());
 		if (reinforceCard == null) {
 			throwIllegalArgumentException("cardDoesNotExist");
 		}
-		IBoxModel box = this.daoProvider.getBoxDao().selectByBoxId(readonlyHandle, reinforceCard.getBoxId());
-		if (!box.getUserId().equals(data.getUserId())) {
+		BoxModel box = this.daoProvider.getBoxDao().selectByBoxId(readonlyHandle, reinforceCard.getBoxId());
+		if (!box.getUserId().equals(data.getModel().getUserId())) {
 			throwSecurityException();
 		}
-		if (data.getKeep()) {
+		if (data.getModel().getKeep()) {
 			this.addKeepOutcome(data);
-			data.setChangeDate(data.getSystemTime());
+			data.getModel().setChangeDate(data.getSystemTime());
 		} else {
 			this.addRemoveOutcome(data);
 		}

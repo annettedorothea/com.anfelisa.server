@@ -14,9 +14,9 @@ import org.jdbi.v3.core.statement.StatementContext;
 
 import de.acegen.AbstractMapper;
 
-public class UserWithAccessListMapper extends AbstractMapper<IUserWithAccessListModel> {
+public class UserWithAccessListMapper extends AbstractMapper<UserWithAccessListModel> {
 	
-	public IUserWithAccessListModel map(ResultSet r, StatementContext ctx) throws SQLException {
+	public UserWithAccessListModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new UserWithAccessListModel(
 			this.mapToString(r, "categoryId"),
 			null

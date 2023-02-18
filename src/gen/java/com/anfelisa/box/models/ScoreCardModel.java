@@ -16,9 +16,10 @@ import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
+import de.acegen.AbstractModel;
 
 @SuppressWarnings("all")
-public class ScoreCardModel implements IScoreCardModel {
+public class ScoreCardModel extends AbstractModel {
 
 	private String cardId;
 
@@ -58,6 +59,8 @@ public class ScoreCardModel implements IScoreCardModel {
 
 	private Integer maxCardsPerDay;
 
+	
+	private Boolean frozen = false;
 
 	public ScoreCardModel() {
 	}
@@ -108,7 +111,12 @@ public class ScoreCardModel implements IScoreCardModel {
 	public String getCardId() {
 		return this.cardId;
 	}
+	
+	@JsonProperty
 	public void setCardId(String cardId) {
+		if (this.frozen) {
+			throw new RuntimeException("cardId is frozen");
+		}
 		this.cardId = cardId;
 	}
 	
@@ -116,7 +124,12 @@ public class ScoreCardModel implements IScoreCardModel {
 	public String getNextScheduledCardScheduledCardId() {
 		return this.nextScheduledCardScheduledCardId;
 	}
+	
+	@JsonProperty
 	public void setNextScheduledCardScheduledCardId(String nextScheduledCardScheduledCardId) {
+		if (this.frozen) {
+			throw new RuntimeException("nextScheduledCardScheduledCardId is frozen");
+		}
 		this.nextScheduledCardScheduledCardId = nextScheduledCardScheduledCardId;
 	}
 	
@@ -126,7 +139,14 @@ public class ScoreCardModel implements IScoreCardModel {
 	public java.time.LocalDateTime getNextScheduledCardCreatedDate() {
 		return this.nextScheduledCardCreatedDate;
 	}
+	
+	@JsonProperty
+	@JsonSerialize(converter = DateTimeToStringConverter.class)
+	@JsonDeserialize(converter = StringToDateTimeConverter.class)
 	public void setNextScheduledCardCreatedDate(java.time.LocalDateTime nextScheduledCardCreatedDate) {
+		if (this.frozen) {
+			throw new RuntimeException("nextScheduledCardCreatedDate is frozen");
+		}
 		this.nextScheduledCardCreatedDate = nextScheduledCardCreatedDate;
 	}
 	
@@ -134,7 +154,12 @@ public class ScoreCardModel implements IScoreCardModel {
 	public Float getNextScheduledCardEf() {
 		return this.nextScheduledCardEf;
 	}
+	
+	@JsonProperty
 	public void setNextScheduledCardEf(Float nextScheduledCardEf) {
+		if (this.frozen) {
+			throw new RuntimeException("nextScheduledCardEf is frozen");
+		}
 		this.nextScheduledCardEf = nextScheduledCardEf;
 	}
 	
@@ -142,7 +167,12 @@ public class ScoreCardModel implements IScoreCardModel {
 	public Integer getNextScheduledCardInterval() {
 		return this.nextScheduledCardInterval;
 	}
+	
+	@JsonProperty
 	public void setNextScheduledCardInterval(Integer nextScheduledCardInterval) {
+		if (this.frozen) {
+			throw new RuntimeException("nextScheduledCardInterval is frozen");
+		}
 		this.nextScheduledCardInterval = nextScheduledCardInterval;
 	}
 	
@@ -150,7 +180,12 @@ public class ScoreCardModel implements IScoreCardModel {
 	public Integer getNextScheduledCardN() {
 		return this.nextScheduledCardN;
 	}
+	
+	@JsonProperty
 	public void setNextScheduledCardN(Integer nextScheduledCardN) {
+		if (this.frozen) {
+			throw new RuntimeException("nextScheduledCardN is frozen");
+		}
 		this.nextScheduledCardN = nextScheduledCardN;
 	}
 	
@@ -158,7 +193,12 @@ public class ScoreCardModel implements IScoreCardModel {
 	public Integer getNextScheduledCardCount() {
 		return this.nextScheduledCardCount;
 	}
+	
+	@JsonProperty
 	public void setNextScheduledCardCount(Integer nextScheduledCardCount) {
+		if (this.frozen) {
+			throw new RuntimeException("nextScheduledCardCount is frozen");
+		}
 		this.nextScheduledCardCount = nextScheduledCardCount;
 	}
 	
@@ -168,7 +208,14 @@ public class ScoreCardModel implements IScoreCardModel {
 	public java.time.LocalDateTime getNextScheduledCardScheduledDate() {
 		return this.nextScheduledCardScheduledDate;
 	}
+	
+	@JsonProperty
+	@JsonSerialize(converter = DateTimeToStringConverter.class)
+	@JsonDeserialize(converter = StringToDateTimeConverter.class)
 	public void setNextScheduledCardScheduledDate(java.time.LocalDateTime nextScheduledCardScheduledDate) {
+		if (this.frozen) {
+			throw new RuntimeException("nextScheduledCardScheduledDate is frozen");
+		}
 		this.nextScheduledCardScheduledDate = nextScheduledCardScheduledDate;
 	}
 	
@@ -176,7 +223,12 @@ public class ScoreCardModel implements IScoreCardModel {
 	public Integer getNextScheduledCardLastQuality() {
 		return this.nextScheduledCardLastQuality;
 	}
+	
+	@JsonProperty
 	public void setNextScheduledCardLastQuality(Integer nextScheduledCardLastQuality) {
+		if (this.frozen) {
+			throw new RuntimeException("nextScheduledCardLastQuality is frozen");
+		}
 		this.nextScheduledCardLastQuality = nextScheduledCardLastQuality;
 	}
 	
@@ -184,7 +236,12 @@ public class ScoreCardModel implements IScoreCardModel {
 	public String getScheduledCardId() {
 		return this.scheduledCardId;
 	}
+	
+	@JsonProperty
 	public void setScheduledCardId(String scheduledCardId) {
+		if (this.frozen) {
+			throw new RuntimeException("scheduledCardId is frozen");
+		}
 		this.scheduledCardId = scheduledCardId;
 	}
 	
@@ -192,7 +249,12 @@ public class ScoreCardModel implements IScoreCardModel {
 	public Integer getScoredCardQuality() {
 		return this.scoredCardQuality;
 	}
+	
+	@JsonProperty
 	public void setScoredCardQuality(Integer scoredCardQuality) {
+		if (this.frozen) {
+			throw new RuntimeException("scoredCardQuality is frozen");
+		}
 		this.scoredCardQuality = scoredCardQuality;
 	}
 	
@@ -202,7 +264,14 @@ public class ScoreCardModel implements IScoreCardModel {
 	public java.time.LocalDateTime getScoredCardScoredDate() {
 		return this.scoredCardScoredDate;
 	}
+	
+	@JsonProperty
+	@JsonSerialize(converter = DateTimeToStringConverter.class)
+	@JsonDeserialize(converter = StringToDateTimeConverter.class)
 	public void setScoredCardScoredDate(java.time.LocalDateTime scoredCardScoredDate) {
+		if (this.frozen) {
+			throw new RuntimeException("scoredCardScoredDate is frozen");
+		}
 		this.scoredCardScoredDate = scoredCardScoredDate;
 	}
 	
@@ -210,7 +279,12 @@ public class ScoreCardModel implements IScoreCardModel {
 	public String getReinforceCardId() {
 		return this.reinforceCardId;
 	}
+	
+	@JsonProperty
 	public void setReinforceCardId(String reinforceCardId) {
+		if (this.frozen) {
+			throw new RuntimeException("reinforceCardId is frozen");
+		}
 		this.reinforceCardId = reinforceCardId;
 	}
 	
@@ -220,7 +294,14 @@ public class ScoreCardModel implements IScoreCardModel {
 	public java.time.LocalDateTime getReinforceCardCreatedDate() {
 		return this.reinforceCardCreatedDate;
 	}
+	
+	@JsonProperty
+	@JsonSerialize(converter = DateTimeToStringConverter.class)
+	@JsonDeserialize(converter = StringToDateTimeConverter.class)
 	public void setReinforceCardCreatedDate(java.time.LocalDateTime reinforceCardCreatedDate) {
+		if (this.frozen) {
+			throw new RuntimeException("reinforceCardCreatedDate is frozen");
+		}
 		this.reinforceCardCreatedDate = reinforceCardCreatedDate;
 	}
 	
@@ -228,7 +309,12 @@ public class ScoreCardModel implements IScoreCardModel {
 	public String getUserId() {
 		return this.userId;
 	}
+	
+	@JsonProperty
 	public void setUserId(String userId) {
+		if (this.frozen) {
+			throw new RuntimeException("userId is frozen");
+		}
 		this.userId = userId;
 	}
 	
@@ -236,7 +322,12 @@ public class ScoreCardModel implements IScoreCardModel {
 	public String getBoxId() {
 		return this.boxId;
 	}
+	
+	@JsonProperty
 	public void setBoxId(String boxId) {
+		if (this.frozen) {
+			throw new RuntimeException("boxId is frozen");
+		}
 		this.boxId = boxId;
 	}
 	
@@ -244,7 +335,12 @@ public class ScoreCardModel implements IScoreCardModel {
 	public Integer getIntervalDifference() {
 		return this.intervalDifference;
 	}
+	
+	@JsonProperty
 	public void setIntervalDifference(Integer intervalDifference) {
+		if (this.frozen) {
+			throw new RuntimeException("intervalDifference is frozen");
+		}
 		this.intervalDifference = intervalDifference;
 	}
 	
@@ -252,7 +348,12 @@ public class ScoreCardModel implements IScoreCardModel {
 	public Integer getMaxInterval() {
 		return this.maxInterval;
 	}
+	
+	@JsonProperty
 	public void setMaxInterval(Integer maxInterval) {
+		if (this.frozen) {
+			throw new RuntimeException("maxInterval is frozen");
+		}
 		this.maxInterval = maxInterval;
 	}
 	
@@ -260,13 +361,24 @@ public class ScoreCardModel implements IScoreCardModel {
 	public Integer getMaxCardsPerDay() {
 		return this.maxCardsPerDay;
 	}
+	
+	@JsonProperty
 	public void setMaxCardsPerDay(Integer maxCardsPerDay) {
+		if (this.frozen) {
+			throw new RuntimeException("maxCardsPerDay is frozen");
+		}
 		this.maxCardsPerDay = maxCardsPerDay;
 	}
 	
+	
+	
+	@Override
+	public void freeze() {
+		this.frozen = true;
+	}
 
-	public IScoreCardModel deepCopy() {
-		IScoreCardModel copy = new ScoreCardModel();
+	public com.anfelisa.box.models.ScoreCardModel deepCopy() {
+		com.anfelisa.box.models.ScoreCardModel copy = new ScoreCardModel();
 		copy.setCardId(this.getCardId());
 		copy.setNextScheduledCardScheduledCardId(this.getNextScheduledCardScheduledCardId());
 		copy.setNextScheduledCardCreatedDate(this.getNextScheduledCardCreatedDate());
@@ -287,6 +399,43 @@ public class ScoreCardModel implements IScoreCardModel {
 		copy.setMaxInterval(this.getMaxInterval());
 		copy.setMaxCardsPerDay(this.getMaxCardsPerDay());
 		return copy;
+	}
+	
+	public static ScoreCardModel generateTestData() {
+		java.util.Random random = new java.util.Random();
+		ScoreCardModel testData = new ScoreCardModel();
+		testData.setCardId(randomString(random));
+		testData.setNextScheduledCardScheduledCardId(randomString(random));
+		testData.setNextScheduledCardCreatedDate(random.nextBoolean() ? java.time.LocalDateTime.now().plusMinutes(random.nextInt(60)) : java.time.LocalDateTime.now().minusMinutes(random.nextInt(60)) );
+		testData.setNextScheduledCardEf(random.nextFloat());
+		testData.setNextScheduledCardInterval(random.nextInt(50));
+		testData.setNextScheduledCardN(random.nextInt(50));
+		testData.setNextScheduledCardCount(random.nextInt(50));
+		testData.setNextScheduledCardScheduledDate(random.nextBoolean() ? java.time.LocalDateTime.now().plusMinutes(random.nextInt(60)) : java.time.LocalDateTime.now().minusMinutes(random.nextInt(60)) );
+		testData.setNextScheduledCardLastQuality(random.nextInt(50));
+		testData.setScheduledCardId(randomString(random));
+		testData.setScoredCardQuality(random.nextInt(50));
+		testData.setScoredCardScoredDate(random.nextBoolean() ? java.time.LocalDateTime.now().plusMinutes(random.nextInt(60)) : java.time.LocalDateTime.now().minusMinutes(random.nextInt(60)) );
+		testData.setReinforceCardId(randomString(random));
+		testData.setReinforceCardCreatedDate(random.nextBoolean() ? java.time.LocalDateTime.now().plusMinutes(random.nextInt(60)) : java.time.LocalDateTime.now().minusMinutes(random.nextInt(60)) );
+		testData.setUserId(randomString(random));
+		testData.setBoxId(randomString(random));
+		testData.setIntervalDifference(random.nextInt(50));
+		testData.setMaxInterval(random.nextInt(50));
+		testData.setMaxCardsPerDay(random.nextInt(50));
+		return testData;
+	}
+	
+	private static String randomString(java.util.Random random) {
+		String chars = "aaaaaaabcdeeeeeeeffffghiiiiiiijkllllllmmmmnnnnnnnooooooooopqrstttuuuuuuuvxyz";
+		int n = random.nextInt(20) + 5;
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		String string  = sb.toString(); 
+		return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
 	}
 
 }

@@ -13,14 +13,15 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.box.models.IBoxModel;
-import com.anfelisa.box.models.IScheduledCardModel;
-import com.anfelisa.card.data.ICardListData;
-import com.anfelisa.card.models.ICardWithInfoModel;
-import com.anfelisa.category.models.ICategoryModel;
-import com.anfelisa.category.models.IUserAccessToCategoryModel;
+import com.anfelisa.box.models.BoxModel;
+import com.anfelisa.box.models.ScheduledCardModel;
+import com.anfelisa.card.models.CardListModel;
+import com.anfelisa.card.models.CardWithInfoModel;
+import com.anfelisa.category.models.CategoryModel;
+import com.anfelisa.category.models.UserAccessToCategoryModel;
 
 import de.acegen.CustomAppConfiguration;
+import de.acegen.Data;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -37,43 +38,43 @@ public class GetCardsAction extends AbstractGetCardsAction {
 
 
 	@Override
-	protected ICardListData loadDataForGetRequest(ICardListData data, PersistenceHandle readonlyHandle) {
-		ICategoryModel category = daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
-				data.getCategoryId());
+	protected Data<CardListModel> loadDataForGetRequest(Data<CardListModel> data, PersistenceHandle readonlyHandle) {
+		CategoryModel category = daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
+				data.getModel().getCategoryId());
 		if (category == null) {
 			throwIllegalArgumentException("categoryDoesNotExist");
 		}
-		IUserAccessToCategoryModel userAccessToCategoryModel = daoProvider.getUserAccessToCategoryDao()
-				.hasUserAccessTo(readonlyHandle, data.getCategoryId(), data.getUserId());
+		UserAccessToCategoryModel userAccessToCategoryModel = daoProvider.getUserAccessToCategoryDao()
+				.hasUserAccessTo(readonlyHandle, data.getModel().getCategoryId(), data.getModel().getUserId());
 		if (userAccessToCategoryModel == null) {
 			throwSecurityException();
 		}
-		IBoxModel box = daoProvider.getBoxDao().selectByCategoryIdAndUserId(readonlyHandle,
-				category.getRootCategoryId(), data.getUserId(), data.getReverse());
+		BoxModel box = daoProvider.getBoxDao().selectByCategoryIdAndUserId(readonlyHandle,
+				category.getRootCategoryId(), data.getModel().getUserId(), data.getModel().getReverse());
 		if (box == null) {
 			throwIllegalArgumentException("boxNotFound");
 		}
 
-		List<ICardWithInfoModel> allCards = daoProvider.getCardDao().selectAllOfCategory(readonlyHandle,
-				data.getCategoryId(), data.getPriority());
-		List<ICardWithInfoModel> cardList = new ArrayList<>();
-		List<IScheduledCardModel> allUnscored = daoProvider.getCardDao()
-				.selectUnscoredByCategoryAndBoxId(readonlyHandle, data.getCategoryId(), box.getBoxId(), data.getPriority());
-		for (ICardWithInfoModel card : allCards) {
-			IScheduledCardModel scheduledCardModel = find(allUnscored, card);
+		List<CardWithInfoModel> allCards = daoProvider.getCardDao().selectAllOfCategory(readonlyHandle,
+				data.getModel().getCategoryId(), data.getModel().getPriority());
+		List<CardWithInfoModel> cardList = new ArrayList<>();
+		List<ScheduledCardModel> allUnscored = daoProvider.getCardDao()
+				.selectUnscoredByCategoryAndBoxId(readonlyHandle, data.getModel().getCategoryId(), box.getBoxId(), data.getModel().getPriority());
+		for (CardWithInfoModel card : allCards) {
+			ScheduledCardModel scheduledCardModel = find(allUnscored, card);
 			if (scheduledCardModel == null) {
 				cardList.add(card);
-			} else if (!data.getFilterNonScheduled()) {
+			} else if (!data.getModel().getFilterNonScheduled()) {
 				card.setNext(scheduledCardModel.getScheduledDate());
 				cardList.add(card);
 			}
 		}
-		data.setCardList(cardList);
+		data.getModel().setCardList(cardList);
 		return data;
 	}
 
-	private IScheduledCardModel find(List<IScheduledCardModel> allUnscored, ICardWithInfoModel card) {
-		for (IScheduledCardModel scheduledCardModel : allUnscored) {
+	private ScheduledCardModel find(List<ScheduledCardModel> allUnscored, CardWithInfoModel card) {
+		for (ScheduledCardModel scheduledCardModel : allUnscored) {
 			if (scheduledCardModel.getCardId().equals(card.getCardId())) {
 				return scheduledCardModel;
 			}

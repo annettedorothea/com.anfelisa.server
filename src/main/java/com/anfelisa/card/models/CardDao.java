@@ -6,16 +6,15 @@ import java.util.Optional;
 import org.jdbi.v3.core.statement.Update;
 
 import com.anfelisa.box.models.CardWithStatisticsMapper;
-import com.anfelisa.box.models.ICardWithStatisticsModel;
-import com.anfelisa.box.models.IScheduledCardModel;
+import com.anfelisa.box.models.CardWithStatisticsModel;
 import com.anfelisa.box.models.ScheduledCardMapper;
-import com.anfelisa.card.data.ICardUpdateData;
+import com.anfelisa.box.models.ScheduledCardModel;
 
 import de.acegen.PersistenceHandle;
 
 public class CardDao extends AbstractCardDao {
 
-	public List<ICardWithInfoModel> selectAllOfCategory(PersistenceHandle handle, String categoryId, Integer priority) {
+	public List<CardWithInfoModel> selectAllOfCategory(PersistenceHandle handle, String categoryId, Integer priority) {
 		return handle.getHandle().createQuery("SELECT cardid, given, wanted, cardauthor, cardindex, categoryid, rootcategoryid, priority, null as next FROM card "
 				+ "WHERE categoryid = :categoryid and (:priority is null OR priority = :priority) order by cardindex")
 				.bind("categoryid", categoryId)
@@ -24,7 +23,7 @@ public class CardDao extends AbstractCardDao {
 				.list();
 	}
 	
-	public List<ICardWithStatisticsModel> selectAllActiveCards(PersistenceHandle handle, String boxId) {
+	public List<CardWithStatisticsModel> selectAllActiveCards(PersistenceHandle handle, String boxId) {
 		return handle.getHandle().createQuery(
 				"SELECT c.cardid, given, wanted, cardauthor, cardindex, c.categoryid, rootcategoryid, priority, s.scheduleddate as next, s.ef, s.interval, s.count, s.lastquality "
 						+ "FROM public.card c "
@@ -52,7 +51,7 @@ public class CardDao extends AbstractCardDao {
 		return optional.isPresent() ? optional.get() : null;
 	}
 
-	public List<IScheduledCardModel> selectUnscoredByCategoryAndBoxId(PersistenceHandle handle, String categoryId, String boxId, Integer priority) {
+	public List<ScheduledCardModel> selectUnscoredByCategoryAndBoxId(PersistenceHandle handle, String categoryId, String boxId, Integer priority) {
 		return  handle.getHandle().createQuery("select * from scheduledcard sc "
 				+ "inner join card c on sc.cardid = c.cardid\n"
 				+ "where boxid = :boxid "
@@ -67,7 +66,7 @@ public class CardDao extends AbstractCardDao {
 				.list();
 	}
 
-	public List<ICardModel> selectAll(PersistenceHandle handle, String categoryId) {
+	public List<CardModel> selectAll(PersistenceHandle handle, String categoryId) {
 		return handle.getHandle().createQuery(
 				"SELECT cardid, given, wanted, cardauthor, cardindex, categoryid, rootcategoryid, priority FROM \"card\" "
 						+ "WHERE categoryid = :categoryid ORDER BY cardindex")
@@ -76,7 +75,7 @@ public class CardDao extends AbstractCardDao {
 				.list();
 	}
 
-	public List<ICardModel> selectAllByRootCategoryId(PersistenceHandle handle, String rootCategoryId) {
+	public List<CardModel> selectAllByRootCategoryId(PersistenceHandle handle, String rootCategoryId) {
 		return handle.getHandle().createQuery(
 				"SELECT cardid, given, wanted, cardauthor, cardindex, categoryid, rootcategoryid, priority FROM \"card\" "
 						+ "WHERE rootcategoryid = :rootcategoryid")
@@ -92,7 +91,7 @@ public class CardDao extends AbstractCardDao {
 		return optional.isPresent() ? optional.get() : null;
 	}
 
-	public void update(PersistenceHandle handle, ICardUpdateData cardModel) {
+	public void update(PersistenceHandle handle, CardUpdateModel cardModel) {
 		Update statement = handle.getHandle().createUpdate(
 				"UPDATE public.card SET given = :given, wanted = :wanted WHERE cardid = :cardid");
 		statement.bind("cardid", cardModel.getCardId());
@@ -101,7 +100,7 @@ public class CardDao extends AbstractCardDao {
 		statement.execute();
 	}
 
-	public void updateIndex(PersistenceHandle handle, ICardModel cardModel) {
+	public void updateIndex(PersistenceHandle handle, CardModel cardModel) {
 		Update statement = handle.getHandle().createUpdate(
 				"UPDATE public.card SET cardindex = :cardindex WHERE cardid = :cardid");
 		statement.bind("cardindex", cardModel.getCardIndex());
@@ -109,7 +108,7 @@ public class CardDao extends AbstractCardDao {
 		statement.execute();
 	}
 
-	public List<ICardWithCategoryNameModel> search(PersistenceHandle handle, String categoryId,
+	public List<CardWithCategoryNameModel> search(PersistenceHandle handle, String categoryId,
 			Boolean naturalInputOrder,
 			String given,
 			String wanted) {
@@ -152,7 +151,7 @@ public class CardDao extends AbstractCardDao {
 		statement.execute();
 	}
 
-	public void updateCardPriority(PersistenceHandle handle, ICardUpdatePriorityModel cardModel) {
+	public void updateCardPriority(PersistenceHandle handle, CardUpdatePriorityModel cardModel) {
 		Update statement = handle.getHandle()
 				.createUpdate("UPDATE public.card SET priority = :priority WHERE cardid = :cardid");
 		statement.bind("priority", cardModel.getPriority());
@@ -160,7 +159,7 @@ public class CardDao extends AbstractCardDao {
 		statement.execute();
 	}
 
-	public void moveCard(PersistenceHandle handle, ICardModel cardModel) {
+	public void moveCard(PersistenceHandle handle, CardModel cardModel) {
 		Update statement = handle.getHandle().createUpdate(
 				"UPDATE public.card SET cardindex = :cardindex, categoryid = :categoryid WHERE cardid = :cardid");
 		statement.bind("cardindex", cardModel.getCardIndex());

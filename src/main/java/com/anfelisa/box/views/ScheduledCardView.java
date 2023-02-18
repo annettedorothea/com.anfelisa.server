@@ -1,10 +1,11 @@
 package com.anfelisa.box.views;
 
-import com.anfelisa.box.data.IDeleteBoxData;
-import com.anfelisa.box.data.IInitMyBoxesDataData;
-import com.anfelisa.box.data.IScoreCardData;
-import com.anfelisa.box.models.IPostponeCardsModel;
+import com.anfelisa.box.models.DeleteBoxModel;
+import com.anfelisa.box.models.InitMyBoxesDataModel;
+import com.anfelisa.box.models.PostponeCardsModel;
+import com.anfelisa.box.models.ScoreCardModel;
 
+import de.acegen.Data;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceHandle;
 
@@ -17,24 +18,24 @@ public class ScheduledCardView implements IScheduledCardView {
 		this.daoProvider = daoProvider;
 	}
 
-	public void score(IScoreCardData data, PersistenceHandle handle) {
-		daoProvider.getScheduledCardDao().score(handle, data);
+	public void score(Data<ScoreCardModel> data, PersistenceHandle handle) {
+		daoProvider.getScheduledCardDao().score(handle, data.getModel());
 	}
 
-	public void scheduleNext(IScoreCardData data, PersistenceHandle handle) {
-		daoProvider.getScheduledCardDao().scheduleNext(handle, data);
+	public void scheduleNext(Data<ScoreCardModel> data, PersistenceHandle handle) {
+		daoProvider.getScheduledCardDao().scheduleNext(handle, data.getModel());
 	}
 
 	@Override
-	public void postponeCards(IInitMyBoxesDataData data, PersistenceHandle handle) {
-		for (IPostponeCardsModel postponeCards : data.getPostponeCards()) {
+	public void postponeCards(Data<InitMyBoxesDataModel> data, PersistenceHandle handle) {
+		for (PostponeCardsModel postponeCards : data.getModel().getPostponeCards()) {
 			daoProvider.getScheduledCardDao().postponeScheduledCards(handle, postponeCards);
 		}
 	}
 
 	@Override
-	public void deleteAll(IDeleteBoxData data, PersistenceHandle handle) {
-		daoProvider.getScheduledCardDao().deleteByBoxId(handle, data.getBoxId());
+	public void deleteAll(Data<DeleteBoxModel> data, PersistenceHandle handle) {
+		daoProvider.getScheduledCardDao().deleteByBoxId(handle, data.getModel().getBoxId());
 	}
 
 }

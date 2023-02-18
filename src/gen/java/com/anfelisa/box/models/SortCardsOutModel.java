@@ -16,9 +16,10 @@ import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
+import de.acegen.AbstractModel;
 
 @SuppressWarnings("all")
-public class SortCardsOutModel implements ISortCardsOutModel {
+public class SortCardsOutModel extends AbstractModel {
 
 	private java.util.List<String> sortedOutScheduledCardIds;
 
@@ -30,8 +31,10 @@ public class SortCardsOutModel implements ISortCardsOutModel {
 
 	private String boxId;
 
-	private Boolean reverse = false;
+	private Boolean reverse;
 
+	
+	private Boolean frozen = false;
 
 	public SortCardsOutModel() {
 	}
@@ -56,7 +59,12 @@ public class SortCardsOutModel implements ISortCardsOutModel {
 	public java.util.List<String> getSortedOutScheduledCardIds() {
 		return this.sortedOutScheduledCardIds;
 	}
+	
+	@JsonProperty
 	public void setSortedOutScheduledCardIds(java.util.List<String> sortedOutScheduledCardIds) {
+		if (this.frozen) {
+			throw new RuntimeException("sortedOutScheduledCardIds is frozen");
+		}
 		this.sortedOutScheduledCardIds = sortedOutScheduledCardIds;
 	}
 	
@@ -64,7 +72,12 @@ public class SortCardsOutModel implements ISortCardsOutModel {
 	public java.util.List<String> getSortedOutReinforceCardIds() {
 		return this.sortedOutReinforceCardIds;
 	}
+	
+	@JsonProperty
 	public void setSortedOutReinforceCardIds(java.util.List<String> sortedOutReinforceCardIds) {
+		if (this.frozen) {
+			throw new RuntimeException("sortedOutReinforceCardIds is frozen");
+		}
 		this.sortedOutReinforceCardIds = sortedOutReinforceCardIds;
 	}
 	
@@ -72,7 +85,12 @@ public class SortCardsOutModel implements ISortCardsOutModel {
 	public java.util.List<String> getCardIds() {
 		return this.cardIds;
 	}
+	
+	@JsonProperty
 	public void setCardIds(java.util.List<String> cardIds) {
+		if (this.frozen) {
+			throw new RuntimeException("cardIds is frozen");
+		}
 		this.cardIds = cardIds;
 	}
 	
@@ -80,7 +98,12 @@ public class SortCardsOutModel implements ISortCardsOutModel {
 	public String getUserId() {
 		return this.userId;
 	}
+	
+	@JsonProperty
 	public void setUserId(String userId) {
+		if (this.frozen) {
+			throw new RuntimeException("userId is frozen");
+		}
 		this.userId = userId;
 	}
 	
@@ -88,7 +111,12 @@ public class SortCardsOutModel implements ISortCardsOutModel {
 	public String getBoxId() {
 		return this.boxId;
 	}
+	
+	@JsonProperty
 	public void setBoxId(String boxId) {
+		if (this.frozen) {
+			throw new RuntimeException("boxId is frozen");
+		}
 		this.boxId = boxId;
 	}
 	
@@ -96,13 +124,24 @@ public class SortCardsOutModel implements ISortCardsOutModel {
 	public Boolean getReverse() {
 		return this.reverse;
 	}
+	
+	@JsonProperty
 	public void setReverse(Boolean reverse) {
+		if (this.frozen) {
+			throw new RuntimeException("reverse is frozen");
+		}
 		this.reverse = reverse;
 	}
 	
+	
+	
+	@Override
+	public void freeze() {
+		this.frozen = true;
+	}
 
-	public ISortCardsOutModel deepCopy() {
-		ISortCardsOutModel copy = new SortCardsOutModel();
+	public com.anfelisa.box.models.SortCardsOutModel deepCopy() {
+		com.anfelisa.box.models.SortCardsOutModel copy = new SortCardsOutModel();
 		List<String> sortedOutScheduledCardIdsCopy = new ArrayList<String>();
 		if (this.getSortedOutScheduledCardIds() != null) {
 			for(String item: this.getSortedOutScheduledCardIds()) {
@@ -128,6 +167,46 @@ public class SortCardsOutModel implements ISortCardsOutModel {
 		copy.setBoxId(this.getBoxId());
 		copy.setReverse(this.getReverse());
 		return copy;
+	}
+	
+	public static SortCardsOutModel generateTestData() {
+		java.util.Random random = new java.util.Random();
+		int n;
+		SortCardsOutModel testData = new SortCardsOutModel();
+		java.util.List<String> sortedOutScheduledCardIdsList = new java.util.ArrayList<String>();
+		n = random.nextInt(20) + 1;
+		for ( int i = 0; i < n; i++ ) {
+			sortedOutScheduledCardIdsList.add(randomString(random));
+		}
+		testData.setSortedOutScheduledCardIds(sortedOutScheduledCardIdsList);
+		java.util.List<String> sortedOutReinforceCardIdsList = new java.util.ArrayList<String>();
+		n = random.nextInt(20) + 1;
+		for ( int i = 0; i < n; i++ ) {
+			sortedOutReinforceCardIdsList.add(randomString(random));
+		}
+		testData.setSortedOutReinforceCardIds(sortedOutReinforceCardIdsList);
+		java.util.List<String> cardIdsList = new java.util.ArrayList<String>();
+		n = random.nextInt(20) + 1;
+		for ( int i = 0; i < n; i++ ) {
+			cardIdsList.add(randomString(random));
+		}
+		testData.setCardIds(cardIdsList);
+		testData.setUserId(randomString(random));
+		testData.setBoxId(randomString(random));
+		testData.setReverse(random.nextBoolean());
+		return testData;
+	}
+	
+	private static String randomString(java.util.Random random) {
+		String chars = "aaaaaaabcdeeeeeeeffffghiiiiiiijkllllllmmmmnnnnnnnooooooooopqrstttuuuuuuuvxyz";
+		int n = random.nextInt(20) + 5;
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		String string  = sb.toString(); 
+		return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
 	}
 
 }

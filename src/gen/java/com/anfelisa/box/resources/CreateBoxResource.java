@@ -28,7 +28,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
-import de.acegen.IDataContainer;
 import de.acegen.ViewProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -36,6 +35,7 @@ import de.acegen.ReadAction;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.Config;
+import de.acegen.Data;
 
 import de.acegen.auth.AuthUser;
 import io.dropwizard.auth.Auth;
@@ -52,8 +52,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.DELETE;
 
-import com.anfelisa.box.data.IBoxCreationData;
-import com.anfelisa.box.data.BoxCreationData;
+import com.anfelisa.box.models.BoxCreationModel;
 
 import de.acegen.Resource;
 
@@ -86,7 +85,7 @@ public class CreateBoxResource extends Resource {
 	public Response createBoxResource(
 			@Auth AuthUser authUser, 
 			@QueryParam("uuid") String uuid, 
-			IBoxCreationData payload) 
+			com.anfelisa.box.data.CreateBoxPayload payload) 
 			throws JsonProcessingException {
 		if (payload == null) {
 			return badRequest("payload must not be null");
@@ -95,22 +94,24 @@ public class CreateBoxResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.box.data.IBoxCreationData data = new BoxCreationData(uuid);
+			Data<com.anfelisa.box.models.BoxCreationModel> data = new Data<com.anfelisa.box.models.BoxCreationModel>(uuid);
+			com.anfelisa.box.models.BoxCreationModel model = new com.anfelisa.box.models.BoxCreationModel();
 			if (StringUtils.isBlank(payload.getCategoryName()) || "null".equals(payload.getCategoryName())) {
 				return badRequest("categoryName is mandatory");
 			}
-			data.setCategoryName(payload.getCategoryName());
-			data.setDictionaryLookup(payload.getDictionaryLookup());
-			data.setGivenLanguage(payload.getGivenLanguage());
-			data.setWantedLanguage(payload.getWantedLanguage());
+			model.setCategoryName(payload.getCategoryName());
+			model.setDictionaryLookup(payload.getDictionaryLookup());
+			model.setGivenLanguage(payload.getGivenLanguage());
+			model.setWantedLanguage(payload.getWantedLanguage());
 			if (payload.getMaxCardsPerDay() == null) {
 				return badRequest("maxCardsPerDay is mandatory");
 			}
-			data.setMaxCardsPerDay(payload.getMaxCardsPerDay());
-			data.setMaxInterval(payload.getMaxInterval());
-			data.setUsername(authUser.getUsername());
-			data.setUserId(authUser.getUserId());
+			model.setMaxCardsPerDay(payload.getMaxCardsPerDay());
+			model.setMaxInterval(payload.getMaxInterval());
+			model.setUsername(authUser.getUsername());
+			model.setUserId(authUser.getUserId());
 			
+			data.setModel(model);
 			com.anfelisa.box.actions.CreateBoxAction action = new com.anfelisa.box.actions.CreateBoxAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
 			data = action.apply(data);
 			return ok();

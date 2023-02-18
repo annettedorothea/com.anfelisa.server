@@ -7,7 +7,7 @@
 
 package de.acegen;
 
-public abstract class Action<T extends IDataContainer> implements IAction<T> {
+public abstract class Action<T extends AbstractModel> implements IAction<T> {
 
 	protected String actionName;
 

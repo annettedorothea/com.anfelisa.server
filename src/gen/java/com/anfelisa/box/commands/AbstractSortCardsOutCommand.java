@@ -7,6 +7,7 @@
 
 package com.anfelisa.box.commands;
 
+import de.acegen.Data;
 import de.acegen.Command;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
@@ -14,24 +15,24 @@ import de.acegen.ViewProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.Event;
 
-import com.anfelisa.box.data.ISortCardsOutData;
+import com.anfelisa.box.models.SortCardsOutModel;
 
 @SuppressWarnings("unused")
-public abstract class AbstractSortCardsOutCommand extends Command<ISortCardsOutData> {
+public abstract class AbstractSortCardsOutCommand extends Command<com.anfelisa.box.models.SortCardsOutModel> {
 
 	public AbstractSortCardsOutCommand(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
 		super("com.anfelisa.box.commands.SortCardsOutCommand", daoProvider, viewProvider, appConfiguration);
 	}
 
-	protected void addOkOutcome(ISortCardsOutData data) {
+	protected void addOkOutcome(Data<com.anfelisa.box.models.SortCardsOutModel> data) {
 		data.addOutcome("ok");
 	}
-	protected void addNullOrEmptyOutcome(ISortCardsOutData data) {
+	protected void addNullOrEmptyOutcome(Data<com.anfelisa.box.models.SortCardsOutModel> data) {
 		data.addOutcome("nullOrEmpty");
 	}
 	
 	@Override
-	public void addEventsToTimeline(ISortCardsOutData data, PersistenceHandle timelineHandle) {
+	public void addEventsToTimeline(Data<com.anfelisa.box.models.SortCardsOutModel> data, PersistenceHandle timelineHandle) {
 		if (appConfiguration.getConfig().writeTimeline()) {
 			if (data.hasOutcome("ok")){
 				daoProvider.getAceDao().addEventToTimeline("com.anfelisa.box.events.SortCardsOutOkEvent", data, timelineHandle);
@@ -40,9 +41,10 @@ public abstract class AbstractSortCardsOutCommand extends Command<ISortCardsOutD
 	}
 	
 	@Override
-	public void publishEvents(ISortCardsOutData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	public void publishEvents(Data<com.anfelisa.box.models.SortCardsOutModel> data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+		data.freeze();
 		if (data.hasOutcome("ok")){
-			new Event<ISortCardsOutData>("com.anfelisa.box.events.SortCardsOutOkEvent", viewProvider).publish(data.deepCopy(), handle, timelineHandle);
+			new Event<com.anfelisa.box.models.SortCardsOutModel>("com.anfelisa.box.events.SortCardsOutOkEvent", viewProvider).publish(data, handle, timelineHandle);
 		}
 	}
 	

@@ -7,6 +7,7 @@
 
 package com.anfelisa.box.commands;
 
+import de.acegen.Data;
 import de.acegen.Command;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
@@ -14,24 +15,24 @@ import de.acegen.ViewProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.Event;
 
-import com.anfelisa.box.data.IBoxUpdateData;
+import com.anfelisa.box.models.BoxUpdateModel;
 
 @SuppressWarnings("unused")
-public abstract class AbstractUpdateBoxCommand extends Command<IBoxUpdateData> {
+public abstract class AbstractUpdateBoxCommand extends Command<com.anfelisa.box.models.BoxUpdateModel> {
 
 	public AbstractUpdateBoxCommand(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
 		super("com.anfelisa.box.commands.UpdateBoxCommand", daoProvider, viewProvider, appConfiguration);
 	}
 
-	protected void addCanEditCategoryOutcome(IBoxUpdateData data) {
+	protected void addCanEditCategoryOutcome(Data<com.anfelisa.box.models.BoxUpdateModel> data) {
 		data.addOutcome("canEditCategory");
 	}
-	protected void addOkOutcome(IBoxUpdateData data) {
+	protected void addOkOutcome(Data<com.anfelisa.box.models.BoxUpdateModel> data) {
 		data.addOutcome("ok");
 	}
 	
 	@Override
-	public void addEventsToTimeline(IBoxUpdateData data, PersistenceHandle timelineHandle) {
+	public void addEventsToTimeline(Data<com.anfelisa.box.models.BoxUpdateModel> data, PersistenceHandle timelineHandle) {
 		if (appConfiguration.getConfig().writeTimeline()) {
 			if (data.hasOutcome("canEditCategory")){
 				daoProvider.getAceDao().addEventToTimeline("com.anfelisa.box.events.UpdateBoxCanEditCategoryEvent", data, timelineHandle);
@@ -43,12 +44,13 @@ public abstract class AbstractUpdateBoxCommand extends Command<IBoxUpdateData> {
 	}
 	
 	@Override
-	public void publishEvents(IBoxUpdateData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	public void publishEvents(Data<com.anfelisa.box.models.BoxUpdateModel> data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+		data.freeze();
 		if (data.hasOutcome("canEditCategory")){
-			new Event<IBoxUpdateData>("com.anfelisa.box.events.UpdateBoxCanEditCategoryEvent", viewProvider).publish(data.deepCopy(), handle, timelineHandle);
+			new Event<com.anfelisa.box.models.BoxUpdateModel>("com.anfelisa.box.events.UpdateBoxCanEditCategoryEvent", viewProvider).publish(data, handle, timelineHandle);
 		}
 		if (data.hasOutcome("ok")){
-			new Event<IBoxUpdateData>("com.anfelisa.box.events.UpdateBoxOkEvent", viewProvider).publish(data.deepCopy(), handle, timelineHandle);
+			new Event<com.anfelisa.box.models.BoxUpdateModel>("com.anfelisa.box.events.UpdateBoxOkEvent", viewProvider).publish(data, handle, timelineHandle);
 		}
 	}
 	

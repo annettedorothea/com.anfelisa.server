@@ -15,6 +15,7 @@ import de.acegen.PersistenceConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
 public class ArchiveBoxAction extends AbstractArchiveBoxAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(ArchiveBoxAction.class);
@@ -23,9 +24,6 @@ public class ArchiveBoxAction extends AbstractArchiveBoxAction {
 			ViewProvider viewProvider) {
 		super(persistenceConnection, appConfiguration, daoProvider, viewProvider);
 	}
-
-
-	
 
 }
 

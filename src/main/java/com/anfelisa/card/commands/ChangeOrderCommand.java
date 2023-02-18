@@ -13,11 +13,12 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.card.data.IChangeCardOrderListData;
-import com.anfelisa.card.models.ICardModel;
-import com.anfelisa.category.models.IUserAccessToCategoryModel;
+import com.anfelisa.card.models.CardModel;
+import com.anfelisa.card.models.ChangeCardOrderListModel;
+import com.anfelisa.category.models.UserAccessToCategoryModel;
 
 import de.acegen.CustomAppConfiguration;
+import de.acegen.Data;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.ViewProvider;
@@ -32,32 +33,32 @@ public class ChangeOrderCommand extends AbstractChangeOrderCommand {
 	}
 
 	@Override
-	protected IChangeCardOrderListData executeCommand(IChangeCardOrderListData data, PersistenceHandle readonlyHandle) {
-		ICardModel targetCard = daoProvider.getCardDao().selectByCardId(readonlyHandle, data.getCardId());
+	protected Data<ChangeCardOrderListModel> executeCommand(Data<ChangeCardOrderListModel> data, PersistenceHandle readonlyHandle) {
+		CardModel targetCard = daoProvider.getCardDao().selectByCardId(readonlyHandle, data.getModel().getCardId());
 		if (targetCard == null) {
 			throwIllegalArgumentException("cardDoesNotExist");
 		}
-		IUserAccessToCategoryModel accessToRootCategory = this.daoProvider.getUserAccessToCategoryDao()
-				.hasUserAccessTo(readonlyHandle, targetCard.getRootCategoryId(), data.getUserId());
+		UserAccessToCategoryModel accessToRootCategory = this.daoProvider.getUserAccessToCategoryDao()
+				.hasUserAccessTo(readonlyHandle, targetCard.getRootCategoryId(), data.getModel().getUserId());
 		if (accessToRootCategory == null || !accessToRootCategory.getEditable()) {
 			throwSecurityException();
 		}
-		for (String cardId : data.getCardIdList()) {
-			ICardModel card = daoProvider.getCardDao().selectByCardId(readonlyHandle, cardId);
+		for (String cardId : data.getModel().getCardIdList()) {
+			CardModel card = daoProvider.getCardDao().selectByCardId(readonlyHandle, cardId);
 			if (card == null) {
 				throwIllegalArgumentException("cardDoesNotExist");
 			}
 			accessToRootCategory = this.daoProvider.getUserAccessToCategoryDao()
-					.hasUserAccessTo(readonlyHandle, card.getRootCategoryId(), data.getUserId());
+					.hasUserAccessTo(readonlyHandle, card.getRootCategoryId(), data.getModel().getUserId());
 			if (accessToRootCategory == null || !accessToRootCategory.getEditable()) {
 				throwSecurityException();
 			}
 		}
-		List<ICardModel> cards = daoProvider.getCardDao().selectAll(readonlyHandle, targetCard.getCategoryId());
+		List<CardModel> cards = daoProvider.getCardDao().selectAll(readonlyHandle, targetCard.getCategoryId());
 		int index = 1;
-		for (ICardModel card : cards) {
+		for (CardModel card : cards) {
 			if (card.getCardIndex() < targetCard.getCardIndex()) {
-				if (!data.getCardIdList().contains(card.getCardId())) {
+				if (!data.getModel().getCardIdList().contains(card.getCardId())) {
 					card.setCardIndex(index);
 					index++;
 				}
@@ -65,27 +66,27 @@ public class ChangeOrderCommand extends AbstractChangeOrderCommand {
 				break;
 			}
 		}
-		List<ICardModel> movedCards = orderedMovedCards(data, cards);
-		for (ICardModel card : movedCards) {
+		List<CardModel> movedCards = orderedMovedCards(data.getModel(), cards);
+		for (CardModel card : movedCards) {
 			card.setCardIndex(index);
 			index++;
 		}
-		for (ICardModel card : cards) {
+		for (CardModel card : cards) {
 			if (card.getCardIndex() >= targetCard.getCardIndex()) {
-				if (!data.getCardIdList().contains(card.getCardId())) {
+				if (!data.getModel().getCardIdList().contains(card.getCardId())) {
 					card.setCardIndex(index);
 					index++;
 				}
 			}
 		}
-		data.setUpdatedIndices(cards);
+		data.getModel().setUpdatedIndices(cards);
 		this.addOkOutcome(data);
 		return data;
 	}
 
-	private List<ICardModel> orderedMovedCards(IChangeCardOrderListData data, List<ICardModel> cards) {
-		List<ICardModel> movedCards = new ArrayList<ICardModel>();
-		for (ICardModel card : cards) {
+	private List<CardModel> orderedMovedCards(ChangeCardOrderListModel data, List<CardModel> cards) {
+		List<CardModel> movedCards = new ArrayList<CardModel>();
+		for (CardModel card : cards) {
 			if (data.getCardIdList().contains(card.getCardId())) {
 				movedCards.add(card);
 			}

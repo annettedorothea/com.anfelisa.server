@@ -10,11 +10,12 @@ package com.anfelisa.card.commands;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.card.data.ICardDeleteData;
-import com.anfelisa.card.models.ICardModel;
-import com.anfelisa.category.models.IUserAccessToCategoryModel;
+import com.anfelisa.card.models.CardDeleteModel;
+import com.anfelisa.card.models.CardModel;
+import com.anfelisa.category.models.UserAccessToCategoryModel;
 
 import de.acegen.CustomAppConfiguration;
+import de.acegen.Data;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.ViewProvider;
@@ -29,18 +30,18 @@ public class DeleteCardCommand extends AbstractDeleteCardCommand {
 	}
 
 	@Override
-	protected ICardDeleteData executeCommand(ICardDeleteData data, PersistenceHandle readonlyHandle) {
-		ICardModel card = daoProvider.getCardDao().selectByCardId(readonlyHandle, data.getCardId());
+	protected Data<CardDeleteModel> executeCommand(Data<CardDeleteModel> data, PersistenceHandle readonlyHandle) {
+		CardModel card = daoProvider.getCardDao().selectByCardId(readonlyHandle, data.getModel().getCardId());
 		if (card == null) {
 			throwIllegalArgumentException("cardDoesNotExist");
 		}
-		IUserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao()
-				.selectByCategoryIdAndUserId(readonlyHandle, card.getRootCategoryId(), data.getUserId());
+		UserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao()
+				.selectByCategoryIdAndUserId(readonlyHandle, card.getRootCategoryId(), data.getModel().getUserId());
 		if (access == null || !access.getEditable()) {
 			throwSecurityException();
 		}
-		data.setCardIndex(card.getCardIndex());
-		data.setCategoryId(card.getCategoryId());
+		data.getModel().setCardIndex(card.getCardIndex());
+		data.getModel().setCategoryId(card.getCategoryId());
 		this.addOkOutcome(data);
 		return data;
 	}

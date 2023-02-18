@@ -5,29 +5,27 @@ import java.util.Optional;
 
 import org.jdbi.v3.core.statement.Update;
 
-import com.anfelisa.category.data.IUserToCategoryInvitationData;
-
 import de.acegen.PersistenceHandle;
 
 public class UserAccessToCategoryDao extends AbstractUserAccessToCategoryDao {
 
-	public IUserAccessToCategoryModel selectByCategoryIdAndUserId(PersistenceHandle handle, String categoryId,
+	public UserAccessToCategoryModel selectByCategoryIdAndUserId(PersistenceHandle handle, String categoryId,
 			String userId) {
-		Optional<IUserAccessToCategoryModel> optional = handle.getHandle().createQuery(
+		Optional<UserAccessToCategoryModel> optional = handle.getHandle().createQuery(
 				"SELECT categoryid, userid, editable FROM public.useraccesstocategory where categoryid = :categoryid and userid = :userid")
 				.bind("categoryid", categoryId).bind("userid", userId).map(new UserAccessToCategoryMapper())
 				.findFirst();
 		return optional.isPresent() ? optional.get() : null;
 	}
 
-	public List<IUserAccessToCategoryModel> selectByUserId(PersistenceHandle handle, String userId) {
+	public List<UserAccessToCategoryModel> selectByUserId(PersistenceHandle handle, String userId) {
 		return handle.getHandle().createQuery("SELECT categoryid, userid, editable FROM useraccesstocategory where userid = :userid")
 				.bind("userid", userId)
 				.map(new UserAccessToCategoryMapper())
 				.list();
 	}
 
-	public List<IUserAccessToCategoryModel> selectByCategoryIdAndNotMine(PersistenceHandle handle, String categoryId, String userId) {
+	public List<UserAccessToCategoryModel> selectByCategoryIdAndNotMine(PersistenceHandle handle, String categoryId, String userId) {
 		return handle.getHandle().createQuery(
 				"SELECT categoryid, userid, editable FROM public.useraccesstocategory where categoryid = :categoryid and userid != :userid")
 				.bind("categoryid", categoryId)
@@ -35,7 +33,7 @@ public class UserAccessToCategoryDao extends AbstractUserAccessToCategoryDao {
 				.map(new UserAccessToCategoryMapper()).list();
 	}
 	
-	public List<IUserWithAccessModel> selectByCategoryIdWhereEditable(PersistenceHandle handle, String categoryId) {
+	public List<UserWithAccessModel> selectByCategoryIdWhereEditable(PersistenceHandle handle, String categoryId) {
 		return handle.getHandle().createQuery(
 				"SELECT a.userid, u.username, a.editable FROM public.useraccesstocategory a inner join public.user u on a.userid = u.userid where categoryid = :categoryid and editable = true order by u.username")
 				.bind("categoryid", categoryId).map(new UserWithAccessMapper()).list();
@@ -49,8 +47,8 @@ public class UserAccessToCategoryDao extends AbstractUserAccessToCategoryDao {
 		statement.execute();
 	}
 
-	public IUserAccessToCategoryModel hasUserAccessTo(PersistenceHandle handle, String categoryId, String userId) {
-		Optional<IUserAccessToCategoryModel> optional = handle.getHandle()
+	public UserAccessToCategoryModel hasUserAccessTo(PersistenceHandle handle, String categoryId, String userId) {
+		Optional<UserAccessToCategoryModel> optional = handle.getHandle()
 				.createQuery("SELECT uc.categoryid, uc.userid, uc.editable "
 						+ "from public.useraccesstocategory uc "
 						+ "where uc.categoryid = (select c.rootcategoryid from public.category c where c.categoryid = :categoryid ) "
@@ -61,7 +59,7 @@ public class UserAccessToCategoryDao extends AbstractUserAccessToCategoryDao {
 
 	}
 
-	public void invite(PersistenceHandle handle, IUserToCategoryInvitationData userAccessToCategoryModel) {
+	public void invite(PersistenceHandle handle, UserToCategoryInvitationModel userAccessToCategoryModel) {
 		Update statement = handle.getHandle().createUpdate("INSERT INTO \"useraccesstocategory\" (categoryid, userid, editable) VALUES (:categoryid, :userid, :editable)");
 		statement.bind("categoryid",  userAccessToCategoryModel.getCategoryId() );
 		statement.bind("userid",  userAccessToCategoryModel.getInvitedUserId() );
@@ -69,7 +67,7 @@ public class UserAccessToCategoryDao extends AbstractUserAccessToCategoryDao {
 		statement.execute();
 	}
 
-	public List<IUsernameEditableModel> selectAllInvitedUsers(PersistenceHandle handle, String categoryId, String userId) {
+	public List<UsernameEditableModel> selectAllInvitedUsers(PersistenceHandle handle, String categoryId, String userId) {
 		return handle.getHandle().createQuery("SELECT username as invitedusername, editable "
 				+ "FROM public.user u, useraccesstocategory uac where categoryid = :categoryid and uac.userid = u.userid and uac.userid != :userid "
 				+ "order by username")
@@ -79,7 +77,7 @@ public class UserAccessToCategoryDao extends AbstractUserAccessToCategoryDao {
 		
 	}
 
-	public void changeEditable(PersistenceHandle handle, IUserToCategoryInvitationData userAccessToCategoryModel) {
+	public void changeEditable(PersistenceHandle handle, UserToCategoryInvitationModel userAccessToCategoryModel) {
 		Update statement = handle.getHandle().createUpdate("Update \"useraccesstocategory\" set editable = :editable where categoryid = :categoryid and userid = :userid");
 		statement.bind("categoryid",  userAccessToCategoryModel.getCategoryId() );
 		statement.bind("userid",  userAccessToCategoryModel.getInvitedUserId() );

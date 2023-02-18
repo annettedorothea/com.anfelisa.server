@@ -25,6 +25,9 @@ import de.acegen.BaseScenario;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.HttpResponse;
+import de.acegen.Data;
+
+import com.fasterxml.jackson.core.type.TypeReference;
 
 @SuppressWarnings("unused")
 public abstract class AbstractCreateBoxMinimalAsAdminScenario extends BaseScenario {
@@ -43,13 +46,13 @@ public abstract class AbstractCreateBoxMinimalAsAdminScenario extends BaseScenar
 				"\"password\" : \"admin-password\"," + 
 				"\"username\" : \"Admin\"} ",
 					com.anfelisa.user.data.RegisterUserPayload.class);
-			com.anfelisa.user.data.UserRegistrationData data_0 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"email\" : \"annette.pohl@anfelisa.de\"," + 
-			"\"language\" : \"de\"," + 
-			"\"password\" : \"admin-password\"," + 
-			"\"username\" : \"Admin\"} ",
-					com.anfelisa.user.data.UserRegistrationData.class);
+			com.anfelisa.user.models.UserRegistrationModel model_0 = objectMapper.readValue("{" +
+				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"admin-password\"," + 
+				"\"username\" : \"Admin\"} ", com.anfelisa.user.models.UserRegistrationModel.class);
+			Data<com.anfelisa.user.models.UserRegistrationModel> data_0 = new Data<com.anfelisa.user.models.UserRegistrationModel>(uuid);
+			data_0.setModel(model_0);
 			HttpResponse<Object> response_0 = 
 			this.httpPost(
 				"/users/register", 
@@ -80,12 +83,12 @@ public abstract class AbstractCreateBoxMinimalAsAdminScenario extends BaseScenar
 			"\"dictionaryLookup\" : false," + 
 			"\"maxCardsPerDay\" : 10} ",
 				com.anfelisa.box.data.CreateBoxPayload.class);
-		com.anfelisa.box.data.BoxCreationData data_0 = objectMapper.readValue("{" +
-		"\"uuid\" : \"" + uuid + "\"," + 
-		"\"categoryName\" : \"adminBox-" + this.getTestId() + "\"," + 
-		"\"dictionaryLookup\" : false," + 
-		"\"maxCardsPerDay\" : 10} ",
-				com.anfelisa.box.data.BoxCreationData.class);
+		com.anfelisa.box.models.BoxCreationModel model_0 = objectMapper.readValue("{" +
+			"\"categoryName\" : \"adminBox-" + this.getTestId() + "\"," + 
+			"\"dictionaryLookup\" : false," + 
+			"\"maxCardsPerDay\" : 10} ", com.anfelisa.box.models.BoxCreationModel.class);
+		Data<com.anfelisa.box.models.BoxCreationModel> data_0 = new Data<com.anfelisa.box.models.BoxCreationModel>(uuid);
+		data_0.setModel(model_0);
 		HttpResponse<Object> response = 
 		this.httpPost(
 			"/box/create", 
@@ -142,9 +145,9 @@ public abstract class AbstractCreateBoxMinimalAsAdminScenario extends BaseScenar
 	
 	
 	private void categoryWasCreated() throws Exception {
-		com.anfelisa.category.models.ICategoryModel actual = daoProvider.getCategoryDao().selectByCategoryId(handle, "adminBox-" + this.getTestId() + "");
+		com.anfelisa.category.models.CategoryModel actual = daoProvider.getCategoryDao().selectByCategoryId(handle, "adminBox-" + this.getTestId() + "");
 		
-		com.anfelisa.category.models.ICategoryModel expected = objectMapper.readValue("{" +
+		com.anfelisa.category.models.CategoryModel expected = objectMapper.readValue("{" +
 			"\"categoryAuthor\" : \"Admin\"," + 
 			"\"categoryId\" : \"adminBox-" + this.getTestId() + "\"," + 
 			"\"categoryIndex\" : null," + 
@@ -158,9 +161,9 @@ public abstract class AbstractCreateBoxMinimalAsAdminScenario extends BaseScenar
 		LOG.info("THEN: categoryWasCreated passed");
 	}
 	private void accessToCategoryWasGranted() throws Exception {
-		com.anfelisa.category.models.IUserAccessToCategoryModel actual = daoProvider.getUserAccessToCategoryDao().selectByPrimaryKey(handle, "adminBox-" + this.getTestId() + "", "uuid-admin");
+		com.anfelisa.category.models.UserAccessToCategoryModel actual = daoProvider.getUserAccessToCategoryDao().selectByPrimaryKey(handle, "adminBox-" + this.getTestId() + "", "uuid-admin");
 		
-		com.anfelisa.category.models.IUserAccessToCategoryModel expected = objectMapper.readValue("{" +
+		com.anfelisa.category.models.UserAccessToCategoryModel expected = objectMapper.readValue("{" +
 			"\"categoryId\" : \"adminBox-" + this.getTestId() + "\"," + 
 			"\"editable\" : true," + 
 			"\"userId\" : \"uuid-admin\"} ",
@@ -170,9 +173,9 @@ public abstract class AbstractCreateBoxMinimalAsAdminScenario extends BaseScenar
 		LOG.info("THEN: accessToCategoryWasGranted passed");
 	}
 	private void boxWasCreated() throws Exception {
-		com.anfelisa.box.models.IBoxModel actual = daoProvider.getBoxDao().selectByBoxId(handle, "adminBox-" + this.getTestId() + "");
+		com.anfelisa.box.models.BoxModel actual = daoProvider.getBoxDao().selectByBoxId(handle, "adminBox-" + this.getTestId() + "");
 		
-		com.anfelisa.box.models.IBoxModel expected = objectMapper.readValue("{" +
+		com.anfelisa.box.models.BoxModel expected = objectMapper.readValue("{" +
 			"\"boxId\" : \"adminBox-" + this.getTestId() + "\"," + 
 			"\"categoryId\" : \"adminBox-" + this.getTestId() + "\"," + 
 			"\"maxCardsPerDay\" : 10," + 

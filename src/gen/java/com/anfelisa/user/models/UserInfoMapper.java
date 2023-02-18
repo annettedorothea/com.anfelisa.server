@@ -14,9 +14,9 @@ import org.jdbi.v3.core.statement.StatementContext;
 
 import de.acegen.AbstractMapper;
 
-public class UserInfoMapper extends AbstractMapper<IUserInfoModel> {
+public class UserInfoMapper extends AbstractMapper<UserInfoModel> {
 	
-	public IUserInfoModel map(ResultSet r, StatementContext ctx) throws SQLException {
+	public UserInfoModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new UserInfoModel(
 			this.mapToString(r, "username")
 		);

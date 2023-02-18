@@ -15,27 +15,21 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class InviteUserToCategoryPayload implements IInviteUserToCategoryPayload {
+public class InviteUserToCategoryPayload {
 	
 	private String categoryId;
 	
 	private String invitedUsername;
 	
-	private Boolean editable = false;
+	private Boolean editable;
 	
 	public InviteUserToCategoryPayload() {
 	}
 	
-	public InviteUserToCategoryPayload(com.anfelisa.category.models.IUserToCategoryInvitationModel data) {
-		categoryId = data.getCategoryId();
-		invitedUsername = data.getInvitedUsername();
-		editable = data.getEditable();
-	}
 	
 	@JsonProperty
 	public String getCategoryId() {

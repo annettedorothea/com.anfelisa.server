@@ -9,6 +9,7 @@ package com.anfelisa.category.actions;
 
 import java.time.LocalDateTime;
 
+import de.acegen.Data;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.ICommand;
 import de.acegen.IDaoProvider;
@@ -17,13 +18,12 @@ import de.acegen.SquishyDataProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.WriteAction;
 
-import com.anfelisa.category.data.IUserToCategoryInvitationData;
 import com.anfelisa.category.commands.InviteUserToCategoryCommand;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractInviteUserToCategoryAction extends WriteAction<IUserToCategoryInvitationData> {
+public abstract class AbstractInviteUserToCategoryAction extends WriteAction<com.anfelisa.category.models.UserToCategoryInvitationModel> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractInviteUserToCategoryAction.class);
 
@@ -33,12 +33,12 @@ public abstract class AbstractInviteUserToCategoryAction extends WriteAction<IUs
 	}
 
 	@Override
-	public ICommand<IUserToCategoryInvitationData> getCommand() {
+	public ICommand<com.anfelisa.category.models.UserToCategoryInvitationModel> getCommand() {
 		return new InviteUserToCategoryCommand(daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	@Override
-	protected IUserToCategoryInvitationData initActionDataFromSquishyDataProvider(IUserToCategoryInvitationData data) {
+	protected Data<com.anfelisa.category.models.UserToCategoryInvitationModel> initActionDataFromSquishyDataProvider(Data<com.anfelisa.category.models.UserToCategoryInvitationModel> data) {
 		LocalDateTime systemTime = SquishyDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
 			data.setSystemTime(systemTime);
@@ -46,7 +46,7 @@ public abstract class AbstractInviteUserToCategoryAction extends WriteAction<IUs
 		return data;
 	}
 
-	public IUserToCategoryInvitationData initActionData(IUserToCategoryInvitationData data) {
+	public Data<com.anfelisa.category.models.UserToCategoryInvitationModel> initActionData(Data<com.anfelisa.category.models.UserToCategoryInvitationModel> data) {
 		return data;
 	}
 

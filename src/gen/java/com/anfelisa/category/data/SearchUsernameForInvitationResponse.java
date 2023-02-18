@@ -15,26 +15,26 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class SearchUsernameForInvitationResponse implements ISearchUsernameForInvitationResponse {
+public class SearchUsernameForInvitationResponse {
 	
 	private java.util.List<String> usernames;
 	
 	public SearchUsernameForInvitationResponse() {
 	}
 	
-	public SearchUsernameForInvitationResponse(com.anfelisa.category.models.IUsernameSearchModel data) {
-		usernames = data.getUsernames();
+	public SearchUsernameForInvitationResponse(com.anfelisa.category.models.UsernameSearchModel model) {
+		usernames = model.getUsernames();
 	}
 	
-	@JsonProperty
 	public java.util.List<String> getUsernames() {
 		return this.usernames;
 	}
+	
+	
 	
 }
 

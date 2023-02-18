@@ -25,6 +25,9 @@ import de.acegen.BaseScenario;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.HttpResponse;
+import de.acegen.Data;
+
+import com.fasterxml.jackson.core.type.TypeReference;
 
 @SuppressWarnings("unused")
 public abstract class AbstractForgotPasswordUserDoesNotExistScenario extends BaseScenario {
@@ -43,13 +46,13 @@ public abstract class AbstractForgotPasswordUserDoesNotExistScenario extends Bas
 				"\"password\" : \"password\"," + 
 				"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 					com.anfelisa.user.data.RegisterUserPayload.class);
-			com.anfelisa.user.data.UserRegistrationData data_0 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"email\" : \"annette.pohl@anfelisa.de\"," + 
-			"\"language\" : \"de\"," + 
-			"\"password\" : \"password\"," + 
-			"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
-					com.anfelisa.user.data.UserRegistrationData.class);
+			com.anfelisa.user.models.UserRegistrationModel model_0 = objectMapper.readValue("{" +
+				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"password\"," + 
+				"\"username\" : \"Annette-" + this.getTestId() + "\"} ", com.anfelisa.user.models.UserRegistrationModel.class);
+			Data<com.anfelisa.user.models.UserRegistrationModel> data_0 = new Data<com.anfelisa.user.models.UserRegistrationModel>(uuid);
+			data_0.setModel(model_0);
 			HttpResponse<Object> response_0 = 
 			this.httpPost(
 				"/users/register", 
@@ -80,11 +83,11 @@ public abstract class AbstractForgotPasswordUserDoesNotExistScenario extends Bas
 			"\"language\" : \"de\"," + 
 			"\"username\" : \"doesNotExist\"} ",
 				com.anfelisa.user.data.ForgotPasswordPayload.class);
-		com.anfelisa.user.data.ForgotPasswordData data_0 = objectMapper.readValue("{" +
-		"\"uuid\" : \"" + uuid + "\"," + 
-		"\"language\" : \"de\"," + 
-		"\"username\" : \"doesNotExist\"} ",
-				com.anfelisa.user.data.ForgotPasswordData.class);
+		com.anfelisa.user.models.ForgotPasswordModel model_0 = objectMapper.readValue("{" +
+			"\"language\" : \"de\"," + 
+			"\"username\" : \"doesNotExist\"} ", com.anfelisa.user.models.ForgotPasswordModel.class);
+		Data<com.anfelisa.user.models.ForgotPasswordModel> data_0 = new Data<com.anfelisa.user.models.ForgotPasswordModel>(uuid);
+		data_0.setModel(model_0);
 		HttpResponse<Object> response = 
 		this.httpPost(
 			"/users/forgot-password", 
@@ -139,7 +142,7 @@ public abstract class AbstractForgotPasswordUserDoesNotExistScenario extends Bas
 	
 	
 	private void resetPasswordTokenWasNotCreated() throws Exception {
-		com.anfelisa.user.models.IResetPasswordModel actual = daoProvider.getResetPasswordDao().selectByToken(handle, "RESET-PW-TOKEN-" + this.getTestId() + "");
+		com.anfelisa.user.models.ResetPasswordModel actual = daoProvider.getResetPasswordDao().selectByToken(handle, "RESET-PW-TOKEN-" + this.getTestId() + "");
 		
 		assertIsNull(actual);
 	

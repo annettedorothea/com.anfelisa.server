@@ -7,6 +7,7 @@
 
 package com.anfelisa.category.commands;
 
+import de.acegen.Data;
 import de.acegen.Command;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
@@ -14,21 +15,21 @@ import de.acegen.ViewProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.Event;
 
-import com.anfelisa.category.data.ICategoryDeleteData;
+import com.anfelisa.category.models.CategoryDeleteModel;
 
 @SuppressWarnings("unused")
-public abstract class AbstractDeleteCategoryCommand extends Command<ICategoryDeleteData> {
+public abstract class AbstractDeleteCategoryCommand extends Command<com.anfelisa.category.models.CategoryDeleteModel> {
 
 	public AbstractDeleteCategoryCommand(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
 		super("com.anfelisa.category.commands.DeleteCategoryCommand", daoProvider, viewProvider, appConfiguration);
 	}
 
-	protected void addOkOutcome(ICategoryDeleteData data) {
+	protected void addOkOutcome(Data<com.anfelisa.category.models.CategoryDeleteModel> data) {
 		data.addOutcome("ok");
 	}
 	
 	@Override
-	public void addEventsToTimeline(ICategoryDeleteData data, PersistenceHandle timelineHandle) {
+	public void addEventsToTimeline(Data<com.anfelisa.category.models.CategoryDeleteModel> data, PersistenceHandle timelineHandle) {
 		if (appConfiguration.getConfig().writeTimeline()) {
 			if (data.hasOutcome("ok")){
 				daoProvider.getAceDao().addEventToTimeline("com.anfelisa.category.events.DeleteCategoryOkEvent", data, timelineHandle);
@@ -37,9 +38,10 @@ public abstract class AbstractDeleteCategoryCommand extends Command<ICategoryDel
 	}
 	
 	@Override
-	public void publishEvents(ICategoryDeleteData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	public void publishEvents(Data<com.anfelisa.category.models.CategoryDeleteModel> data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+		data.freeze();
 		if (data.hasOutcome("ok")){
-			new Event<ICategoryDeleteData>("com.anfelisa.category.events.DeleteCategoryOkEvent", viewProvider).publish(data.deepCopy(), handle, timelineHandle);
+			new Event<com.anfelisa.category.models.CategoryDeleteModel>("com.anfelisa.category.events.DeleteCategoryOkEvent", viewProvider).publish(data, handle, timelineHandle);
 		}
 	}
 	

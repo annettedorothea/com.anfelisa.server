@@ -14,9 +14,9 @@ import org.jdbi.v3.core.statement.StatementContext;
 
 import de.acegen.AbstractMapper;
 
-public class BoxWithStatisticsMapper extends AbstractMapper<IBoxWithStatisticsModel> {
+public class BoxWithStatisticsMapper extends AbstractMapper<BoxWithStatisticsModel> {
 	
-	public IBoxWithStatisticsModel map(ResultSet r, StatementContext ctx) throws SQLException {
+	public BoxWithStatisticsModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new BoxWithStatisticsModel(
 			this.mapToInteger(r, "openTodaysCards"),
 			this.mapToString(r, "categoryName"),

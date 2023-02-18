@@ -14,9 +14,9 @@ import org.jdbi.v3.core.statement.StatementContext;
 
 import de.acegen.AbstractMapper;
 
-public class CsvUploadMapper extends AbstractMapper<ICsvUploadModel> {
+public class CsvUploadMapper extends AbstractMapper<CsvUploadModel> {
 	
-	public ICsvUploadModel map(ResultSet r, StatementContext ctx) throws SQLException {
+	public CsvUploadModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new CsvUploadModel(
 			this.mapToString(r, "userId"),
 			this.mapToString(r, "categoryId"),

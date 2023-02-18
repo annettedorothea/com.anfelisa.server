@@ -6,12 +6,10 @@ import java.util.Optional;
 
 import org.jdbi.v3.core.statement.Update;
 
-import com.anfelisa.box.data.IScoreCardData;
-
 import de.acegen.PersistenceHandle;
 
 public class ReinforceCardDao extends AbstractReinforceCardDao {
-	public void insert(PersistenceHandle handle, IScoreCardData scoreCardData) {
+	public void insert(PersistenceHandle handle, ScoreCardModel scoreCardData) {
 		Update statement = handle.getHandle().createUpdate(
 				"INSERT INTO public.reinforcecard (reinforcecardid, scheduledcardid, boxid, changedate) VALUES (:reinforcecardid, :scheduledcardid, :boxid, :changedate)");
 		statement.bind("reinforcecardid", scoreCardData.getReinforceCardId());
@@ -21,8 +19,8 @@ public class ReinforceCardDao extends AbstractReinforceCardDao {
 		statement.execute();
 	}
 
-	public INextCardViewModel selectFirstReinforceCard(PersistenceHandle handle, String boxId) {
-		Optional<INextCardViewModel> optional = handle.getHandle().createQuery(
+	public NextCardViewModel selectFirstReinforceCard(PersistenceHandle handle, String boxId) {
+		Optional<NextCardViewModel> optional = handle.getHandle().createQuery(
 				"SELECT "
 						+ "null as scheduledcardid, "
 						+ "r.reinforcecardid, "
@@ -55,7 +53,7 @@ public class ReinforceCardDao extends AbstractReinforceCardDao {
 		statement.execute();
 	}
 
-	public List<IReinforceCardModel> selectOutdatedReinforceCards(PersistenceHandle handle, String boxId, LocalDateTime today) {
+	public List<ReinforceCardModel> selectOutdatedReinforceCards(PersistenceHandle handle, String boxId, LocalDateTime today) {
 		return handle.getHandle().createQuery("SELECT reinforcecardid, scheduledcardid, boxid, changedate FROM reinforcecard "
 				+ "WHERE boxid = :boxId AND changedate < :today")
 				.bind("boxId", boxId)
@@ -64,7 +62,7 @@ public class ReinforceCardDao extends AbstractReinforceCardDao {
 				.list();
 	}
 
-	public List<IReinforceCardModel> selectAllOfBox(PersistenceHandle handle, String boxId) {
+	public List<ReinforceCardModel> selectAllOfBox(PersistenceHandle handle, String boxId) {
 		return handle.getHandle().createQuery("SELECT reinforcecardid, scheduledcardid, boxid, changedate FROM reinforcecard "
 				+ "WHERE boxid = :boxId")
 				.bind("boxId", boxId)
@@ -72,7 +70,7 @@ public class ReinforceCardDao extends AbstractReinforceCardDao {
 				.list();
 	}
 	
-	public List<IReinforceCardModel> selectAllOfCard(PersistenceHandle handle, String cardId) {
+	public List<ReinforceCardModel> selectAllOfCard(PersistenceHandle handle, String cardId) {
 		return handle.getHandle().createQuery("SELECT r.reinforcecardid, r.scheduledcardid, r.boxid, r.changedate "
 				+ "FROM reinforcecard r "
 				+ "INNER JOIN scheduledcard s on s.scheduledcardid = r.scheduledcardid "

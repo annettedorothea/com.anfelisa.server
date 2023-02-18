@@ -7,8 +7,9 @@
 
 package com.anfelisa.category.views;
 
-import com.anfelisa.category.data.IUserToCategoryInvitationData;
+import com.anfelisa.category.models.UserToCategoryInvitationModel;
 
+import de.acegen.Data;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceHandle;
 
@@ -21,8 +22,8 @@ public class BoxInvitationView implements IBoxInvitationView {
 		this.daoProvider = daoProvider;
 	}
 
-	public void createBox(IUserToCategoryInvitationData data, PersistenceHandle handle) {
-		daoProvider.getBoxDao().insert(handle, data.getBoxForInvitedUser());
+	public void createBox(Data<UserToCategoryInvitationModel> data, PersistenceHandle handle) {
+		daoProvider.getBoxDao().insert(handle, data.getModel().getBoxForInvitedUser());
 	}
 
 }

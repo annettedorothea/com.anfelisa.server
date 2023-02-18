@@ -16,9 +16,10 @@ import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
+import de.acegen.AbstractModel;
 
 @SuppressWarnings("all")
-public class TokenModel implements ITokenModel {
+public class TokenModel extends AbstractModel {
 
 	private String username;
 
@@ -26,6 +27,8 @@ public class TokenModel implements ITokenModel {
 
 	private String token;
 
+	
+	private Boolean frozen = false;
 
 	public TokenModel() {
 	}
@@ -44,7 +47,12 @@ public class TokenModel implements ITokenModel {
 	public String getUsername() {
 		return this.username;
 	}
+	
+	@JsonProperty
 	public void setUsername(String username) {
+		if (this.frozen) {
+			throw new RuntimeException("username is frozen");
+		}
 		this.username = username;
 	}
 	
@@ -52,7 +60,12 @@ public class TokenModel implements ITokenModel {
 	public String getPassword() {
 		return this.password;
 	}
+	
+	@JsonProperty
 	public void setPassword(String password) {
+		if (this.frozen) {
+			throw new RuntimeException("password is frozen");
+		}
 		this.password = password;
 	}
 	
@@ -60,17 +73,49 @@ public class TokenModel implements ITokenModel {
 	public String getToken() {
 		return this.token;
 	}
+	
+	@JsonProperty
 	public void setToken(String token) {
+		if (this.frozen) {
+			throw new RuntimeException("token is frozen");
+		}
 		this.token = token;
 	}
 	
+	
+	
+	@Override
+	public void freeze() {
+		this.frozen = true;
+	}
 
-	public ITokenModel deepCopy() {
-		ITokenModel copy = new TokenModel();
+	public com.anfelisa.user.models.TokenModel deepCopy() {
+		com.anfelisa.user.models.TokenModel copy = new TokenModel();
 		copy.setUsername(this.getUsername());
 		copy.setPassword(this.getPassword());
 		copy.setToken(this.getToken());
 		return copy;
+	}
+	
+	public static TokenModel generateTestData() {
+		java.util.Random random = new java.util.Random();
+		TokenModel testData = new TokenModel();
+		testData.setUsername(randomString(random));
+		testData.setPassword(randomString(random));
+		testData.setToken(randomString(random));
+		return testData;
+	}
+	
+	private static String randomString(java.util.Random random) {
+		String chars = "aaaaaaabcdeeeeeeeffffghiiiiiiijkllllllmmmmnnnnnnnooooooooopqrstttuuuuuuuvxyz";
+		int n = random.nextInt(20) + 5;
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		String string  = sb.toString(); 
+		return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
 	}
 
 }

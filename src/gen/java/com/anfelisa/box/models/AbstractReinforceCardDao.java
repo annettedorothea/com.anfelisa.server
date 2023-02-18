@@ -18,23 +18,22 @@ import java.util.Optional;
 @SuppressWarnings("all")
 public class AbstractReinforceCardDao extends AbstractDao {
 	
-	public void insert(PersistenceHandle handle, IReinforceCardModel reinforceCardModel) {
+	public void insert(PersistenceHandle handle, com.anfelisa.box.models.ReinforceCardModel reinforceCardModel) {
 		Update statement = handle.getHandle().createUpdate("INSERT INTO \"reinforcecard\" (reinforcecardid, scheduledcardid, boxid, changedate) VALUES (:reinforcecardid, :scheduledcardid, :boxid, :changedate)");
-		statement.bind("reinforcecardid",  reinforceCardModel.getReinforceCardId() );
-		statement.bind("scheduledcardid",  reinforceCardModel.getScheduledCardId() );
-		statement.bind("boxid",  reinforceCardModel.getBoxId() );
-		statement.bind("changedate",  reinforceCardModel.getChangeDate() );
+		statement.bind("reinforcecardid", reinforceCardModel.getReinforceCardId());
+		statement.bind("scheduledcardid", reinforceCardModel.getScheduledCardId());
+		statement.bind("boxid", reinforceCardModel.getBoxId());
+		statement.bind("changedate", reinforceCardModel.getChangeDate());
 		statement.execute();
 	}
 	
 	
-	public void updateByReinforceCardId(PersistenceHandle handle, IReinforceCardModel reinforceCardModel) {
+	public void updateByReinforceCardId(PersistenceHandle handle, com.anfelisa.box.models.ReinforceCardModel reinforceCardModel) {
 		Update statement = handle.getHandle().createUpdate("UPDATE \"reinforcecard\" SET reinforcecardid = :reinforcecardid, scheduledcardid = :scheduledcardid, boxid = :boxid, changedate = :changedate WHERE reinforcecardid = :reinforcecardid");
-		statement.bind("reinforcecardid",  reinforceCardModel.getReinforceCardId() );
-		statement.bind("scheduledcardid",  reinforceCardModel.getScheduledCardId() );
-		statement.bind("boxid",  reinforceCardModel.getBoxId() );
-		statement.bind("changedate",  reinforceCardModel.getChangeDate() );
-		statement.bind("reinforcecardid",  reinforceCardModel.getReinforceCardId()  );
+		statement.bind("reinforcecardid", reinforceCardModel.getReinforceCardId());
+		statement.bind("scheduledcardid", reinforceCardModel.getScheduledCardId());
+		statement.bind("boxid", reinforceCardModel.getBoxId());
+		statement.bind("changedate", reinforceCardModel.getChangeDate());
 		statement.execute();
 	}
 
@@ -44,20 +43,19 @@ public class AbstractReinforceCardDao extends AbstractDao {
 		statement.execute();
 	}
 
-	public IReinforceCardModel selectByReinforceCardId(PersistenceHandle handle, String reinforceCardId) {
-		Optional<IReinforceCardModel> optional = handle.getHandle().createQuery("SELECT reinforcecardid, scheduledcardid, boxid, changedate FROM \"reinforcecard\" WHERE reinforcecardid = :reinforcecardid")
+	public com.anfelisa.box.models.ReinforceCardModel selectByReinforceCardId(PersistenceHandle handle, String reinforceCardId) {
+		Optional<com.anfelisa.box.models.ReinforceCardModel> optional = handle.getHandle().createQuery("SELECT reinforcecardid, scheduledcardid, boxid, changedate FROM \"reinforcecard\" WHERE reinforcecardid = :reinforcecardid")
 			.bind("reinforcecardid", reinforceCardId)
 			.map(new ReinforceCardMapper())
 			.findFirst();
 		return optional.isPresent() ? optional.get() : null;
 	}
-	public void updateByScheduledCardId(PersistenceHandle handle, IReinforceCardModel reinforceCardModel) {
+	public void updateByScheduledCardId(PersistenceHandle handle, com.anfelisa.box.models.ReinforceCardModel reinforceCardModel) {
 		Update statement = handle.getHandle().createUpdate("UPDATE \"reinforcecard\" SET reinforcecardid = :reinforcecardid, scheduledcardid = :scheduledcardid, boxid = :boxid, changedate = :changedate WHERE scheduledcardid = :scheduledcardid");
-		statement.bind("reinforcecardid",  reinforceCardModel.getReinforceCardId() );
-		statement.bind("scheduledcardid",  reinforceCardModel.getScheduledCardId() );
-		statement.bind("boxid",  reinforceCardModel.getBoxId() );
-		statement.bind("changedate",  reinforceCardModel.getChangeDate() );
-		statement.bind("scheduledcardid",  reinforceCardModel.getScheduledCardId()  );
+		statement.bind("reinforcecardid", reinforceCardModel.getReinforceCardId());
+		statement.bind("scheduledcardid", reinforceCardModel.getScheduledCardId());
+		statement.bind("boxid", reinforceCardModel.getBoxId());
+		statement.bind("changedate", reinforceCardModel.getChangeDate());
 		statement.execute();
 	}
 
@@ -67,16 +65,16 @@ public class AbstractReinforceCardDao extends AbstractDao {
 		statement.execute();
 	}
 
-	public IReinforceCardModel selectByScheduledCardId(PersistenceHandle handle, String scheduledCardId) {
-		Optional<IReinforceCardModel> optional = handle.getHandle().createQuery("SELECT reinforcecardid, scheduledcardid, boxid, changedate FROM \"reinforcecard\" WHERE scheduledcardid = :scheduledcardid")
+	public com.anfelisa.box.models.ReinforceCardModel selectByScheduledCardId(PersistenceHandle handle, String scheduledCardId) {
+		Optional<com.anfelisa.box.models.ReinforceCardModel> optional = handle.getHandle().createQuery("SELECT reinforcecardid, scheduledcardid, boxid, changedate FROM \"reinforcecard\" WHERE scheduledcardid = :scheduledcardid")
 			.bind("scheduledcardid", scheduledCardId)
 			.map(new ReinforceCardMapper())
 			.findFirst();
 		return optional.isPresent() ? optional.get() : null;
 	}
 	
-	public IReinforceCardModel selectByPrimaryKey(PersistenceHandle handle, String reinforceCardId, String scheduledCardId) {
-		Optional<IReinforceCardModel> optional = handle.getHandle().createQuery("SELECT reinforcecardid, scheduledcardid, boxid, changedate FROM \"reinforcecard\" WHERE reinforcecardid = :reinforcecardid AND scheduledcardid = :scheduledcardid")
+	public com.anfelisa.box.models.ReinforceCardModel selectByPrimaryKey(PersistenceHandle handle, String reinforceCardId, String scheduledCardId) {
+		Optional<com.anfelisa.box.models.ReinforceCardModel> optional = handle.getHandle().createQuery("SELECT reinforcecardid, scheduledcardid, boxid, changedate FROM \"reinforcecard\" WHERE reinforcecardid = :reinforcecardid AND scheduledcardid = :scheduledcardid")
 			.bind("reinforcecardid", reinforceCardId)
 			.bind("scheduledcardid", scheduledCardId)
 			.map(new ReinforceCardMapper())
@@ -100,7 +98,7 @@ public class AbstractReinforceCardDao extends AbstractDao {
 		return handle.getHandle().createQuery(sql).mapTo(Integer.class).first();
 	}
 
-	public List<IReinforceCardModel> selectAll(PersistenceHandle handle) {
+	public List<com.anfelisa.box.models.ReinforceCardModel> selectAll(PersistenceHandle handle) {
 		return handle.getHandle().createQuery("SELECT reinforcecardid, scheduledcardid, boxid, changedate FROM \"reinforcecard\"")
 			.map(new ReinforceCardMapper())
 			.list();

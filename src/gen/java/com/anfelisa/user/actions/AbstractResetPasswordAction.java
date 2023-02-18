@@ -9,6 +9,7 @@ package com.anfelisa.user.actions;
 
 import java.time.LocalDateTime;
 
+import de.acegen.Data;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.ICommand;
 import de.acegen.IDaoProvider;
@@ -17,13 +18,12 @@ import de.acegen.SquishyDataProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.WriteAction;
 
-import com.anfelisa.user.data.IResetPasswordWithNewPasswordData;
 import com.anfelisa.user.commands.ResetPasswordCommand;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractResetPasswordAction extends WriteAction<IResetPasswordWithNewPasswordData> {
+public abstract class AbstractResetPasswordAction extends WriteAction<com.anfelisa.user.models.ResetPasswordWithNewPasswordModel> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractResetPasswordAction.class);
 
@@ -33,12 +33,12 @@ public abstract class AbstractResetPasswordAction extends WriteAction<IResetPass
 	}
 
 	@Override
-	public ICommand<IResetPasswordWithNewPasswordData> getCommand() {
+	public ICommand<com.anfelisa.user.models.ResetPasswordWithNewPasswordModel> getCommand() {
 		return new ResetPasswordCommand(daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	@Override
-	protected IResetPasswordWithNewPasswordData initActionDataFromSquishyDataProvider(IResetPasswordWithNewPasswordData data) {
+	protected Data<com.anfelisa.user.models.ResetPasswordWithNewPasswordModel> initActionDataFromSquishyDataProvider(Data<com.anfelisa.user.models.ResetPasswordWithNewPasswordModel> data) {
 		LocalDateTime systemTime = SquishyDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
 			data.setSystemTime(systemTime);
@@ -46,7 +46,7 @@ public abstract class AbstractResetPasswordAction extends WriteAction<IResetPass
 		return data;
 	}
 
-	public IResetPasswordWithNewPasswordData initActionData(IResetPasswordWithNewPasswordData data) {
+	public Data<com.anfelisa.user.models.ResetPasswordWithNewPasswordModel> initActionData(Data<com.anfelisa.user.models.ResetPasswordWithNewPasswordModel> data) {
 		return data;
 	}
 

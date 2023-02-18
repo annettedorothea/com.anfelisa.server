@@ -25,6 +25,9 @@ import de.acegen.BaseScenario;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.HttpResponse;
+import de.acegen.Data;
+
+import com.fasterxml.jackson.core.type.TypeReference;
 
 @SuppressWarnings("unused")
 public abstract class AbstractChangeUserRoleNoAuthorizationScenario extends BaseScenario {
@@ -43,13 +46,13 @@ public abstract class AbstractChangeUserRoleNoAuthorizationScenario extends Base
 				"\"password\" : \"password\"," + 
 				"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 					com.anfelisa.user.data.RegisterUserPayload.class);
-			com.anfelisa.user.data.UserRegistrationData data_0 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"email\" : \"annette.pohl@anfelisa.de\"," + 
-			"\"language\" : \"de\"," + 
-			"\"password\" : \"password\"," + 
-			"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
-					com.anfelisa.user.data.UserRegistrationData.class);
+			com.anfelisa.user.models.UserRegistrationModel model_0 = objectMapper.readValue("{" +
+				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"password\"," + 
+				"\"username\" : \"Annette-" + this.getTestId() + "\"} ", com.anfelisa.user.models.UserRegistrationModel.class);
+			Data<com.anfelisa.user.models.UserRegistrationModel> data_0 = new Data<com.anfelisa.user.models.UserRegistrationModel>(uuid);
+			data_0.setModel(model_0);
 			HttpResponse<Object> response_0 = 
 			this.httpPost(
 				"/users/register", 
@@ -80,13 +83,13 @@ public abstract class AbstractChangeUserRoleNoAuthorizationScenario extends Base
 				"\"password\" : \"admin-password\"," + 
 				"\"username\" : \"Admin\"} ",
 					com.anfelisa.user.data.RegisterUserPayload.class);
-			com.anfelisa.user.data.UserRegistrationData data_1 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"email\" : \"annette.pohl@anfelisa.de\"," + 
-			"\"language\" : \"de\"," + 
-			"\"password\" : \"admin-password\"," + 
-			"\"username\" : \"Admin\"} ",
-					com.anfelisa.user.data.UserRegistrationData.class);
+			com.anfelisa.user.models.UserRegistrationModel model_1 = objectMapper.readValue("{" +
+				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"admin-password\"," + 
+				"\"username\" : \"Admin\"} ", com.anfelisa.user.models.UserRegistrationModel.class);
+			Data<com.anfelisa.user.models.UserRegistrationModel> data_1 = new Data<com.anfelisa.user.models.UserRegistrationModel>(uuid);
+			data_1.setModel(model_1);
 			HttpResponse<Object> response_1 = 
 			this.httpPost(
 				"/users/register", 
@@ -116,11 +119,11 @@ public abstract class AbstractChangeUserRoleNoAuthorizationScenario extends Base
 			"\"editedUserId\" : \"uuid-" + this.getTestId() + "\"," + 
 			"\"newRole\" : \"ADMIN\"} ",
 				com.anfelisa.user.data.ChangeUserRolePayload.class);
-		com.anfelisa.user.data.ChangeUserRoleData data_0 = objectMapper.readValue("{" +
-		"\"uuid\" : \"" + uuid + "\"," + 
-		"\"editedUserId\" : \"uuid-" + this.getTestId() + "\"," + 
-		"\"newRole\" : \"ADMIN\"} ",
-				com.anfelisa.user.data.ChangeUserRoleData.class);
+		com.anfelisa.user.models.ChangeUserRoleModel model_0 = objectMapper.readValue("{" +
+			"\"editedUserId\" : \"uuid-" + this.getTestId() + "\"," + 
+			"\"newRole\" : \"ADMIN\"} ", com.anfelisa.user.models.ChangeUserRoleModel.class);
+		Data<com.anfelisa.user.models.ChangeUserRoleModel> data_0 = new Data<com.anfelisa.user.models.ChangeUserRoleModel>(uuid);
+		data_0.setModel(model_0);
 		HttpResponse<Object> response = 
 		this.httpPut(
 			"/user/role", 
@@ -175,9 +178,9 @@ public abstract class AbstractChangeUserRoleNoAuthorizationScenario extends Base
 	
 	
 	private void roleWasNotChanged() throws Exception {
-		com.anfelisa.user.models.IUserModel actual = daoProvider.getUserDao().selectByUserId(handle, "uuid-" + this.getTestId() + "");
+		com.anfelisa.user.models.UserModel actual = daoProvider.getUserDao().selectByUserId(handle, "uuid-" + this.getTestId() + "");
 		
-		com.anfelisa.user.models.IUserModel expected = objectMapper.readValue("{" +
+		com.anfelisa.user.models.UserModel expected = objectMapper.readValue("{" +
 			"\"email\" : \"annette.pohl@anfelisa.de\"," + 
 			"\"emailConfirmed\" : false," + 
 			"\"password\" : \"password\"," + 

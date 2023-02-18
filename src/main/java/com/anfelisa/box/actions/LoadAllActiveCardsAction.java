@@ -9,12 +9,13 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.box.data.IActiveCardListData;
-import com.anfelisa.box.models.IBoxModel;
-import com.anfelisa.box.models.ICardWithStatisticsModel;
-import com.anfelisa.category.models.IUserAccessToCategoryModel;
+import com.anfelisa.box.models.ActiveCardListModel;
+import com.anfelisa.box.models.BoxModel;
+import com.anfelisa.box.models.CardWithStatisticsModel;
+import com.anfelisa.category.models.UserAccessToCategoryModel;
 
 import de.acegen.CustomAppConfiguration;
+import de.acegen.Data;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -25,28 +26,28 @@ public class LoadAllActiveCardsAction extends AbstractLoadAllActiveCardsAction {
 	static final Logger LOG = LoggerFactory.getLogger(LoadAllActiveCardsAction.class);
 
 	public LoadAllActiveCardsAction(PersistenceConnection persistenceConnection,
-			CustomAppConfiguration appConfiguration, IDaoProvider daoProvider,
-			ViewProvider viewProvider) {
+			CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super(persistenceConnection, appConfiguration, daoProvider, viewProvider);
 	}
 
 	@Override
-	protected IActiveCardListData loadDataForGetRequest(IActiveCardListData data, PersistenceHandle readonlyHandle) {
-		IBoxModel box = daoProvider.getBoxDao().selectByBoxId(readonlyHandle, data.getBoxId());
+	protected Data<ActiveCardListModel> loadDataForGetRequest(Data<ActiveCardListModel> data,
+			PersistenceHandle readonlyHandle) {
+		BoxModel box = daoProvider.getBoxDao().selectByBoxId(readonlyHandle, data.getModel().getBoxId());
 		if (box == null) {
 			throwIllegalArgumentException("boxDoesNotExist");
 		}
-		if (!box.getUserId().equals(data.getUserId())) {
+		if (!box.getUserId().equals(data.getModel().getUserId())) {
 			throwSecurityException();
 		}
 
-		List<ICardWithStatisticsModel> allCards = daoProvider.getCardDao().selectAllActiveCards(readonlyHandle,
-				data.getBoxId());
-		data.setCardList(allCards);
+		List<CardWithStatisticsModel> allCards = daoProvider.getCardDao().selectAllActiveCards(readonlyHandle,
+				data.getModel().getBoxId());
+		data.getModel().setCardList(allCards);
 
-		IUserAccessToCategoryModel access = daoProvider.getUserAccessToCategoryDao()
-				.selectByCategoryIdAndUserId(readonlyHandle, box.getCategoryId(), data.getUserId());
-		data.setEditable(access.getEditable());
+		UserAccessToCategoryModel access = daoProvider.getUserAccessToCategoryDao()
+				.selectByCategoryIdAndUserId(readonlyHandle, box.getCategoryId(), data.getModel().getUserId());
+		data.getModel().setEditable(access.getEditable());
 		return data;
 	}
 

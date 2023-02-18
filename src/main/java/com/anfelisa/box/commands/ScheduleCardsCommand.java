@@ -9,13 +9,13 @@ import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.box.data.IScheduledCardsData;
-import com.anfelisa.box.models.IBoxModel;
-import com.anfelisa.box.models.IScheduledCardModel;
+import com.anfelisa.box.models.BoxModel;
 import com.anfelisa.box.models.ScheduledCardModel;
-import com.anfelisa.card.models.ICardModel;
+import com.anfelisa.box.models.ScheduledCardsModel;
+import com.anfelisa.card.models.CardModel;
 
 import de.acegen.CustomAppConfiguration;
+import de.acegen.Data;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.ViewProvider;
@@ -30,26 +30,26 @@ public class ScheduleCardsCommand extends AbstractScheduleCardsCommand {
 	}
 
 	@Override
-	protected IScheduledCardsData executeCommand(IScheduledCardsData data, PersistenceHandle readonlyHandle) {
-		if (data.getCardIds() == null || data.getCardIds().size() == 0) {
+	protected Data<ScheduledCardsModel> executeCommand(Data<ScheduledCardsModel> data, PersistenceHandle readonlyHandle) {
+		if (data.getModel().getCardIds() == null || data.getModel().getCardIds().size() == 0) {
 			this.addNullOrEmptyOutcome(data);
 		} else {
-			data.setExistingScheduledCardIds(new ArrayList<String>());
-			data.setNewScheduledCards(new ArrayList<IScheduledCardModel>());
-			data.setScheduledDate(data.getSystemTime());
-			IBoxModel box = daoProvider.getBoxDao().selectByBoxId(readonlyHandle, data.getBoxId());
+			data.getModel().setExistingScheduledCardIds(new ArrayList<String>());
+			data.getModel().setNewScheduledCards(new ArrayList<ScheduledCardModel>());
+			data.getModel().setScheduledDate(data.getSystemTime());
+			BoxModel box = daoProvider.getBoxDao().selectByBoxId(readonlyHandle, data.getModel().getBoxId());
 			if (box == null) {
 				throwIllegalArgumentException("boxDoesNotExist");
 			}
-			if (!box.getUserId().equals(data.getUserId())) {
+			if (!box.getUserId().equals(data.getModel().getUserId())) {
 				throwSecurityException();
 			}
-			for (String cardId : data.getCardIds()) {
-				ICardModel card = daoProvider.getCardDao().selectByCardId(readonlyHandle, cardId);
+			for (String cardId : data.getModel().getCardIds()) {
+				CardModel card = daoProvider.getCardDao().selectByCardId(readonlyHandle, cardId);
 				if (card == null) {
 					throwIllegalArgumentException("cardDoesNotExist");
 				}
-				IScheduledCardModel scheduledCard = daoProvider.getScheduledCardDao()
+				ScheduledCardModel scheduledCard = daoProvider.getScheduledCardDao()
 						.selectUnscoredByCardIdAndBoxId(readonlyHandle, cardId, box.getBoxId());
 				ScheduledCardModel newScheduledCard;
 				if (scheduledCard == null) {
@@ -57,9 +57,9 @@ public class ScheduleCardsCommand extends AbstractScheduleCardsCommand {
 							combineUuids(cardId, data.getUuid()), cardId, box.getBoxId(),
 							data.getSystemTime(), 2.5F, 1, 1, 0, data.getSystemTime(), null,
 							null, null);
-					data.getNewScheduledCards().add(newScheduledCard);
+					data.getModel().getNewScheduledCards().add(newScheduledCard);
 				} else {
-					data.getExistingScheduledCardIds().add(scheduledCard.getScheduledCardId());
+					data.getModel().getExistingScheduledCardIds().add(scheduledCard.getScheduledCardId());
 				}
 			}
 			this.addOkOutcome(data);

@@ -175,7 +175,8 @@ scenarios
 		WHEN
 			com.anfelisa.category.InviteUserToCategory {
 				categoryId: "boxId-${testId}",
-				invitedUsername: "X-${testId}"
+				invitedUsername: "X-${testId}",
+				editable: false
 			}
 			authorization "Annette-${testId}" : "password"
 		THEN
@@ -188,7 +189,8 @@ scenarios
 		WHEN
 			com.anfelisa.category.InviteUserToCategory {
 				categoryId: "boxId-${testId}",
-				invitedUsername: "Annette-${testId}"
+				invitedUsername: "Annette-${testId}",
+				editable: false
 			}
 			authorization "Anne-${testId}" : "pw"
 		THEN
@@ -201,7 +203,8 @@ scenarios
 		WHEN
 			com.anfelisa.category.InviteUserToCategory {
 				categoryId: "boxId-${testId}",
-				invitedUsername: "Admin"
+				invitedUsername: "Admin",
+				editable: false
 			}
 			authorization "Anne-${testId}" : "pw"
 		THEN
@@ -213,7 +216,8 @@ scenarios
 		WHEN
 			com.anfelisa.category.InviteUserToCategory {
 				categoryId: "boxId-${testId}",
-				invitedUsername: "Anne-${testId}"
+				invitedUsername: "Anne-${testId}",
+				editable: false
 			}
 		THEN
 			401

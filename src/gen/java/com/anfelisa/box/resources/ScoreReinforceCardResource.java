@@ -28,7 +28,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
-import de.acegen.IDataContainer;
 import de.acegen.ViewProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -36,6 +35,7 @@ import de.acegen.ReadAction;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.Config;
+import de.acegen.Data;
 
 import de.acegen.auth.AuthUser;
 import io.dropwizard.auth.Auth;
@@ -52,8 +52,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.DELETE;
 
-import com.anfelisa.box.data.IScoreReinforceCardData;
-import com.anfelisa.box.data.ScoreReinforceCardData;
+import com.anfelisa.box.models.ScoreReinforceCardModel;
 
 import de.acegen.Resource;
 
@@ -86,7 +85,7 @@ public class ScoreReinforceCardResource extends Resource {
 	public Response scoreReinforceCardResource(
 			@Auth AuthUser authUser, 
 			@QueryParam("uuid") String uuid, 
-			IScoreReinforceCardData payload) 
+			com.anfelisa.box.data.ScoreReinforceCardPayload payload) 
 			throws JsonProcessingException {
 		if (payload == null) {
 			return badRequest("payload must not be null");
@@ -95,17 +94,19 @@ public class ScoreReinforceCardResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.box.data.IScoreReinforceCardData data = new ScoreReinforceCardData(uuid);
+			Data<com.anfelisa.box.models.ScoreReinforceCardModel> data = new Data<com.anfelisa.box.models.ScoreReinforceCardModel>(uuid);
+			com.anfelisa.box.models.ScoreReinforceCardModel model = new com.anfelisa.box.models.ScoreReinforceCardModel();
 			if (StringUtils.isBlank(payload.getReinforceCardId()) || "null".equals(payload.getReinforceCardId())) {
 				return badRequest("reinforceCardId is mandatory");
 			}
-			data.setReinforceCardId(payload.getReinforceCardId());
+			model.setReinforceCardId(payload.getReinforceCardId());
 			if (payload.getKeep() == null) {
 				return badRequest("keep is mandatory");
 			}
-			data.setKeep(payload.getKeep());
-			data.setUserId(authUser.getUserId());
+			model.setKeep(payload.getKeep());
+			model.setUserId(authUser.getUserId());
 			
+			data.setModel(model);
 			com.anfelisa.box.actions.ScoreReinforceCardAction action = new com.anfelisa.box.actions.ScoreReinforceCardAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
 			data = action.apply(data);
 			return ok();

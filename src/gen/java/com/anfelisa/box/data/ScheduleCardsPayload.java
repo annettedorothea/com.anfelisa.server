@@ -15,12 +15,11 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class ScheduleCardsPayload implements IScheduleCardsPayload {
+public class ScheduleCardsPayload {
 	
 	private java.util.List<String> cardIds;
 	
@@ -29,10 +28,6 @@ public class ScheduleCardsPayload implements IScheduleCardsPayload {
 	public ScheduleCardsPayload() {
 	}
 	
-	public ScheduleCardsPayload(com.anfelisa.box.models.IScheduledCardsModel data) {
-		cardIds = data.getCardIds();
-		boxId = data.getBoxId();
-	}
 	
 	@JsonProperty
 	public java.util.List<String> getCardIds() {

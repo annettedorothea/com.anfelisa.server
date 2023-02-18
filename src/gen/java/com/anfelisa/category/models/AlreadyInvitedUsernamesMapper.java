@@ -14,9 +14,9 @@ import org.jdbi.v3.core.statement.StatementContext;
 
 import de.acegen.AbstractMapper;
 
-public class AlreadyInvitedUsernamesMapper extends AbstractMapper<IAlreadyInvitedUsernamesModel> {
+public class AlreadyInvitedUsernamesMapper extends AbstractMapper<AlreadyInvitedUsernamesModel> {
 	
-	public IAlreadyInvitedUsernamesModel map(ResultSet r, StatementContext ctx) throws SQLException {
+	public AlreadyInvitedUsernamesModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new AlreadyInvitedUsernamesModel(
 			this.mapToString(r, "categoryId"),
 			this.mapToString(r, "userId"),

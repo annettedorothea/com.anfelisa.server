@@ -9,11 +9,12 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.box.data.IBoxListData;
-import com.anfelisa.box.models.IBoxViewModel;
+import com.anfelisa.box.models.BoxListModel;
+import com.anfelisa.box.models.BoxViewModel;
 import com.anfelisa.box.utils.Deletable;
 
 import de.acegen.CustomAppConfiguration;
+import de.acegen.Data;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -30,15 +31,16 @@ public class GetBoxesAction extends AbstractGetBoxesAction {
 	}
 
 	@Override
-	protected IBoxListData loadDataForGetRequest(IBoxListData data, PersistenceHandle readonlyHandle) {
-		List<IBoxViewModel> boxList = this.daoProvider.getBoxDao().selectByUserId(readonlyHandle,
-				data.getUserId(), data.getTodayAtMidnightInUTC());
-		for (IBoxViewModel box : boxList) {
-			box.setDeletable(Deletable.isBoxDeletable(daoProvider, readonlyHandle, box, data.getUserId()));
+	protected Data<BoxListModel> loadDataForGetRequest(Data<BoxListModel> data, PersistenceHandle readonlyHandle) {
+		List<BoxViewModel> boxList = this.daoProvider.getBoxDao().selectByUserId(readonlyHandle,
+				data.getModel().getUserId(), data.getModel().getTodayAtMidnightInUTC());
+		for (BoxViewModel box : boxList) {
+			box.setDeletable(Deletable.isBoxDeletable(daoProvider, readonlyHandle, box.getCategoryId(), box.getReverse(), data.getModel().getUserId()));
 		}
-		data.setBoxList(boxList);
+		data.getModel().setBoxList(boxList);
 		return data;
 	}
+
 
 }
 

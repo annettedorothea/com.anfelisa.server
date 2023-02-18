@@ -7,27 +7,26 @@
 
 package com.anfelisa.box.views;
 
-
-import de.acegen.IDataContainer;
+import de.acegen.Data;
 import de.acegen.PersistenceHandle;
-import com.anfelisa.box.data.IScoreCardData;
-import com.anfelisa.box.data.IScoreReinforceCardData;
-import com.anfelisa.box.data.IScoreReinforceCardData;
-import com.anfelisa.box.data.IInitMyBoxesDataData;
-import com.anfelisa.box.data.IDeleteBoxData;
-import com.anfelisa.box.data.IScheduledCardsData;
-import com.anfelisa.box.data.ISortCardsOutData;
+import com.anfelisa.box.models.ScoreCardModel;
+import com.anfelisa.box.models.ScoreReinforceCardModel;
+import com.anfelisa.box.models.ScoreReinforceCardModel;
+import com.anfelisa.box.models.InitMyBoxesDataModel;
+import com.anfelisa.box.models.DeleteBoxModel;
+import com.anfelisa.box.models.ScheduledCardsModel;
+import com.anfelisa.box.models.SortCardsOutModel;
 
 @SuppressWarnings("all")
 public interface IReinforceCardView {
 
-	void add(IScoreCardData data, PersistenceHandle handle);
-	void remove(IScoreReinforceCardData data, PersistenceHandle handle);
-	void update(IScoreReinforceCardData data, PersistenceHandle handle);
-	void clear(IInitMyBoxesDataData data, PersistenceHandle handle);
-	void deleteAll(IDeleteBoxData data, PersistenceHandle handle);
-	void deleteAllOfBox(IScheduledCardsData data, PersistenceHandle handle);
-	void sortOut(ISortCardsOutData data, PersistenceHandle handle);
+	void add(Data<com.anfelisa.box.models.ScoreCardModel> data, PersistenceHandle handle);
+	void remove(Data<com.anfelisa.box.models.ScoreReinforceCardModel> data, PersistenceHandle handle);
+	void update(Data<com.anfelisa.box.models.ScoreReinforceCardModel> data, PersistenceHandle handle);
+	void clear(Data<com.anfelisa.box.models.InitMyBoxesDataModel> data, PersistenceHandle handle);
+	void deleteAll(Data<com.anfelisa.box.models.DeleteBoxModel> data, PersistenceHandle handle);
+	void deleteAllOfBox(Data<com.anfelisa.box.models.ScheduledCardsModel> data, PersistenceHandle handle);
+	void sortOut(Data<com.anfelisa.box.models.SortCardsOutModel> data, PersistenceHandle handle);
 	
 }
 

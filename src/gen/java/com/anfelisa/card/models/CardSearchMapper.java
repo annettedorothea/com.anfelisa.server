@@ -14,9 +14,9 @@ import org.jdbi.v3.core.statement.StatementContext;
 
 import de.acegen.AbstractMapper;
 
-public class CardSearchMapper extends AbstractMapper<ICardSearchModel> {
+public class CardSearchMapper extends AbstractMapper<CardSearchModel> {
 	
-	public ICardSearchModel map(ResultSet r, StatementContext ctx) throws SQLException {
+	public CardSearchModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new CardSearchModel(
 			this.mapToString(r, "userId"),
 			this.mapToString(r, "given"),

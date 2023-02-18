@@ -15,12 +15,11 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class RegisterUserPayload implements IRegisterUserPayload {
+public class RegisterUserPayload {
 	
 	private String password;
 	
@@ -33,12 +32,6 @@ public class RegisterUserPayload implements IRegisterUserPayload {
 	public RegisterUserPayload() {
 	}
 	
-	public RegisterUserPayload(com.anfelisa.user.models.IUserRegistrationModel data) {
-		password = data.getPassword();
-		username = data.getUsername();
-		email = data.getEmail();
-		language = data.getLanguage();
-	}
 	
 	@JsonProperty
 	public String getPassword() {

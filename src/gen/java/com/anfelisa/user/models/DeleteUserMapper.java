@@ -14,9 +14,9 @@ import org.jdbi.v3.core.statement.StatementContext;
 
 import de.acegen.AbstractMapper;
 
-public class DeleteUserMapper extends AbstractMapper<IDeleteUserModel> {
+public class DeleteUserMapper extends AbstractMapper<DeleteUserModel> {
 	
-	public IDeleteUserModel map(ResultSet r, StatementContext ctx) throws SQLException {
+	public DeleteUserModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new DeleteUserModel(
 			this.mapToString(r, "usernameToBeDeleted"),
 			this.mapToString(r, "username"),

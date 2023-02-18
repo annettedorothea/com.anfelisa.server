@@ -7,12 +7,13 @@ package com.anfelisa.box.commands;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.box.data.IDeleteBoxData;
-import com.anfelisa.box.models.IBoxModel;
+import com.anfelisa.box.models.BoxModel;
+import com.anfelisa.box.models.DeleteBoxModel;
 import com.anfelisa.box.utils.Deletable;
-import com.anfelisa.category.models.IUserAccessToCategoryModel;
+import com.anfelisa.category.models.UserAccessToCategoryModel;
 
 import de.acegen.CustomAppConfiguration;
+import de.acegen.Data;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.ViewProvider;
@@ -27,28 +28,28 @@ public class DeleteBoxCommand extends AbstractDeleteBoxCommand {
 	}
 
 	@Override
-	protected IDeleteBoxData executeCommand(IDeleteBoxData data, PersistenceHandle readonlyHandle) {
-		IBoxModel box = daoProvider.getBoxDao().selectByBoxId(readonlyHandle, data.getBoxId());
+	protected Data<DeleteBoxModel> executeCommand(Data<DeleteBoxModel> data, PersistenceHandle readonlyHandle) {
+		BoxModel box = daoProvider.getBoxDao().selectByBoxId(readonlyHandle, data.getModel().getBoxId());
 		if (box == null) {
 			throwIllegalArgumentException("boxDoesNotExist");
 		}
-		if (!box.getUserId().equals(data.getUserId())) {
+		if (!box.getUserId().equals(data.getModel().getUserId())) {
 			throwSecurityException();
 		}
-		IUserAccessToCategoryModel access = daoProvider.getUserAccessToCategoryDao()
-				.selectByCategoryIdAndUserId(readonlyHandle, box.getCategoryId(), data.getUserId());
+		UserAccessToCategoryModel access = daoProvider.getUserAccessToCategoryDao()
+				.selectByCategoryIdAndUserId(readonlyHandle, box.getCategoryId(), data.getModel().getUserId());
 		if (access == null) {
 			throwSecurityException();
 		}
 		if (!box.getReverse()) {
-			IBoxModel reverseBox = daoProvider.getBoxDao().selectByCategoryIdAndUserId(readonlyHandle,
-					box.getCategoryId(), data.getUserId(), true);
+			BoxModel reverseBox = daoProvider.getBoxDao().selectByCategoryIdAndUserId(readonlyHandle,
+					box.getCategoryId(), data.getModel().getUserId(), true);
 			if (reverseBox != null) {
-				data.setReverseBoxId(reverseBox.getBoxId());
+				data.getModel().setReverseBoxId(reverseBox.getBoxId());
 				this.addDeleteReverseBoxOutcome(data);
 			}
 		}
-		if (!Deletable.isBoxDeletable(daoProvider, readonlyHandle, box, data.getUserId())) {
+		if (!Deletable.isBoxDeletable(daoProvider, readonlyHandle, box.getCategoryId(), box.getReverse(), data.getModel().getUserId())) {
 			throwIllegalArgumentException("cannot delete shared box");
 		}
 		if (Deletable.onDeleteBoxDeleteCategory(daoProvider, readonlyHandle, box)) {
@@ -56,7 +57,7 @@ public class DeleteBoxCommand extends AbstractDeleteBoxCommand {
 		} else if (!box.getReverse()) {
 			this.addDeleteUserAccessToCategoryOutcome(data);
 		}
-		data.setRootCategoryId(box.getCategoryId());
+		data.getModel().setRootCategoryId(box.getCategoryId());
 		this.addDeleteBoxOutcome(data);
 		return data;
 	}

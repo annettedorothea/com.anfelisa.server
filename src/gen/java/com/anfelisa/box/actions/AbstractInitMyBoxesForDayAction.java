@@ -9,6 +9,7 @@ package com.anfelisa.box.actions;
 
 import java.time.LocalDateTime;
 
+import de.acegen.Data;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.ICommand;
 import de.acegen.IDaoProvider;
@@ -17,13 +18,12 @@ import de.acegen.SquishyDataProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.WriteAction;
 
-import com.anfelisa.box.data.IInitMyBoxesDataData;
 import com.anfelisa.box.commands.InitMyBoxesForDayCommand;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractInitMyBoxesForDayAction extends WriteAction<IInitMyBoxesDataData> {
+public abstract class AbstractInitMyBoxesForDayAction extends WriteAction<com.anfelisa.box.models.InitMyBoxesDataModel> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractInitMyBoxesForDayAction.class);
 
@@ -33,12 +33,12 @@ public abstract class AbstractInitMyBoxesForDayAction extends WriteAction<IInitM
 	}
 
 	@Override
-	public ICommand<IInitMyBoxesDataData> getCommand() {
+	public ICommand<com.anfelisa.box.models.InitMyBoxesDataModel> getCommand() {
 		return new InitMyBoxesForDayCommand(daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	@Override
-	protected IInitMyBoxesDataData initActionDataFromSquishyDataProvider(IInitMyBoxesDataData data) {
+	protected Data<com.anfelisa.box.models.InitMyBoxesDataModel> initActionDataFromSquishyDataProvider(Data<com.anfelisa.box.models.InitMyBoxesDataModel> data) {
 		LocalDateTime systemTime = SquishyDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
 			data.setSystemTime(systemTime);
@@ -46,7 +46,7 @@ public abstract class AbstractInitMyBoxesForDayAction extends WriteAction<IInitM
 		return data;
 	}
 
-	public IInitMyBoxesDataData initActionData(IInitMyBoxesDataData data) {
+	public Data<com.anfelisa.box.models.InitMyBoxesDataModel> initActionData(Data<com.anfelisa.box.models.InitMyBoxesDataModel> data) {
 		return data;
 	}
 

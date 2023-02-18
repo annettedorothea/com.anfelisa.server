@@ -9,6 +9,7 @@ package com.anfelisa.box.actions;
 
 import java.time.LocalDateTime;
 
+import de.acegen.Data;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.ICommand;
 import de.acegen.IDaoProvider;
@@ -17,13 +18,12 @@ import de.acegen.SquishyDataProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.WriteAction;
 
-import com.anfelisa.box.data.IBoxArchiveData;
 import com.anfelisa.box.commands.ArchiveBoxCommand;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractArchiveBoxAction extends WriteAction<IBoxArchiveData> {
+public abstract class AbstractArchiveBoxAction extends WriteAction<com.anfelisa.box.models.BoxArchiveModel> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractArchiveBoxAction.class);
 
@@ -33,12 +33,12 @@ public abstract class AbstractArchiveBoxAction extends WriteAction<IBoxArchiveDa
 	}
 
 	@Override
-	public ICommand<IBoxArchiveData> getCommand() {
+	public ICommand<com.anfelisa.box.models.BoxArchiveModel> getCommand() {
 		return new ArchiveBoxCommand(daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	@Override
-	protected IBoxArchiveData initActionDataFromSquishyDataProvider(IBoxArchiveData data) {
+	protected Data<com.anfelisa.box.models.BoxArchiveModel> initActionDataFromSquishyDataProvider(Data<com.anfelisa.box.models.BoxArchiveModel> data) {
 		LocalDateTime systemTime = SquishyDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
 			data.setSystemTime(systemTime);
@@ -46,7 +46,7 @@ public abstract class AbstractArchiveBoxAction extends WriteAction<IBoxArchiveDa
 		return data;
 	}
 
-	public IBoxArchiveData initActionData(IBoxArchiveData data) {
+	public Data<com.anfelisa.box.models.BoxArchiveModel> initActionData(Data<com.anfelisa.box.models.BoxArchiveModel> data) {
 		return data;
 	}
 

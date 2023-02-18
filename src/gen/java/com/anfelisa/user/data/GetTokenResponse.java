@@ -15,26 +15,26 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class GetTokenResponse implements IGetTokenResponse {
+public class GetTokenResponse {
 	
 	private String token;
 	
 	public GetTokenResponse() {
 	}
 	
-	public GetTokenResponse(com.anfelisa.user.models.ITokenModel data) {
-		token = data.getToken();
+	public GetTokenResponse(com.anfelisa.user.models.TokenModel model) {
+		token = model.getToken();
 	}
 	
-	@JsonProperty
 	public String getToken() {
 		return this.token;
 	}
+	
+	
 	
 }
 

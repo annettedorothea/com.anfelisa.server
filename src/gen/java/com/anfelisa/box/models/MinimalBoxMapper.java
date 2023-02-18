@@ -14,9 +14,9 @@ import org.jdbi.v3.core.statement.StatementContext;
 
 import de.acegen.AbstractMapper;
 
-public class MinimalBoxMapper extends AbstractMapper<IMinimalBoxModel> {
+public class MinimalBoxMapper extends AbstractMapper<MinimalBoxModel> {
 	
-	public IMinimalBoxModel map(ResultSet r, StatementContext ctx) throws SQLException {
+	public MinimalBoxModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new MinimalBoxModel(
 			this.mapToString(r, "boxId"),
 			this.mapToString(r, "categoryId"),

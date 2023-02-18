@@ -13,7 +13,7 @@ import java.time.ZoneOffset;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class WriteAction<T extends IDataContainer> extends Action<T> {
+public abstract class WriteAction<T extends AbstractModel> extends Action<T> {
 
 	static final Logger LOG = LoggerFactory.getLogger(WriteAction.class);
 	
@@ -31,11 +31,11 @@ public abstract class WriteAction<T extends IDataContainer> extends Action<T> {
 		this.viewProvider = viewProvider;
 	}
 
-	protected abstract T initActionDataFromSquishyDataProvider(T data);
+	protected abstract Data<T> initActionDataFromSquishyDataProvider(Data<T> data);
 
 	protected abstract ICommand<T> getCommand();
 
-	public T apply(T data) {
+	public Data<T> apply(Data<T> data) {
 		DatabaseHandle databaseHandle = new DatabaseHandle(persistenceConnection.getJdbi(), appConfiguration);
 		databaseHandle.beginTransaction();
 		try {
@@ -53,6 +53,7 @@ public abstract class WriteAction<T extends IDataContainer> extends Action<T> {
 			if (Config.DEV.equals(appConfiguration.getConfig().getMode())) {
 				data = initActionDataFromSquishyDataProvider(data);
 			}
+			data.freezeSystemTime();
 			
 			ICommand<T> command = this.getCommand();
 			data = command.execute(data, databaseHandle.getReadonlyHandle(), databaseHandle.getTimelineHandle());

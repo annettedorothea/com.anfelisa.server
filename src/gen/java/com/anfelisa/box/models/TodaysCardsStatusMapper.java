@@ -14,9 +14,9 @@ import org.jdbi.v3.core.statement.StatementContext;
 
 import de.acegen.AbstractMapper;
 
-public class TodaysCardsStatusMapper extends AbstractMapper<ITodaysCardsStatusModel> {
+public class TodaysCardsStatusMapper extends AbstractMapper<TodaysCardsStatusModel> {
 	
-	public ITodaysCardsStatusModel map(ResultSet r, StatementContext ctx) throws SQLException {
+	public TodaysCardsStatusModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new TodaysCardsStatusModel(
 			this.mapToInteger(r, "openTodaysCards"),
 			this.mapToInteger(r, "allTodaysCards")

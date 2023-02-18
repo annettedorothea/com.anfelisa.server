@@ -6,14 +6,12 @@ import java.util.Optional;
 
 import org.jdbi.v3.core.statement.Update;
 
-import com.anfelisa.box.data.IScoreCardData;
-
 import de.acegen.PersistenceHandle;
 
 public class ScheduledCardDao extends AbstractScheduledCardDao {
-	public INextCardViewModel selectFirstScheduledCard(PersistenceHandle handle, String boxId, LocalDateTime today) {
+	public NextCardViewModel selectFirstScheduledCard(PersistenceHandle handle, String boxId, LocalDateTime today) {
 		LocalDateTime endOfDay = today.plusDays(1);
-		Optional<INextCardViewModel> optional = handle.getHandle().createQuery(
+		Optional<NextCardViewModel> optional = handle.getHandle().createQuery(
 				"SELECT "
 						+ "sc.scheduledcardid, "
 						+ "null as reinforcecardid, "
@@ -58,7 +56,7 @@ public class ScheduledCardDao extends AbstractScheduledCardDao {
 		statement.execute();
 	}
 
-	public void score(PersistenceHandle handle, IScoreCardData scoreCardData) {
+	public void score(PersistenceHandle handle, ScoreCardModel scoreCardData) {
 		Update statement = handle.getHandle().createUpdate(
 				"UPDATE public.scheduledcard SET quality = :quality, scoreddate = :scoreddate WHERE scheduledcardid = :scheduledcardid");
 		statement.bind("scheduledcardid", scoreCardData.getScheduledCardId());
@@ -67,7 +65,7 @@ public class ScheduledCardDao extends AbstractScheduledCardDao {
 		statement.execute();
 	}
 
-	public void scheduleNext(PersistenceHandle handle, IScoreCardData scoreCardData) {
+	public void scheduleNext(PersistenceHandle handle, ScoreCardModel scoreCardData) {
 		Update statement = handle.getHandle().createUpdate(
 				"INSERT INTO public.scheduledcard (scheduledcardid, cardid, boxid, createddate, ef, interval, n, count, scheduleddate, lastquality) VALUES (:scheduledcardid, :cardid, :boxid, :createddate, :ef, :interval, :n, :count, :scheduleddate, :lastquality)");
 		statement.bind("scheduledcardid", scoreCardData.getNextScheduledCardScheduledCardId());
@@ -83,14 +81,14 @@ public class ScheduledCardDao extends AbstractScheduledCardDao {
 		statement.execute();
 	}
 
-	public List<IScheduledCardModel> selectAllCardsOfBox(PersistenceHandle handle, String boxId) {
+	public List<ScheduledCardModel> selectAllCardsOfBox(PersistenceHandle handle, String boxId) {
 		return handle.getHandle().createQuery(
 				"SELECT scheduledcardid, cardid, boxid, createddate, ef, interval, n, count, scheduleddate, lastquality, quality, scoreddate FROM public.scheduledcard "
 						+ "where boxid = :boxid")
 				.bind("boxid", boxId).map(new ScheduledCardMapper()).list();
 	}
 
-	public void postponeScheduledCards(PersistenceHandle handle, IPostponeCardsModel data) {
+	public void postponeScheduledCards(PersistenceHandle handle, PostponeCardsModel data) {
 		Update statement = handle.getHandle()
 				.createUpdate("UPDATE public.scheduledcard SET scheduleddate = scheduleddate + INTERVAL '"
 						+ data.getDays() + " days' WHERE boxid = :boxId and quality is null");
@@ -112,8 +110,8 @@ public class ScheduledCardDao extends AbstractScheduledCardDao {
 		statement.execute();
 	}
 
-	public IScheduledCardModel selectUnscoredByCardIdAndBoxId(PersistenceHandle handle, String cardId, String boxId) {
-		Optional<IScheduledCardModel> optional = handle.getHandle().createQuery("SELECT "
+	public ScheduledCardModel selectUnscoredByCardIdAndBoxId(PersistenceHandle handle, String cardId, String boxId) {
+		Optional<ScheduledCardModel> optional = handle.getHandle().createQuery("SELECT "
 				+ "scheduledcardid, cardid, boxid, createddate, ef, interval, n, count, scheduleddate, lastquality, quality, scoreddate "
 				+ "FROM scheduledcard "
 				+ "WHERE cardid = :cardid "

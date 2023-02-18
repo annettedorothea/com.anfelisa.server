@@ -14,9 +14,9 @@ import org.slf4j.LoggerFactory;
 
 import org.apache.commons.lang3.StringUtils;
 
+import de.acegen.Data;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
-import de.acegen.IDataContainer;
 import de.acegen.ViewProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -24,11 +24,8 @@ import de.acegen.ReadAction;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 
-import com.anfelisa.box.data.IBoxStatisticsListData;
-import com.anfelisa.box.data.BoxStatisticsListData;
-
 @SuppressWarnings("unused")
-public abstract class AbstractGetBoxStatisticsAction extends ReadAction<IBoxStatisticsListData> {
+public abstract class AbstractGetBoxStatisticsAction extends ReadAction<com.anfelisa.box.models.BoxStatisticsListModel> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractGetBoxStatisticsAction.class);
 	
@@ -37,10 +34,10 @@ public abstract class AbstractGetBoxStatisticsAction extends ReadAction<IBoxStat
 		super("com.anfelisa.box.actions.GetBoxStatisticsAction", persistenceConnection, appConfiguration, daoProvider, viewProvider);
 	}
 
-	protected abstract IBoxStatisticsListData loadDataForGetRequest(IBoxStatisticsListData data, PersistenceHandle readonlyHandle);
+	protected abstract Data<com.anfelisa.box.models.BoxStatisticsListModel> loadDataForGetRequest(Data<com.anfelisa.box.models.BoxStatisticsListModel> data, PersistenceHandle readonlyHandle);
 
 	@Override
-	protected IBoxStatisticsListData initActionDataFromSquishyDataProvider(IBoxStatisticsListData data) {
+	protected Data<com.anfelisa.box.models.BoxStatisticsListModel> initActionDataFromSquishyDataProvider(Data<com.anfelisa.box.models.BoxStatisticsListModel> data) {
 		LocalDateTime systemTime = SquishyDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
 			data.setSystemTime(systemTime);
@@ -48,7 +45,7 @@ public abstract class AbstractGetBoxStatisticsAction extends ReadAction<IBoxStat
 		return data;
 	}
 
-	public IBoxStatisticsListData initActionData(IBoxStatisticsListData data) {
+	public Data<com.anfelisa.box.models.BoxStatisticsListModel> initActionData(Data<com.anfelisa.box.models.BoxStatisticsListModel> data) {
 		return data;
 	}
 

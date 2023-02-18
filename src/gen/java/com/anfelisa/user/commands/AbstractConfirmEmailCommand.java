@@ -7,6 +7,7 @@
 
 package com.anfelisa.user.commands;
 
+import de.acegen.Data;
 import de.acegen.Command;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
@@ -14,24 +15,24 @@ import de.acegen.ViewProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.Event;
 
-import com.anfelisa.user.data.IConfirmEmailData;
+import com.anfelisa.user.models.ConfirmEmailModel;
 
 @SuppressWarnings("unused")
-public abstract class AbstractConfirmEmailCommand extends Command<IConfirmEmailData> {
+public abstract class AbstractConfirmEmailCommand extends Command<com.anfelisa.user.models.ConfirmEmailModel> {
 
 	public AbstractConfirmEmailCommand(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
 		super("com.anfelisa.user.commands.ConfirmEmailCommand", daoProvider, viewProvider, appConfiguration);
 	}
 
-	protected void addOkOutcome(IConfirmEmailData data) {
+	protected void addOkOutcome(Data<com.anfelisa.user.models.ConfirmEmailModel> data) {
 		data.addOutcome("ok");
 	}
-	protected void addAlreadyConfirmedOutcome(IConfirmEmailData data) {
+	protected void addAlreadyConfirmedOutcome(Data<com.anfelisa.user.models.ConfirmEmailModel> data) {
 		data.addOutcome("alreadyConfirmed");
 	}
 	
 	@Override
-	public void addEventsToTimeline(IConfirmEmailData data, PersistenceHandle timelineHandle) {
+	public void addEventsToTimeline(Data<com.anfelisa.user.models.ConfirmEmailModel> data, PersistenceHandle timelineHandle) {
 		if (appConfiguration.getConfig().writeTimeline()) {
 			if (data.hasOutcome("ok")){
 				daoProvider.getAceDao().addEventToTimeline("com.anfelisa.user.events.ConfirmEmailOkEvent", data, timelineHandle);
@@ -40,9 +41,10 @@ public abstract class AbstractConfirmEmailCommand extends Command<IConfirmEmailD
 	}
 	
 	@Override
-	public void publishEvents(IConfirmEmailData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	public void publishEvents(Data<com.anfelisa.user.models.ConfirmEmailModel> data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+		data.freeze();
 		if (data.hasOutcome("ok")){
-			new Event<IConfirmEmailData>("com.anfelisa.user.events.ConfirmEmailOkEvent", viewProvider).publish(data.deepCopy(), handle, timelineHandle);
+			new Event<com.anfelisa.user.models.ConfirmEmailModel>("com.anfelisa.user.events.ConfirmEmailOkEvent", viewProvider).publish(data, handle, timelineHandle);
 		}
 	}
 	

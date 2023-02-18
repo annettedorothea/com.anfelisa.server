@@ -9,7 +9,7 @@ package de.acegen;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public abstract class Command<T extends IDataContainer> implements ICommand<T> {
+public abstract class Command<T extends AbstractModel> implements ICommand<T> {
 
 	private String commandName;
 	protected ObjectMapper mapper;
@@ -26,9 +26,9 @@ public abstract class Command<T extends IDataContainer> implements ICommand<T> {
 		this.appConfiguration = appConfiguration;
 	}
 
-	protected abstract T executeCommand(T data, PersistenceHandle readonlyHandle);
+	protected abstract Data<T> executeCommand(Data<T> data, PersistenceHandle readonlyHandle);
 
-	public T execute(T data, PersistenceHandle readonlyHandle, PersistenceHandle timelineHandle) {
+	public Data<T> execute(Data<T> data, PersistenceHandle readonlyHandle, PersistenceHandle timelineHandle) {
 		if (appConfiguration.getConfig().writeTimeline()) {
 			daoProvider.getAceDao().addCommandToTimeline(this.getCommandName(), data, timelineHandle);
 		}
@@ -48,6 +48,7 @@ public abstract class Command<T extends IDataContainer> implements ICommand<T> {
 	}
 
 }		
+
 
 
 

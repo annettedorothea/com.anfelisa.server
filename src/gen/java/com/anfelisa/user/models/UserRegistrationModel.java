@@ -16,9 +16,10 @@ import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
+import de.acegen.AbstractModel;
 
 @SuppressWarnings("all")
-public class UserRegistrationModel implements IUserRegistrationModel {
+public class UserRegistrationModel extends AbstractModel {
 
 	private String language;
 
@@ -32,10 +33,12 @@ public class UserRegistrationModel implements IUserRegistrationModel {
 
 	private String role;
 
-	private Boolean emailConfirmed = false;
+	private Boolean emailConfirmed;
 
 	private String token;
 
+	
+	private Boolean frozen = false;
 
 	public UserRegistrationModel() {
 	}
@@ -64,7 +67,12 @@ public class UserRegistrationModel implements IUserRegistrationModel {
 	public String getLanguage() {
 		return this.language;
 	}
+	
+	@JsonProperty
 	public void setLanguage(String language) {
+		if (this.frozen) {
+			throw new RuntimeException("language is frozen");
+		}
 		this.language = language;
 	}
 	
@@ -72,7 +80,12 @@ public class UserRegistrationModel implements IUserRegistrationModel {
 	public String getUserId() {
 		return this.userId;
 	}
+	
+	@JsonProperty
 	public void setUserId(String userId) {
+		if (this.frozen) {
+			throw new RuntimeException("userId is frozen");
+		}
 		this.userId = userId;
 	}
 	
@@ -80,7 +93,12 @@ public class UserRegistrationModel implements IUserRegistrationModel {
 	public String getUsername() {
 		return this.username;
 	}
+	
+	@JsonProperty
 	public void setUsername(String username) {
+		if (this.frozen) {
+			throw new RuntimeException("username is frozen");
+		}
 		this.username = username;
 	}
 	
@@ -88,7 +106,12 @@ public class UserRegistrationModel implements IUserRegistrationModel {
 	public String getPassword() {
 		return this.password;
 	}
+	
+	@JsonProperty
 	public void setPassword(String password) {
+		if (this.frozen) {
+			throw new RuntimeException("password is frozen");
+		}
 		this.password = password;
 	}
 	
@@ -96,7 +119,12 @@ public class UserRegistrationModel implements IUserRegistrationModel {
 	public String getEmail() {
 		return this.email;
 	}
+	
+	@JsonProperty
 	public void setEmail(String email) {
+		if (this.frozen) {
+			throw new RuntimeException("email is frozen");
+		}
 		this.email = email;
 	}
 	
@@ -104,7 +132,12 @@ public class UserRegistrationModel implements IUserRegistrationModel {
 	public String getRole() {
 		return this.role;
 	}
+	
+	@JsonProperty
 	public void setRole(String role) {
+		if (this.frozen) {
+			throw new RuntimeException("role is frozen");
+		}
 		this.role = role;
 	}
 	
@@ -112,7 +145,12 @@ public class UserRegistrationModel implements IUserRegistrationModel {
 	public Boolean getEmailConfirmed() {
 		return this.emailConfirmed;
 	}
+	
+	@JsonProperty
 	public void setEmailConfirmed(Boolean emailConfirmed) {
+		if (this.frozen) {
+			throw new RuntimeException("emailConfirmed is frozen");
+		}
 		this.emailConfirmed = emailConfirmed;
 	}
 	
@@ -120,13 +158,40 @@ public class UserRegistrationModel implements IUserRegistrationModel {
 	public String getToken() {
 		return this.token;
 	}
+	
+	@JsonProperty
 	public void setToken(String token) {
+		if (this.frozen) {
+			throw new RuntimeException("token is frozen");
+		}
 		this.token = token;
 	}
 	
+	
+	public com.anfelisa.user.models.UserModel mapToUserModel() {
+		com.anfelisa.user.models.UserModel model = new com.anfelisa.user.models.UserModel();
+		model.setUserId(this.getUserId());
+		model.setUsername(this.getUsername());
+		model.setPassword(this.getPassword());
+		model.setEmail(this.getEmail());
+		model.setRole(this.getRole());
+		model.setEmailConfirmed(this.getEmailConfirmed());
+		return model;
+	}	
+	public com.anfelisa.user.models.EmailConfirmationModel mapToEmailConfirmationModel() {
+		com.anfelisa.user.models.EmailConfirmationModel model = new com.anfelisa.user.models.EmailConfirmationModel();
+		model.setToken(this.getToken());
+		model.setUserId(this.getUserId());
+		return model;
+	}	
+	
+	@Override
+	public void freeze() {
+		this.frozen = true;
+	}
 
-	public IUserRegistrationModel deepCopy() {
-		IUserRegistrationModel copy = new UserRegistrationModel();
+	public com.anfelisa.user.models.UserRegistrationModel deepCopy() {
+		com.anfelisa.user.models.UserRegistrationModel copy = new UserRegistrationModel();
 		copy.setLanguage(this.getLanguage());
 		copy.setUserId(this.getUserId());
 		copy.setUsername(this.getUsername());
@@ -136,6 +201,32 @@ public class UserRegistrationModel implements IUserRegistrationModel {
 		copy.setEmailConfirmed(this.getEmailConfirmed());
 		copy.setToken(this.getToken());
 		return copy;
+	}
+	
+	public static UserRegistrationModel generateTestData() {
+		java.util.Random random = new java.util.Random();
+		UserRegistrationModel testData = new UserRegistrationModel();
+		testData.setLanguage(randomString(random));
+		testData.setUserId(randomString(random));
+		testData.setUsername(randomString(random));
+		testData.setPassword(randomString(random));
+		testData.setEmail(randomString(random));
+		testData.setRole(randomString(random));
+		testData.setEmailConfirmed(random.nextBoolean());
+		testData.setToken(randomString(random));
+		return testData;
+	}
+	
+	private static String randomString(java.util.Random random) {
+		String chars = "aaaaaaabcdeeeeeeeffffghiiiiiiijkllllllmmmmnnnnnnnooooooooopqrstttuuuuuuuvxyz";
+		int n = random.nextInt(20) + 5;
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		String string  = sb.toString(); 
+		return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
 	}
 
 }

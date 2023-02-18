@@ -16,18 +16,21 @@ import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
+import de.acegen.AbstractModel;
 
 @SuppressWarnings("all")
-public class ScoreReinforceCardModel implements IScoreReinforceCardModel {
+public class ScoreReinforceCardModel extends AbstractModel {
 
 	private String reinforceCardId;
 
-	private Boolean keep = false;
+	private Boolean keep;
 
 	private java.time.LocalDateTime changeDate;
 
 	private String userId;
 
+	
+	private Boolean frozen = false;
 
 	public ScoreReinforceCardModel() {
 	}
@@ -48,7 +51,12 @@ public class ScoreReinforceCardModel implements IScoreReinforceCardModel {
 	public String getReinforceCardId() {
 		return this.reinforceCardId;
 	}
+	
+	@JsonProperty
 	public void setReinforceCardId(String reinforceCardId) {
+		if (this.frozen) {
+			throw new RuntimeException("reinforceCardId is frozen");
+		}
 		this.reinforceCardId = reinforceCardId;
 	}
 	
@@ -56,7 +64,12 @@ public class ScoreReinforceCardModel implements IScoreReinforceCardModel {
 	public Boolean getKeep() {
 		return this.keep;
 	}
+	
+	@JsonProperty
 	public void setKeep(Boolean keep) {
+		if (this.frozen) {
+			throw new RuntimeException("keep is frozen");
+		}
 		this.keep = keep;
 	}
 	
@@ -66,7 +79,14 @@ public class ScoreReinforceCardModel implements IScoreReinforceCardModel {
 	public java.time.LocalDateTime getChangeDate() {
 		return this.changeDate;
 	}
+	
+	@JsonProperty
+	@JsonSerialize(converter = DateTimeToStringConverter.class)
+	@JsonDeserialize(converter = StringToDateTimeConverter.class)
 	public void setChangeDate(java.time.LocalDateTime changeDate) {
+		if (this.frozen) {
+			throw new RuntimeException("changeDate is frozen");
+		}
 		this.changeDate = changeDate;
 	}
 	
@@ -74,18 +94,51 @@ public class ScoreReinforceCardModel implements IScoreReinforceCardModel {
 	public String getUserId() {
 		return this.userId;
 	}
+	
+	@JsonProperty
 	public void setUserId(String userId) {
+		if (this.frozen) {
+			throw new RuntimeException("userId is frozen");
+		}
 		this.userId = userId;
 	}
 	
+	
+	
+	@Override
+	public void freeze() {
+		this.frozen = true;
+	}
 
-	public IScoreReinforceCardModel deepCopy() {
-		IScoreReinforceCardModel copy = new ScoreReinforceCardModel();
+	public com.anfelisa.box.models.ScoreReinforceCardModel deepCopy() {
+		com.anfelisa.box.models.ScoreReinforceCardModel copy = new ScoreReinforceCardModel();
 		copy.setReinforceCardId(this.getReinforceCardId());
 		copy.setKeep(this.getKeep());
 		copy.setChangeDate(this.getChangeDate());
 		copy.setUserId(this.getUserId());
 		return copy;
+	}
+	
+	public static ScoreReinforceCardModel generateTestData() {
+		java.util.Random random = new java.util.Random();
+		ScoreReinforceCardModel testData = new ScoreReinforceCardModel();
+		testData.setReinforceCardId(randomString(random));
+		testData.setKeep(random.nextBoolean());
+		testData.setChangeDate(random.nextBoolean() ? java.time.LocalDateTime.now().plusMinutes(random.nextInt(60)) : java.time.LocalDateTime.now().minusMinutes(random.nextInt(60)) );
+		testData.setUserId(randomString(random));
+		return testData;
+	}
+	
+	private static String randomString(java.util.Random random) {
+		String chars = "aaaaaaabcdeeeeeeeffffghiiiiiiijkllllllmmmmnnnnnnnooooooooopqrstttuuuuuuuvxyz";
+		int n = random.nextInt(20) + 5;
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		String string  = sb.toString(); 
+		return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
 	}
 
 }

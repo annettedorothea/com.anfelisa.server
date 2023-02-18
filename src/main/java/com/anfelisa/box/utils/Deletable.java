@@ -2,20 +2,19 @@ package com.anfelisa.box.utils;
 
 import java.util.List;
 
-import com.anfelisa.box.models.IBoxModel;
-import com.anfelisa.box.models.IMinimalBoxModel;
-import com.anfelisa.category.models.IUserAccessToCategoryModel;
+import com.anfelisa.box.models.BoxModel;
+import com.anfelisa.category.models.UserAccessToCategoryModel;
 
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceHandle;
 
 public class Deletable {
 
-	private static boolean atLeastOneUserHasWriteAccess(List<IUserAccessToCategoryModel> accesses) {
+	private static boolean atLeastOneUserHasWriteAccess(List<UserAccessToCategoryModel> accesses) {
 		if (accesses.size() == 0) {
 			return false;
 		}
-		for (IUserAccessToCategoryModel access : accesses) {
+		for (UserAccessToCategoryModel access : accesses) {
 			if (access.getEditable()) {
 				return true;
 			}
@@ -23,11 +22,11 @@ public class Deletable {
 		return false;
 	}
 
-	private static boolean atLeastOneUserHasReadAccess(List<IUserAccessToCategoryModel> accesses) {
+	private static boolean atLeastOneUserHasReadAccess(List<UserAccessToCategoryModel> accesses) {
 		if (accesses.size() == 0) {
 			return false;
 		}
-		for (IUserAccessToCategoryModel access : accesses) {
+		for (UserAccessToCategoryModel access : accesses) {
 			if (!access.getEditable()) {
 				return true;
 			}
@@ -36,10 +35,10 @@ public class Deletable {
 	}
 
 	public static boolean isBoxDeletable(IDaoProvider daoProvider, PersistenceHandle readonlyHandle,
-			IMinimalBoxModel box, String userId) {
-		List<IUserAccessToCategoryModel> otherUsersWithAccess = daoProvider.getUserAccessToCategoryDao()
-				.selectByCategoryIdAndNotMine(readonlyHandle, box.getCategoryId(), userId);
-		if (box.getReverse()) {
+			String categoryId, Boolean reverse, String userId) {
+		List<UserAccessToCategoryModel> otherUsersWithAccess = daoProvider.getUserAccessToCategoryDao()
+				.selectByCategoryIdAndNotMine(readonlyHandle, categoryId, userId);
+		if (reverse) {
 			return true;
 		}
 		if (Deletable.atLeastOneUserHasWriteAccess(otherUsersWithAccess)) {
@@ -54,11 +53,11 @@ public class Deletable {
 	}
 
 	public static boolean onDeleteBoxDeleteCategory(IDaoProvider daoProvider, PersistenceHandle readonlyHandle,
-			IBoxModel box) {
+			BoxModel box) {
 		if (box.getReverse()) {
 			return false;
 		}
-		List<IUserAccessToCategoryModel> otherUsersWithAccess = daoProvider.getUserAccessToCategoryDao()
+		List<UserAccessToCategoryModel> otherUsersWithAccess = daoProvider.getUserAccessToCategoryDao()
 				.selectByCategoryIdAndNotMine(readonlyHandle, box.getCategoryId(), box.getUserId());
 		return otherUsersWithAccess.size() == 0;
 	}

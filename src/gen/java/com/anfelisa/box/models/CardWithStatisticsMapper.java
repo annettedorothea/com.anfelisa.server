@@ -14,9 +14,9 @@ import org.jdbi.v3.core.statement.StatementContext;
 
 import de.acegen.AbstractMapper;
 
-public class CardWithStatisticsMapper extends AbstractMapper<ICardWithStatisticsModel> {
+public class CardWithStatisticsMapper extends AbstractMapper<CardWithStatisticsModel> {
 	
-	public ICardWithStatisticsModel map(ResultSet r, StatementContext ctx) throws SQLException {
+	public CardWithStatisticsModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new CardWithStatisticsModel(
 			this.mapToFloat(r, "ef"),
 			this.mapToInteger(r, "interval"),

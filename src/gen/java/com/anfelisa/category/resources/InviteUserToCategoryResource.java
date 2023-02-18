@@ -28,7 +28,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
-import de.acegen.IDataContainer;
 import de.acegen.ViewProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -36,6 +35,7 @@ import de.acegen.ReadAction;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.Config;
+import de.acegen.Data;
 
 import de.acegen.auth.AuthUser;
 import io.dropwizard.auth.Auth;
@@ -52,8 +52,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.DELETE;
 
-import com.anfelisa.category.data.IUserToCategoryInvitationData;
-import com.anfelisa.category.data.UserToCategoryInvitationData;
+import com.anfelisa.category.models.UserToCategoryInvitationModel;
 
 import de.acegen.Resource;
 
@@ -86,7 +85,7 @@ public class InviteUserToCategoryResource extends Resource {
 	public Response inviteUserToCategoryResource(
 			@Auth AuthUser authUser, 
 			@QueryParam("uuid") String uuid, 
-			IUserToCategoryInvitationData payload) 
+			com.anfelisa.category.data.InviteUserToCategoryPayload payload) 
 			throws JsonProcessingException {
 		if (payload == null) {
 			return badRequest("payload must not be null");
@@ -95,21 +94,23 @@ public class InviteUserToCategoryResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.category.data.IUserToCategoryInvitationData data = new UserToCategoryInvitationData(uuid);
+			Data<com.anfelisa.category.models.UserToCategoryInvitationModel> data = new Data<com.anfelisa.category.models.UserToCategoryInvitationModel>(uuid);
+			com.anfelisa.category.models.UserToCategoryInvitationModel model = new com.anfelisa.category.models.UserToCategoryInvitationModel();
 			if (StringUtils.isBlank(payload.getCategoryId()) || "null".equals(payload.getCategoryId())) {
 				return badRequest("categoryId is mandatory");
 			}
-			data.setCategoryId(payload.getCategoryId());
+			model.setCategoryId(payload.getCategoryId());
 			if (StringUtils.isBlank(payload.getInvitedUsername()) || "null".equals(payload.getInvitedUsername())) {
 				return badRequest("invitedUsername is mandatory");
 			}
-			data.setInvitedUsername(payload.getInvitedUsername());
+			model.setInvitedUsername(payload.getInvitedUsername());
 			if (payload.getEditable() == null) {
 				return badRequest("editable is mandatory");
 			}
-			data.setEditable(payload.getEditable());
-			data.setUserId(authUser.getUserId());
+			model.setEditable(payload.getEditable());
+			model.setUserId(authUser.getUserId());
 			
+			data.setModel(model);
 			com.anfelisa.category.actions.InviteUserToCategoryAction action = new com.anfelisa.category.actions.InviteUserToCategoryAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
 			data = action.apply(data);
 			return ok();

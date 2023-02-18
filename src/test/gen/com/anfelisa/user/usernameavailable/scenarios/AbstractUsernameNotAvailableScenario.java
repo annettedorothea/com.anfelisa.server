@@ -25,6 +25,9 @@ import de.acegen.BaseScenario;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.HttpResponse;
+import de.acegen.Data;
+
+import com.fasterxml.jackson.core.type.TypeReference;
 
 @SuppressWarnings("unused")
 public abstract class AbstractUsernameNotAvailableScenario extends BaseScenario {
@@ -43,13 +46,13 @@ public abstract class AbstractUsernameNotAvailableScenario extends BaseScenario 
 				"\"password\" : \"password\"," + 
 				"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 					com.anfelisa.user.data.RegisterUserPayload.class);
-			com.anfelisa.user.data.UserRegistrationData data_0 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"email\" : \"annette.pohl@anfelisa.de\"," + 
-			"\"language\" : \"de\"," + 
-			"\"password\" : \"password\"," + 
-			"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
-					com.anfelisa.user.data.UserRegistrationData.class);
+			com.anfelisa.user.models.UserRegistrationModel model_0 = objectMapper.readValue("{" +
+				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"password\"," + 
+				"\"username\" : \"Annette-" + this.getTestId() + "\"} ", com.anfelisa.user.models.UserRegistrationModel.class);
+			Data<com.anfelisa.user.models.UserRegistrationModel> data_0 = new Data<com.anfelisa.user.models.UserRegistrationModel>(uuid);
+			data_0.setModel(model_0);
 			HttpResponse<Object> response_0 = 
 			this.httpPost(
 				"/users/register", 
@@ -75,13 +78,13 @@ public abstract class AbstractUsernameNotAvailableScenario extends BaseScenario 
 	
 	private HttpResponse<com.anfelisa.user.data.UsernameAvailableResponse> when_0() throws Exception {
 		String uuid = this.randomUUID();
-		com.anfelisa.user.data.UsernameAvailableData data_0 = objectMapper.readValue("{" +
-		"\"uuid\" : \"" + uuid + "\"," + 
-		"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
-				com.anfelisa.user.data.UsernameAvailableData.class);
+		com.anfelisa.user.models.UsernameAvailableModel model_0 = objectMapper.readValue("{" +
+			"\"username\" : \"Annette-" + this.getTestId() + "\"} ", com.anfelisa.user.models.UsernameAvailableModel.class);
+		Data<com.anfelisa.user.models.UsernameAvailableModel> data_0 = new Data<com.anfelisa.user.models.UsernameAvailableModel>(uuid);
+		data_0.setModel(model_0);
 		HttpResponse<com.anfelisa.user.data.UsernameAvailableResponse> response = 
 		this.httpGet(
-			"/users/username?username=" + (data_0.getUsername() != null ? URLEncoder.encode(data_0.getUsername(), StandardCharsets.UTF_8.toString()) : "") + "", 
+			"/users/username?username=" + (data_0.getModel().getUsername() != null ? URLEncoder.encode(data_0.getModel().getUsername(), StandardCharsets.UTF_8.toString()) : "") + "", 
 			null,
 			uuid,
 			com.anfelisa.user.data.UsernameAvailableResponse.class
@@ -120,10 +123,8 @@ public abstract class AbstractUsernameNotAvailableScenario extends BaseScenario 
 				assertFail(x.getMessage());
 			}
 	
-			com.anfelisa.user.data.UsernameAvailableData expectedData = objectMapper.readValue("{" +
-				"\"uuid\" : \"\"," + 
-				"\"available\" : false} ",
-			com.anfelisa.user.data.UsernameAvailableData.class);
+			com.anfelisa.user.models.UsernameAvailableModel expectedData = objectMapper.readValue("{" +
+				"\"available\" : false} ", com.anfelisa.user.models.UsernameAvailableModel.class);
 			
 			com.anfelisa.user.data.UsernameAvailableResponse expected = new com.anfelisa.user.data.UsernameAvailableResponse(expectedData);
 			

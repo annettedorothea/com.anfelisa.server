@@ -16,9 +16,10 @@ import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
+import de.acegen.AbstractModel;
 
 @SuppressWarnings("all")
-public class CardModel implements ICardModel {
+public class CardModel extends AbstractModel {
 
 	private String cardId;
 
@@ -36,6 +37,8 @@ public class CardModel implements ICardModel {
 
 	private Integer priority;
 
+	
+	private Boolean frozen = false;
 
 	public CardModel() {
 	}
@@ -64,7 +67,12 @@ public class CardModel implements ICardModel {
 	public String getCardId() {
 		return this.cardId;
 	}
+	
+	@JsonProperty
 	public void setCardId(String cardId) {
+		if (this.frozen) {
+			throw new RuntimeException("cardId is frozen");
+		}
 		this.cardId = cardId;
 	}
 	
@@ -72,7 +80,12 @@ public class CardModel implements ICardModel {
 	public String getGiven() {
 		return this.given;
 	}
+	
+	@JsonProperty
 	public void setGiven(String given) {
+		if (this.frozen) {
+			throw new RuntimeException("given is frozen");
+		}
 		this.given = given;
 	}
 	
@@ -80,7 +93,12 @@ public class CardModel implements ICardModel {
 	public String getWanted() {
 		return this.wanted;
 	}
+	
+	@JsonProperty
 	public void setWanted(String wanted) {
+		if (this.frozen) {
+			throw new RuntimeException("wanted is frozen");
+		}
 		this.wanted = wanted;
 	}
 	
@@ -88,7 +106,12 @@ public class CardModel implements ICardModel {
 	public String getCardAuthor() {
 		return this.cardAuthor;
 	}
+	
+	@JsonProperty
 	public void setCardAuthor(String cardAuthor) {
+		if (this.frozen) {
+			throw new RuntimeException("cardAuthor is frozen");
+		}
 		this.cardAuthor = cardAuthor;
 	}
 	
@@ -96,7 +119,12 @@ public class CardModel implements ICardModel {
 	public Integer getCardIndex() {
 		return this.cardIndex;
 	}
+	
+	@JsonProperty
 	public void setCardIndex(Integer cardIndex) {
+		if (this.frozen) {
+			throw new RuntimeException("cardIndex is frozen");
+		}
 		this.cardIndex = cardIndex;
 	}
 	
@@ -104,7 +132,12 @@ public class CardModel implements ICardModel {
 	public String getCategoryId() {
 		return this.categoryId;
 	}
+	
+	@JsonProperty
 	public void setCategoryId(String categoryId) {
+		if (this.frozen) {
+			throw new RuntimeException("categoryId is frozen");
+		}
 		this.categoryId = categoryId;
 	}
 	
@@ -112,7 +145,12 @@ public class CardModel implements ICardModel {
 	public String getRootCategoryId() {
 		return this.rootCategoryId;
 	}
+	
+	@JsonProperty
 	public void setRootCategoryId(String rootCategoryId) {
+		if (this.frozen) {
+			throw new RuntimeException("rootCategoryId is frozen");
+		}
 		this.rootCategoryId = rootCategoryId;
 	}
 	
@@ -120,13 +158,24 @@ public class CardModel implements ICardModel {
 	public Integer getPriority() {
 		return this.priority;
 	}
+	
+	@JsonProperty
 	public void setPriority(Integer priority) {
+		if (this.frozen) {
+			throw new RuntimeException("priority is frozen");
+		}
 		this.priority = priority;
 	}
 	
+	
+	
+	@Override
+	public void freeze() {
+		this.frozen = true;
+	}
 
-	public ICardModel deepCopy() {
-		ICardModel copy = new CardModel();
+	public com.anfelisa.card.models.CardModel deepCopy() {
+		com.anfelisa.card.models.CardModel copy = new CardModel();
 		copy.setCardId(this.getCardId());
 		copy.setGiven(this.getGiven());
 		copy.setWanted(this.getWanted());
@@ -136,6 +185,32 @@ public class CardModel implements ICardModel {
 		copy.setRootCategoryId(this.getRootCategoryId());
 		copy.setPriority(this.getPriority());
 		return copy;
+	}
+	
+	public static CardModel generateTestData() {
+		java.util.Random random = new java.util.Random();
+		CardModel testData = new CardModel();
+		testData.setCardId(randomString(random));
+		testData.setGiven(randomString(random));
+		testData.setWanted(randomString(random));
+		testData.setCardAuthor(randomString(random));
+		testData.setCardIndex(random.nextInt(50));
+		testData.setCategoryId(randomString(random));
+		testData.setRootCategoryId(randomString(random));
+		testData.setPriority(random.nextInt(50));
+		return testData;
+	}
+	
+	private static String randomString(java.util.Random random) {
+		String chars = "aaaaaaabcdeeeeeeeffffghiiiiiiijkllllllmmmmnnnnnnnooooooooopqrstttuuuuuuuvxyz";
+		int n = random.nextInt(20) + 5;
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		String string  = sb.toString(); 
+		return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
 	}
 
 }

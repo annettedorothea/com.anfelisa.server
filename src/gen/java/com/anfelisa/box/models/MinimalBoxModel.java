@@ -16,16 +16,19 @@ import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
+import de.acegen.AbstractModel;
 
 @SuppressWarnings("all")
-public class MinimalBoxModel implements IMinimalBoxModel {
+public class MinimalBoxModel extends AbstractModel {
 
 	private String boxId;
 
 	private String categoryId;
 
-	private Boolean reverse = false;
+	private Boolean reverse;
 
+	
+	private Boolean frozen = false;
 
 	public MinimalBoxModel() {
 	}
@@ -44,7 +47,12 @@ public class MinimalBoxModel implements IMinimalBoxModel {
 	public String getBoxId() {
 		return this.boxId;
 	}
+	
+	@JsonProperty
 	public void setBoxId(String boxId) {
+		if (this.frozen) {
+			throw new RuntimeException("boxId is frozen");
+		}
 		this.boxId = boxId;
 	}
 	
@@ -52,7 +60,12 @@ public class MinimalBoxModel implements IMinimalBoxModel {
 	public String getCategoryId() {
 		return this.categoryId;
 	}
+	
+	@JsonProperty
 	public void setCategoryId(String categoryId) {
+		if (this.frozen) {
+			throw new RuntimeException("categoryId is frozen");
+		}
 		this.categoryId = categoryId;
 	}
 	
@@ -60,17 +73,49 @@ public class MinimalBoxModel implements IMinimalBoxModel {
 	public Boolean getReverse() {
 		return this.reverse;
 	}
+	
+	@JsonProperty
 	public void setReverse(Boolean reverse) {
+		if (this.frozen) {
+			throw new RuntimeException("reverse is frozen");
+		}
 		this.reverse = reverse;
 	}
 	
+	
+	
+	@Override
+	public void freeze() {
+		this.frozen = true;
+	}
 
-	public IMinimalBoxModel deepCopy() {
-		IMinimalBoxModel copy = new MinimalBoxModel();
+	public com.anfelisa.box.models.MinimalBoxModel deepCopy() {
+		com.anfelisa.box.models.MinimalBoxModel copy = new MinimalBoxModel();
 		copy.setBoxId(this.getBoxId());
 		copy.setCategoryId(this.getCategoryId());
 		copy.setReverse(this.getReverse());
 		return copy;
+	}
+	
+	public static MinimalBoxModel generateTestData() {
+		java.util.Random random = new java.util.Random();
+		MinimalBoxModel testData = new MinimalBoxModel();
+		testData.setBoxId(randomString(random));
+		testData.setCategoryId(randomString(random));
+		testData.setReverse(random.nextBoolean());
+		return testData;
+	}
+	
+	private static String randomString(java.util.Random random) {
+		String chars = "aaaaaaabcdeeeeeeeffffghiiiiiiijkllllllmmmmnnnnnnnooooooooopqrstttuuuuuuuvxyz";
+		int n = random.nextInt(20) + 5;
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		String string  = sb.toString(); 
+		return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
 	}
 
 }

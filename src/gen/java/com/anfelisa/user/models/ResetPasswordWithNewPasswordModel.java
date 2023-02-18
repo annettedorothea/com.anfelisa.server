@@ -16,9 +16,10 @@ import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
+import de.acegen.AbstractModel;
 
 @SuppressWarnings("all")
-public class ResetPasswordWithNewPasswordModel implements IResetPasswordWithNewPasswordModel {
+public class ResetPasswordWithNewPasswordModel extends AbstractModel {
 
 	private String password;
 
@@ -26,6 +27,8 @@ public class ResetPasswordWithNewPasswordModel implements IResetPasswordWithNewP
 
 	private String userId;
 
+	
+	private Boolean frozen = false;
 
 	public ResetPasswordWithNewPasswordModel() {
 	}
@@ -44,7 +47,12 @@ public class ResetPasswordWithNewPasswordModel implements IResetPasswordWithNewP
 	public String getPassword() {
 		return this.password;
 	}
+	
+	@JsonProperty
 	public void setPassword(String password) {
+		if (this.frozen) {
+			throw new RuntimeException("password is frozen");
+		}
 		this.password = password;
 	}
 	
@@ -52,7 +60,12 @@ public class ResetPasswordWithNewPasswordModel implements IResetPasswordWithNewP
 	public String getToken() {
 		return this.token;
 	}
+	
+	@JsonProperty
 	public void setToken(String token) {
+		if (this.frozen) {
+			throw new RuntimeException("token is frozen");
+		}
 		this.token = token;
 	}
 	
@@ -60,17 +73,49 @@ public class ResetPasswordWithNewPasswordModel implements IResetPasswordWithNewP
 	public String getUserId() {
 		return this.userId;
 	}
+	
+	@JsonProperty
 	public void setUserId(String userId) {
+		if (this.frozen) {
+			throw new RuntimeException("userId is frozen");
+		}
 		this.userId = userId;
 	}
 	
+	
+	
+	@Override
+	public void freeze() {
+		this.frozen = true;
+	}
 
-	public IResetPasswordWithNewPasswordModel deepCopy() {
-		IResetPasswordWithNewPasswordModel copy = new ResetPasswordWithNewPasswordModel();
+	public com.anfelisa.user.models.ResetPasswordWithNewPasswordModel deepCopy() {
+		com.anfelisa.user.models.ResetPasswordWithNewPasswordModel copy = new ResetPasswordWithNewPasswordModel();
 		copy.setPassword(this.getPassword());
 		copy.setToken(this.getToken());
 		copy.setUserId(this.getUserId());
 		return copy;
+	}
+	
+	public static ResetPasswordWithNewPasswordModel generateTestData() {
+		java.util.Random random = new java.util.Random();
+		ResetPasswordWithNewPasswordModel testData = new ResetPasswordWithNewPasswordModel();
+		testData.setPassword(randomString(random));
+		testData.setToken(randomString(random));
+		testData.setUserId(randomString(random));
+		return testData;
+	}
+	
+	private static String randomString(java.util.Random random) {
+		String chars = "aaaaaaabcdeeeeeeeffffghiiiiiiijkllllllmmmmnnnnnnnooooooooopqrstttuuuuuuuvxyz";
+		int n = random.nextInt(20) + 5;
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		String string  = sb.toString(); 
+		return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
 	}
 
 }

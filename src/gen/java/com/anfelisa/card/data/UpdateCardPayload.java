@@ -15,12 +15,11 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class UpdateCardPayload implements IUpdateCardPayload {
+public class UpdateCardPayload {
 	
 	private String cardId;
 	
@@ -31,11 +30,6 @@ public class UpdateCardPayload implements IUpdateCardPayload {
 	public UpdateCardPayload() {
 	}
 	
-	public UpdateCardPayload(com.anfelisa.card.models.ICardUpdateModel data) {
-		cardId = data.getCardId();
-		given = data.getGiven();
-		wanted = data.getWanted();
-	}
 	
 	@JsonProperty
 	public String getCardId() {

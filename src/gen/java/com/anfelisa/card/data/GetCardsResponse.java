@@ -15,26 +15,26 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class GetCardsResponse implements IGetCardsResponse {
+public class GetCardsResponse {
 	
-	private java.util.List<com.anfelisa.card.models.ICardWithInfoModel> cardList;
+	private java.util.List<com.anfelisa.card.models.CardWithInfoModel> cardList;
 	
 	public GetCardsResponse() {
 	}
 	
-	public GetCardsResponse(com.anfelisa.card.models.ICardListModel data) {
-		cardList = data.getCardList();
+	public GetCardsResponse(com.anfelisa.card.models.CardListModel model) {
+		cardList = model.getCardList();
 	}
 	
-	@JsonProperty
-	public java.util.List<com.anfelisa.card.models.ICardWithInfoModel> getCardList() {
+	public java.util.List<com.anfelisa.card.models.CardWithInfoModel> getCardList() {
 		return this.cardList;
 	}
+	
+	
 	
 }
 

@@ -16,9 +16,10 @@ import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
+import de.acegen.AbstractModel;
 
 @SuppressWarnings("all")
-public class CategoryCreationModel implements ICategoryCreationModel {
+public class CategoryCreationModel extends AbstractModel {
 
 	private String username;
 
@@ -36,12 +37,14 @@ public class CategoryCreationModel implements ICategoryCreationModel {
 
 	private String rootCategoryId;
 
-	private Boolean dictionaryLookup = false;
+	private Boolean dictionaryLookup;
 
 	private String givenLanguage;
 
 	private String wantedLanguage;
 
+	
+	private Boolean frozen = false;
 
 	public CategoryCreationModel() {
 	}
@@ -76,7 +79,12 @@ public class CategoryCreationModel implements ICategoryCreationModel {
 	public String getUsername() {
 		return this.username;
 	}
+	
+	@JsonProperty
 	public void setUsername(String username) {
+		if (this.frozen) {
+			throw new RuntimeException("username is frozen");
+		}
 		this.username = username;
 	}
 	
@@ -84,7 +92,12 @@ public class CategoryCreationModel implements ICategoryCreationModel {
 	public String getUserId() {
 		return this.userId;
 	}
+	
+	@JsonProperty
 	public void setUserId(String userId) {
+		if (this.frozen) {
+			throw new RuntimeException("userId is frozen");
+		}
 		this.userId = userId;
 	}
 	
@@ -92,7 +105,12 @@ public class CategoryCreationModel implements ICategoryCreationModel {
 	public String getCategoryId() {
 		return this.categoryId;
 	}
+	
+	@JsonProperty
 	public void setCategoryId(String categoryId) {
+		if (this.frozen) {
+			throw new RuntimeException("categoryId is frozen");
+		}
 		this.categoryId = categoryId;
 	}
 	
@@ -100,7 +118,12 @@ public class CategoryCreationModel implements ICategoryCreationModel {
 	public String getCategoryName() {
 		return this.categoryName;
 	}
+	
+	@JsonProperty
 	public void setCategoryName(String categoryName) {
+		if (this.frozen) {
+			throw new RuntimeException("categoryName is frozen");
+		}
 		this.categoryName = categoryName;
 	}
 	
@@ -108,7 +131,12 @@ public class CategoryCreationModel implements ICategoryCreationModel {
 	public String getCategoryAuthor() {
 		return this.categoryAuthor;
 	}
+	
+	@JsonProperty
 	public void setCategoryAuthor(String categoryAuthor) {
+		if (this.frozen) {
+			throw new RuntimeException("categoryAuthor is frozen");
+		}
 		this.categoryAuthor = categoryAuthor;
 	}
 	
@@ -116,7 +144,12 @@ public class CategoryCreationModel implements ICategoryCreationModel {
 	public Integer getCategoryIndex() {
 		return this.categoryIndex;
 	}
+	
+	@JsonProperty
 	public void setCategoryIndex(Integer categoryIndex) {
+		if (this.frozen) {
+			throw new RuntimeException("categoryIndex is frozen");
+		}
 		this.categoryIndex = categoryIndex;
 	}
 	
@@ -124,7 +157,12 @@ public class CategoryCreationModel implements ICategoryCreationModel {
 	public String getParentCategoryId() {
 		return this.parentCategoryId;
 	}
+	
+	@JsonProperty
 	public void setParentCategoryId(String parentCategoryId) {
+		if (this.frozen) {
+			throw new RuntimeException("parentCategoryId is frozen");
+		}
 		this.parentCategoryId = parentCategoryId;
 	}
 	
@@ -132,7 +170,12 @@ public class CategoryCreationModel implements ICategoryCreationModel {
 	public String getRootCategoryId() {
 		return this.rootCategoryId;
 	}
+	
+	@JsonProperty
 	public void setRootCategoryId(String rootCategoryId) {
+		if (this.frozen) {
+			throw new RuntimeException("rootCategoryId is frozen");
+		}
 		this.rootCategoryId = rootCategoryId;
 	}
 	
@@ -140,7 +183,12 @@ public class CategoryCreationModel implements ICategoryCreationModel {
 	public Boolean getDictionaryLookup() {
 		return this.dictionaryLookup;
 	}
+	
+	@JsonProperty
 	public void setDictionaryLookup(Boolean dictionaryLookup) {
+		if (this.frozen) {
+			throw new RuntimeException("dictionaryLookup is frozen");
+		}
 		this.dictionaryLookup = dictionaryLookup;
 	}
 	
@@ -148,7 +196,12 @@ public class CategoryCreationModel implements ICategoryCreationModel {
 	public String getGivenLanguage() {
 		return this.givenLanguage;
 	}
+	
+	@JsonProperty
 	public void setGivenLanguage(String givenLanguage) {
+		if (this.frozen) {
+			throw new RuntimeException("givenLanguage is frozen");
+		}
 		this.givenLanguage = givenLanguage;
 	}
 	
@@ -156,13 +209,37 @@ public class CategoryCreationModel implements ICategoryCreationModel {
 	public String getWantedLanguage() {
 		return this.wantedLanguage;
 	}
+	
+	@JsonProperty
 	public void setWantedLanguage(String wantedLanguage) {
+		if (this.frozen) {
+			throw new RuntimeException("wantedLanguage is frozen");
+		}
 		this.wantedLanguage = wantedLanguage;
 	}
 	
+	
+	public com.anfelisa.category.models.CategoryModel mapToCategoryModel() {
+		com.anfelisa.category.models.CategoryModel model = new com.anfelisa.category.models.CategoryModel();
+		model.setCategoryId(this.getCategoryId());
+		model.setCategoryName(this.getCategoryName());
+		model.setCategoryAuthor(this.getCategoryAuthor());
+		model.setCategoryIndex(this.getCategoryIndex());
+		model.setParentCategoryId(this.getParentCategoryId());
+		model.setRootCategoryId(this.getRootCategoryId());
+		model.setDictionaryLookup(this.getDictionaryLookup());
+		model.setGivenLanguage(this.getGivenLanguage());
+		model.setWantedLanguage(this.getWantedLanguage());
+		return model;
+	}	
+	
+	@Override
+	public void freeze() {
+		this.frozen = true;
+	}
 
-	public ICategoryCreationModel deepCopy() {
-		ICategoryCreationModel copy = new CategoryCreationModel();
+	public com.anfelisa.category.models.CategoryCreationModel deepCopy() {
+		com.anfelisa.category.models.CategoryCreationModel copy = new CategoryCreationModel();
 		copy.setUsername(this.getUsername());
 		copy.setUserId(this.getUserId());
 		copy.setCategoryId(this.getCategoryId());
@@ -175,6 +252,35 @@ public class CategoryCreationModel implements ICategoryCreationModel {
 		copy.setGivenLanguage(this.getGivenLanguage());
 		copy.setWantedLanguage(this.getWantedLanguage());
 		return copy;
+	}
+	
+	public static CategoryCreationModel generateTestData() {
+		java.util.Random random = new java.util.Random();
+		CategoryCreationModel testData = new CategoryCreationModel();
+		testData.setUsername(randomString(random));
+		testData.setUserId(randomString(random));
+		testData.setCategoryId(randomString(random));
+		testData.setCategoryName(randomString(random));
+		testData.setCategoryAuthor(randomString(random));
+		testData.setCategoryIndex(random.nextInt(50));
+		testData.setParentCategoryId(randomString(random));
+		testData.setRootCategoryId(randomString(random));
+		testData.setDictionaryLookup(random.nextBoolean());
+		testData.setGivenLanguage(randomString(random));
+		testData.setWantedLanguage(randomString(random));
+		return testData;
+	}
+	
+	private static String randomString(java.util.Random random) {
+		String chars = "aaaaaaabcdeeeeeeeffffghiiiiiiijkllllllmmmmnnnnnnnooooooooopqrstttuuuuuuuvxyz";
+		int n = random.nextInt(20) + 5;
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		String string  = sb.toString(); 
+		return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
 	}
 
 }

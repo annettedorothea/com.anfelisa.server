@@ -12,10 +12,11 @@ import java.security.Key;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.user.data.ITokenData;
-import com.anfelisa.user.models.IUserModel;
+import com.anfelisa.user.models.TokenModel;
+import com.anfelisa.user.models.UserModel;
 
 import de.acegen.CustomAppConfiguration;
+import de.acegen.Data;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.ViewProvider;
@@ -33,9 +34,9 @@ public class GetTokenCommand extends AbstractGetTokenCommand {
 	}
 
 	@Override
-	protected ITokenData executeCommand(ITokenData data, PersistenceHandle readonlyHandle) {
-		IUserModel user = daoProvider.getUserDao().selectByUsername(readonlyHandle, data.getUsername());
-		if (user != null && user.getPassword().equals(data.getPassword()) /* && user.getEmailConfirmed() */) {
+	protected Data<TokenModel> executeCommand(Data<TokenModel> data, PersistenceHandle readonlyHandle) {
+		UserModel user = daoProvider.getUserDao().selectByUsername(readonlyHandle, data.getModel().getUsername());
+		if (user != null && user.getPassword().equals(data.getModel().getPassword()) /* && user.getEmailConfirmed() */) {
 			Key key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(appConfiguration.getSecretString()));
 			String token = Jwts.builder()
 					.setIssuer("anfelisa")
@@ -44,7 +45,7 @@ public class GetTokenCommand extends AbstractGetTokenCommand {
 					.claim("username", user.getUsername())
 					.signWith(key)
 					.compact();
-			data.setToken(token);
+			data.getModel().setToken(token);
 		} else {
 			throwSecurityException();
 		}

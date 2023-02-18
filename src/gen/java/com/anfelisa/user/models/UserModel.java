@@ -16,9 +16,10 @@ import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
+import de.acegen.AbstractModel;
 
 @SuppressWarnings("all")
-public class UserModel implements IUserModel {
+public class UserModel extends AbstractModel {
 
 	private String userId;
 
@@ -30,8 +31,10 @@ public class UserModel implements IUserModel {
 
 	private String role;
 
-	private Boolean emailConfirmed = false;
+	private Boolean emailConfirmed;
 
+	
+	private Boolean frozen = false;
 
 	public UserModel() {
 	}
@@ -56,7 +59,12 @@ public class UserModel implements IUserModel {
 	public String getUserId() {
 		return this.userId;
 	}
+	
+	@JsonProperty
 	public void setUserId(String userId) {
+		if (this.frozen) {
+			throw new RuntimeException("userId is frozen");
+		}
 		this.userId = userId;
 	}
 	
@@ -64,7 +72,12 @@ public class UserModel implements IUserModel {
 	public String getUsername() {
 		return this.username;
 	}
+	
+	@JsonProperty
 	public void setUsername(String username) {
+		if (this.frozen) {
+			throw new RuntimeException("username is frozen");
+		}
 		this.username = username;
 	}
 	
@@ -72,7 +85,12 @@ public class UserModel implements IUserModel {
 	public String getPassword() {
 		return this.password;
 	}
+	
+	@JsonProperty
 	public void setPassword(String password) {
+		if (this.frozen) {
+			throw new RuntimeException("password is frozen");
+		}
 		this.password = password;
 	}
 	
@@ -80,7 +98,12 @@ public class UserModel implements IUserModel {
 	public String getEmail() {
 		return this.email;
 	}
+	
+	@JsonProperty
 	public void setEmail(String email) {
+		if (this.frozen) {
+			throw new RuntimeException("email is frozen");
+		}
 		this.email = email;
 	}
 	
@@ -88,7 +111,12 @@ public class UserModel implements IUserModel {
 	public String getRole() {
 		return this.role;
 	}
+	
+	@JsonProperty
 	public void setRole(String role) {
+		if (this.frozen) {
+			throw new RuntimeException("role is frozen");
+		}
 		this.role = role;
 	}
 	
@@ -96,13 +124,24 @@ public class UserModel implements IUserModel {
 	public Boolean getEmailConfirmed() {
 		return this.emailConfirmed;
 	}
+	
+	@JsonProperty
 	public void setEmailConfirmed(Boolean emailConfirmed) {
+		if (this.frozen) {
+			throw new RuntimeException("emailConfirmed is frozen");
+		}
 		this.emailConfirmed = emailConfirmed;
 	}
 	
+	
+	
+	@Override
+	public void freeze() {
+		this.frozen = true;
+	}
 
-	public IUserModel deepCopy() {
-		IUserModel copy = new UserModel();
+	public com.anfelisa.user.models.UserModel deepCopy() {
+		com.anfelisa.user.models.UserModel copy = new UserModel();
 		copy.setUserId(this.getUserId());
 		copy.setUsername(this.getUsername());
 		copy.setPassword(this.getPassword());
@@ -110,6 +149,30 @@ public class UserModel implements IUserModel {
 		copy.setRole(this.getRole());
 		copy.setEmailConfirmed(this.getEmailConfirmed());
 		return copy;
+	}
+	
+	public static UserModel generateTestData() {
+		java.util.Random random = new java.util.Random();
+		UserModel testData = new UserModel();
+		testData.setUserId(randomString(random));
+		testData.setUsername(randomString(random));
+		testData.setPassword(randomString(random));
+		testData.setEmail(randomString(random));
+		testData.setRole(randomString(random));
+		testData.setEmailConfirmed(random.nextBoolean());
+		return testData;
+	}
+	
+	private static String randomString(java.util.Random random) {
+		String chars = "aaaaaaabcdeeeeeeeffffghiiiiiiijkllllllmmmmnnnnnnnooooooooopqrstttuuuuuuuvxyz";
+		int n = random.nextInt(20) + 5;
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		String string  = sb.toString(); 
+		return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
 	}
 
 }

@@ -7,15 +7,14 @@
 
 package com.anfelisa.category.views;
 
-
-import de.acegen.IDataContainer;
+import de.acegen.Data;
 import de.acegen.PersistenceHandle;
-import com.anfelisa.category.data.IUserToCategoryInvitationData;
+import com.anfelisa.category.models.UserToCategoryInvitationModel;
 
 @SuppressWarnings("all")
 public interface IBoxInvitationView {
 
-	void createBox(IUserToCategoryInvitationData data, PersistenceHandle handle);
+	void createBox(Data<com.anfelisa.category.models.UserToCategoryInvitationModel> data, PersistenceHandle handle);
 	
 }
 

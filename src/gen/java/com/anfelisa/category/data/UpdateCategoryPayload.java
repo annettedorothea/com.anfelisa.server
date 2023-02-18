@@ -15,12 +15,11 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class UpdateCategoryPayload implements IUpdateCategoryPayload {
+public class UpdateCategoryPayload {
 	
 	private String categoryId;
 	
@@ -29,10 +28,6 @@ public class UpdateCategoryPayload implements IUpdateCategoryPayload {
 	public UpdateCategoryPayload() {
 	}
 	
-	public UpdateCategoryPayload(com.anfelisa.category.models.ICategoryUpdateModel data) {
-		categoryId = data.getCategoryId();
-		categoryName = data.getCategoryName();
-	}
 	
 	@JsonProperty
 	public String getCategoryId() {

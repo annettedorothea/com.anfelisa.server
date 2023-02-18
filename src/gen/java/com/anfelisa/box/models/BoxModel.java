@@ -16,9 +16,10 @@ import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
+import de.acegen.AbstractModel;
 
 @SuppressWarnings("all")
-public class BoxModel implements IBoxModel {
+public class BoxModel extends AbstractModel {
 
 	private String boxId;
 
@@ -30,10 +31,12 @@ public class BoxModel implements IBoxModel {
 
 	private Integer maxCardsPerDay;
 
-	private Boolean reverse = false;
+	private Boolean reverse;
 
-	private Boolean archived = false;
+	private Boolean archived;
 
+	
+	private Boolean frozen = false;
 
 	public BoxModel() {
 	}
@@ -60,7 +63,12 @@ public class BoxModel implements IBoxModel {
 	public String getBoxId() {
 		return this.boxId;
 	}
+	
+	@JsonProperty
 	public void setBoxId(String boxId) {
+		if (this.frozen) {
+			throw new RuntimeException("boxId is frozen");
+		}
 		this.boxId = boxId;
 	}
 	
@@ -68,7 +76,12 @@ public class BoxModel implements IBoxModel {
 	public String getUserId() {
 		return this.userId;
 	}
+	
+	@JsonProperty
 	public void setUserId(String userId) {
+		if (this.frozen) {
+			throw new RuntimeException("userId is frozen");
+		}
 		this.userId = userId;
 	}
 	
@@ -76,7 +89,12 @@ public class BoxModel implements IBoxModel {
 	public String getCategoryId() {
 		return this.categoryId;
 	}
+	
+	@JsonProperty
 	public void setCategoryId(String categoryId) {
+		if (this.frozen) {
+			throw new RuntimeException("categoryId is frozen");
+		}
 		this.categoryId = categoryId;
 	}
 	
@@ -84,7 +102,12 @@ public class BoxModel implements IBoxModel {
 	public Integer getMaxInterval() {
 		return this.maxInterval;
 	}
+	
+	@JsonProperty
 	public void setMaxInterval(Integer maxInterval) {
+		if (this.frozen) {
+			throw new RuntimeException("maxInterval is frozen");
+		}
 		this.maxInterval = maxInterval;
 	}
 	
@@ -92,7 +115,12 @@ public class BoxModel implements IBoxModel {
 	public Integer getMaxCardsPerDay() {
 		return this.maxCardsPerDay;
 	}
+	
+	@JsonProperty
 	public void setMaxCardsPerDay(Integer maxCardsPerDay) {
+		if (this.frozen) {
+			throw new RuntimeException("maxCardsPerDay is frozen");
+		}
 		this.maxCardsPerDay = maxCardsPerDay;
 	}
 	
@@ -100,7 +128,12 @@ public class BoxModel implements IBoxModel {
 	public Boolean getReverse() {
 		return this.reverse;
 	}
+	
+	@JsonProperty
 	public void setReverse(Boolean reverse) {
+		if (this.frozen) {
+			throw new RuntimeException("reverse is frozen");
+		}
 		this.reverse = reverse;
 	}
 	
@@ -108,13 +141,31 @@ public class BoxModel implements IBoxModel {
 	public Boolean getArchived() {
 		return this.archived;
 	}
+	
+	@JsonProperty
 	public void setArchived(Boolean archived) {
+		if (this.frozen) {
+			throw new RuntimeException("archived is frozen");
+		}
 		this.archived = archived;
 	}
 	
+	
+	public com.anfelisa.box.models.MinimalBoxModel mapToMinimalBoxModel() {
+		com.anfelisa.box.models.MinimalBoxModel model = new com.anfelisa.box.models.MinimalBoxModel();
+		model.setBoxId(this.getBoxId());
+		model.setCategoryId(this.getCategoryId());
+		model.setReverse(this.getReverse());
+		return model;
+	}	
+	
+	@Override
+	public void freeze() {
+		this.frozen = true;
+	}
 
-	public IBoxModel deepCopy() {
-		IBoxModel copy = new BoxModel();
+	public com.anfelisa.box.models.BoxModel deepCopy() {
+		com.anfelisa.box.models.BoxModel copy = new BoxModel();
 		copy.setBoxId(this.getBoxId());
 		copy.setUserId(this.getUserId());
 		copy.setCategoryId(this.getCategoryId());
@@ -123,6 +174,31 @@ public class BoxModel implements IBoxModel {
 		copy.setReverse(this.getReverse());
 		copy.setArchived(this.getArchived());
 		return copy;
+	}
+	
+	public static BoxModel generateTestData() {
+		java.util.Random random = new java.util.Random();
+		BoxModel testData = new BoxModel();
+		testData.setBoxId(randomString(random));
+		testData.setUserId(randomString(random));
+		testData.setCategoryId(randomString(random));
+		testData.setMaxInterval(random.nextInt(50));
+		testData.setMaxCardsPerDay(random.nextInt(50));
+		testData.setReverse(random.nextBoolean());
+		testData.setArchived(random.nextBoolean());
+		return testData;
+	}
+	
+	private static String randomString(java.util.Random random) {
+		String chars = "aaaaaaabcdeeeeeeeffffghiiiiiiijkllllllmmmmnnnnnnnooooooooopqrstttuuuuuuuvxyz";
+		int n = random.nextInt(20) + 5;
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		String string  = sb.toString(); 
+		return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
 	}
 
 }

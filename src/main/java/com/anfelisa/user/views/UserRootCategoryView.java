@@ -16,8 +16,9 @@
 
 package com.anfelisa.user.views;
 
-import com.anfelisa.user.data.IDeleteUserData;
+import com.anfelisa.user.models.DeleteUserModel;
 
+import de.acegen.Data;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceHandle;
 
@@ -30,8 +31,8 @@ public class UserRootCategoryView implements IUserRootCategoryView {
 		this.daoProvider = daoProvider;
 	}
 
-	public void deleteAll(IDeleteUserData data, PersistenceHandle handle) {
-		for (String rootCategoryId : data.getRootCategoryIds()) {
+	public void deleteAll(Data<DeleteUserModel> data, PersistenceHandle handle) {
+		for (String rootCategoryId : data.getModel().getRootCategoryIds()) {
 			daoProvider.getCardDao().deleteByRootCategoryId(handle, rootCategoryId);
 			daoProvider.getCategoryDao().deleteByRootCategoryId(handle, rootCategoryId);
 			daoProvider.getCategoryDao().deleteByCategoryId(handle, rootCategoryId);

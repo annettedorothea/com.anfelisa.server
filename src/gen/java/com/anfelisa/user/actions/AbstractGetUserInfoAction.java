@@ -14,9 +14,9 @@ import org.slf4j.LoggerFactory;
 
 import org.apache.commons.lang3.StringUtils;
 
+import de.acegen.Data;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
-import de.acegen.IDataContainer;
 import de.acegen.ViewProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -24,11 +24,8 @@ import de.acegen.ReadAction;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 
-import com.anfelisa.user.data.IUserInfoData;
-import com.anfelisa.user.data.UserInfoData;
-
 @SuppressWarnings("unused")
-public abstract class AbstractGetUserInfoAction extends ReadAction<IUserInfoData> {
+public abstract class AbstractGetUserInfoAction extends ReadAction<com.anfelisa.user.models.UserInfoModel> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractGetUserInfoAction.class);
 	
@@ -37,10 +34,10 @@ public abstract class AbstractGetUserInfoAction extends ReadAction<IUserInfoData
 		super("com.anfelisa.user.actions.GetUserInfoAction", persistenceConnection, appConfiguration, daoProvider, viewProvider);
 	}
 
-	protected abstract IUserInfoData loadDataForGetRequest(IUserInfoData data, PersistenceHandle readonlyHandle);
+	protected abstract Data<com.anfelisa.user.models.UserInfoModel> loadDataForGetRequest(Data<com.anfelisa.user.models.UserInfoModel> data, PersistenceHandle readonlyHandle);
 
 	@Override
-	protected IUserInfoData initActionDataFromSquishyDataProvider(IUserInfoData data) {
+	protected Data<com.anfelisa.user.models.UserInfoModel> initActionDataFromSquishyDataProvider(Data<com.anfelisa.user.models.UserInfoModel> data) {
 		LocalDateTime systemTime = SquishyDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
 			data.setSystemTime(systemTime);
@@ -48,7 +45,7 @@ public abstract class AbstractGetUserInfoAction extends ReadAction<IUserInfoData
 		return data;
 	}
 
-	public IUserInfoData initActionData(IUserInfoData data) {
+	public Data<com.anfelisa.user.models.UserInfoModel> initActionData(Data<com.anfelisa.user.models.UserInfoModel> data) {
 		return data;
 	}
 

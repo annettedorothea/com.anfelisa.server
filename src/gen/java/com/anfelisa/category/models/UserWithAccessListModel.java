@@ -16,21 +16,24 @@ import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
+import de.acegen.AbstractModel;
 
 @SuppressWarnings("all")
-public class UserWithAccessListModel implements IUserWithAccessListModel {
+public class UserWithAccessListModel extends AbstractModel {
 
 	private String categoryId;
 
-	private java.util.List<com.anfelisa.category.models.IUserWithAccessModel> userList;
+	private java.util.List<com.anfelisa.category.models.UserWithAccessModel> userList;
 
+	
+	private Boolean frozen = false;
 
 	public UserWithAccessListModel() {
 	}
 
 	public UserWithAccessListModel(
 		@JsonProperty("categoryId") String categoryId,
-		@JsonProperty("userList") java.util.List<com.anfelisa.category.models.IUserWithAccessModel> userList
+		@JsonProperty("userList") java.util.List<com.anfelisa.category.models.UserWithAccessModel> userList
 	) {
 		this.categoryId = categoryId;
 		this.userList = userList;
@@ -40,30 +43,77 @@ public class UserWithAccessListModel implements IUserWithAccessListModel {
 	public String getCategoryId() {
 		return this.categoryId;
 	}
+	
+	@JsonProperty
 	public void setCategoryId(String categoryId) {
+		if (this.frozen) {
+			throw new RuntimeException("categoryId is frozen");
+		}
 		this.categoryId = categoryId;
 	}
 	
 	@JsonProperty
-	public java.util.List<com.anfelisa.category.models.IUserWithAccessModel> getUserList() {
+	public java.util.List<com.anfelisa.category.models.UserWithAccessModel> getUserList() {
 		return this.userList;
 	}
-	public void setUserList(java.util.List<com.anfelisa.category.models.IUserWithAccessModel> userList) {
+	
+	@JsonProperty
+	public void setUserList(java.util.List<com.anfelisa.category.models.UserWithAccessModel> userList) {
+		if (this.frozen) {
+			throw new RuntimeException("userList is frozen");
+		}
 		this.userList = userList;
 	}
 	
+	
+	
+	@Override
+	public void freeze() {
+		this.frozen = true;
+		if (this.userList != null) {
+			for ( int i = 0; i < userList.size(); i++ ) {
+				userList.get(i).freeze();
+			}
+		}
+	}
 
-	public IUserWithAccessListModel deepCopy() {
-		IUserWithAccessListModel copy = new UserWithAccessListModel();
+	public com.anfelisa.category.models.UserWithAccessListModel deepCopy() {
+		com.anfelisa.category.models.UserWithAccessListModel copy = new UserWithAccessListModel();
 		copy.setCategoryId(this.getCategoryId());
-		List<com.anfelisa.category.models.IUserWithAccessModel> userListCopy = new ArrayList<com.anfelisa.category.models.IUserWithAccessModel>();
+		List<com.anfelisa.category.models.UserWithAccessModel> userListCopy = new ArrayList<com.anfelisa.category.models.UserWithAccessModel>();
 		if (this.getUserList() != null) {
-			for(com.anfelisa.category.models.IUserWithAccessModel item: this.getUserList()) {
+			for(com.anfelisa.category.models.UserWithAccessModel item: this.getUserList()) {
 				userListCopy.add(item.deepCopy());
 			}
 		}
 		copy.setUserList(userListCopy);
 		return copy;
+	}
+	
+	public static UserWithAccessListModel generateTestData() {
+		java.util.Random random = new java.util.Random();
+		int n;
+		UserWithAccessListModel testData = new UserWithAccessListModel();
+		testData.setCategoryId(randomString(random));
+		java.util.List<com.anfelisa.category.models.UserWithAccessModel> userListList = new java.util.ArrayList<com.anfelisa.category.models.UserWithAccessModel>();
+		n = random.nextInt(20) + 1;
+		for ( int i = 0; i < n; i++ ) {
+			userListList.add(com.anfelisa.category.models.UserWithAccessModel.generateTestData());
+		}
+		testData.setUserList(userListList);
+		return testData;
+	}
+	
+	private static String randomString(java.util.Random random) {
+		String chars = "aaaaaaabcdeeeeeeeffffghiiiiiiijkllllllmmmmnnnnnnnooooooooopqrstttuuuuuuuvxyz";
+		int n = random.nextInt(20) + 5;
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		String string  = sb.toString(); 
+		return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
 	}
 
 }

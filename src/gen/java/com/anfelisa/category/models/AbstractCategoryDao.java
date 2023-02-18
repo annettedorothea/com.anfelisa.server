@@ -18,33 +18,32 @@ import java.util.Optional;
 @SuppressWarnings("all")
 public class AbstractCategoryDao extends AbstractDao {
 	
-	public void insert(PersistenceHandle handle, ICategoryModel categoryModel) {
+	public void insert(PersistenceHandle handle, com.anfelisa.category.models.CategoryModel categoryModel) {
 		Update statement = handle.getHandle().createUpdate("INSERT INTO \"category\" (categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage) VALUES (:categoryid, :categoryname, :categoryauthor, :categoryindex, :parentcategoryid, :rootcategoryid, :dictionarylookup, :givenlanguage, :wantedlanguage)");
-		statement.bind("categoryid",  categoryModel.getCategoryId() );
-		statement.bind("categoryname",  categoryModel.getCategoryName() );
-		statement.bind("categoryauthor",  categoryModel.getCategoryAuthor() );
-		statement.bind("categoryindex",  categoryModel.getCategoryIndex() );
-		statement.bind("parentcategoryid",  categoryModel.getParentCategoryId() );
-		statement.bind("rootcategoryid",  categoryModel.getRootCategoryId() );
-		statement.bind("dictionarylookup",  categoryModel.getDictionaryLookup() );
-		statement.bind("givenlanguage",  categoryModel.getGivenLanguage() );
-		statement.bind("wantedlanguage",  categoryModel.getWantedLanguage() );
+		statement.bind("categoryid", categoryModel.getCategoryId());
+		statement.bind("categoryname", categoryModel.getCategoryName());
+		statement.bind("categoryauthor", categoryModel.getCategoryAuthor());
+		statement.bind("categoryindex", categoryModel.getCategoryIndex());
+		statement.bind("parentcategoryid", categoryModel.getParentCategoryId());
+		statement.bind("rootcategoryid", categoryModel.getRootCategoryId());
+		statement.bind("dictionarylookup", categoryModel.getDictionaryLookup());
+		statement.bind("givenlanguage", categoryModel.getGivenLanguage());
+		statement.bind("wantedlanguage", categoryModel.getWantedLanguage());
 		statement.execute();
 	}
 	
 	
-	public void updateByCategoryId(PersistenceHandle handle, ICategoryModel categoryModel) {
+	public void updateByCategoryId(PersistenceHandle handle, com.anfelisa.category.models.CategoryModel categoryModel) {
 		Update statement = handle.getHandle().createUpdate("UPDATE \"category\" SET categoryid = :categoryid, categoryname = :categoryname, categoryauthor = :categoryauthor, categoryindex = :categoryindex, parentcategoryid = :parentcategoryid, rootcategoryid = :rootcategoryid, dictionarylookup = :dictionarylookup, givenlanguage = :givenlanguage, wantedlanguage = :wantedlanguage WHERE categoryid = :categoryid");
-		statement.bind("categoryid",  categoryModel.getCategoryId() );
-		statement.bind("categoryname",  categoryModel.getCategoryName() );
-		statement.bind("categoryauthor",  categoryModel.getCategoryAuthor() );
-		statement.bind("categoryindex",  categoryModel.getCategoryIndex() );
-		statement.bind("parentcategoryid",  categoryModel.getParentCategoryId() );
-		statement.bind("rootcategoryid",  categoryModel.getRootCategoryId() );
-		statement.bind("dictionarylookup",  categoryModel.getDictionaryLookup() );
-		statement.bind("givenlanguage",  categoryModel.getGivenLanguage() );
-		statement.bind("wantedlanguage",  categoryModel.getWantedLanguage() );
-		statement.bind("categoryid",  categoryModel.getCategoryId()  );
+		statement.bind("categoryid", categoryModel.getCategoryId());
+		statement.bind("categoryname", categoryModel.getCategoryName());
+		statement.bind("categoryauthor", categoryModel.getCategoryAuthor());
+		statement.bind("categoryindex", categoryModel.getCategoryIndex());
+		statement.bind("parentcategoryid", categoryModel.getParentCategoryId());
+		statement.bind("rootcategoryid", categoryModel.getRootCategoryId());
+		statement.bind("dictionarylookup", categoryModel.getDictionaryLookup());
+		statement.bind("givenlanguage", categoryModel.getGivenLanguage());
+		statement.bind("wantedlanguage", categoryModel.getWantedLanguage());
 		statement.execute();
 	}
 
@@ -54,16 +53,16 @@ public class AbstractCategoryDao extends AbstractDao {
 		statement.execute();
 	}
 
-	public ICategoryModel selectByCategoryId(PersistenceHandle handle, String categoryId) {
-		Optional<ICategoryModel> optional = handle.getHandle().createQuery("SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage FROM \"category\" WHERE categoryid = :categoryid")
+	public com.anfelisa.category.models.CategoryModel selectByCategoryId(PersistenceHandle handle, String categoryId) {
+		Optional<com.anfelisa.category.models.CategoryModel> optional = handle.getHandle().createQuery("SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage FROM \"category\" WHERE categoryid = :categoryid")
 			.bind("categoryid", categoryId)
 			.map(new CategoryMapper())
 			.findFirst();
 		return optional.isPresent() ? optional.get() : null;
 	}
 	
-	public ICategoryModel selectByPrimaryKey(PersistenceHandle handle, String categoryId) {
-		Optional<ICategoryModel> optional = handle.getHandle().createQuery("SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage FROM \"category\" WHERE categoryid = :categoryid")
+	public com.anfelisa.category.models.CategoryModel selectByPrimaryKey(PersistenceHandle handle, String categoryId) {
+		Optional<com.anfelisa.category.models.CategoryModel> optional = handle.getHandle().createQuery("SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage FROM \"category\" WHERE categoryid = :categoryid")
 			.bind("categoryid", categoryId)
 			.map(new CategoryMapper())
 			.findFirst();
@@ -86,7 +85,7 @@ public class AbstractCategoryDao extends AbstractDao {
 		return handle.getHandle().createQuery(sql).mapTo(Integer.class).first();
 	}
 
-	public List<ICategoryModel> selectAll(PersistenceHandle handle) {
+	public List<com.anfelisa.category.models.CategoryModel> selectAll(PersistenceHandle handle) {
 		return handle.getHandle().createQuery("SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage FROM \"category\"")
 			.map(new CategoryMapper())
 			.list();

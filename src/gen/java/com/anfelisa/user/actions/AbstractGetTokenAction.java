@@ -9,6 +9,7 @@ package com.anfelisa.user.actions;
 
 import java.time.LocalDateTime;
 
+import de.acegen.Data;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.ICommand;
 import de.acegen.IDaoProvider;
@@ -17,13 +18,12 @@ import de.acegen.SquishyDataProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.WriteAction;
 
-import com.anfelisa.user.data.ITokenData;
 import com.anfelisa.user.commands.GetTokenCommand;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractGetTokenAction extends WriteAction<ITokenData> {
+public abstract class AbstractGetTokenAction extends WriteAction<com.anfelisa.user.models.TokenModel> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractGetTokenAction.class);
 
@@ -33,12 +33,12 @@ public abstract class AbstractGetTokenAction extends WriteAction<ITokenData> {
 	}
 
 	@Override
-	public ICommand<ITokenData> getCommand() {
+	public ICommand<com.anfelisa.user.models.TokenModel> getCommand() {
 		return new GetTokenCommand(daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	@Override
-	protected ITokenData initActionDataFromSquishyDataProvider(ITokenData data) {
+	protected Data<com.anfelisa.user.models.TokenModel> initActionDataFromSquishyDataProvider(Data<com.anfelisa.user.models.TokenModel> data) {
 		LocalDateTime systemTime = SquishyDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
 			data.setSystemTime(systemTime);
@@ -46,7 +46,7 @@ public abstract class AbstractGetTokenAction extends WriteAction<ITokenData> {
 		return data;
 	}
 
-	public ITokenData initActionData(ITokenData data) {
+	public Data<com.anfelisa.user.models.TokenModel> initActionData(Data<com.anfelisa.user.models.TokenModel> data) {
 		return data;
 	}
 

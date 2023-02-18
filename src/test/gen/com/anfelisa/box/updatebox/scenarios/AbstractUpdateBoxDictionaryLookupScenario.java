@@ -25,6 +25,9 @@ import de.acegen.BaseScenario;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.HttpResponse;
+import de.acegen.Data;
+
+import com.fasterxml.jackson.core.type.TypeReference;
 
 @SuppressWarnings("unused")
 public abstract class AbstractUpdateBoxDictionaryLookupScenario extends BaseScenario {
@@ -43,13 +46,13 @@ public abstract class AbstractUpdateBoxDictionaryLookupScenario extends BaseScen
 				"\"password\" : \"password\"," + 
 				"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 					com.anfelisa.user.data.RegisterUserPayload.class);
-			com.anfelisa.user.data.UserRegistrationData data_0 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"email\" : \"annette.pohl@anfelisa.de\"," + 
-			"\"language\" : \"de\"," + 
-			"\"password\" : \"password\"," + 
-			"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
-					com.anfelisa.user.data.UserRegistrationData.class);
+			com.anfelisa.user.models.UserRegistrationModel model_0 = objectMapper.readValue("{" +
+				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"password\"," + 
+				"\"username\" : \"Annette-" + this.getTestId() + "\"} ", com.anfelisa.user.models.UserRegistrationModel.class);
+			Data<com.anfelisa.user.models.UserRegistrationModel> data_0 = new Data<com.anfelisa.user.models.UserRegistrationModel>(uuid);
+			data_0.setModel(model_0);
 			HttpResponse<Object> response_0 = 
 			this.httpPost(
 				"/users/register", 
@@ -78,12 +81,12 @@ public abstract class AbstractUpdateBoxDictionaryLookupScenario extends BaseScen
 				"\"dictionaryLookup\" : false," + 
 				"\"maxCardsPerDay\" : 10} ",
 					com.anfelisa.box.data.CreateBoxPayload.class);
-			com.anfelisa.box.data.BoxCreationData data_1 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"categoryName\" : \"cat\"," + 
-			"\"dictionaryLookup\" : false," + 
-			"\"maxCardsPerDay\" : 10} ",
-					com.anfelisa.box.data.BoxCreationData.class);
+			com.anfelisa.box.models.BoxCreationModel model_1 = objectMapper.readValue("{" +
+				"\"categoryName\" : \"cat\"," + 
+				"\"dictionaryLookup\" : false," + 
+				"\"maxCardsPerDay\" : 10} ", com.anfelisa.box.models.BoxCreationModel.class);
+			Data<com.anfelisa.box.models.BoxCreationModel> data_1 = new Data<com.anfelisa.box.models.BoxCreationModel>(uuid);
+			data_1.setModel(model_1);
 			HttpResponse<Object> response_1 = 
 			this.httpPost(
 				"/box/create", 
@@ -118,16 +121,16 @@ public abstract class AbstractUpdateBoxDictionaryLookupScenario extends BaseScen
 			"\"givenLanguage\" : \"de\"," + 
 			"\"wantedLanguage\" : \"en\"} ",
 				com.anfelisa.box.data.UpdateBoxPayload.class);
-		com.anfelisa.box.data.BoxUpdateData data_0 = objectMapper.readValue("{" +
-		"\"uuid\" : \"" + uuid + "\"," + 
-		"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
-		"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
-		"\"categoryName\" : \"cat\"," + 
-		"\"maxCardsPerDay\" : 10," + 
-		"\"dictionaryLookup\" : true," + 
-		"\"givenLanguage\" : \"de\"," + 
-		"\"wantedLanguage\" : \"en\"} ",
-				com.anfelisa.box.data.BoxUpdateData.class);
+		com.anfelisa.box.models.BoxUpdateModel model_0 = objectMapper.readValue("{" +
+			"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
+			"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+			"\"categoryName\" : \"cat\"," + 
+			"\"maxCardsPerDay\" : 10," + 
+			"\"dictionaryLookup\" : true," + 
+			"\"givenLanguage\" : \"de\"," + 
+			"\"wantedLanguage\" : \"en\"} ", com.anfelisa.box.models.BoxUpdateModel.class);
+		Data<com.anfelisa.box.models.BoxUpdateModel> data_0 = new Data<com.anfelisa.box.models.BoxUpdateModel>(uuid);
+		data_0.setModel(model_0);
 		HttpResponse<Object> response = 
 		this.httpPut(
 			"/box/update", 
@@ -182,9 +185,9 @@ public abstract class AbstractUpdateBoxDictionaryLookupScenario extends BaseScen
 	
 	
 	private void categoryWasUpdated() throws Exception {
-		com.anfelisa.category.models.ICategoryModel actual = daoProvider.getCategoryDao().selectByCategoryId(handle, "boxId-" + this.getTestId() + "");
+		com.anfelisa.category.models.CategoryModel actual = daoProvider.getCategoryDao().selectByCategoryId(handle, "boxId-" + this.getTestId() + "");
 		
-		com.anfelisa.category.models.ICategoryModel expected = objectMapper.readValue("{" +
+		com.anfelisa.category.models.CategoryModel expected = objectMapper.readValue("{" +
 			"\"categoryAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
 			"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 			"\"categoryIndex\" : null," + 

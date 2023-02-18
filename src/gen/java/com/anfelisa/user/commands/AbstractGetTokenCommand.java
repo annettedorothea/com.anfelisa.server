@@ -7,6 +7,7 @@
 
 package com.anfelisa.user.commands;
 
+import de.acegen.Data;
 import de.acegen.Command;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
@@ -14,10 +15,10 @@ import de.acegen.ViewProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.Event;
 
-import com.anfelisa.user.data.ITokenData;
+import com.anfelisa.user.models.TokenModel;
 
 @SuppressWarnings("unused")
-public abstract class AbstractGetTokenCommand extends Command<ITokenData> {
+public abstract class AbstractGetTokenCommand extends Command<com.anfelisa.user.models.TokenModel> {
 
 	public AbstractGetTokenCommand(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
 		super("com.anfelisa.user.commands.GetTokenCommand", daoProvider, viewProvider, appConfiguration);
@@ -25,13 +26,14 @@ public abstract class AbstractGetTokenCommand extends Command<ITokenData> {
 
 	
 	@Override
-	public void addEventsToTimeline(ITokenData data, PersistenceHandle timelineHandle) {
+	public void addEventsToTimeline(Data<com.anfelisa.user.models.TokenModel> data, PersistenceHandle timelineHandle) {
 		if (appConfiguration.getConfig().writeTimeline()) {
 		}
 	}
 	
 	@Override
-	public void publishEvents(ITokenData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	public void publishEvents(Data<com.anfelisa.user.models.TokenModel> data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+		data.freeze();
 	}
 	
 }

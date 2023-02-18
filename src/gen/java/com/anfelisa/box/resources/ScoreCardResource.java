@@ -28,7 +28,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
-import de.acegen.IDataContainer;
 import de.acegen.ViewProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -36,6 +35,7 @@ import de.acegen.ReadAction;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.Config;
+import de.acegen.Data;
 
 import de.acegen.auth.AuthUser;
 import io.dropwizard.auth.Auth;
@@ -52,8 +52,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.DELETE;
 
-import com.anfelisa.box.data.IScoreCardData;
-import com.anfelisa.box.data.ScoreCardData;
+import com.anfelisa.box.models.ScoreCardModel;
 
 import de.acegen.Resource;
 
@@ -86,7 +85,7 @@ public class ScoreCardResource extends Resource {
 	public Response scoreCardResource(
 			@Auth AuthUser authUser, 
 			@QueryParam("uuid") String uuid, 
-			IScoreCardData payload) 
+			com.anfelisa.box.data.ScoreCardPayload payload) 
 			throws JsonProcessingException {
 		if (payload == null) {
 			return badRequest("payload must not be null");
@@ -95,20 +94,22 @@ public class ScoreCardResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.box.data.IScoreCardData data = new ScoreCardData(uuid);
+			Data<com.anfelisa.box.models.ScoreCardModel> data = new Data<com.anfelisa.box.models.ScoreCardModel>(uuid);
+			com.anfelisa.box.models.ScoreCardModel model = new com.anfelisa.box.models.ScoreCardModel();
 			if (StringUtils.isBlank(payload.getScheduledCardId()) || "null".equals(payload.getScheduledCardId())) {
 				return badRequest("scheduledCardId is mandatory");
 			}
-			data.setScheduledCardId(payload.getScheduledCardId());
+			model.setScheduledCardId(payload.getScheduledCardId());
 			if (payload.getScoredCardQuality() == null) {
 				return badRequest("scoredCardQuality is mandatory");
 			}
-			data.setScoredCardQuality(payload.getScoredCardQuality());
-			data.setUserId(authUser.getUserId());
+			model.setScoredCardQuality(payload.getScoredCardQuality());
+			model.setUserId(authUser.getUserId());
 			
+			data.setModel(model);
 			com.anfelisa.box.actions.ScoreCardAction action = new com.anfelisa.box.actions.ScoreCardAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
 			data = action.apply(data);
-			return Response.ok(new com.anfelisa.box.data.ScoreCardResponse(data)).build();
+			return Response.ok(new com.anfelisa.box.data.ScoreCardResponse(data.getModel())).build();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());
 			if (Config.DEV.equals(appConfiguration.getConfig().getMode())) {

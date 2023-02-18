@@ -10,11 +10,12 @@ package com.anfelisa.category.commands;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.category.data.ICategoryMoveData;
-import com.anfelisa.category.models.ICategoryModel;
-import com.anfelisa.category.models.IUserAccessToCategoryModel;
+import com.anfelisa.category.models.CategoryModel;
+import com.anfelisa.category.models.CategoryMoveModel;
+import com.anfelisa.category.models.UserAccessToCategoryModel;
 
 import de.acegen.CustomAppConfiguration;
+import de.acegen.Data;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.ViewProvider;
@@ -29,24 +30,24 @@ public class MoveCategoryCommand extends AbstractMoveCategoryCommand {
 	}
 
 	@Override
-	protected ICategoryMoveData executeCommand(ICategoryMoveData data, PersistenceHandle readonlyHandle) {
-		ICategoryModel movedCategory = this.daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
-				data.getMovedCategoryId());
+	protected Data<CategoryMoveModel> executeCommand(Data<CategoryMoveModel> data, PersistenceHandle readonlyHandle) {
+		CategoryModel movedCategory = this.daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
+				data.getModel().getMovedCategoryId());
 
-		ICategoryModel targetCategory = this.daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
-				data.getTargetCategoryId());
+		CategoryModel targetCategory = this.daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
+				data.getModel().getTargetCategoryId());
 
 		if (movedCategory == null || targetCategory == null) {
 			throwIllegalArgumentException("movedCategoriesMustNotBeNull");
 		}
 
-		IUserAccessToCategoryModel accessToMovedCategory = this.daoProvider.getUserAccessToCategoryDao()
-				.hasUserAccessTo(readonlyHandle, data.getMovedCategoryId(), data.getUserId());
+		UserAccessToCategoryModel accessToMovedCategory = this.daoProvider.getUserAccessToCategoryDao()
+				.hasUserAccessTo(readonlyHandle, data.getModel().getMovedCategoryId(), data.getModel().getUserId());
 		if (accessToMovedCategory == null || !accessToMovedCategory.getEditable()) {
 			throwSecurityException();
 		}
-		IUserAccessToCategoryModel accessToTargetCategory = this.daoProvider.getUserAccessToCategoryDao()
-				.hasUserAccessTo(readonlyHandle, data.getTargetCategoryId(), data.getUserId());
+		UserAccessToCategoryModel accessToTargetCategory = this.daoProvider.getUserAccessToCategoryDao()
+				.hasUserAccessTo(readonlyHandle, data.getModel().getTargetCategoryId(), data.getModel().getUserId());
 		if (accessToTargetCategory == null || !accessToTargetCategory.getEditable()) {
 			throwSecurityException();
 		}
@@ -66,27 +67,27 @@ public class MoveCategoryCommand extends AbstractMoveCategoryCommand {
 		if (targetCategory.getCategoryId().equals(movedCategory.getParentCategoryId())) {
 			this.addNoMoveOutcome(data);
 		} else {
-			data.setCategoryIndexWhereRemoved(movedCategory.getCategoryIndex());
-			data.setParentCategoryIdWhereRemoved(movedCategory.getParentCategoryId());
+			data.getModel().setCategoryIndexWhereRemoved(movedCategory.getCategoryIndex());
+			data.getModel().setParentCategoryIdWhereRemoved(movedCategory.getParentCategoryId());
 
 			Integer categoryIndexInTargetCategory = this.daoProvider.getCategoryDao()
-					.selectMaxIndexInCategory(readonlyHandle, data.getTargetCategoryId());
+					.selectMaxIndexInCategory(readonlyHandle, data.getModel().getTargetCategoryId());
 			if (categoryIndexInTargetCategory == null) {
 				categoryIndexInTargetCategory = 1;
 			} else {
 				categoryIndexInTargetCategory++;
 			}
 			movedCategory.setCategoryIndex(categoryIndexInTargetCategory);
-			movedCategory.setParentCategoryId(data.getTargetCategoryId());
+			movedCategory.setParentCategoryId(data.getModel().getTargetCategoryId());
 
-			data.setMovedCategory(movedCategory);
+			data.getModel().setMovedCategory(movedCategory);
 
 			this.addOkOutcome(data);
 		}
 		return data;
 	}
 
-	private boolean isChildOf(ICategoryModel parent, ICategoryModel child, PersistenceHandle readonlyHandle) {
+	private boolean isChildOf(CategoryModel parent, CategoryModel child, PersistenceHandle readonlyHandle) {
 		if (child.getParentCategoryId() == null) {
 			return false;
 		}

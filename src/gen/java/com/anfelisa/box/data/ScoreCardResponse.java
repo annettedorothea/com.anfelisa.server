@@ -15,12 +15,11 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class ScoreCardResponse implements IScoreCardResponse {
+public class ScoreCardResponse {
 	
 	private Integer intervalDifference;
 	
@@ -31,26 +30,25 @@ public class ScoreCardResponse implements IScoreCardResponse {
 	public ScoreCardResponse() {
 	}
 	
-	public ScoreCardResponse(com.anfelisa.box.models.IScoreCardModel data) {
-		intervalDifference = data.getIntervalDifference();
-		maxCardsPerDay = data.getMaxCardsPerDay();
-		maxInterval = data.getMaxInterval();
+	public ScoreCardResponse(com.anfelisa.box.models.ScoreCardModel model) {
+		intervalDifference = model.getIntervalDifference();
+		maxCardsPerDay = model.getMaxCardsPerDay();
+		maxInterval = model.getMaxInterval();
 	}
 	
-	@JsonProperty
 	public Integer getIntervalDifference() {
 		return this.intervalDifference;
 	}
 	
-	@JsonProperty
 	public Integer getMaxCardsPerDay() {
 		return this.maxCardsPerDay;
 	}
 	
-	@JsonProperty
 	public Integer getMaxInterval() {
 		return this.maxInterval;
 	}
+	
+	
 	
 }
 

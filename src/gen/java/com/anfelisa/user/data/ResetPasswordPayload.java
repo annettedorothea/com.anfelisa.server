@@ -15,12 +15,11 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class ResetPasswordPayload implements IResetPasswordPayload {
+public class ResetPasswordPayload {
 	
 	private String password;
 	
@@ -29,10 +28,6 @@ public class ResetPasswordPayload implements IResetPasswordPayload {
 	public ResetPasswordPayload() {
 	}
 	
-	public ResetPasswordPayload(com.anfelisa.user.models.IResetPasswordWithNewPasswordModel data) {
-		password = data.getPassword();
-		token = data.getToken();
-	}
 	
 	@JsonProperty
 	public String getPassword() {

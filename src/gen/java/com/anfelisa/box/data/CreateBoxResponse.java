@@ -15,18 +15,19 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class CreateBoxResponse implements ICreateBoxResponse {
+public class CreateBoxResponse {
 	
 	public CreateBoxResponse() {
 	}
 	
-	public CreateBoxResponse(com.anfelisa.box.models.IBoxCreationModel data) {
+	public CreateBoxResponse(com.anfelisa.box.models.BoxCreationModel model) {
 	}
+	
+	
 	
 }
 

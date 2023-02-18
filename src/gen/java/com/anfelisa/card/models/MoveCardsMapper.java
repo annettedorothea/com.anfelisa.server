@@ -14,9 +14,9 @@ import org.jdbi.v3.core.statement.StatementContext;
 
 import de.acegen.AbstractMapper;
 
-public class MoveCardsMapper extends AbstractMapper<IMoveCardsModel> {
+public class MoveCardsMapper extends AbstractMapper<MoveCardsModel> {
 	
-	public IMoveCardsModel map(ResultSet r, StatementContext ctx) throws SQLException {
+	public MoveCardsModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new MoveCardsModel(
 			null,
 			this.mapToString(r, "categoryId"),

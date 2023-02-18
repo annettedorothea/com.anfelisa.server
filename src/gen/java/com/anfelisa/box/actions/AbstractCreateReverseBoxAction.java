@@ -9,6 +9,7 @@ package com.anfelisa.box.actions;
 
 import java.time.LocalDateTime;
 
+import de.acegen.Data;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.ICommand;
 import de.acegen.IDaoProvider;
@@ -17,13 +18,12 @@ import de.acegen.SquishyDataProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.WriteAction;
 
-import com.anfelisa.box.data.IBoxCreationData;
 import com.anfelisa.box.commands.CreateReverseBoxCommand;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractCreateReverseBoxAction extends WriteAction<IBoxCreationData> {
+public abstract class AbstractCreateReverseBoxAction extends WriteAction<com.anfelisa.box.models.BoxCreationModel> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractCreateReverseBoxAction.class);
 
@@ -33,12 +33,12 @@ public abstract class AbstractCreateReverseBoxAction extends WriteAction<IBoxCre
 	}
 
 	@Override
-	public ICommand<IBoxCreationData> getCommand() {
+	public ICommand<com.anfelisa.box.models.BoxCreationModel> getCommand() {
 		return new CreateReverseBoxCommand(daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	@Override
-	protected IBoxCreationData initActionDataFromSquishyDataProvider(IBoxCreationData data) {
+	protected Data<com.anfelisa.box.models.BoxCreationModel> initActionDataFromSquishyDataProvider(Data<com.anfelisa.box.models.BoxCreationModel> data) {
 		LocalDateTime systemTime = SquishyDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
 			data.setSystemTime(systemTime);
@@ -46,7 +46,7 @@ public abstract class AbstractCreateReverseBoxAction extends WriteAction<IBoxCre
 		return data;
 	}
 
-	public IBoxCreationData initActionData(IBoxCreationData data) {
+	public Data<com.anfelisa.box.models.BoxCreationModel> initActionData(Data<com.anfelisa.box.models.BoxCreationModel> data) {
 		return data;
 	}
 

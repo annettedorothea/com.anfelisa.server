@@ -16,9 +16,10 @@ import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
+import de.acegen.AbstractModel;
 
 @SuppressWarnings("all")
-public class BoxCreationModel implements IBoxCreationModel {
+public class BoxCreationModel extends AbstractModel {
 
 	private String username;
 
@@ -34,7 +35,7 @@ public class BoxCreationModel implements IBoxCreationModel {
 
 	private String rootCategoryId;
 
-	private Boolean dictionaryLookup = false;
+	private Boolean dictionaryLookup;
 
 	private String givenLanguage;
 
@@ -42,7 +43,7 @@ public class BoxCreationModel implements IBoxCreationModel {
 
 	private String userId;
 
-	private Boolean editable = false;
+	private Boolean editable;
 
 	private String boxId;
 
@@ -50,10 +51,12 @@ public class BoxCreationModel implements IBoxCreationModel {
 
 	private Integer maxCardsPerDay;
 
-	private Boolean reverse = false;
+	private Boolean reverse;
 
-	private Boolean archived = false;
+	private Boolean archived;
 
+	
+	private Boolean frozen = false;
 
 	public BoxCreationModel() {
 	}
@@ -100,7 +103,12 @@ public class BoxCreationModel implements IBoxCreationModel {
 	public String getUsername() {
 		return this.username;
 	}
+	
+	@JsonProperty
 	public void setUsername(String username) {
+		if (this.frozen) {
+			throw new RuntimeException("username is frozen");
+		}
 		this.username = username;
 	}
 	
@@ -108,7 +116,12 @@ public class BoxCreationModel implements IBoxCreationModel {
 	public String getCategoryId() {
 		return this.categoryId;
 	}
+	
+	@JsonProperty
 	public void setCategoryId(String categoryId) {
+		if (this.frozen) {
+			throw new RuntimeException("categoryId is frozen");
+		}
 		this.categoryId = categoryId;
 	}
 	
@@ -116,7 +129,12 @@ public class BoxCreationModel implements IBoxCreationModel {
 	public String getCategoryName() {
 		return this.categoryName;
 	}
+	
+	@JsonProperty
 	public void setCategoryName(String categoryName) {
+		if (this.frozen) {
+			throw new RuntimeException("categoryName is frozen");
+		}
 		this.categoryName = categoryName;
 	}
 	
@@ -124,7 +142,12 @@ public class BoxCreationModel implements IBoxCreationModel {
 	public String getCategoryAuthor() {
 		return this.categoryAuthor;
 	}
+	
+	@JsonProperty
 	public void setCategoryAuthor(String categoryAuthor) {
+		if (this.frozen) {
+			throw new RuntimeException("categoryAuthor is frozen");
+		}
 		this.categoryAuthor = categoryAuthor;
 	}
 	
@@ -132,7 +155,12 @@ public class BoxCreationModel implements IBoxCreationModel {
 	public Integer getCategoryIndex() {
 		return this.categoryIndex;
 	}
+	
+	@JsonProperty
 	public void setCategoryIndex(Integer categoryIndex) {
+		if (this.frozen) {
+			throw new RuntimeException("categoryIndex is frozen");
+		}
 		this.categoryIndex = categoryIndex;
 	}
 	
@@ -140,7 +168,12 @@ public class BoxCreationModel implements IBoxCreationModel {
 	public String getParentCategoryId() {
 		return this.parentCategoryId;
 	}
+	
+	@JsonProperty
 	public void setParentCategoryId(String parentCategoryId) {
+		if (this.frozen) {
+			throw new RuntimeException("parentCategoryId is frozen");
+		}
 		this.parentCategoryId = parentCategoryId;
 	}
 	
@@ -148,7 +181,12 @@ public class BoxCreationModel implements IBoxCreationModel {
 	public String getRootCategoryId() {
 		return this.rootCategoryId;
 	}
+	
+	@JsonProperty
 	public void setRootCategoryId(String rootCategoryId) {
+		if (this.frozen) {
+			throw new RuntimeException("rootCategoryId is frozen");
+		}
 		this.rootCategoryId = rootCategoryId;
 	}
 	
@@ -156,7 +194,12 @@ public class BoxCreationModel implements IBoxCreationModel {
 	public Boolean getDictionaryLookup() {
 		return this.dictionaryLookup;
 	}
+	
+	@JsonProperty
 	public void setDictionaryLookup(Boolean dictionaryLookup) {
+		if (this.frozen) {
+			throw new RuntimeException("dictionaryLookup is frozen");
+		}
 		this.dictionaryLookup = dictionaryLookup;
 	}
 	
@@ -164,7 +207,12 @@ public class BoxCreationModel implements IBoxCreationModel {
 	public String getGivenLanguage() {
 		return this.givenLanguage;
 	}
+	
+	@JsonProperty
 	public void setGivenLanguage(String givenLanguage) {
+		if (this.frozen) {
+			throw new RuntimeException("givenLanguage is frozen");
+		}
 		this.givenLanguage = givenLanguage;
 	}
 	
@@ -172,7 +220,12 @@ public class BoxCreationModel implements IBoxCreationModel {
 	public String getWantedLanguage() {
 		return this.wantedLanguage;
 	}
+	
+	@JsonProperty
 	public void setWantedLanguage(String wantedLanguage) {
+		if (this.frozen) {
+			throw new RuntimeException("wantedLanguage is frozen");
+		}
 		this.wantedLanguage = wantedLanguage;
 	}
 	
@@ -180,7 +233,12 @@ public class BoxCreationModel implements IBoxCreationModel {
 	public String getUserId() {
 		return this.userId;
 	}
+	
+	@JsonProperty
 	public void setUserId(String userId) {
+		if (this.frozen) {
+			throw new RuntimeException("userId is frozen");
+		}
 		this.userId = userId;
 	}
 	
@@ -188,7 +246,12 @@ public class BoxCreationModel implements IBoxCreationModel {
 	public Boolean getEditable() {
 		return this.editable;
 	}
+	
+	@JsonProperty
 	public void setEditable(Boolean editable) {
+		if (this.frozen) {
+			throw new RuntimeException("editable is frozen");
+		}
 		this.editable = editable;
 	}
 	
@@ -196,7 +259,12 @@ public class BoxCreationModel implements IBoxCreationModel {
 	public String getBoxId() {
 		return this.boxId;
 	}
+	
+	@JsonProperty
 	public void setBoxId(String boxId) {
+		if (this.frozen) {
+			throw new RuntimeException("boxId is frozen");
+		}
 		this.boxId = boxId;
 	}
 	
@@ -204,7 +272,12 @@ public class BoxCreationModel implements IBoxCreationModel {
 	public Integer getMaxInterval() {
 		return this.maxInterval;
 	}
+	
+	@JsonProperty
 	public void setMaxInterval(Integer maxInterval) {
+		if (this.frozen) {
+			throw new RuntimeException("maxInterval is frozen");
+		}
 		this.maxInterval = maxInterval;
 	}
 	
@@ -212,7 +285,12 @@ public class BoxCreationModel implements IBoxCreationModel {
 	public Integer getMaxCardsPerDay() {
 		return this.maxCardsPerDay;
 	}
+	
+	@JsonProperty
 	public void setMaxCardsPerDay(Integer maxCardsPerDay) {
+		if (this.frozen) {
+			throw new RuntimeException("maxCardsPerDay is frozen");
+		}
 		this.maxCardsPerDay = maxCardsPerDay;
 	}
 	
@@ -220,7 +298,12 @@ public class BoxCreationModel implements IBoxCreationModel {
 	public Boolean getReverse() {
 		return this.reverse;
 	}
+	
+	@JsonProperty
 	public void setReverse(Boolean reverse) {
+		if (this.frozen) {
+			throw new RuntimeException("reverse is frozen");
+		}
 		this.reverse = reverse;
 	}
 	
@@ -228,13 +311,55 @@ public class BoxCreationModel implements IBoxCreationModel {
 	public Boolean getArchived() {
 		return this.archived;
 	}
+	
+	@JsonProperty
 	public void setArchived(Boolean archived) {
+		if (this.frozen) {
+			throw new RuntimeException("archived is frozen");
+		}
 		this.archived = archived;
 	}
 	
+	
+	public com.anfelisa.category.models.CategoryModel mapToCategoryModel() {
+		com.anfelisa.category.models.CategoryModel model = new com.anfelisa.category.models.CategoryModel();
+		model.setCategoryId(this.getCategoryId());
+		model.setCategoryName(this.getCategoryName());
+		model.setCategoryAuthor(this.getCategoryAuthor());
+		model.setCategoryIndex(this.getCategoryIndex());
+		model.setParentCategoryId(this.getParentCategoryId());
+		model.setRootCategoryId(this.getRootCategoryId());
+		model.setDictionaryLookup(this.getDictionaryLookup());
+		model.setGivenLanguage(this.getGivenLanguage());
+		model.setWantedLanguage(this.getWantedLanguage());
+		return model;
+	}	
+	public com.anfelisa.category.models.UserAccessToCategoryModel mapToUserAccessToCategoryModel() {
+		com.anfelisa.category.models.UserAccessToCategoryModel model = new com.anfelisa.category.models.UserAccessToCategoryModel();
+		model.setCategoryId(this.getCategoryId());
+		model.setUserId(this.getUserId());
+		model.setEditable(this.getEditable());
+		return model;
+	}	
+	public com.anfelisa.box.models.BoxModel mapToBoxModel() {
+		com.anfelisa.box.models.BoxModel model = new com.anfelisa.box.models.BoxModel();
+		model.setBoxId(this.getBoxId());
+		model.setUserId(this.getUserId());
+		model.setCategoryId(this.getCategoryId());
+		model.setMaxInterval(this.getMaxInterval());
+		model.setMaxCardsPerDay(this.getMaxCardsPerDay());
+		model.setReverse(this.getReverse());
+		model.setArchived(this.getArchived());
+		return model;
+	}	
+	
+	@Override
+	public void freeze() {
+		this.frozen = true;
+	}
 
-	public IBoxCreationModel deepCopy() {
-		IBoxCreationModel copy = new BoxCreationModel();
+	public com.anfelisa.box.models.BoxCreationModel deepCopy() {
+		com.anfelisa.box.models.BoxCreationModel copy = new BoxCreationModel();
 		copy.setUsername(this.getUsername());
 		copy.setCategoryId(this.getCategoryId());
 		copy.setCategoryName(this.getCategoryName());
@@ -253,6 +378,41 @@ public class BoxCreationModel implements IBoxCreationModel {
 		copy.setReverse(this.getReverse());
 		copy.setArchived(this.getArchived());
 		return copy;
+	}
+	
+	public static BoxCreationModel generateTestData() {
+		java.util.Random random = new java.util.Random();
+		BoxCreationModel testData = new BoxCreationModel();
+		testData.setUsername(randomString(random));
+		testData.setCategoryId(randomString(random));
+		testData.setCategoryName(randomString(random));
+		testData.setCategoryAuthor(randomString(random));
+		testData.setCategoryIndex(random.nextInt(50));
+		testData.setParentCategoryId(randomString(random));
+		testData.setRootCategoryId(randomString(random));
+		testData.setDictionaryLookup(random.nextBoolean());
+		testData.setGivenLanguage(randomString(random));
+		testData.setWantedLanguage(randomString(random));
+		testData.setUserId(randomString(random));
+		testData.setEditable(random.nextBoolean());
+		testData.setBoxId(randomString(random));
+		testData.setMaxInterval(random.nextInt(50));
+		testData.setMaxCardsPerDay(random.nextInt(50));
+		testData.setReverse(random.nextBoolean());
+		testData.setArchived(random.nextBoolean());
+		return testData;
+	}
+	
+	private static String randomString(java.util.Random random) {
+		String chars = "aaaaaaabcdeeeeeeeffffghiiiiiiijkllllllmmmmnnnnnnnooooooooopqrstttuuuuuuuvxyz";
+		int n = random.nextInt(20) + 5;
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		String string  = sb.toString(); 
+		return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
 	}
 
 }

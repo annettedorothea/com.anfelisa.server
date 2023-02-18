@@ -14,9 +14,9 @@ import org.jdbi.v3.core.statement.StatementContext;
 
 import de.acegen.AbstractMapper;
 
-public class TokenMapper extends AbstractMapper<ITokenModel> {
+public class TokenMapper extends AbstractMapper<TokenModel> {
 	
-	public ITokenModel map(ResultSet r, StatementContext ctx) throws SQLException {
+	public TokenModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new TokenModel(
 			this.mapToString(r, "username"),
 			this.mapToString(r, "password"),

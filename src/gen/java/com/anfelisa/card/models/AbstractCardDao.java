@@ -18,31 +18,30 @@ import java.util.Optional;
 @SuppressWarnings("all")
 public class AbstractCardDao extends AbstractDao {
 	
-	public void insert(PersistenceHandle handle, ICardModel cardModel) {
+	public void insert(PersistenceHandle handle, com.anfelisa.card.models.CardModel cardModel) {
 		Update statement = handle.getHandle().createUpdate("INSERT INTO \"card\" (cardid, given, wanted, cardauthor, cardindex, categoryid, rootcategoryid, priority) VALUES (:cardid, :given, :wanted, :cardauthor, :cardindex, :categoryid, :rootcategoryid, :priority)");
-		statement.bind("cardid",  cardModel.getCardId() );
-		statement.bind("given",  cardModel.getGiven() );
-		statement.bind("wanted",  cardModel.getWanted() );
-		statement.bind("cardauthor",  cardModel.getCardAuthor() );
-		statement.bind("cardindex",  cardModel.getCardIndex() );
-		statement.bind("categoryid",  cardModel.getCategoryId() );
-		statement.bind("rootcategoryid",  cardModel.getRootCategoryId() );
-		statement.bind("priority",  cardModel.getPriority() );
+		statement.bind("cardid", cardModel.getCardId());
+		statement.bind("given", cardModel.getGiven());
+		statement.bind("wanted", cardModel.getWanted());
+		statement.bind("cardauthor", cardModel.getCardAuthor());
+		statement.bind("cardindex", cardModel.getCardIndex());
+		statement.bind("categoryid", cardModel.getCategoryId());
+		statement.bind("rootcategoryid", cardModel.getRootCategoryId());
+		statement.bind("priority", cardModel.getPriority());
 		statement.execute();
 	}
 	
 	
-	public void updateByCardId(PersistenceHandle handle, ICardModel cardModel) {
+	public void updateByCardId(PersistenceHandle handle, com.anfelisa.card.models.CardModel cardModel) {
 		Update statement = handle.getHandle().createUpdate("UPDATE \"card\" SET cardid = :cardid, given = :given, wanted = :wanted, cardauthor = :cardauthor, cardindex = :cardindex, categoryid = :categoryid, rootcategoryid = :rootcategoryid, priority = :priority WHERE cardid = :cardid");
-		statement.bind("cardid",  cardModel.getCardId() );
-		statement.bind("given",  cardModel.getGiven() );
-		statement.bind("wanted",  cardModel.getWanted() );
-		statement.bind("cardauthor",  cardModel.getCardAuthor() );
-		statement.bind("cardindex",  cardModel.getCardIndex() );
-		statement.bind("categoryid",  cardModel.getCategoryId() );
-		statement.bind("rootcategoryid",  cardModel.getRootCategoryId() );
-		statement.bind("priority",  cardModel.getPriority() );
-		statement.bind("cardid",  cardModel.getCardId()  );
+		statement.bind("cardid", cardModel.getCardId());
+		statement.bind("given", cardModel.getGiven());
+		statement.bind("wanted", cardModel.getWanted());
+		statement.bind("cardauthor", cardModel.getCardAuthor());
+		statement.bind("cardindex", cardModel.getCardIndex());
+		statement.bind("categoryid", cardModel.getCategoryId());
+		statement.bind("rootcategoryid", cardModel.getRootCategoryId());
+		statement.bind("priority", cardModel.getPriority());
 		statement.execute();
 	}
 
@@ -52,16 +51,16 @@ public class AbstractCardDao extends AbstractDao {
 		statement.execute();
 	}
 
-	public ICardModel selectByCardId(PersistenceHandle handle, String cardId) {
-		Optional<ICardModel> optional = handle.getHandle().createQuery("SELECT cardid, given, wanted, cardauthor, cardindex, categoryid, rootcategoryid, priority FROM \"card\" WHERE cardid = :cardid")
+	public com.anfelisa.card.models.CardModel selectByCardId(PersistenceHandle handle, String cardId) {
+		Optional<com.anfelisa.card.models.CardModel> optional = handle.getHandle().createQuery("SELECT cardid, given, wanted, cardauthor, cardindex, categoryid, rootcategoryid, priority FROM \"card\" WHERE cardid = :cardid")
 			.bind("cardid", cardId)
 			.map(new CardMapper())
 			.findFirst();
 		return optional.isPresent() ? optional.get() : null;
 	}
 	
-	public ICardModel selectByPrimaryKey(PersistenceHandle handle, String cardId) {
-		Optional<ICardModel> optional = handle.getHandle().createQuery("SELECT cardid, given, wanted, cardauthor, cardindex, categoryid, rootcategoryid, priority FROM \"card\" WHERE cardid = :cardid")
+	public com.anfelisa.card.models.CardModel selectByPrimaryKey(PersistenceHandle handle, String cardId) {
+		Optional<com.anfelisa.card.models.CardModel> optional = handle.getHandle().createQuery("SELECT cardid, given, wanted, cardauthor, cardindex, categoryid, rootcategoryid, priority FROM \"card\" WHERE cardid = :cardid")
 			.bind("cardid", cardId)
 			.map(new CardMapper())
 			.findFirst();
@@ -84,7 +83,7 @@ public class AbstractCardDao extends AbstractDao {
 		return handle.getHandle().createQuery(sql).mapTo(Integer.class).first();
 	}
 
-	public List<ICardModel> selectAll(PersistenceHandle handle) {
+	public List<com.anfelisa.card.models.CardModel> selectAll(PersistenceHandle handle) {
 		return handle.getHandle().createQuery("SELECT cardid, given, wanted, cardauthor, cardindex, categoryid, rootcategoryid, priority FROM \"card\"")
 			.map(new CardMapper())
 			.list();

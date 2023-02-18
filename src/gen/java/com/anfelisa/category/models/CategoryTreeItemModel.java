@@ -16,9 +16,10 @@ import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
+import de.acegen.AbstractModel;
 
 @SuppressWarnings("all")
-public class CategoryTreeItemModel implements ICategoryTreeItemModel {
+public class CategoryTreeItemModel extends AbstractModel {
 
 	private String categoryId;
 
@@ -26,11 +27,11 @@ public class CategoryTreeItemModel implements ICategoryTreeItemModel {
 
 	private Integer categoryIndex;
 
-	private Boolean empty = false;
+	private Boolean empty;
 
 	private String parentCategoryId;
 
-	private Boolean dictionaryLookup = false;
+	private Boolean dictionaryLookup;
 
 	private String givenLanguage;
 
@@ -38,12 +39,14 @@ public class CategoryTreeItemModel implements ICategoryTreeItemModel {
 
 	private String rootCategoryId;
 
-	private java.util.List<com.anfelisa.category.models.ICategoryTreeItemModel> childCategories;
+	private java.util.List<com.anfelisa.category.models.CategoryTreeItemModel> childCategories;
 
 	private Integer nonScheduledCount;
 
-	private Boolean editable = false;
+	private Boolean editable;
 
+	
+	private Boolean frozen = false;
 
 	public CategoryTreeItemModel() {
 	}
@@ -58,7 +61,7 @@ public class CategoryTreeItemModel implements ICategoryTreeItemModel {
 		@JsonProperty("givenLanguage") String givenLanguage,
 		@JsonProperty("wantedLanguage") String wantedLanguage,
 		@JsonProperty("rootCategoryId") String rootCategoryId,
-		@JsonProperty("childCategories") java.util.List<com.anfelisa.category.models.ICategoryTreeItemModel> childCategories,
+		@JsonProperty("childCategories") java.util.List<com.anfelisa.category.models.CategoryTreeItemModel> childCategories,
 		@JsonProperty("nonScheduledCount") Integer nonScheduledCount,
 		@JsonProperty("editable") Boolean editable
 	) {
@@ -80,7 +83,12 @@ public class CategoryTreeItemModel implements ICategoryTreeItemModel {
 	public String getCategoryId() {
 		return this.categoryId;
 	}
+	
+	@JsonProperty
 	public void setCategoryId(String categoryId) {
+		if (this.frozen) {
+			throw new RuntimeException("categoryId is frozen");
+		}
 		this.categoryId = categoryId;
 	}
 	
@@ -88,7 +96,12 @@ public class CategoryTreeItemModel implements ICategoryTreeItemModel {
 	public String getCategoryName() {
 		return this.categoryName;
 	}
+	
+	@JsonProperty
 	public void setCategoryName(String categoryName) {
+		if (this.frozen) {
+			throw new RuntimeException("categoryName is frozen");
+		}
 		this.categoryName = categoryName;
 	}
 	
@@ -96,7 +109,12 @@ public class CategoryTreeItemModel implements ICategoryTreeItemModel {
 	public Integer getCategoryIndex() {
 		return this.categoryIndex;
 	}
+	
+	@JsonProperty
 	public void setCategoryIndex(Integer categoryIndex) {
+		if (this.frozen) {
+			throw new RuntimeException("categoryIndex is frozen");
+		}
 		this.categoryIndex = categoryIndex;
 	}
 	
@@ -104,7 +122,12 @@ public class CategoryTreeItemModel implements ICategoryTreeItemModel {
 	public Boolean getEmpty() {
 		return this.empty;
 	}
+	
+	@JsonProperty
 	public void setEmpty(Boolean empty) {
+		if (this.frozen) {
+			throw new RuntimeException("empty is frozen");
+		}
 		this.empty = empty;
 	}
 	
@@ -112,7 +135,12 @@ public class CategoryTreeItemModel implements ICategoryTreeItemModel {
 	public String getParentCategoryId() {
 		return this.parentCategoryId;
 	}
+	
+	@JsonProperty
 	public void setParentCategoryId(String parentCategoryId) {
+		if (this.frozen) {
+			throw new RuntimeException("parentCategoryId is frozen");
+		}
 		this.parentCategoryId = parentCategoryId;
 	}
 	
@@ -120,7 +148,12 @@ public class CategoryTreeItemModel implements ICategoryTreeItemModel {
 	public Boolean getDictionaryLookup() {
 		return this.dictionaryLookup;
 	}
+	
+	@JsonProperty
 	public void setDictionaryLookup(Boolean dictionaryLookup) {
+		if (this.frozen) {
+			throw new RuntimeException("dictionaryLookup is frozen");
+		}
 		this.dictionaryLookup = dictionaryLookup;
 	}
 	
@@ -128,7 +161,12 @@ public class CategoryTreeItemModel implements ICategoryTreeItemModel {
 	public String getGivenLanguage() {
 		return this.givenLanguage;
 	}
+	
+	@JsonProperty
 	public void setGivenLanguage(String givenLanguage) {
+		if (this.frozen) {
+			throw new RuntimeException("givenLanguage is frozen");
+		}
 		this.givenLanguage = givenLanguage;
 	}
 	
@@ -136,7 +174,12 @@ public class CategoryTreeItemModel implements ICategoryTreeItemModel {
 	public String getWantedLanguage() {
 		return this.wantedLanguage;
 	}
+	
+	@JsonProperty
 	public void setWantedLanguage(String wantedLanguage) {
+		if (this.frozen) {
+			throw new RuntimeException("wantedLanguage is frozen");
+		}
 		this.wantedLanguage = wantedLanguage;
 	}
 	
@@ -144,15 +187,25 @@ public class CategoryTreeItemModel implements ICategoryTreeItemModel {
 	public String getRootCategoryId() {
 		return this.rootCategoryId;
 	}
+	
+	@JsonProperty
 	public void setRootCategoryId(String rootCategoryId) {
+		if (this.frozen) {
+			throw new RuntimeException("rootCategoryId is frozen");
+		}
 		this.rootCategoryId = rootCategoryId;
 	}
 	
 	@JsonProperty
-	public java.util.List<com.anfelisa.category.models.ICategoryTreeItemModel> getChildCategories() {
+	public java.util.List<com.anfelisa.category.models.CategoryTreeItemModel> getChildCategories() {
 		return this.childCategories;
 	}
-	public void setChildCategories(java.util.List<com.anfelisa.category.models.ICategoryTreeItemModel> childCategories) {
+	
+	@JsonProperty
+	public void setChildCategories(java.util.List<com.anfelisa.category.models.CategoryTreeItemModel> childCategories) {
+		if (this.frozen) {
+			throw new RuntimeException("childCategories is frozen");
+		}
 		this.childCategories = childCategories;
 	}
 	
@@ -160,7 +213,12 @@ public class CategoryTreeItemModel implements ICategoryTreeItemModel {
 	public Integer getNonScheduledCount() {
 		return this.nonScheduledCount;
 	}
+	
+	@JsonProperty
 	public void setNonScheduledCount(Integer nonScheduledCount) {
+		if (this.frozen) {
+			throw new RuntimeException("nonScheduledCount is frozen");
+		}
 		this.nonScheduledCount = nonScheduledCount;
 	}
 	
@@ -168,13 +226,29 @@ public class CategoryTreeItemModel implements ICategoryTreeItemModel {
 	public Boolean getEditable() {
 		return this.editable;
 	}
+	
+	@JsonProperty
 	public void setEditable(Boolean editable) {
+		if (this.frozen) {
+			throw new RuntimeException("editable is frozen");
+		}
 		this.editable = editable;
 	}
 	
+	
+	
+	@Override
+	public void freeze() {
+		this.frozen = true;
+		if (this.childCategories != null) {
+			for ( int i = 0; i < childCategories.size(); i++ ) {
+				childCategories.get(i).freeze();
+			}
+		}
+	}
 
-	public ICategoryTreeItemModel deepCopy() {
-		ICategoryTreeItemModel copy = new CategoryTreeItemModel();
+	public com.anfelisa.category.models.CategoryTreeItemModel deepCopy() {
+		com.anfelisa.category.models.CategoryTreeItemModel copy = new CategoryTreeItemModel();
 		copy.setCategoryId(this.getCategoryId());
 		copy.setCategoryName(this.getCategoryName());
 		copy.setCategoryIndex(this.getCategoryIndex());
@@ -184,9 +258,9 @@ public class CategoryTreeItemModel implements ICategoryTreeItemModel {
 		copy.setGivenLanguage(this.getGivenLanguage());
 		copy.setWantedLanguage(this.getWantedLanguage());
 		copy.setRootCategoryId(this.getRootCategoryId());
-		List<com.anfelisa.category.models.ICategoryTreeItemModel> childCategoriesCopy = new ArrayList<com.anfelisa.category.models.ICategoryTreeItemModel>();
+		List<com.anfelisa.category.models.CategoryTreeItemModel> childCategoriesCopy = new ArrayList<com.anfelisa.category.models.CategoryTreeItemModel>();
 		if (this.getChildCategories() != null) {
-			for(com.anfelisa.category.models.ICategoryTreeItemModel item: this.getChildCategories()) {
+			for(com.anfelisa.category.models.CategoryTreeItemModel item: this.getChildCategories()) {
 				childCategoriesCopy.add(item.deepCopy());
 			}
 		}
@@ -194,6 +268,42 @@ public class CategoryTreeItemModel implements ICategoryTreeItemModel {
 		copy.setNonScheduledCount(this.getNonScheduledCount());
 		copy.setEditable(this.getEditable());
 		return copy;
+	}
+	
+	public static CategoryTreeItemModel generateTestData() {
+		java.util.Random random = new java.util.Random();
+		int n;
+		CategoryTreeItemModel testData = new CategoryTreeItemModel();
+		testData.setCategoryId(randomString(random));
+		testData.setCategoryName(randomString(random));
+		testData.setCategoryIndex(random.nextInt(50));
+		testData.setEmpty(random.nextBoolean());
+		testData.setParentCategoryId(randomString(random));
+		testData.setDictionaryLookup(random.nextBoolean());
+		testData.setGivenLanguage(randomString(random));
+		testData.setWantedLanguage(randomString(random));
+		testData.setRootCategoryId(randomString(random));
+		java.util.List<com.anfelisa.category.models.CategoryTreeItemModel> childCategoriesList = new java.util.ArrayList<com.anfelisa.category.models.CategoryTreeItemModel>();
+		n = random.nextInt(20) + 1;
+		for ( int i = 0; i < n; i++ ) {
+			childCategoriesList.add(com.anfelisa.category.models.CategoryTreeItemModel.generateTestData());
+		}
+		testData.setChildCategories(childCategoriesList);
+		testData.setNonScheduledCount(random.nextInt(50));
+		testData.setEditable(random.nextBoolean());
+		return testData;
+	}
+	
+	private static String randomString(java.util.Random random) {
+		String chars = "aaaaaaabcdeeeeeeeffffghiiiiiiijkllllllmmmmnnnnnnnooooooooopqrstttuuuuuuuvxyz";
+		int n = random.nextInt(20) + 5;
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		String string  = sb.toString(); 
+		return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
 	}
 
 }

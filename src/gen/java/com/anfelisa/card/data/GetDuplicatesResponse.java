@@ -15,26 +15,26 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class GetDuplicatesResponse implements IGetDuplicatesResponse {
+public class GetDuplicatesResponse {
 	
-	private java.util.List<com.anfelisa.card.models.ICardWithCategoryNameModel> cardList;
+	private java.util.List<com.anfelisa.card.models.CardWithCategoryNameModel> cardList;
 	
 	public GetDuplicatesResponse() {
 	}
 	
-	public GetDuplicatesResponse(com.anfelisa.card.models.ICardSearchModel data) {
-		cardList = data.getCardList();
+	public GetDuplicatesResponse(com.anfelisa.card.models.CardSearchModel model) {
+		cardList = model.getCardList();
 	}
 	
-	@JsonProperty
-	public java.util.List<com.anfelisa.card.models.ICardWithCategoryNameModel> getCardList() {
+	public java.util.List<com.anfelisa.card.models.CardWithCategoryNameModel> getCardList() {
 		return this.cardList;
 	}
+	
+	
 	
 }
 

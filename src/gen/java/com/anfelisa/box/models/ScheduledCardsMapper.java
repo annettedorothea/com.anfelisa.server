@@ -14,9 +14,9 @@ import org.jdbi.v3.core.statement.StatementContext;
 
 import de.acegen.AbstractMapper;
 
-public class ScheduledCardsMapper extends AbstractMapper<IScheduledCardsModel> {
+public class ScheduledCardsMapper extends AbstractMapper<ScheduledCardsModel> {
 	
-	public IScheduledCardsModel map(ResultSet r, StatementContext ctx) throws SQLException {
+	public ScheduledCardsModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new ScheduledCardsModel(
 			null,
 			null,

@@ -15,26 +15,26 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class GetUserInfoResponse implements IGetUserInfoResponse {
+public class GetUserInfoResponse {
 	
 	private String username;
 	
 	public GetUserInfoResponse() {
 	}
 	
-	public GetUserInfoResponse(com.anfelisa.user.models.IUserInfoModel data) {
-		username = data.getUsername();
+	public GetUserInfoResponse(com.anfelisa.user.models.UserInfoModel model) {
+		username = model.getUsername();
 	}
 	
-	@JsonProperty
 	public String getUsername() {
 		return this.username;
 	}
+	
+	
 	
 }
 

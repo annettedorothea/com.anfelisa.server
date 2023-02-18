@@ -13,7 +13,7 @@ import java.time.ZoneOffset;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class ReadAction<T extends IDataContainer> extends Action<T> {
+public abstract class ReadAction<T extends AbstractModel> extends Action<T> {
 
 	static final Logger LOG = LoggerFactory.getLogger(ReadAction.class);
 	
@@ -29,11 +29,11 @@ public abstract class ReadAction<T extends IDataContainer> extends Action<T> {
 		this.daoProvider = daoProvider;
 	}
 
-	protected abstract T loadDataForGetRequest(T data, PersistenceHandle readonlyHandle);
+	protected abstract Data<T> loadDataForGetRequest(Data<T> data, PersistenceHandle readonlyHandle);
 	
-	protected abstract T initActionDataFromSquishyDataProvider(T data);
+	protected abstract Data<T> initActionDataFromSquishyDataProvider(Data<T> data);
 
-	public T apply(T data) {
+	public Data<T> apply(Data<T> data) {
 		DatabaseHandle databaseHandle = new DatabaseHandle(persistenceConnection.getJdbi(), appConfiguration);
 		databaseHandle.beginTransaction();
 		try {
@@ -51,6 +51,7 @@ public abstract class ReadAction<T extends IDataContainer> extends Action<T> {
 			if (Config.DEV.equals(appConfiguration.getConfig().getMode())) {
 				data = initActionDataFromSquishyDataProvider(data);
 			}
+			data.freezeSystemTime();
 			data = this.loadDataForGetRequest(data, databaseHandle.getReadonlyHandle());
 			
 			databaseHandle.commitTransaction();

@@ -12,9 +12,10 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.user.data.IForgotPasswordData;
+import com.anfelisa.user.models.ForgotPasswordModel;
 
 import de.acegen.CustomAppConfiguration;
+import de.acegen.Data;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.ViewProvider;
@@ -28,8 +29,8 @@ public class ForgotPasswordAction extends AbstractForgotPasswordAction {
 		super(persistenceConnection, appConfiguration, daoProvider, viewProvider);
 	}
 	
-	public IForgotPasswordData initActionData(IForgotPasswordData data) {
-		data.setToken(UUID.randomUUID().toString());
+	public Data<ForgotPasswordModel> initActionData(Data<ForgotPasswordModel> data) {
+		data.getModel().setToken(UUID.randomUUID().toString());
 		return data;
 	}
 

@@ -28,7 +28,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
-import de.acegen.IDataContainer;
 import de.acegen.ViewProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -36,6 +35,7 @@ import de.acegen.ReadAction;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.Config;
+import de.acegen.Data;
 
 import de.acegen.auth.AuthUser;
 import io.dropwizard.auth.Auth;
@@ -52,8 +52,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.DELETE;
 
-import com.anfelisa.category.data.IUsernameSearchData;
-import com.anfelisa.category.data.UsernameSearchData;
+import com.anfelisa.category.models.UsernameSearchModel;
 
 import de.acegen.Resource;
 
@@ -93,24 +92,26 @@ public class SearchUsernameForInvitationResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.category.data.IUsernameSearchData data = new UsernameSearchData(uuid);
+			Data<com.anfelisa.category.models.UsernameSearchModel> data = new Data<com.anfelisa.category.models.UsernameSearchModel>(uuid);
+			com.anfelisa.category.models.UsernameSearchModel model = new com.anfelisa.category.models.UsernameSearchModel();
 			if (usernameSearchString == null || StringUtils.isBlank(usernameSearchString) || "null".equals(usernameSearchString)) {
 				return badRequest("usernameSearchString is mandatory");
 			}
 			if (usernameSearchString != null) {
-				data.setUsernameSearchString(usernameSearchString);
+				model.setUsernameSearchString(usernameSearchString);
 			}
 			if (categoryId == null || StringUtils.isBlank(categoryId) || "null".equals(categoryId)) {
 				return badRequest("categoryId is mandatory");
 			}
 			if (categoryId != null) {
-				data.setCategoryId(categoryId);
+				model.setCategoryId(categoryId);
 			}
-			data.setUserId(authUser.getUserId());
+			model.setUserId(authUser.getUserId());
 			
+			data.setModel(model);
 			com.anfelisa.category.actions.SearchUsernameForInvitationAction action = new com.anfelisa.category.actions.SearchUsernameForInvitationAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
 			data = action.apply(data);
-			return Response.ok(new com.anfelisa.category.data.SearchUsernameForInvitationResponse(data)).build();
+			return Response.ok(new com.anfelisa.category.data.SearchUsernameForInvitationResponse(data.getModel())).build();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());
 			if (Config.DEV.equals(appConfiguration.getConfig().getMode())) {

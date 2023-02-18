@@ -9,6 +9,7 @@ package com.anfelisa.box.actions;
 
 import java.time.LocalDateTime;
 
+import de.acegen.Data;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.ICommand;
 import de.acegen.IDaoProvider;
@@ -17,13 +18,12 @@ import de.acegen.SquishyDataProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.WriteAction;
 
-import com.anfelisa.box.data.IDeleteBoxData;
 import com.anfelisa.box.commands.DeleteBoxCommand;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractDeleteBoxAction extends WriteAction<IDeleteBoxData> {
+public abstract class AbstractDeleteBoxAction extends WriteAction<com.anfelisa.box.models.DeleteBoxModel> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractDeleteBoxAction.class);
 
@@ -33,12 +33,12 @@ public abstract class AbstractDeleteBoxAction extends WriteAction<IDeleteBoxData
 	}
 
 	@Override
-	public ICommand<IDeleteBoxData> getCommand() {
+	public ICommand<com.anfelisa.box.models.DeleteBoxModel> getCommand() {
 		return new DeleteBoxCommand(daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	@Override
-	protected IDeleteBoxData initActionDataFromSquishyDataProvider(IDeleteBoxData data) {
+	protected Data<com.anfelisa.box.models.DeleteBoxModel> initActionDataFromSquishyDataProvider(Data<com.anfelisa.box.models.DeleteBoxModel> data) {
 		LocalDateTime systemTime = SquishyDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
 			data.setSystemTime(systemTime);
@@ -46,7 +46,7 @@ public abstract class AbstractDeleteBoxAction extends WriteAction<IDeleteBoxData
 		return data;
 	}
 
-	public IDeleteBoxData initActionData(IDeleteBoxData data) {
+	public Data<com.anfelisa.box.models.DeleteBoxModel> initActionData(Data<com.anfelisa.box.models.DeleteBoxModel> data) {
 		return data;
 	}
 

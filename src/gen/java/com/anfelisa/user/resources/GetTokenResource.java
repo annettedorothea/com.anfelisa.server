@@ -28,7 +28,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
-import de.acegen.IDataContainer;
 import de.acegen.ViewProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -36,6 +35,7 @@ import de.acegen.ReadAction;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.Config;
+import de.acegen.Data;
 
 
 import com.codahale.metrics.annotation.Timed;
@@ -50,8 +50,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.DELETE;
 
-import com.anfelisa.user.data.ITokenData;
-import com.anfelisa.user.data.TokenData;
+import com.anfelisa.user.models.TokenModel;
 
 import de.acegen.Resource;
 
@@ -83,7 +82,7 @@ public class GetTokenResource extends Resource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response getTokenResource(
 			@QueryParam("uuid") String uuid, 
-			ITokenData payload) 
+			com.anfelisa.user.data.GetTokenPayload payload) 
 			throws JsonProcessingException {
 		if (payload == null) {
 			return badRequest("payload must not be null");
@@ -92,13 +91,15 @@ public class GetTokenResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.user.data.ITokenData data = new TokenData(uuid);
-			data.setUsername(payload.getUsername());
-			data.setPassword(payload.getPassword());
+			Data<com.anfelisa.user.models.TokenModel> data = new Data<com.anfelisa.user.models.TokenModel>(uuid);
+			com.anfelisa.user.models.TokenModel model = new com.anfelisa.user.models.TokenModel();
+			model.setUsername(payload.getUsername());
+			model.setPassword(payload.getPassword());
 			
+			data.setModel(model);
 			com.anfelisa.user.actions.GetTokenAction action = new com.anfelisa.user.actions.GetTokenAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
 			data = action.apply(data);
-			return Response.ok(new com.anfelisa.user.data.GetTokenResponse(data)).build();
+			return Response.ok(new com.anfelisa.user.data.GetTokenResponse(data.getModel())).build();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());
 			if (Config.DEV.equals(appConfiguration.getConfig().getMode())) {

@@ -14,12 +14,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.auth.Roles;
-import com.anfelisa.box.models.IBoxModel;
+import com.anfelisa.box.models.BoxModel;
 import com.anfelisa.box.utils.Deletable;
-import com.anfelisa.user.data.IDeleteUserData;
-import com.anfelisa.user.models.IUserModel;
+import com.anfelisa.user.models.DeleteUserModel;
+import com.anfelisa.user.models.UserModel;
 
 import de.acegen.CustomAppConfiguration;
+import de.acegen.Data;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.ViewProvider;
@@ -34,13 +35,13 @@ public class DeleteUserCommand extends AbstractDeleteUserCommand {
 	}
 
 	@Override
-	protected IDeleteUserData executeCommand(IDeleteUserData data, PersistenceHandle readonlyHandle) {
-		if (!Roles.ADMIN.equals(data.getRole())
-				&& !data.getUsername().equals(data.getUsernameToBeDeleted())) {
+	protected Data<DeleteUserModel> executeCommand(Data<DeleteUserModel> data, PersistenceHandle readonlyHandle) {
+		if (!Roles.ADMIN.equals(data.getModel().getRole())
+				&& !data.getModel().getUsername().equals(data.getModel().getUsernameToBeDeleted())) {
 			throwSecurityException();
 		}
-		IUserModel userToBeDeleted = daoProvider.getUserDao().selectByUsername(readonlyHandle,
-				data.getUsernameToBeDeleted());
+		UserModel userToBeDeleted = daoProvider.getUserDao().selectByUsername(readonlyHandle,
+				data.getModel().getUsernameToBeDeleted());
 		if (userToBeDeleted == null) {
 			throwIllegalArgumentException("userDoesNotExist");
 		}
@@ -49,18 +50,18 @@ public class DeleteUserCommand extends AbstractDeleteUserCommand {
 				throwIllegalArgumentException("lastAdminMustNotBeDeleted");
 			}
 		}
-		List<IBoxModel> boxesOfUser = daoProvider.getBoxDao().selectAllOfUser(readonlyHandle, userToBeDeleted.getUserId());
+		List<BoxModel> boxesOfUser = daoProvider.getBoxDao().selectAllOfUser(readonlyHandle, userToBeDeleted.getUserId());
 		List<String> rootCategoryIds = new ArrayList<>();
-		for (IBoxModel box : boxesOfUser) {
-			if (!Deletable.isBoxDeletable(daoProvider, readonlyHandle, box, data.getUserId())) {
+		for (BoxModel box : boxesOfUser) {
+			if (!Deletable.isBoxDeletable(daoProvider, readonlyHandle, box.getCategoryId(), box.getReverse(), data.getModel().getUserId())) {
 				throwIllegalArgumentException("cannot delete user with shared boxes");
 			} 
 			if (Deletable.onDeleteBoxDeleteCategory(daoProvider, readonlyHandle, box)) {
 				rootCategoryIds.add(box.getCategoryId());
 			}
 		}
-		data.setRootCategoryIds(rootCategoryIds);
-		data.setUserId(userToBeDeleted.getUserId());
+		data.getModel().setRootCategoryIds(rootCategoryIds);
+		data.getModel().setUserId(userToBeDeleted.getUserId());
 		this.addOkOutcome(data);
 		return data;
 	}

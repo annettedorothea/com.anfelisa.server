@@ -14,9 +14,9 @@ import org.slf4j.LoggerFactory;
 
 import org.apache.commons.lang3.StringUtils;
 
+import de.acegen.Data;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
-import de.acegen.IDataContainer;
 import de.acegen.ViewProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -24,11 +24,8 @@ import de.acegen.ReadAction;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 
-import com.anfelisa.box.data.IBoxListData;
-import com.anfelisa.box.data.BoxListData;
-
 @SuppressWarnings("unused")
-public abstract class AbstractGetBoxesAction extends ReadAction<IBoxListData> {
+public abstract class AbstractGetBoxesAction extends ReadAction<com.anfelisa.box.models.BoxListModel> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractGetBoxesAction.class);
 	
@@ -37,10 +34,10 @@ public abstract class AbstractGetBoxesAction extends ReadAction<IBoxListData> {
 		super("com.anfelisa.box.actions.GetBoxesAction", persistenceConnection, appConfiguration, daoProvider, viewProvider);
 	}
 
-	protected abstract IBoxListData loadDataForGetRequest(IBoxListData data, PersistenceHandle readonlyHandle);
+	protected abstract Data<com.anfelisa.box.models.BoxListModel> loadDataForGetRequest(Data<com.anfelisa.box.models.BoxListModel> data, PersistenceHandle readonlyHandle);
 
 	@Override
-	protected IBoxListData initActionDataFromSquishyDataProvider(IBoxListData data) {
+	protected Data<com.anfelisa.box.models.BoxListModel> initActionDataFromSquishyDataProvider(Data<com.anfelisa.box.models.BoxListModel> data) {
 		LocalDateTime systemTime = SquishyDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
 			data.setSystemTime(systemTime);
@@ -48,7 +45,7 @@ public abstract class AbstractGetBoxesAction extends ReadAction<IBoxListData> {
 		return data;
 	}
 
-	public IBoxListData initActionData(IBoxListData data) {
+	public Data<com.anfelisa.box.models.BoxListModel> initActionData(Data<com.anfelisa.box.models.BoxListModel> data) {
 		return data;
 	}
 

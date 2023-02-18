@@ -9,6 +9,7 @@ package com.anfelisa.category.actions;
 
 import java.time.LocalDateTime;
 
+import de.acegen.Data;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.ICommand;
 import de.acegen.IDaoProvider;
@@ -17,13 +18,12 @@ import de.acegen.SquishyDataProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.WriteAction;
 
-import com.anfelisa.category.data.ICategoryDeleteData;
 import com.anfelisa.category.commands.DeleteCategoryCommand;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractDeleteCategoryAction extends WriteAction<ICategoryDeleteData> {
+public abstract class AbstractDeleteCategoryAction extends WriteAction<com.anfelisa.category.models.CategoryDeleteModel> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractDeleteCategoryAction.class);
 
@@ -33,12 +33,12 @@ public abstract class AbstractDeleteCategoryAction extends WriteAction<ICategory
 	}
 
 	@Override
-	public ICommand<ICategoryDeleteData> getCommand() {
+	public ICommand<com.anfelisa.category.models.CategoryDeleteModel> getCommand() {
 		return new DeleteCategoryCommand(daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	@Override
-	protected ICategoryDeleteData initActionDataFromSquishyDataProvider(ICategoryDeleteData data) {
+	protected Data<com.anfelisa.category.models.CategoryDeleteModel> initActionDataFromSquishyDataProvider(Data<com.anfelisa.category.models.CategoryDeleteModel> data) {
 		LocalDateTime systemTime = SquishyDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
 			data.setSystemTime(systemTime);
@@ -46,7 +46,7 @@ public abstract class AbstractDeleteCategoryAction extends WriteAction<ICategory
 		return data;
 	}
 
-	public ICategoryDeleteData initActionData(ICategoryDeleteData data) {
+	public Data<com.anfelisa.category.models.CategoryDeleteModel> initActionData(Data<com.anfelisa.category.models.CategoryDeleteModel> data) {
 		return data;
 	}
 

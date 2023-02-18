@@ -1,5 +1,5 @@
-<createTable tableName="card">
-	<column name="cardid" type="character varying">
+<createTable tableName="\"card\"">
+	<column name="cardId" type="character varying">
 		<constraints primaryKey="true" nullable="false"  />
 	</column>
 	<column name="given" type="character varying">
@@ -8,17 +8,17 @@
 	<column name="wanted" type="character varying">
 		<constraints    />
 	</column>
-	<column name="cardauthor" type="character varying">
+	<column name="cardAuthor" type="character varying">
 		<constraints  nullable="false"  />
 	</column>
-	<column name="cardindex" type="integer">
+	<column name="cardIndex" type="integer">
 		<constraints  nullable="false"  />
 	</column>
-	<column name="categoryid" type="character varying">
-		<constraints  nullable="false"  references="category(categoryid)" deleteCascade="true" foreignKeyName="fk_card_categoryid" />
+	<column name="categoryId" type="character varying">
+		<constraints  nullable="false"  references="\"card\"(categoryId)" deleteCascade="true" foreignKeyName="fk_\"card\"_categoryId" />
 	</column>
-	<column name="rootcategoryid" type="character varying">
-		<constraints  nullable="false"  references="category(categoryid)" deleteCascade="true" foreignKeyName="fk_card_categoryid" />
+	<column name="rootCategoryId" type="character varying">
+		<constraints  nullable="false"  references="\"card\"(categoryId)" deleteCascade="true" foreignKeyName="fk_\"card\"_categoryId" />
 	</column>
 	<column name="priority" type="integer">
 		<constraints    />

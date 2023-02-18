@@ -9,6 +9,7 @@ package com.anfelisa.user.actions;
 
 import java.time.LocalDateTime;
 
+import de.acegen.Data;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.ICommand;
 import de.acegen.IDaoProvider;
@@ -17,13 +18,12 @@ import de.acegen.SquishyDataProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.WriteAction;
 
-import com.anfelisa.user.data.IChangeUserRoleData;
 import com.anfelisa.user.commands.ChangeUserRoleCommand;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractChangeUserRoleAction extends WriteAction<IChangeUserRoleData> {
+public abstract class AbstractChangeUserRoleAction extends WriteAction<com.anfelisa.user.models.ChangeUserRoleModel> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractChangeUserRoleAction.class);
 
@@ -33,12 +33,12 @@ public abstract class AbstractChangeUserRoleAction extends WriteAction<IChangeUs
 	}
 
 	@Override
-	public ICommand<IChangeUserRoleData> getCommand() {
+	public ICommand<com.anfelisa.user.models.ChangeUserRoleModel> getCommand() {
 		return new ChangeUserRoleCommand(daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	@Override
-	protected IChangeUserRoleData initActionDataFromSquishyDataProvider(IChangeUserRoleData data) {
+	protected Data<com.anfelisa.user.models.ChangeUserRoleModel> initActionDataFromSquishyDataProvider(Data<com.anfelisa.user.models.ChangeUserRoleModel> data) {
 		LocalDateTime systemTime = SquishyDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
 			data.setSystemTime(systemTime);
@@ -46,7 +46,7 @@ public abstract class AbstractChangeUserRoleAction extends WriteAction<IChangeUs
 		return data;
 	}
 
-	public IChangeUserRoleData initActionData(IChangeUserRoleData data) {
+	public Data<com.anfelisa.user.models.ChangeUserRoleModel> initActionData(Data<com.anfelisa.user.models.ChangeUserRoleModel> data) {
 		return data;
 	}
 

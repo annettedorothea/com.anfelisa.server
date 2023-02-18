@@ -14,9 +14,9 @@ import org.jdbi.v3.core.statement.StatementContext;
 
 import de.acegen.AbstractMapper;
 
-public class NextCardMapper extends AbstractMapper<INextCardModel> {
+public class NextCardMapper extends AbstractMapper<NextCardModel> {
 	
-	public INextCardModel map(ResultSet r, StatementContext ctx) throws SQLException {
+	public NextCardModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new NextCardModel(
 			this.mapToString(r, "userId"),
 			this.mapToString(r, "boxId"),

@@ -16,9 +16,10 @@ import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
+import de.acegen.AbstractModel;
 
 @SuppressWarnings("all")
-public class CardDeleteModel implements ICardDeleteModel {
+public class CardDeleteModel extends AbstractModel {
 
 	private String cardId;
 
@@ -28,6 +29,8 @@ public class CardDeleteModel implements ICardDeleteModel {
 
 	private String userId;
 
+	
+	private Boolean frozen = false;
 
 	public CardDeleteModel() {
 	}
@@ -48,7 +51,12 @@ public class CardDeleteModel implements ICardDeleteModel {
 	public String getCardId() {
 		return this.cardId;
 	}
+	
+	@JsonProperty
 	public void setCardId(String cardId) {
+		if (this.frozen) {
+			throw new RuntimeException("cardId is frozen");
+		}
 		this.cardId = cardId;
 	}
 	
@@ -56,7 +64,12 @@ public class CardDeleteModel implements ICardDeleteModel {
 	public Integer getCardIndex() {
 		return this.cardIndex;
 	}
+	
+	@JsonProperty
 	public void setCardIndex(Integer cardIndex) {
+		if (this.frozen) {
+			throw new RuntimeException("cardIndex is frozen");
+		}
 		this.cardIndex = cardIndex;
 	}
 	
@@ -64,7 +77,12 @@ public class CardDeleteModel implements ICardDeleteModel {
 	public String getCategoryId() {
 		return this.categoryId;
 	}
+	
+	@JsonProperty
 	public void setCategoryId(String categoryId) {
+		if (this.frozen) {
+			throw new RuntimeException("categoryId is frozen");
+		}
 		this.categoryId = categoryId;
 	}
 	
@@ -72,18 +90,51 @@ public class CardDeleteModel implements ICardDeleteModel {
 	public String getUserId() {
 		return this.userId;
 	}
+	
+	@JsonProperty
 	public void setUserId(String userId) {
+		if (this.frozen) {
+			throw new RuntimeException("userId is frozen");
+		}
 		this.userId = userId;
 	}
 	
+	
+	
+	@Override
+	public void freeze() {
+		this.frozen = true;
+	}
 
-	public ICardDeleteModel deepCopy() {
-		ICardDeleteModel copy = new CardDeleteModel();
+	public com.anfelisa.card.models.CardDeleteModel deepCopy() {
+		com.anfelisa.card.models.CardDeleteModel copy = new CardDeleteModel();
 		copy.setCardId(this.getCardId());
 		copy.setCardIndex(this.getCardIndex());
 		copy.setCategoryId(this.getCategoryId());
 		copy.setUserId(this.getUserId());
 		return copy;
+	}
+	
+	public static CardDeleteModel generateTestData() {
+		java.util.Random random = new java.util.Random();
+		CardDeleteModel testData = new CardDeleteModel();
+		testData.setCardId(randomString(random));
+		testData.setCardIndex(random.nextInt(50));
+		testData.setCategoryId(randomString(random));
+		testData.setUserId(randomString(random));
+		return testData;
+	}
+	
+	private static String randomString(java.util.Random random) {
+		String chars = "aaaaaaabcdeeeeeeeffffghiiiiiiijkllllllmmmmnnnnnnnooooooooopqrstttuuuuuuuvxyz";
+		int n = random.nextInt(20) + 5;
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		String string  = sb.toString(); 
+		return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
 	}
 
 }

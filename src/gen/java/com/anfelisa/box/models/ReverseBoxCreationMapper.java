@@ -14,9 +14,9 @@ import org.jdbi.v3.core.statement.StatementContext;
 
 import de.acegen.AbstractMapper;
 
-public class ReverseBoxCreationMapper extends AbstractMapper<IReverseBoxCreationModel> {
+public class ReverseBoxCreationMapper extends AbstractMapper<ReverseBoxCreationModel> {
 	
-	public IReverseBoxCreationModel map(ResultSet r, StatementContext ctx) throws SQLException {
+	public ReverseBoxCreationModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new ReverseBoxCreationModel(
 			this.mapToString(r, "boxId"),
 			this.mapToString(r, "username")

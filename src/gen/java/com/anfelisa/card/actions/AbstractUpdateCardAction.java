@@ -9,6 +9,7 @@ package com.anfelisa.card.actions;
 
 import java.time.LocalDateTime;
 
+import de.acegen.Data;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.ICommand;
 import de.acegen.IDaoProvider;
@@ -17,13 +18,12 @@ import de.acegen.SquishyDataProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.WriteAction;
 
-import com.anfelisa.card.data.ICardUpdateData;
 import com.anfelisa.card.commands.UpdateCardCommand;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractUpdateCardAction extends WriteAction<ICardUpdateData> {
+public abstract class AbstractUpdateCardAction extends WriteAction<com.anfelisa.card.models.CardUpdateModel> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractUpdateCardAction.class);
 
@@ -33,12 +33,12 @@ public abstract class AbstractUpdateCardAction extends WriteAction<ICardUpdateDa
 	}
 
 	@Override
-	public ICommand<ICardUpdateData> getCommand() {
+	public ICommand<com.anfelisa.card.models.CardUpdateModel> getCommand() {
 		return new UpdateCardCommand(daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	@Override
-	protected ICardUpdateData initActionDataFromSquishyDataProvider(ICardUpdateData data) {
+	protected Data<com.anfelisa.card.models.CardUpdateModel> initActionDataFromSquishyDataProvider(Data<com.anfelisa.card.models.CardUpdateModel> data) {
 		LocalDateTime systemTime = SquishyDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
 			data.setSystemTime(systemTime);
@@ -46,7 +46,7 @@ public abstract class AbstractUpdateCardAction extends WriteAction<ICardUpdateDa
 		return data;
 	}
 
-	public ICardUpdateData initActionData(ICardUpdateData data) {
+	public Data<com.anfelisa.card.models.CardUpdateModel> initActionData(Data<com.anfelisa.card.models.CardUpdateModel> data) {
 		return data;
 	}
 

@@ -12,9 +12,10 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.user.data.IUserRegistrationData;
+import com.anfelisa.user.models.UserRegistrationModel;
 
 import de.acegen.CustomAppConfiguration;
+import de.acegen.Data;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.ViewProvider;
@@ -30,8 +31,8 @@ public class RegisterUserAction extends AbstractRegisterUserAction {
 
 
 	
-	public IUserRegistrationData initActionData(IUserRegistrationData data) {
-		data.setToken(UUID.randomUUID().toString());
+	public Data<UserRegistrationModel> initActionData(Data<UserRegistrationModel> data) {
+		data.getModel().setToken(UUID.randomUUID().toString());
 		return data;
 	}
 

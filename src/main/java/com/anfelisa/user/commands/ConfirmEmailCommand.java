@@ -7,11 +7,12 @@ package com.anfelisa.user.commands;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.user.data.IConfirmEmailData;
-import com.anfelisa.user.models.IEmailConfirmationModel;
-import com.anfelisa.user.models.IUserModel;
+import com.anfelisa.user.models.ConfirmEmailModel;
+import com.anfelisa.user.models.EmailConfirmationModel;
+import com.anfelisa.user.models.UserModel;
 
 import de.acegen.CustomAppConfiguration;
+import de.acegen.Data;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.ViewProvider;
@@ -26,24 +27,24 @@ public class ConfirmEmailCommand extends AbstractConfirmEmailCommand {
 	}
 
 	@Override
-	protected IConfirmEmailData executeCommand(IConfirmEmailData data, PersistenceHandle readonlyHandle) {
-		IUserModel user = daoProvider.getUserDao().selectByUsername(readonlyHandle, data.getUsername());
+	protected Data<ConfirmEmailModel> executeCommand(Data<ConfirmEmailModel> data, PersistenceHandle readonlyHandle) {
+		UserModel user = daoProvider.getUserDao().selectByUsername(readonlyHandle, data.getModel().getUsername());
 		if (user == null) {
 			throwIllegalArgumentException("userDoesNotExist");
 		}
 		if (user.getEmailConfirmed()) {
 			this.addAlreadyConfirmedOutcome(data);
 		} else {
-			IEmailConfirmationModel emailConfirmation = daoProvider.getEmailConfirmationDao().selectByToken(
+			EmailConfirmationModel emailConfirmation = daoProvider.getEmailConfirmationDao().selectByToken(
 					readonlyHandle,
-					data.getToken());
+					data.getModel().getToken());
 			if (emailConfirmation == null) {
 				throwIllegalArgumentException("tokenDoesNotExist");
 			}
 			if (!user.getUserId().equals(emailConfirmation.getUserId())) {
 				throwIllegalArgumentException("tokenDoesNotMatch");
 			}
-			data.setUserId(user.getUserId());
+			data.getModel().setUserId(user.getUserId());
 			this.addOkOutcome(data);
 		}
 		return data;

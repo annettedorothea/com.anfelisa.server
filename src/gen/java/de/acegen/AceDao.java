@@ -84,19 +84,19 @@ public class AceDao {
 				.map(new TimelineItemMapper()).list();
 	}
 	
-	public void addActionToTimeline(String actionName, IDataContainer data, PersistenceHandle timelineHandle) {
+	public void addActionToTimeline(String actionName, Data<?> data, PersistenceHandle timelineHandle) {
 		addItemToTimeline("action", actionName, data, timelineHandle);
 	}
 
-	public void addCommandToTimeline(String commandName, IDataContainer data, PersistenceHandle timelineHandle) {
+	public void addCommandToTimeline(String commandName, Data<?> data, PersistenceHandle timelineHandle) {
 		addItemToTimeline("command", commandName, data, timelineHandle);
 	}
 
-	public void addEventToTimeline(String eventName, IDataContainer data, PersistenceHandle timelineHandle) {
+	public void addEventToTimeline(String eventName, Data<?> data, PersistenceHandle timelineHandle) {
 		addItemToTimeline("event", eventName, data, timelineHandle);
 	}
 
-	public void addPreparingEventToTimeline(String eventName, IDataContainer data, PersistenceHandle timelineHandle) {
+	public void addPreparingEventToTimeline(String eventName, Data<?> data, PersistenceHandle timelineHandle) {
 		try {
 			String json = mapper.writeValueAsString(data);
 			this.insertIntoTimeline(timelineHandle, "preparing event", eventName, json, data.getUuid(), LocalDateTime.now());
@@ -110,7 +110,7 @@ public class AceDao {
 				x.getMessage() != null ? x.getMessage() : "", uuid, LocalDateTime.now());
 	}
 
-	private void addItemToTimeline(String type, String name, IDataContainer data, 
+	private void addItemToTimeline(String type, String name, Data<?> data, 
 			PersistenceHandle timelineHandle) {
 		try {
 			String json = mapper.writeValueAsString(data);

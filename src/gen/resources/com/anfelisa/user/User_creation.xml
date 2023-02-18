@@ -1,5 +1,5 @@
-<createTable tableName="user">
-	<column name="userid" type="character varying">
+<createTable tableName="\"user\"">
+	<column name="userId" type="character varying">
 		<constraints primaryKey="true" nullable="false"  />
 	</column>
 	<column name="username" type="character varying">
@@ -14,7 +14,7 @@
 	<column name="role" type="character varying">
 		<constraints  nullable="false"  />
 	</column>
-	<column name="emailconfirmed" type="boolean">
+	<column name="emailConfirmed" type="boolean">
 		<constraints  nullable="false"  />
 	</column>
 </createTable>

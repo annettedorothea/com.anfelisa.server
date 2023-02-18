@@ -16,17 +16,18 @@ import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
+import de.acegen.AbstractModel;
 
 @SuppressWarnings("all")
-public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
+public class BoxWithStatisticsModel extends AbstractModel {
 
 	private Integer openTodaysCards;
 
 	private String categoryName;
 
-	private Boolean editable = false;
+	private Boolean editable;
 
-	private Boolean deletable = false;
+	private Boolean deletable;
 
 	private String boxId;
 
@@ -34,9 +35,9 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 
 	private Integer maxCardsPerDay;
 
-	private Boolean reverse = false;
+	private Boolean reverse;
 
-	private Boolean archived = false;
+	private Boolean archived;
 
 	private Integer quality0Count;
 
@@ -52,6 +53,8 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 
 	private java.util.List<Integer> countsPerDayNextWeek;
 
+	
+	private Boolean frozen = false;
 
 	public BoxWithStatisticsModel() {
 	}
@@ -96,7 +99,12 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 	public Integer getOpenTodaysCards() {
 		return this.openTodaysCards;
 	}
+	
+	@JsonProperty
 	public void setOpenTodaysCards(Integer openTodaysCards) {
+		if (this.frozen) {
+			throw new RuntimeException("openTodaysCards is frozen");
+		}
 		this.openTodaysCards = openTodaysCards;
 	}
 	
@@ -104,7 +112,12 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 	public String getCategoryName() {
 		return this.categoryName;
 	}
+	
+	@JsonProperty
 	public void setCategoryName(String categoryName) {
+		if (this.frozen) {
+			throw new RuntimeException("categoryName is frozen");
+		}
 		this.categoryName = categoryName;
 	}
 	
@@ -112,7 +125,12 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 	public Boolean getEditable() {
 		return this.editable;
 	}
+	
+	@JsonProperty
 	public void setEditable(Boolean editable) {
+		if (this.frozen) {
+			throw new RuntimeException("editable is frozen");
+		}
 		this.editable = editable;
 	}
 	
@@ -120,7 +138,12 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 	public Boolean getDeletable() {
 		return this.deletable;
 	}
+	
+	@JsonProperty
 	public void setDeletable(Boolean deletable) {
+		if (this.frozen) {
+			throw new RuntimeException("deletable is frozen");
+		}
 		this.deletable = deletable;
 	}
 	
@@ -128,7 +151,12 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 	public String getBoxId() {
 		return this.boxId;
 	}
+	
+	@JsonProperty
 	public void setBoxId(String boxId) {
+		if (this.frozen) {
+			throw new RuntimeException("boxId is frozen");
+		}
 		this.boxId = boxId;
 	}
 	
@@ -136,7 +164,12 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 	public String getCategoryId() {
 		return this.categoryId;
 	}
+	
+	@JsonProperty
 	public void setCategoryId(String categoryId) {
+		if (this.frozen) {
+			throw new RuntimeException("categoryId is frozen");
+		}
 		this.categoryId = categoryId;
 	}
 	
@@ -144,7 +177,12 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 	public Integer getMaxCardsPerDay() {
 		return this.maxCardsPerDay;
 	}
+	
+	@JsonProperty
 	public void setMaxCardsPerDay(Integer maxCardsPerDay) {
+		if (this.frozen) {
+			throw new RuntimeException("maxCardsPerDay is frozen");
+		}
 		this.maxCardsPerDay = maxCardsPerDay;
 	}
 	
@@ -152,7 +190,12 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 	public Boolean getReverse() {
 		return this.reverse;
 	}
+	
+	@JsonProperty
 	public void setReverse(Boolean reverse) {
+		if (this.frozen) {
+			throw new RuntimeException("reverse is frozen");
+		}
 		this.reverse = reverse;
 	}
 	
@@ -160,7 +203,12 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 	public Boolean getArchived() {
 		return this.archived;
 	}
+	
+	@JsonProperty
 	public void setArchived(Boolean archived) {
+		if (this.frozen) {
+			throw new RuntimeException("archived is frozen");
+		}
 		this.archived = archived;
 	}
 	
@@ -168,7 +216,12 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 	public Integer getQuality0Count() {
 		return this.quality0Count;
 	}
+	
+	@JsonProperty
 	public void setQuality0Count(Integer quality0Count) {
+		if (this.frozen) {
+			throw new RuntimeException("quality0Count is frozen");
+		}
 		this.quality0Count = quality0Count;
 	}
 	
@@ -176,7 +229,12 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 	public Integer getQuality1Count() {
 		return this.quality1Count;
 	}
+	
+	@JsonProperty
 	public void setQuality1Count(Integer quality1Count) {
+		if (this.frozen) {
+			throw new RuntimeException("quality1Count is frozen");
+		}
 		this.quality1Count = quality1Count;
 	}
 	
@@ -184,7 +242,12 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 	public Integer getQuality2Count() {
 		return this.quality2Count;
 	}
+	
+	@JsonProperty
 	public void setQuality2Count(Integer quality2Count) {
+		if (this.frozen) {
+			throw new RuntimeException("quality2Count is frozen");
+		}
 		this.quality2Count = quality2Count;
 	}
 	
@@ -192,7 +255,12 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 	public Integer getQuality3Count() {
 		return this.quality3Count;
 	}
+	
+	@JsonProperty
 	public void setQuality3Count(Integer quality3Count) {
+		if (this.frozen) {
+			throw new RuntimeException("quality3Count is frozen");
+		}
 		this.quality3Count = quality3Count;
 	}
 	
@@ -200,7 +268,12 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 	public Integer getQuality4Count() {
 		return this.quality4Count;
 	}
+	
+	@JsonProperty
 	public void setQuality4Count(Integer quality4Count) {
+		if (this.frozen) {
+			throw new RuntimeException("quality4Count is frozen");
+		}
 		this.quality4Count = quality4Count;
 	}
 	
@@ -208,7 +281,12 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 	public Integer getQuality5Count() {
 		return this.quality5Count;
 	}
+	
+	@JsonProperty
 	public void setQuality5Count(Integer quality5Count) {
+		if (this.frozen) {
+			throw new RuntimeException("quality5Count is frozen");
+		}
 		this.quality5Count = quality5Count;
 	}
 	
@@ -216,13 +294,50 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 	public java.util.List<Integer> getCountsPerDayNextWeek() {
 		return this.countsPerDayNextWeek;
 	}
+	
+	@JsonProperty
 	public void setCountsPerDayNextWeek(java.util.List<Integer> countsPerDayNextWeek) {
+		if (this.frozen) {
+			throw new RuntimeException("countsPerDayNextWeek is frozen");
+		}
 		this.countsPerDayNextWeek = countsPerDayNextWeek;
 	}
 	
+	
+	public com.anfelisa.box.models.BoxViewModel mapToBoxViewModel() {
+		com.anfelisa.box.models.BoxViewModel model = new com.anfelisa.box.models.BoxViewModel();
+		model.setOpenTodaysCards(this.getOpenTodaysCards());
+		model.setCategoryName(this.getCategoryName());
+		model.setEditable(this.getEditable());
+		model.setDeletable(this.getDeletable());
+		model.setBoxId(this.getBoxId());
+		model.setCategoryId(this.getCategoryId());
+		model.setMaxCardsPerDay(this.getMaxCardsPerDay());
+		model.setReverse(this.getReverse());
+		model.setArchived(this.getArchived());
+		return model;
+	}	
+	public com.anfelisa.box.models.BoxStatisticsModel mapToBoxStatisticsModel() {
+		com.anfelisa.box.models.BoxStatisticsModel model = new com.anfelisa.box.models.BoxStatisticsModel();
+		model.setBoxId(this.getBoxId());
+		model.setQuality0Count(this.getQuality0Count());
+		model.setQuality1Count(this.getQuality1Count());
+		model.setQuality2Count(this.getQuality2Count());
+		model.setQuality3Count(this.getQuality3Count());
+		model.setQuality4Count(this.getQuality4Count());
+		model.setQuality5Count(this.getQuality5Count());
+		model.setCountsPerDayNextWeek(this.getCountsPerDayNextWeek());
+		model.setMaxCardsPerDay(this.getMaxCardsPerDay());
+		return model;
+	}	
+	
+	@Override
+	public void freeze() {
+		this.frozen = true;
+	}
 
-	public IBoxWithStatisticsModel deepCopy() {
-		IBoxWithStatisticsModel copy = new BoxWithStatisticsModel();
+	public com.anfelisa.box.models.BoxWithStatisticsModel deepCopy() {
+		com.anfelisa.box.models.BoxWithStatisticsModel copy = new BoxWithStatisticsModel();
 		copy.setOpenTodaysCards(this.getOpenTodaysCards());
 		copy.setCategoryName(this.getCategoryName());
 		copy.setEditable(this.getEditable());
@@ -246,6 +361,46 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 		}
 		copy.setCountsPerDayNextWeek(countsPerDayNextWeekCopy);
 		return copy;
+	}
+	
+	public static BoxWithStatisticsModel generateTestData() {
+		java.util.Random random = new java.util.Random();
+		int n;
+		BoxWithStatisticsModel testData = new BoxWithStatisticsModel();
+		testData.setOpenTodaysCards(random.nextInt(50));
+		testData.setCategoryName(randomString(random));
+		testData.setEditable(random.nextBoolean());
+		testData.setDeletable(random.nextBoolean());
+		testData.setBoxId(randomString(random));
+		testData.setCategoryId(randomString(random));
+		testData.setMaxCardsPerDay(random.nextInt(50));
+		testData.setReverse(random.nextBoolean());
+		testData.setArchived(random.nextBoolean());
+		testData.setQuality0Count(random.nextInt(50));
+		testData.setQuality1Count(random.nextInt(50));
+		testData.setQuality2Count(random.nextInt(50));
+		testData.setQuality3Count(random.nextInt(50));
+		testData.setQuality4Count(random.nextInt(50));
+		testData.setQuality5Count(random.nextInt(50));
+		java.util.List<Integer> countsPerDayNextWeekList = new java.util.ArrayList<Integer>();
+		n = random.nextInt(20) + 1;
+		for ( int i = 0; i < n; i++ ) {
+			countsPerDayNextWeekList.add(random.nextInt(50));
+		}
+		testData.setCountsPerDayNextWeek(countsPerDayNextWeekList);
+		return testData;
+	}
+	
+	private static String randomString(java.util.Random random) {
+		String chars = "aaaaaaabcdeeeeeeeffffghiiiiiiijkllllllmmmmnnnnnnnooooooooopqrstttuuuuuuuvxyz";
+		int n = random.nextInt(20) + 5;
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		String string  = sb.toString(); 
+		return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
 	}
 
 }

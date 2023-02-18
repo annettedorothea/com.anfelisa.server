@@ -9,6 +9,7 @@ package com.anfelisa.box.actions;
 
 import java.time.LocalDateTime;
 
+import de.acegen.Data;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.ICommand;
 import de.acegen.IDaoProvider;
@@ -17,13 +18,12 @@ import de.acegen.SquishyDataProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.WriteAction;
 
-import com.anfelisa.box.data.ISortCardsOutData;
 import com.anfelisa.box.commands.SortCardsOutCommand;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractSortCardsOutAction extends WriteAction<ISortCardsOutData> {
+public abstract class AbstractSortCardsOutAction extends WriteAction<com.anfelisa.box.models.SortCardsOutModel> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractSortCardsOutAction.class);
 
@@ -33,12 +33,12 @@ public abstract class AbstractSortCardsOutAction extends WriteAction<ISortCardsO
 	}
 
 	@Override
-	public ICommand<ISortCardsOutData> getCommand() {
+	public ICommand<com.anfelisa.box.models.SortCardsOutModel> getCommand() {
 		return new SortCardsOutCommand(daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	@Override
-	protected ISortCardsOutData initActionDataFromSquishyDataProvider(ISortCardsOutData data) {
+	protected Data<com.anfelisa.box.models.SortCardsOutModel> initActionDataFromSquishyDataProvider(Data<com.anfelisa.box.models.SortCardsOutModel> data) {
 		LocalDateTime systemTime = SquishyDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
 			data.setSystemTime(systemTime);
@@ -46,7 +46,7 @@ public abstract class AbstractSortCardsOutAction extends WriteAction<ISortCardsO
 		return data;
 	}
 
-	public ISortCardsOutData initActionData(ISortCardsOutData data) {
+	public Data<com.anfelisa.box.models.SortCardsOutModel> initActionData(Data<com.anfelisa.box.models.SortCardsOutModel> data) {
 		return data;
 	}
 

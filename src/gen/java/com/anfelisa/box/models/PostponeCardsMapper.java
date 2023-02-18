@@ -14,9 +14,9 @@ import org.jdbi.v3.core.statement.StatementContext;
 
 import de.acegen.AbstractMapper;
 
-public class PostponeCardsMapper extends AbstractMapper<IPostponeCardsModel> {
+public class PostponeCardsMapper extends AbstractMapper<PostponeCardsModel> {
 	
-	public IPostponeCardsModel map(ResultSet r, StatementContext ctx) throws SQLException {
+	public PostponeCardsModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new PostponeCardsModel(
 			this.mapToInteger(r, "days"),
 			this.mapToString(r, "boxId")

@@ -28,7 +28,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
-import de.acegen.IDataContainer;
 import de.acegen.ViewProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -36,6 +35,7 @@ import de.acegen.ReadAction;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.Config;
+import de.acegen.Data;
 
 import de.acegen.auth.AuthUser;
 import io.dropwizard.auth.Auth;
@@ -52,8 +52,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.DELETE;
 
-import com.anfelisa.card.data.ICardTranslationData;
-import com.anfelisa.card.data.CardTranslationData;
+import com.anfelisa.card.models.CardTranslationModel;
 
 import de.acegen.Resource;
 
@@ -94,29 +93,31 @@ public class GetTranslationResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.card.data.ICardTranslationData data = new CardTranslationData(uuid);
+			Data<com.anfelisa.card.models.CardTranslationModel> data = new Data<com.anfelisa.card.models.CardTranslationModel>(uuid);
+			com.anfelisa.card.models.CardTranslationModel model = new com.anfelisa.card.models.CardTranslationModel();
 			if (sourceValue == null || StringUtils.isBlank(sourceValue) || "null".equals(sourceValue)) {
 				return badRequest("sourceValue is mandatory");
 			}
 			if (sourceValue != null) {
-				data.setSourceValue(sourceValue);
+				model.setSourceValue(sourceValue);
 			}
 			if (sourceLanguage == null || StringUtils.isBlank(sourceLanguage) || "null".equals(sourceLanguage)) {
 				return badRequest("sourceLanguage is mandatory");
 			}
 			if (sourceLanguage != null) {
-				data.setSourceLanguage(sourceLanguage);
+				model.setSourceLanguage(sourceLanguage);
 			}
 			if (targetLanguage == null || StringUtils.isBlank(targetLanguage) || "null".equals(targetLanguage)) {
 				return badRequest("targetLanguage is mandatory");
 			}
 			if (targetLanguage != null) {
-				data.setTargetLanguage(targetLanguage);
+				model.setTargetLanguage(targetLanguage);
 			}
 			
+			data.setModel(model);
 			com.anfelisa.card.actions.GetTranslationAction action = new com.anfelisa.card.actions.GetTranslationAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
 			data = action.apply(data);
-			return Response.ok(new com.anfelisa.card.data.GetTranslationResponse(data)).build();
+			return Response.ok(new com.anfelisa.card.data.GetTranslationResponse(data.getModel())).build();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());
 			if (Config.DEV.equals(appConfiguration.getConfig().getMode())) {

@@ -27,6 +27,9 @@ public class EmailService {
 
 	public void sendEmail(String to, String subject, String message) {
 		setSending(true);
+		if (configuration.getConfig().getMode().equals(Config.DEV)) {
+			return;
+		}
 		try {
 			Email email = new SimpleEmail();
 			email.setHostName(configuration.getEmail().getHost());

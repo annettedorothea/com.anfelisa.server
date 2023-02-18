@@ -28,7 +28,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
-import de.acegen.IDataContainer;
 import de.acegen.ViewProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -36,6 +35,7 @@ import de.acegen.ReadAction;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.Config;
+import de.acegen.Data;
 
 import de.acegen.auth.AuthUser;
 import io.dropwizard.auth.Auth;
@@ -52,8 +52,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.DELETE;
 
-import com.anfelisa.card.data.ICardCreationData;
-import com.anfelisa.card.data.CardCreationData;
+import com.anfelisa.card.models.CardCreationModel;
 
 import de.acegen.Resource;
 
@@ -86,7 +85,7 @@ public class CreateCardResource extends Resource {
 	public Response createCardResource(
 			@Auth AuthUser authUser, 
 			@QueryParam("uuid") String uuid, 
-			ICardCreationData payload) 
+			com.anfelisa.card.data.CreateCardPayload payload) 
 			throws JsonProcessingException {
 		if (payload == null) {
 			return badRequest("payload must not be null");
@@ -95,22 +94,24 @@ public class CreateCardResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.card.data.ICardCreationData data = new CardCreationData(uuid);
+			Data<com.anfelisa.card.models.CardCreationModel> data = new Data<com.anfelisa.card.models.CardCreationModel>(uuid);
+			com.anfelisa.card.models.CardCreationModel model = new com.anfelisa.card.models.CardCreationModel();
 			if (StringUtils.isBlank(payload.getWanted()) || "null".equals(payload.getWanted())) {
 				return badRequest("wanted is mandatory");
 			}
-			data.setWanted(payload.getWanted());
+			model.setWanted(payload.getWanted());
 			if (StringUtils.isBlank(payload.getGiven()) || "null".equals(payload.getGiven())) {
 				return badRequest("given is mandatory");
 			}
-			data.setGiven(payload.getGiven());
+			model.setGiven(payload.getGiven());
 			if (StringUtils.isBlank(payload.getCategoryId()) || "null".equals(payload.getCategoryId())) {
 				return badRequest("categoryId is mandatory");
 			}
-			data.setCategoryId(payload.getCategoryId());
-			data.setUserId(authUser.getUserId());
-			data.setUsername(authUser.getUsername());
+			model.setCategoryId(payload.getCategoryId());
+			model.setUserId(authUser.getUserId());
+			model.setUsername(authUser.getUsername());
 			
+			data.setModel(model);
 			com.anfelisa.card.actions.CreateCardAction action = new com.anfelisa.card.actions.CreateCardAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
 			data = action.apply(data);
 			return ok();

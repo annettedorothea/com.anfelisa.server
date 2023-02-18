@@ -7,6 +7,7 @@
 
 package com.anfelisa.box.commands;
 
+import de.acegen.Data;
 import de.acegen.Command;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
@@ -14,21 +15,21 @@ import de.acegen.ViewProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.Event;
 
-import com.anfelisa.box.data.IBoxCreationData;
+import com.anfelisa.box.models.BoxCreationModel;
 
 @SuppressWarnings("unused")
-public abstract class AbstractCreateBoxCommand extends Command<IBoxCreationData> {
+public abstract class AbstractCreateBoxCommand extends Command<com.anfelisa.box.models.BoxCreationModel> {
 
 	public AbstractCreateBoxCommand(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
 		super("com.anfelisa.box.commands.CreateBoxCommand", daoProvider, viewProvider, appConfiguration);
 	}
 
-	protected void addOkOutcome(IBoxCreationData data) {
+	protected void addOkOutcome(Data<com.anfelisa.box.models.BoxCreationModel> data) {
 		data.addOutcome("ok");
 	}
 	
 	@Override
-	public void addEventsToTimeline(IBoxCreationData data, PersistenceHandle timelineHandle) {
+	public void addEventsToTimeline(Data<com.anfelisa.box.models.BoxCreationModel> data, PersistenceHandle timelineHandle) {
 		if (appConfiguration.getConfig().writeTimeline()) {
 			if (data.hasOutcome("ok")){
 				daoProvider.getAceDao().addEventToTimeline("com.anfelisa.box.events.CreateBoxOkEvent", data, timelineHandle);
@@ -37,9 +38,10 @@ public abstract class AbstractCreateBoxCommand extends Command<IBoxCreationData>
 	}
 	
 	@Override
-	public void publishEvents(IBoxCreationData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	public void publishEvents(Data<com.anfelisa.box.models.BoxCreationModel> data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+		data.freeze();
 		if (data.hasOutcome("ok")){
-			new Event<IBoxCreationData>("com.anfelisa.box.events.CreateBoxOkEvent", viewProvider).publish(data.deepCopy(), handle, timelineHandle);
+			new Event<com.anfelisa.box.models.BoxCreationModel>("com.anfelisa.box.events.CreateBoxOkEvent", viewProvider).publish(data, handle, timelineHandle);
 		}
 	}
 	

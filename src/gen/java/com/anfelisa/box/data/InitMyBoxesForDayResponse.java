@@ -15,18 +15,19 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class InitMyBoxesForDayResponse implements IInitMyBoxesForDayResponse {
+public class InitMyBoxesForDayResponse {
 	
 	public InitMyBoxesForDayResponse() {
 	}
 	
-	public InitMyBoxesForDayResponse(com.anfelisa.box.models.IInitMyBoxesDataModel data) {
+	public InitMyBoxesForDayResponse(com.anfelisa.box.models.InitMyBoxesDataModel model) {
 	}
+	
+	
 	
 }
 

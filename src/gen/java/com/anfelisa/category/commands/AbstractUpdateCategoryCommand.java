@@ -7,6 +7,7 @@
 
 package com.anfelisa.category.commands;
 
+import de.acegen.Data;
 import de.acegen.Command;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
@@ -14,21 +15,21 @@ import de.acegen.ViewProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.Event;
 
-import com.anfelisa.category.data.ICategoryUpdateData;
+import com.anfelisa.category.models.CategoryUpdateModel;
 
 @SuppressWarnings("unused")
-public abstract class AbstractUpdateCategoryCommand extends Command<ICategoryUpdateData> {
+public abstract class AbstractUpdateCategoryCommand extends Command<com.anfelisa.category.models.CategoryUpdateModel> {
 
 	public AbstractUpdateCategoryCommand(IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
 		super("com.anfelisa.category.commands.UpdateCategoryCommand", daoProvider, viewProvider, appConfiguration);
 	}
 
-	protected void addOkOutcome(ICategoryUpdateData data) {
+	protected void addOkOutcome(Data<com.anfelisa.category.models.CategoryUpdateModel> data) {
 		data.addOutcome("ok");
 	}
 	
 	@Override
-	public void addEventsToTimeline(ICategoryUpdateData data, PersistenceHandle timelineHandle) {
+	public void addEventsToTimeline(Data<com.anfelisa.category.models.CategoryUpdateModel> data, PersistenceHandle timelineHandle) {
 		if (appConfiguration.getConfig().writeTimeline()) {
 			if (data.hasOutcome("ok")){
 				daoProvider.getAceDao().addEventToTimeline("com.anfelisa.category.events.UpdateCategoryOkEvent", data, timelineHandle);
@@ -37,9 +38,10 @@ public abstract class AbstractUpdateCategoryCommand extends Command<ICategoryUpd
 	}
 	
 	@Override
-	public void publishEvents(ICategoryUpdateData data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	public void publishEvents(Data<com.anfelisa.category.models.CategoryUpdateModel> data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+		data.freeze();
 		if (data.hasOutcome("ok")){
-			new Event<ICategoryUpdateData>("com.anfelisa.category.events.UpdateCategoryOkEvent", viewProvider).publish(data.deepCopy(), handle, timelineHandle);
+			new Event<com.anfelisa.category.models.CategoryUpdateModel>("com.anfelisa.category.events.UpdateCategoryOkEvent", viewProvider).publish(data, handle, timelineHandle);
 		}
 	}
 	

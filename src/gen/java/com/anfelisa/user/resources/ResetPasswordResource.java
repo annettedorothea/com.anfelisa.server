@@ -28,7 +28,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
-import de.acegen.IDataContainer;
 import de.acegen.ViewProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -36,6 +35,7 @@ import de.acegen.ReadAction;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.Config;
+import de.acegen.Data;
 
 
 import com.codahale.metrics.annotation.Timed;
@@ -50,8 +50,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.DELETE;
 
-import com.anfelisa.user.data.IResetPasswordWithNewPasswordData;
-import com.anfelisa.user.data.ResetPasswordWithNewPasswordData;
+import com.anfelisa.user.models.ResetPasswordWithNewPasswordModel;
 
 import de.acegen.Resource;
 
@@ -83,7 +82,7 @@ public class ResetPasswordResource extends Resource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response resetPasswordResource(
 			@QueryParam("uuid") String uuid, 
-			IResetPasswordWithNewPasswordData payload) 
+			com.anfelisa.user.data.ResetPasswordPayload payload) 
 			throws JsonProcessingException {
 		if (payload == null) {
 			return badRequest("payload must not be null");
@@ -92,16 +91,18 @@ public class ResetPasswordResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.user.data.IResetPasswordWithNewPasswordData data = new ResetPasswordWithNewPasswordData(uuid);
+			Data<com.anfelisa.user.models.ResetPasswordWithNewPasswordModel> data = new Data<com.anfelisa.user.models.ResetPasswordWithNewPasswordModel>(uuid);
+			com.anfelisa.user.models.ResetPasswordWithNewPasswordModel model = new com.anfelisa.user.models.ResetPasswordWithNewPasswordModel();
 			if (StringUtils.isBlank(payload.getPassword()) || "null".equals(payload.getPassword())) {
 				return badRequest("password is mandatory");
 			}
-			data.setPassword(payload.getPassword());
+			model.setPassword(payload.getPassword());
 			if (StringUtils.isBlank(payload.getToken()) || "null".equals(payload.getToken())) {
 				return badRequest("token is mandatory");
 			}
-			data.setToken(payload.getToken());
+			model.setToken(payload.getToken());
 			
+			data.setModel(model);
 			com.anfelisa.user.actions.ResetPasswordAction action = new com.anfelisa.user.actions.ResetPasswordAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
 			data = action.apply(data);
 			return ok();

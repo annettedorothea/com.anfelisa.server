@@ -1,17 +1,17 @@
-<createTable tableName="box">
-	<column name="boxid" type="character varying">
+<createTable tableName="\"box\"">
+	<column name="boxId" type="character varying">
 		<constraints primaryKey="true" nullable="false"  />
 	</column>
-	<column name="userid" type="character varying">
-		<constraints  nullable="false"  references="user(userid)" deleteCascade="true" foreignKeyName="fk_box_userid" />
+	<column name="userId" type="character varying">
+		<constraints  nullable="false"  references="\"box\"(userId)" deleteCascade="true" foreignKeyName="fk_\"box\"_userId" />
 	</column>
-	<column name="categoryid" type="character varying">
-		<constraints  nullable="false"  references="category(categoryid)" deleteCascade="true" foreignKeyName="fk_box_categoryid" />
+	<column name="categoryId" type="character varying">
+		<constraints  nullable="false"  references="\"box\"(categoryId)" deleteCascade="true" foreignKeyName="fk_\"box\"_categoryId" />
 	</column>
-	<column name="maxinterval" type="integer">
+	<column name="maxInterval" type="integer">
 		<constraints    />
 	</column>
-	<column name="maxcardsperday" type="integer">
+	<column name="maxCardsPerDay" type="integer">
 		<constraints  nullable="false"  />
 	</column>
 	<column name="reverse" type="boolean">

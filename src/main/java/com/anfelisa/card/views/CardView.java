@@ -1,14 +1,15 @@
 package com.anfelisa.card.views;
 
-import com.anfelisa.card.data.ICardCreationData;
-import com.anfelisa.card.data.ICardDeleteData;
-import com.anfelisa.card.data.ICardUpdateData;
-import com.anfelisa.card.data.ICardUpdatePriorityData;
-import com.anfelisa.card.data.IChangeCardOrderListData;
-import com.anfelisa.card.data.ICsvUploadData;
-import com.anfelisa.card.data.IMoveCardsData;
-import com.anfelisa.card.models.ICardModel;
+import com.anfelisa.card.models.CardCreationModel;
+import com.anfelisa.card.models.CardDeleteModel;
+import com.anfelisa.card.models.CardModel;
+import com.anfelisa.card.models.CardUpdateModel;
+import com.anfelisa.card.models.CardUpdatePriorityModel;
+import com.anfelisa.card.models.ChangeCardOrderListModel;
+import com.anfelisa.card.models.CsvUploadModel;
+import com.anfelisa.card.models.MoveCardsModel;
 
+import de.acegen.Data;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceHandle;
 
@@ -21,46 +22,46 @@ public class CardView implements ICardView {
 		this.daoProvider = daoProvider;
 	}
 
-	public void insert(ICardCreationData data, PersistenceHandle handle) {
-		daoProvider.getCardDao().insert(handle, data);
+	public void insert(Data<CardCreationModel> data, PersistenceHandle handle) {
+		daoProvider.getCardDao().insert(handle, data.getModel().mapToCardModel());
 	}
 
-	public void delete(ICardDeleteData data, PersistenceHandle handle) {
-		daoProvider.getCardDao().deleteByCardId(handle, data.getCardId());
-		daoProvider.getCardDao().shiftCards(handle, data.getCardIndex(), data.getCategoryId());
+	public void delete(Data<CardDeleteModel> data, PersistenceHandle handle) {
+		daoProvider.getCardDao().deleteByCardId(handle, data.getModel().getCardId());
+		daoProvider.getCardDao().shiftCards(handle, data.getModel().getCardIndex(), data.getModel().getCategoryId());
 	}
 
-	public void update(ICardUpdateData data, PersistenceHandle handle) {
-		daoProvider.getCardDao().update(handle, data);
+	public void update(Data<CardUpdateModel> data, PersistenceHandle handle) {
+		daoProvider.getCardDao().update(handle, data.getModel());
 	}
 
 	@Override
-	public void moveCards(IMoveCardsData data, PersistenceHandle handle) {
-		for (ICardModel movedCard : data.getMovedCards()) {
+	public void moveCards(Data<MoveCardsModel> data, PersistenceHandle handle) {
+		for (CardModel movedCard : data.getModel().getMovedCards()) {
 			daoProvider.getCardDao().moveCard(handle, movedCard);
 		}
-		for (ICardModel card : data.getUpdatedIndices()) {
+		for (CardModel card : data.getModel().getUpdatedIndices()) {
 			daoProvider.getCardDao().updateIndex(handle, card);
 		}
 	}
 
 	@Override
-	public void bulkInsert(ICsvUploadData data, PersistenceHandle handle) {
-		for (ICardModel card : data.getCards()) {
+	public void bulkInsert(Data<CsvUploadModel> data, PersistenceHandle handle) {
+		for (CardModel card : data.getModel().getCards()) {
 			daoProvider.getCardDao().insert(handle, card);
 		}
 	}
 
 	@Override
-	public void changeCardOrder(IChangeCardOrderListData data, PersistenceHandle handle) {
-		for (ICardModel card : data.getUpdatedIndices()) {
+	public void changeCardOrder(Data<ChangeCardOrderListModel> data, PersistenceHandle handle) {
+		for (CardModel card : data.getModel().getUpdatedIndices()) {
 			daoProvider.getCardDao().updateIndex(handle, card);
 		}
 	}
 
 	@Override
-	public void updatePriority(ICardUpdatePriorityData data, PersistenceHandle handle) {
-		daoProvider.getCardDao().updateCardPriority(handle, data);
+	public void updatePriority(Data<CardUpdatePriorityModel> data, PersistenceHandle handle) {
+		daoProvider.getCardDao().updateCardPriority(handle, data.getModel());
 	}
 
 }

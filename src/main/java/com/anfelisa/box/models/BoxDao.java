@@ -6,13 +6,11 @@ import java.util.Optional;
 
 import org.jdbi.v3.core.statement.Update;
 
-import com.anfelisa.box.data.IBoxUpdateData;
-
 import de.acegen.PersistenceHandle;
 
 public class BoxDao extends AbstractBoxDao {
 
-	public List<IBoxViewModel> selectByUserId(PersistenceHandle handle, String userId, LocalDateTime today) {
+	public List<BoxViewModel> selectByUserId(PersistenceHandle handle, String userId, LocalDateTime today) {
 		LocalDateTime endOfDay = today.plusDays(1);
 		return handle.getHandle().createQuery("SELECT "
 				+ "(SELECT count(scheduledcardid) FROM public.scheduledcard "
@@ -64,7 +62,7 @@ public class BoxDao extends AbstractBoxDao {
 				.mapTo(Integer.class).list();
 	}
 	
-	public List<IBoxStatisticsModel> selectStatisticsByUserId(PersistenceHandle handle, String userId) {
+	public List<BoxStatisticsModel> selectStatisticsByUserId(PersistenceHandle handle, String userId) {
  		return handle.getHandle().createQuery("SELECT "
 				+ "b.boxid, b.maxcardsperday, "
 				+ "(select count(*) from (SELECT lastquality FROM scheduledcard where boxid = b.boxid and quality is null and scheduleddate is not null) as qualities where lastquality = 0) as quality0Count, "
@@ -79,9 +77,9 @@ public class BoxDao extends AbstractBoxDao {
 				.map(new BoxStatisticsMapper()).list();
 	}
 	
-	public ITodaysCardsStatusModel todaysCardsStatus(PersistenceHandle handle, String boxId, LocalDateTime today) {
+	public TodaysCardsStatusModel todaysCardsStatus(PersistenceHandle handle, String boxId, LocalDateTime today) {
 		LocalDateTime endOfDay = today.plusDays(1);
-		Optional<ITodaysCardsStatusModel> optional = handle.getHandle().createQuery("SELECT "
+		Optional<TodaysCardsStatusModel> optional = handle.getHandle().createQuery("SELECT "
 				+ "(SELECT count(scheduledcardid) FROM public.scheduledcard "
 				+ "WHERE boxid = :boxid "
 				+ "AND scheduledDate >= :today "
@@ -99,7 +97,7 @@ public class BoxDao extends AbstractBoxDao {
 		return optional.isPresent() ? optional.get() : null;
 	}
 
-	public List<IInitBoxesModel> selectInitBoxesModelByUserId(PersistenceHandle handle, String userId, LocalDateTime today) {
+	public List<InitBoxesModel> selectInitBoxesModelByUserId(PersistenceHandle handle, String userId, LocalDateTime today) {
 		return handle.getHandle().createQuery("SELECT "
 				+ "(select min(scheduleddate) from scheduledcard where boxid = b.boxid and quality is null) as minscheduleddate, "
 				+ "b.boxid "
@@ -109,8 +107,8 @@ public class BoxDao extends AbstractBoxDao {
 				.map(new InitBoxesMapper()).list();
 	}
 
-	public IBoxModel selectByCategoryIdAndUserId(PersistenceHandle handle, String categoryId, String userId, Boolean reverse) {
-		Optional<IBoxModel> optional = handle.getHandle().createQuery(
+	public BoxModel selectByCategoryIdAndUserId(PersistenceHandle handle, String categoryId, String userId, Boolean reverse) {
+		Optional<BoxModel> optional = handle.getHandle().createQuery(
 				"SELECT boxid, userid, categoryid, maxinterval, maxcardsperday, reverse, archived FROM public.box "
 				+ "WHERE categoryid = :categoryid and userid = :userid and reverse = :reverse")
 				.bind("categoryid", categoryId)
@@ -121,7 +119,7 @@ public class BoxDao extends AbstractBoxDao {
 		return optional.isPresent() ? optional.get() : null;
 	}
 
-	public void updateBox(PersistenceHandle handle, IBoxUpdateData boxModel) {
+	public void updateBox(PersistenceHandle handle, BoxUpdateModel boxModel) {
 		Update statement = handle.getHandle().createUpdate(
 				"UPDATE public.box SET maxinterval = :maxinterval, maxcardsperday = :maxcardsperday WHERE boxId = :boxId");
 		statement.bind("boxId", boxModel.getBoxId());
@@ -130,8 +128,8 @@ public class BoxDao extends AbstractBoxDao {
 		statement.execute();
 	}
 
-	public IBoxSettingsModel selectSettingsByBoxId(PersistenceHandle handle, String boxId) {
-		Optional<IBoxSettingsModel> optional = handle.getHandle().createQuery("SELECT "
+	public BoxSettingsModel selectSettingsByBoxId(PersistenceHandle handle, String boxId) {
+		Optional<BoxSettingsModel> optional = handle.getHandle().createQuery("SELECT "
 				+ "b.boxId, b.maxinterval, b.maxcardsperday,"
 				+ "c.categoryname, c.dictionarylookup, c.givenlanguage, c.wantedLanguage, c.categoryid,"
 				+ "(select count(cardid) from card where rootcategoryid = c.categoryid) as allcards,"
@@ -152,7 +150,7 @@ public class BoxDao extends AbstractBoxDao {
 		statement.execute();
 	}
 
-	public List<IBoxModel> selectAllOfUser(PersistenceHandle handle, String userId) {
+	public List<BoxModel> selectAllOfUser(PersistenceHandle handle, String userId) {
 		return handle.getHandle().createQuery("SELECT boxid, userid, categoryid, maxinterval, maxcardsperday, reverse, archived FROM box "
 				+ "WHERE userid = :userid")
 				.bind("userid", userId)

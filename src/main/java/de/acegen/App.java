@@ -56,9 +56,6 @@ public class App extends Application<CustomAppConfiguration> {
 			}
 		});
 
-		if (!Config.LIVE.equals(mode)) {
-			bootstrap.addCommand(new EventReplayCommand(this));
-		}
 		bootstrap.setConfigurationSourceProvider(
 				new SubstitutingSourceProvider(bootstrap.getConfigurationSourceProvider(),
 						new EnvironmentVariableSubstitutor()));

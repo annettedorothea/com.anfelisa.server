@@ -58,21 +58,19 @@ import com.anfelisa.box.data.GetBoxStatisticsResponse;
 import com.anfelisa.box.data.GetBoxesResponse;
 import com.anfelisa.box.data.LoadAllActiveCardsResponse;
 import com.anfelisa.box.data.LoadNextCardResponse;
-import com.anfelisa.box.models.IBoxSettingsModel;
-import com.anfelisa.box.models.IBoxStatisticsModel;
-import com.anfelisa.box.models.IBoxViewModel;
-import com.anfelisa.box.models.ICardWithStatisticsModel;
-import com.anfelisa.box.models.INextCardViewModel;
+import com.anfelisa.box.models.BoxSettingsModel;
+import com.anfelisa.box.models.BoxStatisticsModel;
+import com.anfelisa.box.models.BoxViewModel;
+import com.anfelisa.box.models.CardWithStatisticsModel;
+import com.anfelisa.box.models.NextCardViewModel;
 import com.anfelisa.card.data.GetCardsResponse;
 import com.anfelisa.card.data.GetDuplicatesResponse;
-import com.anfelisa.card.models.ICardWithCategoryNameModel;
-import com.anfelisa.card.models.ICardWithInfoModel;
+import com.anfelisa.card.models.CardWithCategoryNameModel;
+import com.anfelisa.card.models.CardWithInfoModel;
 import com.anfelisa.category.data.GetCategoryTreeResponse;
 import com.anfelisa.category.data.GetInvitedUsersResponse;
-import com.anfelisa.category.models.ICategoryTreeItemModel;
-import com.anfelisa.category.models.IUsernameEditableModel;
-import com.anfelisa.user.data.GetTokenPayload;
-import com.anfelisa.user.models.TokenModel;
+import com.anfelisa.category.models.CategoryTreeItemModel;
+import com.anfelisa.category.models.UsernameEditableModel;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import ch.qos.logback.classic.Level;
@@ -147,10 +145,10 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 		/* when server runs independently */
 //		ObjectMapper mapper = new ObjectMapper(new YAMLFactory())
 //				.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-//		YamlConfiguration config = mapper.readValue(new File("dev.yml"), YamlConfiguration.class);
+//		YamlConfiguration config = mapper.readValue(new File("cstest.yml"), YamlConfiguration.class);
 //		port = Integer.parseInt(config.getServer().getApplicationConnectors()[0].getPort());
 //		protocol = config.getServer().getApplicationConnectors()[0].getType();
-//		rootPath = config.getServer().getRootPath();
+//		rootPath = "";
 //		jdbi = Jdbi.create(config.getDatabase().getUrl(), config.getDatabase().getUser(),
 //				config.getDatabase().getPassword() == null ? "" : config.getDatabase().getPassword());
 //		secretString = config.getSecretString();
@@ -331,7 +329,7 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 		if (userToken == null) {
 			String uuid = randomUUID();
 			username = username.replace("${testId}", testId);
-			GetTokenPayload payload = new GetTokenPayload(new TokenModel(username, password, null));
+			GetTokenPayload payload = new GetTokenPayload(username, password);
 			HttpResponse<com.anfelisa.user.data.GetTokenResponse> response = this.httpPut(
 					"/user/token",
 					payload,
@@ -388,19 +386,19 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 	}
 
 	private void assertThat(GetInvitedUsersResponse actual, GetInvitedUsersResponse expected) {
-		List<IUsernameEditableModel> actualInvitedUsers = actual.getInvitedUsers();
-		List<IUsernameEditableModel> expectedInvitedUsers = expected.getInvitedUsers();
+		List<UsernameEditableModel> actualInvitedUsers = actual.getInvitedUsers();
+		List<UsernameEditableModel> expectedInvitedUsers = expected.getInvitedUsers();
 		assertThat(actualInvitedUsers.size(), expectedInvitedUsers.size());
 		for (int i = 0; i < actualInvitedUsers.size(); i++) {
-			IUsernameEditableModel actualUser = actualInvitedUsers.get(i);
-			IUsernameEditableModel expectedUser = expectedInvitedUsers.get(i);
+			UsernameEditableModel actualUser = actualInvitedUsers.get(i);
+			UsernameEditableModel expectedUser = expectedInvitedUsers.get(i);
 			org.hamcrest.MatcherAssert.assertThat(actualUser, is(samePropertyValuesAs(expectedUser)));
 		}
 	}
 
 	private void assertThat(GetBoxSettingsResponse actual, GetBoxSettingsResponse expected) {
-		IBoxSettingsModel boxSettings = actual.getBoxSettings();
-		IBoxSettingsModel expectedBoxSettings = expected.getBoxSettings();
+		BoxSettingsModel boxSettings = actual.getBoxSettings();
+		BoxSettingsModel expectedBoxSettings = expected.getBoxSettings();
 		if (expectedBoxSettings == null) {
 			assertIsNull(boxSettings);
 		} else {
@@ -413,8 +411,8 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 		assertThat(actual.getOpenTodaysCards(), expected.getOpenTodaysCards());
 		assertThat(actual.getReverse(), expected.getReverse());
 		assertThat(actual.getBoxName(), expected.getBoxName());
-		INextCardViewModel nextCard = actual.getNextCard();
-		INextCardViewModel expectedNextCard = expected.getNextCard();
+		NextCardViewModel nextCard = actual.getNextCard();
+		NextCardViewModel expectedNextCard = expected.getNextCard();
 		if (expectedNextCard == null) {
 			assertIsNull(nextCard);
 		} else {
@@ -423,25 +421,25 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 	}
 
 	private void assertThat(LoadAllActiveCardsResponse actual, LoadAllActiveCardsResponse expected) {
-		List<ICardWithStatisticsModel> actualCardList = actual.getCardList();
-		List<ICardWithStatisticsModel> expectedCardList = expected.getCardList();
+		List<CardWithStatisticsModel> actualCardList = actual.getCardList();
+		List<CardWithStatisticsModel> expectedCardList = expected.getCardList();
 		assertThat(actualCardList.size(), expectedCardList.size());
 		for (int i = 0; i < actualCardList.size(); i++) {
-			ICardWithStatisticsModel actualCard = actualCardList.get(i);
-			ICardWithStatisticsModel expectedCard = expectedCardList.get(i);
+			CardWithStatisticsModel actualCard = actualCardList.get(i);
+			CardWithStatisticsModel expectedCard = expectedCardList.get(i);
 			org.hamcrest.MatcherAssert.assertThat(actualCard, is(samePropertyValuesAs(expectedCard)));
 		}
 	}
 
 	private void assertThat(GetCategoryTreeResponse actual, GetCategoryTreeResponse expected) {
-		ICategoryTreeItemModel actualRootCategory = actual.getRootCategory();
-		ICategoryTreeItemModel expectedRootCategory = expected.getRootCategory();
+		CategoryTreeItemModel actualRootCategory = actual.getRootCategory();
+		CategoryTreeItemModel expectedRootCategory = expected.getRootCategory();
 		assertThat(actualRootCategory, expectedRootCategory);
 		assertThat(actual.getBoxId(), expected.getBoxId());
 		assertThat(actual.getReverseBoxExists(), expected.getReverseBoxExists());
 	}
 
-	private void assertThat(ICategoryTreeItemModel actual, ICategoryTreeItemModel expected) {
+	private void assertThat(CategoryTreeItemModel actual, CategoryTreeItemModel expected) {
 		assertThat(actual.getCategoryId(), expected.getCategoryId());
 		assertThat(actual.getCategoryIndex(), expected.getCategoryIndex());
 		assertThat(actual.getCategoryName(), expected.getCategoryName());
@@ -460,8 +458,8 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 		} else {
 			assertThat(actual.getChildCategories().size(), expected.getChildCategories().size());
 			for (int i = 0; i < actual.getChildCategories().size(); i++) {
-				ICategoryTreeItemModel actualChild = actual.getChildCategories().get(i);
-				ICategoryTreeItemModel expectedChild = expected.getChildCategories().get(i);
+				CategoryTreeItemModel actualChild = actual.getChildCategories().get(i);
+				CategoryTreeItemModel expectedChild = expected.getChildCategories().get(i);
 				assertThat(actualChild, expectedChild);
 			}
 		}
@@ -475,8 +473,8 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 		} else {
 			assertThat(actual.getCardList().size(), expected.getCardList().size());
 			for (int i = 0; i < actual.getCardList().size(); i++) {
-				ICardWithInfoModel actualCard = actual.getCardList().get(i);
-				ICardWithInfoModel expectedCard = expected.getCardList().get(i);
+				CardWithInfoModel actualCard = actual.getCardList().get(i);
+				CardWithInfoModel expectedCard = expected.getCardList().get(i);
 				assertThat(actualCard, expectedCard);
 			}
 		}
@@ -490,8 +488,8 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 		} else {
 			assertThat(actual.getCardList().size(), expected.getCardList().size());
 			for (int i = 0; i < actual.getCardList().size(); i++) {
-				ICardWithCategoryNameModel actualCard = actual.getCardList().get(i);
-				ICardWithCategoryNameModel expectedCard = expected.getCardList().get(i);
+				CardWithCategoryNameModel actualCard = actual.getCardList().get(i);
+				CardWithCategoryNameModel expectedCard = expected.getCardList().get(i);
 				assertThat(actualCard, expectedCard);
 			}
 		}
@@ -505,14 +503,14 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 		} else {
 			assertThat(actual.getBoxList().size(), expected.getBoxList().size());
 			for (int i = 0; i < actual.getBoxList().size(); i++) {
-				IBoxViewModel actualBox = actual.getBoxList().get(i);
-				IBoxViewModel expectedBox = expected.getBoxList().get(i);
+				BoxViewModel actualBox = actual.getBoxList().get(i);
+				BoxViewModel expectedBox = expected.getBoxList().get(i);
 				assertThat(actualBox, expectedBox);
 			}
 		}
 	}
 
-	private void assertThat(IBoxViewModel actual, IBoxViewModel expected) {
+	private void assertThat(BoxViewModel actual, BoxViewModel expected) {
 		if (actual == null) {
 			expectedShouldBeNull(expected);
 		} else if (expected == null) {
@@ -537,14 +535,14 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 		} else {
 			assertThat(actual.getBoxStatisticsList().size(), expected.getBoxStatisticsList().size());
 			for (int i = 0; i < actual.getBoxStatisticsList().size(); i++) {
-				IBoxStatisticsModel actualBox = actual.getBoxStatisticsList().get(i);
-				IBoxStatisticsModel expectedBox = expected.getBoxStatisticsList().get(i);
+				BoxStatisticsModel actualBox = actual.getBoxStatisticsList().get(i);
+				BoxStatisticsModel expectedBox = expected.getBoxStatisticsList().get(i);
 				assertThat(actualBox, expectedBox);
 			}
 		}
 	}
 
-	private void assertThat(IBoxStatisticsModel actual, IBoxStatisticsModel expected) {
+	private void assertThat(BoxStatisticsModel actual, BoxStatisticsModel expected) {
 		if (actual == null) {
 			expectedShouldBeNull(expected);
 		} else if (expected == null) {

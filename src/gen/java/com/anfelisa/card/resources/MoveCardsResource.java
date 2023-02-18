@@ -28,7 +28,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
-import de.acegen.IDataContainer;
 import de.acegen.ViewProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -36,6 +35,7 @@ import de.acegen.ReadAction;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.Config;
+import de.acegen.Data;
 
 import de.acegen.auth.AuthUser;
 import io.dropwizard.auth.Auth;
@@ -52,8 +52,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.DELETE;
 
-import com.anfelisa.card.data.IMoveCardsData;
-import com.anfelisa.card.data.MoveCardsData;
+import com.anfelisa.card.models.MoveCardsModel;
 
 import de.acegen.Resource;
 
@@ -86,7 +85,7 @@ public class MoveCardsResource extends Resource {
 	public Response moveCardsResource(
 			@Auth AuthUser authUser, 
 			@QueryParam("uuid") String uuid, 
-			IMoveCardsData payload) 
+			com.anfelisa.card.data.MoveCardsPayload payload) 
 			throws JsonProcessingException {
 		if (payload == null) {
 			return badRequest("payload must not be null");
@@ -95,17 +94,19 @@ public class MoveCardsResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.card.data.IMoveCardsData data = new MoveCardsData(uuid);
+			Data<com.anfelisa.card.models.MoveCardsModel> data = new Data<com.anfelisa.card.models.MoveCardsModel>(uuid);
+			com.anfelisa.card.models.MoveCardsModel model = new com.anfelisa.card.models.MoveCardsModel();
 			if (payload.getCardIdList() == null) {
 				return badRequest("cardIdList is mandatory");
 			}
-			data.setCardIdList(payload.getCardIdList());
+			model.setCardIdList(payload.getCardIdList());
 			if (StringUtils.isBlank(payload.getCategoryId()) || "null".equals(payload.getCategoryId())) {
 				return badRequest("categoryId is mandatory");
 			}
-			data.setCategoryId(payload.getCategoryId());
-			data.setUserId(authUser.getUserId());
+			model.setCategoryId(payload.getCategoryId());
+			model.setUserId(authUser.getUserId());
 			
+			data.setModel(model);
 			com.anfelisa.card.actions.MoveCardsAction action = new com.anfelisa.card.actions.MoveCardsAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
 			data = action.apply(data);
 			return ok();

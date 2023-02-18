@@ -15,26 +15,26 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class GetInvitedUsersResponse implements IGetInvitedUsersResponse {
+public class GetInvitedUsersResponse {
 	
-	private java.util.List<com.anfelisa.category.models.IUsernameEditableModel> invitedUsers;
+	private java.util.List<com.anfelisa.category.models.UsernameEditableModel> invitedUsers;
 	
 	public GetInvitedUsersResponse() {
 	}
 	
-	public GetInvitedUsersResponse(com.anfelisa.category.models.IAlreadyInvitedUsernamesModel data) {
-		invitedUsers = data.getInvitedUsers();
+	public GetInvitedUsersResponse(com.anfelisa.category.models.AlreadyInvitedUsernamesModel model) {
+		invitedUsers = model.getInvitedUsers();
 	}
 	
-	@JsonProperty
-	public java.util.List<com.anfelisa.category.models.IUsernameEditableModel> getInvitedUsers() {
+	public java.util.List<com.anfelisa.category.models.UsernameEditableModel> getInvitedUsers() {
 		return this.invitedUsers;
 	}
+	
+	
 	
 }
 

@@ -15,18 +15,19 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class ScheduleCardsResponse implements IScheduleCardsResponse {
+public class ScheduleCardsResponse {
 	
 	public ScheduleCardsResponse() {
 	}
 	
-	public ScheduleCardsResponse(com.anfelisa.box.models.IScheduledCardsModel data) {
+	public ScheduleCardsResponse(com.anfelisa.box.models.ScheduledCardsModel model) {
 	}
+	
+	
 	
 }
 

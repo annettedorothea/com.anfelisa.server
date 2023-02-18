@@ -9,6 +9,7 @@ package com.anfelisa.user.actions;
 
 import java.time.LocalDateTime;
 
+import de.acegen.Data;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.ICommand;
 import de.acegen.IDaoProvider;
@@ -17,13 +18,12 @@ import de.acegen.SquishyDataProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.WriteAction;
 
-import com.anfelisa.user.data.IConfirmEmailData;
 import com.anfelisa.user.commands.ConfirmEmailCommand;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractConfirmEmailAction extends WriteAction<IConfirmEmailData> {
+public abstract class AbstractConfirmEmailAction extends WriteAction<com.anfelisa.user.models.ConfirmEmailModel> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractConfirmEmailAction.class);
 
@@ -33,12 +33,12 @@ public abstract class AbstractConfirmEmailAction extends WriteAction<IConfirmEma
 	}
 
 	@Override
-	public ICommand<IConfirmEmailData> getCommand() {
+	public ICommand<com.anfelisa.user.models.ConfirmEmailModel> getCommand() {
 		return new ConfirmEmailCommand(daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	@Override
-	protected IConfirmEmailData initActionDataFromSquishyDataProvider(IConfirmEmailData data) {
+	protected Data<com.anfelisa.user.models.ConfirmEmailModel> initActionDataFromSquishyDataProvider(Data<com.anfelisa.user.models.ConfirmEmailModel> data) {
 		LocalDateTime systemTime = SquishyDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
 			data.setSystemTime(systemTime);
@@ -46,7 +46,7 @@ public abstract class AbstractConfirmEmailAction extends WriteAction<IConfirmEma
 		return data;
 	}
 
-	public IConfirmEmailData initActionData(IConfirmEmailData data) {
+	public Data<com.anfelisa.user.models.ConfirmEmailModel> initActionData(Data<com.anfelisa.user.models.ConfirmEmailModel> data) {
 		return data;
 	}
 

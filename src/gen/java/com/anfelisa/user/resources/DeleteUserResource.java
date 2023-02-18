@@ -28,7 +28,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
-import de.acegen.IDataContainer;
 import de.acegen.ViewProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -36,6 +35,7 @@ import de.acegen.ReadAction;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.Config;
+import de.acegen.Data;
 
 import de.acegen.auth.AuthUser;
 import io.dropwizard.auth.Auth;
@@ -52,8 +52,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.DELETE;
 
-import com.anfelisa.user.data.IDeleteUserData;
-import com.anfelisa.user.data.DeleteUserData;
+import com.anfelisa.user.models.DeleteUserModel;
 
 import de.acegen.Resource;
 
@@ -92,17 +91,19 @@ public class DeleteUserResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.user.data.IDeleteUserData data = new DeleteUserData(uuid);
+			Data<com.anfelisa.user.models.DeleteUserModel> data = new Data<com.anfelisa.user.models.DeleteUserModel>(uuid);
+			com.anfelisa.user.models.DeleteUserModel model = new com.anfelisa.user.models.DeleteUserModel();
 			if (usernameToBeDeleted == null || StringUtils.isBlank(usernameToBeDeleted) || "null".equals(usernameToBeDeleted)) {
 				return badRequest("usernameToBeDeleted is mandatory");
 			}
 			if (usernameToBeDeleted != null) {
-				data.setUsernameToBeDeleted(usernameToBeDeleted);
+				model.setUsernameToBeDeleted(usernameToBeDeleted);
 			}
-			data.setUsername(authUser.getUsername());
-			data.setUserId(authUser.getUserId());
-			data.setRole(authUser.getRole());
+			model.setUsername(authUser.getUsername());
+			model.setUserId(authUser.getUserId());
+			model.setRole(authUser.getRole());
 			
+			data.setModel(model);
 			com.anfelisa.user.actions.DeleteUserAction action = new com.anfelisa.user.actions.DeleteUserAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
 			data = action.apply(data);
 			return ok();

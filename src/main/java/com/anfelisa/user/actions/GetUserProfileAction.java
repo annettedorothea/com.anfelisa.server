@@ -9,12 +9,13 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.box.models.IBoxModel;
+import com.anfelisa.box.models.BoxModel;
 import com.anfelisa.box.utils.Deletable;
-import com.anfelisa.user.data.IProfileUserData;
-import com.anfelisa.user.models.IUserModel;
+import com.anfelisa.user.models.ProfileUserModel;
+import com.anfelisa.user.models.UserModel;
 
 import de.acegen.CustomAppConfiguration;
+import de.acegen.Data;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -31,15 +32,15 @@ public class GetUserProfileAction extends AbstractGetUserProfileAction {
 	}
 
 	@Override
-	protected IProfileUserData loadDataForGetRequest(IProfileUserData data, PersistenceHandle readonlyHandle) {
-		IUserModel user = daoProvider.getUserDao().selectByUsername(readonlyHandle, data.getUsername());
-		data.setEmail(user.getEmail());
-		data.setEmailConfirmed(user.getEmailConfirmed());
-		List<IBoxModel> boxesOfUser = daoProvider.getBoxDao().selectAllOfUser(readonlyHandle, data.getUserId());
-		data.setDeletable(true);
-		for (IBoxModel box : boxesOfUser) {
-			if (!Deletable.isBoxDeletable(daoProvider, readonlyHandle, box, data.getUserId())) {
-				data.setDeletable(false);
+	protected Data<ProfileUserModel> loadDataForGetRequest(Data<ProfileUserModel> data, PersistenceHandle readonlyHandle) {
+		UserModel user = daoProvider.getUserDao().selectByUsername(readonlyHandle, data.getModel().getUsername());
+		data.getModel().setEmail(user.getEmail());
+		data.getModel().setEmailConfirmed(user.getEmailConfirmed());
+		List<BoxModel> boxesOfUser = daoProvider.getBoxDao().selectAllOfUser(readonlyHandle, data.getModel().getUserId());
+		data.getModel().setDeletable(true);
+		for (BoxModel box : boxesOfUser) {
+			if (!Deletable.isBoxDeletable(daoProvider, readonlyHandle, box.getCategoryId(), box.getReverse(), data.getModel().getUserId())) {
+				data.getModel().setDeletable(false);
 			}
 		}
 		return data;

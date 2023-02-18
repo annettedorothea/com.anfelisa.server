@@ -9,6 +9,7 @@ package com.anfelisa.user.actions;
 
 import java.time.LocalDateTime;
 
+import de.acegen.Data;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.ICommand;
 import de.acegen.IDaoProvider;
@@ -17,13 +18,12 @@ import de.acegen.SquishyDataProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.WriteAction;
 
-import com.anfelisa.user.data.IForgotPasswordData;
 import com.anfelisa.user.commands.ForgotPasswordCommand;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractForgotPasswordAction extends WriteAction<IForgotPasswordData> {
+public abstract class AbstractForgotPasswordAction extends WriteAction<com.anfelisa.user.models.ForgotPasswordModel> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractForgotPasswordAction.class);
 
@@ -33,12 +33,12 @@ public abstract class AbstractForgotPasswordAction extends WriteAction<IForgotPa
 	}
 
 	@Override
-	public ICommand<IForgotPasswordData> getCommand() {
+	public ICommand<com.anfelisa.user.models.ForgotPasswordModel> getCommand() {
 		return new ForgotPasswordCommand(daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	@Override
-	protected IForgotPasswordData initActionDataFromSquishyDataProvider(IForgotPasswordData data) {
+	protected Data<com.anfelisa.user.models.ForgotPasswordModel> initActionDataFromSquishyDataProvider(Data<com.anfelisa.user.models.ForgotPasswordModel> data) {
 		LocalDateTime systemTime = SquishyDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
 			data.setSystemTime(systemTime);
@@ -47,7 +47,7 @@ public abstract class AbstractForgotPasswordAction extends WriteAction<IForgotPa
 		if (tokenObject != null) {
 			try {
 				String token = (String)tokenObject;
-				data.setToken(token);
+				data.getModel().setToken(token);
 			} catch (Exception x) {
 				LOG.warn("token is declared as squishy and failed to parse {} from SquishyDataProvider.", tokenObject);
 			}
@@ -57,7 +57,7 @@ public abstract class AbstractForgotPasswordAction extends WriteAction<IForgotPa
 		return data;
 	}
 
-	public IForgotPasswordData initActionData(IForgotPasswordData data) {
+	public Data<com.anfelisa.user.models.ForgotPasswordModel> initActionData(Data<com.anfelisa.user.models.ForgotPasswordModel> data) {
 		return data;
 	}
 

@@ -12,6 +12,7 @@ import de.acegen.PersistenceConnection;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
 import de.acegen.ViewProvider;
+import de.acegen.Data;
 
 import com.anfelisa.user.resources.*;
 
@@ -33,52 +34,52 @@ public class AppRegistration {
 	}
 	
 	public static void registerConsumers(Environment environment, ViewProvider viewProvider) {
-		viewProvider.addConsumer("com.anfelisa.user.events.RegisterUserOkEvent", (dataContainer, handle) -> {
-			viewProvider.userView.insertUser((com.anfelisa.user.data.UserRegistrationData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.user.events.RegisterUserOkEvent", (data, handle) -> {
+			viewProvider.userView.insertUser((Data<com.anfelisa.user.models.UserRegistrationModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.user.events.RegisterUserOkEvent", (dataContainer, handle) -> {
-			viewProvider.emailConfirmationView.insert((com.anfelisa.user.data.UserRegistrationData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.user.events.RegisterUserOkEvent", (data, handle) -> {
+			viewProvider.emailConfirmationView.insert((Data<com.anfelisa.user.models.UserRegistrationModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.user.events.RegisterUserOkEvent", (dataContainer, handle) -> {
-			viewProvider.emailView.sendRegistrationEmail((com.anfelisa.user.data.UserRegistrationData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.user.events.RegisterUserOkEvent", (data, handle) -> {
+			viewProvider.emailView.sendRegistrationEmail((Data<com.anfelisa.user.models.UserRegistrationModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.user.events.ConfirmEmailOkEvent", (dataContainer, handle) -> {
-			viewProvider.userView.confirmEmail((com.anfelisa.user.data.ConfirmEmailData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.user.events.ConfirmEmailOkEvent", (data, handle) -> {
+			viewProvider.userView.confirmEmail((Data<com.anfelisa.user.models.ConfirmEmailModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.user.events.ConfirmEmailOkEvent", (dataContainer, handle) -> {
-			viewProvider.emailConfirmationView.delete((com.anfelisa.user.data.ConfirmEmailData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.user.events.ConfirmEmailOkEvent", (data, handle) -> {
+			viewProvider.emailConfirmationView.delete((Data<com.anfelisa.user.models.ConfirmEmailModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.user.events.ForgotPasswordOkEvent", (dataContainer, handle) -> {
-			viewProvider.resetPasswordView.insert((com.anfelisa.user.data.ForgotPasswordData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.user.events.ForgotPasswordOkEvent", (data, handle) -> {
+			viewProvider.resetPasswordView.insert((Data<com.anfelisa.user.models.ForgotPasswordModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.user.events.ForgotPasswordOkEvent", (dataContainer, handle) -> {
-			viewProvider.emailView.sendForgotPasswordEmail((com.anfelisa.user.data.ForgotPasswordData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.user.events.ForgotPasswordOkEvent", (data, handle) -> {
+			viewProvider.emailView.sendForgotPasswordEmail((Data<com.anfelisa.user.models.ForgotPasswordModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.user.events.ResetPasswordOkEvent", (dataContainer, handle) -> {
-			viewProvider.userView.resetPassword((com.anfelisa.user.data.ResetPasswordWithNewPasswordData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.user.events.ResetPasswordOkEvent", (data, handle) -> {
+			viewProvider.userView.resetPassword((Data<com.anfelisa.user.models.ResetPasswordWithNewPasswordModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.user.events.ResetPasswordOkEvent", (dataContainer, handle) -> {
-			viewProvider.resetPasswordView.delete((com.anfelisa.user.data.ResetPasswordWithNewPasswordData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.user.events.ResetPasswordOkEvent", (data, handle) -> {
+			viewProvider.resetPasswordView.delete((Data<com.anfelisa.user.models.ResetPasswordWithNewPasswordModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.user.events.ChangeUserRoleOkEvent", (dataContainer, handle) -> {
-			viewProvider.userView.changeUserRole((com.anfelisa.user.data.ChangeUserRoleData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.user.events.ChangeUserRoleOkEvent", (data, handle) -> {
+			viewProvider.userView.changeUserRole((Data<com.anfelisa.user.models.ChangeUserRoleModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.user.events.DeleteUserOkEvent", (dataContainer, handle) -> {
-			viewProvider.userRootCategoryView.deleteAll((com.anfelisa.user.data.DeleteUserData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.user.events.DeleteUserOkEvent", (data, handle) -> {
+			viewProvider.userRootCategoryView.deleteAll((Data<com.anfelisa.user.models.DeleteUserModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.user.events.DeleteUserOkEvent", (dataContainer, handle) -> {
-			viewProvider.userView.deleteUser((com.anfelisa.user.data.DeleteUserData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.user.events.DeleteUserOkEvent", (data, handle) -> {
+			viewProvider.userView.deleteUser((Data<com.anfelisa.user.models.DeleteUserModel>) data, handle);
 		});
 		
 		

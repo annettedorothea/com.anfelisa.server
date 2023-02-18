@@ -28,7 +28,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
-import de.acegen.IDataContainer;
 import de.acegen.ViewProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -36,6 +35,7 @@ import de.acegen.ReadAction;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.Config;
+import de.acegen.Data;
 
 import de.acegen.auth.AuthUser;
 import io.dropwizard.auth.Auth;
@@ -52,8 +52,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.DELETE;
 
-import com.anfelisa.card.data.ICardSearchData;
-import com.anfelisa.card.data.CardSearchData;
+import com.anfelisa.card.models.CardSearchModel;
 
 import de.acegen.Resource;
 
@@ -95,27 +94,29 @@ public class GetDuplicatesResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.card.data.ICardSearchData data = new CardSearchData(uuid);
+			Data<com.anfelisa.card.models.CardSearchModel> data = new Data<com.anfelisa.card.models.CardSearchModel>(uuid);
+			com.anfelisa.card.models.CardSearchModel model = new com.anfelisa.card.models.CardSearchModel();
 			if (given != null) {
-				data.setGiven(given);
+				model.setGiven(given);
 			}
 			if (wanted != null) {
-				data.setWanted(wanted);
+				model.setWanted(wanted);
 			}
 			if (naturalInputOrder != null) {
-				data.setNaturalInputOrder("null".equals(naturalInputOrder) ? null : Boolean.parseBoolean(naturalInputOrder));
+				model.setNaturalInputOrder("null".equals(naturalInputOrder) ? null : Boolean.parseBoolean(naturalInputOrder));
 			}
 			if (categoryId == null || StringUtils.isBlank(categoryId) || "null".equals(categoryId)) {
 				return badRequest("categoryId is mandatory");
 			}
 			if (categoryId != null) {
-				data.setCategoryId(categoryId);
+				model.setCategoryId(categoryId);
 			}
-			data.setUserId(authUser.getUserId());
+			model.setUserId(authUser.getUserId());
 			
+			data.setModel(model);
 			com.anfelisa.card.actions.GetDuplicatesAction action = new com.anfelisa.card.actions.GetDuplicatesAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
 			data = action.apply(data);
-			return Response.ok(new com.anfelisa.card.data.GetDuplicatesResponse(data)).build();
+			return Response.ok(new com.anfelisa.card.data.GetDuplicatesResponse(data.getModel())).build();
 		} catch (IllegalArgumentException x) {
 			LOG.error("bad request due to {} ", x.getMessage());
 			if (Config.DEV.equals(appConfiguration.getConfig().getMode())) {

@@ -15,12 +15,11 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class ConfirmEmailPayload implements IConfirmEmailPayload {
+public class ConfirmEmailPayload {
 	
 	private String token;
 	
@@ -29,10 +28,6 @@ public class ConfirmEmailPayload implements IConfirmEmailPayload {
 	public ConfirmEmailPayload() {
 	}
 	
-	public ConfirmEmailPayload(com.anfelisa.user.models.IConfirmEmailModel data) {
-		token = data.getToken();
-		username = data.getUsername();
-	}
 	
 	@JsonProperty
 	public String getToken() {

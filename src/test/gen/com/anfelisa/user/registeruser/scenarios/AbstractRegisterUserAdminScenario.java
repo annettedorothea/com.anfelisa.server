@@ -25,6 +25,9 @@ import de.acegen.BaseScenario;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.HttpResponse;
+import de.acegen.Data;
+
+import com.fasterxml.jackson.core.type.TypeReference;
 
 @SuppressWarnings("unused")
 public abstract class AbstractRegisterUserAdminScenario extends BaseScenario {
@@ -45,13 +48,13 @@ public abstract class AbstractRegisterUserAdminScenario extends BaseScenario {
 			"\"password\" : \"admin-password\"," + 
 			"\"username\" : \"Admin\"} ",
 				com.anfelisa.user.data.RegisterUserPayload.class);
-		com.anfelisa.user.data.UserRegistrationData data_0 = objectMapper.readValue("{" +
-		"\"uuid\" : \"" + uuid + "\"," + 
-		"\"email\" : \"annette.pohl@anfelisa.de\"," + 
-		"\"language\" : \"de\"," + 
-		"\"password\" : \"admin-password\"," + 
-		"\"username\" : \"Admin\"} ",
-				com.anfelisa.user.data.UserRegistrationData.class);
+		com.anfelisa.user.models.UserRegistrationModel model_0 = objectMapper.readValue("{" +
+			"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+			"\"language\" : \"de\"," + 
+			"\"password\" : \"admin-password\"," + 
+			"\"username\" : \"Admin\"} ", com.anfelisa.user.models.UserRegistrationModel.class);
+		Data<com.anfelisa.user.models.UserRegistrationModel> data_0 = new Data<com.anfelisa.user.models.UserRegistrationModel>(uuid);
+		data_0.setModel(model_0);
 		HttpResponse<Object> response = 
 		this.httpPost(
 			"/users/register", 
@@ -107,9 +110,9 @@ public abstract class AbstractRegisterUserAdminScenario extends BaseScenario {
 	
 	
 	private void userWasCreated() throws Exception {
-		com.anfelisa.user.models.IUserModel actual = daoProvider.getUserDao().selectByUserId(handle, "uuid-admin");
+		com.anfelisa.user.models.UserModel actual = daoProvider.getUserDao().selectByUserId(handle, "uuid-admin");
 		
-		com.anfelisa.user.models.IUserModel expected = objectMapper.readValue("{" +
+		com.anfelisa.user.models.UserModel expected = objectMapper.readValue("{" +
 			"\"email\" : \"annette.pohl@anfelisa.de\"," + 
 			"\"emailConfirmed\" : false," + 
 			"\"password\" : \"admin-password\"," + 
@@ -122,9 +125,9 @@ public abstract class AbstractRegisterUserAdminScenario extends BaseScenario {
 		LOG.info("THEN: userWasCreated passed");
 	}
 	private void emailConfirmationWasCreated() throws Exception {
-		com.anfelisa.user.models.IEmailConfirmationModel actual = daoProvider.getEmailConfirmationDao().selectByToken(handle, "ADMIN-TOKEN");
+		com.anfelisa.user.models.EmailConfirmationModel actual = daoProvider.getEmailConfirmationDao().selectByToken(handle, "ADMIN-TOKEN");
 		
-		com.anfelisa.user.models.IEmailConfirmationModel expected = objectMapper.readValue("{" +
+		com.anfelisa.user.models.EmailConfirmationModel expected = objectMapper.readValue("{" +
 			"\"token\" : \"ADMIN-TOKEN\"," + 
 			"\"userId\" : \"uuid-admin\"} ",
 		com.anfelisa.user.models.EmailConfirmationModel.class);

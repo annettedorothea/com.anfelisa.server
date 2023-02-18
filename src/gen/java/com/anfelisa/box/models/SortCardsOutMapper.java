@@ -14,9 +14,9 @@ import org.jdbi.v3.core.statement.StatementContext;
 
 import de.acegen.AbstractMapper;
 
-public class SortCardsOutMapper extends AbstractMapper<ISortCardsOutModel> {
+public class SortCardsOutMapper extends AbstractMapper<SortCardsOutModel> {
 	
-	public ISortCardsOutModel map(ResultSet r, StatementContext ctx) throws SQLException {
+	public SortCardsOutModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new SortCardsOutModel(
 			null,
 			null,

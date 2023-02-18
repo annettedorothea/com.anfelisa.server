@@ -12,10 +12,11 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.category.data.IUsernameSearchData;
-import com.anfelisa.category.models.IUserAccessToCategoryModel;
+import com.anfelisa.category.models.UserAccessToCategoryModel;
+import com.anfelisa.category.models.UsernameSearchModel;
 
 import de.acegen.CustomAppConfiguration;
+import de.acegen.Data;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -32,13 +33,13 @@ public class SearchUsernameForInvitationAction extends AbstractSearchUsernameFor
 
 
 	@Override
-	protected IUsernameSearchData loadDataForGetRequest(IUsernameSearchData data, PersistenceHandle readonlyHandle) {
-		IUserAccessToCategoryModel access = daoProvider.getUserAccessToCategoryDao().selectByCategoryIdAndUserId(readonlyHandle, data.getCategoryId(), data.getUserId());
+	protected Data<UsernameSearchModel> loadDataForGetRequest(Data<UsernameSearchModel> data, PersistenceHandle readonlyHandle) {
+		UserAccessToCategoryModel access = daoProvider.getUserAccessToCategoryDao().selectByCategoryIdAndUserId(readonlyHandle, data.getModel().getCategoryId(), data.getModel().getUserId());
 		if (access == null || !access.getEditable()) {
 			throwSecurityException();
 		}
-		List<String> usernames = daoProvider.getCategoryDao().search(readonlyHandle, data.getUsernameSearchString(), data.getCategoryId());
-		data.setUsernames(usernames);
+		List<String> usernames = daoProvider.getCategoryDao().search(readonlyHandle, data.getModel().getUsernameSearchString(), data.getModel().getCategoryId());
+		data.getModel().setUsernames(usernames);
 		return data;
 	}
 	

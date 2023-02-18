@@ -16,11 +16,12 @@ import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
+import de.acegen.AbstractModel;
 
 @SuppressWarnings("all")
-public class ScheduledCardsModel implements IScheduledCardsModel {
+public class ScheduledCardsModel extends AbstractModel {
 
-	private java.util.List<com.anfelisa.box.models.IScheduledCardModel> newScheduledCards;
+	private java.util.List<com.anfelisa.box.models.ScheduledCardModel> newScheduledCards;
 
 	private java.util.List<String> existingScheduledCardIds;
 
@@ -32,14 +33,16 @@ public class ScheduledCardsModel implements IScheduledCardsModel {
 
 	private String boxId;
 
-	private Boolean reverse = false;
+	private Boolean reverse;
 
+	
+	private Boolean frozen = false;
 
 	public ScheduledCardsModel() {
 	}
 
 	public ScheduledCardsModel(
-		@JsonProperty("newScheduledCards") java.util.List<com.anfelisa.box.models.IScheduledCardModel> newScheduledCards,
+		@JsonProperty("newScheduledCards") java.util.List<com.anfelisa.box.models.ScheduledCardModel> newScheduledCards,
 		@JsonProperty("existingScheduledCardIds") java.util.List<String> existingScheduledCardIds,
 		@JsonProperty("cardIds") java.util.List<String> cardIds,
 		@JsonProperty("scheduledDate") java.time.LocalDateTime scheduledDate,
@@ -57,10 +60,15 @@ public class ScheduledCardsModel implements IScheduledCardsModel {
 	}
 
 	@JsonProperty
-	public java.util.List<com.anfelisa.box.models.IScheduledCardModel> getNewScheduledCards() {
+	public java.util.List<com.anfelisa.box.models.ScheduledCardModel> getNewScheduledCards() {
 		return this.newScheduledCards;
 	}
-	public void setNewScheduledCards(java.util.List<com.anfelisa.box.models.IScheduledCardModel> newScheduledCards) {
+	
+	@JsonProperty
+	public void setNewScheduledCards(java.util.List<com.anfelisa.box.models.ScheduledCardModel> newScheduledCards) {
+		if (this.frozen) {
+			throw new RuntimeException("newScheduledCards is frozen");
+		}
 		this.newScheduledCards = newScheduledCards;
 	}
 	
@@ -68,7 +76,12 @@ public class ScheduledCardsModel implements IScheduledCardsModel {
 	public java.util.List<String> getExistingScheduledCardIds() {
 		return this.existingScheduledCardIds;
 	}
+	
+	@JsonProperty
 	public void setExistingScheduledCardIds(java.util.List<String> existingScheduledCardIds) {
+		if (this.frozen) {
+			throw new RuntimeException("existingScheduledCardIds is frozen");
+		}
 		this.existingScheduledCardIds = existingScheduledCardIds;
 	}
 	
@@ -76,7 +89,12 @@ public class ScheduledCardsModel implements IScheduledCardsModel {
 	public java.util.List<String> getCardIds() {
 		return this.cardIds;
 	}
+	
+	@JsonProperty
 	public void setCardIds(java.util.List<String> cardIds) {
+		if (this.frozen) {
+			throw new RuntimeException("cardIds is frozen");
+		}
 		this.cardIds = cardIds;
 	}
 	
@@ -86,7 +104,14 @@ public class ScheduledCardsModel implements IScheduledCardsModel {
 	public java.time.LocalDateTime getScheduledDate() {
 		return this.scheduledDate;
 	}
+	
+	@JsonProperty
+	@JsonSerialize(converter = DateTimeToStringConverter.class)
+	@JsonDeserialize(converter = StringToDateTimeConverter.class)
 	public void setScheduledDate(java.time.LocalDateTime scheduledDate) {
+		if (this.frozen) {
+			throw new RuntimeException("scheduledDate is frozen");
+		}
 		this.scheduledDate = scheduledDate;
 	}
 	
@@ -94,7 +119,12 @@ public class ScheduledCardsModel implements IScheduledCardsModel {
 	public String getUserId() {
 		return this.userId;
 	}
+	
+	@JsonProperty
 	public void setUserId(String userId) {
+		if (this.frozen) {
+			throw new RuntimeException("userId is frozen");
+		}
 		this.userId = userId;
 	}
 	
@@ -102,7 +132,12 @@ public class ScheduledCardsModel implements IScheduledCardsModel {
 	public String getBoxId() {
 		return this.boxId;
 	}
+	
+	@JsonProperty
 	public void setBoxId(String boxId) {
+		if (this.frozen) {
+			throw new RuntimeException("boxId is frozen");
+		}
 		this.boxId = boxId;
 	}
 	
@@ -110,16 +145,32 @@ public class ScheduledCardsModel implements IScheduledCardsModel {
 	public Boolean getReverse() {
 		return this.reverse;
 	}
+	
+	@JsonProperty
 	public void setReverse(Boolean reverse) {
+		if (this.frozen) {
+			throw new RuntimeException("reverse is frozen");
+		}
 		this.reverse = reverse;
 	}
 	
+	
+	
+	@Override
+	public void freeze() {
+		this.frozen = true;
+		if (this.newScheduledCards != null) {
+			for ( int i = 0; i < newScheduledCards.size(); i++ ) {
+				newScheduledCards.get(i).freeze();
+			}
+		}
+	}
 
-	public IScheduledCardsModel deepCopy() {
-		IScheduledCardsModel copy = new ScheduledCardsModel();
-		List<com.anfelisa.box.models.IScheduledCardModel> newScheduledCardsCopy = new ArrayList<com.anfelisa.box.models.IScheduledCardModel>();
+	public com.anfelisa.box.models.ScheduledCardsModel deepCopy() {
+		com.anfelisa.box.models.ScheduledCardsModel copy = new ScheduledCardsModel();
+		List<com.anfelisa.box.models.ScheduledCardModel> newScheduledCardsCopy = new ArrayList<com.anfelisa.box.models.ScheduledCardModel>();
 		if (this.getNewScheduledCards() != null) {
-			for(com.anfelisa.box.models.IScheduledCardModel item: this.getNewScheduledCards()) {
+			for(com.anfelisa.box.models.ScheduledCardModel item: this.getNewScheduledCards()) {
 				newScheduledCardsCopy.add(item.deepCopy());
 			}
 		}
@@ -143,6 +194,47 @@ public class ScheduledCardsModel implements IScheduledCardsModel {
 		copy.setBoxId(this.getBoxId());
 		copy.setReverse(this.getReverse());
 		return copy;
+	}
+	
+	public static ScheduledCardsModel generateTestData() {
+		java.util.Random random = new java.util.Random();
+		int n;
+		ScheduledCardsModel testData = new ScheduledCardsModel();
+		java.util.List<com.anfelisa.box.models.ScheduledCardModel> newScheduledCardsList = new java.util.ArrayList<com.anfelisa.box.models.ScheduledCardModel>();
+		n = random.nextInt(20) + 1;
+		for ( int i = 0; i < n; i++ ) {
+			newScheduledCardsList.add(com.anfelisa.box.models.ScheduledCardModel.generateTestData());
+		}
+		testData.setNewScheduledCards(newScheduledCardsList);
+		java.util.List<String> existingScheduledCardIdsList = new java.util.ArrayList<String>();
+		n = random.nextInt(20) + 1;
+		for ( int i = 0; i < n; i++ ) {
+			existingScheduledCardIdsList.add(randomString(random));
+		}
+		testData.setExistingScheduledCardIds(existingScheduledCardIdsList);
+		java.util.List<String> cardIdsList = new java.util.ArrayList<String>();
+		n = random.nextInt(20) + 1;
+		for ( int i = 0; i < n; i++ ) {
+			cardIdsList.add(randomString(random));
+		}
+		testData.setCardIds(cardIdsList);
+		testData.setScheduledDate(random.nextBoolean() ? java.time.LocalDateTime.now().plusMinutes(random.nextInt(60)) : java.time.LocalDateTime.now().minusMinutes(random.nextInt(60)) );
+		testData.setUserId(randomString(random));
+		testData.setBoxId(randomString(random));
+		testData.setReverse(random.nextBoolean());
+		return testData;
+	}
+	
+	private static String randomString(java.util.Random random) {
+		String chars = "aaaaaaabcdeeeeeeeffffghiiiiiiijkllllllmmmmnnnnnnnooooooooopqrstttuuuuuuuvxyz";
+		int n = random.nextInt(20) + 5;
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		String string  = sb.toString(); 
+		return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
 	}
 
 }

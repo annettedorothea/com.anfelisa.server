@@ -1,29 +1,29 @@
-<createTable tableName="category">
-	<column name="categoryid" type="character varying">
+<createTable tableName="\"category\"">
+	<column name="categoryId" type="character varying">
 		<constraints primaryKey="true" nullable="false"  />
 	</column>
-	<column name="categoryname" type="character varying">
+	<column name="categoryName" type="character varying">
 		<constraints  nullable="false"  />
 	</column>
-	<column name="categoryauthor" type="character varying">
+	<column name="categoryAuthor" type="character varying">
 		<constraints  nullable="false"  />
 	</column>
-	<column name="categoryindex" type="integer">
+	<column name="categoryIndex" type="integer">
 		<constraints  nullable="false"  />
 	</column>
-	<column name="parentcategoryid" type="character varying">
-		<constraints    references="category(categoryid)" deleteCascade="true" foreignKeyName="fk_category_categoryid" />
+	<column name="parentCategoryId" type="character varying">
+		<constraints    references="\"category\"(categoryId)" deleteCascade="true" foreignKeyName="fk_\"category\"_categoryId" />
 	</column>
-	<column name="rootcategoryid" type="character varying">
-		<constraints    references="category(categoryid)" deleteCascade="true" foreignKeyName="fk_category_categoryid" />
+	<column name="rootCategoryId" type="character varying">
+		<constraints    references="\"category\"(categoryId)" deleteCascade="true" foreignKeyName="fk_\"category\"_categoryId" />
 	</column>
-	<column name="dictionarylookup" type="boolean">
+	<column name="dictionaryLookup" type="boolean">
 		<constraints    />
 	</column>
-	<column name="givenlanguage" type="character varying">
+	<column name="givenLanguage" type="character varying">
 		<constraints    />
 	</column>
-	<column name="wantedlanguage" type="character varying">
+	<column name="wantedLanguage" type="character varying">
 		<constraints    />
 	</column>
 </createTable>

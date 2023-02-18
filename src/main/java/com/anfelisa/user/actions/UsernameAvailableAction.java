@@ -4,15 +4,17 @@
 
 package com.anfelisa.user.actions;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.anfelisa.user.models.UsernameAvailableModel;
+
 import de.acegen.CustomAppConfiguration;
-import de.acegen.ViewProvider;
+import de.acegen.Data;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
-import com.anfelisa.user.data.IUsernameAvailableData;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import de.acegen.ViewProvider;
 
 public class UsernameAvailableAction extends AbstractUsernameAvailableAction {
 
@@ -25,13 +27,13 @@ public class UsernameAvailableAction extends AbstractUsernameAvailableAction {
 	}
 
 	@Override
-	protected IUsernameAvailableData loadDataForGetRequest(IUsernameAvailableData data,
+	protected Data<UsernameAvailableModel> loadDataForGetRequest(Data<UsernameAvailableModel> data,
 			PersistenceHandle readonlyHandle) {
 		if (daoProvider.getUserDao().selectByUsername(readonlyHandle,
-				data.getUsername()) == null) {
-			data.setAvailable(true);
+				data.getModel().getUsername()) == null) {
+			data.getModel().setAvailable(true);
 		} else {
-			data.setAvailable(false);
+			data.getModel().setAvailable(false);
 		}
 		return data;
 	}

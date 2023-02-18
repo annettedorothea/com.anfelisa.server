@@ -25,6 +25,9 @@ import de.acegen.BaseScenario;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.HttpResponse;
+import de.acegen.Data;
+
+import com.fasterxml.jackson.core.type.TypeReference;
 
 @SuppressWarnings("unused")
 public abstract class AbstractGetUserInfoScenario extends BaseScenario {
@@ -43,13 +46,13 @@ public abstract class AbstractGetUserInfoScenario extends BaseScenario {
 				"\"password\" : \"password\"," + 
 				"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 					com.anfelisa.user.data.RegisterUserPayload.class);
-			com.anfelisa.user.data.UserRegistrationData data_0 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"email\" : \"annette.pohl@anfelisa.de\"," + 
-			"\"language\" : \"de\"," + 
-			"\"password\" : \"password\"," + 
-			"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
-					com.anfelisa.user.data.UserRegistrationData.class);
+			com.anfelisa.user.models.UserRegistrationModel model_0 = objectMapper.readValue("{" +
+				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"password\"," + 
+				"\"username\" : \"Annette-" + this.getTestId() + "\"} ", com.anfelisa.user.models.UserRegistrationModel.class);
+			Data<com.anfelisa.user.models.UserRegistrationModel> data_0 = new Data<com.anfelisa.user.models.UserRegistrationModel>(uuid);
+			data_0.setModel(model_0);
 			HttpResponse<Object> response_0 = 
 			this.httpPost(
 				"/users/register", 
@@ -75,9 +78,9 @@ public abstract class AbstractGetUserInfoScenario extends BaseScenario {
 	
 	private HttpResponse<com.anfelisa.user.data.GetUserInfoResponse> when_0() throws Exception {
 		String uuid = this.randomUUID();
-		com.anfelisa.user.data.UserInfoData data_0 = objectMapper.readValue("{" +
-		"\"uuid\" : \"" + uuid + "\" }",
-		com.anfelisa.user.data.UserInfoData.class);
+		com.anfelisa.user.models.UserInfoModel model_0 = new com.anfelisa.user.models.UserInfoModel();
+		Data<com.anfelisa.user.models.UserInfoModel> data_0 = new Data<com.anfelisa.user.models.UserInfoModel>(uuid);
+		data_0.setModel(model_0);
 		HttpResponse<com.anfelisa.user.data.GetUserInfoResponse> response = 
 		this.httpGet(
 			"/user/info", 
@@ -119,10 +122,8 @@ public abstract class AbstractGetUserInfoScenario extends BaseScenario {
 				assertFail(x.getMessage());
 			}
 	
-			com.anfelisa.user.data.UserInfoData expectedData = objectMapper.readValue("{" +
-				"\"uuid\" : \"\"," + 
-				"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
-			com.anfelisa.user.data.UserInfoData.class);
+			com.anfelisa.user.models.UserInfoModel expectedData = objectMapper.readValue("{" +
+				"\"username\" : \"Annette-" + this.getTestId() + "\"} ", com.anfelisa.user.models.UserInfoModel.class);
 			
 			com.anfelisa.user.data.GetUserInfoResponse expected = new com.anfelisa.user.data.GetUserInfoResponse(expectedData);
 			

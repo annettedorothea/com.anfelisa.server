@@ -15,12 +15,11 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class ForgotPasswordPayload implements IForgotPasswordPayload {
+public class ForgotPasswordPayload {
 	
 	private String username;
 	
@@ -29,10 +28,6 @@ public class ForgotPasswordPayload implements IForgotPasswordPayload {
 	public ForgotPasswordPayload() {
 	}
 	
-	public ForgotPasswordPayload(com.anfelisa.user.models.IForgotPasswordModel data) {
-		username = data.getUsername();
-		language = data.getLanguage();
-	}
 	
 	@JsonProperty
 	public String getUsername() {

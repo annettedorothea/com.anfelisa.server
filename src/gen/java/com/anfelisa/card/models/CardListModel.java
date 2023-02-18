@@ -16,29 +16,32 @@ import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
+import de.acegen.AbstractModel;
 
 @SuppressWarnings("all")
-public class CardListModel implements ICardListModel {
+public class CardListModel extends AbstractModel {
 
 	private String userId;
 
-	private java.util.List<com.anfelisa.card.models.ICardWithInfoModel> cardList;
+	private java.util.List<com.anfelisa.card.models.CardWithInfoModel> cardList;
 
 	private String categoryId;
 
-	private Boolean filterNonScheduled = false;
+	private Boolean filterNonScheduled;
 
 	private Integer priority;
 
-	private Boolean reverse = false;
+	private Boolean reverse;
 
+	
+	private Boolean frozen = false;
 
 	public CardListModel() {
 	}
 
 	public CardListModel(
 		@JsonProperty("userId") String userId,
-		@JsonProperty("cardList") java.util.List<com.anfelisa.card.models.ICardWithInfoModel> cardList,
+		@JsonProperty("cardList") java.util.List<com.anfelisa.card.models.CardWithInfoModel> cardList,
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("filterNonScheduled") Boolean filterNonScheduled,
 		@JsonProperty("priority") Integer priority,
@@ -56,15 +59,25 @@ public class CardListModel implements ICardListModel {
 	public String getUserId() {
 		return this.userId;
 	}
+	
+	@JsonProperty
 	public void setUserId(String userId) {
+		if (this.frozen) {
+			throw new RuntimeException("userId is frozen");
+		}
 		this.userId = userId;
 	}
 	
 	@JsonProperty
-	public java.util.List<com.anfelisa.card.models.ICardWithInfoModel> getCardList() {
+	public java.util.List<com.anfelisa.card.models.CardWithInfoModel> getCardList() {
 		return this.cardList;
 	}
-	public void setCardList(java.util.List<com.anfelisa.card.models.ICardWithInfoModel> cardList) {
+	
+	@JsonProperty
+	public void setCardList(java.util.List<com.anfelisa.card.models.CardWithInfoModel> cardList) {
+		if (this.frozen) {
+			throw new RuntimeException("cardList is frozen");
+		}
 		this.cardList = cardList;
 	}
 	
@@ -72,7 +85,12 @@ public class CardListModel implements ICardListModel {
 	public String getCategoryId() {
 		return this.categoryId;
 	}
+	
+	@JsonProperty
 	public void setCategoryId(String categoryId) {
+		if (this.frozen) {
+			throw new RuntimeException("categoryId is frozen");
+		}
 		this.categoryId = categoryId;
 	}
 	
@@ -80,7 +98,12 @@ public class CardListModel implements ICardListModel {
 	public Boolean getFilterNonScheduled() {
 		return this.filterNonScheduled;
 	}
+	
+	@JsonProperty
 	public void setFilterNonScheduled(Boolean filterNonScheduled) {
+		if (this.frozen) {
+			throw new RuntimeException("filterNonScheduled is frozen");
+		}
 		this.filterNonScheduled = filterNonScheduled;
 	}
 	
@@ -88,7 +111,12 @@ public class CardListModel implements ICardListModel {
 	public Integer getPriority() {
 		return this.priority;
 	}
+	
+	@JsonProperty
 	public void setPriority(Integer priority) {
+		if (this.frozen) {
+			throw new RuntimeException("priority is frozen");
+		}
 		this.priority = priority;
 	}
 	
@@ -96,17 +124,33 @@ public class CardListModel implements ICardListModel {
 	public Boolean getReverse() {
 		return this.reverse;
 	}
+	
+	@JsonProperty
 	public void setReverse(Boolean reverse) {
+		if (this.frozen) {
+			throw new RuntimeException("reverse is frozen");
+		}
 		this.reverse = reverse;
 	}
 	
+	
+	
+	@Override
+	public void freeze() {
+		this.frozen = true;
+		if (this.cardList != null) {
+			for ( int i = 0; i < cardList.size(); i++ ) {
+				cardList.get(i).freeze();
+			}
+		}
+	}
 
-	public ICardListModel deepCopy() {
-		ICardListModel copy = new CardListModel();
+	public com.anfelisa.card.models.CardListModel deepCopy() {
+		com.anfelisa.card.models.CardListModel copy = new CardListModel();
 		copy.setUserId(this.getUserId());
-		List<com.anfelisa.card.models.ICardWithInfoModel> cardListCopy = new ArrayList<com.anfelisa.card.models.ICardWithInfoModel>();
+		List<com.anfelisa.card.models.CardWithInfoModel> cardListCopy = new ArrayList<com.anfelisa.card.models.CardWithInfoModel>();
 		if (this.getCardList() != null) {
-			for(com.anfelisa.card.models.ICardWithInfoModel item: this.getCardList()) {
+			for(com.anfelisa.card.models.CardWithInfoModel item: this.getCardList()) {
 				cardListCopy.add(item.deepCopy());
 			}
 		}
@@ -116,6 +160,36 @@ public class CardListModel implements ICardListModel {
 		copy.setPriority(this.getPriority());
 		copy.setReverse(this.getReverse());
 		return copy;
+	}
+	
+	public static CardListModel generateTestData() {
+		java.util.Random random = new java.util.Random();
+		int n;
+		CardListModel testData = new CardListModel();
+		testData.setUserId(randomString(random));
+		java.util.List<com.anfelisa.card.models.CardWithInfoModel> cardListList = new java.util.ArrayList<com.anfelisa.card.models.CardWithInfoModel>();
+		n = random.nextInt(20) + 1;
+		for ( int i = 0; i < n; i++ ) {
+			cardListList.add(com.anfelisa.card.models.CardWithInfoModel.generateTestData());
+		}
+		testData.setCardList(cardListList);
+		testData.setCategoryId(randomString(random));
+		testData.setFilterNonScheduled(random.nextBoolean());
+		testData.setPriority(random.nextInt(50));
+		testData.setReverse(random.nextBoolean());
+		return testData;
+	}
+	
+	private static String randomString(java.util.Random random) {
+		String chars = "aaaaaaabcdeeeeeeeffffghiiiiiiijkllllllmmmmnnnnnnnooooooooopqrstttuuuuuuuvxyz";
+		int n = random.nextInt(20) + 5;
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		String string  = sb.toString(); 
+		return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
 	}
 
 }

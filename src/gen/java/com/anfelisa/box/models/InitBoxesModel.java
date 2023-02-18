@@ -16,14 +16,17 @@ import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
+import de.acegen.AbstractModel;
 
 @SuppressWarnings("all")
-public class InitBoxesModel implements IInitBoxesModel {
+public class InitBoxesModel extends AbstractModel {
 
 	private java.time.LocalDateTime minScheduledDate;
 
 	private String boxId;
 
+	
+	private Boolean frozen = false;
 
 	public InitBoxesModel() {
 	}
@@ -42,7 +45,14 @@ public class InitBoxesModel implements IInitBoxesModel {
 	public java.time.LocalDateTime getMinScheduledDate() {
 		return this.minScheduledDate;
 	}
+	
+	@JsonProperty
+	@JsonSerialize(converter = DateTimeToStringConverter.class)
+	@JsonDeserialize(converter = StringToDateTimeConverter.class)
 	public void setMinScheduledDate(java.time.LocalDateTime minScheduledDate) {
+		if (this.frozen) {
+			throw new RuntimeException("minScheduledDate is frozen");
+		}
 		this.minScheduledDate = minScheduledDate;
 	}
 	
@@ -50,16 +60,47 @@ public class InitBoxesModel implements IInitBoxesModel {
 	public String getBoxId() {
 		return this.boxId;
 	}
+	
+	@JsonProperty
 	public void setBoxId(String boxId) {
+		if (this.frozen) {
+			throw new RuntimeException("boxId is frozen");
+		}
 		this.boxId = boxId;
 	}
 	
+	
+	
+	@Override
+	public void freeze() {
+		this.frozen = true;
+	}
 
-	public IInitBoxesModel deepCopy() {
-		IInitBoxesModel copy = new InitBoxesModel();
+	public com.anfelisa.box.models.InitBoxesModel deepCopy() {
+		com.anfelisa.box.models.InitBoxesModel copy = new InitBoxesModel();
 		copy.setMinScheduledDate(this.getMinScheduledDate());
 		copy.setBoxId(this.getBoxId());
 		return copy;
+	}
+	
+	public static InitBoxesModel generateTestData() {
+		java.util.Random random = new java.util.Random();
+		InitBoxesModel testData = new InitBoxesModel();
+		testData.setMinScheduledDate(random.nextBoolean() ? java.time.LocalDateTime.now().plusMinutes(random.nextInt(60)) : java.time.LocalDateTime.now().minusMinutes(random.nextInt(60)) );
+		testData.setBoxId(randomString(random));
+		return testData;
+	}
+	
+	private static String randomString(java.util.Random random) {
+		String chars = "aaaaaaabcdeeeeeeeffffghiiiiiiijkllllllmmmmnnnnnnnooooooooopqrstttuuuuuuuvxyz";
+		int n = random.nextInt(20) + 5;
+		StringBuilder sb = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		String string  = sb.toString(); 
+		return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
 	}
 
 }

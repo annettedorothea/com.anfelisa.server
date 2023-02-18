@@ -15,10 +15,11 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.card.data.ICardTranslationData;
+import com.anfelisa.card.models.CardTranslationModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.acegen.CustomAppConfiguration;
+import de.acegen.Data;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -36,24 +37,24 @@ public class GetTranslationAction extends AbstractGetTranslationAction {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	protected ICardTranslationData loadDataForGetRequest(ICardTranslationData data, PersistenceHandle readonlyHandle) {
+	protected Data<CardTranslationModel> loadDataForGetRequest(Data<CardTranslationModel> data, PersistenceHandle readonlyHandle) {
 		try {
 			String translationApiKey = appConfiguration.getTranslationApiKey();
 			String urlStr = "https://api-free.deepl.com/v2/translate?"
 					+ "auth_key=" + translationApiKey +
-					"&text=" + URLEncoder.encode(data.getSourceValue(), "UTF-8") +
-					"&source_lang=" + data.getSourceLanguage().toUpperCase() +
-					"&target_lang=" + data.getTargetLanguage().toUpperCase();
+					"&text=" + URLEncoder.encode(data.getModel().getSourceValue(), "UTF-8") +
+					"&source_lang=" + data.getModel().getSourceLanguage().toUpperCase() +
+					"&target_lang=" + data.getModel().getTargetLanguage().toUpperCase();
 			URL url = new URL(urlStr);
 			ObjectMapper mapper = new ObjectMapper();
 			Map<String, Object> map = mapper.readValue(url, Map.class);
 			List<Map<String, Object>> translations = (List<Map<String, Object>>) map.get("translations");
 			for (Map<String, Object> translation : translations) {
-				data.setTargetValue(translation.get("text").toString());
+				data.getModel().setTargetValue(translation.get("text").toString());
 			}
 		} catch (Exception e) {
 			LOG.error(e.getMessage(), e);
-			data.setTargetValue("");
+			data.getModel().setTargetValue("");
 		}
 		return data;
 	}

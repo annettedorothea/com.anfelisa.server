@@ -14,9 +14,9 @@ import org.jdbi.v3.core.statement.StatementContext;
 
 import de.acegen.AbstractMapper;
 
-public class InitBoxesMapper extends AbstractMapper<IInitBoxesModel> {
+public class InitBoxesMapper extends AbstractMapper<InitBoxesModel> {
 	
-	public IInitBoxesModel map(ResultSet r, StatementContext ctx) throws SQLException {
+	public InitBoxesModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new InitBoxesModel(
 			this.mapToDateTime(r, "minScheduledDate"),
 			this.mapToString(r, "boxId")

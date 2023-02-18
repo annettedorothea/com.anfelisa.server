@@ -14,9 +14,9 @@ import org.jdbi.v3.core.statement.StatementContext;
 
 import de.acegen.AbstractMapper;
 
-public class InitMyBoxesDataMapper extends AbstractMapper<IInitMyBoxesDataModel> {
+public class InitMyBoxesDataMapper extends AbstractMapper<InitMyBoxesDataModel> {
 	
-	public IInitMyBoxesDataModel map(ResultSet r, StatementContext ctx) throws SQLException {
+	public InitMyBoxesDataModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new InitMyBoxesDataModel(
 			this.mapToString(r, "userId"),
 			this.mapToDateTime(r, "todayAtMidnightInUTC"),

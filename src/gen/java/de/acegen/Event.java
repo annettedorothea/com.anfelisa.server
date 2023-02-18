@@ -9,7 +9,7 @@ package de.acegen;
 
 import java.util.List;
 
-public class Event<T extends IDataContainer> implements IEvent<T> {
+public class Event<T extends AbstractModel> {
 
 	private String eventName;
 	private ViewProvider viewProvider;
@@ -20,7 +20,7 @@ public class Event<T extends IDataContainer> implements IEvent<T> {
 		this.viewProvider = viewProvider;
 	}
 
-	public void notifyListeners(T data, PersistenceHandle handle) {
+	public void notifyListeners(Data<T> data, PersistenceHandle handle) {
 		List<EventConsumer> consumerList = viewProvider.getConsumerForEvent(eventName);
 		if (consumerList != null) {
 			for (EventConsumer consumer : consumerList) {
@@ -31,7 +31,7 @@ public class Event<T extends IDataContainer> implements IEvent<T> {
 		}
 	}
 
-	public void notifyAfterCommitListeners(T data, PersistenceHandle handle) {
+	public void notifyAfterCommitListeners(Data<T> data, PersistenceHandle handle) {
 		List<EventConsumer> consumerList = viewProvider.getAfterCommitConsumerForEvent(eventName);
 		if (consumerList != null) {
 			for (EventConsumer consumer : consumerList) {
@@ -46,11 +46,11 @@ public class Event<T extends IDataContainer> implements IEvent<T> {
 		return eventName;
 	}
 
-	public void publish(T data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	public void publish(Data<T> data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
 		this.notifyListeners(data, handle);
 	}
 
-	public void publishAfterCommit(T data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
+	public void publishAfterCommit(Data<T> data, PersistenceHandle handle, PersistenceHandle timelineHandle) {
 		this.notifyAfterCommitListeners(data, handle);
 	}
 

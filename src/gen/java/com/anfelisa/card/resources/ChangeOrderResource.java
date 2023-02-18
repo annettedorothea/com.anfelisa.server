@@ -28,7 +28,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
-import de.acegen.IDataContainer;
 import de.acegen.ViewProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -36,6 +35,7 @@ import de.acegen.ReadAction;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.Config;
+import de.acegen.Data;
 
 import de.acegen.auth.AuthUser;
 import io.dropwizard.auth.Auth;
@@ -52,8 +52,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.DELETE;
 
-import com.anfelisa.card.data.IChangeCardOrderListData;
-import com.anfelisa.card.data.ChangeCardOrderListData;
+import com.anfelisa.card.models.ChangeCardOrderListModel;
 
 import de.acegen.Resource;
 
@@ -86,7 +85,7 @@ public class ChangeOrderResource extends Resource {
 	public Response changeOrderResource(
 			@Auth AuthUser authUser, 
 			@QueryParam("uuid") String uuid, 
-			IChangeCardOrderListData payload) 
+			com.anfelisa.card.data.ChangeOrderPayload payload) 
 			throws JsonProcessingException {
 		if (payload == null) {
 			return badRequest("payload must not be null");
@@ -95,17 +94,19 @@ public class ChangeOrderResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			com.anfelisa.card.data.IChangeCardOrderListData data = new ChangeCardOrderListData(uuid);
+			Data<com.anfelisa.card.models.ChangeCardOrderListModel> data = new Data<com.anfelisa.card.models.ChangeCardOrderListModel>(uuid);
+			com.anfelisa.card.models.ChangeCardOrderListModel model = new com.anfelisa.card.models.ChangeCardOrderListModel();
 			if (payload.getCardIdList() == null) {
 				return badRequest("cardIdList is mandatory");
 			}
-			data.setCardIdList(payload.getCardIdList());
+			model.setCardIdList(payload.getCardIdList());
 			if (StringUtils.isBlank(payload.getCardId()) || "null".equals(payload.getCardId())) {
 				return badRequest("cardId is mandatory");
 			}
-			data.setCardId(payload.getCardId());
-			data.setUserId(authUser.getUserId());
+			model.setCardId(payload.getCardId());
+			model.setUserId(authUser.getUserId());
 			
+			data.setModel(model);
 			com.anfelisa.card.actions.ChangeOrderAction action = new com.anfelisa.card.actions.ChangeOrderAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
 			data = action.apply(data);
 			return ok();

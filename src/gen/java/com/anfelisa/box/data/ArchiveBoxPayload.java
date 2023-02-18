@@ -15,24 +15,19 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class ArchiveBoxPayload implements IArchiveBoxPayload {
+public class ArchiveBoxPayload {
 	
 	private String boxId;
 	
-	private Boolean archived = false;
+	private Boolean archived;
 	
 	public ArchiveBoxPayload() {
 	}
 	
-	public ArchiveBoxPayload(com.anfelisa.box.models.IBoxArchiveModel data) {
-		boxId = data.getBoxId();
-		archived = data.getArchived();
-	}
 	
 	@JsonProperty
 	public String getBoxId() {

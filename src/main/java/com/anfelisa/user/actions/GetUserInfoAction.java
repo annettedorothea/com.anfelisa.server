@@ -7,15 +7,17 @@
 
 package com.anfelisa.user.actions;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.anfelisa.user.models.UserInfoModel;
+
 import de.acegen.CustomAppConfiguration;
-import de.acegen.ViewProvider;
+import de.acegen.Data;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
-import com.anfelisa.user.data.IUserInfoData;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import de.acegen.ViewProvider;
 
 public class GetUserInfoAction extends AbstractGetUserInfoAction {
 
@@ -28,7 +30,7 @@ public class GetUserInfoAction extends AbstractGetUserInfoAction {
 
 
 	@Override
-	protected IUserInfoData loadDataForGetRequest(IUserInfoData data, PersistenceHandle readonlyHandle) {
+	protected Data<UserInfoModel> loadDataForGetRequest(Data<UserInfoModel> data, PersistenceHandle readonlyHandle) {
 		return data;
 	}
 	

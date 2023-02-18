@@ -7,23 +7,22 @@
 
 package com.anfelisa.user.views;
 
-
-import de.acegen.IDataContainer;
+import de.acegen.Data;
 import de.acegen.PersistenceHandle;
-import com.anfelisa.user.data.IUserRegistrationData;
-import com.anfelisa.user.data.IConfirmEmailData;
-import com.anfelisa.user.data.IChangeUserRoleData;
-import com.anfelisa.user.data.IDeleteUserData;
-import com.anfelisa.user.data.IResetPasswordWithNewPasswordData;
+import com.anfelisa.user.models.UserRegistrationModel;
+import com.anfelisa.user.models.ConfirmEmailModel;
+import com.anfelisa.user.models.ChangeUserRoleModel;
+import com.anfelisa.user.models.DeleteUserModel;
+import com.anfelisa.user.models.ResetPasswordWithNewPasswordModel;
 
 @SuppressWarnings("all")
 public interface IUserView {
 
-	void insertUser(IUserRegistrationData data, PersistenceHandle handle);
-	void confirmEmail(IConfirmEmailData data, PersistenceHandle handle);
-	void changeUserRole(IChangeUserRoleData data, PersistenceHandle handle);
-	void deleteUser(IDeleteUserData data, PersistenceHandle handle);
-	void resetPassword(IResetPasswordWithNewPasswordData data, PersistenceHandle handle);
+	void insertUser(Data<com.anfelisa.user.models.UserRegistrationModel> data, PersistenceHandle handle);
+	void confirmEmail(Data<com.anfelisa.user.models.ConfirmEmailModel> data, PersistenceHandle handle);
+	void changeUserRole(Data<com.anfelisa.user.models.ChangeUserRoleModel> data, PersistenceHandle handle);
+	void deleteUser(Data<com.anfelisa.user.models.DeleteUserModel> data, PersistenceHandle handle);
+	void resetPassword(Data<com.anfelisa.user.models.ResetPasswordWithNewPasswordModel> data, PersistenceHandle handle);
 	
 }
 

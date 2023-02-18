@@ -10,11 +10,12 @@ package com.anfelisa.card.commands;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.card.data.ICardCreationData;
-import com.anfelisa.category.models.ICategoryModel;
-import com.anfelisa.category.models.IUserAccessToCategoryModel;
+import com.anfelisa.card.models.CardCreationModel;
+import com.anfelisa.category.models.CategoryModel;
+import com.anfelisa.category.models.UserAccessToCategoryModel;
 
 import de.acegen.CustomAppConfiguration;
+import de.acegen.Data;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceHandle;
 import de.acegen.ViewProvider;
@@ -29,26 +30,26 @@ public class CreateCardCommand extends AbstractCreateCardCommand {
 	}
 
 	@Override
-	protected ICardCreationData executeCommand(ICardCreationData data, PersistenceHandle readonlyHandle) {
-		ICategoryModel category = this.daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
-				data.getCategoryId());
+	protected Data<CardCreationModel> executeCommand(Data<CardCreationModel> data, PersistenceHandle readonlyHandle) {
+		CategoryModel category = this.daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
+				data.getModel().getCategoryId());
 		if (category == null) {
 			throwIllegalArgumentException("categoryDoesNotExist");
 		}
-		IUserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao()
-				.selectByCategoryIdAndUserId(readonlyHandle, category.getRootCategoryId(), data.getUserId());
+		UserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao()
+				.selectByCategoryIdAndUserId(readonlyHandle, category.getRootCategoryId(), data.getModel().getUserId());
 		if (access == null || !access.getEditable()) {
 			throwSecurityException();
 		}
-		data.setRootCategoryId(category.getRootCategoryId());
-		data.setCardId(data.getUuid());
+		data.getModel().setRootCategoryId(category.getRootCategoryId());
+		data.getModel().setCardId(data.getUuid());
 		Integer max = this.daoProvider.getCardDao().selectMaxIndexInCategory(readonlyHandle,
-				data.getCategoryId());
+				data.getModel().getCategoryId());
 		if (max == null) {
 			max = 0;
 		}
-		data.setCardIndex(max + 1);
-		data.setCardAuthor(data.getUsername());
+		data.getModel().setCardIndex(max + 1);
+		data.getModel().setCardAuthor(data.getModel().getUsername());
 		this.addOkOutcome(data);
 		return data;
 	}

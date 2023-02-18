@@ -15,34 +15,33 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
-public class LoadAllActiveCardsResponse implements ILoadAllActiveCardsResponse {
+public class LoadAllActiveCardsResponse {
 	
-	private java.util.List<com.anfelisa.box.models.ICardWithStatisticsModel> cardList;
+	private java.util.List<com.anfelisa.box.models.CardWithStatisticsModel> cardList;
 	
-	private Boolean editable = false;
+	private Boolean editable;
 	
 	public LoadAllActiveCardsResponse() {
 	}
 	
-	public LoadAllActiveCardsResponse(com.anfelisa.box.models.IActiveCardListModel data) {
-		cardList = data.getCardList();
-		editable = data.getEditable();
+	public LoadAllActiveCardsResponse(com.anfelisa.box.models.ActiveCardListModel model) {
+		cardList = model.getCardList();
+		editable = model.getEditable();
 	}
 	
-	@JsonProperty
-	public java.util.List<com.anfelisa.box.models.ICardWithStatisticsModel> getCardList() {
+	public java.util.List<com.anfelisa.box.models.CardWithStatisticsModel> getCardList() {
 		return this.cardList;
 	}
 	
-	@JsonProperty
 	public Boolean getEditable() {
 		return this.editable;
 	}
+	
+	
 	
 }
 

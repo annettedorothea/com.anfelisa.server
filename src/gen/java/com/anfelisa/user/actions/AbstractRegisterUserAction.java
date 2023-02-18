@@ -9,6 +9,7 @@ package com.anfelisa.user.actions;
 
 import java.time.LocalDateTime;
 
+import de.acegen.Data;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.ICommand;
 import de.acegen.IDaoProvider;
@@ -17,13 +18,12 @@ import de.acegen.SquishyDataProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.WriteAction;
 
-import com.anfelisa.user.data.IUserRegistrationData;
 import com.anfelisa.user.commands.RegisterUserCommand;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractRegisterUserAction extends WriteAction<IUserRegistrationData> {
+public abstract class AbstractRegisterUserAction extends WriteAction<com.anfelisa.user.models.UserRegistrationModel> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractRegisterUserAction.class);
 
@@ -33,12 +33,12 @@ public abstract class AbstractRegisterUserAction extends WriteAction<IUserRegist
 	}
 
 	@Override
-	public ICommand<IUserRegistrationData> getCommand() {
+	public ICommand<com.anfelisa.user.models.UserRegistrationModel> getCommand() {
 		return new RegisterUserCommand(daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	@Override
-	protected IUserRegistrationData initActionDataFromSquishyDataProvider(IUserRegistrationData data) {
+	protected Data<com.anfelisa.user.models.UserRegistrationModel> initActionDataFromSquishyDataProvider(Data<com.anfelisa.user.models.UserRegistrationModel> data) {
 		LocalDateTime systemTime = SquishyDataProvider.consumeSystemTime(data.getUuid());
 		if (systemTime != null) {
 			data.setSystemTime(systemTime);
@@ -47,7 +47,7 @@ public abstract class AbstractRegisterUserAction extends WriteAction<IUserRegist
 		if (tokenObject != null) {
 			try {
 				String token = (String)tokenObject;
-				data.setToken(token);
+				data.getModel().setToken(token);
 			} catch (Exception x) {
 				LOG.warn("token is declared as squishy and failed to parse {} from SquishyDataProvider.", tokenObject);
 			}
@@ -57,7 +57,7 @@ public abstract class AbstractRegisterUserAction extends WriteAction<IUserRegist
 		return data;
 	}
 
-	public IUserRegistrationData initActionData(IUserRegistrationData data) {
+	public Data<com.anfelisa.user.models.UserRegistrationModel> initActionData(Data<com.anfelisa.user.models.UserRegistrationModel> data) {
 		return data;
 	}
 

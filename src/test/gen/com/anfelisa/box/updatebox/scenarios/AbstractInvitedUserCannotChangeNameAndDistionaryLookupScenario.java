@@ -25,6 +25,9 @@ import de.acegen.BaseScenario;
 import de.acegen.ITimelineItem;
 import de.acegen.SquishyDataProvider;
 import de.acegen.HttpResponse;
+import de.acegen.Data;
+
+import com.fasterxml.jackson.core.type.TypeReference;
 
 @SuppressWarnings("unused")
 public abstract class AbstractInvitedUserCannotChangeNameAndDistionaryLookupScenario extends BaseScenario {
@@ -43,13 +46,13 @@ public abstract class AbstractInvitedUserCannotChangeNameAndDistionaryLookupScen
 				"\"password\" : \"password\"," + 
 				"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 					com.anfelisa.user.data.RegisterUserPayload.class);
-			com.anfelisa.user.data.UserRegistrationData data_0 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"email\" : \"annette.pohl@anfelisa.de\"," + 
-			"\"language\" : \"de\"," + 
-			"\"password\" : \"password\"," + 
-			"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
-					com.anfelisa.user.data.UserRegistrationData.class);
+			com.anfelisa.user.models.UserRegistrationModel model_0 = objectMapper.readValue("{" +
+				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"password\"," + 
+				"\"username\" : \"Annette-" + this.getTestId() + "\"} ", com.anfelisa.user.models.UserRegistrationModel.class);
+			Data<com.anfelisa.user.models.UserRegistrationModel> data_0 = new Data<com.anfelisa.user.models.UserRegistrationModel>(uuid);
+			data_0.setModel(model_0);
 			HttpResponse<Object> response_0 = 
 			this.httpPost(
 				"/users/register", 
@@ -78,12 +81,12 @@ public abstract class AbstractInvitedUserCannotChangeNameAndDistionaryLookupScen
 				"\"dictionaryLookup\" : false," + 
 				"\"maxCardsPerDay\" : 10} ",
 					com.anfelisa.box.data.CreateBoxPayload.class);
-			com.anfelisa.box.data.BoxCreationData data_1 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"categoryName\" : \"cat\"," + 
-			"\"dictionaryLookup\" : false," + 
-			"\"maxCardsPerDay\" : 10} ",
-					com.anfelisa.box.data.BoxCreationData.class);
+			com.anfelisa.box.models.BoxCreationModel model_1 = objectMapper.readValue("{" +
+				"\"categoryName\" : \"cat\"," + 
+				"\"dictionaryLookup\" : false," + 
+				"\"maxCardsPerDay\" : 10} ", com.anfelisa.box.models.BoxCreationModel.class);
+			Data<com.anfelisa.box.models.BoxCreationModel> data_1 = new Data<com.anfelisa.box.models.BoxCreationModel>(uuid);
+			data_1.setModel(model_1);
 			HttpResponse<Object> response_1 = 
 			this.httpPost(
 				"/box/create", 
@@ -114,13 +117,13 @@ public abstract class AbstractInvitedUserCannotChangeNameAndDistionaryLookupScen
 				"\"password\" : \"pw\"," + 
 				"\"username\" : \"Anne-" + this.getTestId() + "\"} ",
 					com.anfelisa.user.data.RegisterUserPayload.class);
-			com.anfelisa.user.data.UserRegistrationData data_2 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"email\" : \"info@anfelisa.de\"," + 
-			"\"language\" : \"de\"," + 
-			"\"password\" : \"pw\"," + 
-			"\"username\" : \"Anne-" + this.getTestId() + "\"} ",
-					com.anfelisa.user.data.UserRegistrationData.class);
+			com.anfelisa.user.models.UserRegistrationModel model_2 = objectMapper.readValue("{" +
+				"\"email\" : \"info@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"pw\"," + 
+				"\"username\" : \"Anne-" + this.getTestId() + "\"} ", com.anfelisa.user.models.UserRegistrationModel.class);
+			Data<com.anfelisa.user.models.UserRegistrationModel> data_2 = new Data<com.anfelisa.user.models.UserRegistrationModel>(uuid);
+			data_2.setModel(model_2);
 			HttpResponse<Object> response_2 = 
 			this.httpPost(
 				"/users/register", 
@@ -149,12 +152,12 @@ public abstract class AbstractInvitedUserCannotChangeNameAndDistionaryLookupScen
 				"\"invitedUsername\" : \"Anne-" + this.getTestId() + "\"," + 
 				"\"editable\" : false} ",
 					com.anfelisa.category.data.InviteUserToCategoryPayload.class);
-			com.anfelisa.category.data.UserToCategoryInvitationData data_3 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
-			"\"invitedUsername\" : \"Anne-" + this.getTestId() + "\"," + 
-			"\"editable\" : false} ",
-					com.anfelisa.category.data.UserToCategoryInvitationData.class);
+			com.anfelisa.category.models.UserToCategoryInvitationModel model_3 = objectMapper.readValue("{" +
+				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"invitedUsername\" : \"Anne-" + this.getTestId() + "\"," + 
+				"\"editable\" : false} ", com.anfelisa.category.models.UserToCategoryInvitationModel.class);
+			Data<com.anfelisa.category.models.UserToCategoryInvitationModel> data_3 = new Data<com.anfelisa.category.models.UserToCategoryInvitationModel>(uuid);
+			data_3.setModel(model_3);
 			HttpResponse<Object> response_3 = 
 			this.httpPut(
 				"/category/invite", 
@@ -189,16 +192,16 @@ public abstract class AbstractInvitedUserCannotChangeNameAndDistionaryLookupScen
 			"\"wantedLanguage\" : \"en\"," + 
 			"\"maxCardsPerDay\" : 11} ",
 				com.anfelisa.box.data.UpdateBoxPayload.class);
-		com.anfelisa.box.data.BoxUpdateData data_0 = objectMapper.readValue("{" +
-		"\"uuid\" : \"" + uuid + "\"," + 
-		"\"boxId\" : \"boxIdOfInvitedUser-" + this.getTestId() + "\"," + 
-		"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
-		"\"categoryName\" : \"changed\"," + 
-		"\"dictionaryLookup\" : true," + 
-		"\"givenLanguage\" : \"de\"," + 
-		"\"wantedLanguage\" : \"en\"," + 
-		"\"maxCardsPerDay\" : 11} ",
-				com.anfelisa.box.data.BoxUpdateData.class);
+		com.anfelisa.box.models.BoxUpdateModel model_0 = objectMapper.readValue("{" +
+			"\"boxId\" : \"boxIdOfInvitedUser-" + this.getTestId() + "\"," + 
+			"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+			"\"categoryName\" : \"changed\"," + 
+			"\"dictionaryLookup\" : true," + 
+			"\"givenLanguage\" : \"de\"," + 
+			"\"wantedLanguage\" : \"en\"," + 
+			"\"maxCardsPerDay\" : 11} ", com.anfelisa.box.models.BoxUpdateModel.class);
+		Data<com.anfelisa.box.models.BoxUpdateModel> data_0 = new Data<com.anfelisa.box.models.BoxUpdateModel>(uuid);
+		data_0.setModel(model_0);
 		HttpResponse<Object> response = 
 		this.httpPut(
 			"/box/update", 
@@ -254,9 +257,9 @@ public abstract class AbstractInvitedUserCannotChangeNameAndDistionaryLookupScen
 	
 	
 	private void categoryWasNotUpdated() throws Exception {
-		com.anfelisa.category.models.ICategoryModel actual = daoProvider.getCategoryDao().selectByCategoryId(handle, "boxId-" + this.getTestId() + "");
+		com.anfelisa.category.models.CategoryModel actual = daoProvider.getCategoryDao().selectByCategoryId(handle, "boxId-" + this.getTestId() + "");
 		
-		com.anfelisa.category.models.ICategoryModel expected = objectMapper.readValue("{" +
+		com.anfelisa.category.models.CategoryModel expected = objectMapper.readValue("{" +
 			"\"categoryAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
 			"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 			"\"categoryIndex\" : null," + 
@@ -270,9 +273,9 @@ public abstract class AbstractInvitedUserCannotChangeNameAndDistionaryLookupScen
 		LOG.info("THEN: categoryWasNotUpdated passed");
 	}
 	private void boxWasUpdated() throws Exception {
-		com.anfelisa.box.models.IBoxModel actual = daoProvider.getBoxDao().selectByBoxId(handle, "boxIdOfInvitedUser-" + this.getTestId() + "");
+		com.anfelisa.box.models.BoxModel actual = daoProvider.getBoxDao().selectByBoxId(handle, "boxIdOfInvitedUser-" + this.getTestId() + "");
 		
-		com.anfelisa.box.models.IBoxModel expected = objectMapper.readValue("{" +
+		com.anfelisa.box.models.BoxModel expected = objectMapper.readValue("{" +
 			"\"boxId\" : \"boxIdOfInvitedUser-" + this.getTestId() + "\"," + 
 			"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 			"\"maxCardsPerDay\" : 11," + 
