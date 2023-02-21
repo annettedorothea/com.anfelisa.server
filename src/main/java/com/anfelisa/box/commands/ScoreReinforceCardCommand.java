@@ -39,7 +39,7 @@ public class ScoreReinforceCardCommand extends AbstractScoreReinforceCardCommand
 		if (!box.getUserId().equals(data.getModel().getUserId())) {
 			throwSecurityException();
 		}
-		if (data.getModel().getKeep()) {
+		if (data.getModel().getKeep() != null && data.getModel().getKeep()) {
 			this.addKeepOutcome(data);
 			data.getModel().setChangeDate(data.getSystemTime());
 		} else {

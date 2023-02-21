@@ -36,6 +36,9 @@ public class GetDuplicatesAction extends AbstractGetDuplicatesAction {
 
 	@Override
 	protected Data<CardSearchModel> loadDataForGetRequest(Data<CardSearchModel> data, PersistenceHandle readonlyHandle) {
+		if (data.getModel().getNaturalInputOrder() == null) {
+			data.getModel().setNaturalInputOrder(false);
+		}
 		CategoryModel category = daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
 				data.getModel().getCategoryId());
 		if (category == null) {

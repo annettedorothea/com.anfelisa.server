@@ -33,6 +33,9 @@ public class InviteUserToCategoryCommand extends AbstractInviteUserToCategoryCom
 
 	@Override
 	protected Data<UserToCategoryInvitationModel> executeCommand(Data<UserToCategoryInvitationModel> data, PersistenceHandle readonlyHandle) {
+		if (data.getModel().getEditable() == null) {
+			data.getModel().setEditable(false);
+		}
 		CategoryModel category = daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle, 
 				data.getModel().getCategoryId());
 		if (category == null) {

@@ -36,6 +36,12 @@ public class GetCategoryTreeAction extends AbstractGetCategoryTreeAction {
 
 	@Override
 	protected Data<CategoryTreeModel> loadDataForGetRequest(Data<CategoryTreeModel> data, PersistenceHandle readonlyHandle) {
+		if (data.getModel().getReverse() == null) {
+			data.getModel().setReverse(false);
+		}
+		if (data.getModel().getFilterNonScheduled() == null) {
+			data.getModel().setFilterNonScheduled(false);
+		}
 		UserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao()
 				.selectByCategoryIdAndUserId(readonlyHandle, data.getModel().getRootCategoryId(), data.getModel().getUserId());
 		if (access == null) {
@@ -52,7 +58,7 @@ public class GetCategoryTreeAction extends AbstractGetCategoryTreeAction {
 		}
 		data.getModel().setBoxId(box.getBoxId());
 
-		if (data.getModel().getFilterNonScheduled() != null && data.getModel().getFilterNonScheduled()) {
+		if (data.getModel().getFilterNonScheduled()) {
 			initNonScheduledCount(rootCategory, box.getBoxId(), data.getModel().getPriority(), readonlyHandle);
 		}
 		data.getModel().setRootCategory(rootCategory);
@@ -67,13 +73,13 @@ public class GetCategoryTreeAction extends AbstractGetCategoryTreeAction {
 		return data;
 	}
 
-	private void loadChildren(CategoryTreeModel data, CategoryTreeItemModel categoryItemModel, String rootCategoryId,
+	private void loadChildren(CategoryTreeModel model, CategoryTreeItemModel categoryItemModel, String rootCategoryId,
 			PersistenceHandle readonlyHandle) {
 		List<CategoryTreeItemModel> children = daoProvider.getCategoryDao().selectAllChildrenForTree(readonlyHandle,
-				categoryItemModel.getCategoryId(), data.getUserId(), data.getReverse());
+				categoryItemModel.getCategoryId(), model.getUserId(), model.getReverse());
 		categoryItemModel.setChildCategories(children);
 		for (CategoryTreeItemModel child : children) {
-			loadChildren(data, child, rootCategoryId, readonlyHandle);
+			loadChildren(model, child, rootCategoryId, readonlyHandle);
 		}
 	}
 

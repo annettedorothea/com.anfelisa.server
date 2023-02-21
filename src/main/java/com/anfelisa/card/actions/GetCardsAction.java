@@ -39,6 +39,12 @@ public class GetCardsAction extends AbstractGetCardsAction {
 
 	@Override
 	protected Data<CardListModel> loadDataForGetRequest(Data<CardListModel> data, PersistenceHandle readonlyHandle) {
+		if (data.getModel().getReverse() == null) {
+			data.getModel().setReverse(false);
+		}
+		if (data.getModel().getFilterNonScheduled() == null) {
+			data.getModel().setFilterNonScheduled(false);
+		}
 		CategoryModel category = daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
 				data.getModel().getCategoryId());
 		if (category == null) {

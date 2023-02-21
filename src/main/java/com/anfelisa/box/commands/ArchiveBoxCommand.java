@@ -30,6 +30,9 @@ public class ArchiveBoxCommand extends AbstractArchiveBoxCommand {
 
 	@Override
 	protected Data<BoxArchiveModel> executeCommand(Data<BoxArchiveModel> data, PersistenceHandle readonlyHandle) {
+		if (data.getModel().getArchived() == null) {
+			data.getModel().setArchived(false);
+		}
 		BoxModel box = daoProvider.getBoxDao().selectByBoxId(readonlyHandle, data.getModel().getBoxId());
 		if (!box.getUserId().equals(data.getModel().getUserId())) {
 			throwSecurityException();
