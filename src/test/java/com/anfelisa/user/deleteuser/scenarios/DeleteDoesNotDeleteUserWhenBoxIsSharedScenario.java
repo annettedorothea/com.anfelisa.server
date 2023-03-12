@@ -7,9 +7,7 @@
 
 package com.anfelisa.user.deleteuser.scenarios;
 
-import com.anfelisa.user.data.DeleteUserResponse;
 
-@SuppressWarnings("unused")
 public class DeleteDoesNotDeleteUserWhenBoxIsSharedScenario extends AbstractDeleteDoesNotDeleteUserWhenBoxIsSharedScenario {
 
 	

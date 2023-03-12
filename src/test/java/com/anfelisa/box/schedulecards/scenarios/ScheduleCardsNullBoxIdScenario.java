@@ -7,9 +7,7 @@
 
 package com.anfelisa.box.schedulecards.scenarios;
 
-import com.anfelisa.box.data.ScheduleCardsResponse;
 
-@SuppressWarnings("unused")
 public class ScheduleCardsNullBoxIdScenario extends AbstractScheduleCardsNullBoxIdScenario {
 
 	

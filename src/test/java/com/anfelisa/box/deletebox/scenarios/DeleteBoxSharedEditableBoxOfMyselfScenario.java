@@ -7,9 +7,7 @@
 
 package com.anfelisa.box.deletebox.scenarios;
 
-import com.anfelisa.box.data.DeleteBoxResponse;
 
-@SuppressWarnings("unused")
 public class DeleteBoxSharedEditableBoxOfMyselfScenario extends AbstractDeleteBoxSharedEditableBoxOfMyselfScenario {
 
 	

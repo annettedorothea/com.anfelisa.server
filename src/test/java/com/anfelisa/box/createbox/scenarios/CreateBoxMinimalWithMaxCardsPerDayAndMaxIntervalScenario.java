@@ -7,9 +7,7 @@
 
 package com.anfelisa.box.createbox.scenarios;
 
-import com.anfelisa.box.data.CreateBoxResponse;
 
-@SuppressWarnings("unused")
 public class CreateBoxMinimalWithMaxCardsPerDayAndMaxIntervalScenario extends AbstractCreateBoxMinimalWithMaxCardsPerDayAndMaxIntervalScenario {
 
 	
