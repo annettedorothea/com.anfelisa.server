@@ -264,8 +264,8 @@ models
 		Integer quality3Count
 		Integer quality4Count
 		Integer quality5Count
+		Integer cardsCount
 		List Integer countsPerDayNextWeek
-		Integer maxCardsPerDay
 	}
 	
 	BoxWithStatistics extends BoxView, BoxStatistics

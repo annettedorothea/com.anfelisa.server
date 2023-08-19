@@ -48,6 +48,8 @@ public class BoxWithStatisticsModel extends AbstractModel {
 
 	private Integer quality5Count;
 
+	private Integer cardsCount;
+
 	private java.util.List<Integer> countsPerDayNextWeek;
 
 	
@@ -72,6 +74,7 @@ public class BoxWithStatisticsModel extends AbstractModel {
 		@JsonProperty("quality3Count") Integer quality3Count,
 		@JsonProperty("quality4Count") Integer quality4Count,
 		@JsonProperty("quality5Count") Integer quality5Count,
+		@JsonProperty("cardsCount") Integer cardsCount,
 		@JsonProperty("countsPerDayNextWeek") java.util.List<Integer> countsPerDayNextWeek
 	) {
 		this.openTodaysCards = openTodaysCards;
@@ -89,6 +92,7 @@ public class BoxWithStatisticsModel extends AbstractModel {
 		this.quality3Count = quality3Count;
 		this.quality4Count = quality4Count;
 		this.quality5Count = quality5Count;
+		this.cardsCount = cardsCount;
 		this.countsPerDayNextWeek = countsPerDayNextWeek;
 	}
 
@@ -288,6 +292,19 @@ public class BoxWithStatisticsModel extends AbstractModel {
 	}
 	
 	@JsonProperty
+	public Integer getCardsCount() {
+		return this.cardsCount;
+	}
+	
+	@JsonProperty
+	public void setCardsCount(Integer cardsCount) {
+		if (this.frozen) {
+			throw new RuntimeException("cardsCount is frozen");
+		}
+		this.cardsCount = cardsCount;
+	}
+	
+	@JsonProperty
 	public java.util.List<Integer> getCountsPerDayNextWeek() {
 		return this.countsPerDayNextWeek;
 	}
@@ -323,8 +340,8 @@ public class BoxWithStatisticsModel extends AbstractModel {
 		model.setQuality3Count(this.getQuality3Count());
 		model.setQuality4Count(this.getQuality4Count());
 		model.setQuality5Count(this.getQuality5Count());
+		model.setCardsCount(this.getCardsCount());
 		model.setCountsPerDayNextWeek(this.getCountsPerDayNextWeek());
-		model.setMaxCardsPerDay(this.getMaxCardsPerDay());
 		return model;
 	}	
 	
@@ -352,6 +369,7 @@ public class BoxWithStatisticsModel extends AbstractModel {
 		testData.setQuality3Count(random.nextInt(50));
 		testData.setQuality4Count(random.nextInt(50));
 		testData.setQuality5Count(random.nextInt(50));
+		testData.setCardsCount(random.nextInt(50));
 		java.util.List<Integer> countsPerDayNextWeekList = new java.util.ArrayList<Integer>();
 		n = random.nextInt(20) + 1;
 		for ( int i = 0; i < n; i++ ) {

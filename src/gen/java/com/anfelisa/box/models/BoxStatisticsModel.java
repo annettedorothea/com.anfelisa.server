@@ -32,9 +32,9 @@ public class BoxStatisticsModel extends AbstractModel {
 
 	private Integer quality5Count;
 
-	private java.util.List<Integer> countsPerDayNextWeek;
+	private Integer cardsCount;
 
-	private Integer maxCardsPerDay;
+	private java.util.List<Integer> countsPerDayNextWeek;
 
 	
 	private Boolean frozen = false;
@@ -50,8 +50,8 @@ public class BoxStatisticsModel extends AbstractModel {
 		@JsonProperty("quality3Count") Integer quality3Count,
 		@JsonProperty("quality4Count") Integer quality4Count,
 		@JsonProperty("quality5Count") Integer quality5Count,
-		@JsonProperty("countsPerDayNextWeek") java.util.List<Integer> countsPerDayNextWeek,
-		@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay
+		@JsonProperty("cardsCount") Integer cardsCount,
+		@JsonProperty("countsPerDayNextWeek") java.util.List<Integer> countsPerDayNextWeek
 	) {
 		this.boxId = boxId;
 		this.quality0Count = quality0Count;
@@ -60,8 +60,8 @@ public class BoxStatisticsModel extends AbstractModel {
 		this.quality3Count = quality3Count;
 		this.quality4Count = quality4Count;
 		this.quality5Count = quality5Count;
+		this.cardsCount = cardsCount;
 		this.countsPerDayNextWeek = countsPerDayNextWeek;
-		this.maxCardsPerDay = maxCardsPerDay;
 	}
 
 	@JsonProperty
@@ -156,6 +156,19 @@ public class BoxStatisticsModel extends AbstractModel {
 	}
 	
 	@JsonProperty
+	public Integer getCardsCount() {
+		return this.cardsCount;
+	}
+	
+	@JsonProperty
+	public void setCardsCount(Integer cardsCount) {
+		if (this.frozen) {
+			throw new RuntimeException("cardsCount is frozen");
+		}
+		this.cardsCount = cardsCount;
+	}
+	
+	@JsonProperty
 	public java.util.List<Integer> getCountsPerDayNextWeek() {
 		return this.countsPerDayNextWeek;
 	}
@@ -166,19 +179,6 @@ public class BoxStatisticsModel extends AbstractModel {
 			throw new RuntimeException("countsPerDayNextWeek is frozen");
 		}
 		this.countsPerDayNextWeek = countsPerDayNextWeek;
-	}
-	
-	@JsonProperty
-	public Integer getMaxCardsPerDay() {
-		return this.maxCardsPerDay;
-	}
-	
-	@JsonProperty
-	public void setMaxCardsPerDay(Integer maxCardsPerDay) {
-		if (this.frozen) {
-			throw new RuntimeException("maxCardsPerDay is frozen");
-		}
-		this.maxCardsPerDay = maxCardsPerDay;
 	}
 	
 	
@@ -199,13 +199,13 @@ public class BoxStatisticsModel extends AbstractModel {
 		testData.setQuality3Count(random.nextInt(50));
 		testData.setQuality4Count(random.nextInt(50));
 		testData.setQuality5Count(random.nextInt(50));
+		testData.setCardsCount(random.nextInt(50));
 		java.util.List<Integer> countsPerDayNextWeekList = new java.util.ArrayList<Integer>();
 		n = random.nextInt(20) + 1;
 		for ( int i = 0; i < n; i++ ) {
 			countsPerDayNextWeekList.add(random.nextInt(50));
 		}
 		testData.setCountsPerDayNextWeek(countsPerDayNextWeekList);
-		testData.setMaxCardsPerDay(random.nextInt(50));
 		return testData;
 	}
 	

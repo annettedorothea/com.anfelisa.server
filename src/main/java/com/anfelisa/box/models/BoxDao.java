@@ -64,13 +64,14 @@ public class BoxDao extends AbstractBoxDao {
 	
 	public List<BoxStatisticsModel> selectStatisticsByUserId(PersistenceHandle handle, String userId) {
  		return handle.getHandle().createQuery("SELECT "
-				+ "b.boxid, b.maxcardsperday, "
+				+ "b.boxid, "
 				+ "(select count(*) from (SELECT lastquality FROM scheduledcard where boxid = b.boxid and quality is null and scheduleddate is not null) as qualities where lastquality = 0) as quality0Count, "
 				+ "(select count(*) from (SELECT lastquality FROM scheduledcard where boxid = b.boxid and quality is null and scheduleddate is not null) as qualities where lastquality = 1) as quality1Count, "
 				+ "(select count(*) from (SELECT lastquality FROM scheduledcard where boxid = b.boxid and quality is null and scheduleddate is not null) as qualities where lastquality = 2) as quality2Count, "
 				+ "(select count(*) from (SELECT lastquality FROM scheduledcard where boxid = b.boxid and quality is null and scheduleddate is not null) as qualities where lastquality = 3) as quality3Count, "
 				+ "(select count(*) from (SELECT lastquality FROM scheduledcard where boxid = b.boxid and quality is null and scheduleddate is not null) as qualities where lastquality = 4) as quality4Count, "
-				+ "(select count(*) from (SELECT lastquality FROM scheduledcard where boxid = b.boxid and quality is null and scheduleddate is not null) as qualities where lastquality = 5) as quality5Count "
+				+ "(select count(*) from (SELECT lastquality FROM scheduledcard where boxid = b.boxid and quality is null and scheduleddate is not null) as qualities where lastquality = 5) as quality5Count, "
+				+ "(select count(cardid) from card where rootcategoryid = b.categoryId) as cardsCount "
  				+ "FROM public.box b "
  				+ "where userid = :userid and b.archived = false")
  				.bind("userid", userId)

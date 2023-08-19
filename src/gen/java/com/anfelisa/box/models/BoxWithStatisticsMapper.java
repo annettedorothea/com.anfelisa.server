@@ -33,6 +33,7 @@ public class BoxWithStatisticsMapper extends AbstractMapper<BoxWithStatisticsMod
 			this.mapToInteger(r, "quality3Count"),
 			this.mapToInteger(r, "quality4Count"),
 			this.mapToInteger(r, "quality5Count"),
+			this.mapToInteger(r, "cardsCount"),
 			null
 		);
 	}

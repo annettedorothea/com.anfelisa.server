@@ -25,8 +25,8 @@ public class BoxStatisticsMapper extends AbstractMapper<BoxStatisticsModel> {
 			this.mapToInteger(r, "quality3Count"),
 			this.mapToInteger(r, "quality4Count"),
 			this.mapToInteger(r, "quality5Count"),
-			null,
-			this.mapToInteger(r, "maxCardsPerDay")
+			this.mapToInteger(r, "cardsCount"),
+			null
 		);
 	}
 }

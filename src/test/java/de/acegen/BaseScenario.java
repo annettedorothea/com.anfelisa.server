@@ -19,9 +19,9 @@ package de.acegen;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.beans.SamePropertyValuesAs.samePropertyValuesAs;
 
-import java.io.File;
 import java.io.IOException;
 import java.security.Key;
+import java.sql.Connection;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -72,18 +72,21 @@ import com.anfelisa.category.data.GetInvitedUsersResponse;
 import com.anfelisa.category.models.CategoryTreeItemModel;
 import com.anfelisa.category.models.UsernameEditableModel;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
+import io.dropwizard.db.ManagedDataSource;
+import io.dropwizard.jdbi3.JdbiFactory;
+import io.dropwizard.testing.junit5.DropwizardAppExtension;
 import io.dropwizard.testing.junit5.DropwizardExtensionsSupport;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import liquibase.Liquibase;
+import liquibase.database.jvm.JdbcConnection;
+import liquibase.resource.ClassLoaderResourceAccessor;
 
 @ExtendWith(DropwizardExtensionsSupport.class)
 public abstract class BaseScenario extends AbstractBaseScenario {
@@ -107,9 +110,9 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 	private static String secretString;
 
 	/* when server shall be started within test */
-//	private static DropwizardAppExtension<CustomAppConfiguration> EXT = new DropwizardAppExtension<>(
-//			App.class,
-//			"test.yml");
+	private static DropwizardAppExtension<CustomAppConfiguration> EXT = new DropwizardAppExtension<>(
+			App.class,
+			"test.yml");
 	/* when server shall be started within test */
 
 	@BeforeAll
@@ -122,33 +125,33 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 		}
 
 		/* when server shall be started within test */
-//		ManagedDataSource ds = EXT.getConfiguration().getDataSourceFactory().build(
-//				EXT.getEnvironment().metrics(), "migrations");
-//		try (Connection connection = ds.getConnection()) {
-//			Liquibase migrator = new Liquibase("migrations.xml", new ClassLoaderResourceAccessor(),
-//					new JdbcConnection(connection));
-//			migrator.update("");
-//			migrator.close();
-//		}
-//		port = EXT.getLocalPort();
-//		protocol = "http";
-//		rootPath = "/api";
-//		final JdbiFactory factory = new JdbiFactory();
-//		jdbi = factory.build(EXT.getEnvironment(), EXT.getConfiguration().getDataSourceFactory(),
-//				"anfelisa test database");
-//		secretString = EXT.getConfiguration().getSecretString();
+		ManagedDataSource ds = EXT.getConfiguration().getDataSourceFactory().build(
+				EXT.getEnvironment().metrics(), "migrations");
+		try (Connection connection = ds.getConnection()) {
+			Liquibase migrator = new Liquibase("migrations.xml", new ClassLoaderResourceAccessor(),
+					new JdbcConnection(connection));
+			migrator.update("");
+			migrator.close();
+		}
+		port = EXT.getLocalPort();
+		protocol = "http";
+		rootPath = "/api";
+		final JdbiFactory factory = new JdbiFactory();
+		jdbi = factory.build(EXT.getEnvironment(), EXT.getConfiguration().getDataSourceFactory(),
+				"anfelisa test database");
+		secretString = EXT.getConfiguration().getSecretString();
 		/* when server shall be started within test */
 
 		/* when server runs independently */
-		ObjectMapper mapper = new ObjectMapper(new YAMLFactory())
-				.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		YamlConfiguration config = mapper.readValue(new File("cstest.yml"), YamlConfiguration.class);
-		port = Integer.parseInt(config.getServer().getApplicationConnectors()[0].getPort());
-		protocol = config.getServer().getApplicationConnectors()[0].getType();
-		rootPath = "";
-		jdbi = Jdbi.create(config.getDatabase().getUrl(), config.getDatabase().getUser(),
-				config.getDatabase().getPassword() == null ? "" : config.getDatabase().getPassword());
-		secretString = config.getSecretString();
+//		ObjectMapper mapper = new ObjectMapper(new YAMLFactory())
+//				.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+//		YamlConfiguration config = mapper.readValue(new File("cstest.yml"), YamlConfiguration.class);
+//		port = Integer.parseInt(config.getServer().getApplicationConnectors()[0].getPort());
+//		protocol = config.getServer().getApplicationConnectors()[0].getType();
+//		rootPath = "";
+//		jdbi = Jdbi.create(config.getDatabase().getUrl(), config.getDatabase().getUser(),
+//				config.getDatabase().getPassword() == null ? "" : config.getDatabase().getPassword());
+//		secretString = config.getSecretString();
 		/* when server runs independently */
 	}
 
@@ -546,7 +549,6 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 			org.junit.jupiter.api.Assertions.fail("expected is null");
 		} else {
 			org.junit.jupiter.api.Assertions.assertEquals(expected.getBoxId(), actual.getBoxId());
-			org.junit.jupiter.api.Assertions.assertEquals(expected.getMaxCardsPerDay(), actual.getMaxCardsPerDay());
 			org.junit.jupiter.api.Assertions.assertEquals(expected.getQuality0Count(), actual.getQuality0Count());
 			org.junit.jupiter.api.Assertions.assertEquals(expected.getQuality1Count(), actual.getQuality1Count());
 			org.junit.jupiter.api.Assertions.assertEquals(expected.getQuality2Count(), actual.getQuality2Count());

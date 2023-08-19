@@ -426,7 +426,6 @@ public abstract class AbstractGetBoxesWithOneScoredCard2AndReinforceSameDayScena
 	
 			com.anfelisa.box.models.BoxStatisticsListModel expectedData = objectMapper.readValue("{" +
 				"\"boxStatisticsList\" : [ { \"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
-				"\"maxCardsPerDay\" : 10," + 
 				"\"quality0Count\" : 0," + 
 				"\"quality1Count\" : 0," + 
 				"\"quality2Count\" : 1," + 
