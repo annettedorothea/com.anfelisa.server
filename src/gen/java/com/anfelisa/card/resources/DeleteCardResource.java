@@ -78,7 +78,7 @@ public class DeleteCardResource extends Resource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response deleteCardResource(
 			@Auth AuthUser authUser, 
-			@QueryParam("cardId") String cardId, 
+			@QueryParam("cardIds") String cardIds, 
 			@QueryParam("uuid") String uuid) 
 			throws JsonProcessingException {
 		if (StringUtils.isBlank(uuid)) {
@@ -87,11 +87,11 @@ public class DeleteCardResource extends Resource {
 		try {
 			Data<com.anfelisa.card.models.CardDeleteModel> data = new Data<com.anfelisa.card.models.CardDeleteModel>(uuid);
 			com.anfelisa.card.models.CardDeleteModel model = new com.anfelisa.card.models.CardDeleteModel();
-			if (cardId == null || StringUtils.isBlank(cardId) || "null".equals(cardId)) {
-				return badRequest("cardId is mandatory");
+			if (cardIds == null || StringUtils.isBlank(cardIds) || "null".equals(cardIds)) {
+				return badRequest("cardIds is mandatory");
 			}
-			if (cardId != null) {
-				model.setCardId(cardId);
+			if (cardIds != null) {
+				model.setCardIds(cardIds);
 			}
 			model.setUserId(authUser.getUserId());
 			

@@ -1,6 +1,7 @@
 package com.anfelisa.card.views;
 
 import com.anfelisa.card.models.CardCreationModel;
+import com.anfelisa.card.models.CardDeleteItemModel;
 import com.anfelisa.card.models.CardDeleteModel;
 import com.anfelisa.card.models.CardModel;
 import com.anfelisa.card.models.CardUpdateModel;
@@ -27,8 +28,10 @@ public class CardView implements ICardView {
 	}
 
 	public void delete(Data<CardDeleteModel> data, PersistenceHandle handle) {
-		daoProvider.getCardDao().deleteByCardId(handle, data.getModel().getCardId());
-		daoProvider.getCardDao().shiftCards(handle, data.getModel().getCardIndex(), data.getModel().getCategoryId());
+		for (CardDeleteItemModel item : data.getModel().getCardDeleteItems()) {
+			daoProvider.getCardDao().deleteByCardId(handle, item.getCardId());
+			daoProvider.getCardDao().shiftCards(handle, item.getCardIndex(), item.getCategoryId());
+		}
 	}
 
 	public void update(Data<CardUpdateModel> data, PersistenceHandle handle) {

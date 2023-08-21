@@ -179,7 +179,7 @@ public abstract class AbstractDeleteCardMissingCardIdScenario extends BaseScenar
 		data_0.setModel(model_0);
 		HttpResponse<Object> response = 
 		this.httpDelete(
-			"/card/delete?cardId=" + (data_0.getModel().getCardId() != null ? URLEncoder.encode(data_0.getModel().getCardId(), StandardCharsets.UTF_8.toString()) : "") + "", 
+			"/card/delete?cardIds=" + (data_0.getModel().getCardIds() != null ? URLEncoder.encode(data_0.getModel().getCardIds(), StandardCharsets.UTF_8.toString()) : "") + "", 
 			authorization("Annette-${testId}", "password"),
 			uuid,
 			null

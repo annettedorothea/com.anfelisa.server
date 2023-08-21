@@ -174,12 +174,12 @@ public abstract class AbstractDeleteCardCardDoesNotExistScenario extends BaseSce
 	private HttpResponse<Object> when_0() throws Exception {
 		String uuid = this.randomUUID();
 		com.anfelisa.card.models.CardDeleteModel model_0 = objectMapper.readValue("{" +
-			"\"cardId\" : \"lala\"} ", com.anfelisa.card.models.CardDeleteModel.class);
+			"\"cardIds\" : \"lala\"} ", com.anfelisa.card.models.CardDeleteModel.class);
 		Data<com.anfelisa.card.models.CardDeleteModel> data_0 = new Data<com.anfelisa.card.models.CardDeleteModel>(uuid);
 		data_0.setModel(model_0);
 		HttpResponse<Object> response = 
 		this.httpDelete(
-			"/card/delete?cardId=" + (data_0.getModel().getCardId() != null ? URLEncoder.encode(data_0.getModel().getCardId(), StandardCharsets.UTF_8.toString()) : "") + "", 
+			"/card/delete?cardIds=" + (data_0.getModel().getCardIds() != null ? URLEncoder.encode(data_0.getModel().getCardIds(), StandardCharsets.UTF_8.toString()) : "") + "", 
 			authorization("Annette-${testId}", "password"),
 			uuid,
 			null

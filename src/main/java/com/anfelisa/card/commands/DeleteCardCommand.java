@@ -7,9 +7,12 @@
 
 package com.anfelisa.card.commands;
 
+import java.util.ArrayList;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.card.models.CardDeleteItemModel;
 import com.anfelisa.card.models.CardDeleteModel;
 import com.anfelisa.card.models.CardModel;
 import com.anfelisa.category.models.UserAccessToCategoryModel;
@@ -31,17 +34,23 @@ public class DeleteCardCommand extends AbstractDeleteCardCommand {
 
 	@Override
 	protected Data<CardDeleteModel> executeCommand(Data<CardDeleteModel> data, PersistenceHandle readonlyHandle) {
-		CardModel card = daoProvider.getCardDao().selectByCardId(readonlyHandle, data.getModel().getCardId());
-		if (card == null) {
-			throwIllegalArgumentException("cardDoesNotExist");
+		data.getModel().setCardDeleteItems(new ArrayList<>());
+		for (String cardId : data.getModel().getCardIds().split(",")) {
+			CardModel card = daoProvider.getCardDao().selectByCardId(readonlyHandle, cardId.trim());
+			if (card == null) {
+				throwIllegalArgumentException("cardDoesNotExist");
+			}
+			UserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao()
+					.selectByCategoryIdAndUserId(readonlyHandle, card.getRootCategoryId(), data.getModel().getUserId());
+			if (access == null || !access.getEditable()) {
+				throwSecurityException();
+			}
+			CardDeleteItemModel cardDeleteItem = new CardDeleteItemModel();
+			cardDeleteItem.setCardId(cardId);
+			cardDeleteItem.setCardIndex(card.getCardIndex());
+			cardDeleteItem.setCategoryId(card.getCategoryId());
+			data.getModel().getCardDeleteItems().add(cardDeleteItem);
 		}
-		UserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao()
-				.selectByCategoryIdAndUserId(readonlyHandle, card.getRootCategoryId(), data.getModel().getUserId());
-		if (access == null || !access.getEditable()) {
-			throwSecurityException();
-		}
-		data.getModel().setCardIndex(card.getCardIndex());
-		data.getModel().setCategoryId(card.getCategoryId());
 		this.addOkOutcome(data);
 		return data;
 	}

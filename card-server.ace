@@ -35,7 +35,7 @@ ACE
 		DELETE "/card/delete"
 		authorize 
 		queryParams 
-			NotNull cardId
+			NotNull cardIds
 		on ok (Card.delete)
 	
 	GetCards<CardList>
@@ -123,10 +123,14 @@ models
 	}
 	
 	CardDelete {
+		String cardIds
+		List CardDeleteItem cardDeleteItems 
+		String userId
+	}
+	CardDeleteItem {
 		String cardId
 		Integer cardIndex
 		String categoryId
-		String userId
 	}
 	CardSearch {
 		String userId

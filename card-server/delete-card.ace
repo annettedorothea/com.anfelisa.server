@@ -9,7 +9,7 @@ scenarios
 		WHEN
 			com.anfelisa.card.DeleteCard
 				{
-					cardId: "c1-${testId}"
+					cardIds: "c1-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -32,7 +32,7 @@ scenarios
 		WHEN
 			com.anfelisa.card.DeleteCard
 				{
-					cardId: "lala"
+					cardIds: "lala"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
@@ -44,7 +44,7 @@ scenarios
 		WHEN
 			com.anfelisa.card.DeleteCard
 				{
-					cardId: "c1-${testId}"
+					cardIds: "c1-${testId}"
 				}
 				authorization "Admin" : "admin-password"
 		THEN 401
@@ -59,7 +59,7 @@ scenarios
 		WHEN
 			com.anfelisa.card.DeleteCard
 				{
-					cardId: "c1-${testId}"
+					cardIds: "c1-${testId}"
 				}
 				authorization "Anne-${testId}" : "pw"
 		THEN 401
@@ -72,7 +72,7 @@ scenarios
 		WHEN
 			com.anfelisa.card.DeleteCard
 				{
-					cardId: "c1-${testId}"
+					cardIds: "c1-${testId}"
 				}
 		THEN 401
 		persistence

@@ -18,11 +18,9 @@ import de.acegen.AbstractModel;
 @SuppressWarnings("unused")
 public class CardDeleteModel extends AbstractModel {
 
-	private String cardId;
+	private String cardIds;
 
-	private Integer cardIndex;
-
-	private String categoryId;
+	private java.util.List<com.anfelisa.card.models.CardDeleteItemModel> cardDeleteItems;
 
 	private String userId;
 
@@ -33,54 +31,39 @@ public class CardDeleteModel extends AbstractModel {
 	}
 
 	public CardDeleteModel(
-		@JsonProperty("cardId") String cardId,
-		@JsonProperty("cardIndex") Integer cardIndex,
-		@JsonProperty("categoryId") String categoryId,
+		@JsonProperty("cardIds") String cardIds,
+		@JsonProperty("cardDeleteItems") java.util.List<com.anfelisa.card.models.CardDeleteItemModel> cardDeleteItems,
 		@JsonProperty("userId") String userId
 	) {
-		this.cardId = cardId;
-		this.cardIndex = cardIndex;
-		this.categoryId = categoryId;
+		this.cardIds = cardIds;
+		this.cardDeleteItems = cardDeleteItems;
 		this.userId = userId;
 	}
 
 	@JsonProperty
-	public String getCardId() {
-		return this.cardId;
+	public String getCardIds() {
+		return this.cardIds;
 	}
 	
 	@JsonProperty
-	public void setCardId(String cardId) {
+	public void setCardIds(String cardIds) {
 		if (this.frozen) {
-			throw new RuntimeException("cardId is frozen");
+			throw new RuntimeException("cardIds is frozen");
 		}
-		this.cardId = cardId;
+		this.cardIds = cardIds;
 	}
 	
 	@JsonProperty
-	public Integer getCardIndex() {
-		return this.cardIndex;
+	public java.util.List<com.anfelisa.card.models.CardDeleteItemModel> getCardDeleteItems() {
+		return this.cardDeleteItems;
 	}
 	
 	@JsonProperty
-	public void setCardIndex(Integer cardIndex) {
+	public void setCardDeleteItems(java.util.List<com.anfelisa.card.models.CardDeleteItemModel> cardDeleteItems) {
 		if (this.frozen) {
-			throw new RuntimeException("cardIndex is frozen");
+			throw new RuntimeException("cardDeleteItems is frozen");
 		}
-		this.cardIndex = cardIndex;
-	}
-	
-	@JsonProperty
-	public String getCategoryId() {
-		return this.categoryId;
-	}
-	
-	@JsonProperty
-	public void setCategoryId(String categoryId) {
-		if (this.frozen) {
-			throw new RuntimeException("categoryId is frozen");
-		}
-		this.categoryId = categoryId;
+		this.cardDeleteItems = cardDeleteItems;
 	}
 	
 	@JsonProperty
@@ -101,14 +84,24 @@ public class CardDeleteModel extends AbstractModel {
 	@Override
 	public void freeze() {
 		this.frozen = true;
+		if (this.cardDeleteItems != null) {
+			for ( int i = 0; i < cardDeleteItems.size(); i++ ) {
+				cardDeleteItems.get(i).freeze();
+			}
+		}
 	}
 
 	public static CardDeleteModel generateTestData() {
 		java.util.Random random = new java.util.Random();
+		int n;
 		CardDeleteModel testData = new CardDeleteModel();
-		testData.setCardId(randomString(random));
-		testData.setCardIndex(random.nextInt(50));
-		testData.setCategoryId(randomString(random));
+		testData.setCardIds(randomString(random));
+		java.util.List<com.anfelisa.card.models.CardDeleteItemModel> cardDeleteItemsList = new java.util.ArrayList<com.anfelisa.card.models.CardDeleteItemModel>();
+		n = random.nextInt(20) + 1;
+		for ( int i = 0; i < n; i++ ) {
+			cardDeleteItemsList.add(com.anfelisa.card.models.CardDeleteItemModel.generateTestData());
+		}
+		testData.setCardDeleteItems(cardDeleteItemsList);
 		testData.setUserId(randomString(random));
 		return testData;
 	}

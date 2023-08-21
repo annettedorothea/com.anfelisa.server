@@ -14,13 +14,13 @@ import org.jdbi.v3.core.statement.StatementContext;
 
 import de.acegen.AbstractMapper;
 
-public class CardDeleteMapper extends AbstractMapper<CardDeleteModel> {
+public class CardDeleteItemMapper extends AbstractMapper<CardDeleteItemModel> {
 	
-	public CardDeleteModel map(ResultSet r, StatementContext ctx) throws SQLException {
-		return new CardDeleteModel(
-			this.mapToString(r, "cardIds"),
-			null,
-			this.mapToString(r, "userId")
+	public CardDeleteItemModel map(ResultSet r, StatementContext ctx) throws SQLException {
+		return new CardDeleteItemModel(
+			this.mapToString(r, "cardId"),
+			this.mapToInteger(r, "cardIndex"),
+			this.mapToString(r, "categoryId")
 		);
 	}
 }
