@@ -143,15 +143,19 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 		/* when server shall be started within test */
 
 		/* when server runs independently */
-//		ObjectMapper mapper = new ObjectMapper(new YAMLFactory())
-//				.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-//		YamlConfiguration config = mapper.readValue(new File("cstest.yml"), YamlConfiguration.class);
-//		port = Integer.parseInt(config.getServer().getApplicationConnectors()[0].getPort());
-//		protocol = config.getServer().getApplicationConnectors()[0].getType();
-//		rootPath = "";
-//		jdbi = Jdbi.create(config.getDatabase().getUrl(), config.getDatabase().getUser(),
-//				config.getDatabase().getPassword() == null ? "" : config.getDatabase().getPassword());
-//		secretString = config.getSecretString();
+		// ObjectMapper mapper = new ObjectMapper(new YAMLFactory())
+		// .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		// YamlConfiguration config = mapper.readValue(new File("cstest.yml"),
+		// YamlConfiguration.class);
+		// port =
+		// Integer.parseInt(config.getServer().getApplicationConnectors()[0].getPort());
+		// protocol = config.getServer().getApplicationConnectors()[0].getType();
+		// rootPath = "";
+		// jdbi = Jdbi.create(config.getDatabase().getUrl(),
+		// config.getDatabase().getUser(),
+		// config.getDatabase().getPassword() == null ? "" :
+		// config.getDatabase().getPassword());
+		// secretString = config.getSecretString();
 		/* when server runs independently */
 	}
 

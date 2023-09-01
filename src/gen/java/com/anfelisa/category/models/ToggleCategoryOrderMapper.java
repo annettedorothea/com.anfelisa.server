@@ -5,7 +5,7 @@
 
 
 
-package com.anfelisa.card.models;
+package com.anfelisa.category.models;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,11 +14,11 @@ import org.jdbi.v3.core.statement.StatementContext;
 
 import de.acegen.AbstractMapper;
 
-public class ChangeCardOrderListMapper extends AbstractMapper<ChangeCardOrderListModel> {
+public class ToggleCategoryOrderMapper extends AbstractMapper<ToggleCategoryOrderModel> {
 	
-	public ChangeCardOrderListModel map(ResultSet r, StatementContext ctx) throws SQLException {
-		return new ChangeCardOrderListModel(
-			this.mapToString(r, "cardId"),
+	public ToggleCategoryOrderModel map(ResultSet r, StatementContext ctx) throws SQLException {
+		return new ToggleCategoryOrderModel(
+			this.mapToString(r, "categoryId"),
 			this.mapToBoolean(r, "down"),
 			this.mapToString(r, "userId"),
 			null,

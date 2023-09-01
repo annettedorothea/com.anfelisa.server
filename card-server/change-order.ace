@@ -3,77 +3,14 @@ HttpServer Java
 com.anfelisa.card.changeorder
 
 scenarios 
-	ChangeOrder
+	ChangeOrderDown
 		GIVEN
 			com.anfelisa.card.createcard.CreateFifthCard
 		WHEN
 			com.anfelisa.card.ChangeOrder
 				{
 					cardId: "c1-${testId}",
-					cardIdList: [ "c3-${testId}", "c4-${testId}" ]
-				}
-				authorization "Annette-${testId}" : "password"
-		THEN 200
-		persistence
-			firstCard Card selectByPrimaryKey ( cardId : "c1-${testId}" ) shouldBe
-			{
-				cardAuthor: "Annette-${testId}",
-				cardId: "c1-${testId}",
-				cardIndex: 3,
-				categoryId: "cat1-${testId}",
-				given: "given",
-				rootCategoryId: "boxId-${testId}",
-				wanted: "wanted"
-			}
-			secondCard Card selectByPrimaryKey ( cardId : "c2-${testId}" ) shouldBe
-			{
-				cardAuthor: "Annette-${testId}",
-				cardId: "c2-${testId}",
-				cardIndex: 4,
-				categoryId: "cat1-${testId}",
-				given: "given2",
-				rootCategoryId: "boxId-${testId}",
-				wanted: "wanted2"
-			}
-			thirdCard Card selectByPrimaryKey ( cardId : "c3-${testId}" ) shouldBe
-			{
-				cardAuthor: "Annette-${testId}",
-				cardId: "c3-${testId}",
-				cardIndex: 1,
-				categoryId: "cat1-${testId}",
-				given: "3given",
-				rootCategoryId: "boxId-${testId}",
-				wanted: "3wanted"
-			}
-			fourthCard Card selectByPrimaryKey ( cardId : "c4-${testId}" ) shouldBe
-			{
-				cardAuthor: "Annette-${testId}",
-				cardId: "c4-${testId}",
-				cardIndex: 2,
-				categoryId: "cat1-${testId}",
-				given: "4given4",
-				rootCategoryId: "boxId-${testId}",
-				wanted: "4wanted4"
-			}
-			fifthCard Card selectByPrimaryKey ( cardId : "c5-${testId}" ) shouldBe
-			{
-				cardAuthor: "Annette-${testId}",
-				cardId: "c5-${testId}",
-				cardIndex: 5,
-				categoryId: "cat1-${testId}",
-				given: "different",
-				rootCategoryId: "boxId-${testId}",
-				wanted: "different"
-			}
-
-	ChangeOrderFifthToFirst
-		GIVEN
-			com.anfelisa.card.createcard.CreateFifthCard
-		WHEN
-			com.anfelisa.card.ChangeOrder
-				{
-					cardId: "c1-${testId}",
-					cardIdList: [ "c5-${testId}" ]
+					down: true
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -92,7 +29,7 @@ scenarios
 			{
 				cardAuthor: "Annette-${testId}",
 				cardId: "c2-${testId}",
-				cardIndex: 3,
+				cardIndex: 1,
 				categoryId: "cat1-${testId}",
 				given: "given2",
 				rootCategoryId: "boxId-${testId}",
@@ -102,7 +39,7 @@ scenarios
 			{
 				cardAuthor: "Annette-${testId}",
 				cardId: "c3-${testId}",
-				cardIndex: 4,
+				cardIndex: 3,
 				categoryId: "cat1-${testId}",
 				given: "3given",
 				rootCategoryId: "boxId-${testId}",
@@ -112,7 +49,7 @@ scenarios
 			{
 				cardAuthor: "Annette-${testId}",
 				cardId: "c4-${testId}",
-				cardIndex: 5,
+				cardIndex: 4,
 				categoryId: "cat1-${testId}",
 				given: "4given4",
 				rootCategoryId: "boxId-${testId}",
@@ -122,21 +59,84 @@ scenarios
 			{
 				cardAuthor: "Annette-${testId}",
 				cardId: "c5-${testId}",
-				cardIndex: 1,
+				cardIndex: 5,
 				categoryId: "cat1-${testId}",
 				given: "different",
 				rootCategoryId: "boxId-${testId}",
 				wanted: "different"
 			}
 
-	ChangeOrderFirstToFifth
+	ChangeOrderUp
+		GIVEN
+			com.anfelisa.card.createcard.CreateFifthCard
+		WHEN
+			com.anfelisa.card.ChangeOrder
+				{
+					cardId: "c2-${testId}",
+					down: false
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+		persistence
+			firstCard Card selectByPrimaryKey ( cardId : "c1-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c1-${testId}",
+				cardIndex: 2,
+				categoryId: "cat1-${testId}",
+				given: "given",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "wanted"
+			}
+			secondCard Card selectByPrimaryKey ( cardId : "c2-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c2-${testId}",
+				cardIndex: 1,
+				categoryId: "cat1-${testId}",
+				given: "given2",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "wanted2"
+			}
+			thirdCard Card selectByPrimaryKey ( cardId : "c3-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c3-${testId}",
+				cardIndex: 3,
+				categoryId: "cat1-${testId}",
+				given: "3given",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "3wanted"
+			}
+			fourthCard Card selectByPrimaryKey ( cardId : "c4-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c4-${testId}",
+				cardIndex: 4,
+				categoryId: "cat1-${testId}",
+				given: "4given4",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "4wanted4"
+			}
+			fifthCard Card selectByPrimaryKey ( cardId : "c5-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c5-${testId}",
+				cardIndex: 5,
+				categoryId: "cat1-${testId}",
+				given: "different",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "different"
+			}
+
+	NoMoveDown
 		GIVEN
 			com.anfelisa.card.createcard.CreateFifthCard
 		WHEN
 			com.anfelisa.card.ChangeOrder
 				{
 					cardId: "c5-${testId}",
-					cardIdList: [ "c1-${testId}" ]
+					down: true
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -145,7 +145,7 @@ scenarios
 			{
 				cardAuthor: "Annette-${testId}",
 				cardId: "c1-${testId}",
-				cardIndex: 4,
+				cardIndex: 1,
 				categoryId: "cat1-${testId}",
 				given: "given",
 				rootCategoryId: "boxId-${testId}",
@@ -155,7 +155,7 @@ scenarios
 			{
 				cardAuthor: "Annette-${testId}",
 				cardId: "c2-${testId}",
-				cardIndex: 1,
+				cardIndex: 2,
 				categoryId: "cat1-${testId}",
 				given: "given2",
 				rootCategoryId: "boxId-${testId}",
@@ -165,7 +165,7 @@ scenarios
 			{
 				cardAuthor: "Annette-${testId}",
 				cardId: "c3-${testId}",
-				cardIndex: 2,
+				cardIndex: 3,
 				categoryId: "cat1-${testId}",
 				given: "3given",
 				rootCategoryId: "boxId-${testId}",
@@ -175,7 +175,7 @@ scenarios
 			{
 				cardAuthor: "Annette-${testId}",
 				cardId: "c4-${testId}",
-				cardIndex: 3,
+				cardIndex: 4,
 				categoryId: "cat1-${testId}",
 				given: "4given4",
 				rootCategoryId: "boxId-${testId}",
@@ -191,7 +191,70 @@ scenarios
 				rootCategoryId: "boxId-${testId}",
 				wanted: "different"
 			}
-		
+
+	NoMoveUp
+		GIVEN
+			com.anfelisa.card.createcard.CreateFifthCard
+		WHEN
+			com.anfelisa.card.ChangeOrder
+				{
+					cardId: "c1-${testId}",
+					down: false
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+		persistence
+			firstCard Card selectByPrimaryKey ( cardId : "c1-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c1-${testId}",
+				cardIndex: 1,
+				categoryId: "cat1-${testId}",
+				given: "given",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "wanted"
+			}
+			secondCard Card selectByPrimaryKey ( cardId : "c2-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c2-${testId}",
+				cardIndex: 2,
+				categoryId: "cat1-${testId}",
+				given: "given2",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "wanted2"
+			}
+			thirdCard Card selectByPrimaryKey ( cardId : "c3-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c3-${testId}",
+				cardIndex: 3,
+				categoryId: "cat1-${testId}",
+				given: "3given",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "3wanted"
+			}
+			fourthCard Card selectByPrimaryKey ( cardId : "c4-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c4-${testId}",
+				cardIndex: 4,
+				categoryId: "cat1-${testId}",
+				given: "4given4",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "4wanted4"
+			}
+			fifthCard Card selectByPrimaryKey ( cardId : "c5-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c5-${testId}",
+				cardIndex: 5,
+				categoryId: "cat1-${testId}",
+				given: "different",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "different"
+			}
+
 	ChangeOrderUnauthorized
 		GIVEN
 			com.anfelisa.card.createcard.CreateFifthCard
@@ -199,7 +262,7 @@ scenarios
 			com.anfelisa.card.ChangeOrder
 				{
 					cardId: "c1-${testId}",
-					cardIdList: [ "c2-${testId}", "c4-${testId}" ]
+					down: true
 				}
 		THEN 401
 		persistence
@@ -261,70 +324,7 @@ scenarios
 			com.anfelisa.card.ChangeOrder
 				{
 					cardId: "xx",
-					cardIdList: [ "c2-${testId}", "c4-${testId}" ]
-				}
-				authorization "Annette-${testId}" : "password"
-		THEN 400
-		persistence
-			firstCard Card selectByPrimaryKey ( cardId : "c1-${testId}" ) shouldBe
-			{
-				cardAuthor: "Annette-${testId}",
-				cardId: "c1-${testId}",
-				cardIndex: 1,
-				categoryId: "cat1-${testId}",
-				given: "given",
-				rootCategoryId: "boxId-${testId}",
-				wanted: "wanted"
-			}
-			secondCard Card selectByPrimaryKey ( cardId : "c2-${testId}" ) shouldBe
-			{
-				cardAuthor: "Annette-${testId}",
-				cardId: "c2-${testId}",
-				cardIndex: 2,
-				categoryId: "cat1-${testId}",
-				given: "given2",
-				rootCategoryId: "boxId-${testId}",
-				wanted: "wanted2"
-			}
-			thirdCard Card selectByPrimaryKey ( cardId : "c3-${testId}" ) shouldBe
-			{
-				cardAuthor: "Annette-${testId}",
-				cardId: "c3-${testId}",
-				cardIndex: 3,
-				categoryId: "cat1-${testId}",
-				given: "3given",
-				rootCategoryId: "boxId-${testId}",
-				wanted: "3wanted"
-			}
-			fourthCard Card selectByPrimaryKey ( cardId : "c4-${testId}" ) shouldBe
-			{
-				cardAuthor: "Annette-${testId}",
-				cardId: "c4-${testId}",
-				cardIndex: 4,
-				categoryId: "cat1-${testId}",
-				given: "4given4",
-				rootCategoryId: "boxId-${testId}",
-				wanted: "4wanted4"
-			}
-			fifthCard Card selectByPrimaryKey ( cardId : "c5-${testId}" ) shouldBe
-			{
-				cardAuthor: "Annette-${testId}",
-				cardId: "c5-${testId}",
-				cardIndex: 5,
-				categoryId: "cat1-${testId}",
-				given: "different",
-				rootCategoryId: "boxId-${testId}",
-				wanted: "different"
-			}
-
-	ChangeOrderMovedCardDoesNotExist
-		GIVEN
-			com.anfelisa.card.createcard.CreateFifthCard
-		WHEN
-			com.anfelisa.card.ChangeOrder
-				{
-					cardId: "c1-${testId}",
-					cardIdList: [ "c2-${testId}", "xx" ]
+					down: true
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
@@ -388,41 +388,7 @@ scenarios
 			com.anfelisa.card.ChangeOrder
 				{
 					cardId: "c6-${testId}",
-					cardIdList: [ "c1-${testId}" ]
-				}
-				authorization "Annette-${testId}" : "password"
-		THEN 401
-		persistence
-			firstCard Card selectByPrimaryKey ( cardId : "c1-${testId}" ) shouldBe
-			{
-				cardAuthor: "Annette-${testId}",
-				cardId: "c1-${testId}",
-				cardIndex: 1,
-				categoryId: "cat1-${testId}",
-				given: "given",
-				rootCategoryId: "boxId-${testId}",
-				wanted: "wanted"
-			}
-			sixthCard Card selectByPrimaryKey ( cardId : "c6-${testId}" ) shouldBe
-			{
-				cardAuthor: "Admin",
-				cardId: "c6-${testId}",
-				cardIndex: 1,
-				categoryId: "adminCat-${testId}",
-				given: "given",
-				rootCategoryId: "adminBox-${testId}",
-				wanted: "wanted"
-			}
-
-	ChangeOrderNoAccessToMovedCard
-		GIVEN
-			com.anfelisa.card.createcard.CreateCard
-			com.anfelisa.card.createcard.CreateCardAsAdmin
-		WHEN
-			com.anfelisa.card.ChangeOrder
-				{
-					cardId: "c1-${testId}",
-					cardIdList: [ "c6-${testId}" ]
+					down: true
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 401
@@ -457,7 +423,7 @@ scenarios
 			com.anfelisa.card.ChangeOrder
 				{
 					cardId: "c1-${testId}",
-					cardIdList: [ "c3-${testId}", "c4-${testId}" ]
+					down: true
 				}
 				authorization "Anne-${testId}" : "pw"
 		THEN 401
@@ -513,70 +479,6 @@ scenarios
 				wanted: "different"
 			}
 
-	ChangeOrderNoEditingAccessToMovedCard
-		GIVEN
-			com.anfelisa.card.createcard.CreateFifthCard
-			com.anfelisa.user.registeruser.RegisterTwoUsers exclude GIVEN
-			com.anfelisa.category.inviteusertocategory.InviteUserToCategory exclude GIVEN
-		WHEN
-			com.anfelisa.card.ChangeOrder
-				{
-					cardId: "c1-${testId}",
-					cardIdList: [ "c3-${testId}", "c4-${testId}" ]
-				}
-				authorization "Anne-${testId}" : "pw"
-		THEN 401
-		persistence
-			firstCard Card selectByPrimaryKey ( cardId : "c1-${testId}" ) shouldBe
-			{
-				cardAuthor: "Annette-${testId}",
-				cardId: "c1-${testId}",
-				cardIndex: 1,
-				categoryId: "cat1-${testId}",
-				given: "given",
-				rootCategoryId: "boxId-${testId}",
-				wanted: "wanted"
-			}
-			secondCard Card selectByPrimaryKey ( cardId : "c2-${testId}" ) shouldBe
-			{
-				cardAuthor: "Annette-${testId}",
-				cardId: "c2-${testId}",
-				cardIndex: 2,
-				categoryId: "cat1-${testId}",
-				given: "given2",
-				rootCategoryId: "boxId-${testId}",
-				wanted: "wanted2"
-			}
-			thirdCard Card selectByPrimaryKey ( cardId : "c3-${testId}" ) shouldBe
-			{
-				cardAuthor: "Annette-${testId}",
-				cardId: "c3-${testId}",
-				cardIndex: 3,
-				categoryId: "cat1-${testId}",
-				given: "3given",
-				rootCategoryId: "boxId-${testId}",
-				wanted: "3wanted"
-			}
-			fourthCard Card selectByPrimaryKey ( cardId : "c4-${testId}" ) shouldBe
-			{
-				cardAuthor: "Annette-${testId}",
-				cardId: "c4-${testId}",
-				cardIndex: 4,
-				categoryId: "cat1-${testId}",
-				given: "4given4",
-				rootCategoryId: "boxId-${testId}",
-				wanted: "4wanted4"
-			}
-			fifthCard Card selectByPrimaryKey ( cardId : "c5-${testId}" ) shouldBe
-			{
-				cardAuthor: "Annette-${testId}",
-				cardId: "c5-${testId}",
-				cardIndex: 5,
-				categoryId: "cat1-${testId}",
-				given: "different",
-				rootCategoryId: "boxId-${testId}",
-				wanted: "different"
-			}
 
 
 

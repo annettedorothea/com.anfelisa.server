@@ -5,7 +5,7 @@
 
 
 
-package com.anfelisa.card.resources;
+package com.anfelisa.category.resources;
 
 import java.util.UUID;
 
@@ -50,18 +50,18 @@ import javax.ws.rs.DELETE;
 
 import de.acegen.Resource;
 
-@Path("/cards/changeorder")
+@Path("/category/toggleorder")
 @SuppressWarnings("unused")
-public class ChangeOrderResource extends Resource {
+public class ToggleCategoryOrderResource extends Resource {
 
-	static final Logger LOG = LoggerFactory.getLogger(ChangeOrderResource.class);
+	static final Logger LOG = LoggerFactory.getLogger(ToggleCategoryOrderResource.class);
 	
 	private PersistenceConnection persistenceConnection;
 	private CustomAppConfiguration appConfiguration;
 	private IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
 
-	public ChangeOrderResource(PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, 
+	public ToggleCategoryOrderResource(PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, 
 				IDaoProvider daoProvider, ViewProvider viewProvider) {
 			this.persistenceConnection = persistenceConnection;
 			this.appConfiguration = appConfiguration;
@@ -70,16 +70,16 @@ public class ChangeOrderResource extends Resource {
 		}
 	
 	@PUT
-	@Timed(name = "ChangeOrderActionTimed")
-	@Metered(name = "ChangeOrderActionMetered")
+	@Timed(name = "ToggleCategoryOrderActionTimed")
+	@Metered(name = "ToggleCategoryOrderActionMetered")
 	@ExceptionMetered
 	@ResponseMetered
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response changeOrderResource(
+	public Response toggleCategoryOrderResource(
 			@Auth AuthUser authUser, 
 			@QueryParam("uuid") String uuid, 
-			com.anfelisa.card.data.ChangeOrderPayload payload) 
+			com.anfelisa.category.data.ToggleCategoryOrderPayload payload) 
 			throws JsonProcessingException {
 		if (payload == null) {
 			return badRequest("payload must not be null");
@@ -88,20 +88,20 @@ public class ChangeOrderResource extends Resource {
 			uuid = UUID.randomUUID().toString();
 		}
 		try {
-			Data<com.anfelisa.card.models.ChangeCardOrderListModel> data = new Data<com.anfelisa.card.models.ChangeCardOrderListModel>(uuid);
-			com.anfelisa.card.models.ChangeCardOrderListModel model = new com.anfelisa.card.models.ChangeCardOrderListModel();
+			Data<com.anfelisa.category.models.ToggleCategoryOrderModel> data = new Data<com.anfelisa.category.models.ToggleCategoryOrderModel>(uuid);
+			com.anfelisa.category.models.ToggleCategoryOrderModel model = new com.anfelisa.category.models.ToggleCategoryOrderModel();
+			if (StringUtils.isBlank(payload.getCategoryId()) || "null".equals(payload.getCategoryId())) {
+				return badRequest("categoryId is mandatory");
+			}
+			model.setCategoryId(payload.getCategoryId());
 			if (payload.getDown() == null) {
 				return badRequest("down is mandatory");
 			}
 			model.setDown(payload.getDown());
-			if (StringUtils.isBlank(payload.getCardId()) || "null".equals(payload.getCardId())) {
-				return badRequest("cardId is mandatory");
-			}
-			model.setCardId(payload.getCardId());
 			model.setUserId(authUser.getUserId());
 			
 			data.setModel(model);
-			com.anfelisa.card.actions.ChangeOrderAction action = new com.anfelisa.card.actions.ChangeOrderAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
+			com.anfelisa.category.actions.ToggleCategoryOrderAction action = new com.anfelisa.category.actions.ToggleCategoryOrderAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
 			data = action.apply(data);
 			return ok();
 		} catch (IllegalArgumentException x) {
@@ -115,7 +115,7 @@ public class ChangeOrderResource extends Resource {
 			if (Config.DEV.equals(appConfiguration.getConfig().getMode())) {
 				x.printStackTrace();
 			}
-			return unauthorized("authorization needed for /cards/changeorder");
+			return unauthorized("authorization needed for /category/toggleorder");
 		} catch (Exception x) {
 			LOG.error("internal server error due to {} ", x.getMessage());
 			if (Config.DEV.equals(appConfiguration.getConfig().getMode())) {

@@ -72,9 +72,10 @@ ACE
 		PUT "/cards/changeorder"
 		authorize
 		payload
-			NotNull cardIdList
+			NotNull down
 			NotNull cardId
 		on ok (Card.changeCardOrder)
+		on noMove
 		
 	GetTranslation<CardTranslation>
 		GET "/card/translation" 
@@ -179,10 +180,11 @@ models
 	}
 
 	ChangeCardOrderList {
-		List String cardIdList
 		String cardId	
+		Boolean down
 		String userId
-		List Card updatedIndices
+		Card updatedCard1
+		Card updatedCard2
 	}
 
 	CsvUpload {

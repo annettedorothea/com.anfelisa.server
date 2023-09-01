@@ -5,7 +5,7 @@
 
 
 
-package com.anfelisa.card.data;
+package com.anfelisa.category.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -15,24 +15,24 @@ import de.acegen.DateTimeToStringConverter;
 import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("unused")
-public class ChangeOrderPayload {
+public class ToggleCategoryOrderPayload {
+	
+	private String categoryId;
 	
 	private Boolean down;
 	
-	private String cardId;
-	
-	public ChangeOrderPayload() {
+	public ToggleCategoryOrderPayload() {
 	}
 	
+	
+	@JsonProperty
+	public String getCategoryId() {
+		return this.categoryId;
+	}
 	
 	@JsonProperty
 	public Boolean getDown() {
 		return this.down;
-	}
-	
-	@JsonProperty
-	public String getCardId() {
-		return this.cardId;
 	}
 	
 }

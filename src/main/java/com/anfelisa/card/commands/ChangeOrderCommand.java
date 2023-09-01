@@ -7,9 +7,6 @@
 
 package com.anfelisa.card.commands;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,64 +31,32 @@ public class ChangeOrderCommand extends AbstractChangeOrderCommand {
 
 	@Override
 	protected Data<ChangeCardOrderListModel> executeCommand(Data<ChangeCardOrderListModel> data, PersistenceHandle readonlyHandle) {
-		CardModel targetCard = daoProvider.getCardDao().selectByCardId(readonlyHandle, data.getModel().getCardId());
-		if (targetCard == null) {
+		CardModel card1 = daoProvider.getCardDao().selectByCardId(readonlyHandle, data.getModel().getCardId());
+		if (card1 == null) {
 			throwIllegalArgumentException("cardDoesNotExist");
 		}
 		UserAccessToCategoryModel accessToRootCategory = this.daoProvider.getUserAccessToCategoryDao()
-				.hasUserAccessTo(readonlyHandle, targetCard.getRootCategoryId(), data.getModel().getUserId());
+				.hasUserAccessTo(readonlyHandle, card1.getRootCategoryId(), data.getModel().getUserId());
 		if (accessToRootCategory == null || !accessToRootCategory.getEditable()) {
 			throwSecurityException();
 		}
-		for (String cardId : data.getModel().getCardIdList()) {
-			CardModel card = daoProvider.getCardDao().selectByCardId(readonlyHandle, cardId);
-			if (card == null) {
-				throwIllegalArgumentException("cardDoesNotExist");
-			}
-			accessToRootCategory = this.daoProvider.getUserAccessToCategoryDao()
-					.hasUserAccessTo(readonlyHandle, card.getRootCategoryId(), data.getModel().getUserId());
-			if (accessToRootCategory == null || !accessToRootCategory.getEditable()) {
-				throwSecurityException();
-			}
+		
+		CardModel card2 = daoProvider.getCardDao().selectByCategoryIdAndIndex(readonlyHandle, card1.getCategoryId(), card1.getCardIndex() + (data.getModel().getDown() ? 1 : -1));
+		if (card2 == null) {
+			this.addNoMoveOutcome(data);
+			return data;
 		}
-		List<CardModel> cards = daoProvider.getCardDao().selectAll(readonlyHandle, targetCard.getCategoryId());
-		int index = 1;
-		for (CardModel card : cards) {
-			if (card.getCardIndex() < targetCard.getCardIndex()) {
-				if (!data.getModel().getCardIdList().contains(card.getCardId())) {
-					card.setCardIndex(index);
-					index++;
-				}
-			} else {
-				break;
-			}
-		}
-		List<CardModel> movedCards = orderedMovedCards(data.getModel(), cards);
-		for (CardModel card : movedCards) {
-			card.setCardIndex(index);
-			index++;
-		}
-		for (CardModel card : cards) {
-			if (card.getCardIndex() >= targetCard.getCardIndex()) {
-				if (!data.getModel().getCardIdList().contains(card.getCardId())) {
-					card.setCardIndex(index);
-					index++;
-				}
-			}
-		}
-		data.getModel().setUpdatedIndices(cards);
+		
+		int index1 = card1.getCardIndex();
+		int index2 = card2.getCardIndex();
+
+		card1.setCardIndex(index2);
+		card2.setCardIndex(index1);
+
+		data.getModel().setUpdatedCard1(card1);
+		data.getModel().setUpdatedCard2(card2);
 		this.addOkOutcome(data);
 		return data;
-	}
-
-	private List<CardModel> orderedMovedCards(ChangeCardOrderListModel data, List<CardModel> cards) {
-		List<CardModel> movedCards = new ArrayList<CardModel>();
-		for (CardModel card : cards) {
-			if (data.getCardIdList().contains(card.getCardId())) {
-				movedCards.add(card);
-			}
-		}
-		return movedCards;
 	}
 
 }

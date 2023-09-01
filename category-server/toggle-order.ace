@@ -1,0 +1,347 @@
+HttpServer Java 
+
+com.anfelisa.category.toggleorder
+
+scenarios 
+
+	ToggleCategoryOrderDown
+		GIVEN
+			com.anfelisa.category.createcategory.CreateFourthCategory
+		WHEN
+			com.anfelisa.category.ToggleCategoryOrder
+				{
+					categoryId: "cat2-${testId}",
+					down: true
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+		persistence
+			cat1Remains Category selectBy ( categoryId: "cat1-${testId}" ) shouldBe 
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "cat1-${testId}",
+				categoryIndex: 1,
+				categoryName: "level 1 #1",
+				dictionaryLookup: false,
+				parentCategoryId: "boxId-${testId}",
+				rootCategoryId: "boxId-${testId}"
+			}
+			cat2MovedToThirdIndex Category selectBy ( categoryId: "cat2-${testId}" ) shouldBe 
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "cat2-${testId}",
+				categoryIndex: 3,
+				categoryName: "level 1 #2",
+				dictionaryLookup: false,
+				parentCategoryId: "boxId-${testId}",
+				rootCategoryId: "boxId-${testId}"
+			}
+			cat3MovedToSecondIndex Category selectBy ( categoryId: "cat3-${testId}" ) shouldBe 
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "cat3-${testId}",
+				categoryIndex: 2,
+				categoryName: "level 1 #3",
+				dictionaryLookup: false,
+				parentCategoryId: "boxId-${testId}",
+				rootCategoryId: "boxId-${testId}"
+			}
+			cat4Remains Category selectBy ( categoryId: "cat4-${testId}" ) shouldBe 
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "cat4-${testId}",
+				categoryIndex: 4,
+				categoryName: "level 1 #4",
+				dictionaryLookup: false,
+				parentCategoryId: "boxId-${testId}",
+				rootCategoryId: "boxId-${testId}"
+			}
+
+	ToggleCategoryOrderUp
+		GIVEN
+			com.anfelisa.category.createcategory.CreateFourthCategory
+		WHEN
+			com.anfelisa.category.ToggleCategoryOrder
+				{
+					categoryId: "cat3-${testId}",
+					down: false
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+		persistence
+			cat1Remains Category selectBy ( categoryId: "cat1-${testId}" ) shouldBe 
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "cat1-${testId}",
+				categoryIndex: 1,
+				categoryName: "level 1 #1",
+				dictionaryLookup: false,
+				parentCategoryId: "boxId-${testId}",
+				rootCategoryId: "boxId-${testId}"
+			}
+			cat2MovedToThirdIndex Category selectBy ( categoryId: "cat2-${testId}" ) shouldBe 
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "cat2-${testId}",
+				categoryIndex: 3,
+				categoryName: "level 1 #2",
+				dictionaryLookup: false,
+				parentCategoryId: "boxId-${testId}",
+				rootCategoryId: "boxId-${testId}"
+			}
+			cat3MovedToSecondIndex Category selectBy ( categoryId: "cat3-${testId}" ) shouldBe 
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "cat3-${testId}",
+				categoryIndex: 2,
+				categoryName: "level 1 #3",
+				dictionaryLookup: false,
+				parentCategoryId: "boxId-${testId}",
+				rootCategoryId: "boxId-${testId}"
+			}
+			cat4Remains Category selectBy ( categoryId: "cat4-${testId}" ) shouldBe 
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "cat4-${testId}",
+				categoryIndex: 4,
+				categoryName: "level 1 #4",
+				dictionaryLookup: false,
+				parentCategoryId: "boxId-${testId}",
+				rootCategoryId: "boxId-${testId}"
+			}
+
+	NoMoveDown
+		GIVEN
+			com.anfelisa.category.createcategory.CreateSecondCategory
+		WHEN
+			com.anfelisa.category.ToggleCategoryOrder
+				{
+					categoryId: "cat2-${testId}",
+					down: true
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+		persistence
+			cat1Remains Category selectBy ( categoryId: "cat1-${testId}" ) shouldBe 
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "cat1-${testId}",
+				categoryIndex: 1,
+				categoryName: "level 1 #1",
+				dictionaryLookup: false,
+				parentCategoryId: "boxId-${testId}",
+				rootCategoryId: "boxId-${testId}"
+			}
+			cat2Remains Category selectBy ( categoryId: "cat2-${testId}" ) shouldBe 
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "cat2-${testId}",
+				categoryIndex: 2,
+				categoryName: "level 1 #2",
+				dictionaryLookup: false,
+				parentCategoryId: "boxId-${testId}",
+				rootCategoryId: "boxId-${testId}"
+			}
+
+	NoMoveUp
+		GIVEN
+			com.anfelisa.category.createcategory.CreateFourthCategory
+		WHEN
+			com.anfelisa.category.ToggleCategoryOrder
+				{
+					categoryId: "cat1-${testId}",
+					down: false
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+		persistence
+			cat1Remains Category selectBy ( categoryId: "cat1-${testId}" ) shouldBe 
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "cat1-${testId}",
+				categoryIndex: 1,
+				categoryName: "level 1 #1",
+				dictionaryLookup: false,
+				parentCategoryId: "boxId-${testId}",
+				rootCategoryId: "boxId-${testId}"
+			}
+			cat2Remains Category selectBy ( categoryId: "cat2-${testId}" ) shouldBe 
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "cat2-${testId}",
+				categoryIndex: 2,
+				categoryName: "level 1 #2",
+				dictionaryLookup: false,
+				parentCategoryId: "boxId-${testId}",
+				rootCategoryId: "boxId-${testId}"
+			}
+
+	ToggleCategoryOrderUnauthorized
+		GIVEN
+			com.anfelisa.category.createcategory.CreateFourthCategory
+		WHEN
+			com.anfelisa.category.ToggleCategoryOrder
+				{
+					categoryId: "cat3-${testId}",
+					down: true
+				}
+		THEN 401
+		persistence
+			cat1AtIndex1 Category selectBy ( categoryId: "cat1-${testId}" ) shouldBe 
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "cat1-${testId}",
+				categoryIndex: 1,
+				categoryName: "level 1 #1",
+				dictionaryLookup: false,
+				parentCategoryId: "boxId-${testId}",
+				rootCategoryId: "boxId-${testId}"
+			}
+			cat2AtIndex2 Category selectBy ( categoryId: "cat2-${testId}" ) shouldBe 
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "cat2-${testId}",
+				categoryIndex: 2,
+				categoryName: "level 1 #2",
+				dictionaryLookup: false,
+				parentCategoryId: "boxId-${testId}",
+				rootCategoryId: "boxId-${testId}"
+			}
+			cat3AtIndex3 Category selectBy ( categoryId: "cat3-${testId}" ) shouldBe 
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "cat3-${testId}",
+				categoryIndex: 3,
+				categoryName: "level 1 #3",
+				dictionaryLookup: false,
+				parentCategoryId: "boxId-${testId}",
+				rootCategoryId: "boxId-${testId}"
+			}
+			cat4AtIndex4 Category selectBy ( categoryId: "cat4-${testId}" ) shouldBe 
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "cat4-${testId}",
+				categoryIndex: 4,
+				categoryName: "level 1 #4",
+				dictionaryLookup: false,
+				parentCategoryId: "boxId-${testId}",
+				rootCategoryId: "boxId-${testId}"
+			}
+		
+	ToggleCategoryOrderCategory1DoesNotExist
+		GIVEN
+			com.anfelisa.category.createcategory.CreateSecondCategory
+		WHEN
+			com.anfelisa.category.ToggleCategoryOrder
+				{
+					categoryId: "cat3-${testId}",
+					down: true
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 400
+		persistence
+			cat1AtIndex1 Category selectBy ( categoryId: "cat1-${testId}" ) shouldBe 
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "cat1-${testId}",
+				categoryIndex: 1,
+				categoryName: "level 1 #1",
+				dictionaryLookup: false,
+				parentCategoryId: "boxId-${testId}",
+				rootCategoryId: "boxId-${testId}"
+			}
+			cat2AtIndex2 Category selectBy ( categoryId: "cat2-${testId}" ) shouldBe 
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "cat2-${testId}",
+				categoryIndex: 2,
+				categoryName: "level 1 #2",
+				dictionaryLookup: false,
+				parentCategoryId: "boxId-${testId}",
+				rootCategoryId: "boxId-${testId}"
+			}
+
+
+	ToggleCategoryOrderNoAccessToCategory1
+		GIVEN
+			com.anfelisa.category.createcategory.CreateSecondCategory
+			com.anfelisa.category.createcategory.CreateCategoryAsAdmin
+		WHEN
+			com.anfelisa.category.ToggleCategoryOrder
+				{
+					categoryId: "adminCat-${testId}",
+					down: true
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 401
+		persistence
+			cat1AtIndex1 Category selectBy ( categoryId: "cat1-${testId}" ) shouldBe 
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "cat1-${testId}",
+				categoryIndex: 1,
+				categoryName: "level 1 #1",
+				dictionaryLookup: false,
+				parentCategoryId: "boxId-${testId}",
+				rootCategoryId: "boxId-${testId}"
+			}
+			cat2AtIndex2 Category selectBy ( categoryId: "cat2-${testId}" ) shouldBe 
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "cat2-${testId}",
+				categoryIndex: 2,
+				categoryName: "level 1 #2",
+				dictionaryLookup: false,
+				parentCategoryId: "boxId-${testId}",
+				rootCategoryId: "boxId-${testId}"
+			}
+			adminCatAtIndex1 Category selectBy ( categoryId: "adminCat-${testId}" ) shouldBe 
+			{
+				categoryAuthor: "Admin",
+				categoryId: "adminCat-${testId}",
+				categoryIndex: 1,
+				categoryName: "c",
+				dictionaryLookup: false,
+				parentCategoryId: "adminBox-${testId}",
+				rootCategoryId: "adminBox-${testId}"
+			}
+
+	ToggleCategoryOrderNoEditingAccessToCategory1
+		GIVEN
+			com.anfelisa.category.createcategory.CreateSecondCategory
+			com.anfelisa.user.registeruser.RegisterTwoUsers exclude GIVEN
+			com.anfelisa.category.inviteusertocategory.InviteUserToCategory exclude GIVEN
+		WHEN
+			com.anfelisa.category.ToggleCategoryOrder
+				{
+					categoryId: "cat1-${testId}",
+					down: true
+				}
+				authorization "Anne-${testId}" : "pw"
+		THEN 401
+		persistence
+			cat1AtIndex1 Category selectBy ( categoryId: "cat1-${testId}" ) shouldBe 
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "cat1-${testId}",
+				categoryIndex: 1,
+				categoryName: "level 1 #1",
+				dictionaryLookup: false,
+				parentCategoryId: "boxId-${testId}",
+				rootCategoryId: "boxId-${testId}"
+			}
+			cat2AtIndex2 Category selectBy ( categoryId: "cat2-${testId}" ) shouldBe 
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "cat2-${testId}",
+				categoryIndex: 2,
+				categoryName: "level 1 #2",
+				dictionaryLookup: false,
+				parentCategoryId: "boxId-${testId}",
+				rootCategoryId: "boxId-${testId}"
+			}
+
+
+
+
+		

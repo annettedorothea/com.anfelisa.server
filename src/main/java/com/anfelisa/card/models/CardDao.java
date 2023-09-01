@@ -168,6 +168,17 @@ public class CardDao extends AbstractCardDao {
 		statement.execute();
 	}
 
+	public com.anfelisa.card.models.CardModel selectByCategoryIdAndIndex(PersistenceHandle handle, String categoryId, int index) {
+		Optional<com.anfelisa.card.models.CardModel> optional = handle.getHandle().createQuery("SELECT cardid, given, wanted, cardauthor, cardindex, categoryid, rootcategoryid, priority "
+				+ "FROM \"card\" WHERE categoryid = :categoryid and cardindex = :index")
+			.bind("categoryid", categoryId)
+			.bind("index", index)
+			.map(new CardMapper())
+			.findFirst();
+		return optional.isPresent() ? optional.get() : null;
+	}
+	
+
 }
 
 /* S.D.G. */

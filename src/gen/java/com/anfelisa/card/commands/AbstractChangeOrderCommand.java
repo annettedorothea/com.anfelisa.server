@@ -25,6 +25,9 @@ public abstract class AbstractChangeOrderCommand extends Command<com.anfelisa.ca
 	protected void addOkOutcome(Data<com.anfelisa.card.models.ChangeCardOrderListModel> data) {
 		data.addOutcome("ok");
 	}
+	protected void addNoMoveOutcome(Data<com.anfelisa.card.models.ChangeCardOrderListModel> data) {
+		data.addOutcome("noMove");
+	}
 	
 	@Override
 	public void addEventsToTimeline(Data<com.anfelisa.card.models.ChangeCardOrderListModel> data, PersistenceHandle timelineHandle) {

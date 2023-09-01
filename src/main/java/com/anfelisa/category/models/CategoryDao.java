@@ -89,13 +89,6 @@ public class CategoryDao extends AbstractCategoryDao {
 		statement.execute();
 	}
 
-	public void shiftRootCategories(PersistenceHandle handle, Integer categoryIndex) {
-		Update statement = handle.getHandle().createUpdate(
-				"UPDATE public.category SET categoryindex = categoryindex-1 WHERE parentcategoryid is null and categoryindex > :categoryindex");
-		statement.bind("categoryindex", categoryIndex);
-		statement.execute();
-	}
-
 	public List<CategoryModel> selectAllChildren(PersistenceHandle handle, String parentCategoryId) {
 		return handle.getHandle().createQuery(
 				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage FROM public.category c WHERE parentcategoryid = :parentcategoryid order by categoryindex, categoryname")
@@ -132,6 +125,17 @@ public class CategoryDao extends AbstractCategoryDao {
 				.bind("search", search)
 				.bind("categoryid", categoryId)
 				.mapTo(String.class).list();
+	}
+	
+	public com.anfelisa.category.models.CategoryModel selectByParentCategoryIdAndIndex(PersistenceHandle handle, String parentCategoryId, int index) {
+		Optional<com.anfelisa.category.models.CategoryModel> optional = handle.getHandle().createQuery(""
+				+ "SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage "
+				+ "FROM \"category\" WHERE parentcategoryid = :parentcategoryid and categoryindex = :index")
+			.bind("parentcategoryid", parentCategoryId)
+			.bind("index", index)
+			.map(new CategoryMapper())
+			.findFirst();
+		return optional.isPresent() ? optional.get() : null;
 	}
 	
 

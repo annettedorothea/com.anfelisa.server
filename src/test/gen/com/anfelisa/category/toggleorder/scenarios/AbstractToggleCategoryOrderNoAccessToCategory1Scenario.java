@@ -5,7 +5,7 @@
 
 
 
-package com.anfelisa.card.changeorder.scenarios;
+package com.anfelisa.category.toggleorder.scenarios;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -25,9 +25,9 @@ import de.acegen.Data;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 @SuppressWarnings("unused")
-public abstract class AbstractChangeOrderNoAccessToTargetCardScenario extends BaseScenario {
+public abstract class AbstractToggleCategoryOrderNoAccessToCategory1Scenario extends BaseScenario {
 
-	static final Logger LOG = LoggerFactory.getLogger(AbstractChangeOrderNoAccessToTargetCardScenario.class);
+	static final Logger LOG = LoggerFactory.getLogger(AbstractToggleCategoryOrderNoAccessToCategory1Scenario.class);
 	
 	private void given() throws Exception {
 		String uuid;
@@ -135,22 +135,20 @@ public abstract class AbstractChangeOrderNoAccessToTargetCardScenario extends Ba
 			LOG.info("GIVEN: prerequisite for CreateCategory not met");
 		}
 
-		if (prerequisite("CreateCard")) {
-			uuid = "c1-" + this.getTestId() + "";
-			com.anfelisa.card.data.CreateCardPayload payload_3 = objectMapper.readValue("{" +
-				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-				"\"given\" : \"given\"," + 
-				"\"wanted\" : \"wanted\"} ",
-					com.anfelisa.card.data.CreateCardPayload.class);
-			com.anfelisa.card.models.CardCreationModel model_3 = objectMapper.readValue("{" +
-				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-				"\"given\" : \"given\"," + 
-				"\"wanted\" : \"wanted\"} ", com.anfelisa.card.models.CardCreationModel.class);
-			Data<com.anfelisa.card.models.CardCreationModel> data_3 = new Data<com.anfelisa.card.models.CardCreationModel>(uuid);
+		if (prerequisite("CreateSecondCategory")) {
+			uuid = "cat2-" + this.getTestId() + "";
+			com.anfelisa.category.data.CreateCategoryPayload payload_3 = objectMapper.readValue("{" +
+				"\"categoryName\" : \"level 1 #2\"," + 
+				"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
+					com.anfelisa.category.data.CreateCategoryPayload.class);
+			com.anfelisa.category.models.CategoryCreationModel model_3 = objectMapper.readValue("{" +
+				"\"categoryName\" : \"level 1 #2\"," + 
+				"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ", com.anfelisa.category.models.CategoryCreationModel.class);
+			Data<com.anfelisa.category.models.CategoryCreationModel> data_3 = new Data<com.anfelisa.category.models.CategoryCreationModel>(uuid);
 			data_3.setModel(model_3);
 			HttpResponse<Object> response_3 = 
 			this.httpPost(
-				"/card/create", 
+				"/category/create", 
 			 	payload_3,
 				authorization("Annette-${testId}", "password"),
 				uuid,
@@ -159,14 +157,14 @@ public abstract class AbstractChangeOrderNoAccessToTargetCardScenario extends Ba
 			
 			if (response_3.getStatusCode() >= 400) {
 				String statusMessage = response_3.getStatusMessage() != null ? response_3.getStatusMessage() : "";
-				String message = "GIVEN CreateCard fails\n" + statusMessage;
-				LOG.error("GIVEN: CreateCard fails due to {} in {} ms", message, response_3.getDuration());
+				String message = "GIVEN CreateSecondCategory fails\n" + statusMessage;
+				LOG.error("GIVEN: CreateSecondCategory fails due to {} in {} ms", message, response_3.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateCard success in {} ms", response_3.getDuration());
-			addToMetrics("CreateCard", response_3.getDuration());
+			LOG.info("GIVEN: CreateSecondCategory success in {} ms", response_3.getDuration());
+			addToMetrics("CreateCategory", response_3.getDuration());
 		} else {
-			LOG.info("GIVEN: prerequisite for CreateCard not met");
+			LOG.info("GIVEN: prerequisite for CreateSecondCategory not met");
 		}
 
 		if (prerequisite("RegisterUserAdmin")) {
@@ -272,65 +270,31 @@ public abstract class AbstractChangeOrderNoAccessToTargetCardScenario extends Ba
 			LOG.info("GIVEN: prerequisite for CreateCategoryAsAdmin not met");
 		}
 
-		if (prerequisite("CreateCardAsAdmin")) {
-			uuid = "c6-" + this.getTestId() + "";
-			com.anfelisa.card.data.CreateCardPayload payload_7 = objectMapper.readValue("{" +
-				"\"categoryId\" : \"adminCat-" + this.getTestId() + "\"," + 
-				"\"given\" : \"given\"," + 
-				"\"wanted\" : \"wanted\"} ",
-					com.anfelisa.card.data.CreateCardPayload.class);
-			com.anfelisa.card.models.CardCreationModel model_7 = objectMapper.readValue("{" +
-				"\"categoryId\" : \"adminCat-" + this.getTestId() + "\"," + 
-				"\"given\" : \"given\"," + 
-				"\"wanted\" : \"wanted\"} ", com.anfelisa.card.models.CardCreationModel.class);
-			Data<com.anfelisa.card.models.CardCreationModel> data_7 = new Data<com.anfelisa.card.models.CardCreationModel>(uuid);
-			data_7.setModel(model_7);
-			HttpResponse<Object> response_7 = 
-			this.httpPost(
-				"/card/create", 
-			 	payload_7,
-				authorization("Admin", "admin-password"),
-				uuid,
-				null
-			);
-			
-			if (response_7.getStatusCode() >= 400) {
-				String statusMessage = response_7.getStatusMessage() != null ? response_7.getStatusMessage() : "";
-				String message = "GIVEN CreateCardAsAdmin fails\n" + statusMessage;
-				LOG.error("GIVEN: CreateCardAsAdmin fails due to {} in {} ms", message, response_7.getDuration());
-				assertFail(message);
-			}
-			LOG.info("GIVEN: CreateCardAsAdmin success in {} ms", response_7.getDuration());
-			addToMetrics("CreateCard", response_7.getDuration());
-		} else {
-			LOG.info("GIVEN: prerequisite for CreateCardAsAdmin not met");
-		}
-
 	}
 	
 	private HttpResponse<Object> when_0() throws Exception {
 		String uuid = this.randomUUID();
-		com.anfelisa.card.data.ChangeOrderPayload payload_0 = objectMapper.readValue("{" +
-			"\"cardId\" : \"c6-" + this.getTestId() + "\"," + 
+		com.anfelisa.category.data.ToggleCategoryOrderPayload payload_0 = objectMapper.readValue("{" +
+			"\"categoryId\" : \"adminCat-" + this.getTestId() + "\"," + 
 			"\"down\" : true} ",
-				com.anfelisa.card.data.ChangeOrderPayload.class);
-		com.anfelisa.card.models.ChangeCardOrderListModel model_0 = objectMapper.readValue("{" +
-			"\"cardId\" : \"c6-" + this.getTestId() + "\"," + 
-			"\"down\" : true} ", com.anfelisa.card.models.ChangeCardOrderListModel.class);
-		Data<com.anfelisa.card.models.ChangeCardOrderListModel> data_0 = new Data<com.anfelisa.card.models.ChangeCardOrderListModel>(uuid);
+				com.anfelisa.category.data.ToggleCategoryOrderPayload.class);
+		com.anfelisa.category.models.ToggleCategoryOrderModel model_0 = objectMapper.readValue("{" +
+			"\"categoryId\" : \"adminCat-" + this.getTestId() + "\"," + 
+			"\"down\" : true} ", com.anfelisa.category.models.ToggleCategoryOrderModel.class);
+		Data<com.anfelisa.category.models.ToggleCategoryOrderModel> data_0 = new Data<com.anfelisa.category.models.ToggleCategoryOrderModel>(uuid);
 		data_0.setModel(model_0);
 		HttpResponse<Object> response = 
 		this.httpPut(
-			"/cards/changeorder", 
+			"/category/toggleorder", 
 		 	payload_0,
 			authorization("Annette-${testId}", "password"),
 			uuid,
 			null
 		);
 		
-		LOG.info("WHEN: ChangeOrder finished in {} ms", response.getDuration());
+		LOG.info("WHEN: ToggleCategoryOrder finished in {} ms", response.getDuration());
 		if (response.getStatusCode() >= 200 && response.getStatusCode() < 300) {
-			addToMetrics("ChangeOrder", response.getDuration());
+			addToMetrics("ToggleCategoryOrder", response.getDuration());
 		}
 		return response;
 	}
@@ -357,58 +321,75 @@ public abstract class AbstractChangeOrderNoAccessToTargetCardScenario extends Ba
 	public void runTest() throws Exception {
 		given();
 		
-		if (prerequisite("ChangeOrderNoAccessToTargetCard")) {
+		if (prerequisite("ToggleCategoryOrderNoAccessToCategory1")) {
 			
 				HttpResponse<Object> response_0 = when_0();
 				then_0(response_0);
-				this.firstCard();
-				this.sixthCard();
+				this.cat1AtIndex1();
+				this.cat2AtIndex2();
+				this.adminCatAtIndex1();
 				
 		
 		} else {
-			LOG.info("WHEN: prerequisite for ChangeOrderNoAccessToTargetCard not met");
+			LOG.info("WHEN: prerequisite for ToggleCategoryOrderNoAccessToCategory1 not met");
 		}
 		
 			
 	}
 	
 	
-	private void firstCard() throws Exception {
-		com.anfelisa.card.models.CardModel actual = daoProvider.getCardDao().selectByPrimaryKey(handle, "c1-" + this.getTestId() + "");
+	private void cat1AtIndex1() throws Exception {
+		com.anfelisa.category.models.CategoryModel actual = daoProvider.getCategoryDao().selectByCategoryId(handle, "cat1-" + this.getTestId() + "");
 		
-		com.anfelisa.card.models.CardModel expected = objectMapper.readValue("{" +
-			"\"cardAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
-			"\"cardId\" : \"c1-" + this.getTestId() + "\"," + 
-			"\"cardIndex\" : 1," + 
+		com.anfelisa.category.models.CategoryModel expected = objectMapper.readValue("{" +
+			"\"categoryAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
 			"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-			"\"given\" : \"given\"," + 
-			"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
-			"\"wanted\" : \"wanted\"} ",
-		com.anfelisa.card.models.CardModel.class);
+			"\"categoryIndex\" : 1," + 
+			"\"categoryName\" : \"level 1 #1\"," + 
+			"\"dictionaryLookup\" : false," + 
+			"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+			"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
+		com.anfelisa.category.models.CategoryModel.class);
 		assertThat(actual, expected);
 	
-		LOG.info("THEN: firstCard passed");
+		LOG.info("THEN: cat1AtIndex1 passed");
 	}
-	private void sixthCard() throws Exception {
-		com.anfelisa.card.models.CardModel actual = daoProvider.getCardDao().selectByPrimaryKey(handle, "c6-" + this.getTestId() + "");
+	private void cat2AtIndex2() throws Exception {
+		com.anfelisa.category.models.CategoryModel actual = daoProvider.getCategoryDao().selectByCategoryId(handle, "cat2-" + this.getTestId() + "");
 		
-		com.anfelisa.card.models.CardModel expected = objectMapper.readValue("{" +
-			"\"cardAuthor\" : \"Admin\"," + 
-			"\"cardId\" : \"c6-" + this.getTestId() + "\"," + 
-			"\"cardIndex\" : 1," + 
-			"\"categoryId\" : \"adminCat-" + this.getTestId() + "\"," + 
-			"\"given\" : \"given\"," + 
-			"\"rootCategoryId\" : \"adminBox-" + this.getTestId() + "\"," + 
-			"\"wanted\" : \"wanted\"} ",
-		com.anfelisa.card.models.CardModel.class);
+		com.anfelisa.category.models.CategoryModel expected = objectMapper.readValue("{" +
+			"\"categoryAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
+			"\"categoryId\" : \"cat2-" + this.getTestId() + "\"," + 
+			"\"categoryIndex\" : 2," + 
+			"\"categoryName\" : \"level 1 #2\"," + 
+			"\"dictionaryLookup\" : false," + 
+			"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+			"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
+		com.anfelisa.category.models.CategoryModel.class);
 		assertThat(actual, expected);
 	
-		LOG.info("THEN: sixthCard passed");
+		LOG.info("THEN: cat2AtIndex2 passed");
+	}
+	private void adminCatAtIndex1() throws Exception {
+		com.anfelisa.category.models.CategoryModel actual = daoProvider.getCategoryDao().selectByCategoryId(handle, "adminCat-" + this.getTestId() + "");
+		
+		com.anfelisa.category.models.CategoryModel expected = objectMapper.readValue("{" +
+			"\"categoryAuthor\" : \"Admin\"," + 
+			"\"categoryId\" : \"adminCat-" + this.getTestId() + "\"," + 
+			"\"categoryIndex\" : 1," + 
+			"\"categoryName\" : \"c\"," + 
+			"\"dictionaryLookup\" : false," + 
+			"\"parentCategoryId\" : \"adminBox-" + this.getTestId() + "\"," + 
+			"\"rootCategoryId\" : \"adminBox-" + this.getTestId() + "\"} ",
+		com.anfelisa.category.models.CategoryModel.class);
+		assertThat(actual, expected);
+	
+		LOG.info("THEN: adminCatAtIndex1 passed");
 	}
 		
 	@Override
 	protected String scenarioName() {
-		return "ChangeOrderNoAccessToTargetCard";
+		return "ToggleCategoryOrderNoAccessToCategory1";
 	}
 	
 }

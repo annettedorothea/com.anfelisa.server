@@ -5,7 +5,7 @@
 
 
 
-package com.anfelisa.card.models;
+package com.anfelisa.category.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -16,49 +16,49 @@ import de.acegen.StringToDateTimeConverter;
 import de.acegen.AbstractModel;
 
 @SuppressWarnings("unused")
-public class ChangeCardOrderListModel extends AbstractModel {
+public class ToggleCategoryOrderModel extends AbstractModel {
 
-	private String cardId;
+	private String categoryId;
 
 	private Boolean down;
 
 	private String userId;
 
-	private com.anfelisa.card.models.CardModel updatedCard1;
+	private com.anfelisa.category.models.CategoryModel updatedCategory1;
 
-	private com.anfelisa.card.models.CardModel updatedCard2;
+	private com.anfelisa.category.models.CategoryModel updatedCategory2;
 
 	
 	private Boolean frozen = false;
 
-	public ChangeCardOrderListModel() {
+	public ToggleCategoryOrderModel() {
 	}
 
-	public ChangeCardOrderListModel(
-		@JsonProperty("cardId") String cardId,
+	public ToggleCategoryOrderModel(
+		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("down") Boolean down,
 		@JsonProperty("userId") String userId,
-		@JsonProperty("updatedCard1") com.anfelisa.card.models.CardModel updatedCard1,
-		@JsonProperty("updatedCard2") com.anfelisa.card.models.CardModel updatedCard2
+		@JsonProperty("updatedCategory1") com.anfelisa.category.models.CategoryModel updatedCategory1,
+		@JsonProperty("updatedCategory2") com.anfelisa.category.models.CategoryModel updatedCategory2
 	) {
-		this.cardId = cardId;
+		this.categoryId = categoryId;
 		this.down = down;
 		this.userId = userId;
-		this.updatedCard1 = updatedCard1;
-		this.updatedCard2 = updatedCard2;
+		this.updatedCategory1 = updatedCategory1;
+		this.updatedCategory2 = updatedCategory2;
 	}
 
 	@JsonProperty
-	public String getCardId() {
-		return this.cardId;
+	public String getCategoryId() {
+		return this.categoryId;
 	}
 	
 	@JsonProperty
-	public void setCardId(String cardId) {
+	public void setCategoryId(String categoryId) {
 		if (this.frozen) {
-			throw new RuntimeException("cardId is frozen");
+			throw new RuntimeException("categoryId is frozen");
 		}
-		this.cardId = cardId;
+		this.categoryId = categoryId;
 	}
 	
 	@JsonProperty
@@ -88,29 +88,29 @@ public class ChangeCardOrderListModel extends AbstractModel {
 	}
 	
 	@JsonProperty
-	public com.anfelisa.card.models.CardModel getUpdatedCard1() {
-		return this.updatedCard1;
+	public com.anfelisa.category.models.CategoryModel getUpdatedCategory1() {
+		return this.updatedCategory1;
 	}
 	
 	@JsonProperty
-	public void setUpdatedCard1(com.anfelisa.card.models.CardModel updatedCard1) {
+	public void setUpdatedCategory1(com.anfelisa.category.models.CategoryModel updatedCategory1) {
 		if (this.frozen) {
-			throw new RuntimeException("updatedCard1 is frozen");
+			throw new RuntimeException("updatedCategory1 is frozen");
 		}
-		this.updatedCard1 = updatedCard1;
+		this.updatedCategory1 = updatedCategory1;
 	}
 	
 	@JsonProperty
-	public com.anfelisa.card.models.CardModel getUpdatedCard2() {
-		return this.updatedCard2;
+	public com.anfelisa.category.models.CategoryModel getUpdatedCategory2() {
+		return this.updatedCategory2;
 	}
 	
 	@JsonProperty
-	public void setUpdatedCard2(com.anfelisa.card.models.CardModel updatedCard2) {
+	public void setUpdatedCategory2(com.anfelisa.category.models.CategoryModel updatedCategory2) {
 		if (this.frozen) {
-			throw new RuntimeException("updatedCard2 is frozen");
+			throw new RuntimeException("updatedCategory2 is frozen");
 		}
-		this.updatedCard2 = updatedCard2;
+		this.updatedCategory2 = updatedCategory2;
 	}
 	
 	
@@ -118,22 +118,22 @@ public class ChangeCardOrderListModel extends AbstractModel {
 	@Override
 	public void freeze() {
 		this.frozen = true;
-		if (this.updatedCard1 != null) {
-			this.updatedCard1.freeze();
+		if (this.updatedCategory1 != null) {
+			this.updatedCategory1.freeze();
 		}
-		if (this.updatedCard2 != null) {
-			this.updatedCard2.freeze();
+		if (this.updatedCategory2 != null) {
+			this.updatedCategory2.freeze();
 		}
 	}
 
-	public static ChangeCardOrderListModel generateTestData() {
+	public static ToggleCategoryOrderModel generateTestData() {
 		java.util.Random random = new java.util.Random();
-		ChangeCardOrderListModel testData = new ChangeCardOrderListModel();
-		testData.setCardId(randomString(random));
+		ToggleCategoryOrderModel testData = new ToggleCategoryOrderModel();
+		testData.setCategoryId(randomString(random));
 		testData.setDown(random.nextBoolean());
 		testData.setUserId(randomString(random));
-		testData.setUpdatedCard1(com.anfelisa.card.models.CardModel.generateTestData());
-		testData.setUpdatedCard2(com.anfelisa.card.models.CardModel.generateTestData());
+		testData.setUpdatedCategory1(com.anfelisa.category.models.CategoryModel.generateTestData());
+		testData.setUpdatedCategory2(com.anfelisa.category.models.CategoryModel.generateTestData());
 		return testData;
 	}
 	

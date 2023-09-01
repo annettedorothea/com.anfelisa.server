@@ -57,9 +57,8 @@ public class CardView implements ICardView {
 
 	@Override
 	public void changeCardOrder(Data<ChangeCardOrderListModel> data, PersistenceHandle handle) {
-		for (CardModel card : data.getModel().getUpdatedIndices()) {
-			daoProvider.getCardDao().updateIndex(handle, card);
-		}
+		daoProvider.getCardDao().updateIndex(handle, data.getModel().getUpdatedCard1());
+		daoProvider.getCardDao().updateIndex(handle, data.getModel().getUpdatedCard2());
 	}
 
 	@Override

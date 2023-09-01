@@ -50,13 +50,13 @@ ACE
 		on ok (Category.moveCategory)
 		on noMove
 		
-	ChangeOrderCategory<CategoryChangeOrder>
-		PUT "/category/changeorder"
+	ToggleCategoryOrder<ToggleCategoryOrder>
+		PUT "/category/toggleorder"
 		authorize
 		payload
-			NotNull movedCategoryId
-			NotNull targetCategoryId
-		on ok (Category.changeOrder)
+			NotNull categoryId
+			NotNull down
+		on ok (Category.toggleOrder)
 		on noMove
 		
 	InviteUserToCategory<UserToCategoryInvitation>
@@ -98,7 +98,7 @@ views
 		delete(CategoryDelete)
 		update(CategoryUpdate)
 		moveCategory(CategoryMove)
-		changeOrder(CategoryChangeOrder)
+		toggleOrder(ToggleCategoryOrder)
 	}
 	
 	UserAccessToCategoryInvitation {
@@ -193,11 +193,12 @@ models
 		String userId
 	}
 	
-	CategoryChangeOrder {
-		String movedCategoryId
-		String targetCategoryId
+	ToggleCategoryOrder {
+		String categoryId
+		Boolean down
 		String userId
-		List Category updatedIndices
+		Category updatedCategory1
+		Category updatedCategory2
 	}
 
 	UserToCategoryInvitation {

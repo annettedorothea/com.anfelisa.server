@@ -25,9 +25,9 @@ import de.acegen.Data;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 @SuppressWarnings("unused")
-public abstract class AbstractChangeOrderUnauthorizedScenario extends BaseScenario {
+public abstract class AbstractChangeOrderDownScenario extends BaseScenario {
 
-	static final Logger LOG = LoggerFactory.getLogger(AbstractChangeOrderUnauthorizedScenario.class);
+	static final Logger LOG = LoggerFactory.getLogger(AbstractChangeOrderDownScenario.class);
 	
 	private void given() throws Exception {
 		String uuid;
@@ -322,7 +322,7 @@ public abstract class AbstractChangeOrderUnauthorizedScenario extends BaseScenar
 		this.httpPut(
 			"/cards/changeorder", 
 		 	payload_0,
-			null,
+			authorization("Annette-${testId}", "password"),
 			uuid,
 			null
 		);
@@ -341,13 +341,13 @@ public abstract class AbstractChangeOrderUnauthorizedScenario extends BaseScenar
 			LOG.error("THEN: " + errorMessage);
 			assertFail(errorMessage);
 		}
-		if (response.getStatusCode() != 401) {
+		if (response.getStatusCode() != 200) {
 			String statusMessage = response.getStatusMessage() != null ? response.getStatusMessage() : "";
-			String errorMessage = "status " + response.getStatusCode() + " failed, expected 401: " + statusMessage;
+			String errorMessage = "status " + response.getStatusCode() + " failed, expected 200: " + statusMessage;
 			LOG.error("THEN: " + errorMessage);
 			assertFail(errorMessage);
 		} else {
-			LOG.info("THEN: status 401 passed");
+			LOG.info("THEN: status 200 passed");
 		}
 		
 	}
@@ -356,7 +356,7 @@ public abstract class AbstractChangeOrderUnauthorizedScenario extends BaseScenar
 	public void runTest() throws Exception {
 		given();
 		
-		if (prerequisite("ChangeOrderUnauthorized")) {
+		if (prerequisite("ChangeOrderDown")) {
 			
 				HttpResponse<Object> response_0 = when_0();
 				then_0(response_0);
@@ -368,7 +368,7 @@ public abstract class AbstractChangeOrderUnauthorizedScenario extends BaseScenar
 				
 		
 		} else {
-			LOG.info("WHEN: prerequisite for ChangeOrderUnauthorized not met");
+			LOG.info("WHEN: prerequisite for ChangeOrderDown not met");
 		}
 		
 			
@@ -381,7 +381,7 @@ public abstract class AbstractChangeOrderUnauthorizedScenario extends BaseScenar
 		com.anfelisa.card.models.CardModel expected = objectMapper.readValue("{" +
 			"\"cardAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
 			"\"cardId\" : \"c1-" + this.getTestId() + "\"," + 
-			"\"cardIndex\" : 1," + 
+			"\"cardIndex\" : 2," + 
 			"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 			"\"given\" : \"given\"," + 
 			"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
@@ -397,7 +397,7 @@ public abstract class AbstractChangeOrderUnauthorizedScenario extends BaseScenar
 		com.anfelisa.card.models.CardModel expected = objectMapper.readValue("{" +
 			"\"cardAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
 			"\"cardId\" : \"c2-" + this.getTestId() + "\"," + 
-			"\"cardIndex\" : 2," + 
+			"\"cardIndex\" : 1," + 
 			"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 			"\"given\" : \"given2\"," + 
 			"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
@@ -458,7 +458,7 @@ public abstract class AbstractChangeOrderUnauthorizedScenario extends BaseScenar
 		
 	@Override
 	protected String scenarioName() {
-		return "ChangeOrderUnauthorized";
+		return "ChangeOrderDown";
 	}
 	
 }

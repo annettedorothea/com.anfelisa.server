@@ -1,11 +1,10 @@
 package com.anfelisa.category.views;
 
-import com.anfelisa.category.models.CategoryChangeOrderModel;
 import com.anfelisa.category.models.CategoryCreationModel;
 import com.anfelisa.category.models.CategoryDeleteModel;
-import com.anfelisa.category.models.CategoryModel;
 import com.anfelisa.category.models.CategoryMoveModel;
 import com.anfelisa.category.models.CategoryUpdateModel;
+import com.anfelisa.category.models.ToggleCategoryOrderModel;
 
 import de.acegen.Data;
 import de.acegen.IDaoProvider;
@@ -44,10 +43,9 @@ public class CategoryView implements ICategoryView {
 	}
 
 	@Override
-	public void changeOrder(Data<CategoryChangeOrderModel> data, PersistenceHandle handle) {
-		for (CategoryModel category : data.getModel().getUpdatedIndices()) {
-			daoProvider.getCategoryDao().updateIndex(handle, category);
-		}
+	public void toggleOrder(Data<ToggleCategoryOrderModel> data, PersistenceHandle handle) {
+		daoProvider.getCategoryDao().updateIndex(handle, data.getModel().getUpdatedCategory1());
+		daoProvider.getCategoryDao().updateIndex(handle, data.getModel().getUpdatedCategory2());
 	}
 
 }

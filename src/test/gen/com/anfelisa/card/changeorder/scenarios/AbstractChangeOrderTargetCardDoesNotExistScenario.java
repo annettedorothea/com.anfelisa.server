@@ -311,13 +311,11 @@ public abstract class AbstractChangeOrderTargetCardDoesNotExistScenario extends 
 		String uuid = this.randomUUID();
 		com.anfelisa.card.data.ChangeOrderPayload payload_0 = objectMapper.readValue("{" +
 			"\"cardId\" : \"xx\"," + 
-			"\"cardIdList\" : [ \"c2-" + this.getTestId() + "\"," + 
-			"\"c4-" + this.getTestId() + "\"]} ",
+			"\"down\" : true} ",
 				com.anfelisa.card.data.ChangeOrderPayload.class);
 		com.anfelisa.card.models.ChangeCardOrderListModel model_0 = objectMapper.readValue("{" +
 			"\"cardId\" : \"xx\"," + 
-			"\"cardIdList\" : [ \"c2-" + this.getTestId() + "\"," + 
-			"\"c4-" + this.getTestId() + "\"]} ", com.anfelisa.card.models.ChangeCardOrderListModel.class);
+			"\"down\" : true} ", com.anfelisa.card.models.ChangeCardOrderListModel.class);
 		Data<com.anfelisa.card.models.ChangeCardOrderListModel> data_0 = new Data<com.anfelisa.card.models.ChangeCardOrderListModel>(uuid);
 		data_0.setModel(model_0);
 		HttpResponse<Object> response = 

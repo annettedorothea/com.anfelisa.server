@@ -26,7 +26,7 @@ public class AppRegistration {
 		environment.jersey().register(new DeleteCategoryResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new GetCategoryTreeResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new MoveCategoryResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
-		environment.jersey().register(new ChangeOrderCategoryResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
+		environment.jersey().register(new ToggleCategoryOrderResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new InviteUserToCategoryResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new GetInvitedUsersResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new SearchUsernameForInvitationResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
@@ -49,8 +49,8 @@ public class AppRegistration {
 			viewProvider.categoryView.moveCategory((Data<com.anfelisa.category.models.CategoryMoveModel>) data, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.category.events.ChangeOrderCategoryOkEvent", (data, handle) -> {
-			viewProvider.categoryView.changeOrder((Data<com.anfelisa.category.models.CategoryChangeOrderModel>) data, handle);
+		viewProvider.addConsumer("com.anfelisa.category.events.ToggleCategoryOrderOkEvent", (data, handle) -> {
+			viewProvider.categoryView.toggleOrder((Data<com.anfelisa.category.models.ToggleCategoryOrderModel>) data, handle);
 		});
 		
 		viewProvider.addConsumer("com.anfelisa.category.events.InviteUserToCategoryInsertEvent", (data, handle) -> {

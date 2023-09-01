@@ -16,7 +16,7 @@ public interface ICategoryView {
 	void delete(Data<com.anfelisa.category.models.CategoryDeleteModel> data, PersistenceHandle handle);
 	void update(Data<com.anfelisa.category.models.CategoryUpdateModel> data, PersistenceHandle handle);
 	void moveCategory(Data<com.anfelisa.category.models.CategoryMoveModel> data, PersistenceHandle handle);
-	void changeOrder(Data<com.anfelisa.category.models.CategoryChangeOrderModel> data, PersistenceHandle handle);
+	void toggleOrder(Data<com.anfelisa.category.models.ToggleCategoryOrderModel> data, PersistenceHandle handle);
 	
 }
 

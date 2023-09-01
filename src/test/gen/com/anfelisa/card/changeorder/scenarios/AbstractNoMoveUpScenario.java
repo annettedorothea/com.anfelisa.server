@@ -25,9 +25,9 @@ import de.acegen.Data;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 @SuppressWarnings("unused")
-public abstract class AbstractChangeOrderUnauthorizedScenario extends BaseScenario {
+public abstract class AbstractNoMoveUpScenario extends BaseScenario {
 
-	static final Logger LOG = LoggerFactory.getLogger(AbstractChangeOrderUnauthorizedScenario.class);
+	static final Logger LOG = LoggerFactory.getLogger(AbstractNoMoveUpScenario.class);
 	
 	private void given() throws Exception {
 		String uuid;
@@ -311,18 +311,18 @@ public abstract class AbstractChangeOrderUnauthorizedScenario extends BaseScenar
 		String uuid = this.randomUUID();
 		com.anfelisa.card.data.ChangeOrderPayload payload_0 = objectMapper.readValue("{" +
 			"\"cardId\" : \"c1-" + this.getTestId() + "\"," + 
-			"\"down\" : true} ",
+			"\"down\" : false} ",
 				com.anfelisa.card.data.ChangeOrderPayload.class);
 		com.anfelisa.card.models.ChangeCardOrderListModel model_0 = objectMapper.readValue("{" +
 			"\"cardId\" : \"c1-" + this.getTestId() + "\"," + 
-			"\"down\" : true} ", com.anfelisa.card.models.ChangeCardOrderListModel.class);
+			"\"down\" : false} ", com.anfelisa.card.models.ChangeCardOrderListModel.class);
 		Data<com.anfelisa.card.models.ChangeCardOrderListModel> data_0 = new Data<com.anfelisa.card.models.ChangeCardOrderListModel>(uuid);
 		data_0.setModel(model_0);
 		HttpResponse<Object> response = 
 		this.httpPut(
 			"/cards/changeorder", 
 		 	payload_0,
-			null,
+			authorization("Annette-${testId}", "password"),
 			uuid,
 			null
 		);
@@ -341,13 +341,13 @@ public abstract class AbstractChangeOrderUnauthorizedScenario extends BaseScenar
 			LOG.error("THEN: " + errorMessage);
 			assertFail(errorMessage);
 		}
-		if (response.getStatusCode() != 401) {
+		if (response.getStatusCode() != 200) {
 			String statusMessage = response.getStatusMessage() != null ? response.getStatusMessage() : "";
-			String errorMessage = "status " + response.getStatusCode() + " failed, expected 401: " + statusMessage;
+			String errorMessage = "status " + response.getStatusCode() + " failed, expected 200: " + statusMessage;
 			LOG.error("THEN: " + errorMessage);
 			assertFail(errorMessage);
 		} else {
-			LOG.info("THEN: status 401 passed");
+			LOG.info("THEN: status 200 passed");
 		}
 		
 	}
@@ -356,7 +356,7 @@ public abstract class AbstractChangeOrderUnauthorizedScenario extends BaseScenar
 	public void runTest() throws Exception {
 		given();
 		
-		if (prerequisite("ChangeOrderUnauthorized")) {
+		if (prerequisite("NoMoveUp")) {
 			
 				HttpResponse<Object> response_0 = when_0();
 				then_0(response_0);
@@ -368,7 +368,7 @@ public abstract class AbstractChangeOrderUnauthorizedScenario extends BaseScenar
 				
 		
 		} else {
-			LOG.info("WHEN: prerequisite for ChangeOrderUnauthorized not met");
+			LOG.info("WHEN: prerequisite for NoMoveUp not met");
 		}
 		
 			
@@ -458,7 +458,7 @@ public abstract class AbstractChangeOrderUnauthorizedScenario extends BaseScenar
 		
 	@Override
 	protected String scenarioName() {
-		return "ChangeOrderUnauthorized";
+		return "NoMoveUp";
 	}
 	
 }
