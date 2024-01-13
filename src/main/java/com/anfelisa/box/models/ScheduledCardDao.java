@@ -88,11 +88,13 @@ public class ScheduledCardDao extends AbstractScheduledCardDao {
 				.bind("boxid", boxId).map(new ScheduledCardMapper()).list();
 	}
 
-	public void postponeScheduledCards(PersistenceHandle handle, PostponeCardsModel data) {
+	public void postponeScheduledCards(PersistenceHandle handle, PostponeCardsModel data, LocalDateTime today) {
 		Update statement = handle.getHandle()
-				.createUpdate("UPDATE public.scheduledcard SET scheduleddate = scheduleddate + INTERVAL '"
-						+ data.getDays() + " days' WHERE boxid = :boxId and quality is null");
+				.createUpdate("UPDATE public.scheduledcard SET scheduleddate = scheduleddate + "
+						+ "(select abs((select min(scheduleddate) from scheduledcard where boxid = :boxId and quality is null) :: date - :today :: date)) * INTERVAL '1 day' "
+						+ "WHERE boxid = :boxId and quality is null");
 		statement.bind("boxId", data.getBoxId());
+		statement.bind("today", today);
 		statement.execute();
 	}
 

@@ -18,7 +18,6 @@ public class PostponeCardsMapper extends AbstractMapper<PostponeCardsModel> {
 	
 	public PostponeCardsModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new PostponeCardsModel(
-			this.mapToInteger(r, "days"),
 			this.mapToString(r, "boxId")
 		);
 	}

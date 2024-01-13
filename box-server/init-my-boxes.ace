@@ -563,7 +563,7 @@ scenarios
 				n: 0,
 				quality: null,
 				scheduledCardId: "score0-${testId}",
-				scheduledDate: "20200420 16:30" "yyyyMMdd HH:mm",
+				scheduledDate: "20200419 16:30" "yyyyMMdd HH:mm",
 				scoredDate: null
 			}
 			card3WasPostponed ScheduledCard selectBy ( scheduledCardId: "score1-${testId}" ) shouldBe 
@@ -578,7 +578,7 @@ scenarios
 				n: 0,
 				quality: null,
 				scheduledCardId: "score1-${testId}",
-				scheduledDate: "20200420 16:35" "yyyyMMdd HH:mm",
+				scheduledDate: "20200419 16:35" "yyyyMMdd HH:mm",
 				scoredDate: null
 			}
 			card4WasPostponed ScheduledCard selectBy ( scheduledCardId: "score5-${testId}" ) shouldBe 
@@ -593,7 +593,7 @@ scenarios
 				n: 2,
 				quality: null,
 				scheduledCardId: "score5-${testId}",
-				scheduledDate: "20200425 16:55" "yyyyMMdd HH:mm",
+				scheduledDate: "20200424 16:55" "yyyyMMdd HH:mm",
 				scoredDate: null
 			}
 

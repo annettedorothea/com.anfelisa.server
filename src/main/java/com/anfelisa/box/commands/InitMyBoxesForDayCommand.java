@@ -8,7 +8,6 @@
 package com.anfelisa.box.commands;
 
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,8 +50,7 @@ public class InitMyBoxesForDayCommand extends AbstractInitMyBoxesForDayCommand {
 			LocalDateTime min = box.getMinScheduledDate();
 			if (min != null) {
 				if (min.isBefore(today)) {
-					int days = (int) ChronoUnit.DAYS.between(min, today) + 1;
-					PostponeCardsModel postponeData = new PostponeCardsModel(days, box.getBoxId());
+					PostponeCardsModel postponeData = new PostponeCardsModel(box.getBoxId());
 					postponeCards.add(postponeData);
 				}
 			}

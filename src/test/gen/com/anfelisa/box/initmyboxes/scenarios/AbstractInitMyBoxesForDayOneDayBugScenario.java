@@ -521,7 +521,7 @@ public abstract class AbstractInitMyBoxesForDayOneDayBugScenario extends BaseSce
 			"\"n\" : 0," + 
 			"\"quality\" : null," + 
 			"\"scheduledCardId\" : \"score0-" + this.getTestId() + "\"," + 
-			"\"scheduledDate\" : \"2020-04-20T16:30\"," + 
+			"\"scheduledDate\" : \"2020-04-19T16:30\"," + 
 			"\"scoredDate\" : null} ",
 		com.anfelisa.box.models.ScheduledCardModel.class);
 		assertThat(actual, expected);
@@ -542,7 +542,7 @@ public abstract class AbstractInitMyBoxesForDayOneDayBugScenario extends BaseSce
 			"\"n\" : 0," + 
 			"\"quality\" : null," + 
 			"\"scheduledCardId\" : \"score1-" + this.getTestId() + "\"," + 
-			"\"scheduledDate\" : \"2020-04-20T16:35\"," + 
+			"\"scheduledDate\" : \"2020-04-19T16:35\"," + 
 			"\"scoredDate\" : null} ",
 		com.anfelisa.box.models.ScheduledCardModel.class);
 		assertThat(actual, expected);
@@ -563,7 +563,7 @@ public abstract class AbstractInitMyBoxesForDayOneDayBugScenario extends BaseSce
 			"\"n\" : 2," + 
 			"\"quality\" : null," + 
 			"\"scheduledCardId\" : \"score5-" + this.getTestId() + "\"," + 
-			"\"scheduledDate\" : \"2020-04-25T16:55\"," + 
+			"\"scheduledDate\" : \"2020-04-24T16:55\"," + 
 			"\"scoredDate\" : null} ",
 		com.anfelisa.box.models.ScheduledCardModel.class);
 		assertThat(actual, expected);

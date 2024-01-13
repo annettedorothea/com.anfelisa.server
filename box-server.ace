@@ -292,7 +292,6 @@ models
 		List String outdatedReinforceCardsIds
 	}
 	PostponeCards {
-		Integer days
 		String boxId
 	}
 

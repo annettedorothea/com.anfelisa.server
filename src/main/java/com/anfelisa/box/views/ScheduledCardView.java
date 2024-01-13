@@ -29,7 +29,7 @@ public class ScheduledCardView implements IScheduledCardView {
 	@Override
 	public void postponeCards(Data<InitMyBoxesDataModel> data, PersistenceHandle handle) {
 		for (PostponeCardsModel postponeCards : data.getModel().getPostponeCards()) {
-			daoProvider.getScheduledCardDao().postponeScheduledCards(handle, postponeCards);
+			daoProvider.getScheduledCardDao().postponeScheduledCards(handle, postponeCards, data.getModel().getTodayAtMidnightInUTC());
 		}
 	}
 

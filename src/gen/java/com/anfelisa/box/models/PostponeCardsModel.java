@@ -18,8 +18,6 @@ import de.acegen.AbstractModel;
 @SuppressWarnings("unused")
 public class PostponeCardsModel extends AbstractModel {
 
-	private Integer days;
-
 	private String boxId;
 
 	
@@ -29,26 +27,11 @@ public class PostponeCardsModel extends AbstractModel {
 	}
 
 	public PostponeCardsModel(
-		@JsonProperty("days") Integer days,
 		@JsonProperty("boxId") String boxId
 	) {
-		this.days = days;
 		this.boxId = boxId;
 	}
 
-	@JsonProperty
-	public Integer getDays() {
-		return this.days;
-	}
-	
-	@JsonProperty
-	public void setDays(Integer days) {
-		if (this.frozen) {
-			throw new RuntimeException("days is frozen");
-		}
-		this.days = days;
-	}
-	
 	@JsonProperty
 	public String getBoxId() {
 		return this.boxId;
@@ -72,7 +55,6 @@ public class PostponeCardsModel extends AbstractModel {
 	public static PostponeCardsModel generateTestData() {
 		java.util.Random random = new java.util.Random();
 		PostponeCardsModel testData = new PostponeCardsModel();
-		testData.setDays(random.nextInt(50));
 		testData.setBoxId(randomString(random));
 		return testData;
 	}
